@@ -1,4 +1,4 @@
-bash ./make_clean.sh
+bash ./clean.sh
 source ./env.sh
 cmake .
 pushd ./build
