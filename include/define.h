@@ -156,58 +156,6 @@
     }                                                                          \
   }
 
-#define inverse_clover(input_matrix, inverse_matrix, augmented_matrix, pivot,  \
-                       factor)                                                 \
-  {                                                                            \
-    for (int s0 = 0; s0 < 4; s0++) {                                           \
-      for (int c0 = 0; c0 < 3; c0++) {                                         \
-        for (int s1 = 0; s1 < 4; s1++) {                                       \
-          for (int c1 = 0; c1 < 3; c1++) {                                     \
-            inverse_matrix[s0 * 36 + s1 * 9 + c0 * 3 + c1] =                   \
-                input_matrix[s0 * 36 + s1 * 9 + c0 * 3 + c1];                  \
-            augmented_matrix[s0 * 72 + s1 * 9 + c0 * 3 + c1] =                 \
-                inverse_matrix[s0 * 36 + s1 * 9 + c0 * 3 + c1];                \
-          }                                                                    \
-        }                                                                      \
-        augmented_matrix[s0 * 72 + (4 + s0) * 9 + c0 * 3 + c0] = 1.0;          \
-      }                                                                        \
-    }                                                                          \
-    for (int s0 = 0; s0 < 4; s0++) {                                           \
-      for (int c0 = 0; c0 < 3; c0++) {                                         \
-        pivot = augmented_matrix[s0 * 72 + s0 * 9 + c0 * 3 + c0];              \
-        for (int s1 = 0; s1 < 8; s1++) {                                       \
-          for (int c1 = 0; c1 < 3; c1++) {                                     \
-            augmented_matrix[s0 * 72 + s1 * 9 + c0 * 3 + c1] /= pivot;         \
-          }                                                                    \
-        }                                                                      \
-        for (int s1 = 0; s1 < 4; s1++) {                                       \
-          for (int c1 = 0; c1 < 3; c1++) {                                     \
-            if ((s0 != s1) || (c0 != c1)) {                                    \
-              factor = augmented_matrix[s1 * 72 + s0 * 9 + c1 * 3 + c0];       \
-              for (int ss1 = 0; ss1 < 8; ss1++) {                              \
-                for (int cc1 = 0; cc1 < 3; cc1++) {                            \
-                  augmented_matrix[s1 * 72 + ss1 * 9 + c1 * 3 + cc1] -=        \
-                      factor *                                                 \
-                      augmented_matrix[s0 * 72 + ss1 * 9 + c0 * 3 + cc1];      \
-                }                                                              \
-              }                                                                \
-            }                                                                  \
-          }                                                                    \
-        }                                                                      \
-      }                                                                        \
-    }                                                                          \
-    for (int s0 = 0; s0 < 4; s0++) {                                           \
-      for (int c0 = 0; c0 < 3; c0++) {                                         \
-        for (int s1 = 0; s1 < 4; s1++) {                                       \
-          for (int c1 = 0; c1 < 3; c1++) {                                     \
-            inverse_matrix[s0 * 36 + s1 * 9 + c0 * 3 + c1] =                   \
-                augmented_matrix[s0 * 72 + (4 + s1) * 9 + c0 * 3 + c1];        \
-          }                                                                    \
-        }                                                                      \
-      }                                                                        \
-    }                                                                          \
-  }
-
 #define print_gauge(input_gauge)                                               \
   {                                                                            \
     printf("############\n");                                                  \
@@ -260,37 +208,14 @@
     }                                                                          \
   }
 
-#define print_clover(input_clover)                                             \
-  {                                                                            \
-    int tmp;                                                                   \
-    for (int s0 = 0; s0 < 4; s0++) {                                           \
-      for (int s1 = 0; s1 < 4; s1++) {                                         \
-        printf("######S%.1d,%.1dS######\n", s0, s1);                           \
-        tmp = s0 * 36 + s1 * 9;                                                \
-        printf("[");                                                           \
-        printf("[%.9lf,%.9lf]", input_clover[tmp].real,                        \
-               input_clover[tmp].imag);                                        \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 1].real,                    \
-               input_clover[tmp + 1].imag);                                    \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 2].real,                    \
-               input_clover[tmp + 2].imag);                                    \
-        printf("]\n");                                                         \
-        printf("[");                                                           \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 3].real,                    \
-               input_clover[tmp + 3].imag);                                    \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 4].real,                    \
-               input_clover[tmp + 4].imag);                                    \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 5].real,                    \
-               input_clover[tmp + 5].imag);                                    \
-        printf("]\n");                                                         \
-        printf("[");                                                           \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 6].real,                    \
-               input_clover[tmp + 6].imag);                                    \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 7].real,                    \
-               input_clover[tmp + 7].imag);                                    \
-        printf("[%.9lf,%.9lf]", input_clover[tmp + 8].real,                    \
-               input_clover[tmp + 8].imag);                                    \
-        printf("]\n");                                                         \
-      }                                                                        \
-    }                                                                          \
-  }
+#define move_backward(move, y, lat_y)                                          \
+  { move = -1 + (y == 0) * lat_y; }
+
+#define move_forward(move, y, lat_y)                                           \
+  { move = 1 - (y == lat_y - 1) * lat_y; }
+
+#define move_backward_x(move, x, lat_x, eo, parity)                            \
+  { move = (-1 + (x == 0) * lat_x) * (eo == parity); }
+
+#define move_forward_x(move, x, lat_x, eo, parity)                             \
+  { move0 = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }

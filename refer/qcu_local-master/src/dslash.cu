@@ -252,7 +252,7 @@ public:
         return Point(new_pos, y_, z_, t_, 1 - parity_);
       } else {
         new_pos = x_ + (eo != parity_) * (1 + (x_ == Lx - 1) * (-Lx));
-        return Point(new_pos, y_, z_, t_, 1 - parity_);
+        return Point(new_pos, y_, z_, t_, 1 - parity_);   
       }
     } else if (direction == 1) { // y 前进
       if (!front_back) {
@@ -497,7 +497,6 @@ public:
 
     fourth_item = point.getPointGauge(gauge, nu, Lx, Ly, Lz, Lt); // U_\nu(x)
   }
-  // __device__ __host__ void F_1(Complex* partial_result) {
   __device__ __host__ void F_1(Complex *partial_result, int parity, int i, int j, Point p)
   {
     Complex lhs[Nc * Nc];
@@ -643,29 +642,12 @@ __global__ void gpuClover(void *gauge, void *fermion_out, void *clover_ptr, void
   Complex invert_local[Ns * Nc * Ns * Nc];
 
   loadVector(src_local, fermion_out, p, Lx, Ly, Lz, Lt);
-
-  // for (int i = 0; i < Ns * Nc; i++) {
-  //   dst_local[i].clear2Zero();
-  // }
-
   clover.cloverCalculate(static_cast<Complex *>(gauge), static_cast<Complex *>(clover_ptr), p, Lx, Ly, Lz,
                          Lt); // calculate dslash and store them into matrix T
   Complex *clover_addr = clover.getDst();
   for (int i = 0; i < Ns * Nc * Ns * Nc; i++) {
     clover_local[i] = clover_addr[i];
   }
-
-  // #ifdef DEBUG
-  //   if (x==0 && y==0 && z==0 && t==63 && parity==1) {
-  //   // if (blockIdx.x==0&&threadIdx.x==0 && parity==1) {
-  //     for (int i = 0; i < Ns * Nc; i++) {
-  //       for (int j = 0; j < Ns * Nc; j++) {
-  //         clover_local[i*Ns*Nc+j].output();
-  //       }
-  //       printf("||||||\n");
-  //     }
-  //   }
-  // #endif
   // generate A = 1 + T     TODO: optimize
   for (int i = 0; i < Ns * Nc; i++) {
     clover_local[i * Ns * Nc + i] += Complex(1, 0);
@@ -674,39 +656,6 @@ __global__ void gpuClover(void *gauge, void *fermion_out, void *clover_ptr, void
   // invert A
   inverseMatrix(clover_local, invert_local);
 
-#ifdef DEBUG
-  if (x == 0 && y == 0 && z == 0 && t == 63 && parity == 1) {
-    for (int i = 0; i < Ns * Nc; i++) {
-      for (int j = 0; j < Ns * Nc; j++) {
-        invert_local[i * Ns * Nc + j].output();
-      }
-      printf("||||||\n");
-    }
-    Complex test[12][12];
-    Complex test_temp;
-    for (int i = 0; i < 12; i++) {
-      for (int j = 0; j < 12; j++) {
-        test_temp.clear2Zero();
-        for (int k = 0; k < 12; k++) {
-          test_temp += clover_local[i * 12 + k] * invert_local[k * 12 + j];
-        }
-        test[i][j] = test_temp;
-      }
-    }
-    printf("src+++++++++++++++++++++++++++++\n");
-    for (int i = 0; i < 12; i++) {
-      src_local[i].output();
-    }
-    // printf("test invert+++++++++++++++++++++\n");
-    // for (int i = 0; i < Ns * Nc; i++) {
-    //   for (int j = 0; j < Ns * Nc; j++) {
-    //     test[i][j].output();
-    //   }
-    //   printf("||||||\n");
-    // }
-  }
-
-#endif
   // A^{-1}dst
   for (int i = 0; i < Ns * Nc; i++) {
     dst_local[i].clear2Zero();

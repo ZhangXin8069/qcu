@@ -26,7 +26,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  const int oe = (y + z + t) % 2;
+  const int eo = (y + z + t) & 0x01; // (y+z+t)%2
   register LatticeComplex I(0.0, 1.0);
   register LatticeComplex zero(0.0, 0.0);
   register LatticeComplex *origin_U =
@@ -49,7 +49,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   give_value(dest, zero, 12);
   {
     // x-1
-    move = (-1 + (x == 0) * lat_x) * (oe == parity);
+    move_backward_x(move, x, lat_x, eo, parity);
     tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
     give_u(U, tmp_U);
     tmp_src = (origin_src + move * 12);
@@ -71,7 +71,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // x+1
-    move = (1 - (x == lat_x - 1) * lat_x) * (oe != parity);
+    move_forward_x(move, x, lat_x, eo, parity);
     tmp_U = (origin_U + parity * lat_tzyxcc);
     give_u(U, tmp_U);
     tmp_src = (origin_src + move * 12);
@@ -93,7 +93,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // y-1
-    move = -1 + (y == 0) * lat_y;
+    move_backward(move, y, lat_y);
     tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
     give_u(U, tmp_U);
@@ -116,7 +116,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // y+1
-    move = 1 - (y == lat_y - 1) * lat_y;
+    move_forward(move, y, lat_y);
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
     give_u(U, tmp_U);
     tmp_src = (origin_src + move * lat_xsc);
@@ -138,7 +138,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // z-1
-    move = -1 + (z == 0) * lat_z;
+    move_backward(move, z, lat_z);
     tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
     give_u(U, tmp_U);
@@ -161,7 +161,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // z+1
-    move = 1 - (z == lat_z - 1) * lat_z;
+    move_forward(move, z, lat_z);
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
     give_u(U, tmp_U);
     tmp_src = (origin_src + move * lat_yxsc);
@@ -183,7 +183,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // t-1
-    move = -1 + (t == 0) * lat_t;
+    move_backward(move, t, lat_t);
     tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
              (1 - parity) * lat_tzyxcc);
     give_u(U, tmp_U);
@@ -206,7 +206,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   {
     // t+1
-    move = 1 - (t == lat_t - 1) * lat_t;
+    move_forward(move, t, lat_t);
     tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
     give_u(U, tmp_U);
     tmp_src = (origin_src + move * lat_zyxsc);
