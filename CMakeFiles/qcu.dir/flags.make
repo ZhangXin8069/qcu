@@ -6,5 +6,5 @@ CUDA_DEFINES = -Dqcu_EXPORTS
 
 CUDA_INCLUDES = -I/home/aistudio/qcu/include
 
-CUDA_FLAGS =  -arch=HOME:/home/aistudio/qcu -O3 --maxrregcount=HOME:/home/aistudio/qcu --generate-code=arch=compute_52,code=[compute_52,sm_52] -Xcompiler=-fPIC
+CUDA_FLAGS =  -arch= -O3 --maxrregcount= --generate-code=arch=compute_52,code=[compute_52,sm_52] -Xcompiler=-fPIC
 
