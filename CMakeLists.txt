@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.21)
 
-project(qcu_project)
+project(qcu_project LANGUAGES CUDA)
 
 # Read the value of sm_arch and maxrregcount from env.sh
 execute_process(
