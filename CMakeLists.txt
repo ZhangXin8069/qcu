@@ -15,7 +15,7 @@ execute_process(
 )
 
 # Set CUDA architecture and other flags
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} --maxrregcount=${MAXRREGCOUNT}")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH}  -O3 --maxrregcount=${MAXRREGCOUNT}")
 
 # Add include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
