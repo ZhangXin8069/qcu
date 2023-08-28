@@ -15,7 +15,7 @@ execute_process(
 )
 
 # Set CUDA architecture and other flags
-set(CUDA_NVCC_FLAGS ${CUDA_NVCC_FLAGS};-arch=${SM_ARCH};-O3;--maxrregcount=${MAXRREGCOUNT})
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
 
 # Add include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -29,7 +29,7 @@ set(SOURCE_FILES
 )
 
 # Build the CUDA library
-cuda_add_library(qcu SHARED ${SOURCE_FILES})
+add_library(qcu SHARED ${SOURCE_FILES})
 
 # Link the library to its dependencies
 target_link_libraries(qcu
