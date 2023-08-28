@@ -1,0 +1,1 @@
+python/PyQuda-v2024/tests/bin/chroma !text !filter !merge !diff
