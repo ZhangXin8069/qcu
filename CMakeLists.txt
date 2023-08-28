@@ -2,20 +2,14 @@ cmake_minimum_required(VERSION 3.21)
 
 project(qcu_project LANGUAGES CUDA)
 
-# Read the value of sm_arch and maxrregcount from env.sh
-execute_process(
-    COMMAND bash -c "source ${CMAKE_SOURCE_DIR}/env.sh >>log.txt 2>&1 && echo $sm_arch"
-    OUTPUT_VARIABLE SM_ARCH
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-execute_process(
-    COMMAND bash -c "source ${CMAKE_SOURCE_DIR}/env.sh >>log.txt 2>&1 && echo $maxrregcount"
-    OUTPUT_VARIABLE MAXRREGCOUNT
-    OUTPUT_STRIP_TRAILING_WHITESPACE
-)
+# Set the desired CUDA architecture (modify this as needed)
+set(SM_ARCH "sm_70")
+
+# Other options like maxrregcount can be set similarly
+set(MAXRREGCOUNT "256")
 
 # Set CUDA architecture and other flags
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH}  -O3 --maxrregcount=${MAXRREGCOUNT}")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
 
 # Add include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
@@ -40,3 +34,4 @@ target_link_libraries(qcu
 set_target_properties(qcu PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
 )
+
