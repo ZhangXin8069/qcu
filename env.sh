@@ -2,8 +2,6 @@
 _HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 echo 'HOME:'${_HOME}
 _NAME=$(basename "$0")
-sm_arch="sm_70"
-maxrregcoun=256
 
 # source
 ## mkdir
