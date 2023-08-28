@@ -144,7 +144,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   {
     //// x+1,y-1,z,t;y
-    moveforward_x(move0, x, lat_x, eo, parity);
+    move_forward_x(move0, x, lat_x, eo, parity);
     move_backward(move1, y, lat_y);
     tmp_U = (origin_U + move0 * 9 + move1 * lat_xcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
@@ -267,7 +267,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   {
     //// x+1,y,z-1,t;z
-    moveforward_x(move0, x, lat_x, eo, parity);
+    move_forward_x(move0, x, lat_x, eo, parity);
     move_backward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * 9 + move1 * lat_yxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
@@ -389,7 +389,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   {
     //// x+1,y,z,t-1;t
-    moveforward_x(move0, x, lat_x, eo, parity);
+    move_forward_x(move0, x, lat_x, eo, parity);
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * 9 + move1 * lat_zyxcc + lat_tzyxcc * 6 +
              parity * lat_tzyxcc);
@@ -864,7 +864,7 @@ __global__ void give_clover(void *device_clover, void *device_dest,
   {
     for (int sc0 = 0; sc0 < 12; sc0++) {
       for (int sc1 = 0; sc1 < 12; sc1++) {
-        tmp_dest[i] += clover[sc0 * 12 + sc1] * dest[sc1];
+        tmp_dest[sc1] += clover[sc0 * 12 + sc1] * dest[sc1];
       }
     }
     give_ptr(origin_dest, tmp_dest, 12);
