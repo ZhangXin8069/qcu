@@ -3,7 +3,7 @@
 #include <assert.h>
 #include <chrono>
 
-#include "qcu.h"
+#include "../../include/qcu.h"
 // #define ALTER
 // #define DEBUG
 #define FRONT 1
@@ -252,7 +252,7 @@ public:
         return Point(new_pos, y_, z_, t_, 1 - parity_);
       } else {
         new_pos = x_ + (eo != parity_) * (1 + (x_ == Lx - 1) * (-Lx));
-        return Point(new_pos, y_, z_, t_, 1 - parity_);   
+        return Point(new_pos, y_, z_, t_, 1 - parity_);
       }
     } else if (direction == 1) { // y 前进
       if (!front_back) {

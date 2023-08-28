@@ -161,12 +161,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     for (int c0 = 0; c0 < 3; c0++) {
       for (int c1 = 0; c1 < 3; c1++) {
-        clover[12 * c0 + c1] += (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * (-I);
-        clover[39 + 12 * c0 + c1] +=
+        clover[c0 * 12 + c1] += (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * (-I);
+        clover[39 + c0 * 12 + c1] +=
             (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * I;
-        clover[78 + 12 * c0 + c1] +=
+        clover[78 + c0 * 12 + c1] +=
             (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * (-I);
-        clover[117 + 12 * c0 + c1] +=
+        clover[117 + c0 * 12 + c1] +=
             (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * I;
       }
     }
@@ -801,12 +801,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     for (int c0 = 0; c0 < 3; c0++) {
       for (int c1 = 0; c1 < 3; c1++) {
-        clover[12 * c0 + c1] += (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * I;
-        clover[39 + 12 * c0 + c1] +=
+        clover[c0 * 12 + c1] += (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * I;
+        clover[39 + c0 * 12 + c1] +=
             (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * (-I);
-        clover[78 + 12 * c0 + c1] +=
+        clover[78 + c0 * 12 + c1] +=
             (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * (-I);
-        clover[117 + 12 * c0 + c1] +=
+        clover[117 + c0 * 12 + c1] +=
             (U[c0 * 3 + c1] - U[c1 * 3 + c0].conj()) * I;
       }
     }
@@ -817,13 +817,11 @@ __global__ void make_clover(void *device_U, void *device_clover,
     for (int i = 0; i < 144; i++) {
       clover[i] *= -0.125; //-1/8
     }
-    for (int s = 0; s < 4; s++) {
-      for (int c = 0; c < 3; c++) {
-        clover[s * 39 + c * 13] += one;
-      }
+    for (int i = 0; i < 12; i++) {
+      clover[i * 13] += one;
     }
-    give_ptr(origin_clover, clover, 144);
   }
+  give_ptr(origin_clover, clover, 144);
 }
 
 __global__ void give_clover(void *device_clover, void *device_dest,
@@ -864,7 +862,7 @@ __global__ void give_clover(void *device_clover, void *device_dest,
   {
     for (int sc0 = 0; sc0 < 12; sc0++) {
       for (int sc1 = 0; sc1 < 12; sc1++) {
-        tmp_dest[sc1] += clover[sc0 * 12 + sc1] * dest[sc1];
+        tmp_dest[sc0] += clover[sc0 * 12 + sc1] * dest[sc1];
       }
     }
     give_ptr(origin_dest, tmp_dest, 12);

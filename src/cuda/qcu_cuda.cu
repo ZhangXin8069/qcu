@@ -1,6 +1,6 @@
-#include <chrono>
 #include "../../include/qcu.h"
 #include "../../include/qcu_cuda.h"
+#include <chrono>
 
 void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity) {
