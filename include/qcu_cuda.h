@@ -1,5 +1,6 @@
 #include "./define.h"
 #include "./lattice_complex.h"
+#include <cuda.h>
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
