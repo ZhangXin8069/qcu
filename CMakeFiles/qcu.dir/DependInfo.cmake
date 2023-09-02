@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/home/aistudio/qcu/src/cuda/clover_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d"
-  "/home/aistudio/qcu/src/cuda/qcu_cuda.cu" "CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o.d"
-  "/home/aistudio/qcu/src/cuda/wilson_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o.d"
+  "/home/aistudio/work/qcu/src/cuda/clover_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d"
+  "/home/aistudio/work/qcu/src/cuda/qcu_cuda.cu" "CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o.d"
+  "/home/aistudio/work/qcu/src/cuda/wilson_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o.d"
   )
 
 # Targets to which this target links.
