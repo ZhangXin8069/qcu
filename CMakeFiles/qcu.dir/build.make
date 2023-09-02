@@ -53,10 +53,10 @@ RM = /usr/local/bin/cmake -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/aistudio/qcu
+CMAKE_SOURCE_DIR = /home/aistudio/work/qcu
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/aistudio/qcu
+CMAKE_BINARY_DIR = /home/aistudio/work/qcu
 
 # Include any dependencies generated for this target.
 include CMakeFiles/qcu.dir/depend.make
@@ -72,8 +72,8 @@ include CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o: src/cuda/qcu_cuda.cu
 CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aistudio/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o"
-	/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o -MF CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o.d -x cu -c /home/aistudio/qcu/src/cuda/qcu_cuda.cu -o CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aistudio/work/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o"
+	/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o -MF CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o.d -x cu -c /home/aistudio/work/qcu/src/cuda/qcu_cuda.cu -o CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.i"
@@ -86,8 +86,8 @@ CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o: src/cuda/clover_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aistudio/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o"
-	/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d -x cu -c /home/aistudio/qcu/src/cuda/clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aistudio/work/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o"
+	/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d -x cu -c /home/aistudio/work/qcu/src/cuda/clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.i"
@@ -100,8 +100,8 @@ CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o: src/cuda/wilson_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aistudio/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o"
-	/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o.d -x cu -c /home/aistudio/qcu/src/cuda/wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/aistudio/work/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o"
+	/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o.d -x cu -c /home/aistudio/work/qcu/src/cuda/wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.i"
@@ -125,7 +125,7 @@ lib/libqcu.so: CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
 lib/libqcu.so: CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
 lib/libqcu.so: CMakeFiles/qcu.dir/build.make
 lib/libqcu.so: CMakeFiles/qcu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aistudio/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CUDA shared library lib/libqcu.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aistudio/work/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CUDA shared library lib/libqcu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qcu.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -137,6 +137,6 @@ CMakeFiles/qcu.dir/clean:
 .PHONY : CMakeFiles/qcu.dir/clean
 
 CMakeFiles/qcu.dir/depend:
-	cd /home/aistudio/qcu && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/aistudio/qcu /home/aistudio/qcu /home/aistudio/qcu /home/aistudio/qcu /home/aistudio/qcu/CMakeFiles/qcu.dir/DependInfo.cmake --color=$(COLOR)
+	cd /home/aistudio/work/qcu && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /home/aistudio/work/qcu /home/aistudio/work/qcu /home/aistudio/work/qcu /home/aistudio/work/qcu /home/aistudio/work/qcu/CMakeFiles/qcu.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/qcu.dir/depend
 
