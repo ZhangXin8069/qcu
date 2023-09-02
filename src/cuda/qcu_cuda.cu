@@ -32,7 +32,7 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         double(duration) / 1e9);
   }
   {
-    // just clover
+    // make clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
     make_clover<<<gridDim, blockDim>>>(gauge, clover, lat_x, lat_y, lat_z,
@@ -44,8 +44,24 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
             .count();
-    printf("just clover total time: (without malloc free memcpy) :%.9lf sec\n ",
+    printf("make clover total time: (without malloc free memcpy) :%.9lf sec\n ",
            double(duration) / 1e9);
+  }
+  {
+    // inverse clover
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto start = std::chrono::high_resolution_clock::now();
+    inverse_clover<<<gridDim, blockDim>>>(clover, lat_x, lat_y, lat_z);
+    err = cudaGetLastError();
+    checkCudaErrors(err);
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    printf(
+        "inverse clover total time: (without malloc free memcpy) :%.9lf sec\n ",
+        double(duration) / 1e9);
   }
   {
     // give clover

@@ -824,42 +824,70 @@ __global__ void make_clover(void *device_U, void *device_clover,
   give_ptr(origin_clover, clover, 144);
 }
 
+__global__ void inverse_clover(void *device_clover, int device_lat_x,
+                               const int device_lat_y, const int device_lat_z) {
+  LatticeComplex *origin_clover;
+  {
+    const int lat_x = device_lat_x;
+    const int lat_y = device_lat_y;
+    const int lat_z = device_lat_z;
+    register int tmp1;
+    register int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
+    tmp1 = lat_x * lat_y * lat_z;
+    const int t = tmp2 / tmp1;
+    tmp2 -= t * tmp1;
+    tmp1 = lat_x * lat_y;
+    const int z = tmp2 / tmp1;
+    tmp2 -= z * tmp1;
+    const int y = tmp2 / lat_x;
+    const int x = tmp2 - y * lat_x;
+    origin_clover = ((static_cast<LatticeComplex *>(device_clover)) +
+                     t * lat_z * lat_y * lat_x * 144 + z * lat_y * lat_x * 144 +
+                     y * lat_x * 144 + x * 144);
+  }
+  {
+    LatticeComplex pivot;
+    LatticeComplex factor;
+    LatticeComplex clover[144];
+    LatticeComplex augmented_clover[288];
+    give_ptr(clover, origin_clover, 144);
+    inverse(clover, clover, augmented_clover, pivot, factor, 12);
+    give_ptr(origin_clover, clover, 144);
+  }
+}
+
 __global__ void give_clover(void *device_clover, void *device_dest,
                             int device_lat_x, const int device_lat_y,
                             const int device_lat_z) {
-  const int lat_x = device_lat_x;
-  const int lat_y = device_lat_y;
-  const int lat_z = device_lat_z;
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex I(0.0, 1.0);
-  register int tmp1;
-  register int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
-  tmp1 = lat_x * lat_y * lat_z;
-  const int t = tmp2 / tmp1;
-  tmp2 -= t * tmp1;
-  tmp1 = lat_x * lat_y;
-  const int z = tmp2 / tmp1;
-  tmp2 -= z * tmp1;
-  const int y = tmp2 / lat_x;
-  const int x = tmp2 - y * lat_x;
-  LatticeComplex pivot;
-  LatticeComplex factor;
-  LatticeComplex *origin_clover =
-      ((static_cast<LatticeComplex *>(device_clover)) +
-       t * lat_z * lat_y * lat_x * 144 + z * lat_y * lat_x * 144 +
-       y * lat_x * 144 + x * 144);
-  LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
-       y * lat_x * 12 + x * 12);
-  LatticeComplex clover[144];
-  LatticeComplex augmented_clover[288];
-  LatticeComplex dest[12];
-  LatticeComplex tmp_dest[12];
-  give_ptr(dest, origin_dest, 12);
-  give_ptr(clover, origin_clover, 144);
-  inverse(clover, clover, augmented_clover, pivot, factor, 12);
+  LatticeComplex *origin_clover;
+  LatticeComplex *origin_dest;
   {
+    const int lat_x = device_lat_x;
+    const int lat_y = device_lat_y;
+    const int lat_z = device_lat_z;
+    register int tmp1;
+    register int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
+    tmp1 = lat_x * lat_y * lat_z;
+    const int t = tmp2 / tmp1;
+    tmp2 -= t * tmp1;
+    tmp1 = lat_x * lat_y;
+    const int z = tmp2 / tmp1;
+    tmp2 -= z * tmp1;
+    const int y = tmp2 / lat_x;
+    const int x = tmp2 - y * lat_x;
+    origin_clover = ((static_cast<LatticeComplex *>(device_clover)) +
+                     t * lat_z * lat_y * lat_x * 144 + z * lat_y * lat_x * 144 +
+                     y * lat_x * 144 + x * 144);
+    origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+                   t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
+                   y * lat_x * 12 + x * 12);
+  }
+  {
+    LatticeComplex clover[144];
+    LatticeComplex dest[12];
+    LatticeComplex tmp_dest[12];
+    give_ptr(dest, origin_dest, 12);
+    give_ptr(clover, origin_clover, 144);
     for (int sc0 = 0; sc0 < 12; sc0++) {
       for (int sc1 = 0; sc1 < 12; sc1++) {
         tmp_dest[sc0] += clover[sc0 * 12 + sc1] * dest[sc1];
