@@ -7,17 +7,22 @@ import cupy as cp
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 
-from pyquda import init, core, quda, pyqcu
+from pyquda import init, core, quda, pyqcu, mpi
 from pyquda.enum_quda import QudaParity
 from pyquda.field import LatticeFermion
 from pyquda.utils import gauge_utils
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-init()
-
-Lx, Ly, Lz, Lt = 32, 32, 32, 64
+latt_size = [32, 32, 32, 32]
+grid_size = [1, 1, 1, 1]
+Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
-latt_size = [Lx, Ly, Lz, Lt]
+Gx, Gy, Gz, Gt = grid_size
+latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
+Lx, Ly, Lz, Lt = latt_size
+Vol = Lx * Ly * Lz * Lt
+mpi.init(grid_size)
+
 a=1
 xi_0, nu = 1,1
 coeff_r, coeff_t = 1, 1

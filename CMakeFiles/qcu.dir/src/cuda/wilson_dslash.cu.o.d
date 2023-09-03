@@ -1,4 +1,4 @@
-CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o : /home/aistudio/work/qcu/src/cuda/wilson_dslash.cu \
+CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda/wilson_dslash.cu \
     /usr/include/stdc-predef.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/host_config.h \
@@ -163,8 +163,8 @@ CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o : /home/aistudio/work/qcu/src/cud
     /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/device_launch_parameters.h \
-    /home/aistudio/work/qcu/src/cuda/../../include/qcu_cuda.h \
-    /home/aistudio/work/qcu/src/cuda/../../include/./define.h \
+    /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
+    /home/aistudio/qcu/src/cuda/../../include/./define.h \
     /usr/include/c++/9/cstdio \
     /usr/include/c++/9/random \
     /usr/include/c++/9/string \
@@ -247,5 +247,5 @@ CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o : /home/aistudio/work/qcu/src/cud
     /usr/include/c++/9/bits/random.tcc \
     /usr/include/c++/9/numeric \
     /usr/include/c++/9/bits/stl_numeric.h \
-    /home/aistudio/work/qcu/src/cuda/../../include/./lattice_complex.h \
+    /home/aistudio/qcu/src/cuda/../../include/./lattice_complex.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda.h
