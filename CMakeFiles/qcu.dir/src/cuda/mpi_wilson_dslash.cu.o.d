@@ -1,4 +1,4 @@
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda.cu \
+CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda/mpi_wilson_dslash.cu \
     /usr/include/stdc-predef.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/host_config.h \
@@ -163,7 +163,6 @@ CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda
     /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/device_launch_parameters.h \
-    /home/aistudio/qcu/src/cuda/../../include/qcu.h \
     /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
     /home/aistudio/qcu/src/cuda/../../include/./define.h \
     /usr/include/c++/9/cstdio \
@@ -318,8 +317,4 @@ CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/status_inln.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/info_inln.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/win_inln.h \
-    /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/file_inln.h \
-    /usr/include/c++/9/chrono \
-    /usr/include/c++/9/ratio \
-    /usr/include/c++/9/ctime \
-    /usr/include/c++/9/bits/parse_numbers.h
+    /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/file_inln.h
