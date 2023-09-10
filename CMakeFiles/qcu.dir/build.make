@@ -124,6 +124,7 @@ lib/libqcu.so: CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
 lib/libqcu.so: CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
 lib/libqcu.so: CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
 lib/libqcu.so: CMakeFiles/qcu.dir/build.make
+lib/libqcu.so: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so
 lib/libqcu.so: CMakeFiles/qcu.dir/link.txt
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/aistudio/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CUDA shared library lib/libqcu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qcu.dir/link.txt --verbose=$(VERBOSE)
