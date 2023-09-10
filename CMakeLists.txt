@@ -9,7 +9,8 @@ set(SM_ARCH "sm_70")
 set(MAXRREGCOUNT "256")
 
 # Set CUDA architecture and other flags
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
+# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
 
 # Add include directories
 include_directories(${CMAKE_SOURCE_DIR}/include)
