@@ -87,6 +87,9 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 
 void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity, QcuParam *grid) {
+  int node_size, node_rank;
+  MPI_Comm_size(MPI_COMM_WORLD, &node_size);
+  MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
   int lat_x = param->lattice_size[0] >> 1;
   int lat_y = param->lattice_size[1];
   int lat_z = param->lattice_size[2];
@@ -106,11 +109,12 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         "grid:x-%d, y-%d, z-%d, t-%d \n", grid_x, grid_y, grid_z, grid_t);
   }
   {
-    // wilson dslash
+    //mpi wilson dslash
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    wilson_dslash<<<gridDim, blockDim>>>(gauge, fermion_in, fermion_out, lat_x,
-                                         lat_y, lat_z, lat_t, parity);
+    mpi_wilson_dslash<<<gridDim, blockDim>>>(gauge, fermion_in, fermion_out, lat_x,
+                                         lat_y, lat_z, lat_t, parity, grid_x,
+                                         grid_y, grid_z, grid_t);
     err = cudaGetLastError();
     checkCudaErrors(err);
     checkCudaErrors(cudaDeviceSynchronize());
@@ -119,7 +123,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
             .count();
     printf(
-        "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
+        "mpi wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
         double(duration) / 1e9);
   }
   //{
