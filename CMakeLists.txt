@@ -12,8 +12,15 @@ set(MAXRREGCOUNT "256")
 # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
 
-# Add include directories
-include_directories(${CMAKE_SOURCE_DIR}/include)
+# Manually set MPI include and library paths
+set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
+set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
+
+# Add include directories, including MPI include directories
+include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
+
+# Find MPI package
+find_package(MPI REQUIRED)
 
 # Add source files for the library
 set(SOURCE_FILES
@@ -26,8 +33,9 @@ set(SOURCE_FILES
 # Build the CUDA library
 add_library(qcu SHARED ${SOURCE_FILES})
 
-# Link the library to its dependencies
+# Link the library to its dependencies, including MPI libraries
 target_link_libraries(qcu
+    ${MPI_CXX_LIBRARIES}
     # You can add any necessary dependencies here
 )
 
@@ -35,4 +43,3 @@ target_link_libraries(qcu
 set_target_properties(qcu PROPERTIES
     LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
 )
-

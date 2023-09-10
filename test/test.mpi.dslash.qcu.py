@@ -13,7 +13,7 @@ from pyquda.field import LatticeFermion
 from pyquda.utils import gauge_utils
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-latt_size = [32, 32, 32, 32]
+latt_size = [32, 32, 32, 64]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
@@ -49,11 +49,13 @@ def compare(round):
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
+    grid = pyqcu.QcuParam()
+    grid.lattice_size = grid_size
 
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.dslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
-    pyqcu.dslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
+    pyqcu.mpiDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
+    pyqcu.mpiDslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'QCU dslash: {t2 - t1} sec')
