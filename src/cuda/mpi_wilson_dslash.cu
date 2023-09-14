@@ -64,193 +64,571 @@ __global__ void mpi_wilson_dslash(
   MPI_Request recv_request[8];
   // just wilson(Sum part)
   give_value(dest, zero, 12);
-  {
-    // x-1
-    move_backward_x(move, x, lat_x, eo, parity);
-    tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * 12);
-    give_ptr(src, tmp_src, 12);
-  }
-  if ((grid_x == 1) || (x != lat_x - 1)) {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-        tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+  if (grid_x == 1) {
+    {
+      // x-1
+      move_backward_x(move, x, lat_x, eo, parity);
+      tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * 12);
+      give_ptr(src, tmp_src, 12);
+    }
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+          tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] -= tmp1 * I;
+        dest[c0 + 9] -= tmp0 * I;
       }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] -= tmp1 * I;
-      dest[c0 + 9] -= tmp0 * I;
+    }
+    {
+      // x+1
+      move_forward_x(move, x, lat_x, eo, parity);
+      tmp_U = (origin_U + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * 12);
+      give_ptr(src, tmp_src, 12);
+    }
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
+          tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] += tmp1 * I;
+        dest[c0 + 9] += tmp0 * I;
+      }
     }
   } else {
-
-    MPI_Isend(send_vec, 12, MPI_DOUBLE, forward_rank, forward_rank,
-              MPI_COMM_WORLD, &send_request[0]);
-    MPI_Wait(&send_request[0], MPI_STATUS_IGNORE);
-    MPI_Barrier(MPI_COMM_WORLD);
-
-    MPI_Irecv(recv_vec, 12, MPI_DOUBLE, forward_rank, node_rank, MPI_COMM_WORLD,
-              &recv_request[0]);
-    MPI_Wait(&recv_request[0], MPI_STATUS_IGNORE);
-  }
-  {
-    // x+1
-    move_forward_x(move, x, lat_x, eo, parity);
-    tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * 12);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
-        tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+    {
+      // x-1
+      move_backward_x(move, x, lat_x, eo, parity);
+      if (move == 0 || move == -1) {
+        tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * 12);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp1 * I;
+            dest[c0 + 9] -= tmp0 * I;
+          }
+        }
+      } else {
+        // {
+        //   tmp_U = (origin_U + parity * lat_tzyxcc);
+        //   give_u(U, tmp_U);
+        //   tmp_src = (origin_src + move * 12);
+        //   give_ptr(src, tmp_src, 12);
+        //   {
+        //     for (int c0 = 0; c0 < 3; c0++) {
+        //       tmp0 = zero;
+        //       tmp1 = zero;
+        //       for (int c1 = 0; c1 < 3; c1++) {
+        //         tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
+        //         tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+        //       }
+        //       dest[c0] += tmp0;
+        //       dest[c0 + 3] += tmp1;
+        //       dest[c0 + 6] += tmp1 * I;
+        //       dest[c0 + 9] += tmp0 * I;
+        //     }
+        //   }
+        // }
+        // MPI_Isend(send_vec, 12, MPI_DOUBLE, forward_rank, forward_rank,
+        //           MPI_COMM_WORLD, &send_request[0]);
+        // MPI_Wait(&send_request[0], MPI_STATUS_IGNORE);
+        // MPI_Barrier(MPI_COMM_WORLD);
+        // MPI_Irecv(recv_vec, 12, MPI_DOUBLE, forward_rank, node_rank,
+        //           MPI_COMM_WORLD, &recv_request[0]);
+        // MPI_Wait(&recv_request[0], MPI_STATUS_IGNORE);
+        tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * 12);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp1 * I;
+            dest[c0 + 9] -= tmp0 * I;
+          }
+        }
       }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] += tmp1 * I;
-      dest[c0 + 9] += tmp0 * I;
+    }
+    {
+      // x+1
+      move_forward_x(move, x, lat_x, eo, parity);
+      if (move == 0 || move == 1) {
+        tmp_U = (origin_U + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * 12);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp1 * I;
+            dest[c0 + 9] += tmp0 * I;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * 12);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp1 * I;
+            dest[c0 + 9] += tmp0 * I;
+          }
+        }
+      }
     }
   }
-  {
-    // y-1
-    move_backward(move, y, lat_y);==
-    tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
-             (1 - parity) * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * lat_xsc);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
-        tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+  if (grid_y == 1) {
+    { // y-1
+      move_backward(move, y, lat_y);
+      tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
+               (1 - parity) * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * lat_xsc);
+      give_ptr(src, tmp_src, 12);
+    }
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
+          tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] += tmp1;
+        dest[c0 + 9] -= tmp0;
       }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] += tmp1;
-      dest[c0 + 9] -= tmp0;
+    }
+    {
+      // y+1
+      move_forward(move, y, lat_y);
+      tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * lat_xsc);
+      give_ptr(src, tmp_src, 12);
+    }
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
+          tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] -= tmp1;
+        dest[c0 + 9] += tmp0;
+      }
+    }
+  } else {
+    {
+      // y-1
+      move_backward(move, y, lat_y);
+      if (move == -1) {
+        tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
+                 (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_xsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp1;
+            dest[c0 + 9] -= tmp0;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
+                 (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_xsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp1;
+            dest[c0 + 9] -= tmp0;
+          }
+        }
+      }
+    }
+    {
+      // y+1
+      move_forward(move, y, lat_y);
+      if (move == 1) {
+        tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_xsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp1;
+            dest[c0 + 9] += tmp0;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_xsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp1;
+            dest[c0 + 9] += tmp0;
+          }
+        }
+      }
     }
   }
-  {
-    // y+1
-    move_forward(move, y, lat_y);
-    tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * lat_xsc);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
-        tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
+  if (grid_z == 1) {
+    {
+      // z-1
+      move_backward(move, z, lat_z);
+      tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
+               (1 - parity) * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * lat_yxsc);
+      give_ptr(src, tmp_src, 12);
+    }
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+          tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] -= tmp0 * I;
+        dest[c0 + 9] += tmp1 * I;
       }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] -= tmp1;
-      dest[c0 + 9] += tmp0;
+    }
+    {
+      // z+1
+      move_forward(move, z, lat_z);
+      tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * lat_yxsc);
+      give_ptr(src, tmp_src, 12);
+    }
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+          tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] += tmp0 * I;
+        dest[c0 + 9] -= tmp1 * I;
+      }
+    }
+  } else {
+    {
+      // z-1
+      move_backward(move, z, lat_z);
+      if (move == -1) {
+        tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
+                 (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_yxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp0 * I;
+            dest[c0 + 9] += tmp1 * I;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
+                 (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_yxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp0 * I;
+            dest[c0 + 9] += tmp1 * I;
+          }
+        }
+      }
+    }
+    {
+      // z+1
+      move_forward(move, z, lat_z);
+      if (move == 1) {
+        tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_yxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp0 * I;
+            dest[c0 + 9] -= tmp1 * I;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_yxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp0 * I;
+            dest[c0 + 9] -= tmp1 * I;
+          }
+        }
+      }
     }
   }
-  {
-    // z-1
-    move_backward(move, z, lat_z);
-    tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
-             (1 - parity) * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * lat_yxsc);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-        tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-      }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] -= tmp0 * I;
-      dest[c0 + 9] += tmp1 * I;
+  if (grid_t == 1) {
+    {
+      // t-1
+      move_backward(move, t, lat_t);
+      tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
+               (1 - parity) * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * lat_zyxsc);
+      give_ptr(src, tmp_src, 12);
     }
-  }
-  {
-    // z+1
-    move_forward(move, z, lat_z);
-    tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * lat_yxsc);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-        tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+          tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] += tmp0;
+        dest[c0 + 9] += tmp1;
       }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] += tmp0 * I;
-      dest[c0 + 9] -= tmp1 * I;
     }
-  }
-  {
-    // t-1
-    move_backward(move, t, lat_t);
-    tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
-             (1 - parity) * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * lat_zyxsc);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-        tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
-      }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] += tmp0;
-      dest[c0 + 9] += tmp1;
+    {
+      // t+1
+      move_forward(move, t, lat_t);
+      tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      tmp_src = (origin_src + move * lat_zyxsc);
+      give_ptr(src, tmp_src, 12);
     }
-  }
-  {
-    // t+1
-    move_forward(move, t, lat_t);
-    tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
-    give_u(U, tmp_U);
-    tmp_src = (origin_src + move * lat_zyxsc);
-    give_ptr(src, tmp_src, 12);
-  }
-  {
-    for (int c0 = 0; c0 < 3; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < 3; c1++) {
-        tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
-        tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
+    {
+      for (int c0 = 0; c0 < 3; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < 3; c1++) {
+          tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
+          tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + 3] += tmp1;
+        dest[c0 + 6] -= tmp0;
+        dest[c0 + 9] -= tmp1;
       }
-      dest[c0] += tmp0;
-      dest[c0 + 3] += tmp1;
-      dest[c0 + 6] -= tmp0;
-      dest[c0 + 9] -= tmp1;
+    }
+  } else {
+    {
+      // t-1
+      move_backward(move, t, lat_t);
+      if (move == -1) {
+        tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
+                 (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_zyxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp0;
+            dest[c0 + 9] += tmp1;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
+                 (1 - parity) * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_zyxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] += tmp0;
+            dest[c0 + 9] += tmp1;
+          }
+        }
+      }
+    }
+    {
+      // t+1
+      move_forward(move, t, lat_t);
+      if (move == 1) {
+        tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_zyxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp0;
+            dest[c0 + 9] -= tmp1;
+          }
+        }
+      } else {
+        tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
+        give_u(U, tmp_U);
+        tmp_src = (origin_src + move * lat_zyxsc);
+        give_ptr(src, tmp_src, 12);
+        {
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
+              tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
+            }
+            dest[c0] += tmp0;
+            dest[c0 + 3] += tmp1;
+            dest[c0 + 6] -= tmp0;
+            dest[c0 + 9] -= tmp1;
+          }
+        }
+      }
     }
   }
   give_ptr(origin_dest, dest, 12);
