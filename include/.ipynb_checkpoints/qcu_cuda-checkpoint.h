@@ -10,9 +10,10 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
 __global__ void mpi_wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
-                              const int device_lat_t, const int device_parity, int device_grid_x,
+                              const int device_lat_t, const int device_parity,
+                              const int device_node_rank, int device_grid_x,
                               const int device_grid_y, const int device_grid_z,
-                              const int device_grid_t)
+                              const int device_grid_t);
 
 __global__ void make_clover(void *device_U, void *device_clover,
                             int device_lat_x, const int device_lat_y,
