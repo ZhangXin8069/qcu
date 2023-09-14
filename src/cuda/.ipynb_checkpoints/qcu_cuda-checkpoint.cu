@@ -113,7 +113,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
     mpi_wilson_dslash<<<gridDim, blockDim>>>(gauge, fermion_in, fermion_out, lat_x,
-                                         lat_y, lat_z, lat_t, parity, grid_x,
+                                         lat_y, lat_z, lat_t, parity, node_rank, grid_x,
                                          grid_y, grid_z, grid_t);
     err = cudaGetLastError();
     checkCudaErrors(err);
