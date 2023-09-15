@@ -4,8 +4,8 @@
 __global__ void mpi_wilson_dslash(
     void *device_U, void *device_src, void *device_dest, int device_lat_x,
     const int device_lat_y, const int device_lat_z, const int device_lat_t,
-    const int device_parity, const int device_node_rank, int device_grid_x, const int device_grid_y,
-    const int device_grid_z, const int device_grid_t) {
+    const int device_parity, const int device_node_rank, int device_grid_x,
+    const int device_grid_y, const int device_grid_z, const int device_grid_t) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
@@ -132,49 +132,28 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        // {
-        //   tmp_U = (origin_U + parity * lat_tzyxcc);
-        //   give_u(U, tmp_U);
-        //   tmp_src = (origin_src + move * 12);
-        //   give_ptr(src, tmp_src, 12);
-        //   {
-        //     for (int c0 = 0; c0 < 3; c0++) {
-        //       tmp0 = zero;
-        //       tmp1 = zero;
-        //       for (int c1 = 0; c1 < 3; c1++) {
-        //         tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
-        //         tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-        //       }
-        //       dest[c0] += tmp0;
-        //       dest[c0 + 3] += tmp1;
-        //       dest[c0 + 6] += tmp1 * I;
-        //       dest[c0 + 9] += tmp0 * I;
-        //     }
-        //   }
-        // }
-        // MPI_Isend(send_vec, 12, MPI_DOUBLE, forward_rank, forward_rank,
-        //           MPI_COMM_WORLD, &send_request[0]);
-        // MPI_Wait(&send_request[0], MPI_STATUS_IGNORE);
-        // MPI_Barrier(MPI_COMM_WORLD);
-        // MPI_Irecv(recv_vec, 12, MPI_DOUBLE, forward_rank, node_rank,
-        //           MPI_COMM_WORLD, &recv_request[0]);
-        // MPI_Wait(&recv_request[0], MPI_STATUS_IGNORE);
-        tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * 12);
-        give_ptr(src, tmp_src, 12);
+        // send in x+1 way
+        move_backward(move, grid_index_x, grid_x);
+        move = node_rank + move * grid_y * grid_z * grid_t;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                  &recv_request[0]);
+        give_ptr(src, origin_src);
         {
+          // sigma src
+          for (int c1 = 0; c1 < 3; c1++) {
+            send_vec[c1] = src[c1] - src[c1 + 9] * I;
+            send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6] * I;
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                    &send_request[0]);
+        }
+        {
+          MPI_Wait(&recv_request[0], MPI_STATUS_IGNORE);
           for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp1 * I;
-            dest[c0 + 9] -= tmp0 * I;
+            dest[c0] += recv_vec[c0];
+            dest[c0 + 3] += recv_vec[c0 + 3];
+            dest[c0 + 6] -= recv_vec[c0 + 3] * I;
+            dest[c0 + 9] -= recv_vec[c0] * I;
           }
         }
       }
@@ -202,17 +181,37 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
+        // send in x-1 way
+        move_forward(move, grid_index_x, grid_x);
+        move = node_rank + move * grid_y * grid_z * grid_t;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                  &recv_request[1]);
         tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        tmp_src = (origin_src + move * 12);
-        give_ptr(src, tmp_src, 12);
+        give_ptr(src, origin_src);
         {
+          // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
             tmp0 = zero;
             tmp1 = zero;
             for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+              tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+            }
+            send_vec[c0] = tmp0;
+            send_vec[c0 + 3] = tmp1;
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                    &send_request[1]);
+        }
+        {
+          MPI_Wait(&recv_request[1], MPI_STATUS_IGNORE);
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += recv_vec[c0] * U[c0 * 3 + c1];
+              tmp1 += recv_vec[c0 + 3] * U[c0 * 3 + c1];
             }
             dest[c0] += tmp0;
             dest[c0 + 3] += tmp1;
@@ -293,23 +292,28 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
-                 (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_xsc);
-        give_ptr(src, tmp_src, 12);
+        // send in y+1 way
+        move_backward(move, grid_index_y, grid_y);
+        move = node_rank + move * grid_z * grid_t;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                  &recv_request[2]);
+        give_ptr(src, origin_src);
         {
+          // sigma src
+          for (int c1 = 0; c1 < 3; c1++) {
+            send_vec[c1] = src[c1] + src[c1 + 9];
+            send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6];
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                    &send_request[2]);
+        }
+        {
+          MPI_Wait(&recv_request[2], MPI_STATUS_IGNORE);
           for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp1;
-            dest[c0 + 9] -= tmp0;
+            dest[c0] += recv_vec[c0];
+            dest[c0 + 3] += recv_vec[c0 + 3];
+            dest[c0 + 6] += recv_vec[c0 + 3];
+            dest[c0 + 9] -= recv_vec[c0];
           }
         }
       }
@@ -337,17 +341,37 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
+        // send in y-1 way
+        move_forward(move, grid_index_y, grid_y);
+        move = node_rank + move * grid_z * grid_t;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                  &recv_request[3]);
+        tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_xsc);
-        give_ptr(src, tmp_src, 12);
+        give_ptr(src, origin_src);
         {
+          // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
             tmp0 = zero;
             tmp1 = zero;
             for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
+              tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+            }
+            send_vec[c0] = tmp0;
+            send_vec[c0 + 3] = tmp1;
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                    &send_request[3]);
+        }
+        {
+          MPI_Wait(&recv_request[3], MPI_STATUS_IGNORE);
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += recv_vec[c0] * U[c0 * 3 + c1];
+              tmp1 += recv_vec[c0 + 3] * U[c0 * 3 + c1];
             }
             dest[c0] += tmp0;
             dest[c0 + 3] += tmp1;
@@ -429,23 +453,28 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
-                 (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_yxsc);
-        give_ptr(src, tmp_src, 12);
+        // send in z+1 way
+        move_backward(move, grid_index_z, grid_z);
+        move = node_rank + move * grid_t;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                  &recv_request[4]);
+        give_ptr(src, origin_src);
         {
+          // sigma src
+          for (int c1 = 0; c1 < 3; c1++) {
+            send_vec[c1] = src[c1] - src[c1 + 6] * I;
+            send_vec[c1 + 3] = src[c1 + 3] + src[c1 + 9] * I;
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                    &send_request[4]);
+        }
+        {
+          MPI_Wait(&recv_request[4], MPI_STATUS_IGNORE);
           for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp0 * I;
-            dest[c0 + 9] += tmp1 * I;
+            dest[c0] += recv_vec[c0];
+            dest[c0 + 3] += recv_vec[c0 + 3];
+            dest[c0 + 6] -= recv_vec[c0] * I;
+            dest[c0 + 9] += recv_vec[c0 + 3] * I;
           }
         }
       }
@@ -473,17 +502,37 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
+        // send in z-1 way
+        move_forward(move, grid_index_z, grid_z);
+        move = node_rank + move * grid_t;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                  &recv_request[5]);
+        tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_yxsc);
-        give_ptr(src, tmp_src, 12);
+        give_ptr(src, origin_src);
         {
+          // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
             tmp0 = zero;
             tmp1 = zero;
             for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
+              tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+            }
+            send_vec[c0] = tmp0;
+            send_vec[c0 + 3] = tmp1;
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                    &send_request[5]);
+        }
+        {
+          MPI_Wait(&recv_request[5], MPI_STATUS_IGNORE);
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += recv_vec[c0] * U[c0 * 3 + c1];
+              tmp1 += recv_vec[c0 + 3] * U[c0 * 3 + c1];
             }
             dest[c0] += tmp0;
             dest[c0 + 3] += tmp1;
@@ -565,23 +614,28 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
-                 (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_zyxsc);
-        give_ptr(src, tmp_src, 12);
+        // send in t+1 way
+        move_backward(move, grid_index_t, grid_t);
+        move = node_rank + move;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                  &recv_request[6]);
+        give_ptr(src, origin_src);
         {
+          // sigma src
+          for (int c1 = 0; c1 < 3; c1++) {
+            send_vec[c1] = src[c1] - src[c1 + 6];
+            send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 9];
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
+                    &send_request[6]);
+        }
+        {
+          MPI_Wait(&recv_request[6], MPI_STATUS_IGNORE);
           for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp0;
-            dest[c0 + 9] += tmp1;
+            dest[c0] += recv_vec[c0];
+            dest[c0 + 3] += recv_vec[c0 + 3];
+            dest[c0 + 6] += recv_vec[c0];
+            dest[c0 + 9] += recv_vec[c0 + 3];
           }
         }
       }
@@ -609,17 +663,37 @@ __global__ void mpi_wilson_dslash(
           }
         }
       } else {
-        tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
+        // send in t-1 way
+        move_forward(move, grid_index_t, grid_t);
+        move = node_rank + move;
+        MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                  &recv_request[7]);
+        tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_zyxsc);
-        give_ptr(src, tmp_src, 12);
+        give_ptr(src, origin_src);
         {
+          // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
             tmp0 = zero;
             tmp1 = zero;
             for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
+              tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+              tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
+            }
+            send_vec[c0] = tmp0;
+            send_vec[c0 + 3] = tmp1;
+          }
+          MPI_Isend(send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
+                    &send_request[7]);
+        }
+        {
+          MPI_Wait(&recv_request[7], MPI_STATUS_IGNORE);
+          for (int c0 = 0; c0 < 3; c0++) {
+            tmp0 = zero;
+            tmp1 = zero;
+            for (int c1 = 0; c1 < 3; c1++) {
+              tmp0 += recv_vec[c0] * U[c0 * 3 + c1];
+              tmp1 += recv_vec[c0 + 3] * U[c0 * 3 + c1];
             }
             dest[c0] += tmp0;
             dest[c0 + 3] += tmp1;
@@ -629,6 +703,16 @@ __global__ void mpi_wilson_dslash(
         }
       }
     }
+  }
+  {
+    MPI_Wait(&send_request[0], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[1], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[2], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[3], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[4], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[5], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[6], MPI_STATUS_IGNORE);
+    MPI_Wait(&send_request[7], MPI_STATUS_IGNORE);
   }
   give_ptr(origin_dest, dest, 12);
 }
