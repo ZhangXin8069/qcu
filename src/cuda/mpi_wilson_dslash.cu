@@ -1,4 +1,5 @@
 #pragma optimize(5)
+#include <mpi.h>
 #include "../../include/qcu_cuda.h"
 
 __global__ void mpi_wilson_dslash(
@@ -137,7 +138,7 @@ __global__ void mpi_wilson_dslash(
         move = node_rank + move * grid_y * grid_z * grid_t;
         MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                   &recv_request[0]);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // sigma src
           for (int c1 = 0; c1 < 3; c1++) {
@@ -188,7 +189,7 @@ __global__ void mpi_wilson_dslash(
                   &recv_request[1]);
         tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
@@ -297,7 +298,7 @@ __global__ void mpi_wilson_dslash(
         move = node_rank + move * grid_z * grid_t;
         MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                   &recv_request[2]);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // sigma src
           for (int c1 = 0; c1 < 3; c1++) {
@@ -348,7 +349,7 @@ __global__ void mpi_wilson_dslash(
                   &recv_request[3]);
         tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
@@ -458,7 +459,7 @@ __global__ void mpi_wilson_dslash(
         move = node_rank + move * grid_t;
         MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                   &recv_request[4]);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // sigma src
           for (int c1 = 0; c1 < 3; c1++) {
@@ -509,7 +510,7 @@ __global__ void mpi_wilson_dslash(
                   &recv_request[5]);
         tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
@@ -619,7 +620,7 @@ __global__ void mpi_wilson_dslash(
         move = node_rank + move;
         MPI_Irecv(recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                   &recv_request[6]);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // sigma src
           for (int c1 = 0; c1 < 3; c1++) {
@@ -670,7 +671,7 @@ __global__ void mpi_wilson_dslash(
                   &recv_request[7]);
         tmp_U = (origin_U + parity * lat_tzyxcc);
         give_u(U, tmp_U);
-        give_ptr(src, origin_src);
+        give_ptr(src, origin_src, 12);
         {
           // just tmp
           for (int c0 = 0; c0 < 3; c0++) {
