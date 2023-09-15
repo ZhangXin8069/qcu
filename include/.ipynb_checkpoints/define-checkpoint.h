@@ -219,3 +219,4 @@
 
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
+
