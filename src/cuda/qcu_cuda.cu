@@ -216,8 +216,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                 &f_t_send_request);
     }
     register LatticeComplex *tmp_vec =
+<<<<<<< HEAD
         ((static_cast<LatticeComplex *>(device_b_x_send_vec)) + 0);
     print_tmp((LatticeComplex *)f_t_send_vec);
+=======
+        (static_cast<LatticeComplex *>(b_x_send_vec));
+    print_tmp(tmp_vec, 100);
+>>>>>>> 8b038890eac07587581a7885e0a3d89dc0557fd5
     // recv
     {
       move_backward(move, grid_index_x, grid_x);
