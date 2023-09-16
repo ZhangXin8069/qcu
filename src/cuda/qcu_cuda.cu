@@ -87,22 +87,22 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 
 void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                   QcuParam *param, int parity, QcuParam *grid) {
-  const int lat_x = param->lattice_size[0] >> 1;
-  const int lat_y = param->lattice_size[1];
-  const int lat_z = param->lattice_size[2];
-  const int lat_t = param->lattice_size[3];
+  int node_size, node_rank, move;
+  MPI_Comm_size(MPI_COMM_WORLD, &node_size);
+  MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
+  const int grid_x = grid->lattice_size[0];
+  const int grid_y = grid->lattice_size[1];
+  const int grid_z = grid->lattice_size[2];
+  const int grid_t = grid->lattice_size[3];
+  const int lat_x = param->lattice_size[0] >> 1 / grid_x;
+  const int lat_y = param->lattice_size[1] / grid_y;
+  const int lat_z = param->lattice_size[2] / grid_z;
+  const int lat_t = param->lattice_size[3] / grid_t;
   cudaError_t err;
   dim3 gridDim(lat_x * lat_y * lat_z * lat_t / BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
   {
     // mpi wilson dslash
-    int node_size, node_rank, move;
-    MPI_Comm_size(MPI_COMM_WORLD, &node_size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
-    const int grid_x = grid->lattice_size[0];
-    const int grid_y = grid->lattice_size[1];
-    const int grid_z = grid->lattice_size[2];
-    const int grid_t = grid->lattice_size[3];
     const int grid_index_x = node_rank / grid_t / grid_z / grid_y;
     const int grid_index_y = node_rank / grid_t / grid_z % grid_y;
     const int grid_index_z = node_rank / grid_t % grid_z;
@@ -215,25 +215,17 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       MPI_Isend(f_t_send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_t_send_request);
     }
-    register LatticeComplex *tmp_vec =
-<<<<<<< HEAD
-        ((static_cast<LatticeComplex *>(device_b_x_send_vec)) + 0);
-    print_tmp((LatticeComplex *)f_t_send_vec);
-=======
-        (static_cast<LatticeComplex *>(b_x_send_vec));
-    print_tmp(tmp_vec, 100);
->>>>>>> 8b038890eac07587581a7885e0a3d89dc0557fd5
     // recv
+    // printf("#######DEBUG####### \n");
     {
       move_backward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
-      MPI_Wait(&b_x_recv_request, MPI_STATUS_IGNORE);
-      printf("#######DEBUG####### \n");
+      MPI_Wait(&b_x_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(b_x_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_x_recv_request);
       move_forward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
-      MPI_Wait(&f_x_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&f_x_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(f_x_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_x_recv_request);
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(
@@ -243,12 +235,12 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     {
       move_backward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
-      MPI_Wait(&b_y_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&b_y_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(b_y_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_y_recv_request);
       move_forward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
-      MPI_Wait(&f_y_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&f_y_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(f_y_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_y_recv_request);
       wilson_dslash_y_recv<<<gridDim, blockDim>>>(
@@ -258,12 +250,12 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     {
       move_backward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
-      MPI_Wait(&b_z_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&b_z_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(b_z_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_z_recv_request);
       move_forward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
-      MPI_Wait(&f_z_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&f_z_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(f_z_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_z_recv_request);
       wilson_dslash_z_recv<<<gridDim, blockDim>>>(
@@ -273,12 +265,12 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     {
       move_backward(move, grid_index_t, grid_t);
       move = node_rank + move;
-      MPI_Wait(&b_t_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&b_t_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(b_t_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_t_recv_request);
       move_forward(move, grid_index_t, grid_t);
       move = node_rank + move;
-      MPI_Wait(&f_t_recv_request, MPI_STATUS_IGNORE);
+      MPI_Wait(&f_t_send_request, MPI_STATUS_IGNORE);
       MPI_Irecv(f_t_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_t_recv_request);
       wilson_dslash_t_recv<<<gridDim, blockDim>>>(
@@ -293,7 +285,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
             .count();
-    printf("mpi wilson dslash total time: (without malloc free memcpy) : %.9lf "
+    printf("mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
     {
