@@ -703,6 +703,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
         // send in z+1 way
         give_ptr(src, origin_src, 12);
         {
+          // sigma src
           for (int c1 = 0; c1 < 3; c1++) {
             b_z_send_vec[c1] = src[c1] - src[c1 + 6] * I;
             b_z_send_vec[c1 + 3] = src[c1 + 3] + src[c1 + 9] * I;
