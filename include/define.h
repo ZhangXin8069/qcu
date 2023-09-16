@@ -205,6 +205,21 @@
     printf("]\n");                                                             \
   }
 
+#define print_tmp(input_tmp)                                                   \
+  {                                                                            \
+    printf("############\n");                                                  \
+    printf("[");                                                               \
+    printf("[%.9lf,%.9lf]", input_tmp[0].real, input_tmp[0].imag);             \
+    printf("[%.9lf,%.9lf]", input_tmp[1].real, input_tmp[1].imag);             \
+    printf("[%.9lf,%.9lf]", input_tmp[2].real, input_tmp[2].imag);             \
+    printf("]\n");                                                             \
+    printf("[");                                                               \
+    printf("[%.9lf,%.9lf]", input_tmp[3].real, input_tmp[3].imag);             \
+    printf("[%.9lf,%.9lf]", input_tmp[4].real, input_tmp[4].imag);             \
+    printf("[%.9lf,%.9lf]", input_tmp[5].real, input_tmp[5].imag);             \
+    printf("]\n");                                                             \
+  }
+
 #define print_fermi(input_fermi)                                               \
   {                                                                            \
     int tmp;                                                                   \
