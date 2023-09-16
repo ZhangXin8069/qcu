@@ -29,8 +29,8 @@ __global__ void
 wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, const int device_grid_x,
-                     void *device_b_x_send_vec, void *device_f_x_send_vec) {
+                     const int device_parity, void *device_b_x_send_vec,
+                     void *device_f_x_send_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
@@ -43,7 +43,6 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  const int grid_x = device_grid_x;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -82,128 +81,81 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
   register LatticeComplex b_x_send_vec[6];
   register LatticeComplex f_x_send_vec[6];
   give_value(dest, zero, 12);
-  if (grid_x == 1) {
-    {
-      // x-1
-      move_backward_x(move, x, lat_x, eo, parity);
+  {
+    // x-1
+    move_backward_x(move, x, lat_x, eo, parity);
+    if (move == 0 || move == -1) {
       tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * 12);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-          tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] -= tmp1 * I;
+          dest[c0 + 9] -= tmp0 * I;
         }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] -= tmp1 * I;
-        dest[c0 + 9] -= tmp0 * I;
+      }
+    } else {
+      // send in x+1 way
+      give_ptr(src, origin_src, 12);
+      {
+        // sigma src
+        for (int c1 = 0; c1 < 3; c1++) {
+          b_x_send_vec[c1] = src[c1] - src[c1 + 9] * I;
+          b_x_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6] * I;
+        }
+        give_ptr(origin_b_x_send_vec, b_x_send_vec, 6);
       }
     }
-    {
-      // x+1
-      move_forward_x(move, x, lat_x, eo, parity);
+  }
+  {
+    // x+1
+    move_forward_x(move, x, lat_x, eo, parity);
+    if (move == 0 || move == 1) {
       tmp_U = (origin_U + parity * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * 12);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
-          tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-        }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] += tmp1 * I;
-        dest[c0 + 9] += tmp0 * I;
-      }
-    }
-  } else {
-    {
-      // x-1
-      move_backward_x(move, x, lat_x, eo, parity);
-      if (move == 0 || move == -1) {
-        tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * 12);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp1 * I;
-            dest[c0 + 9] -= tmp0 * I;
-          }
-        }
-      } else {
-        // send in x+1 way
-        give_ptr(src, origin_src, 12);
-        {
-          // sigma src
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
           for (int c1 = 0; c1 < 3; c1++) {
-            b_x_send_vec[c1] = src[c1] - src[c1 + 9] * I;
-            b_x_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6] * I;
+            tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
+            tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
           }
-          give_ptr(origin_b_x_send_vec, b_x_send_vec, 6);
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] += tmp1 * I;
+          dest[c0 + 9] += tmp0 * I;
         }
       }
-    }
-    {
-      // x+1
-      move_forward_x(move, x, lat_x, eo, parity);
-      if (move == 0 || move == 1) {
-        tmp_U = (origin_U + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * 12);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 9] * I) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp1 * I;
-            dest[c0 + 9] += tmp0 * I;
+    } else {
+      // send in x-1 way
+      tmp_U = (origin_U + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      give_ptr(src, origin_src, 12);
+      {
+        // just tmp
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
           }
+          f_x_send_vec[c0] = tmp0;
+          f_x_send_vec[c0 + 3] = tmp1;
         }
-      } else {
-        // send in x-1 way
-        tmp_U = (origin_U + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        give_ptr(src, origin_src, 12);
-        {
-          // just tmp
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-            }
-            f_x_send_vec[c0] = tmp0;
-            f_x_send_vec[c0 + 3] = tmp1;
-          }
-          give_ptr(origin_f_x_send_vec, f_x_send_vec, 6);
-        }
+        give_ptr(origin_f_x_send_vec, f_x_send_vec, 6);
       }
     }
   }
@@ -215,14 +167,12 @@ __global__ void
 wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                     const int device_grid_x, void *device_b_x_recv_vec,
-                     void *device_f_x_recv_vec) {
+                     void *device_b_x_recv_vec, void *device_f_x_recv_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  const int grid_x = device_grid_x;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -257,58 +207,56 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
   register LatticeComplex dest[12];
   register LatticeComplex b_x_recv_vec[6];
   register LatticeComplex f_x_recv_vec[6];
-  if (grid_x != 1) {
-    // needed
-    give_value(dest, zero, 12);
-    {
-      // x-1
-      move_backward_x(move, x, lat_x, eo, parity);
-      if (move != 0 && move != -1) {
-        // recv in x-1 way
-        give_ptr(b_x_recv_vec, origin_b_x_recv_vec, 6);
-        for (int c0 = 0; c0 < 3; c0++) {
-          dest[c0] += b_x_recv_vec[c0];
-          dest[c0 + 3] += b_x_recv_vec[c0 + 3];
-          dest[c0 + 6] -= b_x_recv_vec[c0 + 3] * I;
-          dest[c0 + 9] -= b_x_recv_vec[c0] * I;
-        }
+  // needed
+  give_value(dest, zero, 12);
+  {
+    // x-1
+    move_backward_x(move, x, lat_x, eo, parity);
+    if (move != 0 && move != -1) {
+      // recv in x-1 way
+      give_ptr(b_x_recv_vec, origin_b_x_recv_vec, 6);
+      for (int c0 = 0; c0 < 3; c0++) {
+        dest[c0] += b_x_recv_vec[c0];
+        dest[c0 + 3] += b_x_recv_vec[c0 + 3];
+        dest[c0 + 6] -= b_x_recv_vec[c0 + 3] * I;
+        dest[c0 + 9] -= b_x_recv_vec[c0] * I;
       }
     }
-    {
-      // x+1
-      move_forward_x(move, x, lat_x, eo, parity);
-      if (move != 0 && move != 1) {
-        // recv in x+1 way
-        give_ptr(f_x_recv_vec, origin_f_x_recv_vec, 6);
-        tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
-        give_u(U, tmp_U);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += f_x_recv_vec[c1] * U[c0 * 3 + c1];
-              tmp1 += f_x_recv_vec[c1 + 3] * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp1 * I;
-            dest[c0 + 9] += tmp0 * I;
-          }
-        }
-      }
-    }
-    // just add
-    add_ptr(origin_dest, dest, 12);
   }
+  {
+    // x+1
+    move_forward_x(move, x, lat_x, eo, parity);
+    if (move != 0 && move != 1) {
+      // recv in x+1 way
+      give_ptr(f_x_recv_vec, origin_f_x_recv_vec, 6);
+      tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
+      give_u(U, tmp_U);
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += f_x_recv_vec[c1] * U[c0 * 3 + c1];
+            tmp1 += f_x_recv_vec[c1 + 3] * U[c0 * 3 + c1];
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] += tmp1 * I;
+          dest[c0 + 9] += tmp0 * I;
+        }
+      }
+    }
+  }
+  // just add
+  add_ptr(origin_dest, dest, 12);
 }
 
 __global__ void
 wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, const int device_grid_y,
-                     void *device_b_y_send_vec, void *device_f_y_send_vec) {
+                     const int device_parity, void *device_b_y_send_vec,
+                     void *device_f_y_send_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
@@ -321,7 +269,6 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  const int grid_y = device_grid_y;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -359,130 +306,82 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
   register LatticeComplex b_y_send_vec[6];
   register LatticeComplex f_y_send_vec[6];
   give_value(dest, zero, 12);
-  if (grid_y == 1) {
-    {
-      // y-1
-      move_backward(move, y, lat_y);
+  {
+    // y-1
+    move_backward(move, y, lat_y);
+    if (move == -1) {
       tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
                (1 - parity) * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * lat_xsc);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
-          tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] += tmp1;
+          dest[c0 + 9] -= tmp0;
         }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] += tmp1;
-        dest[c0 + 9] -= tmp0;
+      }
+    } else {
+      // send in y+1 way
+      give_ptr(src, origin_src, 12);
+      {
+        // sigma src
+        for (int c1 = 0; c1 < 3; c1++) {
+          b_y_send_vec[c1] = src[c1] + src[c1 + 9];
+          b_y_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6];
+        }
+        give_ptr(origin_b_y_send_vec, b_y_send_vec, 6);
       }
     }
-    {
-      // y+1
-      move_forward(move, y, lat_y);
+  }
+  {
+    // y+1
+    move_forward(move, y, lat_y);
+    if (move == 1) {
       tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * lat_xsc);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
-          tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
-        }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] -= tmp1;
-        dest[c0 + 9] += tmp0;
-      }
-    }
-  } else {
-    {
-      // y-1
-      move_backward(move, y, lat_y);
-      if (move == -1) {
-        tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
-                 (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_xsc);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp1;
-            dest[c0 + 9] -= tmp0;
-          }
-        }
-      } else {
-        // send in y+1 way
-        give_ptr(src, origin_src, 12);
-        {
-          // sigma src
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
           for (int c1 = 0; c1 < 3; c1++) {
-            b_y_send_vec[c1] = src[c1] + src[c1 + 9];
-            b_y_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6];
+            tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
+            tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
           }
-          give_ptr(origin_b_y_send_vec, b_y_send_vec, 6);
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] -= tmp1;
+          dest[c0 + 9] += tmp0;
         }
       }
-    }
-    {
-      // y+1
-      move_forward(move, y, lat_y);
-      if (move == 1) {
-        tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_xsc);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 9]) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] - src[c1 + 6]) * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp1;
-            dest[c0 + 9] += tmp0;
+    } else {
+      // send in y-1 way
+      tmp_U = (origin_U + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      give_ptr(src, origin_src, 12);
+      {
+        // just tmp
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
           }
+          f_y_send_vec[c0] = tmp0;
+          f_y_send_vec[c0 + 3] = tmp1;
         }
-      } else {
-        // send in y-1 way
-        tmp_U = (origin_U + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        give_ptr(src, origin_src, 12);
-        {
-          // just tmp
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 9]) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-            }
-            f_y_send_vec[c0] = tmp0;
-            f_y_send_vec[c0 + 3] = tmp1;
-          }
-          give_ptr(origin_f_y_send_vec, f_y_send_vec, 6);
-        }
+        give_ptr(origin_f_y_send_vec, f_y_send_vec, 6);
       }
     }
   }
@@ -494,14 +393,12 @@ __global__ void
 wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                     const int device_grid_y, void *device_b_y_recv_vec,
-                     void *device_f_y_recv_vec) {
+                     void *device_b_y_recv_vec, void *device_f_y_recv_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  const int grid_y = device_grid_y;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -535,58 +432,56 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
   register LatticeComplex dest[12];
   register LatticeComplex b_y_recv_vec[6];
   register LatticeComplex f_y_recv_vec[6];
-  if (grid_y != 1) {
-    // needed
-    give_value(dest, zero, 12);
-    {
-      // y-1
-      move_backward(move, y, lat_y);
-      if (move != -1) {
-        // recv in y-1 way
-        give_ptr(b_y_recv_vec, origin_b_y_recv_vec, 6);
-        for (int c0 = 0; c0 < 3; c0++) {
-          dest[c0] += b_y_recv_vec[c0];
-          dest[c0 + 3] += b_y_recv_vec[c0 + 3];
-          dest[c0 + 6] += b_y_recv_vec[c0 + 3];
-          dest[c0 + 9] -= b_y_recv_vec[c0];
-        }
+  // needed
+  give_value(dest, zero, 12);
+  {
+    // y-1
+    move_backward(move, y, lat_y);
+    if (move != -1) {
+      // recv in y-1 way
+      give_ptr(b_y_recv_vec, origin_b_y_recv_vec, 6);
+      for (int c0 = 0; c0 < 3; c0++) {
+        dest[c0] += b_y_recv_vec[c0];
+        dest[c0 + 3] += b_y_recv_vec[c0 + 3];
+        dest[c0 + 6] += b_y_recv_vec[c0 + 3];
+        dest[c0 + 9] -= b_y_recv_vec[c0];
       }
     }
-    {
-      // y+1
-      move_forward(move, y, lat_y);
-      if (move != 1) {
-        // recv in y+1 way
-        give_ptr(f_y_recv_vec, origin_f_y_recv_vec, 6);
-        tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
-        give_u(U, tmp_U);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += f_y_recv_vec[c1] * U[c0 * 3 + c1];
-              tmp1 += f_y_recv_vec[c1 + 3] * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp1;
-            dest[c0 + 9] += tmp0;
-          }
-        }
-      }
-    }
-    // just add
-    add_ptr(origin_dest, dest, 12);
   }
+  {
+    // y+1
+    move_forward(move, y, lat_y);
+    if (move != 1) {
+      // recv in y+1 way
+      give_ptr(f_y_recv_vec, origin_f_y_recv_vec, 6);
+      tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
+      give_u(U, tmp_U);
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += f_y_recv_vec[c1] * U[c0 * 3 + c1];
+            tmp1 += f_y_recv_vec[c1 + 3] * U[c0 * 3 + c1];
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] -= tmp1;
+          dest[c0 + 9] += tmp0;
+        }
+      }
+    }
+  }
+  // just add
+  add_ptr(origin_dest, dest, 12);
 }
 
 __global__ void
 wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, const int device_grid_z,
-                     void *device_b_z_send_vec, void *device_f_z_send_vec) {
+                     const int device_parity, void *device_b_z_send_vec,
+                     void *device_f_z_send_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
@@ -599,7 +494,6 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  const int grid_z = device_grid_z;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -637,130 +531,82 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
   register LatticeComplex b_z_send_vec[6];
   register LatticeComplex f_z_send_vec[6];
   give_value(dest, zero, 12);
-  if (grid_z == 1) {
-    {
-      // z-1
-      move_backward(move, z, lat_z);
+  {
+    // z-1
+    move_backward(move, z, lat_z);
+    if (move == -1) {
       tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
                (1 - parity) * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * lat_yxsc);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-          tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] -= tmp0 * I;
+          dest[c0 + 9] += tmp1 * I;
         }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] -= tmp0 * I;
-        dest[c0 + 9] += tmp1 * I;
+      }
+    } else {
+      // send in z+1 way
+      give_ptr(src, origin_src, 12);
+      {
+        // sigma src
+        for (int c1 = 0; c1 < 3; c1++) {
+          b_z_send_vec[c1] = src[c1] - src[c1 + 6] * I;
+          b_z_send_vec[c1 + 3] = src[c1 + 3] + src[c1 + 9] * I;
+        }
+        give_ptr(origin_b_z_send_vec, b_z_send_vec, 6);
       }
     }
-    {
-      // z+1
-      move_forward(move, z, lat_z);
+  }
+  {
+    // z+1
+    move_forward(move, z, lat_z);
+    if (move == 1) {
       tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * lat_yxsc);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-          tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
-        }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] += tmp0 * I;
-        dest[c0 + 9] -= tmp1 * I;
-      }
-    }
-  } else {
-    {
-      // z-1
-      move_backward(move, z, lat_z);
-      if (move == -1) {
-        tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
-                 (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_yxsc);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp0 * I;
-            dest[c0 + 9] += tmp1 * I;
-          }
-        }
-      } else {
-        // send in z+1 way
-        give_ptr(src, origin_src, 12);
-        {
-          // sigma src
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
           for (int c1 = 0; c1 < 3; c1++) {
-            b_z_send_vec[c1] = src[c1] - src[c1 + 6] * I;
-            b_z_send_vec[c1 + 3] = src[c1 + 3] + src[c1 + 9] * I;
+            tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
+            tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
           }
-          give_ptr(origin_b_z_send_vec, b_z_send_vec, 6);
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] += tmp0 * I;
+          dest[c0 + 9] -= tmp1 * I;
         }
       }
-    }
-    {
-      // z+1
-      move_forward(move, z, lat_z);
-      if (move == 1) {
-        tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_yxsc);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 6] * I) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] + src[c1 + 9] * I) * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp0 * I;
-            dest[c0 + 9] -= tmp1 * I;
+    } else {
+      // send in z-1 way
+      tmp_U = (origin_U + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      give_ptr(src, origin_src, 12);
+      {
+        // just tmp
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
           }
+          f_z_send_vec[c0] = tmp0;
+          f_z_send_vec[c0 + 3] = tmp1;
         }
-      } else {
-        // send in z-1 way
-        tmp_U = (origin_U + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        give_ptr(src, origin_src, 12);
-        {
-          // just tmp
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] - src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-            }
-            f_z_send_vec[c0] = tmp0;
-            f_z_send_vec[c0 + 3] = tmp1;
-          }
-          give_ptr(origin_f_z_send_vec, f_z_send_vec, 6);
-        }
+        give_ptr(origin_f_z_send_vec, f_z_send_vec, 6);
       }
     }
   }
@@ -772,14 +618,12 @@ __global__ void
 wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                     const int device_grid_z, void *device_b_z_recv_vec,
-                     void *device_f_z_recv_vec) {
+                     void *device_b_z_recv_vec, void *device_f_z_recv_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  const int grid_z = device_grid_z;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -813,58 +657,56 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
   register LatticeComplex dest[12];
   register LatticeComplex b_z_recv_vec[6];
   register LatticeComplex f_z_recv_vec[6];
-  if (grid_z != 1) {
-    // needed
-    give_value(dest, zero, 12);
-    {
-      // z-1
-      move_backward(move, z, lat_z);
-      if (move != -1) {
-        // recv in z-1 way
-        give_ptr(b_z_recv_vec, origin_b_z_recv_vec, 6);
-        for (int c0 = 0; c0 < 3; c0++) {
-          dest[c0] += b_z_recv_vec[c0];
-          dest[c0 + 3] += b_z_recv_vec[c0 + 3];
-          dest[c0 + 6] -= b_z_recv_vec[c0] * I;
-          dest[c0 + 9] += b_z_recv_vec[c0 + 3] * I;
-        }
+  // needed
+  give_value(dest, zero, 12);
+  {
+    // z-1
+    move_backward(move, z, lat_z);
+    if (move != -1) {
+      // recv in z-1 way
+      give_ptr(b_z_recv_vec, origin_b_z_recv_vec, 6);
+      for (int c0 = 0; c0 < 3; c0++) {
+        dest[c0] += b_z_recv_vec[c0];
+        dest[c0 + 3] += b_z_recv_vec[c0 + 3];
+        dest[c0 + 6] -= b_z_recv_vec[c0] * I;
+        dest[c0 + 9] += b_z_recv_vec[c0 + 3] * I;
       }
     }
-    {
-      // z+1
-      move_forward(move, z, lat_z);
-      if (move != 1) {
-        // recv in z+1 way
-        give_ptr(f_z_recv_vec, origin_f_z_recv_vec, 6);
-        tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
-        give_u(U, tmp_U);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += f_z_recv_vec[c0] * U[c0 * 3 + c1];
-              tmp1 += f_z_recv_vec[c0 + 3] * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp0 * I;
-            dest[c0 + 9] -= tmp1 * I;
-          }
-        }
-      }
-    }
-    // just add
-    add_ptr(origin_dest, dest, 12);
   }
+  {
+    // z+1
+    move_forward(move, z, lat_z);
+    if (move != 1) {
+      // recv in z+1 way
+      give_ptr(f_z_recv_vec, origin_f_z_recv_vec, 6);
+      tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
+      give_u(U, tmp_U);
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += f_z_recv_vec[c0] * U[c0 * 3 + c1];
+            tmp1 += f_z_recv_vec[c0 + 3] * U[c0 * 3 + c1];
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] += tmp0 * I;
+          dest[c0 + 9] -= tmp1 * I;
+        }
+      }
+    }
+  }
+  // just add
+  add_ptr(origin_dest, dest, 12);
 }
 
 __global__ void
 wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, const int device_grid_t,
-                     void *device_b_t_send_vec, void *device_f_t_send_vec) {
+                     const int device_parity, void *device_b_t_send_vec,
+                     void *device_f_t_send_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
@@ -877,7 +719,6 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  const int grid_t = device_grid_t;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -915,130 +756,82 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
   register LatticeComplex b_t_send_vec[6];
   register LatticeComplex f_t_send_vec[6];
   give_value(dest, zero, 12);
-  if (grid_t == 1) {
-    {
-      // t-1
-      move_backward(move, t, lat_t);
+  {
+    // t-1
+    move_backward(move, t, lat_t);
+    if (move == -1) {
       tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
                (1 - parity) * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * lat_zyxsc);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-          tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
+          }
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] += tmp0;
+          dest[c0 + 9] += tmp1;
         }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] += tmp0;
-        dest[c0 + 9] += tmp1;
+      }
+    } else {
+      // send in t+1 way
+      give_ptr(src, origin_src, 12);
+      {
+        // sigma src
+        for (int c1 = 0; c1 < 3; c1++) {
+          b_t_send_vec[c1] = src[c1] - src[c1 + 6];
+          b_t_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 9];
+        }
+        give_ptr(origin_b_t_send_vec, b_t_send_vec, 6);
       }
     }
-    {
-      // t+1
-      move_forward(move, t, lat_t);
+  }
+  {
+    // t+1
+    move_forward(move, t, lat_t);
+    if (move == 1) {
       tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
       give_u(U, tmp_U);
       tmp_src = (origin_src + move * lat_zyxsc);
       give_ptr(src, tmp_src, 12);
-    }
-    {
-      for (int c0 = 0; c0 < 3; c0++) {
-        tmp0 = zero;
-        tmp1 = zero;
-        for (int c1 = 0; c1 < 3; c1++) {
-          tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
-          tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
-        }
-        dest[c0] += tmp0;
-        dest[c0 + 3] += tmp1;
-        dest[c0 + 6] -= tmp0;
-        dest[c0 + 9] -= tmp1;
-      }
-    }
-  } else {
-    {
-      // t-1
-      move_backward(move, t, lat_t);
-      if (move == -1) {
-        tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
-                 (1 - parity) * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_zyxsc);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] += tmp0;
-            dest[c0 + 9] += tmp1;
-          }
-        }
-      } else {
-        // send in t+1 way
-        give_ptr(src, origin_src, 12);
-        {
-          // sigma src
+      {
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
           for (int c1 = 0; c1 < 3; c1++) {
-            b_t_send_vec[c1] = src[c1] - src[c1 + 6];
-            b_t_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 9];
+            tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
+            tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
           }
-          give_ptr(origin_b_t_send_vec, b_t_send_vec, 6);
+          dest[c0] += tmp0;
+          dest[c0 + 3] += tmp1;
+          dest[c0 + 6] -= tmp0;
+          dest[c0 + 9] -= tmp1;
         }
       }
-    }
-    {
-      // t+1
-      move_forward(move, t, lat_t);
-      if (move == 1) {
-        tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        tmp_src = (origin_src + move * lat_zyxsc);
-        give_ptr(src, tmp_src, 12);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] - src[c1 + 6]) * U[c0 * 3 + c1];
-              tmp1 += (src[c1 + 3] - src[c1 + 9]) * U[c0 * 3 + c1];
-            }
-            dest[c0] += tmp0;
-            dest[c0 + 3] += tmp1;
-            dest[c0 + 6] -= tmp0;
-            dest[c0 + 9] -= tmp1;
+    } else {
+      // send in t-1 way
+      tmp_U = (origin_U + parity * lat_tzyxcc);
+      give_u(U, tmp_U);
+      give_ptr(src, origin_src, 12);
+      {
+        // just tmp
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
           }
+          f_t_send_vec[c0] = tmp0;
+          f_t_send_vec[c0 + 3] = tmp1;
         }
-      } else {
-        // send in t-1 way
-        tmp_U = (origin_U + parity * lat_tzyxcc);
-        give_u(U, tmp_U);
-        give_ptr(src, origin_src, 12);
-        {
-          // just tmp
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += (src[c1] + src[c1 + 6]) * U[c1 * 3 + c0].conj();
-              tmp1 += (src[c1 + 3] + src[c1 + 9]) * U[c1 * 3 + c0].conj();
-            }
-            f_t_send_vec[c0] = tmp0;
-            f_t_send_vec[c0 + 3] = tmp1;
-          }
-          give_ptr(origin_f_t_send_vec, f_t_send_vec, 6);
-        }
+        give_ptr(origin_f_t_send_vec, f_t_send_vec, 6);
       }
     }
   }
@@ -1050,14 +843,12 @@ __global__ void
 wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                     const int device_grid_t, void *device_b_t_recv_vec,
-                     void *device_f_t_recv_vec) {
+                     void *device_b_t_recv_vec, void *device_f_t_recv_vec) {
   register int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  const int grid_t = device_grid_t;
   register int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -1091,48 +882,46 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
   register LatticeComplex dest[12];
   register LatticeComplex b_t_recv_vec[6];
   register LatticeComplex f_t_recv_vec[6];
-  if (grid_t != 1) {
-    // needed
-    give_value(dest, zero, 12);
-    {
-      // t-1
-      move_backward(move, t, lat_t);
-      if (move != -1) {
-        // recv in t-1 way
-        give_ptr(b_t_recv_vec, origin_b_t_recv_vec, 6);
+  // needed
+  give_value(dest, zero, 12);
+  {
+    // t-1
+    move_backward(move, t, lat_t);
+    if (move != -1) {
+      // recv in t-1 way
+      give_ptr(b_t_recv_vec, origin_b_t_recv_vec, 6);
+      for (int c0 = 0; c0 < 3; c0++) {
+        dest[c0] += b_t_recv_vec[c0];
+        dest[c0 + 3] += b_t_recv_vec[c0 + 3];
+        dest[c0 + 6] += b_t_recv_vec[c0];
+        dest[c0 + 9] += b_t_recv_vec[c0 + 3];
+      }
+    }
+  }
+  {
+    // t+1
+    move_forward(move, t, lat_t);
+    if (move != 1) {
+      // recv in t+1 way
+      give_ptr(f_t_recv_vec, origin_f_t_recv_vec, 6);
+      tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
+      give_u(U, tmp_U);
+      {
         for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += f_t_recv_vec[c0] * U[c0 * 3 + c1];
+            tmp1 += f_t_recv_vec[c0 + 3] * U[c0 * 3 + c1];
+          }
           dest[c0] += b_t_recv_vec[c0];
           dest[c0 + 3] += b_t_recv_vec[c0 + 3];
-          dest[c0 + 6] += b_t_recv_vec[c0];
-          dest[c0 + 9] += b_t_recv_vec[c0 + 3];
+          dest[c0 + 6] -= b_t_recv_vec[c0];
+          dest[c0 + 9] -= b_t_recv_vec[c0 + 3];
         }
       }
     }
-    {
-      // t+1
-      move_forward(move, t, lat_t);
-      if (move != 1) {
-        // recv in t+1 way
-        give_ptr(f_t_recv_vec, origin_f_t_recv_vec, 6);
-        tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
-        give_u(U, tmp_U);
-        {
-          for (int c0 = 0; c0 < 3; c0++) {
-            tmp0 = zero;
-            tmp1 = zero;
-            for (int c1 = 0; c1 < 3; c1++) {
-              tmp0 += f_t_recv_vec[c0] * U[c0 * 3 + c1];
-              tmp1 += f_t_recv_vec[c0 + 3] * U[c0 * 3 + c1];
-            }
-            dest[c0] += b_t_recv_vec[c0];
-            dest[c0 + 3] += b_t_recv_vec[c0 + 3];
-            dest[c0 + 6] -= b_t_recv_vec[c0];
-            dest[c0 + 9] -= b_t_recv_vec[c0 + 3];
-          }
-        }
-      }
-    }
-    // just add
-    add_ptr(origin_dest, dest, 12);
   }
+  // just add
+  add_ptr(origin_dest, dest, 12);
 }
