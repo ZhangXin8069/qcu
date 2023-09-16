@@ -188,11 +188,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     if (grid_x != 1) {
       move_backward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(b_x_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_x_send_request);
       printf("######%d --> %d######\n", node_rank, move);
       move_forward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(f_x_send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_x_send_request);
       printf("######%d --> %d######\n", node_rank, move);
@@ -204,11 +206,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     if (grid_y != 1) {
       move_backward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(b_y_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_y_send_request);
       printf("######%d --> %d######\n", node_rank, move);
       move_forward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(f_y_send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_y_send_request);
       printf("######%d --> %d######\n", node_rank, move);
@@ -220,11 +224,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     if (grid_z != 1) {
       move_backward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(b_z_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_z_send_request);
       printf("######%d --> %d######\n", node_rank, move);
       move_forward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(f_z_send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_z_send_request);
       printf("######%d --> %d######\n", node_rank, move);
@@ -236,11 +242,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     if (grid_t != 1) {
       move_backward(move, grid_index_t, grid_t);
       move = node_rank + move;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(b_t_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_t_send_request);
       printf("######%d --> %d######\n", node_rank, move);
       move_forward(move, grid_index_t, grid_t);
       move = node_rank + move;
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Isend(f_t_send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_t_send_request);
       printf("######%d --> %d######\n", node_rank, move);
@@ -260,12 +268,14 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_backward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
       MPI_Wait(&b_x_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(b_x_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_x_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
       move_forward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
       MPI_Wait(&f_x_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(f_x_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_x_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
@@ -278,12 +288,14 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_backward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
       MPI_Wait(&b_y_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(b_y_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_y_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
       move_forward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
       MPI_Wait(&f_y_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(f_y_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_y_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
@@ -296,12 +308,14 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_backward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
       MPI_Wait(&b_z_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(b_z_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_z_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
       move_forward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
       MPI_Wait(&f_z_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(f_z_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_z_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
@@ -314,12 +328,14 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_backward(move, grid_index_t, grid_t);
       move = node_rank + move;
       MPI_Wait(&b_t_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(b_t_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_t_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
       move_forward(move, grid_index_t, grid_t);
       move = node_rank + move;
       MPI_Wait(&f_t_send_request, MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaDeviceSynchronize());
       MPI_Irecv(f_t_recv_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_t_recv_request);
       printf("######%d <-- %d######\n", node_rank, move);
