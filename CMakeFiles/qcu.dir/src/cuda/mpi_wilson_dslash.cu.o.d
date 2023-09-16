@@ -163,11 +163,14 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/device_launch_parameters.h \
-    /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
-    /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
-    /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/mpicxx.h \
-    /usr/include/c++/9/map \
-    /usr/include/c++/9/bits/stl_tree.h \
+    /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
+    /home/aistudio/qcu/src/cuda/../../include/./define.h \
+    /usr/include/c++/9/cstdio \
+    /usr/include/c++/9/random \
+    /usr/include/c++/9/string \
+    /usr/include/c++/9/bits/stringfwd.h \
+    /usr/include/c++/9/bits/memoryfwd.h \
+    /usr/include/c++/9/bits/char_traits.h \
     /usr/include/c++/9/bits/stl_algobase.h \
     /usr/include/c++/9/bits/functexcept.h \
     /usr/include/c++/9/ext/numeric_traits.h \
@@ -179,25 +182,6 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/include/c++/9/bits/ptr_traits.h \
     /usr/include/c++/9/debug/debug.h \
     /usr/include/c++/9/bits/predefined_ops.h \
-    /usr/include/c++/9/bits/allocator.h \
-    /usr/include/x86_64-linux-gnu/c++/9/bits/c++allocator.h \
-    /usr/include/c++/9/ext/new_allocator.h \
-    /usr/include/c++/9/bits/memoryfwd.h \
-    /usr/include/c++/9/bits/stl_function.h \
-    /usr/include/c++/9/backward/binders.h \
-    /usr/include/c++/9/ext/alloc_traits.h \
-    /usr/include/c++/9/bits/alloc_traits.h \
-    /usr/include/c++/9/ext/aligned_buffer.h \
-    /usr/include/c++/9/bits/stl_map.h \
-    /usr/include/c++/9/initializer_list \
-    /usr/include/c++/9/tuple \
-    /usr/include/c++/9/utility \
-    /usr/include/c++/9/bits/stl_relops.h \
-    /usr/include/c++/9/array \
-    /usr/include/c++/9/stdexcept \
-    /usr/include/c++/9/string \
-    /usr/include/c++/9/bits/stringfwd.h \
-    /usr/include/c++/9/bits/char_traits.h \
     /usr/include/c++/9/bits/postypes.h \
     /usr/include/c++/9/cwchar \
     /usr/include/wchar.h \
@@ -209,6 +193,9 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h \
     /usr/include/stdint.h \
     /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
+    /usr/include/c++/9/bits/allocator.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/c++allocator.h \
+    /usr/include/c++/9/ext/new_allocator.h \
     /usr/include/c++/9/bits/localefwd.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/c++locale.h \
     /usr/include/c++/9/clocale \
@@ -219,7 +206,10 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/include/ctype.h \
     /usr/include/c++/9/bits/ostream_insert.h \
     /usr/include/c++/9/bits/cxxabi_forced.h \
+    /usr/include/c++/9/bits/stl_function.h \
+    /usr/include/c++/9/backward/binders.h \
     /usr/include/c++/9/bits/range_access.h \
+    /usr/include/c++/9/initializer_list \
     /usr/include/c++/9/bits/basic_string.h \
     /usr/include/c++/9/ext/atomicity.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/gthr.h \
@@ -231,8 +221,9 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
     /usr/include/x86_64-linux-gnu/bits/setjmp.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/atomic_word.h \
+    /usr/include/c++/9/ext/alloc_traits.h \
+    /usr/include/c++/9/bits/alloc_traits.h \
     /usr/include/c++/9/ext/string_conversions.h \
-    /usr/include/c++/9/cstdio \
     /usr/include/c++/9/cerrno \
     /usr/include/errno.h \
     /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -243,6 +234,33 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
     /usr/include/c++/9/bits/functional_hash.h \
     /usr/include/c++/9/bits/basic_string.tcc \
+    /usr/include/c++/9/limits \
+    /usr/include/c++/9/bits/random.h \
+    /usr/include/c++/9/vector \
+    /usr/include/c++/9/bits/stl_construct.h \
+    /usr/include/c++/9/bits/stl_uninitialized.h \
+    /usr/include/c++/9/bits/stl_vector.h \
+    /usr/include/c++/9/bits/stl_bvector.h \
+    /usr/include/c++/9/bits/vector.tcc \
+    /usr/include/c++/9/bits/uniform_int_dist.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/opt_random.h \
+    /usr/include/c++/9/bits/random.tcc \
+    /usr/include/c++/9/numeric \
+    /usr/include/c++/9/bits/stl_numeric.h \
+    /home/aistudio/qcu/src/cuda/../../include/./lattice_complex.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda.h \
+    /usr/lib/x86_64-linux-gnu/openmpi/include/mpi.h \
+    /usr/lib/x86_64-linux-gnu/openmpi/include/mpi_portable_platform.h \
+    /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/mpicxx.h \
+    /usr/include/c++/9/map \
+    /usr/include/c++/9/bits/stl_tree.h \
+    /usr/include/c++/9/ext/aligned_buffer.h \
+    /usr/include/c++/9/bits/stl_map.h \
+    /usr/include/c++/9/tuple \
+    /usr/include/c++/9/utility \
+    /usr/include/c++/9/bits/stl_relops.h \
+    /usr/include/c++/9/array \
+    /usr/include/c++/9/stdexcept \
     /usr/include/c++/9/bits/uses_allocator.h \
     /usr/include/c++/9/bits/invoke.h \
     /usr/include/c++/9/bits/stl_multimap.h \
@@ -299,22 +317,4 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o : /home/aistudio/qcu/src/cuda
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/status_inln.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/info_inln.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/win_inln.h \
-    /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/file_inln.h \
-    /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
-    /home/aistudio/qcu/src/cuda/../../include/./define.h \
-    /usr/include/c++/9/random \
-    /usr/include/c++/9/limits \
-    /usr/include/c++/9/bits/random.h \
-    /usr/include/c++/9/vector \
-    /usr/include/c++/9/bits/stl_construct.h \
-    /usr/include/c++/9/bits/stl_uninitialized.h \
-    /usr/include/c++/9/bits/stl_vector.h \
-    /usr/include/c++/9/bits/stl_bvector.h \
-    /usr/include/c++/9/bits/vector.tcc \
-    /usr/include/c++/9/bits/uniform_int_dist.h \
-    /usr/include/x86_64-linux-gnu/c++/9/bits/opt_random.h \
-    /usr/include/c++/9/bits/random.tcc \
-    /usr/include/c++/9/numeric \
-    /usr/include/c++/9/bits/stl_numeric.h \
-    /home/aistudio/qcu/src/cuda/../../include/./lattice_complex.h \
-    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda.h
+    /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/file_inln.h
