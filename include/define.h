@@ -11,7 +11,7 @@
       exit(-1);                                                                \
     }                                                                          \
   }
-
+// little strange, but don't want change
 #define give_value(U, zero, n)                                                 \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
@@ -44,30 +44,59 @@
     tmp[8] = (tmp[0] * tmp[4] - tmp[1] * tmp[3]).conj();                       \
   }
 
-#define add(U, tmp, n)                                                         \
+#define add_value(U, tmp, n)                                                   \
+  {                                                                            \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] += tmp;                                                             \
+    }                                                                          \
+  }
+
+#define subt_value(U, tmp, n)                                                  \
+  {                                                                            \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] -= tmp;                                                             \
+    }                                                                          \
+  }
+
+#define mult_value(U, tmp, n)                                                  \
+  {                                                                            \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] *= tmp;                                                             \
+    }                                                                          \
+  }
+
+#define divi_value(U, tmp, n)                                                  \
+  {                                                                            \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] /= tmp;                                                             \
+    }                                                                          \
+  }
+
+#define add_ptr(U, tmp, n)                                                     \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] += tmp[i];                                                          \
     }                                                                          \
   }
 
-#define subt(U, tmp, n)                                                        \
+#define subt_ptr(U, tmp, n)                                                    \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] -= tmp[i];                                                          \
     }                                                                          \
   }
 
-#define mult(tmp0, tmp1, tmp2, tmp3, zero)                                     \
+#define mult_ptr(U, tmp, n)                                                    \
   {                                                                            \
-    for (int c0 = 0; c0 < 3; c0++) {                                           \
-      for (int c1 = 0; c1 < 3; c1++) {                                         \
-        tmp0 = zero;                                                           \
-        for (int cc = 0; cc < 3; cc++) {                                       \
-          tmp0 += tmp1[c0 * 3 + cc] * tmp2[cc * 3 + c1];                       \
-        }                                                                      \
-        tmp3[c0 * 3 + c1] = tmp0;                                              \
-      }                                                                        \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] *= tmp[i];                                                          \
+    }                                                                          \
+  }
+
+#define divi_ptr(U, tmp, n)                                                    \
+  {                                                                            \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] /= tmp[i];                                                          \
     }                                                                          \
   }
 
@@ -219,4 +248,3 @@
 
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
-
