@@ -96,7 +96,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   dim3 blockDim(BLOCK_SIZE);
   {
     // mpi wilson dslash
-    int node_size, node_rank, move, tmp_rank;
+    int node_size, node_rank, move;
     MPI_Comm_size(MPI_COMM_WORLD, &node_size);
     MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
     const int grid_x = grid->lattice_size[0];
@@ -110,70 +110,54 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     printf("node_size: %d \n", node_size);
     printf("node_rank: %d \n", node_rank);
     printf("grid:x-%d, y-%d, z-%d, t-%d \n", grid_x, grid_y, grid_z, grid_t);
-    MPI_Request *b_x_send_request;
-    MPI_Request *f_x_send_request;
-    MPI_Request *b_y_send_request;
-    MPI_Request *f_y_send_request;
-    MPI_Request *b_z_send_request;
-    MPI_Request *f_z_send_request;
-    MPI_Request *b_t_send_request;
-    MPI_Request *f_t_send_request;
-    void *b_x_send_vec;
-    void *f_x_send_vec;
-    void *b_y_send_vec;
-    void *f_y_send_vec;
-    void *b_z_send_vec;
-    void *f_z_send_vec;
-    void *b_t_send_vec;
-    void *f_t_send_vec;
-    checkCudaErrors(Malloc(&b_x_send_vec, (lat_t * lat_z * lat_y * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_x_send_vec, (lat_t * lat_z * lat_y * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&b_y_send_vec, (lat_t * lat_z * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_y_send_vec, (lat_t * lat_z * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&b_z_send_vec, (lat_t * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_z_send_vec, (lat_t * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&b_t_send_vec, (lat_z * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_t_send_vec, (lat_z * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    MPI_Request *b_x_recv_request;
-    MPI_Request *f_x_recv_request;
-    MPI_Request *b_y_recv_request;
-    MPI_Request *f_y_recv_request;
-    MPI_Request *b_z_recv_request;
-    MPI_Request *f_z_recv_request;
-    MPI_Request *b_t_recv_request;
-    MPI_Request *f_t_recv_request;
-    void *b_x_recv_vec;
-    void *f_x_recv_vec;
-    void *b_y_recv_vec;
-    void *f_y_recv_vec;
-    void *b_z_recv_vec;
-    void *f_z_recv_vec;
-    void *b_t_recv_vec;
-    void *f_t_recv_vec;
-    checkCudaErrors(Malloc(&b_x_recv_vec, (lat_t * lat_z * lat_y * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_x_recv_vec, (lat_t * lat_z * lat_y * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&b_y_recv_vec, (lat_t * lat_z * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_y_recv_vec, (lat_t * lat_z * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&b_z_recv_vec, (lat_t * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_z_recv_vec, (lat_t * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&b_t_recv_vec, (lat_z * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
-    checkCudaErrors(Malloc(&f_t_recv_vec, (lat_z * lat_y * lat_x * 6) *
-                                              sizeof(LatticeComplex)));
+    MPI_Request b_x_send_request;
+    MPI_Request f_x_send_request;
+    MPI_Request b_y_send_request;
+    MPI_Request f_y_send_request;
+    MPI_Request b_z_send_request;
+    MPI_Request f_z_send_request;
+    MPI_Request b_t_send_request;
+    MPI_Request f_t_send_request;
+    void *b_x_send_vec =
+        (void *)malloc(lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
+    void *f_x_send_vec =
+        (void *)malloc(lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
+    void *b_y_send_vec =
+        (void *)malloc(lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
+    void *f_y_send_vec =
+        (void *)malloc(lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
+    void *b_z_send_vec =
+        (void *)malloc(lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    void *f_z_send_vec =
+        (void *)malloc(lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    void *b_t_send_vec =
+        (void *)malloc(lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    void *f_t_send_vec =
+        (void *)malloc(lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    MPI_Request b_x_recv_request;
+    MPI_Request f_x_recv_request;
+    MPI_Request b_y_recv_request;
+    MPI_Request f_y_recv_request;
+    MPI_Request b_z_recv_request;
+    MPI_Request f_z_recv_request;
+    MPI_Request b_t_recv_request;
+    MPI_Request f_t_recv_request;
+    void *b_x_recv_vec =
+        (void *)malloc(lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
+    void *f_x_recv_vec =
+        (void *)malloc(lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
+    void *b_y_recv_vec =
+        (void *)malloc(lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
+    void *f_y_recv_vec =
+        (void *)malloc(lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
+    void *b_z_recv_vec =
+        (void *)malloc(lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    void *f_z_recv_vec =
+        (void *)malloc(lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    void *b_t_recv_vec =
+        (void *)malloc(lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    void *f_t_recv_vec =
+        (void *)malloc(lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
     wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_x, lat_y,
@@ -231,11 +215,15 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       MPI_Isend(f_t_send_vec, 12, MPI_DOUBLE, move, node_rank, MPI_COMM_WORLD,
                 &f_t_send_request);
     }
+    register LatticeComplex *tmp_vec =
+        ((static_cast<LatticeComplex *>(device_b_x_send_vec)) + 0);
+    print_tmp((LatticeComplex *)f_t_send_vec);
     // recv
     {
       move_backward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
       MPI_Wait(&b_x_recv_request, MPI_STATUS_IGNORE);
+      printf("#######DEBUG####### \n");
       MPI_Irecv(b_x_recv_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
                 &b_x_recv_request);
       move_forward(move, grid_index_x, grid_x);
@@ -305,22 +293,22 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
            double(duration) / 1e9);
     {
       // free
-      checkCudaErrors(free(b_x_send_vec));
-      checkCudaErrors(free(f_x_send_vec));
-      checkCudaErrors(free(b_y_send_vec));
-      checkCudaErrors(free(f_y_send_vec));
-      checkCudaErrors(free(b_z_send_vec));
-      checkCudaErrors(free(f_z_send_vec));
-      checkCudaErrors(free(b_t_send_vec));
-      checkCudaErrors(free(f_t_send_vec));
-      checkCudaErrors(free(b_x_recv_vec));
-      checkCudaErrors(free(f_x_recv_vec));
-      checkCudaErrors(free(b_y_recv_vec));
-      checkCudaErrors(free(f_y_recv_vec));
-      checkCudaErrors(free(b_z_recv_vec));
-      checkCudaErrors(free(f_z_recv_vec));
-      checkCudaErrors(free(b_t_recv_vec));
-      checkCudaErrors(free(f_t_recv_vec));
+      free(b_x_send_vec);
+      free(f_x_send_vec);
+      free(b_y_send_vec);
+      free(f_y_send_vec);
+      free(b_z_send_vec);
+      free(f_z_send_vec);
+      free(b_t_send_vec);
+      free(f_t_send_vec);
+      free(b_x_recv_vec);
+      free(f_x_recv_vec);
+      free(b_y_recv_vec);
+      free(f_y_recv_vec);
+      free(b_z_recv_vec);
+      free(f_z_recv_vec);
+      free(b_t_recv_vec);
+      free(f_t_recv_vec);
     }
   }
 }
