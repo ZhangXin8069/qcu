@@ -1,6 +1,7 @@
 #include "../../include/qcu.h"
 #include "../../include/qcu_cuda.h"
 #include <chrono>
+#include <cstdio>
 
 void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity) {
@@ -168,7 +169,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     wilson_dslash_x_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_x_send_vec, f_x_send_vec);
-    if (!(grid_x - 1)) {
+    if (grid_x != 1) {
       move_backward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
       MPI_Isend(b_x_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
@@ -184,7 +185,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     wilson_dslash_y_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_y_send_vec, f_y_send_vec);
-    if (!(grid_y - 1)) {
+    if (grid_y != 1) {
       move_backward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
       MPI_Isend(b_y_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
@@ -200,7 +201,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     wilson_dslash_z_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_z_send_vec, f_z_send_vec);
-    if (!(grid_z - 1)) {
+    if (grid_z != 1) {
       move_backward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
       MPI_Isend(b_z_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
@@ -216,7 +217,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     wilson_dslash_t_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_t_send_vec, f_t_send_vec);
-    if (!(grid_t - 1)) {
+    if (grid_t != 1) {
       move_backward(move, grid_index_t, grid_t);
       move = node_rank + move;
       MPI_Isend(b_t_send_vec, 12, MPI_DOUBLE, move, move, MPI_COMM_WORLD,
@@ -228,10 +229,18 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                 &f_t_send_request);
       printf("######%d --> %d######\n", node_rank, move);
     }
-    // recv
     printf("#######DEBUG####### \n");
-    // print_tmp(b_x_send_vec, 6);
-    {
+    print_tmp(b_x_send_vec, 100);
+    print_tmp(f_x_send_vec, 100);
+    print_tmp(b_y_send_vec, 100);
+    print_tmp(f_y_send_vec, 100);
+    print_tmp(b_z_send_vec, 100);
+    print_tmp(f_z_send_vec, 100);
+    print_tmp(b_t_send_vec, 100);
+    print_tmp(f_t_send_vec, 100);
+    printf("#######DEBUG####### \n");
+    // recv x
+    if (grid_x != 1) {
       move_backward(move, grid_index_x, grid_x);
       move = node_rank + move * grid_y * grid_z * grid_t;
       MPI_Wait(&b_x_send_request, MPI_STATUS_IGNORE);
@@ -248,7 +257,8 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_x_recv_vec, f_x_recv_vec);
     }
-    {
+    // recv y
+    if (grid_y != 1) {
       move_backward(move, grid_index_y, grid_y);
       move = node_rank + move * grid_z * grid_t;
       MPI_Wait(&b_y_send_request, MPI_STATUS_IGNORE);
@@ -265,7 +275,8 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_y_recv_vec, f_y_recv_vec);
     }
-    {
+    // recv z
+    if (grid_z != 1) {
       move_backward(move, grid_index_z, grid_z);
       move = node_rank + move * grid_t;
       MPI_Wait(&b_z_send_request, MPI_STATUS_IGNORE);
@@ -282,7 +293,8 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_z_recv_vec, f_z_recv_vec);
     }
-    {
+    // recv t
+    if (grid_t != 1) {
       move_backward(move, grid_index_t, grid_t);
       move = node_rank + move;
       MPI_Wait(&b_t_send_request, MPI_STATUS_IGNORE);

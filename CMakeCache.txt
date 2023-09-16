@@ -185,7 +185,7 @@ CMAKE_VERBOSE_MAKEFILE:BOOL=FALSE
 MPIEXEC_EXECUTABLE:FILEPATH=/usr/bin/mpiexec
 
 //Maximum number of processors available to run MPI applications.
-MPIEXEC_MAX_NUMPROCS:STRING=12
+MPIEXEC_MAX_NUMPROCS:STRING=32
 
 //Flag used by MPI to specify the number of processes for mpiexec;
 // the next option will be the number of processes.
