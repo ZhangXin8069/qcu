@@ -207,11 +207,11 @@
 
 #define print_tmp(input_tmp, n)                                                \
   {                                                                            \
+    register LatticeComplex *tmp_vec =                                         \
+        static_cast<LatticeComplex *>(input_tmp);                              \
     printf("############\n");                                                  \
     for (int i = 0; i < n; i++) {                                              \
-      printf("[");                                                             \
-      printf("[%.9lf,%.9lf]", input_tmp[i].real, input_tmp[i].imag);           \
-      printf("]\n");                                                           \
+      printf("[%.9lf,%.9lf]\n", tmp_vec[i].real, tmp_vec[i].imag);             \
     }                                                                          \
   }
 
