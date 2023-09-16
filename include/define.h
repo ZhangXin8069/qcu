@@ -205,6 +205,16 @@
     printf("]\n");                                                             \
   }
 
+#define print_tmp(input_tmp, n)                                                \
+  {                                                                            \
+    printf("############\n");                                                  \
+    for (int i = 0; i < n; i++) {                                              \
+      printf("[");                                                             \
+      printf("[%.9lf,%.9lf]", input_tmp[i].real, input_tmp[i].imag);           \
+      printf("]\n");                                                           \
+    }                                                                          \
+  }
+
 #define print_fermi(input_fermi)                                               \
   {                                                                            \
     int tmp;                                                                   \
