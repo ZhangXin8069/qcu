@@ -67,10 +67,10 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
        z * lat_yxsc + y * lat_xsc + x * 12);
   register LatticeComplex *origin_b_x_send_vec =
       ((static_cast<LatticeComplex *>(device_b_x_send_vec)) +
-       (t * lat_z * lat_y + z * lat_y + y) * 6);
+       (t * lat_z * lat_y + z * lat_y + y + (1 - 2 * parity)) * 6); // even-odd
   register LatticeComplex *origin_f_x_send_vec =
       ((static_cast<LatticeComplex *>(device_f_x_send_vec)) +
-       (t * lat_z * lat_y + z * lat_y + y) * 6);
+       (t * lat_z * lat_y + z * lat_y + y + (2 * parity - 1)) * 6); // even-odd
   register LatticeComplex *tmp_U;
   register LatticeComplex *tmp_src;
   register LatticeComplex tmp0(0.0, 0.0);
@@ -103,7 +103,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp0 * I;
         }
       }
-      // give_value\(origin_b_x_send_vec, -I, 6); // debug
+      // give_value(origin_b_x_send_vec, -I*100,6); // debug
     } else {
       // send in x+1 way
       give_ptr(src, origin_src, 12);
@@ -115,7 +115,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_b_x_send_vec, b_x_send_vec, 6);
       }
-      // give_value\(origin_b_x_send_vec, I, 6); // debug
+      // give_value(origin_b_x_send_vec, I * 10000, 6); // debug
     }
   }
   {
@@ -140,7 +140,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp0 * I;
         }
       }
-      // give_value\(origin_f_x_send_vec, -I, 6); // debug
+      // give_value(origin_f_x_send_vec, -I*100,6); // debug
     } else {
       // send in x-1 way
       tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -160,7 +160,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_f_x_send_vec, f_x_send_vec, 6);
       }
-      // give_value\(origin_f_x_send_vec, I, 6); // debug
+      // give_value(origin_f_x_send_vec, I * 10000, 6); // debug
     }
   }
   // just add
@@ -333,7 +333,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp0;
         }
       }
-      // give_value\(origin_b_y_send_vec, -I, 6); // debug
+      // give_value(origin_b_y_send_vec, -I*100,6); // debug
     } else {
       // send in y+1 way
       give_ptr(src, origin_src, 12);
@@ -345,7 +345,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_b_y_send_vec, b_y_send_vec, 6);
       }
-      // give_value\(origin_b_y_send_vec, I, 6); // debug
+      // give_value(origin_b_y_send_vec, I *10000, 6); // debug
     }
   }
   {
@@ -370,7 +370,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp0;
         }
       }
-      // give_value\(origin_f_y_send_vec, -I, 6); // debug
+      // give_value(origin_f_y_send_vec, -I*100,6); // debug
     } else {
       // send in y-1 way
       tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -390,7 +390,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_f_y_send_vec, f_y_send_vec, 6);
       }
-      // give_value\(origin_f_y_send_vec, I, 6); // debug
+      // give_value(origin_f_y_send_vec, I *10000, 6); // debug
     }
   }
   // just add
@@ -562,7 +562,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp1 * I;
         }
       }
-      // give_value\(origin_b_z_send_vec, -I, 6); // debug
+      // give_value(origin_b_z_send_vec, -I*100,6); // debug
     } else {
       // send in z+1 way
       give_ptr(src, origin_src, 12);
@@ -574,7 +574,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_b_z_send_vec, b_z_send_vec, 6);
       }
-      // give_value\(origin_b_z_send_vec, I, 6); // debug
+      // give_value(origin_b_z_send_vec, I *10000, 6); // debug
     }
   }
   {
@@ -599,7 +599,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp1 * I;
         }
       }
-      // give_value\(origin_f_z_send_vec, -I, 6); // debug
+      // give_value(origin_f_z_send_vec, -I*100,6); // debug
     } else {
       // send in z-1 way
       tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -619,7 +619,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_f_z_send_vec, f_z_send_vec, 6);
       }
-      // give_value\(origin_f_z_send_vec, I, 6); // debug
+      // give_value(origin_f_z_send_vec, I *10000, 6); // debug
     }
   }
   // just add
@@ -791,7 +791,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp1;
         }
       }
-      // give_value\(origin_b_t_send_vec, -I, 6); // debug
+      // give_value(origin_b_t_send_vec, -I*100,6); // debug
     } else {
       // send in t+1 way
       give_ptr(src, origin_src, 12);
@@ -803,7 +803,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_b_t_send_vec, b_t_send_vec, 6);
       }
-      // give_value\(origin_b_t_send_vec, I, 6); // debug
+      // give_value(origin_b_t_send_vec, I *10000, 6); // debug
     }
   }
   {
@@ -828,7 +828,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp1;
         }
       }
-      // give_value\(origin_f_t_send_vec, -I, 6); // debug
+      // give_value(origin_f_t_send_vec, -I*100,6); // debug
     } else {
       // send in t-1 way
       tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -848,7 +848,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
         }
         give_ptr(origin_f_t_send_vec, f_t_send_vec, 6);
       }
-      // give_value\(origin_f_t_send_vec, I, 6); // debug
+      // give_value(origin_f_t_send_vec, I *10000, 6); // debug
     }
   }
   // just add

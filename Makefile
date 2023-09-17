@@ -201,6 +201,30 @@ src/cuda/qcu_cuda.cu.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.s
 .PHONY : src/cuda/qcu_cuda.cu.s
 
+src/cuda/test_wilson_dslash.o: src/cuda/test_wilson_dslash.cu.o
+.PHONY : src/cuda/test_wilson_dslash.o
+
+# target to build an object file
+src/cuda/test_wilson_dslash.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
+.PHONY : src/cuda/test_wilson_dslash.cu.o
+
+src/cuda/test_wilson_dslash.i: src/cuda/test_wilson_dslash.cu.i
+.PHONY : src/cuda/test_wilson_dslash.i
+
+# target to preprocess a source file
+src/cuda/test_wilson_dslash.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.i
+.PHONY : src/cuda/test_wilson_dslash.cu.i
+
+src/cuda/test_wilson_dslash.s: src/cuda/test_wilson_dslash.cu.s
+.PHONY : src/cuda/test_wilson_dslash.s
+
+# target to generate assembly for a file
+src/cuda/test_wilson_dslash.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.s
+.PHONY : src/cuda/test_wilson_dslash.cu.s
+
 src/cuda/wilson_dslash.o: src/cuda/wilson_dslash.cu.o
 .PHONY : src/cuda/wilson_dslash.o
 
@@ -243,6 +267,9 @@ help:
 	@echo "... src/cuda/qcu_cuda.o"
 	@echo "... src/cuda/qcu_cuda.i"
 	@echo "... src/cuda/qcu_cuda.s"
+	@echo "... src/cuda/test_wilson_dslash.o"
+	@echo "... src/cuda/test_wilson_dslash.i"
+	@echo "... src/cuda/test_wilson_dslash.s"
 	@echo "... src/cuda/wilson_dslash.o"
 	@echo "... src/cuda/wilson_dslash.i"
 	@echo "... src/cuda/wilson_dslash.s"
