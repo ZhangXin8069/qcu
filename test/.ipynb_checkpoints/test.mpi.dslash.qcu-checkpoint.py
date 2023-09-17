@@ -29,6 +29,7 @@ def compare(round):
     p = LatticeFermion(latt_size, cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
     Mp = LatticeFermion(latt_size)
     Mp1 = LatticeFermion(latt_size)
+    Mp2 = LatticeFermion(latt_size)
 
     print('===============round ', round, '======================')
 
@@ -56,12 +57,18 @@ def compare(round):
     t1 = perf_counter()
     pyqcu.mpiDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
     pyqcu.mpiDslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
+    pyqcu.testDslashQcu(Mp2.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
+    pyqcu.testDslashQcu(Mp2.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
+    print("######Mp[0,0,0,0]:\n",Mp.lexico()[0,0,0,0])
+    print("######Mp1[0,0,0,0]:\n",Mp1.lexico()[0,0,0,0])
+    print("######Mp2[0,0,0,0]:\n",Mp2.lexico()[0,0,0,0])
+    print("######Mp[-1,0,0,0]:\n",Mp.lexico()[-1,0,0,0])
+    print("######Mp1[-1,0,0,0]:\n",Mp1.lexico()[-1,0,0,0])
+    print("######Mp2[-1,0,0,0]:\n",Mp2.lexico()[-1,0,0,0])
     print(f'QCU dslash: {t2 - t1} sec')
-
     print('difference: ', cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
-
 
 for i in range(0, 5):
     compare(i)

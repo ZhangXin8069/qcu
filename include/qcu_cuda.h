@@ -78,3 +78,8 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_t, const int device_parity,
                       void *device_b_t_recv_vec,
                      void *device_f_t_recv_vec);
+
+__global__ void test_wilson_dslash(void *device_U, void *device_src,
+                              void *device_dest, int device_lat_x,
+                              const int device_lat_y, const int device_lat_z,
+                              const int device_lat_t, const int device_parity);
