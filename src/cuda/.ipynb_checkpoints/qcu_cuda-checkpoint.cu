@@ -215,69 +215,69 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       printf("######%d >-b_x-> %d######\n", node_rank, move_b); // debug
       printf("######%d >-f_x-> %d######\n", node_rank, move_f); // debug
     }
-    //// send y
-    //wilson_dslash_y_send<<<gridDim, blockDim>>>(
-    //    gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
-    //    b_y_send_vec, f_y_send_vec);
-    //checkCudaErrors(cudaDeviceSynchronize());
-    //if (grid_y != 1) {
-    //  move_backward(move_b, grid_index_y, grid_y);
-    //  move_forward(move_f, grid_index_y, grid_y);
-    //  move_b = node_rank + move_b * grid_z * grid_t;
-    //  move_f = node_rank + move_f * grid_z * grid_t;
-    //  MPI_Irecv(b_y_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
-    //            &b_y_recv_request);
-    //  MPI_Irecv(f_y_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
-    //            &f_y_recv_request);
-    //  MPI_Isend(b_y_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
-    //            &b_y_send_request);
-    //  MPI_Isend(f_y_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
-    //            &f_y_send_request);
-    //  printf("######%d >-b_y-> %d######\n", node_rank, move_b); // debug
-    //  printf("######%d >-f_y-> %d######\n", node_rank, move_f); // debug
-    //}
-    //// send z
-    //wilson_dslash_z_send<<<gridDim, blockDim>>>(
-    //    gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
-    //    b_z_send_vec, f_z_send_vec);
-    //checkCudaErrors(cudaDeviceSynchronize());
-    //if (grid_z != 1) {
-    //  move_backward(move_b, grid_index_z, grid_z);
-    //  move_forward(move_f, grid_index_z, grid_z);
-    //  move_b = node_rank + move_b * grid_t;
-    //  move_f = node_rank + move_f * grid_t;
-    //  MPI_Irecv(b_z_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
-    //            &b_z_recv_request);
-    //  MPI_Irecv(f_z_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
-    //            &f_z_recv_request);
-    //  MPI_Isend(b_z_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
-    //            &b_z_send_request);
-    //  MPI_Isend(f_z_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
-    //            &f_z_send_request);
-    //  printf("######%d >-b_z-> %d######\n", node_rank, move_b); // debug
-    //  printf("######%d >-f_z-> %d######\n", node_rank, move_f); // debug
-    //}
-    //// send t
-    //wilson_dslash_t_send<<<gridDim, blockDim>>>(
-    //    gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
-    //    b_t_send_vec, f_t_send_vec);
-    //checkCudaErrors(cudaDeviceSynchronize());
-    //if (grid_t != 1) {
-    //  move_backward(move_b, grid_index_t, grid_t);
-    //  move_forward(move_f, grid_index_t, grid_t);
-    //  move_b = node_rank + move_b * grid_t;
-    //  move_f = node_rank + move_f * grid_t;
-    //  MPI_Irecv(b_t_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
-    //            &b_t_recv_request);
-    //  MPI_Irecv(f_t_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
-    //            &f_t_recv_request);
-    //  MPI_Isend(b_t_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
-    //            &b_t_send_request);
-    //  MPI_Isend(f_t_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
-    //            &f_t_send_request);
-    //  printf("######%d >-b_t-> %d######\n", node_rank, move_b); // debug
-    //  printf("######%d >-f_t-> %d######\n", node_rank, move_f); // debug
-    //}
+    // send y
+    wilson_dslash_y_send<<<gridDim, blockDim>>>(
+        gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
+        b_y_send_vec, f_y_send_vec);
+    checkCudaErrors(cudaDeviceSynchronize());
+    if (grid_y != 1) {
+      move_backward(move_b, grid_index_y, grid_y);
+      move_forward(move_f, grid_index_y, grid_y);
+      move_b = node_rank + move_b * grid_z * grid_t;
+      move_f = node_rank + move_f * grid_z * grid_t;
+      MPI_Irecv(b_y_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+                &b_y_recv_request);
+      MPI_Irecv(f_y_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+                &f_y_recv_request);
+      MPI_Isend(b_y_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+                &b_y_send_request);
+      MPI_Isend(f_y_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+                &f_y_send_request);
+      printf("######%d >-b_y-> %d######\n", node_rank, move_b); // debug
+      printf("######%d >-f_y-> %d######\n", node_rank, move_f); // debug
+    }
+    // send z
+    wilson_dslash_z_send<<<gridDim, blockDim>>>(
+        gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
+        b_z_send_vec, f_z_send_vec);
+    checkCudaErrors(cudaDeviceSynchronize());
+    if (grid_z != 1) {
+      move_backward(move_b, grid_index_z, grid_z);
+      move_forward(move_f, grid_index_z, grid_z);
+      move_b = node_rank + move_b * grid_t;
+      move_f = node_rank + move_f * grid_t;
+      MPI_Irecv(b_z_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+                &b_z_recv_request);
+      MPI_Irecv(f_z_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+                &f_z_recv_request);
+      MPI_Isend(b_z_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+                &b_z_send_request);
+      MPI_Isend(f_z_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+                &f_z_send_request);
+      printf("######%d >-b_z-> %d######\n", node_rank, move_b); // debug
+      printf("######%d >-f_z-> %d######\n", node_rank, move_f); // debug
+    }
+    // send t
+    wilson_dslash_t_send<<<gridDim, blockDim>>>(
+        gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
+        b_t_send_vec, f_t_send_vec);
+    checkCudaErrors(cudaDeviceSynchronize());
+    if (grid_t != 1) {
+      move_backward(move_b, grid_index_t, grid_t);
+      move_forward(move_f, grid_index_t, grid_t);
+      move_b = node_rank + move_b * grid_t;
+      move_f = node_rank + move_f * grid_t;
+      MPI_Irecv(b_t_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+                &b_t_recv_request);
+      MPI_Irecv(f_t_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+                &f_t_recv_request);
+      MPI_Isend(b_t_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+                &b_t_send_request);
+      MPI_Isend(f_t_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+                &f_t_send_request);
+      printf("######%d >-b_t-> %d######\n", node_rank, move_b); // debug
+      printf("######%d >-f_t-> %d######\n", node_rank, move_f); // debug
+    }
     // recv x
     if (grid_x != 1) {
       MPI_Wait(&b_x_recv_request, MPI_STATUS_IGNORE);

@@ -101,17 +101,18 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp0 * I;
         }
       }
-    } else {
-      //// send in x+1 way
-      //give_ptr(src, origin_src, 12);
-      //{
-      //  // sigma src
-      //  for (int c1 = 0; c1 < 3; c1++) {
-      //    b_x_send_vec[c1] = src[c1] - src[c1 + 9] * I;
-      //    b_x_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6] * I;
-      //  }
-      //  give_ptr(origin_b_x_send_vec, b_x_send_vec, 6);
-      //}
+    }
+    if (x == 0 && move == 0) { // even-odd
+      // send in x+1 way
+      give_ptr(src, origin_src, 12);
+      {
+        // sigma src
+        for (int c1 = 0; c1 < 3; c1++) {
+          b_x_send_vec[c1] = src[c1] - src[c1 + 9] * I;
+          b_x_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6] * I;
+        }
+        give_ptr(origin_b_x_send_vec, b_x_send_vec, 6);
+      }
     }
   }
   {
@@ -136,25 +137,26 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp0 * I;
         }
       }
-    } else {
-      //// send in x-1 way
-      //tmp_U = (origin_U + (1 - parity) * lat_tzyxcc);
-      //give_u(U, tmp_U);
-      //give_ptr(src, origin_src, 12);
-      //{
-      //  // just tmp
-      //  for (int c0 = 0; c0 < 3; c0++) {
-      //    tmp0 = zero;
-      //    tmp1 = zero;
-      //    for (int c1 = 0; c1 < 3; c1++) {
-      //      tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
-      //      tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
-      //    }
-      //    f_x_send_vec[c0] = tmp0;
-      //    f_x_send_vec[c0 + 3] = tmp1;
-      //  }
-      //  give_ptr(origin_f_x_send_vec, f_x_send_vec, 6);
-      //}
+    }
+    if (x == lat_x - 1 && move == 0) { // even-odd
+      // send in x-1 way
+      tmp_U = (origin_U + (1 - parity) * lat_tzyxcc); // even-odd
+      give_u(U, tmp_U);
+      give_ptr(src, origin_src, 12);
+      {
+        // just tmp
+        for (int c0 = 0; c0 < 3; c0++) {
+          tmp0 = zero;
+          tmp1 = zero;
+          for (int c1 = 0; c1 < 3; c1++) {
+            tmp0 += (src[c1] + src[c1 + 9] * I) * U[c1 * 3 + c0].conj();
+            tmp1 += (src[c1 + 3] + src[c1 + 6] * I) * U[c1 * 3 + c0].conj();
+          }
+          f_x_send_vec[c0] = tmp0;
+          f_x_send_vec[c0 + 3] = tmp1;
+        }
+        give_ptr(origin_f_x_send_vec, f_x_send_vec, 6);
+      }
     }
   }
   // just add
@@ -362,7 +364,8 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
       }
     } else {
       // send in y-1 way
-      tmp_U = (origin_U + +lat_tzyxcc * 2 + (1 - parity) * lat_tzyxcc);
+      tmp_U =
+          (origin_U + +lat_tzyxcc * 2 + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
       {
@@ -585,7 +588,8 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
       }
     } else {
       // send in z-1 way
-      tmp_U = (origin_U + 4 * lat_tzyxcc + (1 - parity) * lat_tzyxcc);
+      tmp_U =
+          (origin_U + 4 * lat_tzyxcc + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
       {
@@ -808,7 +812,8 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
       }
     } else {
       // send in t-1 way
-      tmp_U = (origin_U + lat_tzyxcc * 6 + (1 - parity) * lat_tzyxcc);
+      tmp_U =
+          (origin_U + lat_tzyxcc * 6 + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
       {
