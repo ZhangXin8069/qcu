@@ -1,6 +1,6 @@
-profile	1.1.0	1.1.0--sm_70	cpu_arch=x86_64,gpu_arch=sm_70,cuda_version=11.6.124	# Last updated Mon Sep 18 18:20:07 2023
+profile	1.1.0	1.1.0--sm_70	cpu_arch=x86_64,gpu_arch=sm_70,cuda_version=11.6.124	# Last updated Mon Sep 18 19:17:03 2023
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
-  0.00439162	         100	         100	           2	  0.00219581	     16x32x32x64	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=0000,parity=1,topo=1111,p2p=0,gdr=0,nvshmem=0,pol=110000111100110000	# 630.35 Gflop/s, 1100.24 GB/s, tuning took 0.124165 seconds at Sun Sep 10 15:52:20 2023
+  0.00246242	         100	         100	           2	  0.00123121	      8x32x32x32	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=1001,parity=1,topo=2112,p2p=3,gdr=0,nvshmem=0,pol=110000111100110000	# 281.05 Gflop/s, 490.56 GB/s, tuning took 0.235503 seconds at Mon Sep 18 18:43:31 2023
 
-# Total time spent in asynchronous execution = 0.00439162 seconds
+# Total time spent in asynchronous execution = 0.00246242 seconds

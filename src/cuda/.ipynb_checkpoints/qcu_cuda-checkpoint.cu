@@ -265,8 +265,8 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     if (grid_t != 1) {
       move_backward(move_b, grid_index_t, grid_t);
       move_forward(move_f, grid_index_t, grid_t);
-      move_b = node_rank + move_b * grid_t;
-      move_f = node_rank + move_f * grid_t;
+      move_b = node_rank + move_b;
+      move_f = node_rank + move_f;
       MPI_Irecv(b_t_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
                 &b_t_recv_request);
       MPI_Irecv(f_t_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
@@ -335,16 +335,16 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
               .count();
       err = cudaGetLastError();
       checkCudaErrors(err);
-      printf("#######DEBUG####### \n"); // debug
-      print_tmp(b_x_send_vec, 6);       // debug
-      print_tmp(f_x_send_vec, 6);       // debug
-      print_tmp(b_y_send_vec, 6);       // debug
-      print_tmp(f_y_send_vec, 6);       // debug
-      print_tmp(b_z_send_vec, 6);       // debug
-      print_tmp(f_z_send_vec, 6);       // debug
-      print_tmp(b_t_send_vec, 6);       // debug
-      print_tmp(f_t_send_vec, 6);       // debug
-      printf("#######DEBUG####### \n"); // debug
+      //printf("#######DEBUG####### \n"); // debug
+      //print_tmp(b_x_send_vec, 6);       // debug
+      //print_tmp(f_x_send_vec, 6);       // debug
+      //print_tmp(b_y_send_vec, 6);       // debug
+      //print_tmp(f_y_send_vec, 6);       // debug
+      //print_tmp(b_z_send_vec, 6);       // debug
+      //print_tmp(f_z_send_vec, 6);       // debug
+      //print_tmp(b_t_send_vec, 6);       // debug
+      //print_tmp(f_t_send_vec, 6);       // debug
+      //printf("#######DEBUG####### \n"); // debug
       printf(
           "mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
           "sec\n",
