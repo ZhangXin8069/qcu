@@ -14,7 +14,7 @@ from pyquda.utils import gauge_utils
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 latt_size = [32, 32, 32, 64]
-grid_size = [1, 1, 1, 1]
+grid_size = [4, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
@@ -59,14 +59,14 @@ def compare(round):
     pyqcu.mpiDslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
-    pyqcu.testDslashQcu(Mp2.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
-    pyqcu.testDslashQcu(Mp2.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
-    cp.cuda.runtime.deviceSynchronize()
-    print("######quda:Mp[0,0,0,0]:\n",Mp.lexico()[0,0,0,0])
-    print("######mpi:Mp1[0,0,0,0]:\n",Mp1.lexico()[0,0,0,0])
+    # pyqcu.testDslashQcu(Mp2.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
+    # pyqcu.testDslashQcu(Mp2.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
+    # cp.cuda.runtime.deviceSynchronize()
+    # print("######quda:Mp[0,0,0,0]:\n",Mp.lexico()[0,0,0,0])
+    # print("######mpi:Mp1[0,0,0,0]:\n",Mp1.lexico()[0,0,0,0])
     # print("######test:Mp2[2,0,0,0]:\n",Mp2.lexico()[2,0,0,0])
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
 
-for i in range(0, 1):
+for i in range(0, 5):
     compare(i)

@@ -14,582 +14,207 @@ HOME:/home/aistudio/qcu
 -- Generating done
 -- Build files have been written to: /home/aistudio/qcu
 [ 16%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
-[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
+[ 83%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+[ 83%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
 [ 83%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
 [100%] Linking CUDA shared library lib/libqcu.so
 [100%] Built target qcu
 ~/qcu/test ~/qcu
 Disabling GPU-Direct RDMA access
 Enabling peer-to-peer copy engine and direct load/store access
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0, access rank = (  1)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   2 (gpu=2) dir=1, dim=0, access rank = (  1)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   1 (gpu=1) dir=0, dim=0, access rank = (  1)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   3 (gpu=3) dir=1, dim=0, access rank = (  0)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   2 (gpu=2) dir=0, dim=0, access rank = (  0)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   0 (gpu=0) dir=1, dim=0, access rank = (  1)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   3 (gpu=3) dir=0, dim=0, access rank = (  1)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0, access rank = (  1)
 QUDA 1.1.0 (git 1.1.0--sm_70)
-CUDA Driver version = 11020
+CUDA Driver version = 12000
 CUDA Runtime version = 11060
-Found device 0: Tesla V100-SXM2-16GB
-Using device 0: Tesla V100-SXM2-16GB
+Found device 0: Tesla V100-SXM2-32GB
+Found device 1: Tesla V100-SXM2-32GB
+Found device 2: Tesla V100-SXM2-32GB
+Found device 3: Tesla V100-SXM2-32GB
+Using device 0: Tesla V100-SXM2-32GB
 WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
-Loaded 328 sets of cached parameters from .cache/tunecache.tsv
-Loaded 328 sets of cached parameters from .cache/tunecache.tsv
+Loaded 414 sets of cached parameters from .cache/tunecache.tsv
+Loaded 414 sets of cached parameters from .cache/tunecache.tsv
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
 cublasCreated successfully
 ===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.007949180901050568 sec
-node_size: 1 
-node_rank: 0 
-grid:x-1, y-1, z-1, t-1 
-grid_index:x-0, y-0, z-0, t-0 
-######0 >-b_x:0-> 0######
-######0 >-f_x:1-> 0######
-######0 <-b_x:1-< 0######
-######0 <-f_x:0-< 0######
-######0 >-b_y:2-> 0######
-######0 >-f_y:3-> 0######
-######0 <-b_y:3-< 0######
-######0 <-f_y:2-< 0######
-######0 >-b_z:4-> 0######
-######0 >-f_z:5-> 0######
-######0 <-b_z:5-< 0######
-######0 <-f_z:4-< 0######
-######0 >-b_t:6-> 0######
-######0 >-f_t:7-> 0######
-######0 <-b_t:7-< 0######
-######0 <-f_t:6-< 0######
-#######SEND-DEBUG####### 
-b_x_send_vec
-############
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[-0.810548067,-2.433735538]
-[0.904566205,-1.291474535]
-[0.576858588,0.586972279]
-[-1.896220484,0.556781618]
-[1.752149755,-0.428561641]
-[-0.731818117,-0.330649500]
-f_x_send_vec
-############
-[1.288844713,-1.194601337]
-[-0.570431911,1.300501655]
-[1.293487463,2.595906912]
-[1.479533517,1.525774960]
-[-0.801298484,1.749924569]
-[0.898764213,1.275600858]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-b_y_send_vec
-############
-[1.361335201,-1.529117829]
-[-0.781021648,-0.635382205]
-[-1.558039747,-1.289915227]
-[-0.145132886,-0.183603820]
-[-0.101155744,0.005049581]
-[-2.445412519,0.917345403]
-[-1.318624382,0.064180789]
-[-0.405104656,-0.083575016]
-[1.288111268,-0.713524094]
-[0.178296190,-0.208563061]
-[-1.798092979,1.884221575]
-[-1.498256826,1.540216379]
-f_y_send_vec
-############
-[0.553872872,-1.199412779]
-[1.117944669,-0.231455386]
-[0.321000707,-0.846408742]
-[0.588368118,-0.493825527]
-[-0.215782913,-0.056290145]
-[0.342082815,-1.559564573]
-[-0.906421003,0.722803811]
-[0.770761663,-2.452798021]
-[-0.668972556,-1.370894371]
-[0.883423941,0.424464209]
-[-0.293310622,-0.209141006]
-[0.623310087,-0.645368016]
-b_z_send_vec
-############
-[0.406090215,1.014945749]
-[-0.371525025,-0.854794088]
-[-0.275418070,-2.161386200]
-[0.560310192,1.847156890]
-[0.506150376,-1.266129887]
-[0.018287781,0.006917989]
-[1.232676543,0.660683850]
-[-0.843124836,-1.853062803]
-[-1.603110132,-0.895888344]
-[-2.866076020,-1.234445367]
-[-2.531807948,1.453231868]
-[0.473831278,2.259291221]
-f_z_send_vec
-############
-[-0.125452041,-1.261655436]
-[-0.621210663,0.140334786]
-[0.852240449,2.205906974]
-[0.044323593,-0.541011271]
-[-0.621929123,1.022029537]
-[0.324453275,3.085658666]
-[1.490583711,-0.709183758]
-[0.702394976,-1.842561110]
-[-3.079870649,0.180595677]
-[-0.763301641,1.973743979]
-[-1.653340025,-1.680396956]
-[0.256629104,0.953889904]
-b_t_send_vec
-############
-[0.787642602,-0.442122364]
-[-0.354042604,-0.010593665]
-[-2.129100838,-0.679897695]
-[-2.557445984,1.978907370]
-[1.152541303,-0.231844723]
-[0.318697663,1.899557198]
-[2.290404869,-1.922463095]
-[-0.926506301,-0.900671450]
-[-1.594263030,1.267411112]
-[0.146450169,-0.669788326]
-[-1.283721806,0.198115253]
-[-2.226178770,1.349005027]
-f_t_send_vec
-############
-[-0.068824520,-0.521452439]
-[1.920569430,1.564021023]
-[1.281032234,0.174074823]
-[-0.114192884,0.072482581]
-[0.149363772,-0.195634750]
-[0.250368858,1.339728458]
-[-0.142855195,-0.021757960]
-[1.078575561,-0.734828573]
-[-0.930989009,-0.676688434]
-[1.471155363,2.504453430]
-[0.144711259,0.975891928]
-[-2.323230402,1.852779989]
-#######DEBUG-RECV####### 
-b_x_recv_vec
-############
-[1.288844713,-1.194601337]
-[-0.570431911,1.300501655]
-[1.293487463,2.595906912]
-[1.479533517,1.525774960]
-[-0.801298484,1.749924569]
-[0.898764213,1.275600858]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-f_x_recv_vec
-############
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[-0.810548067,-2.433735538]
-[0.904566205,-1.291474535]
-[0.576858588,0.586972279]
-[-1.896220484,0.556781618]
-[1.752149755,-0.428561641]
-[-0.731818117,-0.330649500]
-b_y_recv_vec
-############
-[0.553872872,-1.199412779]
-[1.117944669,-0.231455386]
-[0.321000707,-0.846408742]
-[0.588368118,-0.493825527]
-[-0.215782913,-0.056290145]
-[0.342082815,-1.559564573]
-[-0.906421003,0.722803811]
-[0.770761663,-2.452798021]
-[-0.668972556,-1.370894371]
-[0.883423941,0.424464209]
-[-0.293310622,-0.209141006]
-[0.623310087,-0.645368016]
-f_y_recv_vec
-############
-[1.361335201,-1.529117829]
-[-0.781021648,-0.635382205]
-[-1.558039747,-1.289915227]
-[-0.145132886,-0.183603820]
-[-0.101155744,0.005049581]
-[-2.445412519,0.917345403]
-[-1.318624382,0.064180789]
-[-0.405104656,-0.083575016]
-[1.288111268,-0.713524094]
-[0.178296190,-0.208563061]
-[-1.798092979,1.884221575]
-[-1.498256826,1.540216379]
-b_z_recv_vec
-############
-[-0.125452041,-1.261655436]
-[-0.621210663,0.140334786]
-[0.852240449,2.205906974]
-[0.044323593,-0.541011271]
-[-0.621929123,1.022029537]
-[0.324453275,3.085658666]
-[1.490583711,-0.709183758]
-[0.702394976,-1.842561110]
-[-3.079870649,0.180595677]
-[-0.763301641,1.973743979]
-[-1.653340025,-1.680396956]
-[0.256629104,0.953889904]
-f_z_recv_vec
-############
-[0.406090215,1.014945749]
-[-0.371525025,-0.854794088]
-[-0.275418070,-2.161386200]
-[0.560310192,1.847156890]
-[0.506150376,-1.266129887]
-[0.018287781,0.006917989]
-[1.232676543,0.660683850]
-[-0.843124836,-1.853062803]
-[-1.603110132,-0.895888344]
-[-2.866076020,-1.234445367]
-[-2.531807948,1.453231868]
-[0.473831278,2.259291221]
-b_t_recv_vec
-############
-[-0.068824520,-0.521452439]
-[1.920569430,1.564021023]
-[1.281032234,0.174074823]
-[-0.114192884,0.072482581]
-[0.149363772,-0.195634750]
-[0.250368858,1.339728458]
-[-0.142855195,-0.021757960]
-[1.078575561,-0.734828573]
-[-0.930989009,-0.676688434]
-[1.471155363,2.504453430]
-[0.144711259,0.975891928]
-[-2.323230402,1.852779989]
-f_t_recv_vec
-############
-[0.787642602,-0.442122364]
-[-0.354042604,-0.010593665]
-[-2.129100838,-0.679897695]
-[-2.557445984,1.978907370]
-[1.152541303,-0.231844723]
-[0.318697663,1.899557198]
-[2.290404869,-1.922463095]
-[-0.926506301,-0.900671450]
-[-1.594263030,1.267411112]
-[0.146450169,-0.669788326]
-[-1.283721806,0.198115253]
-[-2.226178770,1.349005027]
-mpi wilson dslash total time: (without malloc free memcpy) :0.062249976 sec
-node_size: 1 
-node_rank: 0 
-grid:x-1, y-1, z-1, t-1 
-grid_index:x-0, y-0, z-0, t-0 
-######0 >-b_x:0-> 0######
-######0 >-f_x:1-> 0######
-######0 <-b_x:1-< 0######
-######0 <-f_x:0-< 0######
-######0 >-b_y:2-> 0######
-######0 >-f_y:3-> 0######
-######0 <-b_y:3-< 0######
-######0 <-f_y:2-< 0######
-######0 >-b_z:4-> 0######
-######0 >-f_z:5-> 0######
-######0 <-b_z:5-< 0######
-######0 <-f_z:4-< 0######
-######0 >-b_t:6-> 0######
-######0 >-f_t:7-> 0######
-######0 <-b_t:7-< 0######
-######0 <-f_t:6-< 0######
-#######SEND-DEBUG####### 
-b_x_send_vec
-############
-[-1.398150055,-1.005431142]
-[2.425228329,-0.795647463]
-[-2.096470700,-2.026773893]
-[-0.518791750,1.723686674]
-[-1.452000316,-0.221405174]
-[0.793184147,-2.295041130]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-f_x_send_vec
-############
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[-0.486816553,-0.511484833]
-[-2.170575931,0.528131058]
-[-0.332182210,-3.175559056]
-[-0.043680386,-1.196805633]
-[-1.090533533,-2.416097638]
-[-0.190840117,2.293951973]
-b_y_send_vec
-############
-[-0.764537793,-1.671497879]
-[1.466103967,1.499187172]
-[-0.530343220,-3.823472601]
-[-0.774050509,-1.296488808]
-[-1.176094525,0.595961624]
-[0.763181538,-2.814849241]
-[1.577567107,1.402215155]
-[-1.096612190,0.775641868]
-[1.023703213,0.089742371]
-[-3.111951579,-1.372535907]
-[1.475643339,-2.700521637]
-[0.945762982,0.759067710]
-f_y_send_vec
-############
-[0.219573869,-3.072934815]
-[0.220330023,1.169841425]
-[0.960980299,-0.056728942]
-[1.598929075,0.443216051]
-[2.938383074,0.396865123]
-[-0.247390691,0.402692715]
-[0.642573545,-0.399316347]
-[0.568779660,-0.931559888]
-[-0.264013059,1.320175740]
-[-1.654822258,-1.746069484]
-[2.101858819,1.693786468]
-[-0.979392451,0.915106634]
-b_z_send_vec
-############
-[0.889406565,0.360799982]
-[0.251612536,-0.398522830]
-[-0.140152245,-1.897156756]
-[-1.506669370,0.325001075]
-[-2.532343520,0.717180467]
-[2.199691881,-2.655229495]
-[0.686745604,0.157410333]
-[2.885398569,1.449033724]
-[-1.913576874,0.345290767]
-[-2.040068507,0.901170061]
-[0.323390684,-1.765360753]
-[1.341761383,1.630143527]
-f_z_send_vec
-############
-[-0.872660102,1.969954041]
-[-0.373436662,2.754651444]
-[-0.923961352,-1.954691321]
-[-0.250522144,-2.364281681]
-[-0.439366877,0.586576296]
-[0.437959999,-1.429915038]
-[-1.779281240,0.194371068]
-[1.114013219,-1.549084071]
-[-0.168491406,-2.365610507]
-[-1.918285352,-0.562630878]
-[0.082353527,0.290271921]
-[0.798923878,0.664113655]
-b_t_send_vec
-############
-[0.634147806,-2.659375500]
-[0.527518326,0.418843968]
-[-0.170154855,-2.416964867]
-[-2.140281632,0.991067813]
-[-1.573219158,-1.577654169]
-[0.633564401,-0.858530786]
-[-1.163040576,0.624312047]
-[1.339635004,-1.922374353]
-[-0.950699741,1.448617904]
-[-3.535871368,-0.767554549]
-[2.086246021,-0.481366214]
-[-0.888189968,0.051738974]
-f_t_send_vec
-############
-[0.309838702,-2.093751491]
-[1.096154028,-0.465463132]
-[1.524681730,-1.060527745]
-[2.363334992,2.202314807]
-[-1.749681673,-2.009565605]
-[1.907744103,0.340249488]
-[-0.280583215,-4.197642709]
-[-1.972099965,-1.199215728]
-[0.551769038,-0.982733568]
-[1.086764923,-0.236948973]
-[0.763137186,0.453268605]
-[1.763025012,-1.098989480]
-#######DEBUG-RECV####### 
-b_x_recv_vec
-############
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[-0.486816553,-0.511484833]
-[-2.170575931,0.528131058]
-[-0.332182210,-3.175559056]
-[-0.043680386,-1.196805633]
-[-1.090533533,-2.416097638]
-[-0.190840117,2.293951973]
-f_x_recv_vec
-############
-[-1.398150055,-1.005431142]
-[2.425228329,-0.795647463]
-[-2.096470700,-2.026773893]
-[-0.518791750,1.723686674]
-[-1.452000316,-0.221405174]
-[0.793184147,-2.295041130]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-[0.000000000,0.000000000]
-b_y_recv_vec
-############
-[0.219573869,-3.072934815]
-[0.220330023,1.169841425]
-[0.960980299,-0.056728942]
-[1.598929075,0.443216051]
-[2.938383074,0.396865123]
-[-0.247390691,0.402692715]
-[0.642573545,-0.399316347]
-[0.568779660,-0.931559888]
-[-0.264013059,1.320175740]
-[-1.654822258,-1.746069484]
-[2.101858819,1.693786468]
-[-0.979392451,0.915106634]
-f_y_recv_vec
-############
-[-0.764537793,-1.671497879]
-[1.466103967,1.499187172]
-[-0.530343220,-3.823472601]
-[-0.774050509,-1.296488808]
-[-1.176094525,0.595961624]
-[0.763181538,-2.814849241]
-[1.577567107,1.402215155]
-[-1.096612190,0.775641868]
-[1.023703213,0.089742371]
-[-3.111951579,-1.372535907]
-[1.475643339,-2.700521637]
-[0.945762982,0.759067710]
-b_z_recv_vec
-############
-[-0.872660102,1.969954041]
-[-0.373436662,2.754651444]
-[-0.923961352,-1.954691321]
-[-0.250522144,-2.364281681]
-[-0.439366877,0.586576296]
-[0.437959999,-1.429915038]
-[-1.779281240,0.194371068]
-[1.114013219,-1.549084071]
-[-0.168491406,-2.365610507]
-[-1.918285352,-0.562630878]
-[0.082353527,0.290271921]
-[0.798923878,0.664113655]
-f_z_recv_vec
-############
-[0.889406565,0.360799982]
-[0.251612536,-0.398522830]
-[-0.140152245,-1.897156756]
-[-1.506669370,0.325001075]
-[-2.532343520,0.717180467]
-[2.199691881,-2.655229495]
-[0.686745604,0.157410333]
-[2.885398569,1.449033724]
-[-1.913576874,0.345290767]
-[-2.040068507,0.901170061]
-[0.323390684,-1.765360753]
-[1.341761383,1.630143527]
-b_t_recv_vec
-############
-[0.309838702,-2.093751491]
-[1.096154028,-0.465463132]
-[1.524681730,-1.060527745]
-[2.363334992,2.202314807]
-[-1.749681673,-2.009565605]
-[1.907744103,0.340249488]
-[-0.280583215,-4.197642709]
-[-1.972099965,-1.199215728]
-[0.551769038,-0.982733568]
-[1.086764923,-0.236948973]
-[0.763137186,0.453268605]
-[1.763025012,-1.098989480]
-f_t_recv_vec
-############
-[0.634147806,-2.659375500]
-[0.527518326,0.418843968]
-[-0.170154855,-2.416964867]
-[-2.140281632,0.991067813]
-[-1.573219158,-1.577654169]
-[0.633564401,-0.858530786]
-[-1.163040576,0.624312047]
-[1.339635004,-1.922374353]
-[-0.950699741,1.448617904]
-[-3.535871368,-0.767554549]
-[2.086246021,-0.481366214]
-[-0.888189968,0.051738974]
-mpi wilson dslash total time: (without malloc free memcpy) :0.062023840 sec
-test wilson dslash total time: (without malloc free memcpy) : 0.003145333 sec
-test wilson dslash total time: (without malloc free memcpy) : 0.003139495 sec
-######quda:Mp[0,0,0,0]:
- [[-0.83636446-7.36903921j  2.5688137 +2.32778486j  2.64765841+4.15616946j]
- [-0.9460951 +3.54534997j  2.21041455-0.81958623j -0.56599714+4.19302639j]
- [-0.25077336-3.02564106j  0.26067382+2.87360396j  7.72473611-2.39121745j]
- [-2.25484402-3.96518344j -3.22027618-1.93046334j -3.05542978+2.66309848j]]
-######mpi:Mp1[0,0,0,0]:
- [[-0.83636446-7.36903921j  2.5688137 +2.32778486j  2.64765841+4.15616946j]
- [-0.9460951 +3.54534997j  2.21041455-0.81958623j -0.56599714+4.19302639j]
- [-0.25077336-3.02564106j  0.26067382+2.87360396j  7.72473611-2.39121745j]
- [-2.25484402-3.96518344j -3.22027618-1.93046334j -3.05542978+2.66309848j]]
-QCU dslash: 0.1395595595240593 sec
-quda difference:  2.7597266624266486e-16
+Quda dslash: 0.0044132310431450605 sec
+Quda dslash: 0.004395317984744906 sec
+Quda dslash: 0.00441646808758378 sec
+Quda dslash: 0.004394565941765904 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020442761 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020389262 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020632476 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020889891 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020170629 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019713821 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020024539 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020522433 sec
+QCU dslash: 0.055545692797750235 sec
+QCU dslash: 0.0556544940918684 sec
+QCU dslash: 0.05576953897252679 sec
+QCU dslash: 0.05586127401329577 sec
+quda difference:  quda difference:  2.7641676341046426e-16
+2.763853167626254e-16
+quda difference:  quda difference:  ===============round  1 =====================================round  1
+ ======================
+2.7639463085525666e-16
+2.763847704771942e-16
+===============round  1 ======================
+===============round  1 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0029438259080052376 sec
+Quda dslash: 0.0029206641484051943 sec
+Quda dslash: 0.002932783914729953 sec
+Quda dslash: 0.002941196085885167 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020248425 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020248356 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020385757 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020551614 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019902257 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019825297 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020082085 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019989353 sec
+QCU dslash: 0.04649884579703212 sec
+QCU dslash: 0.04656798602081835 sec
+QCU dslash: 0.04657725105062127 sec
+QCU dslash: 0.04667816311120987 sec
+quda difference:  quda difference:  quda difference:  quda difference:  2.765152838396905e-16
+2.764292157898798e-16
+2.763466702394934e-16
+2.763514345119391e-16
+===============round  2 ======================
+===============round  ===============round  2 ======================2 ======================
+
+===============round  2 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0030979930888861418 sec
+Quda dslash: 0.0034705239813774824 sec
+Quda dslash: 0.0032580678816884756 sec
+Quda dslash: 0.0030049679335206747 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.021310553 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.021366495 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.021447390 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.021603776 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019798772 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019882163 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019851114 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019905402 sec
+QCU dslash: 0.04734237911179662 sec
+QCU dslash: 0.047537824138998985 sec
+QCU dslash: 0.047573120100423694 sec
+quda difference:  QCU dslash: 0.04779885313473642 sec
+quda difference:  quda difference:  quda difference:  2.76474678543452e-16
+===============round  3 ======================
+2.7645045243954456e-16
+2.7636665306693466e-16
+===============round  3 ===============round  ======================
+3 ======================
+2.7647482647032087e-16
+===============round  3 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0029033569153398275 sec
+Quda dslash: 0.00289238803088665 sec
+Quda dslash: 0.0028771839570254087 sec
+Quda dslash: 0.002886453177779913 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019655840 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019899654 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019927443 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019924623 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020011032 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020085047 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020097400 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.020368717 sec
+QCU dslash: 0.04628440295346081 sec
+QCU dslash: 0.04637451493181288 sec
+QCU dslash: 0.04649445484392345 sec
+QCU dslash: 0.046569077065214515 sec
+quda difference:  quda difference:  quda difference:  quda difference:  2.764157701803535e-16
+2.7634803206403154e-16
+2.7635426570820063e-16
+===============round  4 ======================
+===============round  4 ======================
+2.764779666568148e-16
+===============round  4 ======================
+===============round  4 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0028917999006807804 sec
+Quda dslash: 0.0028988681733608246 sec
+Quda dslash: 0.0028848329093307257 sec
+Quda dslash: 0.0029055869672447443 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019620762 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019884889 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019867468 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019894173 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019675476 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019430859 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019664684 sec
+mpi wilson dslash total time: (without malloc free memcpy) :0.019936973 sec
+QCU dslash: 0.04551675613038242 sec
+QCU dslash: 0.04563715914264321 sec
+QCU dslash: 0.04585502087138593 sec
+quda difference:  QCU dslash: 0.04591646511107683 sec
+quda difference:  quda difference:  quda difference:  2.764384595533297e-16
+2.764585170995314e-16
+2.7635316529634977e-16
+2.7649581100550723e-16
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
-Saving 20 sets of cached parameters to .cache/profile_0.tsv
+Saving 21 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =     6.634 secs
-                     init     =     6.634 secs ( 99.997%),	 with        2 calls at 3.317e+06 us per call
-        total accounted       =     6.634 secs ( 99.997%)
+               initQuda Total time =     5.681 secs
+                     init     =     5.681 secs ( 99.997%),	 with        2 calls at 2.841e+06 us per call
+        total accounted       =     5.681 secs ( 99.997%)
         total missing         =     0.000 secs (  0.003%)
 
-          loadGaugeQuda Total time =     0.073 secs
-                 download     =     0.052 secs ( 71.771%),	 with        2 calls at 2.602e+04 us per call
-                   upload     =     0.008 secs ( 11.641%),	 with        1 calls at 8.441e+03 us per call
-                     init     =     0.004 secs (  6.171%),	 with        2 calls at 2.238e+03 us per call
-                  compute     =     0.007 secs ( 10.293%),	 with        2 calls at 3.732e+03 us per call
-                     free     =     0.000 secs (  0.029%),	 with        2 calls at 1.050e+01 us per call
-        total accounted       =     0.072 secs ( 99.905%)
-        total missing         =     0.000 secs (  0.095%)
+          loadGaugeQuda Total time =     0.100 secs
+                 download     =     0.070 secs ( 70.204%),	 with       10 calls at 7.020e+03 us per call
+                   upload     =     0.010 secs (  9.590%),	 with        5 calls at 1.918e+03 us per call
+                     init     =     0.010 secs ( 10.477%),	 with       10 calls at 1.048e+03 us per call
+                  compute     =     0.010 secs (  9.575%),	 with       10 calls at 9.575e+02 us per call
+                     free     =     0.000 secs (  0.038%),	 with       10 calls at 3.800e+00 us per call
+        total accounted       =     0.100 secs ( 99.884%)
+        total missing         =     0.000 secs (  0.116%)
 
-             dslashQuda Total time =     0.002 secs
-                 download     =     0.001 secs ( 25.548%),	 with        2 calls at 3.030e+02 us per call
-                   upload     =     0.000 secs (  0.927%),	 with        2 calls at 1.100e+01 us per call
-                     init     =     0.000 secs (  2.192%),	 with        2 calls at 2.600e+01 us per call
-                  compute     =     0.002 secs ( 70.995%),	 with        2 calls at 8.420e+02 us per call
-                     free     =     0.000 secs (  0.169%),	 with        2 calls at 2.000e+00 us per call
-        total accounted       =     0.002 secs ( 99.831%)
-        total missing         =     0.000 secs (  0.169%)
+             dslashQuda Total time =     0.005 secs
+                 download     =     0.001 secs ( 13.122%),	 with       10 calls at 6.090e+01 us per call
+                   upload     =     0.000 secs (  6.443%),	 with       10 calls at 2.990e+01 us per call
+                     init     =     0.000 secs (  4.460%),	 with       10 calls at 2.070e+01 us per call
+                  compute     =     0.003 secs ( 75.393%),	 with       10 calls at 3.499e+02 us per call
+                     free     =     0.000 secs (  0.280%),	 with       10 calls at 1.300e+00 us per call
+        total accounted       =     0.005 secs ( 99.698%)
+        total missing         =     0.000 secs (  0.302%)
 
-                endQuda Total time =     0.011 secs
+                endQuda Total time =     0.017 secs
 
-       initQuda-endQuda Total time =     8.446 secs
+       initQuda-endQuda Total time =     6.344 secs
 
-                   QUDA Total time =     6.761 secs
-                 download     =     0.053 secs (  0.779%),	 with        4 calls at 1.316e+04 us per call
-                   upload     =     0.008 secs (  0.125%),	 with        3 calls at 2.822e+03 us per call
-                     init     =     6.638 secs ( 98.181%),	 with        6 calls at 1.106e+06 us per call
-                  compute     =     0.051 secs (  0.755%),	 with        5 calls at 1.022e+04 us per call
-                     free     =     0.000 secs (  0.000%),	 with        4 calls at 6.250e+00 us per call
-        total accounted       =     6.750 secs ( 99.841%)
-        total missing         =     0.011 secs (  0.159%)
+                   QUDA Total time =     5.861 secs
+                 download     =     0.071 secs (  1.208%),	 with       20 calls at 3.541e+03 us per call
+                   upload     =     0.010 secs (  0.169%),	 with       15 calls at 6.592e+02 us per call
+                     init     =     5.692 secs ( 97.116%),	 with       22 calls at 2.587e+05 us per call
+                  compute     =     0.071 secs (  1.217%),	 with       25 calls at 2.854e+03 us per call
+                     free     =     0.000 secs (  0.001%),	 with       20 calls at 2.500e+00 us per call
+        total accounted       =     5.844 secs ( 99.712%)
+        total missing         =     0.017 secs (  0.288%)
 
-Device memory used = 2743.5 MiB
-Pinned device memory used = 0.0 MiB
+Device memory used = 722.6 MiB
+Pinned device memory used = 39.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
-Page-locked host memory used = 84.0 MiB
-Total host memory used >= 115.5 MiB
+Page-locked host memory used = 39.0 MiB
+Total host memory used >= 53.6 MiB
 
 ~/qcu

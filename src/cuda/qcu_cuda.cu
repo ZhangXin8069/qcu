@@ -145,12 +145,6 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     const int grid_index_y = node_rank / grid_t / grid_z % grid_y;
     const int grid_index_z = node_rank / grid_t % grid_z;
     const int grid_index_t = node_rank % grid_t;
-    printf("node_size: %d \n", node_size); // debug
-    printf("node_rank: %d \n", node_rank); // debug
-    printf("grid:x-%d, y-%d, z-%d, t-%d \n", grid_x, grid_y, grid_z,
-           grid_t); // debug
-    printf("grid_index:x-%d, y-%d, z-%d, t-%d \n", grid_index_x, grid_index_y,
-           grid_index_z, grid_index_t); // debug
     MPI_Request b_x_send_request, b_x_recv_request;
     MPI_Request f_x_send_request, f_x_recv_request;
     MPI_Request b_y_send_request, b_y_recv_request;
