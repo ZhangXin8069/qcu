@@ -1,3 +1,4 @@
+#pragma optimize(5)
 #pragma once
 
 #ifdef __cplusplus

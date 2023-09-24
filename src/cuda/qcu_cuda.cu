@@ -1,3 +1,4 @@
+#pragma optimize(5)
 #include "../../include/qcu.h"
 #include "../../include/qcu_cuda.h"
 #include <chrono>
@@ -120,6 +121,14 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   const int lat_y = param->lattice_size[1];
   const int lat_z = param->lattice_size[2];
   const int lat_t = param->lattice_size[3];
+  const int lat_yzt6 = lat_y * lat_z * lat_t * 6;
+  const int lat_xzt6 = lat_x * lat_z * lat_t * 6;
+  const int lat_xyt6 = lat_x * lat_y * lat_t * 6;
+  const int lat_xyz6 = lat_x * lat_y * lat_z * 6;
+  const int lat_yzt12 = lat_yzt6 * 2;
+  const int lat_xzt12 = lat_xzt6 * 2;
+  const int lat_xyt12 = lat_xyt6 * 2;
+  const int lat_xyz12 = lat_xyz6 * 2;
   cudaError_t err;
   dim3 gridDim(lat_x * lat_y * lat_z * lat_t / BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
@@ -158,38 +167,22 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     void *f_z_send_vec, *f_z_recv_vec;
     void *b_t_send_vec, *b_t_recv_vec;
     void *f_t_send_vec, *f_t_recv_vec;
-    cudaMallocManaged(&b_x_send_vec,
-                      lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_x_send_vec,
-                      lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_y_send_vec,
-                      lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_y_send_vec,
-                      lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_z_send_vec,
-                      lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_z_send_vec,
-                      lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_t_send_vec,
-                      lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_t_send_vec,
-                      lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_x_recv_vec,
-                      lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_x_recv_vec,
-                      lat_t * lat_z * lat_y * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_y_recv_vec,
-                      lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_y_recv_vec,
-                      lat_t * lat_z * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_z_recv_vec,
-                      lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_z_recv_vec,
-                      lat_t * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&b_t_recv_vec,
-                      lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
-    cudaMallocManaged(&f_t_recv_vec,
-                      lat_z * lat_y * lat_x * 6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_x_send_vec, lat_yzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_x_send_vec, lat_yzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_y_send_vec, lat_xzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_y_send_vec, lat_xzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_z_send_vec, lat_xyt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_z_send_vec, lat_xyt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_t_send_vec, lat_xyz6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_t_send_vec, lat_xyz6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_x_recv_vec, lat_yzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_x_recv_vec, lat_yzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_y_recv_vec, lat_xzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_y_recv_vec, lat_xzt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_z_recv_vec, lat_xyt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_z_recv_vec, lat_xyt6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&b_t_recv_vec, lat_xyz6 * sizeof(LatticeComplex));
+    cudaMallocManaged(&f_t_recv_vec, lat_xyz6 * sizeof(LatticeComplex));
     auto start = std::chrono::high_resolution_clock::now();
     // clean
     wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_x, lat_y,
@@ -198,85 +191,77 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     wilson_dslash_x_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_x_send_vec, f_x_send_vec);
-    checkCudaErrors(cudaDeviceSynchronize());
     if (grid_x != 1) {
+      checkCudaErrors(cudaDeviceSynchronize());
       move_backward(move_b, grid_index_x, grid_x);
       move_forward(move_f, grid_index_x, grid_x);
       move_b = node_rank + move_b * grid_y * grid_z * grid_t;
       move_f = node_rank + move_f * grid_y * grid_z * grid_t;
-      MPI_Irecv(b_x_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Irecv(b_x_recv_vec, lat_yzt12, MPI_DOUBLE, move_b, 1, MPI_COMM_WORLD,
                 &b_x_recv_request);
-      MPI_Irecv(f_x_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Irecv(f_x_recv_vec, lat_yzt12, MPI_DOUBLE, move_f, 0, MPI_COMM_WORLD,
                 &f_x_recv_request);
-      MPI_Isend(b_x_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Isend(b_x_send_vec, lat_yzt12, MPI_DOUBLE, move_b, 0, MPI_COMM_WORLD,
                 &b_x_send_request);
-      MPI_Isend(f_x_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Isend(f_x_send_vec, lat_yzt12, MPI_DOUBLE, move_f, 1, MPI_COMM_WORLD,
                 &f_x_send_request);
-      printf("######%d >-b_x-> %d######\n", node_rank, move_b); // debug
-      printf("######%d >-f_x-> %d######\n", node_rank, move_f); // debug
     }
     // send y
     wilson_dslash_y_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_y_send_vec, f_y_send_vec);
-    checkCudaErrors(cudaDeviceSynchronize());
     if (grid_y != 1) {
+      checkCudaErrors(cudaDeviceSynchronize());
       move_backward(move_b, grid_index_y, grid_y);
       move_forward(move_f, grid_index_y, grid_y);
       move_b = node_rank + move_b * grid_z * grid_t;
       move_f = node_rank + move_f * grid_z * grid_t;
-      MPI_Irecv(b_y_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Irecv(b_y_recv_vec, lat_xzt12, MPI_DOUBLE, move_b, 3, MPI_COMM_WORLD,
                 &b_y_recv_request);
-      MPI_Irecv(f_y_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Irecv(f_y_recv_vec, lat_xzt12, MPI_DOUBLE, move_f, 2, MPI_COMM_WORLD,
                 &f_y_recv_request);
-      MPI_Isend(b_y_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Isend(b_y_send_vec, lat_xzt12, MPI_DOUBLE, move_b, 2, MPI_COMM_WORLD,
                 &b_y_send_request);
-      MPI_Isend(f_y_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Isend(f_y_send_vec, lat_xzt12, MPI_DOUBLE, move_f, 3, MPI_COMM_WORLD,
                 &f_y_send_request);
-      printf("######%d >-b_y-> %d######\n", node_rank, move_b); // debug
-      printf("######%d >-f_y-> %d######\n", node_rank, move_f); // debug
     }
     // send z
     wilson_dslash_z_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_z_send_vec, f_z_send_vec);
-    checkCudaErrors(cudaDeviceSynchronize());
     if (grid_z != 1) {
+      checkCudaErrors(cudaDeviceSynchronize());
       move_backward(move_b, grid_index_z, grid_z);
       move_forward(move_f, grid_index_z, grid_z);
       move_b = node_rank + move_b * grid_t;
       move_f = node_rank + move_f * grid_t;
-      MPI_Irecv(b_z_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Irecv(b_z_recv_vec, lat_xyt12, MPI_DOUBLE, move_b, 5, MPI_COMM_WORLD,
                 &b_z_recv_request);
-      MPI_Irecv(f_z_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Irecv(f_z_recv_vec, lat_xyt12, MPI_DOUBLE, move_f, 4, MPI_COMM_WORLD,
                 &f_z_recv_request);
-      MPI_Isend(b_z_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Isend(b_z_send_vec, lat_xyt12, MPI_DOUBLE, move_b, 4, MPI_COMM_WORLD,
                 &b_z_send_request);
-      MPI_Isend(f_z_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Isend(f_z_send_vec, lat_xyt12, MPI_DOUBLE, move_f, 5, MPI_COMM_WORLD,
                 &f_z_send_request);
-      printf("######%d >-b_z-> %d######\n", node_rank, move_b); // debug
-      printf("######%d >-f_z-> %d######\n", node_rank, move_f); // debug
     }
     // send t
     wilson_dslash_t_send<<<gridDim, blockDim>>>(
         gauge, fermion_in, fermion_out, lat_x, lat_y, lat_z, lat_t, parity,
         b_t_send_vec, f_t_send_vec);
-    checkCudaErrors(cudaDeviceSynchronize());
     if (grid_t != 1) {
+      checkCudaErrors(cudaDeviceSynchronize());
       move_backward(move_b, grid_index_t, grid_t);
       move_forward(move_f, grid_index_t, grid_t);
       move_b = node_rank + move_b;
       move_f = node_rank + move_f;
-      MPI_Irecv(b_t_recv_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Irecv(b_t_recv_vec, lat_xyz12, MPI_DOUBLE, move_b, 7, MPI_COMM_WORLD,
                 &b_t_recv_request);
-      MPI_Irecv(f_t_recv_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Irecv(f_t_recv_vec, lat_xyz12, MPI_DOUBLE, move_f, 6, MPI_COMM_WORLD,
                 &f_t_recv_request);
-      MPI_Isend(b_t_send_vec, 12, MPI_DOUBLE, move_b, move_b, MPI_COMM_WORLD,
+      MPI_Isend(b_t_send_vec, lat_xyz12, MPI_DOUBLE, move_b, 6, MPI_COMM_WORLD,
                 &b_t_send_request);
-      MPI_Isend(f_t_send_vec, 12, MPI_DOUBLE, move_f, node_rank, MPI_COMM_WORLD,
+      MPI_Isend(f_t_send_vec, lat_xyz12, MPI_DOUBLE, move_f, 7, MPI_COMM_WORLD,
                 &f_t_send_request);
-      printf("######%d >-b_t-> %d######\n", node_rank, move_b); // debug
-      printf("######%d >-f_t-> %d######\n", node_rank, move_f); // debug
     }
     // recv x
     if (grid_x != 1) {
@@ -286,9 +271,10 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_x_recv_vec, f_x_recv_vec);
     } else {
-      wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-          gauge, fermion_out, lat_x, lat_y, lat_z, lat_t, parity, f_x_send_vec,
-          b_x_send_vec); // debug
+      checkCudaErrors(cudaDeviceSynchronize());
+      wilson_dslash_x_recv<<<gridDim, blockDim>>>(gauge, fermion_out, lat_x,
+                                                  lat_y, lat_z, lat_t, parity,
+                                                  f_x_send_vec, b_x_send_vec);
     }
     // recv y
     if (grid_y != 1) {
@@ -298,6 +284,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_y_recv_vec, f_y_recv_vec);
     } else {
+      checkCudaErrors(cudaDeviceSynchronize());
       wilson_dslash_y_recv<<<gridDim, blockDim>>>(gauge, fermion_out, lat_x,
                                                   lat_y, lat_z, lat_t, parity,
                                                   f_y_send_vec, b_y_send_vec);
@@ -310,6 +297,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_z_recv_vec, f_z_recv_vec);
     } else {
+      checkCudaErrors(cudaDeviceSynchronize());
       wilson_dslash_z_recv<<<gridDim, blockDim>>>(gauge, fermion_out, lat_x,
                                                   lat_y, lat_z, lat_t, parity,
                                                   f_z_send_vec, b_z_send_vec);
@@ -322,6 +310,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                                                   lat_y, lat_z, lat_t, parity,
                                                   b_t_recv_vec, f_t_recv_vec);
     } else {
+      checkCudaErrors(cudaDeviceSynchronize());
       wilson_dslash_t_recv<<<gridDim, blockDim>>>(gauge, fermion_out, lat_x,
                                                   lat_y, lat_z, lat_t, parity,
                                                   f_t_send_vec, b_t_send_vec);
@@ -335,16 +324,6 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
               .count();
       err = cudaGetLastError();
       checkCudaErrors(err);
-      //printf("#######DEBUG####### \n"); // debug
-      //print_tmp(b_x_send_vec, 6);       // debug
-      //print_tmp(f_x_send_vec, 6);       // debug
-      //print_tmp(b_y_send_vec, 6);       // debug
-      //print_tmp(f_y_send_vec, 6);       // debug
-      //print_tmp(b_z_send_vec, 6);       // debug
-      //print_tmp(f_z_send_vec, 6);       // debug
-      //print_tmp(b_t_send_vec, 6);       // debug
-      //print_tmp(f_t_send_vec, 6);       // debug
-      //printf("#######DEBUG####### \n"); // debug
       printf(
           "mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
           "sec\n",
