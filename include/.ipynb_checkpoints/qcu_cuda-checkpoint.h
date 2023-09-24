@@ -1,3 +1,4 @@
+#pragma optimize(5)
 #include "./define.h"
 #include "./lattice_complex.h"
 #include <cuda.h>

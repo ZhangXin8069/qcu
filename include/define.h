@@ -1,3 +1,4 @@
+#pragma optimize(5)
 #include <cstdio>
 #include <random>
 #define BLOCK_SIZE 256

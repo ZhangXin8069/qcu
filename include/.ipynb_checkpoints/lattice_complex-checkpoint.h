@@ -1,3 +1,4 @@
+#pragma optimize(5)
 #include <cmath>
 struct LatticeComplex {
   double real;
