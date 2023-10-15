@@ -2,6 +2,24 @@
 #include <cstdio>
 #include <random>
 #define BLOCK_SIZE 256
+#define FORWARD 1
+#define NONEWARD 0
+#define BACKWARD -1
+#define LAT_C 3
+#define LAT_S 4
+#define LAT_D 4
+#define X 0
+#define Y 1
+#define Z 2
+#define T 3
+
+// #define DEBUG
+
+#ifdef DEBUG
+#define NOTE 666
+cout << "\033[31m" << str << "\033[0m" << endl;
+cout << "\033[32m" << str << "\033[0m" << endl;
+#endif
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (err != cudaSuccess) {                                                  \
@@ -259,3 +277,124 @@
 
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
+
+
+#ifdef JOD557
+#define make_clover_f(move, x, lat_x
+,lat_y
+,lat_z
+,lat_t, eo, parity)
+{
+  // XY
+  give_value(U, zero, 9);
+  {
+    //// x,y,z,t;x
+    tmp_U = (origin_U + parity * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    //// x+1,y,z,t;y
+    move_forward_x(move0, x, lat_x, eo, parity);
+    tmp_U = (origin_U + move0 * 9 + lat_tzyxcc * 2 + (1 - parity) * lat_tzyxcc);
+    give_u(tmp2, tmp_U);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y+1,z,t;x;dag
+    move_forward(move0, y, lat_y);
+    tmp_U = (origin_U + move0 * lat_xcc + (1 - parity) * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;y;dag
+    tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_ptr(U, tmp3, 9);
+  {
+    //// x,y,z,t;y
+    tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    //// x-1,y+1,z,t;x;dag
+    move_backward_x(move0, x, lat_x, eo, parity);
+    move_forward(move1, y, lat_y);
+    tmp_U = (origin_U + move0 * 9 + move1 * lat_xcc + parity * lat_tzyxcc);
+    give_u(tmp2, tmp_U);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x-1,y,z,t;y;dag
+    move_backward_x(move0, x, lat_x, eo, parity);
+    tmp_U = (origin_U + move0 * 9 + lat_tzyxcc * 2 + (1 - parity) * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x-1,y,z,t;x
+    move_backward_x(move0, x, lat_x, eo, parity);
+    tmp_U = (origin_U + move0 * 9 + (1 - parity) * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_ptr(U, tmp3, 9);
+  {
+    //// x-1,y,z,t;x;dag
+    move_backward_x(move0, x, lat_x, eo, parity);
+    tmp_U = (origin_U + move0 * 9 + (1 - parity) * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    //// x-1,y-1,z,t;y;dag
+    move_backward_x(move0, x, lat_x, eo, parity);
+    move_backward(move1, y, lat_y);
+    tmp_U = (origin_U + move0 * 9 + move1 * lat_xcc + lat_tzyxcc * 2 +
+             parity * lat_tzyxcc);
+    give_u(tmp2, tmp_U);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x-1,y-1,z,t;x
+    move_backward_x(move0, x, lat_x, eo, parity);
+    move_backward(move1, y, lat_y);
+    tmp_U = (origin_U + move0 * 9 + move1 * lat_xcc + parity * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y-1,z,t;y
+    move_backward(move0, y, lat_y);
+    tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
+             (1 - parity) * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_ptr(U, tmp3, 9);
+  {
+    //// x,y-1,z,t;y;dag
+    move_backward(move0, y, lat_y);
+    tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
+             (1 - parity) * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    //// x,y-1,z,t;x
+    move_backward(move0, y, lat_y);
+    tmp_U = (origin_U + move0 * lat_xcc + (1 - parity) * lat_tzyxcc);
+    give_u(tmp2, tmp_U);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x+1,y-1,z,t;y
+    move_forward_x(move0, x, lat_x, eo, parity);
+    move_backward(move1, y, lat_y);
+    tmp_U = (origin_U + move0 * 9 + move1 * lat_xcc + lat_tzyxcc * 2 +
+             parity * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;x;dag
+    tmp_U = (origin_U + parity * lat_tzyxcc);
+    give_u(tmp1, tmp_U);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_ptr(U, tmp3, 9);
+}
+
+#endif

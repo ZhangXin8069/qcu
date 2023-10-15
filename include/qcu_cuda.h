@@ -1,8 +1,11 @@
 #pragma optimize(5)
 #include "./define.h"
 #include "./lattice_complex.h"
+#include "./lattice_point.h"
+#include "./lattice_param.h"
 #include <cuda.h>
 #include <mpi.h>
+
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
