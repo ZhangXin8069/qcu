@@ -8,6 +8,7 @@
 #define LAT_C 3
 #define LAT_S 4
 #define LAT_D 4
+#define DIM 4
 #define X 0
 #define Y 1
 #define Z 2

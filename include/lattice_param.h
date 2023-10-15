@@ -4,20 +4,10 @@
 
 struct LatticeParam {
 
-int lat_x;
-int lat_y;
-int lat_z;
-int lat_t;
-int grid_x;
-int grid_y;
-int grid_z;
-int grid_t;
-int x;
-int y;
-int z;
-int t;
-  __device__ LatticeParam()
-      : real(real), imag(imag) {}
+  int papram[12];       // grid,lat,index
+  int fact_index[2];    // U,scr(dest)
+  int change_papram[2]; // parity,eo
+  __device__ LatticeParam() : real(real), imag(imag) {}
   __device__ LatticeParam &operator=(const LatticeParam &other) {
     real = other.real;
     imag = other.imag;
