@@ -153,6 +153,30 @@ src/cuda/clover_dslash.cu.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.s
 .PHONY : src/cuda/clover_dslash.cu.s
 
+src/cuda/mpi_wilson_cg.o: src/cuda/mpi_wilson_cg.cu.o
+.PHONY : src/cuda/mpi_wilson_cg.o
+
+# target to build an object file
+src/cuda/mpi_wilson_cg.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o
+.PHONY : src/cuda/mpi_wilson_cg.cu.o
+
+src/cuda/mpi_wilson_cg.i: src/cuda/mpi_wilson_cg.cu.i
+.PHONY : src/cuda/mpi_wilson_cg.i
+
+# target to preprocess a source file
+src/cuda/mpi_wilson_cg.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.i
+.PHONY : src/cuda/mpi_wilson_cg.cu.i
+
+src/cuda/mpi_wilson_cg.s: src/cuda/mpi_wilson_cg.cu.s
+.PHONY : src/cuda/mpi_wilson_cg.s
+
+# target to generate assembly for a file
+src/cuda/mpi_wilson_cg.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.s
+.PHONY : src/cuda/mpi_wilson_cg.cu.s
+
 src/cuda/mpi_wilson_dslash.o: src/cuda/mpi_wilson_dslash.cu.o
 .PHONY : src/cuda/mpi_wilson_dslash.o
 
@@ -261,6 +285,9 @@ help:
 	@echo "... src/cuda/clover_dslash.o"
 	@echo "... src/cuda/clover_dslash.i"
 	@echo "... src/cuda/clover_dslash.s"
+	@echo "... src/cuda/mpi_wilson_cg.o"
+	@echo "... src/cuda/mpi_wilson_cg.i"
+	@echo "... src/cuda/mpi_wilson_cg.s"
 	@echo "... src/cuda/mpi_wilson_dslash.o"
 	@echo "... src/cuda/mpi_wilson_dslash.i"
 	@echo "... src/cuda/mpi_wilson_dslash.s"

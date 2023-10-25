@@ -1,4 +1,4 @@
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda.cu \
+CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o : /home/aistudio/qcu/src/cuda/mpi_wilson_cg.cu \
     /usr/include/stdc-predef.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/host_config.h \
@@ -163,12 +163,8 @@ CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda
     /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_indirect_functions.h \
     /usr/local/cuda/bin/../targets/x86_64-linux/include/device_launch_parameters.h \
-    /home/aistudio/qcu/src/cuda/../../include/qcu.h \
-    /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
-    /home/aistudio/qcu/src/cuda/../../include/./define.h \
-    /usr/include/c++/9/complex \
-    /usr/include/c++/9/sstream \
-    /usr/include/c++/9/istream \
+    /usr/include/c++/9/iostream \
+    /usr/include/c++/9/ostream \
     /usr/include/c++/9/ios \
     /usr/include/c++/9/iosfwd \
     /usr/include/c++/9/bits/stringfwd.h \
@@ -256,9 +252,14 @@ CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda
     /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_inline.h \
     /usr/include/c++/9/bits/locale_facets.tcc \
     /usr/include/c++/9/bits/basic_ios.tcc \
-    /usr/include/c++/9/ostream \
     /usr/include/c++/9/bits/ostream.tcc \
+    /usr/include/c++/9/istream \
     /usr/include/c++/9/bits/istream.tcc \
+    /home/aistudio/qcu/src/cuda/../../include/qcu.h \
+    /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
+    /home/aistudio/qcu/src/cuda/../../include/./define.h \
+    /usr/include/c++/9/complex \
+    /usr/include/c++/9/sstream \
     /usr/include/c++/9/bits/sstream.tcc \
     /usr/include/c++/9/random \
     /usr/include/c++/9/limits \
@@ -291,7 +292,6 @@ CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o : /home/aistudio/qcu/src/cuda/qcu_cuda
     /usr/include/c++/9/bits/invoke.h \
     /usr/include/c++/9/bits/stl_multimap.h \
     /usr/include/c++/9/bits/erase_if.h \
-    /usr/include/c++/9/iostream \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/constants.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/functions.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/datatype.h \
