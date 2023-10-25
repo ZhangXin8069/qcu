@@ -346,7 +346,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 }
 
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
-           int parity, QcuParam *grid) {
+              int parity, QcuParam *grid) {
   const int lat_x = param->lattice_size[0] >> 1;
   const int lat_y = param->lattice_size[1];
   const int lat_z = param->lattice_size[2];
@@ -430,8 +430,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp0(0.0, 0.0);
     LatticeComplex tmp1(0.0, 0.0);
     LatticeComplex r_norm2(0.0, 0.0);
-    double r_norm2 = 0;
-    double local_result = 0;
+    LatticeComplex local_result = 0;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
     give_value(x, zero, lat_xyzt12);
@@ -439,9 +438,9 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     // give_rand(b, lat_xyzt12); // rand source
     give_ptr(r, b, lat_xyzt12);
     give_ptr(r_tilde, r, lat_xyzt12);
-    for (int i = 0; i < MAX_ITER; i++) {
+    for (int loop = 0; loop < MAX_ITER; loop++) {
       {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < lat_xyzt12; i++) {
           local_result = r_tilde[i].conj() * r[i];
         }
         MPI_Allreduce(&local_result, &rho, 2, MPI_DOUBLE, MPI_SUM,
@@ -591,7 +590,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         MPI_Barrier(MPI_COMM_WORLD);
       }
       {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < lat_xyzt12; i++) {
           local_result = r_tilde[i].conj() * v[i];
         }
         MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,
@@ -603,7 +602,6 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         s[i] = r[i] - v[i] * alpha;
       }
       // t = A * s;
-      dslash(U, s, t, test);
       cg_in = s;
       cg_out = t;
       // mpi_wilson_dslash
@@ -742,7 +740,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         MPI_Barrier(MPI_COMM_WORLD);
       }
       {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < lat_xyzt12; i++) {
           local_result = t[i].conj() * s[i];
         }
         MPI_Allreduce(&local_result, &tmp0, 2, MPI_DOUBLE, MPI_SUM,
@@ -750,7 +748,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         MPI_Barrier(MPI_COMM_WORLD);
       }
       {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < lat_xyzt12; i++) {
           local_result = t[i].conj() * t[i];
         }
         MPI_Allreduce(&local_result, &tmp1, 2, MPI_DOUBLE, MPI_SUM,
@@ -765,17 +763,17 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         r[i] = s[i] - t[i] * omega;
       }
       {
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < lat_xyzt12; i++) {
           local_result = r[i].conj() * r[i];
         }
         MPI_Allreduce(&local_result, &r_norm2, 2, MPI_DOUBLE, MPI_SUM,
                       MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
       }
-      std::cout << "######r.norm_2():" << r_norm2 << std::endl;
-      std::cout << "##loop " << i << "##Residual:" << r_norm2 << std::endl;
+      std::cout << "##loop " << loop << "##Residual:" << r_norm2.real
+                << std::endl;
       // break;
-      if (r_norm2 < TOL || i == MAX_ITER - 1) {
+      if (r_norm2.real < TOL || loop == MAX_ITER - 1) {
         break;
       }
       rho_prev = rho;
