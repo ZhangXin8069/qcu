@@ -28,6 +28,7 @@ set(SOURCE_FILES
     src/cuda/clover_dslash.cu
     src/cuda/wilson_dslash.cu
     src/cuda/mpi_wilson_dslash.cu
+    src/cuda/mpi_wilson_cg.cu
     src/cuda/test_wilson_dslash.cu
     # Add more CUDA source files if needed
 )

@@ -9,6 +9,7 @@ set(CMAKE_DEPENDS_LANGUAGES
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/aistudio/qcu/src/cuda/clover_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d"
+  "/home/aistudio/qcu/src/cuda/mpi_wilson_cg.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o.d"
   "/home/aistudio/qcu/src/cuda/mpi_wilson_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o.d"
   "/home/aistudio/qcu/src/cuda/qcu_cuda.cu" "CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o.d"
   "/home/aistudio/qcu/src/cuda/test_wilson_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o.d"

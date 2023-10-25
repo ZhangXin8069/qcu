@@ -165,11 +165,20 @@ CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o : /home/aistudio/qcu/src/cuda/clo
     /usr/local/cuda/bin/../targets/x86_64-linux/include/device_launch_parameters.h \
     /home/aistudio/qcu/src/cuda/../../include/qcu_cuda.h \
     /home/aistudio/qcu/src/cuda/../../include/./define.h \
-    /usr/include/c++/9/cstdio \
-    /usr/include/c++/9/random \
-    /usr/include/c++/9/string \
+    /usr/include/c++/9/complex \
+    /usr/include/c++/9/sstream \
+    /usr/include/c++/9/istream \
+    /usr/include/c++/9/ios \
+    /usr/include/c++/9/iosfwd \
     /usr/include/c++/9/bits/stringfwd.h \
     /usr/include/c++/9/bits/memoryfwd.h \
+    /usr/include/c++/9/bits/postypes.h \
+    /usr/include/c++/9/cwchar \
+    /usr/include/wchar.h \
+    /usr/include/x86_64-linux-gnu/bits/wchar.h \
+    /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
+    /usr/include/x86_64-linux-gnu/bits/wchar2.h \
     /usr/include/c++/9/bits/char_traits.h \
     /usr/include/c++/9/bits/stl_algobase.h \
     /usr/include/c++/9/bits/functexcept.h \
@@ -182,35 +191,18 @@ CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o : /home/aistudio/qcu/src/cuda/clo
     /usr/include/c++/9/bits/ptr_traits.h \
     /usr/include/c++/9/debug/debug.h \
     /usr/include/c++/9/bits/predefined_ops.h \
-    /usr/include/c++/9/bits/postypes.h \
-    /usr/include/c++/9/cwchar \
-    /usr/include/wchar.h \
-    /usr/include/x86_64-linux-gnu/bits/wchar.h \
-    /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
-    /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
-    /usr/include/x86_64-linux-gnu/bits/wchar2.h \
     /usr/include/c++/9/cstdint \
     /usr/lib/gcc/x86_64-linux-gnu/9/include/stdint.h \
     /usr/include/stdint.h \
     /usr/include/x86_64-linux-gnu/bits/stdint-uintn.h \
-    /usr/include/c++/9/bits/allocator.h \
-    /usr/include/x86_64-linux-gnu/c++/9/bits/c++allocator.h \
-    /usr/include/c++/9/ext/new_allocator.h \
     /usr/include/c++/9/bits/localefwd.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/c++locale.h \
     /usr/include/c++/9/clocale \
     /usr/include/locale.h \
     /usr/include/x86_64-linux-gnu/bits/locale.h \
-    /usr/include/c++/9/iosfwd \
     /usr/include/c++/9/cctype \
     /usr/include/ctype.h \
-    /usr/include/c++/9/bits/ostream_insert.h \
-    /usr/include/c++/9/bits/cxxabi_forced.h \
-    /usr/include/c++/9/bits/stl_function.h \
-    /usr/include/c++/9/backward/binders.h \
-    /usr/include/c++/9/bits/range_access.h \
-    /usr/include/c++/9/initializer_list \
-    /usr/include/c++/9/bits/basic_string.h \
+    /usr/include/c++/9/bits/ios_base.h \
     /usr/include/c++/9/ext/atomicity.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/gthr.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/gthr-default.h \
@@ -221,9 +213,22 @@ CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o : /home/aistudio/qcu/src/cuda/clo
     /usr/include/x86_64-linux-gnu/bits/cpu-set.h \
     /usr/include/x86_64-linux-gnu/bits/setjmp.h \
     /usr/include/x86_64-linux-gnu/c++/9/bits/atomic_word.h \
+    /usr/include/c++/9/bits/locale_classes.h \
+    /usr/include/c++/9/string \
+    /usr/include/c++/9/bits/allocator.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/c++allocator.h \
+    /usr/include/c++/9/ext/new_allocator.h \
+    /usr/include/c++/9/bits/ostream_insert.h \
+    /usr/include/c++/9/bits/cxxabi_forced.h \
+    /usr/include/c++/9/bits/stl_function.h \
+    /usr/include/c++/9/backward/binders.h \
+    /usr/include/c++/9/bits/range_access.h \
+    /usr/include/c++/9/initializer_list \
+    /usr/include/c++/9/bits/basic_string.h \
     /usr/include/c++/9/ext/alloc_traits.h \
     /usr/include/c++/9/bits/alloc_traits.h \
     /usr/include/c++/9/ext/string_conversions.h \
+    /usr/include/c++/9/cstdio \
     /usr/include/c++/9/cerrno \
     /usr/include/errno.h \
     /usr/include/x86_64-linux-gnu/bits/errno.h \
@@ -234,6 +239,27 @@ CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o : /home/aistudio/qcu/src/cuda/clo
     /usr/include/x86_64-linux-gnu/bits/types/error_t.h \
     /usr/include/c++/9/bits/functional_hash.h \
     /usr/include/c++/9/bits/basic_string.tcc \
+    /usr/include/c++/9/bits/locale_classes.tcc \
+    /usr/include/c++/9/system_error \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
+    /usr/include/c++/9/stdexcept \
+    /usr/include/c++/9/streambuf \
+    /usr/include/c++/9/bits/streambuf.tcc \
+    /usr/include/c++/9/bits/basic_ios.h \
+    /usr/include/c++/9/bits/locale_facets.h \
+    /usr/include/c++/9/cwctype \
+    /usr/include/wctype.h \
+    /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_base.h \
+    /usr/include/c++/9/bits/streambuf_iterator.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_inline.h \
+    /usr/include/c++/9/bits/locale_facets.tcc \
+    /usr/include/c++/9/bits/basic_ios.tcc \
+    /usr/include/c++/9/ostream \
+    /usr/include/c++/9/bits/ostream.tcc \
+    /usr/include/c++/9/bits/istream.tcc \
+    /usr/include/c++/9/bits/sstream.tcc \
+    /usr/include/c++/9/random \
     /usr/include/c++/9/limits \
     /usr/include/c++/9/bits/random.h \
     /usr/include/c++/9/vector \
@@ -260,34 +286,11 @@ CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o : /home/aistudio/qcu/src/cuda/clo
     /usr/include/c++/9/utility \
     /usr/include/c++/9/bits/stl_relops.h \
     /usr/include/c++/9/array \
-    /usr/include/c++/9/stdexcept \
     /usr/include/c++/9/bits/uses_allocator.h \
     /usr/include/c++/9/bits/invoke.h \
     /usr/include/c++/9/bits/stl_multimap.h \
     /usr/include/c++/9/bits/erase_if.h \
     /usr/include/c++/9/iostream \
-    /usr/include/c++/9/ostream \
-    /usr/include/c++/9/ios \
-    /usr/include/c++/9/bits/ios_base.h \
-    /usr/include/c++/9/bits/locale_classes.h \
-    /usr/include/c++/9/bits/locale_classes.tcc \
-    /usr/include/c++/9/system_error \
-    /usr/include/x86_64-linux-gnu/c++/9/bits/error_constants.h \
-    /usr/include/c++/9/streambuf \
-    /usr/include/c++/9/bits/streambuf.tcc \
-    /usr/include/c++/9/bits/basic_ios.h \
-    /usr/include/c++/9/bits/locale_facets.h \
-    /usr/include/c++/9/cwctype \
-    /usr/include/wctype.h \
-    /usr/include/x86_64-linux-gnu/bits/wctype-wchar.h \
-    /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_base.h \
-    /usr/include/c++/9/bits/streambuf_iterator.h \
-    /usr/include/x86_64-linux-gnu/c++/9/bits/ctype_inline.h \
-    /usr/include/c++/9/bits/locale_facets.tcc \
-    /usr/include/c++/9/bits/basic_ios.tcc \
-    /usr/include/c++/9/bits/ostream.tcc \
-    /usr/include/c++/9/istream \
-    /usr/include/c++/9/bits/istream.tcc \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/constants.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/functions.h \
     /usr/lib/x86_64-linux-gnu/openmpi/include/openmpi/ompi/mpi/cxx/datatype.h \
