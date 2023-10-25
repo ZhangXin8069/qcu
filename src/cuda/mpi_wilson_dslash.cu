@@ -1,5 +1,9 @@
 #pragma optimize(5)
+#include "../../include/qcu.h"
 #include "../../include/qcu_cuda.h"
+#include <chrono>
+#include <cstdio>
+
 __global__ void wilson_dslash_clear_dest(void *device_dest, int device_lat_x,
                                          const int device_lat_y,
                                          const int device_lat_z) {
