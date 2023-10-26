@@ -1,8 +1,18 @@
-#include <complex>
+#ifndef _DEFINE_H
+#define _DEFINE_H
 #pragma optimize(5)
-#include <cstdio>
-#include <random>
+#include "./qcu_cuda.h"
 #define BLOCK_SIZE 256
+#define LAT_C 3
+#define LAT_S 4
+#define LAT_D 4
+#define BACKWARD -1
+#define NOWARD 0
+#define FORWARD 1
+#define WILSON 
+// #define CLOVER
+// #define OVERLAP
+
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (err != cudaSuccess) {                                                  \
@@ -260,3 +270,5 @@
 
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
+
+#endif

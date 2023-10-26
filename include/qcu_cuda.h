@@ -1,8 +1,17 @@
+#ifndef _QCU_CUDA_H
+#define _QCU_CUDA_H
 #pragma optimize(5)
+#include "./complex.h"
+#include "./complex_vector.h"
 #include "./define.h"
-#include "./lattice_complex.h"
+#include <chrono>
+#include <cmath>
+#include <cstdio>
 #include <cuda.h>
 #include <mpi.h>
+#include <random>
+#include <string>
+
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
@@ -28,59 +37,59 @@ __global__ void
 wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, 
-                     void *device_b_x_send_vec, void *device_f_x_send_vec);
+                     const int device_parity, void *device_b_x_send_vec,
+                     void *device_f_x_send_vec);
 
 __global__ void
 wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                      void *device_b_x_recv_vec,
-                     void *device_f_x_recv_vec);
+                     void *device_b_x_recv_vec, void *device_f_x_recv_vec);
 
 __global__ void
 wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, 
-                     void *device_b_y_send_vec, void *device_f_y_send_vec);
+                     const int device_parity, void *device_b_y_send_vec,
+                     void *device_f_y_send_vec);
 
 __global__ void
 wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                      void *device_b_y_recv_vec,
-                     void *device_f_y_recv_vec);
+                     void *device_b_y_recv_vec, void *device_f_y_recv_vec);
 
 __global__ void
 wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, 
-                     void *device_b_z_send_vec, void *device_f_z_send_vec);
+                     const int device_parity, void *device_b_z_send_vec,
+                     void *device_f_z_send_vec);
 
 __global__ void
 wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                      void *device_b_z_recv_vec,
-                     void *device_f_z_recv_vec);
+                     void *device_b_z_recv_vec, void *device_f_z_recv_vec);
 
 __global__ void
 wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
                      const int device_lat_z, const int device_lat_t,
-                     const int device_parity, 
-                     void *device_b_t_send_vec, void *device_f_t_send_vec);
+                     const int device_parity, void *device_b_t_send_vec,
+                     void *device_f_t_send_vec);
 
 __global__ void
 wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
-                      void *device_b_t_recv_vec,
-                     void *device_f_t_recv_vec);
+                     void *device_b_t_recv_vec, void *device_f_t_recv_vec);
 
 __global__ void test_wilson_dslash(void *device_U, void *device_src,
-                              void *device_dest, int device_lat_x,
-                              const int device_lat_y, const int device_lat_z,
-                              const int device_lat_t, const int device_parity);
+                                   void *device_dest, int device_lat_x,
+                                   const int device_lat_y,
+                                   const int device_lat_z,
+                                   const int device_lat_t,
+                                   const int device_parity);
+
+#endif

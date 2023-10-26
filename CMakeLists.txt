@@ -24,12 +24,7 @@ find_package(MPI REQUIRED)
 
 # Add source files for the library
 set(SOURCE_FILES
-    src/cuda/qcu_cuda.cu
-    src/cuda/clover_dslash.cu
-    src/cuda/wilson_dslash.cu
-    src/cuda/mpi_wilson_dslash.cu
-    src/cuda/mpi_wilson_cg.cu
-    src/cuda/test_wilson_dslash.cu
+    src/*
     # Add more CUDA source files if needed
 )
 
