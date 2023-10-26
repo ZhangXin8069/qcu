@@ -4,6 +4,7 @@
 #include "../../include/qcu_cuda.h"
 #include <chrono>
 #include <cstdio>
+// #define DEBUG
 
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {
@@ -94,8 +95,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
     give_rand(x, lat_xyzt12); // rand x
-    // give_value(b, zero, 1);   // point source
-    give_rand(b, lat_xyzt12); // rand source
+    // give_rand(b, lat_xyzt12); // rand source
+    // give_value(b, one, 1);    // point source
     cg_in = x;
     cg_out = r;
     // mpi_wilson_dslash
@@ -246,11 +247,15 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                       MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
       }
+#ifdef DEBUG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##rho:" << rho.real << std::endl;
+#endif
       beta = (rho / rho_prev) * (alpha / omega);
+#ifdef DEBUG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##beta:" << beta.real << std::endl;
+#endif
       for (int i = 0; i < lat_xyzt12; i++) {
         p[i] = r[i] + (p[i] - v[i] * omega) * beta;
       }
@@ -401,8 +406,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         MPI_Barrier(MPI_COMM_WORLD);
       }
       alpha = rho / tmp;
+#ifdef DEBUG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##alpha:" << alpha.real << std::endl;
+#endif
       for (int i = 0; i < lat_xyzt12; i++) {
         s[i] = r[i] - v[i] * alpha;
       }
@@ -561,8 +568,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         MPI_Barrier(MPI_COMM_WORLD);
       }
       omega = tmp0 / tmp1;
+#ifdef DEBUG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##omega:" << omega.real << std::endl;
+#endif
       for (int i = 0; i < lat_xyzt12; i++) {
         x[i] = x[i] + p[i] * alpha + s[i] * omega;
       }
