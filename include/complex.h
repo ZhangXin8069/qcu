@@ -45,10 +45,12 @@ public:
   __host__ __device__ Complex conjugate() const { return {real, -imag}; }
 
   // Magnitude
-  double magnitude() const { return std::sqrt(real * real + imag * imag); }
+  __host__ __device__ double magnitude() const {
+    return std::sqrt(real * real + imag * imag);
+  }
 
   // Argument
-  double argument() const { return std::atan2(imag, real); }
+  __host__ __device__ double argument() const { return std::atan2(imag, real); }
 
   // Normalize
   __host__ __device__ Complex &normalize() {
@@ -221,14 +223,14 @@ public:
   }
 
   // Accessors
-  double _real() const { return real; }
-  double _imag() const { return imag; }
+  __host__ __device__ double _real() const { return real; }
+  __host__ __device__ double _imag() const { return imag; }
 
-  void _real(double r) { real = r; }
-  void _imag(double i) { imag = i; }
+  __host__ __device__ void _real(double r) { real = r; }
+  __host__ __device__ void _imag(double i) { imag = i; }
 
   // String representation
-  std::string to_string() const {
+  __host__ __device__ std::string to_string() const {
     return std::to_string(real) + " + " + std::to_string(imag) + "i";
   }
 };
