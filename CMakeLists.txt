@@ -1,48 +1,28 @@
-cmake_minimum_required(VERSION 3.21)
+cmake_minimum_required(VERSION 3.8)
+#include_directories(/usr/lib/x86_64-linux-gnu/openmpi/include)
+#set(CMAKE_CUDA_ARCHITECTURES 70)
+project(QCU LANGUAGES C CXX CUDA)
 
-project(qcu_project LANGUAGES CUDA)
+set(CMAKE_CXX_STANDARD 11)
 
-# Set the desired CUDA architecture (modify this as needed)
-set(SM_ARCH "sm_70")
+include_directories(include)
+add_library(qcu SHARED 
+src/mpi_clover_bistabcg.cu
+src/mpi_clover_dslash.cu
+src/mpi_clover_multgrid.cu
+src/mpi_overlap_bistabcg.cu
+src/mpi_overlap_dslash.cu
+src/mpi_overlap_multgrid.cu
+src/mpi_wilson_bistabcg.cu
+src/mpi_wilson_dslash.cu
+src/mpi_wilson_multgrid.cu
+src/test_bistabcg.cu
+src/test_dslash.cu
+src/test_multgrid.cu
+src/test.cu
+)
 
-# Other options like maxrregcount can be set similarly
-set(MAXRREGCOUNT "256")
-
-# Set CUDA architecture and other flags
-# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
-
-# Manually set MPI include and library paths
-set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
-set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
-
-# Add include directories, including MPI include directories
-include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
-
-# Find MPI package
 find_package(MPI REQUIRED)
+target_link_libraries(qcu ${MPI_LIBRARIES})
+target_compile_definitions(qcu PRIVATE MPI_ENABLED)
 
-# Add source files for the library
-set(SOURCE_FILES
-    src/cuda/qcu_cuda.cu
-    src/cuda/clover_dslash.cu
-    src/cuda/wilson_dslash.cu
-    src/cuda/mpi_wilson_dslash.cu
-    src/cuda/mpi_wilson_cg.cu
-    src/cuda/test_wilson_dslash.cu
-    # Add more CUDA source files if needed
-)
-
-# Build the CUDA library
-add_library(qcu SHARED ${SOURCE_FILES})
-
-# Link the library to its dependencies, including MPI libraries
-target_link_libraries(qcu
-    ${MPI_CXX_LIBRARIES}
-    # You can add any necessary dependencies here
-)
-
-# Set the output directory for the library
-set_target_properties(qcu PROPERTIES
-    LIBRARY_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/lib
-)
