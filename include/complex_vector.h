@@ -32,7 +32,7 @@ public:
       : _data(other._data), _size(other._size) {}
 
   // Destructor
-  ~ComplexVector() {
+  __device__ __host__ ~ComplexVector() {
     if (_data != nullptr) {
       _data = nullptr;
       delete[] _data;

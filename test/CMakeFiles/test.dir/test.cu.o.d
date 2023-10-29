@@ -1,4 +1,4 @@
-CMakeFiles/test.dir/test.cu.o: /public/home/zhangxin/dcu/qcu/test/test.cu \
+CMakeFiles/test.dir/test.cu.o: /public/home/zhangxin/dcu/test/test.cu \
   /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_hip_runtime_wrapper.h \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cmath \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/c++config.h \
@@ -188,7 +188,7 @@ CMakeFiles/test.dir/test.cu.o: /public/home/zhangxin/dcu/qcu/test/test.cu \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/invoke.h \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/std_function.h \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/refwrap.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/qcu.h \
+  /public/home/zhangxin/dcu/test/../include/qcu.h \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/chrono \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ratio \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ctime \
@@ -197,18 +197,18 @@ CMakeFiles/test.dir/test.cu.o: /public/home/zhangxin/dcu/qcu/test/test.cu \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/iostream \
   /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/include/mpi.h \
   /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/include/mpi_portable_platform.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./define.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./qcu.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./complex.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./complex_vector.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./qcu_cuda.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./qcu_mpi.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_param.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_point.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_gamma.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_fermi.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_propagator.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_gauge.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_clover.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_overlap.h \
-  /public/home/zhangxin/dcu/qcu/test/../include/./lattice_wilson.h
+  /public/home/zhangxin/dcu/test/../include/./define.h \
+  /public/home/zhangxin/dcu/test/../include/./qcu.h \
+  /public/home/zhangxin/dcu/test/../include/./complex.h \
+  /public/home/zhangxin/dcu/test/../include/./complex_vector.h \
+  /public/home/zhangxin/dcu/test/../include/./qcu_cuda.h \
+  /public/home/zhangxin/dcu/test/../include/./qcu_mpi.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_param.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_point.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_gamma.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_fermi.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_propagator.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_gauge.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_clover.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_overlap.h \
+  /public/home/zhangxin/dcu/test/../include/./lattice_wilson.h

@@ -8,23 +8,23 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "/public/home/zhangxin/dcu/qcu/src/mpi_clover_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_clover_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_clover_bistabcg.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_clover_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_clover_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_clover_dslash.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_clover_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_clover_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_clover_multgrid.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_overlap_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_overlap_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_overlap_bistabcg.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_overlap_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_overlap_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_overlap_dslash.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_overlap_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_overlap_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_overlap_multgrid.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_wilson_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_bistabcg.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_wilson_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/mpi_wilson_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/test_bistabcg.cu" "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/test_dslash.cu" "CMakeFiles/qcu.dir/src/test_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_dslash.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/test_multgrid.cu" "CMakeFiles/qcu.dir/src/test_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_multgrid.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/test/test.cu" "CMakeFiles/qcu.dir/test/test.cu.o" "gcc" "CMakeFiles/qcu.dir/test/test.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_clover_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_clover_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_clover_bistabcg.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_clover_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_clover_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_clover_dslash.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_clover_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_clover_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_clover_multgrid.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_overlap_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_overlap_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_overlap_bistabcg.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_overlap_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_overlap_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_overlap_dslash.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_overlap_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_overlap_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_overlap_multgrid.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_wilson_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_bistabcg.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_wilson_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o.d"
+  "/public/home/zhangxin/qcu/src/mpi_wilson_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o.d"
+  "/public/home/zhangxin/qcu/src/test_bistabcg.cu" "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o.d"
+  "/public/home/zhangxin/qcu/src/test_dslash.cu" "CMakeFiles/qcu.dir/src/test_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_dslash.cu.o.d"
+  "/public/home/zhangxin/qcu/src/test_multgrid.cu" "CMakeFiles/qcu.dir/src/test_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_multgrid.cu.o.d"
+  "/public/home/zhangxin/qcu/test/test.cu" "CMakeFiles/qcu.dir/test/test.cu.o" "gcc" "CMakeFiles/qcu.dir/test/test.cu.o.d"
   )
 
-# Targets to which this target links which contain Fortran sources.
-set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
+# Targets to which this target links.
+set(CMAKE_TARGET_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

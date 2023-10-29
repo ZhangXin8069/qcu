@@ -1,4 +1,4 @@
-# Install script for directory: /public/home/zhangxin/dcu/qcu
+# Install script for directory: /public/home/zhangxin/qcu
 
 # Set the install prefix
 if(NOT DEFINED CMAKE_INSTALL_PREFIX)
@@ -39,7 +39,7 @@ endif()
 
 # Set default install directory permissions.
 if(NOT DEFINED CMAKE_OBJDUMP)
-  set(CMAKE_OBJDUMP "/public/sugon/software/compiler/dtk-23.04/llvm/bin/llvm-objdump")
+  set(CMAKE_OBJDUMP "/usr/bin/objdump")
 endif()
 
 if(CMAKE_INSTALL_COMPONENT)
@@ -50,5 +50,5 @@ endif()
 
 string(REPLACE ";" "\n" CMAKE_INSTALL_MANIFEST_CONTENT
        "${CMAKE_INSTALL_MANIFEST_FILES}")
-file(WRITE "/public/home/zhangxin/dcu/qcu/${CMAKE_INSTALL_MANIFEST}"
+file(WRITE "/public/home/zhangxin/qcu/${CMAKE_INSTALL_MANIFEST}"
      "${CMAKE_INSTALL_MANIFEST_CONTENT}")

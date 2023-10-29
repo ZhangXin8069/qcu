@@ -24,6 +24,9 @@ public:
   __host__ __device__ void _real(double r) { real = r; }
   __host__ __device__ void _imag(double i) { imag = i; }
 
+  // Destructor
+  __host__ __device__ ~Complex() {}
+  
   // Arithmetic operators
   __host__ __device__ Complex operator+(const Complex &rhs) const {
     return {real + rhs.real, imag + rhs.imag};
