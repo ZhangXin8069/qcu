@@ -1,16 +1,7 @@
 #ifndef _QCU_CUDA_H
 #define _QCU_CUDA_H
 #pragma optimize(5)
-#include "./complex.h"
-#include "./complex_vector.h"
-#include "./define.h"
-#include <chrono>
-#include <cmath>
-#include <cstdio>
-#include <cuda.h>
-#include <mpi.h>
-#include <random>
-#include <string>
+#include <qcu.h>
 
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,

@@ -1,0 +1,1 @@
+/public/sugon/software/compiler/dtk-23.04/llvm/bin/clang++ -Wl,-rpath=/opt/rh/devtoolset-7/root/usr/lib64 -Wl,-rpath=/opt/rh/devtoolset-7/root/usr/lib CMakeFiles/test_qcu.dir/test/test.cu.o -o test_qcu  -lcudadevrt -lcudart  -L"/public/sugon/software/compiler/dtk-23.04/cuda/targets/x86_64-linux/lib/stubs" -L"/public/sugon/software/compiler/dtk-23.04/cuda/targets/x86_64-linux/lib"

@@ -129,6 +129,19 @@ qcu/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/build
 .PHONY : qcu/fast
 
+#=============================================================================
+# Target rules for targets named test_qcu
+
+# Build rule for target.
+test_qcu: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_qcu
+.PHONY : test_qcu
+
+# fast build rule for target.
+test_qcu/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/build
+.PHONY : test_qcu/fast
+
 src/mpi_clover_bistabcg.o: src/mpi_clover_bistabcg.cu.o
 .PHONY : src/mpi_clover_bistabcg.o
 
@@ -345,30 +358,6 @@ src/mpi_wilson_multgrid.cu.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.s
 .PHONY : src/mpi_wilson_multgrid.cu.s
 
-src/test.o: src/test.cu.o
-.PHONY : src/test.o
-
-# target to build an object file
-src/test.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/test.cu.o
-.PHONY : src/test.cu.o
-
-src/test.i: src/test.cu.i
-.PHONY : src/test.i
-
-# target to preprocess a source file
-src/test.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/test.cu.i
-.PHONY : src/test.cu.i
-
-src/test.s: src/test.cu.s
-.PHONY : src/test.s
-
-# target to generate assembly for a file
-src/test.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/test.cu.s
-.PHONY : src/test.cu.s
-
 src/test_bistabcg.o: src/test_bistabcg.cu.o
 .PHONY : src/test_bistabcg.o
 
@@ -441,6 +430,33 @@ src/test_multgrid.cu.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/test_multgrid.cu.s
 .PHONY : src/test_multgrid.cu.s
 
+test/test.o: test/test.cu.o
+.PHONY : test/test.o
+
+# target to build an object file
+test/test.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/test/test.cu.o
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/test/test.cu.o
+.PHONY : test/test.cu.o
+
+test/test.i: test/test.cu.i
+.PHONY : test/test.i
+
+# target to preprocess a source file
+test/test.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/test/test.cu.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/test/test.cu.i
+.PHONY : test/test.cu.i
+
+test/test.s: test/test.cu.s
+.PHONY : test/test.s
+
+# target to generate assembly for a file
+test/test.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/test/test.cu.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/test/test.cu.s
+.PHONY : test/test.cu.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -450,6 +466,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... qcu"
+	@echo "... test_qcu"
 	@echo "... src/mpi_clover_bistabcg.o"
 	@echo "... src/mpi_clover_bistabcg.i"
 	@echo "... src/mpi_clover_bistabcg.s"
@@ -477,9 +494,6 @@ help:
 	@echo "... src/mpi_wilson_multgrid.o"
 	@echo "... src/mpi_wilson_multgrid.i"
 	@echo "... src/mpi_wilson_multgrid.s"
-	@echo "... src/test.o"
-	@echo "... src/test.i"
-	@echo "... src/test.s"
 	@echo "... src/test_bistabcg.o"
 	@echo "... src/test_bistabcg.i"
 	@echo "... src/test_bistabcg.s"
@@ -489,6 +503,9 @@ help:
 	@echo "... src/test_multgrid.o"
 	@echo "... src/test_multgrid.i"
 	@echo "... src/test_multgrid.s"
+	@echo "... test/test.o"
+	@echo "... test/test.i"
+	@echo "... test/test.s"
 .PHONY : help
 
 

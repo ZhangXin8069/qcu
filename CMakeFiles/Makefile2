@@ -64,6 +64,7 @@ CMAKE_BINARY_DIR = /public/home/zhangxin/dcu/qcu
 
 # The main recursive "all" target.
 all: CMakeFiles/qcu.dir/all
+all: CMakeFiles/test_qcu.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -72,6 +73,7 @@ preinstall:
 
 # The main recursive "clean" target.
 clean: CMakeFiles/qcu.dir/clean
+clean: CMakeFiles/test_qcu.dir/clean
 .PHONY : clean
 
 #=============================================================================
@@ -99,6 +101,32 @@ qcu: CMakeFiles/qcu.dir/rule
 CMakeFiles/qcu.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/clean
 .PHONY : CMakeFiles/qcu.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/test_qcu.dir
+
+# All Build rule for target.
+CMakeFiles/test_qcu.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/public/home/zhangxin/dcu/qcu/CMakeFiles --progress-num=15,16 "Built target test_qcu"
+.PHONY : CMakeFiles/test_qcu.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/test_qcu.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /public/home/zhangxin/dcu/qcu/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 CMakeFiles/test_qcu.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /public/home/zhangxin/dcu/qcu/CMakeFiles 0
+.PHONY : CMakeFiles/test_qcu.dir/rule
+
+# Convenience name for target.
+test_qcu: CMakeFiles/test_qcu.dir/rule
+.PHONY : test_qcu
+
+# clean rule for target.
+CMakeFiles/test_qcu.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/test_qcu.dir/build.make CMakeFiles/test_qcu.dir/clean
+.PHONY : CMakeFiles/test_qcu.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

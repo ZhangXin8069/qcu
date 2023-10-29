@@ -237,18 +237,18 @@ CMakeFiles/qcu.dir/src/test_multgrid.cu.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/test_multgrid.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/qcu.dir/src/test.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/test.cu.o: src/test.cu
-CMakeFiles/qcu.dir/src/test.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/public/home/zhangxin/dcu/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CUDA object CMakeFiles/qcu.dir/src/test.cu.o"
-	/public/sugon/software/compiler/dtk-23.04/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/test.cu.o -MF CMakeFiles/qcu.dir/src/test.cu.o.d -x cu -c /public/home/zhangxin/dcu/qcu/src/test.cu -o CMakeFiles/qcu.dir/src/test.cu.o
+CMakeFiles/qcu.dir/test/test.cu.o: CMakeFiles/qcu.dir/flags.make
+CMakeFiles/qcu.dir/test/test.cu.o: test/test.cu
+CMakeFiles/qcu.dir/test/test.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/public/home/zhangxin/dcu/qcu/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CUDA object CMakeFiles/qcu.dir/test/test.cu.o"
+	/public/sugon/software/compiler/dtk-23.04/cuda/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/test/test.cu.o -MF CMakeFiles/qcu.dir/test/test.cu.o.d -x cu -c /public/home/zhangxin/dcu/qcu/test/test.cu -o CMakeFiles/qcu.dir/test/test.cu.o
 
-CMakeFiles/qcu.dir/src/test.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/test.cu.i"
+CMakeFiles/qcu.dir/test/test.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/test/test.cu.i"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
 
-CMakeFiles/qcu.dir/src/test.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/test.cu.s"
+CMakeFiles/qcu.dir/test/test.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/test/test.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
 # Object files for target qcu
@@ -265,7 +265,7 @@ qcu_OBJECTS = \
 "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o" \
 "CMakeFiles/qcu.dir/src/test_dslash.cu.o" \
 "CMakeFiles/qcu.dir/src/test_multgrid.cu.o" \
-"CMakeFiles/qcu.dir/src/test.cu.o"
+"CMakeFiles/qcu.dir/test/test.cu.o"
 
 # External object files for target qcu
 qcu_EXTERNAL_OBJECTS =
@@ -282,7 +282,7 @@ libqcu.so: CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/test_bistabcg.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/test_dslash.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/test_multgrid.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/test.cu.o
+libqcu.so: CMakeFiles/qcu.dir/test/test.cu.o
 libqcu.so: CMakeFiles/qcu.dir/build.make
 libqcu.so: /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/lib/libmpi.so
 libqcu.so: CMakeFiles/qcu.dir/link.txt

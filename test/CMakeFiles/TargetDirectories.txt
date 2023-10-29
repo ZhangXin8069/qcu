@@ -1,0 +1,3 @@
+/public/home/zhangxin/dcu/qcu/test/CMakeFiles/test.dir
+/public/home/zhangxin/dcu/qcu/test/CMakeFiles/edit_cache.dir
+/public/home/zhangxin/dcu/qcu/test/CMakeFiles/rebuild_cache.dir

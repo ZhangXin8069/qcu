@@ -17,10 +17,10 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/public/home/zhangxin/dcu/qcu/src/mpi_wilson_bistabcg.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_bistabcg.cu.o.d"
   "/public/home/zhangxin/dcu/qcu/src/mpi_wilson_dslash.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o.d"
   "/public/home/zhangxin/dcu/qcu/src/mpi_wilson_multgrid.cu" "CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/mpi_wilson_multgrid.cu.o.d"
-  "/public/home/zhangxin/dcu/qcu/src/test.cu" "CMakeFiles/qcu.dir/src/test.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test.cu.o.d"
   "/public/home/zhangxin/dcu/qcu/src/test_bistabcg.cu" "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_bistabcg.cu.o.d"
   "/public/home/zhangxin/dcu/qcu/src/test_dslash.cu" "CMakeFiles/qcu.dir/src/test_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_dslash.cu.o.d"
   "/public/home/zhangxin/dcu/qcu/src/test_multgrid.cu" "CMakeFiles/qcu.dir/src/test_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/test_multgrid.cu.o.d"
+  "/public/home/zhangxin/dcu/qcu/test/test.cu" "CMakeFiles/qcu.dir/test/test.cu.o" "gcc" "CMakeFiles/qcu.dir/test/test.cu.o.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

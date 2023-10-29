@@ -1,11 +1,18 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #pragma optimize(5)
-#include "./qcu_cuda.h"
+#include "./qcu.h"
 #define BLOCK_SIZE 256
+#define X 0
+#define Y 1
+#define Z 2
+#define T 3
+#define EVEN 0
+#define ODD 1
 #define LAT_C 3
 #define LAT_S 4
 #define LAT_D 4
+#define OUTPUT_SIZE 10
 #define BACKWARD -1
 #define NOWARD 0
 #define FORWARD 1

@@ -175,7 +175,6 @@ CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o: \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/device_functions.h \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/device_atomic_functions.h \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/device_atomic_functions_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/device_atomic_functions.hpp \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/sm_32_intrinsics.h \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/surface_functions.h \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/texture_fetch_functions.h \
@@ -191,26 +190,27 @@ CMakeFiles/qcu.dir/src/mpi_wilson_dslash.cu.o: \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/std_function.h \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/refwrap.h \
   /public/home/zhangxin/dcu/qcu/src/../include/qcu.h \
-  /public/home/zhangxin/dcu/qcu/src/../include/qcu_cuda.h \
   /public/home/zhangxin/dcu/qcu/include/./complex.h \
-  /public/home/zhangxin/dcu/qcu/include/./qcu_cuda.h \
+  /public/home/zhangxin/dcu/qcu/include/./qcu.h \
   /public/home/zhangxin/dcu/qcu/include/./complex_vector.h \
   /public/home/zhangxin/dcu/qcu/include/./define.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_clover.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_fermi.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_gamma.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_gauge.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_overlap.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_param.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_point.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_propagator.h \
+  /public/home/zhangxin/dcu/qcu/include/./lattice_wilson.h \
+  /public/home/zhangxin/dcu/qcu/include/./qcu_cuda.h \
+  /public/home/zhangxin/dcu/qcu/include/qcu.h \
+  /public/home/zhangxin/dcu/qcu/include/./qcu_mpi.h \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/chrono \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ratio \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ctime \
   /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/parse_numbers.h \
   /public/sugon/software/compiler/dtk-23.04/cuda/include/cuda.h \
+  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/iostream \
   /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/include/mpi.h \
-  /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/include/mpi_portable_platform.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/random \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/random.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/vector \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_uninitialized.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_vector.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_bvector.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/vector.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/opt_random.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/random.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/numeric \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_numeric.h
+  /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/include/mpi_portable_platform.h
