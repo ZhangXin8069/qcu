@@ -1,4 +1,4 @@
 bash ./make.sh
 pushd ./test
-mpirun -np 1 python ./test.dslash.qcu.py
+mpirun -n 4 --mca btl tcp,vader,self,smcuda python ./test.mpi.cg.qcu.py
 popd

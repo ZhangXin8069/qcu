@@ -1,12 +1,14 @@
+#ifndef _LATTICE_COMPLEX_H
+#define _LATTICE_COMPLEX_H
 #pragma optimize(5)
-#include <cmath>
+#include "./qcu.h"
 struct LatticeComplex {
   double real;
   double imag;
   __host__ __device__ LatticeComplex(const double &real = 0.0,
                                      const double &imag = 0.0)
       : real(real), imag(imag) {}
-  __host__ __device__ LatticeComplex &operator=(const LatticeComplex &other) {
+  __forceinline__ __host__ __device__ LatticeComplex &operator=(const LatticeComplex &other) {
     real = other.real;
     imag = other.imag;
     return *this;
@@ -88,3 +90,5 @@ struct LatticeComplex {
     return sqrt(real * real + imag * imag);
   }
 };
+
+#endif
