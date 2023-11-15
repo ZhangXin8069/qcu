@@ -1,0 +1,8 @@
+Metadata-Version: 2.1
+Name: PyQuda
+Version: 0.3.2
+Summary: Python wrapper for quda written in Cython.
+Author: SaltyChiang
+Author-email: SaltyChiang@users.noreply.github.com
+License: MIT
+License-File: LICENSE
