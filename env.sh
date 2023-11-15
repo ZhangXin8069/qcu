@@ -14,4 +14,4 @@ mkdir ${_HOME}/refer -p
 
 ## export
 export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:${_HOME}/lib/
-export PYTHONPATH=$(cd ~ && pwd)/external-libraries:$PYTHONPATH
+# export PYTHONPATH=$(cd ~ && pwd)/external-libraries:$PYTHONPATH

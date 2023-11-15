@@ -1,11 +1,11 @@
 #pragma optimize(5)
-#include "../../include/qcu_cuda.h"
+#include "../../include/qcu.h"
 
 __global__ void make_clover(void *device_U, void *device_clover,
                             int device_lat_x, const int device_lat_y,
                             const int device_lat_z, const int device_lat_t,
                             const int device_parity) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
@@ -14,8 +14,8 @@ __global__ void make_clover(void *device_U, void *device_clover,
   const int lat_yxcc = lat_y * lat_xcc;
   const int lat_zyxcc = lat_z * lat_yxcc;
   const int lat_tzyxcc = lat_t * lat_zyxcc;
-  register int move0;
-  register int move1;
+  int move0;
+  int move1;
   move0 = lat_x * lat_y * lat_z;
   const int t = parity / move0;
   parity -= t * move0;
@@ -25,21 +25,21 @@ __global__ void make_clover(void *device_U, void *device_clover,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex *origin_U =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex *origin_U =
       ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
        z * lat_yxcc + y * lat_xcc + x * 9);
-  register LatticeComplex *origin_clover =
+  LatticeComplex *origin_clover =
       ((static_cast<LatticeComplex *>(device_clover)) + t * lat_zyxcc * 16 +
        z * lat_yxcc * 16 + y * lat_xcc * 16 + x * 144);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex tmp1[9];
-  register LatticeComplex tmp2[9];
-  register LatticeComplex tmp3[9];
-  register LatticeComplex U[9];
-  register LatticeComplex clover[144];
+  LatticeComplex *tmp_U;
+  LatticeComplex tmp1[9];
+  LatticeComplex tmp2[9];
+  LatticeComplex tmp3[9];
+  LatticeComplex U[9];
+  LatticeComplex clover[144];
   // sigmaF
   {
     parity = device_parity;
@@ -831,8 +831,8 @@ __global__ void inverse_clover(void *device_clover, int device_lat_x,
     const int lat_x = device_lat_x;
     const int lat_y = device_lat_y;
     const int lat_z = device_lat_z;
-    register int tmp1;
-    register int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
+    int tmp1;
+    int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
     tmp1 = lat_x * lat_y * lat_z;
     const int t = tmp2 / tmp1;
     tmp2 -= t * tmp1;
@@ -865,8 +865,8 @@ __global__ void give_clover(void *device_clover, void *device_dest,
     const int lat_x = device_lat_x;
     const int lat_y = device_lat_y;
     const int lat_z = device_lat_z;
-    register int tmp1;
-    register int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
+    int tmp1;
+    int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
     tmp1 = lat_x * lat_y * lat_z;
     const int t = tmp2 / tmp1;
     tmp2 -= t * tmp1;
@@ -896,3 +896,88 @@ __global__ void give_clover(void *device_clover, void *device_dest,
     give_ptr(origin_dest, tmp_dest, 12);
   }
 }
+
+#ifdef CLOVER_DSLASH
+void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+               QcuParam *param, int parity) {
+  const int lat_x = param->lattice_size[0] >> 1;
+  const int lat_y = param->lattice_size[1];
+  const int lat_z = param->lattice_size[2];
+  const int lat_t = param->lattice_size[3];
+  void *clover;
+  checkCudaErrors(cudaMalloc(&clover, (lat_t * lat_z * lat_y * lat_x * 144) *
+                                          sizeof(LatticeComplex)));
+  cudaError_t err;
+  dim3 gridDim(lat_x * lat_y * lat_z * lat_t / BLOCK_SIZE);
+  dim3 blockDim(BLOCK_SIZE);
+  {
+    // wilson dslash
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto start = std::chrono::high_resolution_clock::now();
+    wilson_dslash<<<gridDim, blockDim>>>(gauge, fermion_in, fermion_out, lat_x,
+                                         lat_y, lat_z, lat_t, parity);
+    err = cudaGetLastError();
+    checkCudaErrors(err);
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    printf(
+        "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
+        double(duration) / 1e9);
+  }
+  {
+    // make clover
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto start = std::chrono::high_resolution_clock::now();
+    make_clover<<<gridDim, blockDim>>>(gauge, clover, lat_x, lat_y, lat_z,
+                                       lat_t, parity);
+    err = cudaGetLastError();
+    checkCudaErrors(err);
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    printf("make clover total time: (without malloc free memcpy) :%.9lf sec\n ",
+           double(duration) / 1e9);
+  }
+  {
+    // inverse clover
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto start = std::chrono::high_resolution_clock::now();
+    inverse_clover<<<gridDim, blockDim>>>(clover, lat_x, lat_y, lat_z);
+    err = cudaGetLastError();
+    checkCudaErrors(err);
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    printf(
+        "inverse clover total time: (without malloc free memcpy) :%.9lf sec\n ",
+        double(duration) / 1e9);
+  }
+  {
+    // give clover
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto start = std::chrono::high_resolution_clock::now();
+    give_clover<<<gridDim, blockDim>>>(clover, fermion_out, lat_x, lat_y,
+                                       lat_z);
+    err = cudaGetLastError();
+    checkCudaErrors(err);
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    printf("give clover total time: (without malloc free memcpy) :%.9lf sec\n ",
+           double(duration) / 1e9);
+  }
+  {
+    // free
+    checkCudaErrors(cudaFree(clover));
+  }
+}
+#endif

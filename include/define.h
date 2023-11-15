@@ -1,8 +1,41 @@
-#include <complex>
+#ifndef _DEFINE_H
+#define _DEFINE_H
 #pragma optimize(5)
-#include <cstdio>
-#include <random>
+#include "./qcu.h"
 #define BLOCK_SIZE 256
+#define X 0
+#define Y 1
+#define Z 2
+#define T 3
+#define EVEN 0
+#define ODD 1
+#define LAT_C 3
+#define LAT_S 4
+#define LAT_D 4
+#define OUTPUT_SIZE 10
+#define BACKWARD -1
+#define NOWARD 0
+#define FORWARD 1
+#define DEBUG
+#define WILSON_DSLASH
+// #define CLOVER_DSLASH
+// #define OVERLAP_DSLASH
+#define MPI_WILSON_DSLASH
+// #define MPI_CLOVER_DSLASH
+// #define MPI_OVERLAP_DSLASH
+#define WILSON_BISTABCG
+// #define CLOVER_BISTABCG
+// #define OVERLAP_BISTABCG
+#define MPI_WILSON_BISTABCG
+// #define MPI_CLOVER_BISTABCG
+// #define MPI_OVERLAP_BISTABCG
+// #define MPI_WILSON_MULTGRID
+// #define MPI_CLOVER_MULTGRID
+// #define MPI_OVERLAP_MULTGRID
+#define TEST_WILSON_DSLASH
+// #define TEST_CLOVER_DSLASH
+// #define TEST_OVERLAP_DSLASH
+
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (err != cudaSuccess) {                                                  \
@@ -260,3 +293,5 @@
 
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
+
+#endif
