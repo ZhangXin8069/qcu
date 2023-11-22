@@ -1,3 +1,0 @@
-/public/home/wangjc/workspace/wjc_new_pyquda/old_qcu/build/CMakeFiles/qcu.dir
-/public/home/wangjc/workspace/wjc_new_pyquda/old_qcu/build/CMakeFiles/edit_cache.dir
-/public/home/wangjc/workspace/wjc_new_pyquda/old_qcu/build/CMakeFiles/rebuild_cache.dir
