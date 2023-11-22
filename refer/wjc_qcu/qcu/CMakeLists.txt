@@ -15,3 +15,4 @@ add_library(qcu SHARED src/qcu_complex_computation.cu src/cg_inverter.cu  src/qc
 find_package(MPI REQUIRED)
 target_link_libraries(qcu ${MPI_LIBRARIES})
 target_compile_definitions(qcu PRIVATE MPI_ENABLED)
+
