@@ -1,8 +1,0 @@
-Checking whether the CUDA compiler is NVIDIA using "" did not match "nvcc: NVIDIA \(R\) Cuda compiler driver":
-HIPHSA: Author SUGON
-HIP version: 5.4.23191-0e6bf66b
-Cuda compilation tools, release 10.2, V10.2.89
-clang version 14.0.0 (http://10.15.3.7/dcutoolkit/driverruntime/llvm-project.git 3c86f7ec895c7c4ac1c4d801779f4702f6f6a54b)
-Target: x86_64-unknown-linux-gnu
-Thread model: posix
-InstalledDir: /public/sugon/software/compiler/dtk-23.04/llvm/bin
