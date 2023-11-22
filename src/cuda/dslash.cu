@@ -44,7 +44,6 @@ void getDeviceInfo() {
   cudaError = cudaGetDeviceCount(&deviceCount);
   for (int i = 0; i < deviceCount; i++) {
     cudaError = cudaGetDeviceProperties(&deviceProp, i);
-
     cout << "设备 " << i + 1 << " 的主要属性： " << endl;
     cout << "设备显卡型号： " << deviceProp.name << endl;
     cout << "设备全局内存总量（以MB为单位）： " << deviceProp.totalGlobalMem / 1024 / 1024 << endl; 
