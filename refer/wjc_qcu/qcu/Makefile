@@ -48,19 +48,19 @@ cmake_force:
 SHELL = /bin/sh
 
 # The CMake executable.
-CMAKE_COMMAND = /public/home/zhangxin/dcu/miniconda3/envs/qcu/bin/cmake
+CMAKE_COMMAND = /public/home/zhangxin/dcu/miniconda3/envs/snsc-dcu-refer-qcu/bin/cmake
 
 # The command to remove a file.
-RM = /public/home/zhangxin/dcu/miniconda3/envs/qcu/bin/cmake -E rm -f
+RM = /public/home/zhangxin/dcu/miniconda3/envs/snsc-dcu-refer-qcu/bin/cmake -E rm -f
 
 # Escaping for special characters.
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /public/home/zhangxin/dcu/refer/qcu
+CMAKE_SOURCE_DIR = /public/home/zhangxin/dcu/qcu/refer/wjc_qcu/qcu
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /public/home/zhangxin/dcu/refer/qcu
+CMAKE_BINARY_DIR = /public/home/zhangxin/dcu/qcu/refer/wjc_qcu/qcu
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -68,7 +68,7 @@ CMAKE_BINARY_DIR = /public/home/zhangxin/dcu/refer/qcu
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake cache editor..."
-	/public/home/zhangxin/dcu/miniconda3/envs/qcu/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/public/home/zhangxin/dcu/miniconda3/envs/snsc-dcu-refer-qcu/bin/ccmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : edit_cache
 
 # Special rule for the target edit_cache
@@ -78,7 +78,7 @@ edit_cache/fast: edit_cache
 # Special rule for the target rebuild_cache
 rebuild_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/public/home/zhangxin/dcu/miniconda3/envs/qcu/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+	/public/home/zhangxin/dcu/miniconda3/envs/snsc-dcu-refer-qcu/bin/cmake --regenerate-during-build -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
 .PHONY : rebuild_cache
 
 # Special rule for the target rebuild_cache
@@ -87,9 +87,9 @@ rebuild_cache/fast: rebuild_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /public/home/zhangxin/dcu/refer/qcu/CMakeFiles /public/home/zhangxin/dcu/refer/qcu//CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /public/home/zhangxin/dcu/qcu/refer/wjc_qcu/qcu/CMakeFiles /public/home/zhangxin/dcu/qcu/refer/wjc_qcu/qcu//CMakeFiles/progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /public/home/zhangxin/dcu/refer/qcu/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /public/home/zhangxin/dcu/qcu/refer/wjc_qcu/qcu/CMakeFiles 0
 .PHONY : all
 
 # The main clean target

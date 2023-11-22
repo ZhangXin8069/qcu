@@ -51,4 +51,4 @@ export LD_LIBRARY_PATH=/public/home/zhangxin/dcu/refer/lib:$LD_LIBRARY_PATH
 
 # DO
 conda deactivate
-conda activate qcu
+conda activate snsc-dcu-refer-qcu
