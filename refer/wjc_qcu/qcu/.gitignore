@@ -1,0 +1,5 @@
+core.*
+CMakeFiles
+.ipynb_checkpoints
+"clangd.format.tabSize": 4
+build
