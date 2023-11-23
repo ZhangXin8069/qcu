@@ -16,7 +16,7 @@
 #define BACKWARD -1
 #define NOWARD 0
 #define FORWARD 1
-#define DEBUG
+// #define DEBUG
 #define WILSON_DSLASH
 // #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH

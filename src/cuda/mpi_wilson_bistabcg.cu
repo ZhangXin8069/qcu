@@ -89,6 +89,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp1(0.0, 0.0);
     LatticeComplex r_norm2(0.0, 0.0);
     LatticeComplex local_result = 0;
+    // double Kappa = 0.125;
+    double Kappa = -7.0;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
     give_rand(x, lat_xyzt12); // rand x
@@ -230,6 +232,12 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                                                     f_t_send_vec, b_t_send_vec);
       }
       MPI_Barrier(MPI_COMM_WORLD);
+    }
+    // kappa
+    {
+      for (int i = 0; i < lat_xyzt12; i++) {
+        cg_out[i] = cg_out[i] - cg_in[i] * Kappa;
+      }
     }
     for (int i = 0; i < lat_xyzt12; i++) {
       r[i] = b[i] - r[i];
@@ -394,6 +402,12 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         }
         MPI_Barrier(MPI_COMM_WORLD);
       }
+      // kappa
+      {
+        for (int i = 0; i < lat_xyzt12; i++) {
+          cg_out[i] = cg_out[i] - cg_in[i] * Kappa;
+        }
+      }    
       {
         for (int i = 0; i < lat_xyzt12; i++) {
           local_result = r_tilde[i].conj() * v[i];
@@ -547,6 +561,12 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               b_t_send_vec);
         }
         MPI_Barrier(MPI_COMM_WORLD);
+      }
+      // kappa
+      {
+        for (int i = 0; i < lat_xyzt12; i++) {
+          cg_out[i] = cg_out[i] - cg_in[i] * Kappa;
+        }
       }
       {
         for (int i = 0; i < lat_xyzt12; i++) {
