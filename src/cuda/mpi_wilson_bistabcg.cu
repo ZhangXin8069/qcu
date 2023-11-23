@@ -237,7 +237,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     // kappa
     {
       for (int i = 0; i < lat_xyzt12; i++) {
-        cg_out[i] = cg_in[i] - cg_out[i] * Kappa ;
+        cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
       }
     }
     for (int i = 0; i < lat_xyzt12; i++) {
@@ -406,7 +406,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // kappa
       {
         for (int i = 0; i < lat_xyzt12; i++) {
-          cg_out[i] = cg_in[i] - cg_out[i] * Kappa ;
+          cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
         }
       }    
       {
@@ -566,7 +566,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // kappa
       {
         for (int i = 0; i < lat_xyzt12; i++) {
-          cg_out[i] = cg_in[i] - cg_out[i] * Kappa ;
+          cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
         }
       }
       {
