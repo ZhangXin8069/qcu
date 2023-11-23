@@ -77,7 +77,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     cudaMallocManaged(&t, lat_xyzt12 * sizeof(LatticeComplex));
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex one(1.0, 0.0);
-    const int MAX_ITER(1e2);
+    // const int MAX_ITER(1e2); // 300++?
+    const int MAX_ITER(1e3); // ?
     const double TOL(1e-6);
     LatticeComplex rho_prev(1.0, 0.0);
     LatticeComplex rho(0.0, 0.0);
@@ -89,8 +90,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp1(0.0, 0.0);
     LatticeComplex r_norm2(0.0, 0.0);
     LatticeComplex local_result = 0;
-    // double Kappa = 0.125;
-    double Kappa = -7.0;
+    double Kappa = 0.125;
+    // double Kappa = -7.0;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
     give_rand(x, lat_xyzt12); // rand x
@@ -236,7 +237,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     // kappa
     {
       for (int i = 0; i < lat_xyzt12; i++) {
-        cg_out[i] = cg_out[i] - cg_in[i] * Kappa;
+        cg_out[i] = cg_in[i] - cg_out[i] * Kappa ;
       }
     }
     for (int i = 0; i < lat_xyzt12; i++) {
@@ -405,7 +406,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // kappa
       {
         for (int i = 0; i < lat_xyzt12; i++) {
-          cg_out[i] = cg_out[i] - cg_in[i] * Kappa;
+          cg_out[i] = cg_in[i] - cg_out[i] * Kappa ;
         }
       }    
       {
@@ -565,7 +566,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // kappa
       {
         for (int i = 0; i < lat_xyzt12; i++) {
-          cg_out[i] = cg_out[i] - cg_in[i] * Kappa;
+          cg_out[i] = cg_in[i] - cg_out[i] * Kappa ;
         }
       }
       {
