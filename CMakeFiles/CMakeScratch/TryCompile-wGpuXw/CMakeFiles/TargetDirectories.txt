@@ -1,0 +1,3 @@
+/public/home/zhangxin/dcu/qcu/CMakeFiles/CMakeScratch/TryCompile-wGpuXw/CMakeFiles/cmTC_8694f.dir
+/public/home/zhangxin/dcu/qcu/CMakeFiles/CMakeScratch/TryCompile-wGpuXw/CMakeFiles/edit_cache.dir
+/public/home/zhangxin/dcu/qcu/CMakeFiles/CMakeScratch/TryCompile-wGpuXw/CMakeFiles/rebuild_cache.dir
