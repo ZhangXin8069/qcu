@@ -2,7 +2,7 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 
-#define DEBUG_MPI_WILSON_BISTABCG
+// #define DEBUG_MPI_WILSON_BISTABCG
 #define TEST_MPI_WILSON_BISTABCG
 #ifdef MPI_WILSON_BISTABCG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
