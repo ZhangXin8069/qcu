@@ -1,0 +1,1 @@
+/public/sugon/software/compiler/dtk-23.04/bin/hipcc -Wl,-rpath=/opt/rh/devtoolset-7/root/usr/lib64 -Wl,-rpath=/opt/rh/devtoolset-7/root/usr/lib  -Wl,-rpath -Wl,/public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/lib -Wl,--enable-new-dtags -pthread CMakeFiles/cmTC_8694f.dir/test_mpi.cpp.o -o cmTC_8694f  /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/lib/libmpi.so 
