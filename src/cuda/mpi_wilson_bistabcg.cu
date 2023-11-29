@@ -100,11 +100,13 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex local_result = 0;
     double Kappa = 0.125;
     // double Kappa = -7.0;
+    // double Kappa = 100.0;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
     // give_rand(x, lat_xyzt12); // rand x
     give_value(x, zero, lat_xyzt12); // zero x 
-    give_value(b, one, 1); // point b 
+    give_rand(b, lat_xyzt12); // rand b 
+    // give_value(b, one, 1); // point b 
     give_value(r, zero, lat_xyzt12); // zero r 
     give_value(r_tilde, zero, lat_xyzt12); // zero r_tilde 
     give_value(p, zero, lat_xyzt12); // zero p 
