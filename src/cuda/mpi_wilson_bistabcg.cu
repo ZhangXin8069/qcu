@@ -98,7 +98,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp0(0.0, 0.0);
     LatticeComplex tmp1(0.0, 0.0);
     LatticeComplex local_result = 0;
-    double Kappa = 0.125;
+    // double Kappa = 0.125;
+    double Kappa = 0.01;
     // double Kappa = -7.0;
     // double Kappa = 100.0;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
