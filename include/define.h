@@ -16,25 +16,35 @@
 #define BACKWARD -1
 #define NOWARD 0
 #define FORWARD 1
-// #define DEBUG
+
 #define WILSON_DSLASH
 // #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
 #define MPI_WILSON_DSLASH
 // #define MPI_CLOVER_DSLASH
 // #define MPI_OVERLAP_DSLASH
+// #define TEST_WILSON_DSLASH
+// #define TEST_CLOVER_DSLASH
+// #define TEST_OVERLAP_DSLASH
 #define WILSON_BISTABCG
 // #define CLOVER_BISTABCG
 // #define OVERLAP_BISTABCG
 #define MPI_WILSON_BISTABCG
 // #define MPI_CLOVER_BISTABCG
 // #define MPI_OVERLAP_BISTABCG
+// #define TEST_WILSON_BISTABCG
+// #define TEST_CLOVER_BISTABCG
+// #define TEST_OVERLAP_BISTABCG
+// #define WILSON_MULTGRID
+// #define CLOVER_MULTGRID
+// #define OVERLAP_MULTGRID
 // #define MPI_WILSON_MULTGRID
 // #define MPI_CLOVER_MULTGRID
 // #define MPI_OVERLAP_MULTGRID
-#define TEST_WILSON_DSLASH
-// #define TEST_CLOVER_DSLASH
-// #define TEST_OVERLAP_DSLASH
+// #define TEST_WILSON_MULTGRID
+// #define TEST_CLOVER_MULTGRID
+// #define TEST_OVERLAP_MULTGRID
+
 
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
