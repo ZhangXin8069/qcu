@@ -62,6 +62,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   {
     //// x,y+1,z,t;x;dag
+    
     move_forward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + (1 - parity) * lat_tzyxcc);
     give_u(tmp1, tmp_U);
@@ -71,6 +72,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     //// x,y,z,t;y;dag
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
     give_u(tmp1, tmp_U);
+    
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, 9);
