@@ -34,7 +34,7 @@ Currently Loaded Modulefiles:
 -- Found MPI_C: /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/lib/libmpi.so (found version "3.1") 
 -- Found MPI_CXX: /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/lib/libmpi.so (found version "3.1") 
 -- Found MPI: TRUE (found version "3.1")  
--- Configuring done (14.8s)
+-- Configuring done (16.5s)
 CMake Warning (dev) in CMakeLists.txt:
   Policy CMP0104 is not set: CMAKE_CUDA_ARCHITECTURES now detected for NVCC,
   empty CUDA_ARCHITECTURES not allowed.  Run "cmake --help-policy CMP0104"
@@ -55,33 +55,45 @@ This warning is for project developers.  Use -Wno-dev to suppress it.
 
 -- Generating done (0.0s)
 -- Build files have been written to: /public/home/zhangxin/dcu/qcu
-[  3%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
-[  7%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
-[ 10%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
+[  3%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o
+[  7%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
 [ 14%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o
-[ 21%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
-[ 21%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o
-[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o
-[ 35%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o
-[ 35%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
-[ 35%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
-[ 42%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
-[ 46%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
-[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o
-[ 53%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o
-[ 57%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o
-[ 57%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o
-[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o
-[ 64%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
-[ 67%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
-[ 71%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o
-[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o
-[ 78%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
-[ 82%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o
+[ 14%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o
+[ 17%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
+[ 32%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
+[ 35%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
+[ 35%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
+[ 42%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o
+[ 42%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o
+[ 53%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
+[ 57%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
+[ 64%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o
+[ 64%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o
+[ 71%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+[ 82%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o
+[ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
 [ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
-[ 89%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o
-[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
-[ 96%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+[ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o
+[ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+Warning: -forward-unknown-to-host-compiler Not Support
+Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+[ 89%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
 Warning: -forward-unknown-to-host-compiler Not Support
 Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
 Warning: -forward-unknown-to-host-compiler Not Support
@@ -112,20 +124,8 @@ Warning: -forward-unknown-to-host-compiler Not Support
 Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
 Warning: -forward-unknown-to-host-compiler Not Support
 Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
-Warning: -forward-unknown-to-host-compiler Not Support
-Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
+[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
+[ 96%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o
 Warning: -forward-unknown-to-host-compiler Not Support
 Warning: nvcc current only support gfx906 and gfx926 arch. All architecture parameters will be replaced by gfx906 arch.
 Warning: -forward-unknown-to-host-compiler Not Support
@@ -139,20 +139,28 @@ Warning: nvcc current only support gfx906 and gfx926 arch. All architecture para
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 ~/dcu/qcu/test ~/dcu/qcu
-[dcu004:49836] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
-[dcu004:49834] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
-[dcu004:49833] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
-[dcu004:49835] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:25198] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:25196] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:25197] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:25195] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
 Disabling GPU-Direct RDMA access
 Enabling peer-to-peer copy engine and direct load/store access
-Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   2 (gpu=2) dir=1, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   2 (gpu=2) dir=0, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   0 (gpu=0) dir=1, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   3 (gpu=3) dir=0, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   1 (gpu=1) dir=0, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   3 (gpu=3) dir=1, dim=0, access rank = (  2)
-Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   1 (gpu=1) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   2 (gpu=2) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   1 (gpu=1) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   3 (gpu=3) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   3 (gpu=3) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   2 (gpu=2) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   0 (gpu=0) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   3 (gpu=3) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   0 (gpu=0) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   3 (gpu=3) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   2 (gpu=2) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   2 (gpu=2) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3, access rank = (  2)
 QUDA 1.1.0 (git 1.1.0-b869d61-dirty-gfx906)
 *** HIP BACKEND ***
 HIP Driver version = 50400000
@@ -167,876 +175,305 @@ Found device 6: Z100
 Found device 7: Z100
 Using device 0: Z100
 WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
-Loaded 34 sets of cached parameters from .cache/tunecache.tsv
-Loaded 34 sets of cached parameters from .cache/tunecache.tsv
+Loaded 153 sets of cached parameters from .cache/tunecache.tsv
+Loaded 153 sets of cached parameters from .cache/tunecache.tsv
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
 ===============round  0 ======================
 ===============round  0 ======================
+===============round  0 ======================
 hipblasCreated successfully
 ===============round  0 ======================
-===============round  0 ======================
 Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.20962822300498374 sec
-Quda dslash: 0.27431741601321846 sec
-Quda dslash: 0.2750307169917505 sec
-Quda dslash: 0.27137824401143007 sec
-##RANK:1##LOOP:0##Residual:1.71534
-##RANK:3##LOOP:0##Residual:1.71534
-##RANK:0##LOOP:0##Residual:1.71534
-##RANK:2##LOOP:0##Residual:1.71534
-##RANK:3##LOOP:1##Residual:0.163395
-##RANK:1##LOOP:1##Residual:0.163395
-##RANK:2##LOOP:1##Residual:0.163395
-##RANK:0##LOOP:1##Residual:0.163395
-##RANK:1##LOOP:2##Residual:0.0136592
-##RANK:3##LOOP:2##Residual:0.0136592
-##RANK:0##LOOP:2##Residual:0.0136592
-##RANK:2##LOOP:2##Residual:0.0136592
-##RANK:1##LOOP:3##Residual:0.00935213
-##RANK:3##LOOP:3##Residual:0.00935213
-##RANK:2##LOOP:3##Residual:0.00935213
-##RANK:0##LOOP:3##Residual:0.00935213
-##RANK:3##LOOP:4##Residual:0.00805952
-##RANK:1##LOOP:4##Residual:0.00805952
-##RANK:0##LOOP:4##Residual:0.00805952
-##RANK:2##LOOP:4##Residual:0.00805952
-##RANK:3##LOOP:5##Residual:0.0185768
-##RANK:1##LOOP:5##Residual:0.0185768
-##RANK:2##LOOP:5##Residual:0.0185768
-##RANK:0##LOOP:5##Residual:0.0185768
-##RANK:1##LOOP:6##Residual:0.0039307
-##RANK:3##LOOP:6##Residual:0.0039307
-##RANK:2##LOOP:6##Residual:0.0039307
-##RANK:0##LOOP:6##Residual:0.0039307
-##RANK:1##LOOP:7##Residual:0.00426981
-##RANK:3##LOOP:7##Residual:0.00426981
-##RANK:0##LOOP:7##Residual:0.00426981
-##RANK:2##LOOP:7##Residual:0.00426981
-##RANK:1##LOOP:8##Residual:0.00124625
-##RANK:3##LOOP:8##Residual:0.00124625
-##RANK:0##LOOP:8##Residual:0.00124625
-##RANK:2##LOOP:8##Residual:0.00124625
-##RANK:1##LOOP:9##Residual:0.00108511
-##RANK:3##LOOP:9##Residual:0.00108511
-##RANK:2##LOOP:9##Residual:0.00108511
-##RANK:0##LOOP:9##Residual:0.00108511
-##RANK:1##LOOP:10##Residual:0.000833739
-##RANK:3##LOOP:10##Residual:0.000833739
-##RANK:2##LOOP:10##Residual:0.000833739
-##RANK:0##LOOP:10##Residual:0.000833739
-##RANK:1##LOOP:11##Residual:0.00261323
-##RANK:3##LOOP:11##Residual:0.00261323
-##RANK:2##LOOP:11##Residual:0.00261323
-##RANK:0##LOOP:11##Residual:0.00261323
-##RANK:1##LOOP:12##Residual:0.00291786
-##RANK:3##LOOP:12##Residual:0.00291786
-##RANK:0##LOOP:12##Residual:0.00291786
-##RANK:2##LOOP:12##Residual:0.00291786
-##RANK:1##LOOP:13##Residual:0.000768046
-##RANK:3##LOOP:13##Residual:0.000768046
-##RANK:2##LOOP:13##Residual:0.000768046
-##RANK:0##LOOP:13##Residual:0.000768046
-##RANK:1##LOOP:14##Residual:0.00199096
-##RANK:3##LOOP:14##Residual:0.00199096
-##RANK:2##LOOP:14##Residual:0.00199096
-##RANK:0##LOOP:14##Residual:0.00199096
-##RANK:1##LOOP:15##Residual:0.000467309
-##RANK:3##LOOP:15##Residual:0.000467309
-##RANK:0##LOOP:15##Residual:0.000467309
-##RANK:2##LOOP:15##Residual:0.000467309
-##RANK:3##LOOP:16##Residual:0.00048525
-##RANK:1##LOOP:16##Residual:0.00048525
-##RANK:0##LOOP:16##Residual:0.00048525
-##RANK:2##LOOP:16##Residual:0.00048525
-##RANK:1##LOOP:17##Residual:0.000611156
-##RANK:3##LOOP:17##Residual:0.000611156
-##RANK:2##LOOP:17##Residual:0.000611156
-##RANK:0##LOOP:17##Residual:0.000611156
-##RANK:1##LOOP:18##Residual:0.000501313
-##RANK:3##LOOP:18##Residual:0.000501313
-##RANK:0##LOOP:18##Residual:0.000501313
-##RANK:2##LOOP:18##Residual:0.000501313
-##RANK:1##LOOP:19##Residual:0.000400313
-##RANK:3##LOOP:19##Residual:0.000400313
-##RANK:0##LOOP:19##Residual:0.000400313
-##RANK:2##LOOP:19##Residual:0.000400313
-##RANK:3##LOOP:20##Residual:0.000645309
-##RANK:1##LOOP:20##Residual:0.000645309
-##RANK:0##LOOP:20##Residual:0.000645309
-##RANK:2##LOOP:20##Residual:0.000645309
-##RANK:1##LOOP:21##Residual:0.00148493
-##RANK:3##LOOP:21##Residual:0.00148493
-##RANK:2##LOOP:21##Residual:0.00148493
-##RANK:0##LOOP:21##Residual:0.00148493
-##RANK:1##LOOP:22##Residual:9.84751e-05
-##RANK:3##LOOP:22##Residual:9.84751e-05
-##RANK:0##LOOP:22##Residual:9.84751e-05
-##RANK:2##LOOP:22##Residual:9.84751e-05
-##RANK:1##LOOP:23##Residual:0.000954905
-##RANK:3##LOOP:23##Residual:0.000954905
-##RANK:2##LOOP:23##Residual:0.000954905
-##RANK:0##LOOP:23##Residual:0.000954905
-##RANK:3##LOOP:24##Residual:0.000540826
-##RANK:1##LOOP:24##Residual:0.000540826
-##RANK:2##LOOP:24##Residual:0.000540826
-##RANK:0##LOOP:24##Residual:0.000540826
-##RANK:3##LOOP:25##Residual:0.000520584
-##RANK:1##LOOP:25##Residual:0.000520584
-##RANK:2##LOOP:25##Residual:0.000520584
-##RANK:0##LOOP:25##Residual:0.000520584
-##RANK:1##LOOP:26##Residual:0.00161471
-##RANK:3##LOOP:26##Residual:0.00161471
-##RANK:0##LOOP:26##Residual:0.00161471
-##RANK:2##LOOP:26##Residual:0.00161471
-##RANK:3##LOOP:27##Residual:0.000402656
-##RANK:1##LOOP:27##Residual:0.000402656
-##RANK:2##LOOP:27##Residual:0.000402656
-##RANK:0##LOOP:27##Residual:0.000402656
-##RANK:1##LOOP:28##Residual:0.00116628
-##RANK:3##LOOP:28##Residual:0.00116628
-##RANK:2##LOOP:28##Residual:0.00116628
-##RANK:0##LOOP:28##Residual:0.00116628
-##RANK:3##LOOP:29##Residual:0.00956383
-##RANK:1##LOOP:29##Residual:0.00956383
-##RANK:2##LOOP:29##Residual:0.00956383
-##RANK:0##LOOP:29##Residual:0.00956383
-##RANK:3##LOOP:30##Residual:0.00120536
-##RANK:1##LOOP:30##Residual:0.00120536
-##RANK:0##LOOP:30##Residual:0.00120536
-##RANK:2##LOOP:30##Residual:0.00120536
-##RANK:3##LOOP:31##Residual:0.016239
-##RANK:1##LOOP:31##Residual:0.016239
-##RANK:2##LOOP:31##Residual:0.016239
-##RANK:0##LOOP:31##Residual:0.016239
-##RANK:1##LOOP:32##Residual:0.00354272
-##RANK:3##LOOP:32##Residual:0.00354272
-##RANK:2##LOOP:32##Residual:0.00354272
-##RANK:0##LOOP:32##Residual:0.00354272
-##RANK:1##LOOP:33##Residual:0.0030552
-##RANK:3##LOOP:33##Residual:0.0030552
-##RANK:0##LOOP:33##Residual:0.0030552
-##RANK:2##LOOP:33##Residual:0.0030552
-##RANK:1##LOOP:34##Residual:0.0040078
-##RANK:3##LOOP:34##Residual:0.0040078
-##RANK:0##LOOP:34##Residual:0.0040078
-##RANK:2##LOOP:34##Residual:0.0040078
-##RANK:1##LOOP:35##Residual:0.0105931
-##RANK:3##LOOP:35##Residual:0.0105931
-##RANK:2##LOOP:35##Residual:0.0105931
-##RANK:0##LOOP:35##Residual:0.0105931
-##RANK:1##LOOP:36##Residual:0.00342784
-##RANK:3##LOOP:36##Residual:0.00342784
-##RANK:0##LOOP:36##Residual:0.00342784
-##RANK:2##LOOP:36##Residual:0.00342784
-##RANK:1##LOOP:37##Residual:3.24325
-##RANK:3##LOOP:37##Residual:3.24325
-##RANK:2##LOOP:37##Residual:3.24325
-##RANK:0##LOOP:37##Residual:3.24325
-##RANK:1##LOOP:38##Residual:0.0606423
-##RANK:3##LOOP:38##Residual:0.0606423
-##RANK:2##LOOP:38##Residual:0.0606423
-##RANK:0##LOOP:38##Residual:0.0606423
-##RANK:3##LOOP:39##Residual:0.0532695
-##RANK:1##LOOP:39##Residual:0.0532695
-##RANK:2##LOOP:39##Residual:0.0532695
-##RANK:0##LOOP:39##Residual:0.0532695
-##RANK:1##LOOP:40##Residual:2.21947
-##RANK:3##LOOP:40##Residual:2.21947
-##RANK:0##LOOP:40##Residual:2.21947
-##RANK:2##LOOP:40##Residual:2.21947
-##RANK:3##LOOP:41##Residual:1.30443
-##RANK:1##LOOP:41##Residual:1.30443
-##RANK:2##LOOP:41##Residual:1.30443
-##RANK:0##LOOP:41##Residual:1.30443
-##RANK:1##LOOP:42##Residual:1.75158
-##RANK:3##LOOP:42##Residual:1.75158
-##RANK:0##LOOP:42##Residual:1.75158
-##RANK:2##LOOP:42##Residual:1.75158
-##RANK:1##LOOP:43##Residual:2.91599
-##RANK:3##LOOP:43##Residual:2.91599
-##RANK:2##LOOP:43##Residual:2.91599
-##RANK:0##LOOP:43##Residual:2.91599
-##RANK:1##LOOP:44##Residual:2.41802
-##RANK:3##LOOP:44##Residual:2.41802
-##RANK:0##LOOP:44##Residual:2.41802
-##RANK:2##LOOP:44##Residual:2.41802
-##RANK:1##LOOP:45##Residual:7.57711
-##RANK:3##LOOP:45##Residual:7.57711
-##RANK:2##LOOP:45##Residual:7.57711
-##RANK:0##LOOP:45##Residual:7.57711
-##RANK:3##LOOP:46##Residual:6.04006
-##RANK:1##LOOP:46##Residual:6.04006
-##RANK:2##LOOP:46##Residual:6.04006
-##RANK:0##LOOP:46##Residual:6.04006
-##RANK:3##LOOP:47##Residual:17.5057
-##RANK:1##LOOP:47##Residual:17.5057
-##RANK:2##LOOP:47##Residual:17.5057
-##RANK:0##LOOP:47##Residual:17.5057
-##RANK:1##LOOP:48##Residual:3.78011
-##RANK:3##LOOP:48##Residual:3.78011
-##RANK:0##LOOP:48##Residual:3.78011
-##RANK:2##LOOP:48##Residual:3.78011
-##RANK:1##LOOP:49##Residual:22.5172
-##RANK:3##LOOP:49##Residual:22.5172
-##RANK:0##LOOP:49##Residual:22.5172
-##RANK:2##LOOP:49##Residual:22.5172
-##RANK:1##LOOP:50##Residual:14.3963
-##RANK:3##LOOP:50##Residual:14.3963
-##RANK:2##LOOP:50##Residual:14.3963
-##RANK:0##LOOP:50##Residual:14.3963
-##RANK:1##LOOP:51##Residual:10.7978
-##RANK:3##LOOP:51##Residual:10.7978
-##RANK:2##LOOP:51##Residual:10.7978
-##RANK:0##LOOP:51##Residual:10.7978
-##RANK:1##LOOP:52##Residual:10.1557
-##RANK:3##LOOP:52##Residual:10.1557
-##RANK:0##LOOP:52##Residual:10.1557
-##RANK:2##LOOP:52##Residual:10.1557
-##RANK:1##LOOP:53##Residual:64.2317
-##RANK:3##LOOP:53##Residual:64.2317
-##RANK:2##LOOP:53##Residual:64.2317
-##RANK:0##LOOP:53##Residual:64.2317
-##RANK:3##LOOP:54##Residual:36.1307
-##RANK:1##LOOP:54##Residual:36.1307
-##RANK:0##LOOP:54##Residual:36.1307
-##RANK:2##LOOP:54##Residual:36.1307
-##RANK:1##LOOP:55##Residual:29.0742
-##RANK:3##LOOP:55##Residual:29.0742
-##RANK:2##LOOP:55##Residual:29.0742
-##RANK:0##LOOP:55##Residual:29.0742
-##RANK:3##LOOP:56##Residual:12.2054
-##RANK:1##LOOP:56##Residual:12.2054
-##RANK:0##LOOP:56##Residual:12.2054
-##RANK:2##LOOP:56##Residual:12.2054
-##RANK:1##LOOP:57##Residual:15.0706
-##RANK:3##LOOP:57##Residual:15.0706
-##RANK:2##LOOP:57##Residual:15.0706
-##RANK:0##LOOP:57##Residual:15.0706
-##RANK:1##LOOP:58##Residual:253.274
-##RANK:3##LOOP:58##Residual:253.274
-##RANK:0##LOOP:58##Residual:253.274
-##RANK:2##LOOP:58##Residual:253.274
-##RANK:1##LOOP:59##Residual:15.5403
-##RANK:3##LOOP:59##Residual:15.5403
-##RANK:0##LOOP:59##Residual:15.5403
-##RANK:2##LOOP:59##Residual:15.5403
-##RANK:1##LOOP:60##Residual:85.7554
-##RANK:3##LOOP:60##Residual:85.7554
-##RANK:2##LOOP:60##Residual:85.7554
-##RANK:0##LOOP:60##Residual:85.7554
-##RANK:3##LOOP:61##Residual:31.7869
-##RANK:1##LOOP:61##Residual:31.7869
-##RANK:2##LOOP:61##Residual:31.7869
-##RANK:0##LOOP:61##Residual:31.7869
-##RANK:3##LOOP:62##Residual:46.2709
-##RANK:1##LOOP:62##Residual:46.2709
-##RANK:0##LOOP:62##Residual:46.2709
-##RANK:2##LOOP:62##Residual:46.2709
-##RANK:1##LOOP:63##Residual:32.6718
-##RANK:3##LOOP:63##Residual:32.6718
-##RANK:0##LOOP:63##Residual:32.6718
-##RANK:2##LOOP:63##Residual:32.6718
-##RANK:1##LOOP:64##Residual:9.00537
-##RANK:3##LOOP:64##Residual:9.00537
-##RANK:2##LOOP:64##Residual:9.00537
-##RANK:0##LOOP:64##Residual:9.00537
-##RANK:1##LOOP:65##Residual:17.8725
-##RANK:3##LOOP:65##Residual:17.8725
-##RANK:2##LOOP:65##Residual:17.8725
-##RANK:0##LOOP:65##Residual:17.8725
-##RANK:1##LOOP:66##Residual:68.149
-##RANK:3##LOOP:66##Residual:68.149
-##RANK:0##LOOP:66##Residual:68.149
-##RANK:2##LOOP:66##Residual:68.149
-##RANK:1##LOOP:67##Residual:48.9046
-##RANK:3##LOOP:67##Residual:48.9046
-##RANK:0##LOOP:67##Residual:48.9046
-##RANK:2##LOOP:67##Residual:48.9046
-##RANK:3##LOOP:68##Residual:47.3555
-##RANK:1##LOOP:68##Residual:47.3555
-##RANK:0##LOOP:68##Residual:47.3555
-##RANK:2##LOOP:68##Residual:47.3555
-##RANK:3##LOOP:69##Residual:22.7443
-##RANK:1##LOOP:69##Residual:22.7443
-##RANK:2##LOOP:69##Residual:22.7443
-##RANK:0##LOOP:69##Residual:22.7443
-##RANK:1##LOOP:70##Residual:31.8142
-##RANK:3##LOOP:70##Residual:31.8142
-##RANK:0##LOOP:70##Residual:31.8142
-##RANK:2##LOOP:70##Residual:31.8142
-##RANK:1##LOOP:71##Residual:131.416
-##RANK:3##LOOP:71##Residual:131.416
-##RANK:0##LOOP:71##Residual:131.416
-##RANK:2##LOOP:71##Residual:131.416
-##RANK:1##LOOP:72##Residual:22.9441
-##RANK:3##LOOP:72##Residual:22.9441
-##RANK:0##LOOP:72##Residual:22.9441
-##RANK:2##LOOP:72##Residual:22.9441
-##RANK:1##LOOP:73##Residual:6.06909
-##RANK:3##LOOP:73##Residual:6.06909
-##RANK:2##LOOP:73##Residual:6.06909
-##RANK:0##LOOP:73##Residual:6.06909
-##RANK:1##LOOP:74##Residual:467.271
-##RANK:3##LOOP:74##Residual:467.271
-##RANK:0##LOOP:74##Residual:467.271
-##RANK:2##LOOP:74##Residual:467.271
-##RANK:3##LOOP:75##Residual:135.678
-##RANK:1##LOOP:75##Residual:135.678
-##RANK:2##LOOP:75##Residual:135.678
-##RANK:0##LOOP:75##Residual:135.678
-##RANK:1##LOOP:76##Residual:198.49
-##RANK:3##LOOP:76##Residual:198.49
-##RANK:2##LOOP:76##Residual:198.49
-##RANK:0##LOOP:76##Residual:198.49
-##RANK:3##LOOP:77##Residual:881.289
-##RANK:1##LOOP:77##Residual:881.289
-##RANK:2##LOOP:77##Residual:881.289
-##RANK:0##LOOP:77##Residual:881.289
-##RANK:1##LOOP:78##Residual:684.869
-##RANK:3##LOOP:78##Residual:684.869
-##RANK:0##LOOP:78##Residual:684.869
-##RANK:2##LOOP:78##Residual:684.869
-##RANK:1##LOOP:79##Residual:3428.89
-##RANK:3##LOOP:79##Residual:3428.89
-##RANK:2##LOOP:79##Residual:3428.89
-##RANK:0##LOOP:79##Residual:3428.89
-##RANK:1##LOOP:80##Residual:8486.97
-##RANK:3##LOOP:80##Residual:8486.97
-##RANK:2##LOOP:80##Residual:8486.97
-##RANK:0##LOOP:80##Residual:8486.97
-##RANK:1##LOOP:81##Residual:73678.9
-##RANK:3##LOOP:81##Residual:73678.9
-##RANK:0##LOOP:81##Residual:73678.9
-##RANK:2##LOOP:81##Residual:73678.9
-##RANK:1##LOOP:82##Residual:32278.9
-##RANK:3##LOOP:82##Residual:32278.9
-##RANK:0##LOOP:82##Residual:32278.9
-##RANK:2##LOOP:82##Residual:32278.9
-##RANK:1##LOOP:83##Residual:4073.05
-##RANK:3##LOOP:83##Residual:4073.05
-##RANK:2##LOOP:83##Residual:4073.05
-##RANK:0##LOOP:83##Residual:4073.05
-##RANK:1##LOOP:84##Residual:5772.9
-##RANK:3##LOOP:84##Residual:5772.9
-##RANK:0##LOOP:84##Residual:5772.9
-##RANK:2##LOOP:84##Residual:5772.9
-##RANK:3##LOOP:85##Residual:3763.23
-##RANK:1##LOOP:85##Residual:3763.23
-##RANK:2##LOOP:85##Residual:3763.23
-##RANK:0##LOOP:85##Residual:3763.23
-##RANK:3##LOOP:86##Residual:9930.08
-##RANK:1##LOOP:86##Residual:9930.08
-##RANK:2##LOOP:86##Residual:9930.08
-##RANK:0##LOOP:86##Residual:9930.08
-##RANK:1##LOOP:87##Residual:217189
-##RANK:3##LOOP:87##Residual:217189
-##RANK:0##LOOP:87##Residual:217189
-##RANK:2##LOOP:87##Residual:217189
-##RANK:1##LOOP:88##Residual:27693.5
-##RANK:3##LOOP:88##Residual:27693.5
-##RANK:0##LOOP:88##Residual:27693.5
-##RANK:2##LOOP:88##Residual:27693.5
-##RANK:1##LOOP:89##Residual:34857.2
-##RANK:3##LOOP:89##Residual:34857.2
-##RANK:2##LOOP:89##Residual:34857.2
-##RANK:0##LOOP:89##Residual:34857.2
-##RANK:1##LOOP:90##Residual:27128.1
-##RANK:3##LOOP:90##Residual:27128.1
-##RANK:2##LOOP:90##Residual:27128.1
-##RANK:0##LOOP:90##Residual:27128.1
-##RANK:1##LOOP:91##Residual:281916
-##RANK:3##LOOP:91##Residual:281916
-##RANK:2##LOOP:91##Residual:281916
-##RANK:0##LOOP:91##Residual:281916
-##RANK:3##LOOP:92##Residual:715039
-##RANK:1##LOOP:92##Residual:715039
-##RANK:0##LOOP:92##Residual:715039
-##RANK:2##LOOP:92##Residual:715039
-##RANK:1##LOOP:93##Residual:2.22393e+06
-##RANK:3##LOOP:93##Residual:2.22393e+06
-##RANK:2##LOOP:93##Residual:2.22393e+06
-##RANK:0##LOOP:93##Residual:2.22393e+06
-##RANK:3##LOOP:94##Residual:2.30803e+08
-##RANK:1##LOOP:94##Residual:2.30803e+08
-##RANK:2##LOOP:94##Residual:2.30803e+08
-##RANK:0##LOOP:94##Residual:2.30803e+08
-##RANK:1##LOOP:95##Residual:5.16857e+06
-##RANK:3##LOOP:95##Residual:5.16857e+06
-##RANK:2##LOOP:95##Residual:5.16857e+06
-##RANK:0##LOOP:95##Residual:5.16857e+06
-##RANK:1##LOOP:96##Residual:7.66109e+08
-##RANK:3##LOOP:96##Residual:7.66109e+08
-##RANK:0##LOOP:96##Residual:7.66109e+08
-##RANK:2##LOOP:96##Residual:7.66109e+08
-##RANK:1##LOOP:97##Residual:9.5249e+08
-##RANK:3##LOOP:97##Residual:9.5249e+08
-##RANK:2##LOOP:97##Residual:9.5249e+08
-##RANK:0##LOOP:97##Residual:9.5249e+08
-##RANK:1##LOOP:98##Residual:1.34609e+09
-##RANK:3##LOOP:98##Residual:1.34609e+09
-##RANK:0##LOOP:98##Residual:1.34609e+09
-##RANK:2##LOOP:98##Residual:1.34609e+09
-##RANK:1##LOOP:99##Residual:1.08575e+08
-##RANK:3##LOOP:99##Residual:1.08575e+08
-##RANK:2##LOOP:99##Residual:1.08575e+08
-mpi wilson cg total time: (without malloc free memcpy) :64.595067017 sec
-mpi wilson cg total time: (without malloc free memcpy) :64.594088911 sec
-##RANK:0##LOOP:99##Residual:1.08575e+08
-mpi wilson cg total time: (without malloc free memcpy) :64.429904446 sec
-mpi wilson cg total time: (without malloc free memcpy) :64.424204203 sec
-##RANK:3##LOOP:0##Residual:3.58674
-##RANK:1##LOOP:0##Residual:3.58674
-##RANK:2##LOOP:0##Residual:3.58674
-##RANK:0##LOOP:0##Residual:3.58674
-##RANK:1##LOOP:1##Residual:0.27041
-##RANK:3##LOOP:1##Residual:0.27041
-##RANK:2##LOOP:1##Residual:0.27041
-##RANK:0##LOOP:1##Residual:0.27041
-##RANK:1##LOOP:2##Residual:0.0161602
-##RANK:3##LOOP:2##Residual:0.0161602
-##RANK:2##LOOP:2##Residual:0.0161602
-##RANK:0##LOOP:2##Residual:0.0161602
-##RANK:3##LOOP:3##Residual:0.0110124
-##RANK:1##LOOP:3##Residual:0.0110124
-##RANK:0##LOOP:3##Residual:0.0110124
-##RANK:2##LOOP:3##Residual:0.0110124
-##RANK:1##LOOP:4##Residual:0.00572541
-##RANK:3##LOOP:4##Residual:0.00572541
-##RANK:2##LOOP:4##Residual:0.00572541
-##RANK:0##LOOP:4##Residual:0.00572541
-##RANK:1##LOOP:5##Residual:0.00153126
-##RANK:3##LOOP:5##Residual:0.00153126
-##RANK:2##LOOP:5##Residual:0.00153126
-##RANK:0##LOOP:5##Residual:0.00153126
-##RANK:3##LOOP:6##Residual:0.00134552
-##RANK:1##LOOP:6##Residual:0.00134552
-##RANK:0##LOOP:6##Residual:0.00134552
-##RANK:2##LOOP:6##Residual:0.00134552
-##RANK:1##LOOP:7##Residual:0.00123515
-##RANK:3##LOOP:7##Residual:0.00123515
-##RANK:2##LOOP:7##Residual:0.00123515
-##RANK:0##LOOP:7##Residual:0.00123515
-##RANK:1##LOOP:8##Residual:0.00106768
-##RANK:3##LOOP:8##Residual:0.00106768
-##RANK:2##LOOP:8##Residual:0.00106768
-##RANK:0##LOOP:8##Residual:0.00106768
-##RANK:1##LOOP:9##Residual:0.00106546
-##RANK:3##LOOP:9##Residual:0.00106546
-##RANK:0##LOOP:9##Residual:0.00106546
-##RANK:2##LOOP:9##Residual:0.00106546
-##RANK:1##LOOP:10##Residual:0.00115902
-##RANK:3##LOOP:10##Residual:0.00115902
-##RANK:0##LOOP:10##Residual:0.00115902
-##RANK:2##LOOP:10##Residual:0.00115902
-##RANK:1##LOOP:11##Residual:0.0011408
-##RANK:3##LOOP:11##Residual:0.0011408
-##RANK:0##LOOP:11##Residual:0.0011408
-##RANK:2##LOOP:11##Residual:0.0011408
-##RANK:1##LOOP:12##Residual:0.00113307
-##RANK:3##LOOP:12##Residual:0.00113307
-##RANK:2##LOOP:12##Residual:0.00113307
-##RANK:0##LOOP:12##Residual:0.00113307
-##RANK:1##LOOP:13##Residual:0.00112224
-##RANK:3##LOOP:13##Residual:0.00112224
-##RANK:2##LOOP:13##Residual:0.00112224
-##RANK:0##LOOP:13##Residual:0.00112224
-##RANK:3##LOOP:14##Residual:0.00103581
-##RANK:1##LOOP:14##Residual:0.00103581
-##RANK:2##LOOP:14##Residual:0.00103581
-##RANK:0##LOOP:14##Residual:0.00103581
-##RANK:1##LOOP:15##Residual:0.00181445
-##RANK:3##LOOP:15##Residual:0.00181445
-##RANK:2##LOOP:15##Residual:0.00181445
-##RANK:0##LOOP:15##Residual:0.00181445
-##RANK:1##LOOP:16##Residual:0.00173633
-##RANK:3##LOOP:16##Residual:0.00173633
-##RANK:2##LOOP:16##Residual:0.00173633
-##RANK:0##LOOP:16##Residual:0.00173633
-##RANK:1##LOOP:17##Residual:0.0018249
-##RANK:3##LOOP:17##Residual:0.0018249
-##RANK:0##LOOP:17##Residual:0.0018249
-##RANK:2##LOOP:17##Residual:0.0018249
-##RANK:1##LOOP:18##Residual:0.00185447
-##RANK:3##LOOP:18##Residual:0.00185447
-##RANK:2##LOOP:18##Residual:0.00185447
-##RANK:0##LOOP:18##Residual:0.00185447
-##RANK:1##LOOP:19##Residual:0.00116142
-##RANK:3##LOOP:19##Residual:0.00116142
-##RANK:2##LOOP:19##Residual:0.00116142
-##RANK:0##LOOP:19##Residual:0.00116142
-##RANK:1##LOOP:20##Residual:0.00140531
-##RANK:3##LOOP:20##Residual:0.00140531
-##RANK:2##LOOP:20##Residual:0.00140531
-##RANK:0##LOOP:20##Residual:0.00140531
-##RANK:3##LOOP:21##Residual:0.0011421
-##RANK:1##LOOP:21##Residual:0.0011421
-##RANK:0##LOOP:21##Residual:0.0011421
-##RANK:2##LOOP:21##Residual:0.0011421
-##RANK:1##LOOP:22##Residual:0.0015491
-##RANK:3##LOOP:22##Residual:0.0015491
-##RANK:0##LOOP:22##Residual:0.0015491
-##RANK:2##LOOP:22##Residual:0.0015491
-##RANK:3##LOOP:23##Residual:0.00167537
-##RANK:1##LOOP:23##Residual:0.00167537
-##RANK:2##LOOP:23##Residual:0.00167537
-##RANK:0##LOOP:23##Residual:0.00167537
-##RANK:1##LOOP:24##Residual:0.00202909
-##RANK:3##LOOP:24##Residual:0.00202909
-##RANK:0##LOOP:24##Residual:0.00202909
-##RANK:2##LOOP:24##Residual:0.00202909
-##RANK:1##LOOP:25##Residual:0.00346183
-##RANK:3##LOOP:25##Residual:0.00346183
-##RANK:2##LOOP:25##Residual:0.00346183
-##RANK:0##LOOP:25##Residual:0.00346183
-##RANK:1##LOOP:26##Residual:0.00152745
-##RANK:3##LOOP:26##Residual:0.00152745
-##RANK:2##LOOP:26##Residual:0.00152745
-##RANK:0##LOOP:26##Residual:0.00152745
-##RANK:1##LOOP:27##Residual:0.00258693
-##RANK:3##LOOP:27##Residual:0.00258693
-##RANK:2##LOOP:27##Residual:0.00258693
-##RANK:0##LOOP:27##Residual:0.00258693
-##RANK:3##LOOP:28##Residual:0.00219588
-##RANK:1##LOOP:28##Residual:0.00219588
-##RANK:2##LOOP:28##Residual:0.00219588
-##RANK:0##LOOP:28##Residual:0.00219588
-##RANK:3##LOOP:29##Residual:0.00276707
-##RANK:1##LOOP:29##Residual:0.00276707
-##RANK:0##LOOP:29##Residual:0.00276707
-##RANK:2##LOOP:29##Residual:0.00276707
-##RANK:1##LOOP:30##Residual:0.00140412
-##RANK:3##LOOP:30##Residual:0.00140412
-##RANK:2##LOOP:30##Residual:0.00140412
-##RANK:0##LOOP:30##Residual:0.00140412
-##RANK:1##LOOP:31##Residual:0.00299614
-##RANK:3##LOOP:31##Residual:0.00299614
-##RANK:2##LOOP:31##Residual:0.00299614
-##RANK:0##LOOP:31##Residual:0.00299614
-##RANK:1##LOOP:32##Residual:0.0111632
-##RANK:3##LOOP:32##Residual:0.0111632
-##RANK:2##LOOP:32##Residual:0.0111632
-##RANK:0##LOOP:32##Residual:0.0111632
-##RANK:1##LOOP:33##Residual:0.000118775
-##RANK:3##LOOP:33##Residual:0.000118775
-##RANK:0##LOOP:33##Residual:0.000118775
-##RANK:2##LOOP:33##Residual:0.000118775
-##RANK:1##LOOP:34##Residual:0.00338911
-##RANK:3##LOOP:34##Residual:0.00338911
-##RANK:2##LOOP:34##Residual:0.00338911
-##RANK:0##LOOP:34##Residual:0.00338911
-##RANK:1##LOOP:35##Residual:0.000836001
-##RANK:3##LOOP:35##Residual:0.000836001
-##RANK:2##LOOP:35##Residual:0.000836001
-##RANK:0##LOOP:35##Residual:0.000836001
-##RANK:1##LOOP:36##Residual:0.000176605
-##RANK:3##LOOP:36##Residual:0.000176605
-##RANK:2##LOOP:36##Residual:0.000176605
-##RANK:0##LOOP:36##Residual:0.000176605
-##RANK:3##LOOP:37##Residual:0.000295654
-##RANK:1##LOOP:37##Residual:0.000295654
-##RANK:2##LOOP:37##Residual:0.000295654
-##RANK:0##LOOP:37##Residual:0.000295654
-##RANK:1##LOOP:38##Residual:0.000206956
-##RANK:3##LOOP:38##Residual:0.000206956
-##RANK:2##LOOP:38##Residual:0.000206956
-##RANK:0##LOOP:38##Residual:0.000206956
-##RANK:3##LOOP:39##Residual:0.000296037
-##RANK:1##LOOP:39##Residual:0.000296037
-##RANK:0##LOOP:39##Residual:0.000296037
-##RANK:2##LOOP:39##Residual:0.000296037
-##RANK:1##LOOP:40##Residual:0.00578563
-##RANK:3##LOOP:40##Residual:0.00578563
-##RANK:2##LOOP:40##Residual:0.00578563
-##RANK:0##LOOP:40##Residual:0.00578563
-##RANK:1##LOOP:41##Residual:0.000790657
-##RANK:3##LOOP:41##Residual:0.000790657
-##RANK:2##LOOP:41##Residual:0.000790657
-##RANK:0##LOOP:41##Residual:0.000790657
-##RANK:1##LOOP:42##Residual:0.00534399
-##RANK:3##LOOP:42##Residual:0.00534399
-##RANK:2##LOOP:42##Residual:0.00534399
-##RANK:0##LOOP:42##Residual:0.00534399
-##RANK:1##LOOP:43##Residual:0.0019351
-##RANK:3##LOOP:43##Residual:0.0019351
-##RANK:2##LOOP:43##Residual:0.0019351
-##RANK:0##LOOP:43##Residual:0.0019351
-##RANK:3##LOOP:44##Residual:0.00179527
-##RANK:1##LOOP:44##Residual:0.00179527
-##RANK:2##LOOP:44##Residual:0.00179527
-##RANK:0##LOOP:44##Residual:0.00179527
-##RANK:3##LOOP:45##Residual:0.00880038
-##RANK:1##LOOP:45##Residual:0.00880038
-##RANK:0##LOOP:45##Residual:0.00880038
-##RANK:2##LOOP:45##Residual:0.00880038
-##RANK:3##LOOP:46##Residual:0.00267588
-##RANK:1##LOOP:46##Residual:0.00267588
-##RANK:2##LOOP:46##Residual:0.00267588
-##RANK:0##LOOP:46##Residual:0.00267588
-##RANK:1##LOOP:47##Residual:0.00255738
-##RANK:3##LOOP:47##Residual:0.00255738
-##RANK:0##LOOP:47##Residual:0.00255738
-##RANK:2##LOOP:47##Residual:0.00255738
-##RANK:1##LOOP:48##Residual:0.00274959
-##RANK:3##LOOP:48##Residual:0.00274959
-##RANK:2##LOOP:48##Residual:0.00274959
-##RANK:0##LOOP:48##Residual:0.00274959
-##RANK:1##LOOP:49##Residual:0.0172093
-##RANK:3##LOOP:49##Residual:0.0172093
-##RANK:0##LOOP:49##Residual:0.0172093
-##RANK:2##LOOP:49##Residual:0.0172093
-##RANK:1##LOOP:50##Residual:0.0223281
-##RANK:3##LOOP:50##Residual:0.0223281
-##RANK:2##LOOP:50##Residual:0.0223281
-##RANK:0##LOOP:50##Residual:0.0223281
-##RANK:3##LOOP:51##Residual:0.0717816
-##RANK:1##LOOP:51##Residual:0.0717816
-##RANK:2##LOOP:51##Residual:0.0717816
-##RANK:0##LOOP:51##Residual:0.0717816
-##RANK:3##LOOP:52##Residual:0.0255131
-##RANK:1##LOOP:52##Residual:0.0255131
-##RANK:0##LOOP:52##Residual:0.0255131
-##RANK:2##LOOP:52##Residual:0.0255131
-##RANK:3##LOOP:53##Residual:0.0395847
-##RANK:1##LOOP:53##Residual:0.0395847
-##RANK:0##LOOP:53##Residual:0.0395847
-##RANK:2##LOOP:53##Residual:0.0395847
-##RANK:1##LOOP:54##Residual:0.0243498
-##RANK:3##LOOP:54##Residual:0.0243498
-##RANK:2##LOOP:54##Residual:0.0243498
-##RANK:0##LOOP:54##Residual:0.0243498
-##RANK:1##LOOP:55##Residual:0.00567839
-##RANK:3##LOOP:55##Residual:0.00567839
-##RANK:2##LOOP:55##Residual:0.00567839
-##RANK:0##LOOP:55##Residual:0.00567839
-##RANK:1##LOOP:56##Residual:0.0271226
-##RANK:3##LOOP:56##Residual:0.0271226
-##RANK:2##LOOP:56##Residual:0.0271226
-##RANK:0##LOOP:56##Residual:0.0271226
-##RANK:3##LOOP:57##Residual:0.0597274
-##RANK:1##LOOP:57##Residual:0.0597274
-##RANK:2##LOOP:57##Residual:0.0597274
-##RANK:0##LOOP:57##Residual:0.0597274
-##RANK:1##LOOP:58##Residual:0.0553048
-##RANK:3##LOOP:58##Residual:0.0553048
-##RANK:0##LOOP:58##Residual:0.0553048
-##RANK:2##LOOP:58##Residual:0.0553048
-##RANK:3##LOOP:59##Residual:0.199278
-##RANK:1##LOOP:59##Residual:0.199278
-##RANK:0##LOOP:59##Residual:0.199278
-##RANK:2##LOOP:59##Residual:0.199278
-##RANK:3##LOOP:60##Residual:0.231809
-##RANK:1##LOOP:60##Residual:0.231809
-##RANK:2##LOOP:60##Residual:0.231809
-##RANK:0##LOOP:60##Residual:0.231809
-##RANK:1##LOOP:61##Residual:0.326685
-##RANK:3##LOOP:61##Residual:0.326685
-##RANK:2##LOOP:61##Residual:0.326685
-##RANK:0##LOOP:61##Residual:0.326685
-##RANK:1##LOOP:62##Residual:0.197019
-##RANK:3##LOOP:62##Residual:0.197019
-##RANK:2##LOOP:62##Residual:0.197019
-##RANK:0##LOOP:62##Residual:0.197019
-##RANK:1##LOOP:63##Residual:0.0942845
-##RANK:3##LOOP:63##Residual:0.0942845
-##RANK:2##LOOP:63##Residual:0.0942845
-##RANK:0##LOOP:63##Residual:0.0942845
-##RANK:1##LOOP:64##Residual:0.139702
-##RANK:3##LOOP:64##Residual:0.139702
-##RANK:0##LOOP:64##Residual:0.139702
-##RANK:2##LOOP:64##Residual:0.139702
-##RANK:1##LOOP:65##Residual:0.144713
-##RANK:3##LOOP:65##Residual:0.144713
-##RANK:2##LOOP:65##Residual:0.144713
-##RANK:0##LOOP:65##Residual:0.144713
-##RANK:1##LOOP:66##Residual:0.177782
-##RANK:3##LOOP:66##Residual:0.177782
-##RANK:2##LOOP:66##Residual:0.177782
-##RANK:0##LOOP:66##Residual:0.177782
-##RANK:3##LOOP:67##Residual:0.0477104
-##RANK:1##LOOP:67##Residual:0.0477104
-##RANK:0##LOOP:67##Residual:0.0477104
-##RANK:2##LOOP:67##Residual:0.0477104
-##RANK:3##LOOP:68##Residual:1.08692
-##RANK:1##LOOP:68##Residual:1.08692
-##RANK:0##LOOP:68##Residual:1.08692
-##RANK:2##LOOP:68##Residual:1.08692
-##RANK:1##LOOP:69##Residual:0.977228
-##RANK:3##LOOP:69##Residual:0.977228
-##RANK:2##LOOP:69##Residual:0.977228
-##RANK:0##LOOP:69##Residual:0.977228
-##RANK:1##LOOP:70##Residual:0.0968916
-##RANK:3##LOOP:70##Residual:0.0968916
-##RANK:0##LOOP:70##Residual:0.0968916
-##RANK:2##LOOP:70##Residual:0.0968916
-##RANK:3##LOOP:71##Residual:0.0533893
-##RANK:1##LOOP:71##Residual:0.0533893
-##RANK:0##LOOP:71##Residual:0.0533893
-##RANK:2##LOOP:71##Residual:0.0533893
-##RANK:1##LOOP:72##Residual:0.190943
-##RANK:3##LOOP:72##Residual:0.190943
-##RANK:0##LOOP:72##Residual:0.190943
-##RANK:2##LOOP:72##Residual:0.190943
-##RANK:1##LOOP:73##Residual:0.166745
-##RANK:3##LOOP:73##Residual:0.166745
-##RANK:2##LOOP:73##Residual:0.166745
-##RANK:0##LOOP:73##Residual:0.166745
-##RANK:3##LOOP:74##Residual:0.307239
-##RANK:1##LOOP:74##Residual:0.307239
-##RANK:0##LOOP:74##Residual:0.307239
-##RANK:2##LOOP:74##Residual:0.307239
-##RANK:3##LOOP:75##Residual:2.95936
-##RANK:1##LOOP:75##Residual:2.95936
-##RANK:2##LOOP:75##Residual:2.95936
-##RANK:0##LOOP:75##Residual:2.95936
-##RANK:1##LOOP:76##Residual:0.602899
-##RANK:3##LOOP:76##Residual:0.602899
-##RANK:2##LOOP:76##Residual:0.602899
-##RANK:0##LOOP:76##Residual:0.602899
-##RANK:1##LOOP:77##Residual:1.2756
-##RANK:3##LOOP:77##Residual:1.2756
-##RANK:2##LOOP:77##Residual:1.2756
-##RANK:0##LOOP:77##Residual:1.2756
-##RANK:3##LOOP:78##Residual:3.83261
-##RANK:1##LOOP:78##Residual:3.83261
-##RANK:2##LOOP:78##Residual:3.83261
-##RANK:0##LOOP:78##Residual:3.83261
-##RANK:3##LOOP:79##Residual:17.6721
-##RANK:1##LOOP:79##Residual:17.6721
-##RANK:2##LOOP:79##Residual:17.6721
-##RANK:0##LOOP:79##Residual:17.6721
-##RANK:1##LOOP:80##Residual:8.35242
-##RANK:3##LOOP:80##Residual:8.35242
-##RANK:0##LOOP:80##Residual:8.35242
-##RANK:2##LOOP:80##Residual:8.35242
-##RANK:3##LOOP:81##Residual:44.8955
-##RANK:1##LOOP:81##Residual:44.8955
-##RANK:2##LOOP:81##Residual:44.8955
-##RANK:0##LOOP:81##Residual:44.8955
-##RANK:3##LOOP:82##Residual:26.1878
-##RANK:1##LOOP:82##Residual:26.1878
-##RANK:0##LOOP:82##Residual:26.1878
-##RANK:2##LOOP:82##Residual:26.1878
-##RANK:1##LOOP:83##Residual:206.834
-##RANK:3##LOOP:83##Residual:206.834
-##RANK:2##LOOP:83##Residual:206.834
-##RANK:0##LOOP:83##Residual:206.834
-##RANK:1##LOOP:84##Residual:13.3922
-##RANK:3##LOOP:84##Residual:13.3922
-##RANK:2##LOOP:84##Residual:13.3922
-##RANK:0##LOOP:84##Residual:13.3922
-##RANK:1##LOOP:85##Residual:506.732
-##RANK:3##LOOP:85##Residual:506.732
-##RANK:2##LOOP:85##Residual:506.732
-##RANK:0##LOOP:85##Residual:506.732
-##RANK:1##LOOP:86##Residual:52.4177
-##RANK:3##LOOP:86##Residual:52.4177
-##RANK:0##LOOP:86##Residual:52.4177
-##RANK:2##LOOP:86##Residual:52.4177
-##RANK:1##LOOP:87##Residual:769.488
-##RANK:3##LOOP:87##Residual:769.488
-##RANK:2##LOOP:87##Residual:769.488
-##RANK:0##LOOP:87##Residual:769.488
-##RANK:1##LOOP:88##Residual:3231.98
-##RANK:3##LOOP:88##Residual:3231.98
-##RANK:2##LOOP:88##Residual:3231.98
-##RANK:0##LOOP:88##Residual:3231.98
-##RANK:1##LOOP:89##Residual:1040.69
-##RANK:3##LOOP:89##Residual:1040.69
-##RANK:0##LOOP:89##Residual:1040.69
-##RANK:2##LOOP:89##Residual:1040.69
-##RANK:3##LOOP:90##Residual:2125.1
-##RANK:1##LOOP:90##Residual:2125.1
-##RANK:2##LOOP:90##Residual:2125.1
-##RANK:0##LOOP:90##Residual:2125.1
-##RANK:1##LOOP:91##Residual:1258.16
-##RANK:3##LOOP:91##Residual:1258.16
-##RANK:0##LOOP:91##Residual:1258.16
-##RANK:2##LOOP:91##Residual:1258.16
-##RANK:1##LOOP:92##Residual:3551.09
-##RANK:3##LOOP:92##Residual:3551.09
-##RANK:2##LOOP:92##Residual:3551.09
-##RANK:0##LOOP:92##Residual:3551.09
-##RANK:1##LOOP:93##Residual:1661.43
-##RANK:3##LOOP:93##Residual:1661.43
-##RANK:2##LOOP:93##Residual:1661.43
-##RANK:0##LOOP:93##Residual:1661.43
-##RANK:1##LOOP:94##Residual:3475.99
-##RANK:3##LOOP:94##Residual:3475.99
-##RANK:2##LOOP:94##Residual:3475.99
-##RANK:0##LOOP:94##Residual:3475.99
-##RANK:1##LOOP:95##Residual:2879.36
-##RANK:3##LOOP:95##Residual:2879.36
-##RANK:0##LOOP:95##Residual:2879.36
-##RANK:2##LOOP:95##Residual:2879.36
-##RANK:1##LOOP:96##Residual:2407.09
-##RANK:3##LOOP:96##Residual:2407.09
-##RANK:2##LOOP:96##Residual:2407.09
-##RANK:0##LOOP:96##Residual:2407.09
-##RANK:1##LOOP:97##Residual:482.912
-##RANK:3##LOOP:97##Residual:482.912
-##RANK:2##LOOP:97##Residual:482.912
-##RANK:0##LOOP:97##Residual:482.912
-##RANK:3##LOOP:98##Residual:3472.04
-##RANK:1##LOOP:98##Residual:3472.04
-##RANK:2##LOOP:98##Residual:3472.04
-##RANK:0##LOOP:98##Residual:3472.04
-##RANK:1##LOOP:99##Residual:4148.93
-##RANK:3##LOOP:99##Residual:4148.93
-mpi wilson cg total time: (without malloc free memcpy) :64.609406308 sec
-##RANK:2##LOOP:99##Residual:4148.93
-mpi wilson cg total time: (without malloc free memcpy) :64.608507463 sec
-##RANK:0##LOOP:99##Residual:4148.93
-mpi wilson cg total time: (without malloc free memcpy) :64.411895372 sec
-mpi wilson cg total time: (without malloc free memcpy) :64.405362233 sec
-QCU cg: 129.42324231998646 sec
-QCU cg: 129.42330216401024 sec
-QCU cg: 129.44340006800485 sec
-QCU cg: 129.45096552200266 sec
+Quda dslash: 0.4811266470060218 sec
+Quda dslash: 0.49453412200091407 sec
+Quda dslash: 0.47612333700817544 sec
+Quda dslash: 0.4356011740019312 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.077949384 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.073497157 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.052677605 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.011709672 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.056521616 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.074312153 sec
+QCU dslash: 0.6714980569959152 sec
+QCU dslash: 0.6714828910044162 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.024335919 sec
+QCU dslash: 0.6715047369943932 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.011202933 sec
+QCU dslash: 0.6676008020003792 sec
+quda difference:  2.7655670883158336e-16
+===============round  1 ======================
+quda difference:  2.7658441899771356e-16
+===============round  1 ======================
+quda difference:  2.7649190973307657e-16
+===============round  1 ======================
+quda difference:  2.765501525705186e-16
+===============round  1 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.09961623599519953 sec
+Quda dslash: 0.11077539500547573 sec
+Quda dslash: 0.09625250499811955 sec
+Quda dslash: 0.07999139200546779 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.066775759 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.055640559 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.026231490 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.008340021 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.058763529 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.078052992 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.021505738 sec
+QCU dslash: 0.7187994010018883 sec
+QCU dslash: 0.7188092889991822 sec
+QCU dslash: 0.7186820009956136 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.012369835 sec
+QCU dslash: 0.7146489870065125 sec
+quda difference:  2.7654573618487885e-16
+===============round  2 ======================
+quda difference:  2.764687656001583e-16
+===============round  2 ======================
+quda difference:  2.764093942771988e-16
+===============round  2 ======================
+quda difference:  2.7650431458427826e-16
+===============round  2 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.12056264599959832 sec
+Quda dslash: 0.11240601800091099 sec
+Quda dslash: 0.07815607500378974 sec
+Quda dslash: 0.09534739500668366 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.064240426 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.080349622 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.055499983 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.008640590 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.066620710 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.031995765 sec
+QCU dslash: 0.7141551759996219 sec
+QCU dslash: 0.7141475039970828 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.026133996 sec
+QCU dslash: 0.7142256229999475 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.013402305 sec
+QCU dslash: 0.7100693749962375 sec
+quda difference:  2.76635783505676e-16
+===============round  3 ======================
+quda difference:  2.764308837205836e-16
+===============round  3 ======================
+quda difference:  2.7649048628648954e-16
+===============round  3 ======================
+quda difference:  2.765383990650518e-16
+===============round  3 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.2068772530037677 sec
+Quda dslash: 0.2124322210001992 sec
+Quda dslash: 0.17235074000200257 sec
+Quda dslash: 0.1614511230000062 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.073568850 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.070689821 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.029539035 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.008237325 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.060605676 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.055928345 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.020520490 sec
+QCU dslash: 0.649523850006517 sec
+QCU dslash: 0.6495594950101804 sec
+QCU dslash: 0.6493642319983337 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.013294951 sec
+QCU dslash: 0.6452920989977429 sec
+quda difference:  2.765832716346255e-16
+quda difference:  2.7658096099068e-16
+===============round  4 ======================
+===============round  4 ======================
+quda difference:  2.7658221204971213e-16
+===============round  4 ======================
+quda difference:  2.7656353372204337e-16
+===============round  4 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.13251640601083636 sec
+Quda dslash: 0.13216988899512216 sec
+Quda dslash: 0.12507268799527083 sec
+Quda dslash: 0.10242544001084752 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.064231468 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.064199970 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.030759229 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.008439101 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.093692748 sec
+QCU dslash: 0.7661790330021176 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.096095739 sec
+QCU dslash: 0.7661787329998333 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.061432176 sec
+QCU dslash: 0.7662555790011538 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.025238393 sec
+QCU dslash: 0.762011465994874 sec
+quda difference:  2.7645498268181176e-16
+quda difference:  2.7656186563157004e-16
+===============round  5 ======================
+===============round  5 ======================
+quda difference:  2.7660100830201335e-16
+quda difference:  2.765627898322083e-16
+===============round  5 ======================
+===============round  5 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.17844966499251314 sec
+Quda dslash: 0.1771629829891026 sec
+Quda dslash: 0.14023737699608319 sec
+Quda dslash: 0.14318204199662432 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.064411885 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.067305264 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.032978596 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.007861736 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.064044207 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.068732764 sec
+QCU dslash: 0.7664150769996922 sec
+QCU dslash: 0.7664149789925432 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.033380840 sec
+QCU dslash: 0.7663645199936582 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.014403861 sec
+QCU dslash: 0.7668713750026654 sec
+quda difference:  2.765929888259535e-16
+quda difference:  2.7654259754601685e-16
+===============round  6 ======================
+===============round  6 ======================
+quda difference:  2.764224702503258e-16
+===============round  6 ======================
+quda difference:  2.7659477798693154e-16
+===============round  6 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.15124958899104968 sec
+Quda dslash: 0.1418904960009968 sec
+Quda dslash: 0.13629902100365143 sec
+Quda dslash: 0.09288084800937213 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.066839047 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.062841245 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.011562729 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.031298387 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.069619713 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.067340597 sec
+QCU dslash: 0.8380827559885802 sec
+QCU dslash: 0.8380884920043172 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.030753720 sec
+QCU dslash: 0.8379854899976635 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.015211893 sec
+QCU dslash: 0.8386570179864066 sec
+quda difference:  2.7648126208379677e-16
+quda difference:  2.7653681260203653e-16
+===============round  7 ======================
+===============round  7 ======================
+quda difference:  2.7647937067872894e-16
+===============round  7 ======================
+quda difference:  2.764983132252389e-16
+===============round  7 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.131725234008627 sec
+Quda dslash: 0.14617206899856683 sec
+Quda dslash: 0.08197108100284822 sec
+Quda dslash: 0.11047189999953844 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.067615349 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.065797174 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.011660135 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.033862106 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.065245744 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.066255037 sec
+QCU dslash: 0.8884467450116063 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.007974129 sec
+QCU dslash: 0.8884223150089383 sec
+QCU dslash: 0.8884472999925492 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.022993912 sec
+QCU dslash: 0.8887516139948275 sec
+quda difference:  2.7658724849164995e-16
+===============round  8 ======================
+quda difference:  2.7655862877963544e-16
+===============round  8 ======================
+quda difference:  2.7651178936595616e-16
+===============round  8 ======================
+quda difference:  2.764231527886283e-16
+===============round  8 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.12613297101052012 sec
+Quda dslash: 0.1385822120064404 sec
+Quda dslash: 0.08914558100514114 sec
+Quda dslash: 0.10830928399809636 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.066359660 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.062493835 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.027183033 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.008664670 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.081472023 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.088529442 sec
+QCU dslash: 0.9462660370045342 sec
+QCU dslash: 0.946260076991166 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.037175064 sec
+QCU dslash: 0.9461602609953843 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.011508452 sec
+QCU dslash: 0.9467302080010995 sec
+quda difference:  2.7654774870714793e-16
+quda difference:  2.7657673835466783e-16
+===============round  9 ======================
+===============round  9 ======================
+quda difference:  2.765271501274444e-16
+===============round  9 ======================
+quda difference:  2.765175805805311e-16
+===============round  9 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.09686193900415674 sec
+Quda dslash: 0.10643950299709104 sec
+Quda dslash: 0.07583903800696135 sec
+Quda dslash: 0.07315190500230528 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.067843712 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.066934649 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.025053025 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.008584676 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.006874848 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.074587369 sec
+QCU dslash: 0.996947175997775 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.078293170 sec
+QCU dslash: 0.996949529988342 sec
+QCU dslash: 0.9967977970081847 sec
+test wilson dslash total time: (without malloc free memcpy) : 0.030741615 sec
+QCU dslash: 0.9972939519939246 sec
+quda difference:  2.765653068843297e-16
+quda difference:  2.7653077788231965e-16
+quda difference:  2.7651814294123613e-16
+quda difference:  2.76586079697914e-16
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
-Saving 22 sets of cached parameters to .cache/profile_0.tsv
+Saving 20 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =    27.182 secs
-                     init     =    27.182 secs (100.000%),	 with        2 calls at 1.359e+07 us per call
-        total accounted       =    27.182 secs (100.000%)
+               initQuda Total time =    28.959 secs
+                     init     =    28.959 secs (100.000%),	 with        2 calls at 1.448e+07 us per call
+        total accounted       =    28.959 secs (100.000%)
         total missing         =     0.000 secs (  0.000%)
 
-          loadGaugeQuda Total time =     0.252 secs
-                 download     =     0.221 secs ( 87.816%),	 with        2 calls at 1.105e+05 us per call
-                   upload     =     0.006 secs (  2.323%),	 with        1 calls at 5.843e+03 us per call
-                     init     =     0.019 secs (  7.700%),	 with        2 calls at 9.686e+03 us per call
-                  compute     =     0.005 secs (  2.117%),	 with        2 calls at 2.663e+03 us per call
-                     free     =     0.000 secs (  0.006%),	 with        2 calls at 7.500e+00 us per call
-        total accounted       =     0.251 secs ( 99.961%)
-        total missing         =     0.000 secs (  0.039%)
+          loadGaugeQuda Total time =     1.431 secs
+                 download     =     0.849 secs ( 59.308%),	 with       20 calls at 4.243e+04 us per call
+                   upload     =     0.109 secs (  7.601%),	 with       10 calls at 1.088e+04 us per call
+                     init     =     0.120 secs (  8.417%),	 with       20 calls at 6.022e+03 us per call
+                  compute     =     0.352 secs ( 24.606%),	 with       20 calls at 1.760e+04 us per call
+                     free     =     0.000 secs (  0.025%),	 with       20 calls at 1.795e+01 us per call
+        total accounted       =     1.430 secs ( 99.956%)
+        total missing         =     0.001 secs (  0.044%)
 
-             dslashQuda Total time =     0.264 secs
-                 download     =     0.007 secs (  2.771%),	 with        2 calls at 3.654e+03 us per call
-                   upload     =     0.000 secs (  0.017%),	 with        2 calls at 2.300e+01 us per call
-                     init     =     0.000 secs (  0.082%),	 with        2 calls at 1.080e+02 us per call
-                  compute     =     0.256 secs ( 97.124%),	 with        2 calls at 1.281e+05 us per call
-                     free     =     0.000 secs (  0.002%),	 with        2 calls at 2.000e+00 us per call
-        total accounted       =     0.264 secs ( 99.997%)
-        total missing         =     0.000 secs (  0.003%)
+             dslashQuda Total time =     0.949 secs
+                 download     =     0.015 secs (  1.537%),	 with       20 calls at 7.295e+02 us per call
+                   upload     =     0.001 secs (  0.114%),	 with       20 calls at 5.415e+01 us per call
+                     init     =     0.002 secs (  0.167%),	 with       20 calls at 7.940e+01 us per call
+                  compute     =     0.932 secs ( 98.145%),	 with       20 calls at 4.658e+04 us per call
+                     free     =     0.000 secs (  0.021%),	 with       20 calls at 1.005e+01 us per call
+        total accounted       =     0.949 secs ( 99.984%)
+        total missing         =     0.000 secs (  0.016%)
 
-                endQuda Total time =     0.173 secs
+                endQuda Total time =     0.156 secs
 
-       initQuda-endQuda Total time =   158.793 secs
+       initQuda-endQuda Total time =    41.296 secs
 
-                   QUDA Total time =    27.891 secs
-                 download     =     0.228 secs (  0.818%),	 with        4 calls at 5.706e+04 us per call
-                   upload     =     0.006 secs (  0.021%),	 with        3 calls at 1.963e+03 us per call
-                     init     =    27.202 secs ( 97.528%),	 with        6 calls at 4.534e+06 us per call
-                  compute     =     0.282 secs (  1.012%),	 with        5 calls at 5.645e+04 us per call
-                     free     =     0.000 secs (  0.000%),	 with        4 calls at 4.750e+00 us per call
-        total accounted       =    27.718 secs ( 99.379%)
-        total missing         =     0.173 secs (  0.621%)
+                   QUDA Total time =    31.915 secs
+                 download     =     0.863 secs (  2.705%),	 with       40 calls at 2.158e+04 us per call
+                   upload     =     0.110 secs (  0.344%),	 with       30 calls at 3.662e+03 us per call
+                     init     =    29.081 secs ( 91.120%),	 with       42 calls at 6.924e+05 us per call
+                  compute     =     1.704 secs (  5.340%),	 with       50 calls at 3.408e+04 us per call
+                     free     =     0.001 secs (  0.002%),	 with       40 calls at 1.393e+01 us per call
+        total accounted       =    31.758 secs ( 99.511%)
+        total missing         =     0.156 secs (  0.489%)
 
-Device memory used = 698.6 MiB
-Pinned device memory used = 40.0 MiB
+Device memory used = 701.2 MiB
+Pinned device memory used = 32.0 MiB
 Managed memory used = 0.0 MiB
-Page-locked host memory used = 39.0 MiB
-Total host memory used >= 53.6 MiB
+Page-locked host memory used = 30.0 MiB
+Total host memory used >= 41.3 MiB
 
 ~/dcu/qcu

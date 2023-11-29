@@ -45,7 +45,6 @@
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
 
-
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (err != cudaSuccess) {                                                  \
@@ -56,11 +55,13 @@
       exit(-1);                                                                \
     }                                                                          \
   }
+
 // little strange, but don't want change
 #define give_value(U, zero, n)                                                 \
   {                                                                            \
+    LatticeComplex *tmp_U = ((static_cast<LatticeComplex *>(U)));              \
     for (int i = 0; i < n; i++) {                                              \
-      U[i] = zero;                                                             \
+      tmp_U[i] = zero;                                                             \
     }                                                                          \
   }
 
