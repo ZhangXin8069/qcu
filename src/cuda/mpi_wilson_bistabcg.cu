@@ -3,6 +3,7 @@
 #include "../../include/qcu.h"
 
 #define DEBUG_MPI_WILSON_BISTABCG
+#define TEST_MPI_WILSON_BISTABCG
 #ifdef MPI_WILSON_BISTABCG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {
@@ -97,166 +98,191 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp(0.0, 0.0);
     LatticeComplex tmp0(0.0, 0.0);
     LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex local_result = 0;
+    LatticeComplex local_result(0.0, 0.0);
     // double Kappa = 0.125;
-    double Kappa = 0.01;
+    double Kappa = 0;
+    // double Kappa = 0.01;
     // double Kappa = -7.0;
-    // double Kappa = 100.0;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
-    // give_rand(x, lat_xyzt12); // rand x
-    give_value(x, zero, lat_xyzt12); // zero x 
-    give_rand(b, lat_xyzt12); // rand b 
-    // give_value(b, one, 1); // point b 
-    give_value(r, zero, lat_xyzt12); // zero r 
-    give_value(r_tilde, zero, lat_xyzt12); // zero r_tilde 
-    give_value(p, zero, lat_xyzt12); // zero p 
-    give_value(v, zero, lat_xyzt12); // zero v 
-    give_value(s, zero, lat_xyzt12); // zero s 
-    give_value(t, zero, lat_xyzt12); // zero t 
-    // cg_in = x;
-    // cg_out = r;
-    // // mpi_wilson_dslash
-    // {
-    //   // clean
-    //   wilson_dslash_clear_dest<<<gridDim, blockDim>>>(cg_out, lat_x, lat_y,
-    //                                                   lat_z);
-    //   // send x
-    //   wilson_dslash_x_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
-    //                                               lat_y, lat_z, lat_t, parity,
-    //                                               b_x_send_vec, f_x_send_vec);
-    //   if (grid_x != 1) {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     move_backward(move_b, grid_index_x, grid_x);
-    //     move_forward(move_f, grid_index_x, grid_x);
-    //     move_b = node_rank + move_b * grid_y * grid_z * grid_t;
-    //     move_f = node_rank + move_f * grid_y * grid_z * grid_t;
-    //     MPI_Irecv(b_x_recv_vec, lat_yzt12, MPI_DOUBLE, move_b, 1,
-    //               MPI_COMM_WORLD, &b_x_recv_request);
-    //     MPI_Irecv(f_x_recv_vec, lat_yzt12, MPI_DOUBLE, move_f, 0,
-    //               MPI_COMM_WORLD, &f_x_recv_request);
-    //     MPI_Isend(b_x_send_vec, lat_yzt12, MPI_DOUBLE, move_b, 0,
-    //               MPI_COMM_WORLD, &b_x_send_request);
-    //     MPI_Isend(f_x_send_vec, lat_yzt12, MPI_DOUBLE, move_f, 1,
-    //               MPI_COMM_WORLD, &f_x_send_request);
-    //   }
-    //   // send y
-    //   wilson_dslash_y_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
-    //                                               lat_y, lat_z, lat_t, parity,
-    //                                               b_y_send_vec, f_y_send_vec);
-    //   if (grid_y != 1) {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     move_backward(move_b, grid_index_y, grid_y);
-    //     move_forward(move_f, grid_index_y, grid_y);
-    //     move_b = node_rank + move_b * grid_z * grid_t;
-    //     move_f = node_rank + move_f * grid_z * grid_t;
-    //     MPI_Irecv(b_y_recv_vec, lat_xzt12, MPI_DOUBLE, move_b, 3,
-    //               MPI_COMM_WORLD, &b_y_recv_request);
-    //     MPI_Irecv(f_y_recv_vec, lat_xzt12, MPI_DOUBLE, move_f, 2,
-    //               MPI_COMM_WORLD, &f_y_recv_request);
-    //     MPI_Isend(b_y_send_vec, lat_xzt12, MPI_DOUBLE, move_b, 2,
-    //               MPI_COMM_WORLD, &b_y_send_request);
-    //     MPI_Isend(f_y_send_vec, lat_xzt12, MPI_DOUBLE, move_f, 3,
-    //               MPI_COMM_WORLD, &f_y_send_request);
-    //   }
-    //   // send z
-    //   wilson_dslash_z_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
-    //                                               lat_y, lat_z, lat_t, parity,
-    //                                               b_z_send_vec, f_z_send_vec);
-    //   if (grid_z != 1) {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     move_backward(move_b, grid_index_z, grid_z);
-    //     move_forward(move_f, grid_index_z, grid_z);
-    //     move_b = node_rank + move_b * grid_t;
-    //     move_f = node_rank + move_f * grid_t;
-    //     MPI_Irecv(b_z_recv_vec, lat_xyt12, MPI_DOUBLE, move_b, 5,
-    //               MPI_COMM_WORLD, &b_z_recv_request);
-    //     MPI_Irecv(f_z_recv_vec, lat_xyt12, MPI_DOUBLE, move_f, 4,
-    //               MPI_COMM_WORLD, &f_z_recv_request);
-    //     MPI_Isend(b_z_send_vec, lat_xyt12, MPI_DOUBLE, move_b, 4,
-    //               MPI_COMM_WORLD, &b_z_send_request);
-    //     MPI_Isend(f_z_send_vec, lat_xyt12, MPI_DOUBLE, move_f, 5,
-    //               MPI_COMM_WORLD, &f_z_send_request);
-    //   }
-    //   // send t
-    //   wilson_dslash_t_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
-    //                                               lat_y, lat_z, lat_t, parity,
-    //                                               b_t_send_vec, f_t_send_vec);
-    //   if (grid_t != 1) {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     move_backward(move_b, grid_index_t, grid_t);
-    //     move_forward(move_f, grid_index_t, grid_t);
-    //     move_b = node_rank + move_b;
-    //     move_f = node_rank + move_f;
-    //     MPI_Irecv(b_t_recv_vec, lat_xyz12, MPI_DOUBLE, move_b, 7,
-    //               MPI_COMM_WORLD, &b_t_recv_request);
-    //     MPI_Irecv(f_t_recv_vec, lat_xyz12, MPI_DOUBLE, move_f, 6,
-    //               MPI_COMM_WORLD, &f_t_recv_request);
-    //     MPI_Isend(b_t_send_vec, lat_xyz12, MPI_DOUBLE, move_b, 6,
-    //               MPI_COMM_WORLD, &b_t_send_request);
-    //     MPI_Isend(f_t_send_vec, lat_xyz12, MPI_DOUBLE, move_f, 7,
-    //               MPI_COMM_WORLD, &f_t_send_request);
-    //   }
-    //   // recv x
-    //   if (grid_x != 1) {
-    //     MPI_Wait(&b_x_recv_request, MPI_STATUS_IGNORE);
-    //     MPI_Wait(&f_x_recv_request, MPI_STATUS_IGNORE);
-    //     wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, b_x_recv_vec,
-    //         f_x_recv_vec);
-    //   } else {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, f_x_send_vec,
-    //         b_x_send_vec);
-    //   }
-    //   // recv y
-    //   if (grid_y != 1) {
-    //     MPI_Wait(&b_y_recv_request, MPI_STATUS_IGNORE);
-    //     MPI_Wait(&f_y_recv_request, MPI_STATUS_IGNORE);
-    //     wilson_dslash_y_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, b_y_recv_vec,
-    //         f_y_recv_vec);
-    //   } else {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     wilson_dslash_y_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, f_y_send_vec,
-    //         b_y_send_vec);
-    //   }
-    //   // recv z
-    //   if (grid_z != 1) {
-    //     MPI_Wait(&b_z_recv_request, MPI_STATUS_IGNORE);
-    //     MPI_Wait(&f_z_recv_request, MPI_STATUS_IGNORE);
-    //     wilson_dslash_z_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, b_z_recv_vec,
-    //         f_z_recv_vec);
-    //   } else {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     wilson_dslash_z_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, f_z_send_vec,
-    //         b_z_send_vec);
-    //   }
-    //   // recv t
-    //   if (grid_t != 1) {
-    //     MPI_Wait(&b_t_recv_request, MPI_STATUS_IGNORE);
-    //     MPI_Wait(&f_t_recv_request, MPI_STATUS_IGNORE);
-    //     wilson_dslash_t_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, b_t_recv_vec,
-    //         f_t_recv_vec);
-    //   } else {
-    //     checkCudaErrors(cudaDeviceSynchronize());
-    //     wilson_dslash_t_recv<<<gridDim, blockDim>>>(
-    //         gauge, cg_out, lat_x, lat_y, lat_z, lat_t, parity, f_t_send_vec,
-    //         b_t_send_vec);
-    //   }
-    //   MPI_Barrier(MPI_COMM_WORLD);
-    // }
-    // // kappa
-    // {
-    //   for (int i = 0; i < lat_xyzt12; i++) {
-    //     cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
-    //   }
-    // }  
+    give_rand(x, lat_xyzt12); // rand x
+    // give_value(x, zero, lat_xyzt12); // zero x
+    give_rand(b, lat_xyzt12); // rand b
+    // give_value(b, one, 1); // point b
+    give_value(r, zero, lat_xyzt12);       // zero r
+    give_value(r_tilde, zero, lat_xyzt12); // zero r_tilde
+    give_value(p, zero, lat_xyzt12);       // zero p
+    give_value(v, zero, lat_xyzt12);       // zero v
+    give_value(s, zero, lat_xyzt12);       // zero s
+    give_value(t, zero, lat_xyzt12);       // zero t
+    cg_in = x;
+    cg_out = r;
+#ifndef TEST_MPI_WILSON_BISTABCG
+    // clear vecs for mpi_wilson_dslash
+    {
+      give_value(b_x_send_vec, zero, lat_yzt6);
+      give_value(f_x_send_vec, zero, lat_yzt6);
+      give_value(b_y_send_vec, zero, lat_xzt6);
+      give_value(f_y_send_vec, zero, lat_xzt6);
+      give_value(b_z_send_vec, zero, lat_xyt6);
+      give_value(f_z_send_vec, zero, lat_xyt6);
+      give_value(b_t_send_vec, zero, lat_xyz6);
+      give_value(f_t_send_vec, zero, lat_xyz6);
+      give_value(b_x_recv_vec, zero, lat_yzt6);
+      give_value(f_x_recv_vec, zero, lat_yzt6);
+      give_value(b_y_recv_vec, zero, lat_xzt6);
+      give_value(f_y_recv_vec, zero, lat_xzt6);
+      give_value(b_z_recv_vec, zero, lat_xyt6);
+      give_value(f_z_recv_vec, zero, lat_xyt6);
+      give_value(b_t_recv_vec, zero, lat_xyz6);
+      give_value(f_t_recv_vec, zero, lat_xyz6);
+    }
+    // mpi_wilson_dslash
+    {
+      // clean
+      wilson_dslash_clear_dest<<<gridDim, blockDim>>>(cg_out, lat_x, lat_y,
+                                                      lat_z);
+      // send x
+      wilson_dslash_x_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
+                                                  lat_y, lat_z, lat_t, parity,
+                                                  b_x_send_vec, f_x_send_vec);
+      if (grid_x != 1) {
+        checkCudaErrors(cudaDeviceSynchronize());
+        move_backward(move_b, grid_index_x, grid_x);
+        move_forward(move_f, grid_index_x, grid_x);
+        move_b = node_rank + move_b * grid_y * grid_z * grid_t;
+        move_f = node_rank + move_f * grid_y * grid_z * grid_t;
+        MPI_Irecv(b_x_recv_vec, lat_yzt12, MPI_DOUBLE, move_b, 1,
+                  MPI_COMM_WORLD, &b_x_recv_request);
+        MPI_Irecv(f_x_recv_vec, lat_yzt12, MPI_DOUBLE, move_f, 0,
+                  MPI_COMM_WORLD, &f_x_recv_request);
+        MPI_Isend(b_x_send_vec, lat_yzt12, MPI_DOUBLE, move_b, 0,
+                  MPI_COMM_WORLD, &b_x_send_request);
+        MPI_Isend(f_x_send_vec, lat_yzt12, MPI_DOUBLE, move_f, 1,
+                  MPI_COMM_WORLD, &f_x_send_request);
+      }
+      // send y
+      wilson_dslash_y_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
+                                                  lat_y, lat_z, lat_t, parity,
+                                                  b_y_send_vec, f_y_send_vec);
+      if (grid_y != 1) {
+        checkCudaErrors(cudaDeviceSynchronize());
+        move_backward(move_b, grid_index_y, grid_y);
+        move_forward(move_f, grid_index_y, grid_y);
+        move_b = node_rank + move_b * grid_z * grid_t;
+        move_f = node_rank + move_f * grid_z * grid_t;
+        MPI_Irecv(b_y_recv_vec, lat_xzt12, MPI_DOUBLE, move_b, 3,
+                  MPI_COMM_WORLD, &b_y_recv_request);
+        MPI_Irecv(f_y_recv_vec, lat_xzt12, MPI_DOUBLE, move_f, 2,
+                  MPI_COMM_WORLD, &f_y_recv_request);
+        MPI_Isend(b_y_send_vec, lat_xzt12, MPI_DOUBLE, move_b, 2,
+                  MPI_COMM_WORLD, &b_y_send_request);
+        MPI_Isend(f_y_send_vec, lat_xzt12, MPI_DOUBLE, move_f, 3,
+                  MPI_COMM_WORLD, &f_y_send_request);
+      }
+      // send z
+      wilson_dslash_z_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
+                                                  lat_y, lat_z, lat_t, parity,
+                                                  b_z_send_vec, f_z_send_vec);
+      if (grid_z != 1) {
+        checkCudaErrors(cudaDeviceSynchronize());
+        move_backward(move_b, grid_index_z, grid_z);
+        move_forward(move_f, grid_index_z, grid_z);
+        move_b = node_rank + move_b * grid_t;
+        move_f = node_rank + move_f * grid_t;
+        MPI_Irecv(b_z_recv_vec, lat_xyt12, MPI_DOUBLE, move_b, 5,
+                  MPI_COMM_WORLD, &b_z_recv_request);
+        MPI_Irecv(f_z_recv_vec, lat_xyt12, MPI_DOUBLE, move_f, 4,
+                  MPI_COMM_WORLD, &f_z_recv_request);
+        MPI_Isend(b_z_send_vec, lat_xyt12, MPI_DOUBLE, move_b, 4,
+                  MPI_COMM_WORLD, &b_z_send_request);
+        MPI_Isend(f_z_send_vec, lat_xyt12, MPI_DOUBLE, move_f, 5,
+                  MPI_COMM_WORLD, &f_z_send_request);
+      }
+      // send t
+      wilson_dslash_t_send<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x,
+                                                  lat_y, lat_z, lat_t, parity,
+                                                  b_t_send_vec, f_t_send_vec);
+      if (grid_t != 1) {
+        checkCudaErrors(cudaDeviceSynchronize());
+        move_backward(move_b, grid_index_t, grid_t);
+        move_forward(move_f, grid_index_t, grid_t);
+        move_b = node_rank + move_b;
+        move_f = node_rank + move_f;
+        MPI_Irecv(b_t_recv_vec, lat_xyz12, MPI_DOUBLE, move_b, 7,
+                  MPI_COMM_WORLD, &b_t_recv_request);
+        MPI_Irecv(f_t_recv_vec, lat_xyz12, MPI_DOUBLE, move_f, 6,
+                  MPI_COMM_WORLD, &f_t_recv_request);
+        MPI_Isend(b_t_send_vec, lat_xyz12, MPI_DOUBLE, move_b, 6,
+                  MPI_COMM_WORLD, &b_t_send_request);
+        MPI_Isend(f_t_send_vec, lat_xyz12, MPI_DOUBLE, move_f, 7,
+                  MPI_COMM_WORLD, &f_t_send_request);
+      }
+      // recv x
+      if (grid_x != 1) {
+        MPI_Wait(&b_x_recv_request, MPI_STATUS_IGNORE);
+        MPI_Wait(&f_x_recv_request, MPI_STATUS_IGNORE);
+        wilson_dslash_x_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    b_x_recv_vec, f_x_recv_vec);
+      } else {
+        checkCudaErrors(cudaDeviceSynchronize());
+        wilson_dslash_x_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    f_x_send_vec, b_x_send_vec);
+      }
+      // recv y
+      if (grid_y != 1) {
+        MPI_Wait(&b_y_recv_request, MPI_STATUS_IGNORE);
+        MPI_Wait(&f_y_recv_request, MPI_STATUS_IGNORE);
+        wilson_dslash_y_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    b_y_recv_vec, f_y_recv_vec);
+      } else {
+        checkCudaErrors(cudaDeviceSynchronize());
+        wilson_dslash_y_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    f_y_send_vec, b_y_send_vec);
+      }
+      // recv z
+      if (grid_z != 1) {
+        MPI_Wait(&b_z_recv_request, MPI_STATUS_IGNORE);
+        MPI_Wait(&f_z_recv_request, MPI_STATUS_IGNORE);
+        wilson_dslash_z_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    b_z_recv_vec, f_z_recv_vec);
+      } else {
+        checkCudaErrors(cudaDeviceSynchronize());
+        wilson_dslash_z_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    f_z_send_vec, b_z_send_vec);
+      }
+      // recv t
+      if (grid_t != 1) {
+        MPI_Wait(&b_t_recv_request, MPI_STATUS_IGNORE);
+        MPI_Wait(&f_t_recv_request, MPI_STATUS_IGNORE);
+        wilson_dslash_t_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    b_t_recv_vec, f_t_recv_vec);
+      } else {
+        checkCudaErrors(cudaDeviceSynchronize());
+        wilson_dslash_t_recv<<<gridDim, blockDim>>>(gauge, cg_out, lat_x, lat_y,
+                                                    lat_z, lat_t, parity,
+                                                    f_t_send_vec, b_t_send_vec);
+      }
+      MPI_Barrier(MPI_COMM_WORLD);
+    }
+    // kappa
+    {
+      for (int i = 0; i < lat_xyzt12; i++) {
+        cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
+      }
+    }
+#else
+    for (int i = 0; i < lat_xyzt12; i++) {
+      cg_out[i] = cg_in[i] * 2 + one;
+    }
+#endif
     for (int i = 0; i < lat_xyzt12; i++) {
       r[i] = b[i] - r[i];
       r_tilde[i] = r[i];
@@ -286,6 +312,26 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // v = A * p;
       cg_in = p;
       cg_out = v;
+#ifndef TEST_MPI_WILSON_BISTABCG
+      // clear vecs for mpi_wilson_dslash
+      {
+        give_value(b_x_send_vec, zero, lat_yzt6);
+        give_value(f_x_send_vec, zero, lat_yzt6);
+        give_value(b_y_send_vec, zero, lat_xzt6);
+        give_value(f_y_send_vec, zero, lat_xzt6);
+        give_value(b_z_send_vec, zero, lat_xyt6);
+        give_value(f_z_send_vec, zero, lat_xyt6);
+        give_value(b_t_send_vec, zero, lat_xyz6);
+        give_value(f_t_send_vec, zero, lat_xyz6);
+        give_value(b_x_recv_vec, zero, lat_yzt6);
+        give_value(f_x_recv_vec, zero, lat_yzt6);
+        give_value(b_y_recv_vec, zero, lat_xzt6);
+        give_value(f_y_recv_vec, zero, lat_xzt6);
+        give_value(b_z_recv_vec, zero, lat_xyt6);
+        give_value(f_z_recv_vec, zero, lat_xyt6);
+        give_value(b_t_recv_vec, zero, lat_xyz6);
+        give_value(f_t_recv_vec, zero, lat_xyz6);
+      }
       // mpi_wilson_dslash
       {
         // clean
@@ -426,7 +472,12 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         for (int i = 0; i < lat_xyzt12; i++) {
           cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
         }
-      }    
+      }
+#else
+      for (int i = 0; i < lat_xyzt12; i++) {
+        cg_out[i] = cg_in[i] * 2 + one;
+      }
+#endif
       {
         local_result = zero;
         for (int i = 0; i < lat_xyzt12; i++) {
@@ -447,6 +498,26 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // t = A * s;
       cg_in = s;
       cg_out = t;
+#ifndef TEST_MPI_WILSON_BISTABCG
+      // clear vecs for mpi_wilson_dslash
+      {
+        give_value(b_x_send_vec, zero, lat_yzt6);
+        give_value(f_x_send_vec, zero, lat_yzt6);
+        give_value(b_y_send_vec, zero, lat_xzt6);
+        give_value(f_y_send_vec, zero, lat_xzt6);
+        give_value(b_z_send_vec, zero, lat_xyt6);
+        give_value(f_z_send_vec, zero, lat_xyt6);
+        give_value(b_t_send_vec, zero, lat_xyz6);
+        give_value(f_t_send_vec, zero, lat_xyz6);
+        give_value(b_x_recv_vec, zero, lat_yzt6);
+        give_value(f_x_recv_vec, zero, lat_yzt6);
+        give_value(b_y_recv_vec, zero, lat_xzt6);
+        give_value(f_y_recv_vec, zero, lat_xzt6);
+        give_value(b_z_recv_vec, zero, lat_xyt6);
+        give_value(f_z_recv_vec, zero, lat_xyt6);
+        give_value(b_t_recv_vec, zero, lat_xyz6);
+        give_value(f_t_recv_vec, zero, lat_xyz6);
+      }
       // mpi_wilson_dslash
       {
         // clean
@@ -587,7 +658,12 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         for (int i = 0; i < lat_xyzt12; i++) {
           cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
         }
-      }  
+      }
+#else
+      for (int i = 0; i < lat_xyzt12; i++) {
+        cg_out[i] = cg_in[i] * 2 + one;
+      }
+#endif
       {
         local_result = zero;
         for (int i = 0; i < lat_xyzt12; i++) {
@@ -644,8 +720,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     printf("mpi wilson cg total time: (without malloc free memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
+    // free
     {
-      // free
       checkCudaErrors(cudaFree(b_x_send_vec));
       checkCudaErrors(cudaFree(f_x_send_vec));
       checkCudaErrors(cudaFree(b_y_send_vec));
