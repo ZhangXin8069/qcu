@@ -2,8 +2,9 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 
-// #define DEBUG_MPI_WILSON_BISTABCG
-#define TEST_MPI_WILSON_BISTABCG
+#define DEBUG_MPI_WILSON_BISTABCG
+// #define TEST_MPI_WILSON_BISTABCG
+// #define TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
 #ifdef MPI_WILSON_BISTABCG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {
@@ -87,8 +88,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     // LatticeComplex t_norm2(0.0, 0.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex one(1.0, 0.0);
-    // const int MAX_ITER(1e2); // 300++?
-    const int MAX_ITER(1e3); // ?
+    const int MAX_ITER(1e2); // 300++?
     const double TOL(1e-6);
     LatticeComplex rho_prev(1.0, 0.0);
     LatticeComplex rho(0.0, 0.0);
@@ -99,16 +99,14 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp0(0.0, 0.0);
     LatticeComplex tmp1(0.0, 0.0);
     LatticeComplex local_result(0.0, 0.0);
-    // double Kappa = 0.125;
-    double Kappa = 0;
-    // double Kappa = 0.01;
-    // double Kappa = -7.0;
+    // double Kappa = -3.5;
+    double Kappa = 0.125;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();
-    give_rand(x, lat_xyzt12); // rand x
-    // give_value(x, zero, lat_xyzt12); // zero x
-    give_rand(b, lat_xyzt12); // rand b
-    // give_value(b, one, 1); // point b
+    give_rand(x, lat_xyzt12);              // rand x
+    // give_value(x, zero, lat_xyzt12);    // zero x
+    // give_rand(b, lat_xyzt12);           // rand b
+    give_value(b, one, 1);                 // point b
     give_value(r, zero, lat_xyzt12);       // zero r
     give_value(r_tilde, zero, lat_xyzt12); // zero r_tilde
     give_value(p, zero, lat_xyzt12);       // zero p
@@ -279,9 +277,21 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       }
     }
 #else
+#ifdef TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+    // wilson_dslash
+    wilson_dslash<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x, lat_y,
+                                         lat_z, lat_t, parity);
+    // kappa
+    {
+      for (int i = 0; i < lat_xyzt12; i++) {
+        cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
+      }
+    }
+#else
     for (int i = 0; i < lat_xyzt12; i++) {
       cg_out[i] = cg_in[i] * 2 + one;
     }
+#endif
 #endif
     for (int i = 0; i < lat_xyzt12; i++) {
       r[i] = b[i] - r[i];
@@ -474,9 +484,21 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         }
       }
 #else
+#ifdef TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+      // wilson_dslash
+      wilson_dslash<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x, lat_y,
+                                           lat_z, lat_t, parity);
+      // kappa
+      {
+        for (int i = 0; i < lat_xyzt12; i++) {
+          cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
+        }
+      }
+#else
       for (int i = 0; i < lat_xyzt12; i++) {
         cg_out[i] = cg_in[i] * 2 + one;
       }
+#endif
 #endif
       {
         local_result = zero;
@@ -660,9 +682,21 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
         }
       }
 #else
+#ifdef TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+      // wilson_dslash
+      wilson_dslash<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x, lat_y,
+                                           lat_z, lat_t, parity);
+      // kappa
+      {
+        for (int i = 0; i < lat_xyzt12; i++) {
+          cg_out[i] = cg_in[i] - cg_out[i] * Kappa;
+        }
+      }
+#else
       for (int i = 0; i < lat_xyzt12; i++) {
         cg_out[i] = cg_in[i] * 2 + one;
       }
+#endif
 #endif
       {
         local_result = zero;

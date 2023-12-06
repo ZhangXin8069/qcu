@@ -133,7 +133,7 @@ bool if_converge(void* r_vec, int vol) {
   checkCudaErrors(cudaMemcpy(&inner_prod, d_inner_prod, sizeof(Complex), cudaMemcpyDeviceToHost));
   checkCudaErrors(cudaFree(d_inner_prod));
 
-  // printf("difference = %.9lf\n", inner_prod.norm2());
+  printf("difference = %.9lf\n", inner_prod.norm2());
 
   diff = inner_prod.norm2();
   if (diff < 1e-23) {

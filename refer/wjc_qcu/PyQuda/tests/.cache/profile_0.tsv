@@ -1,4 +1,4 @@
-profile	1.1.0	1.1.0-b869d61-dirty-gfx906	cpu_arch=x86_64,gpu_arch=gfx906,hip_version=14.0.0	# Last updated Wed Nov 29 20:47:04 2023
+profile	1.1.0	1.1.0-b869d61-dirty-gfx906	cpu_arch=x86_64,gpu_arch=gfx906,hip_version=14.0.0	# Last updated Wed Dec  6 22:26:59 2023
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
   0.00539263	      25.687	      25.687	          12	 0.000449386	  bytes=18874368	hipMemcpyDefault	copy,cuda_gauge_field.cpp,576	# 0.00 Gflop/s, 42.00 GB/s, tuning took 0.003399 seconds at Thu Nov 16 01:21:28 2023
