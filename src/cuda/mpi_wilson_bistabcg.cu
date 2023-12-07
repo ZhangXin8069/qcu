@@ -3,8 +3,8 @@
 #include "../../include/qcu.h"
 
 // #define DEBUG_MPI_WILSON_BISTABCG
-// #define TEST_MPI_WILSON_BISTABCG
-// #define TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+#define TEST_MPI_WILSON_BISTABCG
+#define TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
 #ifdef MPI_WILSON_BISTABCG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {
@@ -99,7 +99,6 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     LatticeComplex tmp0(0.0, 0.0);
     LatticeComplex tmp1(0.0, 0.0);
     LatticeComplex local_result(0.0, 0.0);
-    // double Kappa = -3.5;
     double Kappa = 0.125;
     // above define for mpi_wilson_dslash and mpi_wilson_cg
     auto start = std::chrono::high_resolution_clock::now();

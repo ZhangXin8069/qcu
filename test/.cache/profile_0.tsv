@@ -1,4 +1,4 @@
-profile	1.1.0	1.1.0-b869d61-dirty-gfx906	cpu_arch=x86_64,gpu_arch=gfx906,hip_version=14.0.0	# Last updated Wed Dec  6 23:28:18 2023
+profile	1.1.0	1.1.0-b869d61-dirty-gfx906	cpu_arch=x86_64,gpu_arch=gfx906,hip_version=14.0.0	# Last updated Thu Dec  7 10:44:49 2023
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
   0.00224854	     12.8086	     12.8086	           2	  0.00112427	     16x32x16x32	N4quda9CopyGaugeINS_12CopyGaugeArgIddLi18ELb0ENS_5gauge11FloatNOrderIdLi18ELi2ELi12EL20QudaStaggeredPhase_s0ELb1EL19QudaGhostExchange_sn2147483648ELb0EEENS2_8QDPOrderIdLi18EEEEEEE	GPU-offline,vol=262144stride=131072precision=8geometry=4Nc=3,vol=262144stride=139264precision=8geometry=4Nc=3	# 0.00 Gflop/s, 229.44 GB/s, tuning took 2.542219 seconds at Wed Dec  6 21:39:36 2023

@@ -59,9 +59,9 @@
 // little strange, but don't want change
 #define give_value(U, zero, n)                                                 \
   {                                                                            \
-    LatticeComplex *tmp_U = ((static_cast<LatticeComplex *>(U)));              \
+    LatticeComplex *tmp_U = static_cast<LatticeComplex *>(U);                  \
     for (int i = 0; i < n; i++) {                                              \
-      tmp_U[i] = zero;                                                             \
+      tmp_U[i] = zero;                                                         \
     }                                                                          \
   }
 
