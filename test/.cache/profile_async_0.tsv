@@ -1,4 +1,4 @@
-profile	1.1.0	1.1.0-b869d61-dirty-gfx906	cpu_arch=x86_64,gpu_arch=gfx906,hip_version=14.0.0	# Last updated Wed Dec  6 23:28:18 2023
+profile	1.1.0	1.1.0-b869d61-dirty-gfx906	cpu_arch=x86_64,gpu_arch=gfx906,hip_version=14.0.0	# Last updated Thu Dec  7 10:44:49 2023
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
    0.0197072	         100	         100	           2	  0.00985358	      8x32x16x32	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,GPU-offline,vol=131072,parity=1,precision=8,order=2,Ns=4,Nc=3,commDim=1011,topo=2122,p2p=3,gdr=0,nvshmem=0,pol=110000111100110000	# 17.56 Gflop/s, 30.65 GB/s, tuning took 2.943823 seconds at Wed Dec  6 21:41:10 2023
