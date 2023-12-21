@@ -17,8 +17,8 @@
 #define NOWARD 0
 #define FORWARD 1
 
-#define WILSON_DSLASH
-// #define CLOVER_DSLASH
+// #define WILSON_DSLASH
+#define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
 #define MPI_WILSON_DSLASH
 // #define MPI_CLOVER_DSLASH
