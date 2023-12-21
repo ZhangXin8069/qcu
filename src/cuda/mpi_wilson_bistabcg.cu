@@ -4,7 +4,7 @@
 
 // #define DEBUG_MPI_WILSON_BISTABCG
 #define TEST_MPI_WILSON_BISTABCG
-#define TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+// #define TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
 #ifdef MPI_WILSON_BISTABCG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {

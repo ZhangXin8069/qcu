@@ -1,3 +1,3 @@
-/public/home/zhangxin/dcu/qcu/CMakeFiles/qcu.dir
-/public/home/zhangxin/dcu/qcu/CMakeFiles/edit_cache.dir
-/public/home/zhangxin/dcu/qcu/CMakeFiles/rebuild_cache.dir
+/home/aistudio/work/qcu/CMakeFiles/qcu.dir
+/home/aistudio/work/qcu/CMakeFiles/edit_cache.dir
+/home/aistudio/work/qcu/CMakeFiles/rebuild_cache.dir
