@@ -1,34 +1,321 @@
-rm: 无法删除".": 是一个目录
-rm: 无法删除"..": 是一个目录
-rm: 无法删除".git": 是一个目录
-~ ~/dcu/qcu
-~/configure ~ ~/dcu/qcu
-HOME:/public/home/zhangxin/configure
-~ ~/dcu/qcu
-~/dcu/qcu
-Currently Loaded Modulefiles:
-  1) compiler/devtoolset/7.3.1   3) compiler/gcc/7.3.1
-  2) compiler/dtk-23.04          4) hpcx/gcc-7.3.1
-/public/sugon/software/compiler/dtk-23.04 ~/dcu/qcu
-/public/sugon/software/compiler/dtk-23.04/cuda /public/sugon/software/compiler/dtk-23.04 ~/dcu/qcu
-/public/sugon/software/compiler/dtk-23.04 ~/dcu/qcu
-~/dcu/qcu
--- The C compiler identification is Clang 14.0.0
--- The CXX compiler identification is Clang 14.0.0
--- The CUDA compiler identification is NVIDIA 10.2.89
+rm: cannot remove '.': Is a directory
+rm: cannot remove '..': Is a directory
+rm: cannot remove '.git': Is a directory
+rm: cannot remove '.ipynb_checkpoints': Is a directory
+~/work ~/work/qcu
+~/work/configure ~/work ~/work/qcu
+HOME:/home/aistudio/work/configure
+~/work ~/work/qcu
+~/work/qcu
+-- The C compiler identification is GNU 9.4.0
+-- The CXX compiler identification is GNU 9.4.0
+-- The CUDA compiler identification is NVIDIA 11.6.124
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /public/sugon/software/compiler/dtk-23.04/bin/hipcc - skipped
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /public/sugon/software/compiler/dtk-23.04/bin/hipcc - skipped
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Detecting CUDA compiler ABI info
 -- Detecting CUDA compiler ABI info - done
--- Check for working CUDA compiler: /public/sugon/software/compiler/dtk-23.04/cuda/bin/nvcc - skipped
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
 -- Detecting CUDA compile features
 -- Detecting CUDA compile features - done
--- Found MPI_C: /public/sugon/software/mpi/hpcx/hpcx-v2.4.1.0-gcc/ompi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_C: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi_cxx.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Configuring done
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0104 is not set: CMAKE_CUDA_ARCHITECTURES now detected for NVCC,
+  empty CUDA_ARCHITECTURES not allowed.  Run "cmake --help-policy CMP0104"
+  for policy details.  Use the cmake_policy command to set the policy and
+  suppress this warning.
+
+  CUDA_ARCHITECTURES is empty for target "qcu".
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+CMake Warning (dev) in CMakeLists.txt:
+  Policy CMP0104 is not set: CMAKE_CUDA_ARCHITECTURES now detected for NVCC,
+  empty CUDA_ARCHITECTURES not allowed.  Run "cmake --help-policy CMP0104"
+  for policy details.  Use the cmake_policy command to set the policy and
+  suppress this warning.
+
+  CUDA_ARCHITECTURES is empty for target "qcu".
+This warning is for project developers.  Use -Wno-dev to suppress it.
+
+-- Generating done
+-- Build files have been written to: /home/aistudio/work/qcu
+[  3%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
+[  7%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
+[ 10%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
+[ 14%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o
+[ 17%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o
+[ 21%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o
+[ 28%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
+[ 35%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o
+[ 39%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
+[ 42%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o
+[ 46%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
+[ 32%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
+[ 53%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
+[ 57%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
+[ 64%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
+[ 67%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o
+[ 71%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o
+[ 78%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o
+[ 82%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o
+[ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o
+[ 89%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o
+[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
+[ 96%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(29): warning #177-D: variable "move_b" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(29): warning #177-D: variable "move_f" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(32): warning #177-D: variable "grid_x" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(36): warning #177-D: variable "grid_index_x" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(37): warning #177-D: variable "grid_index_y" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(38): warning #177-D: variable "grid_index_z" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(39): warning #177-D: variable "grid_index_t" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(40): warning #177-D: variable "b_x_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(40): warning #177-D: variable "b_x_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(41): warning #177-D: variable "f_x_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(41): warning #177-D: variable "f_x_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(42): warning #177-D: variable "b_y_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(42): warning #177-D: variable "b_y_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(43): warning #177-D: variable "f_y_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(43): warning #177-D: variable "f_y_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(44): warning #177-D: variable "b_z_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(44): warning #177-D: variable "b_z_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(45): warning #177-D: variable "f_z_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(45): warning #177-D: variable "f_z_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(46): warning #177-D: variable "b_t_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(46): warning #177-D: variable "b_t_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(47): warning #177-D: variable "f_t_send_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(47): warning #177-D: variable "f_t_recv_request" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(102): warning #177-D: variable "Kappa" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(19): warning #177-D: variable "lat_yzt12" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(20): warning #177-D: variable "lat_xzt12" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(21): warning #177-D: variable "lat_xyt12" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(22): warning #177-D: variable "lat_xyz12" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/mpi_wilson_bistabcg.cu(26): warning #177-D: variable "blockDim" was declared but never referenced
+
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+/home/aistudio/work/qcu/src/cuda/../../include/./complex_vector.h(20): warning #20014-D: calling a __host__ function from a __host__ __device__ function is not allowed
+
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+~/work/qcu/test ~/work/qcu
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+QUDA 1.1.0 (git 1.1.0--sm_70)
+CUDA Driver version = 12000
+CUDA Runtime version = 11060
+Found device 0: Tesla V100-SXM2-16GB
+Using device 0: Tesla V100-SXM2-16GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+===============round  0 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 2.6467138715088367 sec
+##RANK:0##LOOP:0##Residual:535426
+##RANK:0##LOOP:1##Residual:500477
+##RANK:0##LOOP:2##Residual:467036
+##RANK:0##LOOP:3##Residual:415128
+##RANK:0##LOOP:4##Residual:379055
+##RANK:0##LOOP:5##Residual:560970
+##RANK:0##LOOP:6##Residual:361576
+##RANK:0##LOOP:7##Residual:933947
+##RANK:0##LOOP:8##Residual:436798
+##RANK:0##LOOP:9##Residual:719259
+##RANK:0##LOOP:10##Residual:401406
+##RANK:0##LOOP:11##Residual:175286
+##RANK:0##LOOP:12##Residual:136136
+##RANK:0##LOOP:13##Residual:34856.7
+##RANK:0##LOOP:14##Residual:29544.2
+##RANK:0##LOOP:15##Residual:7049.43
+##RANK:0##LOOP:16##Residual:6071.55
+##RANK:0##LOOP:17##Residual:1498.63
+##RANK:0##LOOP:18##Residual:1305
+##RANK:0##LOOP:19##Residual:357.927
+##RANK:0##LOOP:20##Residual:314.754
+##RANK:0##LOOP:21##Residual:92.0337
+##RANK:0##LOOP:22##Residual:81.2231
+##RANK:0##LOOP:23##Residual:24.1305
+##RANK:0##LOOP:24##Residual:21.2933
+##RANK:0##LOOP:25##Residual:6.29887
+##RANK:0##LOOP:26##Residual:5.5534
+##RANK:0##LOOP:27##Residual:1.63198
+##RANK:0##LOOP:28##Residual:1.43809
+##RANK:0##LOOP:29##Residual:0.421277
+##RANK:0##LOOP:30##Residual:0.371186
+##RANK:0##LOOP:31##Residual:0.108702
+##RANK:0##LOOP:32##Residual:0.0957828
+##RANK:0##LOOP:33##Residual:0.0280674
+##RANK:0##LOOP:34##Residual:0.0247334
+##RANK:0##LOOP:35##Residual:0.00725115
+##RANK:0##LOOP:36##Residual:0.00639001
+##RANK:0##LOOP:37##Residual:0.00187366
+##RANK:0##LOOP:38##Residual:0.00165115
+##RANK:0##LOOP:39##Residual:0.00048413
+##RANK:0##LOOP:40##Residual:0.000426632
+##RANK:0##LOOP:41##Residual:0.000125085
+##RANK:0##LOOP:42##Residual:0.000110229
+##RANK:0##LOOP:43##Residual:3.23173e-05
+##RANK:0##LOOP:44##Residual:2.84789e-05
+##RANK:0##LOOP:45##Residual:8.34951e-06
+##RANK:0##LOOP:46##Residual:7.35784e-06
+##RANK:0##LOOP:47##Residual:2.1572e-06
+##RANK:0##LOOP:48##Residual:1.90099e-06
+##RANK:0##LOOP:49##Residual:5.57341e-07
+mpi wilson cg total time: (without malloc free memcpy) :30.092719637 sec
+##RANK:0##LOOP:0##Residual:535241
+##RANK:0##LOOP:1##Residual:500319
+##RANK:0##LOOP:2##Residual:466898
+##RANK:0##LOOP:3##Residual:415052
+##RANK:0##LOOP:4##Residual:378972
+##RANK:0##LOOP:5##Residual:560806
+##RANK:0##LOOP:6##Residual:361503
+##RANK:0##LOOP:7##Residual:933790
+##RANK:0##LOOP:8##Residual:436728
+##RANK:0##LOOP:9##Residual:719515
+##RANK:0##LOOP:10##Residual:401475
+##RANK:0##LOOP:11##Residual:175551
+##RANK:0##LOOP:12##Residual:136320
+##RANK:0##LOOP:13##Residual:34911.2
+##RANK:0##LOOP:14##Residual:29590.9
+##RANK:0##LOOP:15##Residual:7060.69
+##RANK:0##LOOP:16##Residual:6081.61
+##RANK:0##LOOP:17##Residual:1500.82
+##RANK:0##LOOP:18##Residual:1306.99
+##RANK:0##LOOP:19##Residual:358.409
+##RANK:0##LOOP:20##Residual:315.201
+##RANK:0##LOOP:21##Residual:92.1571
+##RANK:0##LOOP:22##Residual:81.3383
+##RANK:0##LOOP:23##Residual:24.1642
+##RANK:0##LOOP:24##Residual:21.3247
+##RANK:0##LOOP:25##Residual:6.30809
+##RANK:0##LOOP:26##Residual:5.56198
+##RANK:0##LOOP:27##Residual:1.63447
+##RANK:0##LOOP:28##Residual:1.4404
+##RANK:0##LOOP:29##Residual:0.421944
+##RANK:0##LOOP:30##Residual:0.371803
+##RANK:0##LOOP:31##Residual:0.10888
+##RANK:0##LOOP:32##Residual:0.0959472
+##RANK:0##LOOP:33##Residual:0.0281148
+##RANK:0##LOOP:34##Residual:0.0247772
+##RANK:0##LOOP:35##Residual:0.0072638
+##RANK:0##LOOP:36##Residual:0.00640166
+##RANK:0##LOOP:37##Residual:0.00187703
+##RANK:0##LOOP:38##Residual:0.00165424
+##RANK:0##LOOP:39##Residual:0.000485026
+##RANK:0##LOOP:40##Residual:0.000427456
+##RANK:0##LOOP:41##Residual:0.000125324
+##RANK:0##LOOP:42##Residual:0.000110448
+##RANK:0##LOOP:43##Residual:3.23806e-05
+##RANK:0##LOOP:44##Residual:2.8537e-05
+##RANK:0##LOOP:45##Residual:8.36634e-06
+##RANK:0##LOOP:46##Residual:7.37325e-06
+##RANK:0##LOOP:47##Residual:2.16166e-06
+##RANK:0##LOOP:48##Residual:1.90507e-06
+##RANK:0##LOOP:49##Residual:5.58524e-07
+mpi wilson cg total time: (without malloc free memcpy) :31.241725520 sec
+QCU cg: 61.45695751905441 sec
+Saving 20 sets of cached parameters to .cache/tunecache.tsv
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 20 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =     6.287 secs
+                     init     =     6.287 secs ( 99.996%),	 with        2 calls at 3.143e+06 us per call
+        total accounted       =     6.287 secs ( 99.996%)
+        total missing         =     0.000 secs (  0.004%)
+
+          loadGaugeQuda Total time =    13.096 secs
+                 download     =     4.267 secs ( 32.585%),	 with        2 calls at 2.134e+06 us per call
+                   upload     =     4.129 secs ( 31.532%),	 with        1 calls at 4.129e+06 us per call
+                     init     =     0.004 secs (  0.032%),	 with        2 calls at 2.063e+03 us per call
+                  compute     =     4.695 secs ( 35.851%),	 with        2 calls at 2.347e+06 us per call
+                     free     =     0.000 secs (  0.000%),	 with        2 calls at 9.000e+00 us per call
+        total accounted       =    13.096 secs (100.000%)
+        total missing         =     0.000 secs (  0.000%)
+
+             dslashQuda Total time =     2.643 secs
+                 download     =     0.063 secs (  2.402%),	 with        2 calls at 3.173e+04 us per call
+                   upload     =     0.059 secs (  2.228%),	 with        2 calls at 2.944e+04 us per call
+                     init     =     0.000 secs (  0.003%),	 with        2 calls at 4.450e+01 us per call
+                  compute     =     2.520 secs ( 95.366%),	 with        2 calls at 1.260e+06 us per call
+                     free     =     0.000 secs (  0.000%),	 with        2 calls at 5.000e+00 us per call
+        total accounted       =     2.643 secs (100.000%)
+        total missing         =     0.000 secs (  0.000%)
+
+                endQuda Total time =     0.013 secs
+
+       initQuda-endQuda Total time =    94.519 secs
+
+                   QUDA Total time =    32.824 secs
+                 download     =     4.331 secs ( 13.194%),	 with        4 calls at 1.083e+06 us per call
+                   upload     =     4.188 secs ( 12.760%),	 with        3 calls at 1.396e+06 us per call
+                     init     =     6.291 secs ( 19.166%),	 with        6 calls at 1.049e+06 us per call
+                  compute     =    18.001 secs ( 54.841%),	 with        5 calls at 3.600e+06 us per call
+                     free     =     0.000 secs (  0.000%),	 with        4 calls at 6.500e+00 us per call
+        total accounted       =    32.811 secs ( 99.961%)
+        total missing         =     0.013 secs (  0.039%)
+
+Device memory used = 2743.5 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 84.0 MiB
+Total host memory used >= 180.0 MiB
+
+~/work/qcu

@@ -1,191 +1,165 @@
-CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o: \
-  /public/home/zhangxin/dcu/qcu/src/cuda/test_clover_multgrid.cu \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_hip_runtime_wrapper.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cmath \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/c++config.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/os_defines.h \
-  /usr/include/features.h /usr/include/stdc-predef.h \
-  /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
-  /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/cpu_defines.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/cpp_type_traits.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ext/type_traits.h \
-  /opt/rh/devtoolset-7/root/usr/include/c++/7/math.h /usr/include/math.h \
-  /usr/include/bits/huge_val.h /usr/include/bits/huge_valf.h \
-  /usr/include/bits/huge_vall.h /usr/include/bits/inf.h \
-  /usr/include/bits/nan.h /usr/include/bits/mathdef.h \
-  /usr/include/bits/mathcalls.h /usr/include/bits/mathinline.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/std_abs.h \
-  /opt/rh/devtoolset-7/root/usr/include/c++/7/stdlib.h \
-  /usr/include/stdlib.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/stddef.h \
-  /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
-  /usr/include/endian.h /usr/include/bits/endian.h \
-  /usr/include/bits/byteswap.h /usr/include/bits/types.h \
-  /usr/include/bits/typesizes.h /usr/include/bits/byteswap-16.h \
-  /usr/include/xlocale.h /usr/include/sys/types.h /usr/include/time.h \
-  /usr/include/sys/select.h /usr/include/bits/select.h \
-  /usr/include/bits/sigset.h /usr/include/bits/time.h \
-  /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
-  /usr/include/alloca.h /usr/include/bits/stdlib-float.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cstdlib \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/stdlib.h \
-  /public/sugon/software/compiler/dtk-23.04/include/hip/hip_version.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_hip_libdevice_declares.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_hip_math.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/cuda_wrappers/algorithm \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/algorithm \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/utility \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_relops.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_pair.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/move.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/concept_check.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/type_traits \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/initializer_list \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_algobase.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/functexcept.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/exception_defines.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ext/numeric_traits.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_iterator_base_types.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_iterator_base_funcs.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/debug/assertions.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_iterator.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/ptr_traits.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/debug/debug.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/predefined_ops.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_algo.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/algorithmfwd.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_heap.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_tempbuf.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_construct.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/cuda_wrappers/new \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/new \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/exception \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/exception.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/exception_ptr.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/cxxabi_init_exception.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__stddef_max_align_t.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/typeinfo \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/hash_bytes.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/nested_exception.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ext/alloc_traits.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/alloc_traits.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/memoryfwd.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/uniform_int_dist.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/limits \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/limits.h \
-  /usr/include/limits.h /usr/include/bits/posix1_lim.h \
-  /usr/include/bits/local_lim.h /usr/include/linux/limits.h \
-  /usr/include/bits/posix2_lim.h /usr/include/bits/xopen_lim.h \
-  /usr/include/bits/stdio_lim.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/stdint.h \
-  /usr/include/stdint.h /usr/include/bits/wchar.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_cuda_math_forward_declares.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_hip_cmath.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/__clang_cuda_complex_builtins.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/cuda_wrappers/complex \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/stdexcept \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/string \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stringfwd.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/char_traits.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/postypes.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cwchar \
-  /usr/include/wchar.h /usr/include/stdio.h \
-  /public/sugon/software/compiler/dtk-23.04/llvm/lib/clang/14.0.0/include/stdarg.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cstdint \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/allocator.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/c++allocator.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ext/new_allocator.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/localefwd.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/c++locale.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/clocale \
-  /usr/include/locale.h /usr/include/bits/locale.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/iosfwd \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cctype \
-  /usr/include/ctype.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/ostream_insert.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/cxxabi_forced.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/stl_function.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/backward/binders.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/range_access.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/basic_string.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ext/atomicity.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/gthr.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/gthr-default.h \
-  /usr/include/pthread.h /usr/include/sched.h /usr/include/bits/sched.h \
-  /usr/include/bits/timex.h /usr/include/bits/setjmp.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/atomic_word.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ext/string_conversions.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cstdio \
-  /usr/include/libio.h /usr/include/_G_config.h \
-  /usr/include/bits/sys_errlist.h /usr/include/bits/stdio.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cerrno \
-  /usr/include/errno.h /usr/include/bits/errno.h \
-  /usr/include/linux/errno.h /usr/include/asm/errno.h \
-  /usr/include/asm-generic/errno.h /usr/include/asm-generic/errno-base.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/functional_hash.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/basic_string.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/sstream \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/istream \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ios \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/ios_base.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/locale_classes.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/locale_classes.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/system_error \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/error_constants.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/streambuf \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/streambuf.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/basic_ios.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/locale_facets.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/cwctype \
-  /usr/include/wctype.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/ctype_base.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/streambuf_iterator.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/x86_64-pc-linux-gnu/bits/ctype_inline.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/locale_facets.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/basic_ios.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/ostream \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/ostream.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/istream.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/sstream.tcc \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/complex \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/cuda_runtime.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/host_config.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/builtin_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/device_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/host_defines.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/driver_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/vector_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/surface_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/texture_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/library_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/channel_descriptor.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/cuda_runtime_api.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/cuda_device_runtime_api.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/driver_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/vector_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/vector_functions.hpp \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/common_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/math_functions_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/math_fwd_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/fp16_math_fwd_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/device_functions_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/cuda_surface_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/cuda_texture_types.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/crt/device_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/device_atomic_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/device_atomic_functions_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/sm_32_intrinsics.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/surface_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/texture_fetch_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/ockl_image_internal.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/texture_indirect_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/surface_indirect_functions.h \
-  /public/sugon/software/compiler/dtk-23.04/cuda/include/device_launch_parameters.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/functional \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/tuple \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/array \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/uses_allocator.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/invoke.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/std_function.h \
-  /public/sugon/software/compiler/gcc/7.3.1/include/c++/7/bits/refwrap.h
+CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o : /home/aistudio/work/qcu/src/cuda/test_clover_multgrid.cu \
+    /usr/include/stdc-predef.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/host_config.h \
+    /usr/include/features.h \
+    /usr/include/x86_64-linux-gnu/sys/cdefs.h \
+    /usr/include/x86_64-linux-gnu/bits/wordsize.h \
+    /usr/include/x86_64-linux-gnu/bits/long-double.h \
+    /usr/include/x86_64-linux-gnu/gnu/stubs.h \
+    /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/builtin_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/device_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/host_defines.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/driver_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/vector_types.h \
+    /usr/lib/gcc/x86_64-linux-gnu/9/include/limits.h \
+    /usr/lib/gcc/x86_64-linux-gnu/9/include/syslimits.h \
+    /usr/include/limits.h \
+    /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
+    /usr/include/x86_64-linux-gnu/bits/posix1_lim.h \
+    /usr/include/x86_64-linux-gnu/bits/local_lim.h \
+    /usr/include/linux/limits.h \
+    /usr/include/x86_64-linux-gnu/bits/posix2_lim.h \
+    /usr/include/x86_64-linux-gnu/bits/xopen_lim.h \
+    /usr/include/x86_64-linux-gnu/bits/uio_lim.h \
+    /usr/lib/gcc/x86_64-linux-gnu/9/include/stddef.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/library_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/channel_descriptor.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime_api.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_device_runtime_api.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/driver_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/vector_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/vector_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/common_functions.h \
+    /usr/include/string.h \
+    /usr/include/x86_64-linux-gnu/bits/types/locale_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/__locale_t.h \
+    /usr/include/strings.h \
+    /usr/include/x86_64-linux-gnu/bits/strings_fortified.h \
+    /usr/include/x86_64-linux-gnu/bits/string_fortified.h \
+    /usr/include/time.h \
+    /usr/include/x86_64-linux-gnu/bits/time.h \
+    /usr/include/x86_64-linux-gnu/bits/types.h \
+    /usr/include/x86_64-linux-gnu/bits/timesize.h \
+    /usr/include/x86_64-linux-gnu/bits/typesizes.h \
+    /usr/include/x86_64-linux-gnu/bits/time64.h \
+    /usr/include/x86_64-linux-gnu/bits/timex.h \
+    /usr/include/x86_64-linux-gnu/bits/types/struct_timeval.h \
+    /usr/include/x86_64-linux-gnu/bits/types/clock_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/time_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/struct_tm.h \
+    /usr/include/x86_64-linux-gnu/bits/types/struct_timespec.h \
+    /usr/include/x86_64-linux-gnu/bits/endian.h \
+    /usr/include/x86_64-linux-gnu/bits/endianness.h \
+    /usr/include/x86_64-linux-gnu/bits/types/clockid_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/timer_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/struct_itimerspec.h \
+    /usr/include/c++/9/new \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/c++config.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/os_defines.h \
+    /usr/include/x86_64-linux-gnu/c++/9/bits/cpu_defines.h \
+    /usr/include/c++/9/exception \
+    /usr/include/c++/9/bits/exception.h \
+    /usr/include/c++/9/bits/exception_ptr.h \
+    /usr/include/c++/9/bits/exception_defines.h \
+    /usr/include/c++/9/bits/cxxabi_init_exception.h \
+    /usr/include/c++/9/typeinfo \
+    /usr/include/c++/9/bits/hash_bytes.h \
+    /usr/include/c++/9/bits/nested_exception.h \
+    /usr/include/c++/9/bits/move.h \
+    /usr/include/c++/9/bits/concept_check.h \
+    /usr/include/c++/9/type_traits \
+    /usr/include/stdio.h \
+    /usr/lib/gcc/x86_64-linux-gnu/9/include/stdarg.h \
+    /usr/include/x86_64-linux-gnu/bits/types/__fpos_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/__mbstate_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/__fpos64_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/__FILE.h \
+    /usr/include/x86_64-linux-gnu/bits/types/FILE.h \
+    /usr/include/x86_64-linux-gnu/bits/types/struct_FILE.h \
+    /usr/include/x86_64-linux-gnu/bits/types/cookie_io_functions_t.h \
+    /usr/include/x86_64-linux-gnu/bits/stdio_lim.h \
+    /usr/include/x86_64-linux-gnu/bits/sys_errlist.h \
+    /usr/include/x86_64-linux-gnu/bits/stdio.h \
+    /usr/include/x86_64-linux-gnu/bits/stdio2.h \
+    /usr/include/c++/9/stdlib.h \
+    /usr/include/c++/9/cstdlib \
+    /usr/include/stdlib.h \
+    /usr/include/x86_64-linux-gnu/bits/waitflags.h \
+    /usr/include/x86_64-linux-gnu/bits/waitstatus.h \
+    /usr/include/x86_64-linux-gnu/bits/floatn.h \
+    /usr/include/x86_64-linux-gnu/bits/floatn-common.h \
+    /usr/include/x86_64-linux-gnu/sys/types.h \
+    /usr/include/x86_64-linux-gnu/bits/stdint-intn.h \
+    /usr/include/endian.h \
+    /usr/include/x86_64-linux-gnu/bits/byteswap.h \
+    /usr/include/x86_64-linux-gnu/bits/uintn-identity.h \
+    /usr/include/x86_64-linux-gnu/sys/select.h \
+    /usr/include/x86_64-linux-gnu/bits/select.h \
+    /usr/include/x86_64-linux-gnu/bits/types/sigset_t.h \
+    /usr/include/x86_64-linux-gnu/bits/types/__sigset_t.h \
+    /usr/include/x86_64-linux-gnu/bits/select2.h \
+    /usr/include/x86_64-linux-gnu/bits/pthreadtypes.h \
+    /usr/include/x86_64-linux-gnu/bits/thread-shared-types.h \
+    /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
+    /usr/include/x86_64-linux-gnu/bits/struct_mutex.h \
+    /usr/include/x86_64-linux-gnu/bits/struct_rwlock.h \
+    /usr/include/alloca.h \
+    /usr/include/x86_64-linux-gnu/bits/stdlib-bsearch.h \
+    /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
+    /usr/include/x86_64-linux-gnu/bits/stdlib.h \
+    /usr/include/c++/9/bits/std_abs.h \
+    /usr/include/assert.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/math_functions.h \
+    /usr/include/c++/9/math.h \
+    /usr/include/c++/9/cmath \
+    /usr/include/c++/9/bits/cpp_type_traits.h \
+    /usr/include/c++/9/ext/type_traits.h \
+    /usr/include/math.h \
+    /usr/include/x86_64-linux-gnu/bits/math-vector.h \
+    /usr/include/x86_64-linux-gnu/bits/libm-simd-decl-stubs.h \
+    /usr/include/x86_64-linux-gnu/bits/flt-eval-method.h \
+    /usr/include/x86_64-linux-gnu/bits/fp-logb.h \
+    /usr/include/x86_64-linux-gnu/bits/fp-fast.h \
+    /usr/include/x86_64-linux-gnu/bits/mathcalls-helper-functions.h \
+    /usr/include/x86_64-linux-gnu/bits/mathcalls.h \
+    /usr/include/x86_64-linux-gnu/bits/mathcalls-narrow.h \
+    /usr/include/x86_64-linux-gnu/bits/iscanonical.h \
+    /usr/include/x86_64-linux-gnu/bits/mathinline.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/math_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_surface_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_texture_types.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/device_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/device_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/device_atomic_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/device_atomic_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/device_double_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/device_double_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_20_atomic_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_20_atomic_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_32_atomic_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_32_atomic_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_35_atomic_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_60_atomic_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_60_atomic_functions.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_20_intrinsics.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_20_intrinsics.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_30_intrinsics.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_30_intrinsics.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_32_intrinsics.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_32_intrinsics.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_35_intrinsics.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_61_intrinsics.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/sm_61_intrinsics.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/sm_70_rt.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/sm_70_rt.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/sm_80_rt.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/crt/sm_80_rt.hpp \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_fetch_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/texture_indirect_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/surface_indirect_functions.h \
+    /usr/local/cuda/bin/../targets/x86_64-linux/include/device_launch_parameters.h

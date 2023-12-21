@@ -25,16 +25,16 @@ export OMPI_MCA_opal_cuda_support=0
 #pushd PyQuda
 #python3  tests/test.clover.py
 #python3 tests/test.clover.py
-#mpirun -n 1 --mca btl tcp,vader,self,smcuda  python3  tests/test.dslash.py
-#mpirun -n 1 --mca btl tcp,vader,self,smcuda  python3  tests/test.dslash.mpi.py
-#mpirun -n 1 --mca btl tcp,vader,self,smcuda  python3  tests/test.dslash.mpi.py
+#mpirun -n 1  python3  tests/test.dslash.py
+#mpirun -n 1  python3  tests/test.dslash.mpi.py
+#mpirun -n 1  python3  tests/test.dslash.mpi.py
 
 mpirun -n 1 python tests/test.new_storage.py
 #mpirun -n 1 python tests/test.nondebug_cg.py
 #test.new_storage.py
-#mpirun -n 1 --mca btl tcp,vader,self,smcuda  python3  tests/test.debug.py
+#mpirun -n 1  python3  tests/test.debug.py
 #python3  tests/test.debug.py
-#mpirun -n 1 --mca btl tcp,vader,self,smcuda  python3  tests/test.dslash.new_mpi.py
+#mpirun -n 1  python3  tests/test.dslash.new_mpi.py
 #mpirun -n 2   python3  tests/test.dslash.py
 #popd
 
