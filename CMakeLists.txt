@@ -4,7 +4,7 @@ project(QCU LANGUAGES C CXX CUDA)
 set(CMAKE_CXX_STANDARD 11)
 
 # Set the desired CUDA architecture (modify this as needed)
-set(SM_ARCH "sm_70")
+set(SM_ARCH "sm_80")
 
 # Other options like maxrregcount can be set similarly
 set(MAXRREGCOUNT "256")
