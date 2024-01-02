@@ -1,3 +1,0 @@
-/home/aistudio/work/qcu/CMakeFiles/qcu.dir
-/home/aistudio/work/qcu/CMakeFiles/edit_cache.dir
-/home/aistudio/work/qcu/CMakeFiles/rebuild_cache.dir
