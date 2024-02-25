@@ -18,6 +18,7 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/home/zhangxin/qcu/src/cuda/mpi_overlap_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o.d"
   "/home/zhangxin/qcu/src/cuda/mpi_overlap_multgrid.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o.d"
   "/home/zhangxin/qcu/src/cuda/mpi_wilson_bistabcg.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o.d"
+  "/home/zhangxin/qcu/src/cuda/mpi_wilson_cg.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o.d"
   "/home/zhangxin/qcu/src/cuda/mpi_wilson_dslash.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o.d"
   "/home/zhangxin/qcu/src/cuda/mpi_wilson_multgrid.cu" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o.d"
   "/home/zhangxin/qcu/src/cuda/overlap_bistabcg.cu" "CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o" "gcc" "CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o.d"

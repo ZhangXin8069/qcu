@@ -305,7 +305,7 @@ MPI_mpi_LIBRARY:FILEPATH=/usr/local/openmpi/lib/libmpi.so
 PKG_CONFIG_ARGN:STRING=
 
 //pkg-config executable
-PKG_CONFIG_EXECUTABLE:FILEPATH=PKG_CONFIG_EXECUTABLE-NOTFOUND
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
 
 //Value Computed by CMake
 QCU_BINARY_DIR:STATIC=/home/zhangxin/qcu
