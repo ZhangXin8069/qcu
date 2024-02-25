@@ -19,6 +19,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o.d"
+  "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o"
+  "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_cg.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o"

@@ -13,19 +13,19 @@ public:
   // Constructors
 
   // Default constructor
-  __host__ __device__ ComplexVector() : _data(nullptr), _size(0) {}
+  __device__ ComplexVector() : _data(nullptr), _size(0) {}
 
   // Constructor with size
-  __host__ __device__ ComplexVector(int size) : _size(size) {
+  __device__ ComplexVector(int size) : _size(size) {
     cudaMallocManaged(&_data, _size * sizeof(Complex));
   }
 
   // Constructor with pointer to data and size
-  __host__ __device__ ComplexVector(void *data, int size)
+  __device__ ComplexVector(void *data, int size)
       : _data((static_cast<Complex *>(data))), _size(size) {}
 
   // Copy constructor
-  __host__ __device__ ComplexVector(const ComplexVector &other)
+  __device__ ComplexVector(const ComplexVector &other)
       : _data(new Complex[other._size]), _size(other._size) {
     for (int i = 0; i < _size; ++i) {
       _data[i] = other._data[i];
@@ -33,7 +33,7 @@ public:
   }
 
   // Move constructor
-  __host__ __device__ ComplexVector(ComplexVector &&other) noexcept
+  __device__ ComplexVector(ComplexVector &&other) noexcept
       : _data(other._data), _size(other._size) {}
 
   // Destructor
@@ -47,14 +47,14 @@ public:
   // __device__ ~ComplexVector() {}
 
   // Element access
-  __host__ __device__ Complex &operator[](int index) { return _data[index]; }
+  __device__ Complex &operator[](int index) { return _data[index]; }
 
-  __host__ __device__ const Complex &operator[](int index) const { return _data[index]; }
+  __device__ const Complex &operator[](int index) const { return _data[index]; }
 
   // Arithmetic operators
 
   // Uses the AVX vectorization instruction set if available
-  __host__ __device__ ComplexVector operator+(const ComplexVector &rhs) const {
+  __device__ ComplexVector operator+(const ComplexVector &rhs) const {
 #if defined(__AVX__)
     __m256d this_vector = _mm256_load_pd(_data);
     __m256d other_vector = _mm256_load_pd(rhs._data);
@@ -70,7 +70,7 @@ public:
     return result;
 #endif
   }
-  __host__ __device__ ComplexVector operator+(double rhs) const {
+  __device__ ComplexVector operator+(double rhs) const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i] + rhs;
@@ -78,7 +78,7 @@ public:
     return result;
   }
   // Uses the AVX vectorization instruction set if available
-  __host__ __device__ ComplexVector operator-(const ComplexVector &rhs) const {
+  __device__ ComplexVector operator-(const ComplexVector &rhs) const {
 #if defined(__AVX__)
     __m256d this_vector = _mm256_load_pd(_data);
     __m256d other_vector = _mm256_load_pd(rhs._data);
@@ -94,14 +94,14 @@ public:
     return result;
 #endif
   }
-  __host__ __device__ ComplexVector operator-(double rhs) const {
+  __device__ ComplexVector operator-(double rhs) const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i] - rhs;
     }
     return result;
   }
-  __host__ __device__ ComplexVector operator*(const ComplexVector &rhs) const {
+  __device__ ComplexVector operator*(const ComplexVector &rhs) const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i] * rhs[i];
@@ -109,7 +109,7 @@ public:
     return result;
   }
   // Uses the AVX vectorization instruction set if available
-  __host__ __device__ ComplexVector operator*(double rhs) const {
+  __device__ ComplexVector operator*(double rhs) const {
 #if defined(__AVX__)
     __m256d this_vector = _mm256_load_pd(_data);
     __m256d scaled_vector = _mm256_mul_pd(this_vector, _mm256_set1_pd(rhs));
@@ -124,14 +124,14 @@ public:
     return result;
 #endif
   }
-  __host__ __device__ ComplexVector operator/(const ComplexVector &rhs) const {
+  __device__ ComplexVector operator/(const ComplexVector &rhs) const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i] / rhs[i];
     }
     return result;
   }
-  __host__ __device__ ComplexVector operator/(double rhs) const {
+  __device__ ComplexVector operator/(double rhs) const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i] / rhs;
@@ -140,61 +140,61 @@ public:
   }
 
   // Arithmetic operators with assignment
-  __host__ __device__ ComplexVector &operator=(const ComplexVector &rhs) {
+  __device__ ComplexVector &operator=(const ComplexVector &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] = rhs[i];
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator=(const double &rhs) {
+  __device__ ComplexVector &operator=(const double &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] = rhs;
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator+=(const ComplexVector &rhs) {
+  __device__ ComplexVector &operator+=(const ComplexVector &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] += rhs[i];
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator+=(const double &rhs) {
+  __device__ ComplexVector &operator+=(const double &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] += rhs;
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator-=(const ComplexVector &rhs) {
+  __device__ ComplexVector &operator-=(const ComplexVector &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] -= rhs[i];
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator-=(const double &rhs) {
+  __device__ ComplexVector &operator-=(const double &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] -= rhs;
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator*=(const ComplexVector &rhs) {
+  __device__ ComplexVector &operator*=(const ComplexVector &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] *= rhs[i];
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator*=(const double &rhs) {
+  __device__ ComplexVector &operator*=(const double &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] *= rhs;
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator/=(const ComplexVector &rhs) {
+  __device__ ComplexVector &operator/=(const ComplexVector &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] /= rhs[i];
     }
     return *this;
   }
-  __host__ __device__ ComplexVector &operator/=(const double &rhs) {
+  __device__ ComplexVector &operator/=(const double &rhs) {
     for (int i = 0; i < _size; ++i) {
       _data[i] /= rhs;
     }
@@ -202,12 +202,12 @@ public:
   }
 
   // Unary minus
-  __host__ __device__ ComplexVector operator-() const {
+  __device__ ComplexVector operator-() const {
     return (*this) * (-1.0);
   }
 
   // Conjugate
-  __host__ __device__ ComplexVector conj() const {
+  __device__ ComplexVector conj() const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i].conj();
@@ -216,7 +216,7 @@ public:
   }
 
   // Multiplication with i
-  __host__ __device__ ComplexVector mul_i() const {
+  __device__ ComplexVector mul_i() const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i].mul_i();
@@ -225,7 +225,7 @@ public:
   }
 
   // Multiplication with ii
-  __host__ __device__ ComplexVector mul_ii() const {
+  __device__ ComplexVector mul_ii() const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i].mul_ii();
@@ -234,7 +234,7 @@ public:
   }
 
   // Multiplication with iii
-  __host__ __device__ ComplexVector mul_iii() const {
+  __device__ ComplexVector mul_iii() const {
     ComplexVector result(_size);
     for (int i = 0; i < _size; ++i) {
       result[i] = _data[i].mul_iii();

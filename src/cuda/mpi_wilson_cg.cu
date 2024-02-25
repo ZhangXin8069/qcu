@@ -2,11 +2,11 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 
-// #define DEBUG_MPI_WILSON_BISTABCG
-#define TEST_MPI_WILSON_BISTABCG
-// #define TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
-#ifdef MPI_WILSON_BISTABCG
-void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
+// #define DEBUG_MPI_WILSON_CG
+#define TEST_MPI_WILSON_CG
+// #define TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
+#ifdef MPI_WILSON_CG
+void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {
   const int lat_x = param->lattice_size[0] >> 1;
   const int lat_y = param->lattice_size[1];
@@ -114,7 +114,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
     give_value(t, zero, lat_xyzt12);       // zero t
     cg_in = x;
     cg_out = r;
-#ifndef TEST_MPI_WILSON_BISTABCG
+#ifndef TEST_MPI_WILSON_CG
     // clear vecs for mpi_wilson_dslash
     {
       give_value(b_x_send_vec, zero, lat_yzt6);
@@ -276,7 +276,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
       }
     }
 #else
-#ifdef TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+#ifdef TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
     // wilson_dslash
     wilson_dslash<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x, lat_y,
                                          lat_z, lat_t, parity);
@@ -306,12 +306,12 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
                       MPI_COMM_WORLD);
         MPI_Barrier(MPI_COMM_WORLD);
       }
-#ifdef DEBUG_MPI_WILSON_BISTABCG
+#ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##rho:" << rho.real << std::endl;
 #endif
       beta = (rho / rho_prev) * (alpha / omega);
-#ifdef DEBUG_MPI_WILSON_BISTABCG
+#ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##beta:" << beta.real << std::endl;
 #endif
@@ -321,7 +321,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
       // v = A * p;
       cg_in = p;
       cg_out = v;
-#ifndef TEST_MPI_WILSON_BISTABCG
+#ifndef TEST_MPI_WILSON_CG
       // clear vecs for mpi_wilson_dslash
       {
         give_value(b_x_send_vec, zero, lat_yzt6);
@@ -483,7 +483,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
         }
       }
 #else
-#ifdef TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+#ifdef TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
       // wilson_dslash
       wilson_dslash<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x, lat_y,
                                            lat_z, lat_t, parity);
@@ -509,7 +509,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
         MPI_Barrier(MPI_COMM_WORLD);
       }
       alpha = rho / tmp;
-#ifdef DEBUG_MPI_WILSON_BISTABCG
+#ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##alpha:" << alpha.real << std::endl;
 #endif
@@ -519,7 +519,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
       // t = A * s;
       cg_in = s;
       cg_out = t;
-#ifndef TEST_MPI_WILSON_BISTABCG
+#ifndef TEST_MPI_WILSON_CG
       // clear vecs for mpi_wilson_dslash
       {
         give_value(b_x_send_vec, zero, lat_yzt6);
@@ -681,7 +681,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
         }
       }
 #else
-#ifdef TEST_MPI_WILSON_BISTABCG_USE_WILSON_DSLASH
+#ifdef TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
       // wilson_dslash
       wilson_dslash<<<gridDim, blockDim>>>(gauge, cg_in, cg_out, lat_x, lat_y,
                                            lat_z, lat_t, parity);
@@ -716,7 +716,7 @@ void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *
         MPI_Barrier(MPI_COMM_WORLD);
       }
       omega = tmp0 / tmp1;
-#ifdef DEBUG_MPI_WILSON_BISTABCG
+#ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##omega:" << omega.real << std::endl;
 #endif
