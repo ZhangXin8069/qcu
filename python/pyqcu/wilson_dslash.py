@@ -30,7 +30,7 @@ LatticeFermion [2, Lt, Lz, Ly, Lx//2, Ns, Nc] (Ns == 4)
 
 def _run(src: cupy.ndarray, dest: cupy.ndarray, U: cupy.ndarray, parity: int):
     Lxyzt = _Lxyzt(src=src)
-    print(Lxyzt)
+    # print(Lxyzt)
     pass
 
 
