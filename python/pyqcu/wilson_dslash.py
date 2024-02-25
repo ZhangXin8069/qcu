@@ -1,5 +1,6 @@
 import cupy
 import pyquda
+
 EVEN, ODD = 0, 1
 Nd, Ns, Nc = 4, 4, 3
 X, Y, Z, T = 0, 1, 2, 3
@@ -30,7 +31,13 @@ LatticeFermion [2, Lt, Lz, Ly, Lx//2, Ns, Nc] (Ns == 4)
 
 def _run(src: cupy.ndarray, dest: cupy.ndarray, U: cupy.ndarray, parity: int):
     Lxyzt = _Lxyzt(src=src)
-    # print(Lxyzt)
+    for x in range(Lxyzt[X]):
+        for y in range(Lxyzt[Y]):
+            for z in range(Lxyzt[Z]):
+                for t in range(Lxyzt[T]):
+                    # move()
+                    eo = eo_yzt(y=y, z=z, t=t)
+
     pass
 
 
