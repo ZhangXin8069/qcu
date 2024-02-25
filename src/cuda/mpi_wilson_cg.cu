@@ -3,7 +3,7 @@
 #include "../../include/qcu.h"
 
 // #define DEBUG_MPI_WILSON_CG
-#define TEST_MPI_WILSON_CG
+// #define TEST_MPI_WILSON_CG
 // #define TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
 #ifdef MPI_WILSON_CG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
