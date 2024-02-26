@@ -185,9 +185,10 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
-  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
-                              t * lat_z * lat_y * lat_x * 9 +
-                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_U =
+      ((static_cast<LatticeComplex *>(device_U)) +
+       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
+       x * 9);
   LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
@@ -408,9 +409,10 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
   parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
-  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
-                              t * lat_z * lat_y * lat_x * 9 +
-                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_U =
+      ((static_cast<LatticeComplex *>(device_U)) +
+       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
+       x * 9);
   LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
@@ -631,9 +633,10 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
   parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
-  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
-                              t * lat_z * lat_y * lat_x * 9 +
-                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_U =
+      ((static_cast<LatticeComplex *>(device_U)) +
+       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
+       x * 9);
   LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
@@ -854,9 +857,10 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
   parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
-  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
-                              t * lat_z * lat_y * lat_x * 9 +
-                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_U =
+      ((static_cast<LatticeComplex *>(device_U)) +
+       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
+       x * 9);
   LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
@@ -917,7 +921,6 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
   // just add
   add_ptr(origin_dest, dest, 12);
 }
-
 #ifdef MPI_WILSON_DSLASH
 void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                   QcuParam *param, int parity, QcuParam *grid) {
@@ -941,16 +944,22 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     MPI_Request recv_request[WARDS];
     void *send_vec[WARDS];
     void *recv_vec[WARDS];
-    for (int i = 0; i < DIM; i++) {
-      cudaMallocManaged(&send_vec[i * SR],
-                        lat_3dim6[i] * sizeof(LatticeComplex));
-      cudaMallocManaged(&send_vec[i * SR + 1],
-                        lat_3dim6[i] * sizeof(LatticeComplex));
-      cudaMallocManaged(&recv_vec[i * SR],
-                        lat_3dim6[i] * sizeof(LatticeComplex));
-      cudaMallocManaged(&recv_vec[i * SR + 1],
-                        lat_3dim6[i] * sizeof(LatticeComplex));
-    }
+    checkCudaErrors(cudaMallocManaged(&send_vec[B_X], lat_3dim6[YZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[F_X], lat_3dim6[YZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[B_Y], lat_3dim6[XZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[F_Y], lat_3dim6[XZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[B_Z], lat_3dim6[XYT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[F_Z], lat_3dim6[XYT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[B_T], lat_3dim6[XYZ] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&send_vec[F_T], lat_3dim6[XYZ] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[B_X], lat_3dim6[YZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[F_X], lat_3dim6[YZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[B_Y], lat_3dim6[XZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[F_Y], lat_3dim6[XZT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[B_Z], lat_3dim6[XYT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[F_Z], lat_3dim6[XYT] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[B_T], lat_3dim6[XYZ] * sizeof(LatticeComplex)));
+    checkCudaErrors(cudaMallocManaged(&recv_vec[F_T], lat_3dim6[XYZ] * sizeof(LatticeComplex)));
     // above define for mpi_wilson_dslash
     auto start = std::chrono::high_resolution_clock::now();
     // clean
@@ -1097,11 +1106,25 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     printf("mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
-    // free
+    // free 
     {
-      for (int i = 0; i < WARDS * SR; i++) {
-        cudaFree(send_vec[i]);
-      }
+      checkCudaErrors(cudaFree(send_vec[B_X]));
+      checkCudaErrors(cudaFree(send_vec[F_X]));
+      checkCudaErrors(cudaFree(send_vec[B_Y]));
+      checkCudaErrors(cudaFree(send_vec[F_Y]));
+      checkCudaErrors(cudaFree(send_vec[B_Z]));
+      checkCudaErrors(cudaFree(send_vec[F_Z]));
+      checkCudaErrors(cudaFree(send_vec[B_T]));
+      checkCudaErrors(cudaFree(send_vec[F_T]));
+      checkCudaErrors(cudaFree(recv_vec[B_X]));
+      checkCudaErrors(cudaFree(recv_vec[F_X]));
+      checkCudaErrors(cudaFree(recv_vec[B_Y]));
+      checkCudaErrors(cudaFree(recv_vec[F_Y]));
+      checkCudaErrors(cudaFree(recv_vec[B_Z]));
+      checkCudaErrors(cudaFree(recv_vec[F_Z]));
+      checkCudaErrors(cudaFree(recv_vec[B_T]));
+      checkCudaErrors(cudaFree(recv_vec[F_T]));
     }
   }
+}
 #endif
