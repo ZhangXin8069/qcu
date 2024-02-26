@@ -352,4 +352,209 @@
     grid_index_1dim[T] = node_rank % grid_1dim[T];                             \
   }
 
+#define zero_recv(lat_3dim6, send_vec, recv_vec, zero)                         \
+  {                                                                            \
+    for (int i = 0; i < DIM; i++) {                                            \
+      give_value(send_vec[i * SR], zero, lat_3dim6[i]);                        \
+      give_value(send_vec[i * SR + 1], zero, lat_3dim6[i]);                    \
+      give_value(recv_vec[i * SR], zero, lat_3dim6[i]);                        \
+      give_value(recv_vec[i * SR + 1], zero, lat_3dim6[i]);                    \
+    }                                                                          \
+  }
+
+#define _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,       \
+                      parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,      \
+                      grid_index_1dim, move, send_request, recv_request,       \
+                      send_vec, recv_vec)                                      \
+  {                                                                            \
+    wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_1dim[X],  \
+                                                    lat_1dim[Y], lat_1dim[Z]); \
+    wilson_dslash_x_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);                    \
+    if (grid_1dim[X] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);                \
+      move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);                 \
+      move[B] =                                                                \
+          node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      move[F] =                                                                \
+          node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], F_X,      \
+                MPI_COMM_WORLD, &recv_request[B_X]);                           \
+      MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], B_X,      \
+                MPI_COMM_WORLD, &recv_request[F_X]);                           \
+      MPI_Isend(send_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], B_X,      \
+                MPI_COMM_WORLD, &send_request[B_X]);                           \
+      MPI_Isend(send_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], F_X,      \
+                MPI_COMM_WORLD, &send_request[F_T]);                           \
+    }                                                                          \
+    wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);                    \
+    if (grid_1dim[Y] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);                \
+      move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);                 \
+      move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];             \
+      move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];             \
+      MPI_Irecv(recv_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], F_Y,      \
+                MPI_COMM_WORLD, &recv_request[B_Y]);                           \
+      MPI_Irecv(recv_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], B_Y,      \
+                MPI_COMM_WORLD, &recv_request[F_Y]);                           \
+      MPI_Isend(send_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], B_Y,      \
+                MPI_COMM_WORLD, &send_request[B_Y]);                           \
+      MPI_Isend(send_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], F_Y,      \
+                MPI_COMM_WORLD, &send_request[F_Y]);                           \
+    }                                                                          \
+    wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);                    \
+    if (grid_1dim[Z] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);                \
+      move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);                 \
+      move[B] = node_rank + move[B] * grid_1dim[T];                            \
+      move[F] = node_rank + move[F] * grid_1dim[T];                            \
+      MPI_Irecv(recv_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], F_Z,      \
+                MPI_COMM_WORLD, &recv_request[B_Z]);                           \
+      MPI_Irecv(recv_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], B_Z,      \
+                MPI_COMM_WORLD, &recv_request[F_Z]);                           \
+      MPI_Isend(send_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], B_Z,      \
+                MPI_COMM_WORLD, &send_request[B_Z]);                           \
+      MPI_Isend(send_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], F_Z,      \
+                MPI_COMM_WORLD, &send_request[F_Z]);                           \
+    }                                                                          \
+    wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);                    \
+    if (grid_1dim[T] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);                \
+      move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);                 \
+      move[B] = node_rank + move[B];                                           \
+      move[F] = node_rank + move[F];                                           \
+      MPI_Irecv(recv_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], F_T,      \
+                MPI_COMM_WORLD, &recv_request[B_T]);                           \
+      MPI_Irecv(recv_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], B_T,      \
+                MPI_COMM_WORLD, &recv_request[F_T]);                           \
+      MPI_Isend(send_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], B_T,      \
+                MPI_COMM_WORLD, &send_request[B_T]);                           \
+      MPI_Isend(send_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], F_T,      \
+                MPI_COMM_WORLD, &send_request[F_T]);                           \
+    }                                                                          \
+    if (grid_1dim[X] != 1) {                                                   \
+      MPI_Wait(&recv_request[B_X], MPI_STATUS_IGNORE);                         \
+      MPI_Wait(&recv_request[F_X], MPI_STATUS_IGNORE);                         \
+      wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_X], recv_vec[F_X]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_X], send_vec[B_X]);                  \
+    }                                                                          \
+    if (grid_1dim[Y] != 1) {                                                   \
+      MPI_Wait(&recv_request[B_Y], MPI_STATUS_IGNORE);                         \
+      MPI_Wait(&recv_request[F_Y], MPI_STATUS_IGNORE);                         \
+      wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_Y], recv_vec[F_Y]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_Y], send_vec[B_Y]);                  \
+    }                                                                          \
+    if (grid_1dim[Z] != 1) {                                                   \
+      MPI_Wait(&recv_request[B_Z], MPI_STATUS_IGNORE);                         \
+      MPI_Wait(&recv_request[F_Z], MPI_STATUS_IGNORE);                         \
+      wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_Z], recv_vec[F_Z]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_Z], send_vec[B_Z]);                  \
+    }                                                                          \
+    if (grid_1dim[T] != 1) {                                                   \
+      MPI_Wait(&recv_request[B_T], MPI_STATUS_IGNORE);                         \
+      MPI_Wait(&recv_request[F_T], MPI_STATUS_IGNORE);                         \
+      wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_T], send_vec[B_T]);                  \
+    }                                                                          \
+    MPI_Barrier(MPI_COMM_WORLD);                                               \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
+  }
+
+#define malloc_recv(lat_3dim6, send_vec, recv_vec)                             \
+  {                                                                            \
+    for (int i = 0; i < DIM; i++) {                                            \
+      cudaMallocManaged(&send_vec[i * SR],                                     \
+                        lat_3dim6[i] * sizeof(LatticeComplex));                \
+      cudaMallocManaged(&send_vec[i * SR + 1],                                 \
+                        lat_3dim6[i] * sizeof(LatticeComplex));                \
+      cudaMallocManaged(&recv_vec[i * SR],                                     \
+                        lat_3dim6[i] * sizeof(LatticeComplex));                \
+      cudaMallocManaged(&recv_vec[i * SR + 1],                                 \
+                        lat_3dim6[i] * sizeof(LatticeComplex));                \
+    }                                                                          \
+  }
+
+#define free_recv(send_vec, recv_vec)                                          \
+  {                                                                            \
+    for (int i = 0; i < WARDS; i++) {                                          \
+      cudaFree(send_vec[i]);                                                   \
+      cudaFree(recv_vec[i]);                                                   \
+    }                                                                          \
+  }
+
+#define _dslash(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,     \
+                lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,   \
+                move, send_request, recv_request, send_vec, recv_vec,          \
+                dslash_in, dslash_out, Kappa, zero, one)                       \
+  {                                                                            \
+    if (TEST_MPI_WILSON_CG) {                                                  \
+      for (int i = 0; i < lat_4dim12; i++) {                                   \
+        dslash_out[i] = dslash_in[i] * 2 + one;                                \
+      }                                                                        \
+    } else {                                                                   \
+      if (TEST_MPI_WILSON_CG_USE_WILSON_DSLASH) {                              \
+        wilson_dslash<<<gridDim, blockDim>>>(                                  \
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y],            \
+            lat_1dim[Z], lat_1dim[T], parity);                                 \
+      } else {                                                                 \
+        zero_recv(lat_3dim6, send_vec, recv_vec, zero);                        \
+        _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,       \
+                      parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,      \
+                      grid_index_1dim, move, send_request, recv_request,       \
+                      send_vec, recv_vec);                                     \
+      }                                                                        \
+      for (int i = 0; i < lat_4dim12; i++) {                                   \
+        dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;                  \
+      }                                                                        \
+    }                                                                          \
+  }
+
+#define cg_mpi_dot(local_result, lat_4dim12, val0, val1, tmp, zero)            \
+  {                                                                            \
+    {                                                                          \
+      local_result = zero;                                                     \
+      for (int i = 0; i < lat_4dim12; i++) {                                   \
+        local_result += val0[i].conj() * val1[i];                              \
+      }                                                                        \
+      MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,               \
+                    MPI_COMM_WORLD);                                           \
+      MPI_Barrier(MPI_COMM_WORLD);                                             \
+    }                                                                          \
+  }
+
 #endif
