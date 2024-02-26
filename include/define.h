@@ -26,6 +26,9 @@
 #define LAT_C 3
 #define LAT_S 4
 #define LAT_D 4
+#define B 0
+#define F 1
+#define BF 2
 #define OUTPUT_SIZE 10
 #define BACKWARD -1
 #define NOWARD 0
