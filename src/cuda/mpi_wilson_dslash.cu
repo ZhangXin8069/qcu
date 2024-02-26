@@ -58,13 +58,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
           node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
       move[F] =
           node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
-      MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], 1,
+      MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], F_X,
                 MPI_COMM_WORLD, &recv_request[B_X]);
-      MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], 0,
+      MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], B_X,
                 MPI_COMM_WORLD, &recv_request[F_X]);
-      MPI_Isend(send_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], 0,
+      MPI_Isend(send_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], B_X,
                 MPI_COMM_WORLD, &send_request[B_X]);
-      MPI_Isend(send_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], 1,
+      MPI_Isend(send_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], F_X,
                 MPI_COMM_WORLD, &send_request[F_T]);
     }
     // send y
@@ -77,13 +77,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);
       move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];
       move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];
-      MPI_Irecv(recv_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], 3,
+      MPI_Irecv(recv_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], F_Y,
                 MPI_COMM_WORLD, &recv_request[B_Y]);
-      MPI_Irecv(recv_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], 2,
+      MPI_Irecv(recv_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], B_Y,
                 MPI_COMM_WORLD, &recv_request[F_Y]);
-      MPI_Isend(send_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], 2,
+      MPI_Isend(send_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], B_Y,
                 MPI_COMM_WORLD, &send_request[B_Y]);
-      MPI_Isend(send_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], 3,
+      MPI_Isend(send_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], F_Y,
                 MPI_COMM_WORLD, &send_request[F_Y]);
     }
     // send z
@@ -96,13 +96,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);
       move[B] = node_rank + move[B] * grid_1dim[T];
       move[F] = node_rank + move[F] * grid_1dim[T];
-      MPI_Irecv(recv_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], 5,
+      MPI_Irecv(recv_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], F_Z,
                 MPI_COMM_WORLD, &recv_request[B_Z]);
-      MPI_Irecv(recv_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], 4,
+      MPI_Irecv(recv_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], B_Z,
                 MPI_COMM_WORLD, &recv_request[F_Z]);
-      MPI_Isend(send_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], 4,
+      MPI_Isend(send_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], B_Z,
                 MPI_COMM_WORLD, &send_request[B_Z]);
-      MPI_Isend(send_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], 5,
+      MPI_Isend(send_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], F_Z,
                 MPI_COMM_WORLD, &send_request[F_Z]);
     }
     // send t
@@ -115,13 +115,13 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);
       move[B] = node_rank + move[B];
       move[F] = node_rank + move[F];
-      MPI_Irecv(recv_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], 7,
+      MPI_Irecv(recv_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], F_T,
                 MPI_COMM_WORLD, &recv_request[B_T]);
-      MPI_Irecv(recv_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], 6,
+      MPI_Irecv(recv_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], B_T,
                 MPI_COMM_WORLD, &recv_request[F_T]);
-      MPI_Isend(send_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], 6,
+      MPI_Isend(send_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], B_T,
                 MPI_COMM_WORLD, &send_request[B_T]);
-      MPI_Isend(send_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], 7,
+      MPI_Isend(send_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], F_T,
                 MPI_COMM_WORLD, &send_request[F_T]);
     }
     // recv x
@@ -187,7 +187,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     printf("mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
-    // free
+    // free 
     {
       checkCudaErrors(cudaFree(send_vec[B_X]));
       checkCudaErrors(cudaFree(send_vec[F_X]));
