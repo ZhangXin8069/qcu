@@ -4,7 +4,7 @@
 #ifdef MPI_WILSON_CG
 #define DEBUG_MPI_WILSON_CG
 #define TEST_MPI_WILSON_CG 0
-#define TEST_MPI_WILSON_CG_USE_WILSON_DSLASH 0
+#define TEST_MPI_WILSON_CG_USE_WILSON_DSLASH 1
 
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
               int parity, QcuParam *grid) {
