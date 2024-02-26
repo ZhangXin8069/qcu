@@ -8,15 +8,15 @@
 
 #ifdef MPI_WILSON_CG
 void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
-              int parity, QcuParam *grid)
-{
+              int parity, QcuParam *grid) {
   int lat_1dim[DIM];
   int lat_3dim6[DIM];
   int lat_3dim12[DIM];
   int lat_4dim12;
   give_dims(param, lat_1dim, lat_3dim6, lat_3dim12, lat_4dim12);
   cudaError_t err;
-  dim3 gridDim(lat_1dim[X] * lat_1dim[Y] * lat_1dim[Z] * lat_1dim[T] / BLOCK_SIZE);
+  dim3 gridDim(lat_1dim[X] * lat_1dim[Y] * lat_1dim[Z] * lat_1dim[T] /
+               BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
   {
     // mpi wilson cg
@@ -45,7 +45,8 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     cudaMallocManaged(&recv_vec[F_Z], lat_3dim6[XYT] * sizeof(LatticeComplex));
     cudaMallocManaged(&recv_vec[B_T], lat_3dim6[XYZ] * sizeof(LatticeComplex));
     cudaMallocManaged(&recv_vec[F_T], lat_3dim6[XYZ] * sizeof(LatticeComplex));
-    LatticeComplex *dslash_in, *dslash_out, *x, *b, *r, *r_tilde, *p, *v, *s, *t;
+    LatticeComplex *dslash_in, *dslash_out, *x, *b, *r, *r_tilde, *p, *v, *s,
+        *t;
     cudaMallocManaged(&x, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&b, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&r, lat_4dim12 * sizeof(LatticeComplex));
@@ -113,19 +114,20 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
     // mpi_wilson_dslash
     {
       // clean
-      wilson_dslash_clear_dest<<<gridDim, blockDim>>>(dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                      lat_1dim[Z]);
+      wilson_dslash_clear_dest<<<gridDim, blockDim>>>(dslash_out, lat_1dim[X],
+                                                      lat_1dim[Y], lat_1dim[Z]);
       // send x
-      wilson_dslash_x_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                  lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                  send_vec[B_X], send_vec[F_X]);
-      if (grid_1dim[X] != 1)
-      {
+      wilson_dslash_x_send<<<gridDim, blockDim>>>(
+          gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+          lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);
+      if (grid_1dim[X] != 1) {
         checkCudaErrors(cudaDeviceSynchronize());
         move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);
         move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);
-        move[B] = node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
-        move[F] = node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
+        move[B] =
+            node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
+        move[F] =
+            node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
         MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], 1,
                   MPI_COMM_WORLD, &recv_request[B_X]);
         MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], 0,
@@ -136,11 +138,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                   MPI_COMM_WORLD, &send_request[F_T]);
       }
       // send y
-      wilson_dslash_y_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                  lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                  send_vec[B_Y], send_vec[F_Y]);
-      if (grid_1dim[Y] != 1)
-      {
+      wilson_dslash_y_send<<<gridDim, blockDim>>>(
+          gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+          lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);
+      if (grid_1dim[Y] != 1) {
         checkCudaErrors(cudaDeviceSynchronize());
         move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);
         move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);
@@ -156,11 +157,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                   MPI_COMM_WORLD, &send_request[F_Y]);
       }
       // send z
-      wilson_dslash_z_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                  lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                  send_vec[B_Z], send_vec[F_Z]);
-      if (grid_1dim[Z] != 1)
-      {
+      wilson_dslash_z_send<<<gridDim, blockDim>>>(
+          gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+          lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);
+      if (grid_1dim[Z] != 1) {
         checkCudaErrors(cudaDeviceSynchronize());
         move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);
         move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);
@@ -176,11 +176,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                   MPI_COMM_WORLD, &send_request[F_Z]);
       }
       // send t
-      wilson_dslash_t_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                  lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                  send_vec[B_T], send_vec[F_T]);
-      if (grid_1dim[T] != 1)
-      {
+      wilson_dslash_t_send<<<gridDim, blockDim>>>(
+          gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+          lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);
+      if (grid_1dim[T] != 1) {
         checkCudaErrors(cudaDeviceSynchronize());
         move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);
         move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);
@@ -196,108 +195,91 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                   MPI_COMM_WORLD, &send_request[F_T]);
       }
       // recv x
-      if (grid_1dim[X] != 1)
-      {
+      if (grid_1dim[X] != 1) {
         MPI_Wait(&recv_request[B_X], MPI_STATUS_IGNORE);
         MPI_Wait(&recv_request[F_X], MPI_STATUS_IGNORE);
-        wilson_dslash_x_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    recv_vec[B_X], recv_vec[F_X]);
-      }
-      else
-      {
+        wilson_dslash_x_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, recv_vec[B_X], recv_vec[F_X]);
+      } else {
         checkCudaErrors(cudaDeviceSynchronize());
-        wilson_dslash_x_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[F_X], send_vec[B_X]);
+        wilson_dslash_x_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[F_X], send_vec[B_X]);
       }
       // recv y
-      if (grid_1dim[Y] != 1)
-      {
+      if (grid_1dim[Y] != 1) {
         MPI_Wait(&recv_request[B_Y], MPI_STATUS_IGNORE);
         MPI_Wait(&recv_request[F_Y], MPI_STATUS_IGNORE);
-        wilson_dslash_y_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    recv_vec[B_Y], recv_vec[F_Y]);
-      }
-      else
-      {
+        wilson_dslash_y_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, recv_vec[B_Y], recv_vec[F_Y]);
+      } else {
         checkCudaErrors(cudaDeviceSynchronize());
-        wilson_dslash_y_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[F_Y], send_vec[B_Y]);
+        wilson_dslash_y_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[F_Y], send_vec[B_Y]);
       }
       // recv z
-      if (grid_1dim[Z] != 1)
-      {
+      if (grid_1dim[Z] != 1) {
         MPI_Wait(&recv_request[B_Z], MPI_STATUS_IGNORE);
         MPI_Wait(&recv_request[F_Z], MPI_STATUS_IGNORE);
-        wilson_dslash_z_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    recv_vec[B_Z], recv_vec[F_Z]);
-      }
-      else
-      {
+        wilson_dslash_z_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, recv_vec[B_Z], recv_vec[F_Z]);
+      } else {
         checkCudaErrors(cudaDeviceSynchronize());
-        wilson_dslash_z_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[F_Z], send_vec[B_Z]);
+        wilson_dslash_z_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[F_Z], send_vec[B_Z]);
       }
       // recv t
-      if (grid_1dim[T] != 1)
-      {
+      if (grid_1dim[T] != 1) {
         MPI_Wait(&recv_request[B_T], MPI_STATUS_IGNORE);
         MPI_Wait(&recv_request[F_T], MPI_STATUS_IGNORE);
-        wilson_dslash_t_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    recv_vec[B_T], recv_vec[F_T]);
-      }
-      else
-      {
+        wilson_dslash_t_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);
+      } else {
         checkCudaErrors(cudaDeviceSynchronize());
-        wilson_dslash_t_recv<<<gridDim, blockDim>>>(gauge, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                    lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[F_T], send_vec[B_T]);
+        wilson_dslash_t_recv<<<gridDim, blockDim>>>(
+            gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[F_T], send_vec[B_T]);
       }
       MPI_Barrier(MPI_COMM_WORLD);
     }
     // kappa
     {
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;
       }
     }
 #else
 #ifdef TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
     // wilson_dslash
-    wilson_dslash<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y],
-                                         lat_1dim[Z], lat_1dim[T], parity);
+    wilson_dslash<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out,
+                                         lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+                                         lat_1dim[T], parity);
     // kappa
     {
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;
       }
     }
 #else
-    for (int i = 0; i < lat_4dim12; i++)
-    {
+    for (int i = 0; i < lat_4dim12; i++) {
       dslash_out[i] = dslash_in[i] * 2 + one;
     }
 #endif
 #endif
-    for (int i = 0; i < lat_4dim12; i++)
-    {
+    for (int i = 0; i < lat_4dim12; i++) {
       r[i] = b[i] - r[i];
       r_tilde[i] = r[i];
     }
-    for (int loop = 0; loop < MAX_ITER; loop++)
-    {
+    for (int loop = 0; loop < MAX_ITER; loop++) {
       {
         local_result = zero;
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           local_result += r_tilde[i].conj() * r[i];
         }
         MPI_Allreduce(&local_result, &rho, 2, MPI_DOUBLE, MPI_SUM,
@@ -313,8 +295,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##beta:" << beta.real << std::endl;
 #endif
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         p[i] = r[i] + (p[i] - v[i] * omega) * beta;
       }
       // v = A * p;
@@ -343,19 +324,20 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // mpi_wilson_dslash
       {
         // clean
-        wilson_dslash_clear_dest<<<gridDim, blockDim>>>(dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                        lat_1dim[Z]);
+        wilson_dslash_clear_dest<<<gridDim, blockDim>>>(
+            dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z]);
         // send x
-        wilson_dslash_x_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_X], send_vec[F_X]);
-        if (grid_1dim[X] != 1)
-        {
+        wilson_dslash_x_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);
+        if (grid_1dim[X] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);
           move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);
-          move[B] = node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
-          move[F] = node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
+          move[B] =
+              node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
+          move[F] =
+              node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
           MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], 1,
                     MPI_COMM_WORLD, &recv_request[B_X]);
           MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], 0,
@@ -366,11 +348,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_T]);
         }
         // send y
-        wilson_dslash_y_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_Y], send_vec[F_Y]);
-        if (grid_1dim[Y] != 1)
-        {
+        wilson_dslash_y_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);
+        if (grid_1dim[Y] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);
           move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);
@@ -386,11 +367,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_Y]);
         }
         // send z
-        wilson_dslash_z_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_Z], send_vec[F_Z]);
-        if (grid_1dim[Z] != 1)
-        {
+        wilson_dslash_z_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);
+        if (grid_1dim[Z] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);
           move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);
@@ -406,11 +386,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_Z]);
         }
         // send t
-        wilson_dslash_t_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_T], send_vec[F_T]);
-        if (grid_1dim[T] != 1)
-        {
+        wilson_dslash_t_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);
+        if (grid_1dim[T] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);
           move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);
@@ -426,101 +405,86 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_T]);
         }
         // recv x
-        if (grid_1dim[X] != 1)
-        {
+        if (grid_1dim[X] != 1) {
           MPI_Wait(&recv_request[B_X], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_X], MPI_STATUS_IGNORE);
           wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_X],
-              recv_vec[F_X]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_X], recv_vec[F_X]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_X],
-              send_vec[B_X]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_X], send_vec[B_X]);
         }
         // recv y
-        if (grid_1dim[Y] != 1)
-        {
+        if (grid_1dim[Y] != 1) {
           MPI_Wait(&recv_request[B_Y], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_Y], MPI_STATUS_IGNORE);
           wilson_dslash_y_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_Y],
-              recv_vec[F_Y]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_Y], recv_vec[F_Y]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_y_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_Y],
-              send_vec[B_Y]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_Y], send_vec[B_Y]);
         }
         // recv z
-        if (grid_1dim[Z] != 1)
-        {
+        if (grid_1dim[Z] != 1) {
           MPI_Wait(&recv_request[B_Z], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_Z], MPI_STATUS_IGNORE);
           wilson_dslash_z_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_Z],
-              recv_vec[F_Z]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_Z], recv_vec[F_Z]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_z_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_Z],
-              send_vec[B_Z]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_Z], send_vec[B_Z]);
         }
         // recv t
-        if (grid_1dim[T] != 1)
-        {
+        if (grid_1dim[T] != 1) {
           MPI_Wait(&recv_request[B_T], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_T], MPI_STATUS_IGNORE);
           wilson_dslash_t_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_T],
-              recv_vec[F_T]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_t_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_T],
-              send_vec[B_T]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_T], send_vec[B_T]);
         }
         MPI_Barrier(MPI_COMM_WORLD);
       }
       // kappa
       {
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;
         }
       }
 #else
 #ifdef TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
       // wilson_dslash
-      wilson_dslash<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y],
+      wilson_dslash<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out,
+                                           lat_1dim[X], lat_1dim[Y],
                                            lat_1dim[Z], lat_1dim[T], parity);
       // kappa
       {
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;
         }
       }
 #else
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         dslash_out[i] = dslash_in[i] * 2 + one;
       }
 #endif
 #endif
       {
         local_result = zero;
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           local_result += r_tilde[i].conj() * v[i];
         }
         MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,
@@ -532,8 +496,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##alpha:" << alpha.real << std::endl;
 #endif
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         s[i] = r[i] - v[i] * alpha;
       }
       // t = A * s;
@@ -562,19 +525,20 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       // mpi_wilson_dslash
       {
         // clean
-        wilson_dslash_clear_dest<<<gridDim, blockDim>>>(dslash_out, lat_1dim[X], lat_1dim[Y],
-                                                        lat_1dim[Z]);
+        wilson_dslash_clear_dest<<<gridDim, blockDim>>>(
+            dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z]);
         // send x
-        wilson_dslash_x_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_X], send_vec[F_X]);
-        if (grid_1dim[X] != 1)
-        {
+        wilson_dslash_x_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);
+        if (grid_1dim[X] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);
           move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);
-          move[B] = node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
-          move[F] = node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
+          move[B] =
+              node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
+          move[F] =
+              node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];
           MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], 1,
                     MPI_COMM_WORLD, &recv_request[B_X]);
           MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], 0,
@@ -585,11 +549,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_T]);
         }
         // send y
-        wilson_dslash_y_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_Y], send_vec[F_Y]);
-        if (grid_1dim[Y] != 1)
-        {
+        wilson_dslash_y_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);
+        if (grid_1dim[Y] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);
           move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);
@@ -605,11 +568,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_Y]);
         }
         // send z
-        wilson_dslash_z_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_Z], send_vec[F_Z]);
-        if (grid_1dim[Z] != 1)
-        {
+        wilson_dslash_z_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);
+        if (grid_1dim[Z] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);
           move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);
@@ -625,11 +587,10 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_Z]);
         }
         // send t
-        wilson_dslash_t_send<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X],
-                                                    lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity,
-                                                    send_vec[B_T], send_vec[F_T]);
-        if (grid_1dim[T] != 1)
-        {
+        wilson_dslash_t_send<<<gridDim, blockDim>>>(
+            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+            lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);
+        if (grid_1dim[T] != 1) {
           checkCudaErrors(cudaDeviceSynchronize());
           move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);
           move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);
@@ -645,101 +606,86 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
                     MPI_COMM_WORLD, &send_request[F_T]);
         }
         // recv x
-        if (grid_1dim[X] != 1)
-        {
+        if (grid_1dim[X] != 1) {
           MPI_Wait(&recv_request[B_X], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_X], MPI_STATUS_IGNORE);
           wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_X],
-              recv_vec[F_X]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_X], recv_vec[F_X]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_x_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_X],
-              send_vec[B_X]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_X], send_vec[B_X]);
         }
         // recv y
-        if (grid_1dim[Y] != 1)
-        {
+        if (grid_1dim[Y] != 1) {
           MPI_Wait(&recv_request[B_Y], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_Y], MPI_STATUS_IGNORE);
           wilson_dslash_y_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_Y],
-              recv_vec[F_Y]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_Y], recv_vec[F_Y]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_y_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_Y],
-              send_vec[B_Y]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_Y], send_vec[B_Y]);
         }
         // recv z
-        if (grid_1dim[Z] != 1)
-        {
+        if (grid_1dim[Z] != 1) {
           MPI_Wait(&recv_request[B_Z], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_Z], MPI_STATUS_IGNORE);
           wilson_dslash_z_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_Z],
-              recv_vec[F_Z]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_Z], recv_vec[F_Z]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_z_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_Z],
-              send_vec[B_Z]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_Z], send_vec[B_Z]);
         }
         // recv t
-        if (grid_1dim[T] != 1)
-        {
+        if (grid_1dim[T] != 1) {
           MPI_Wait(&recv_request[B_T], MPI_STATUS_IGNORE);
           MPI_Wait(&recv_request[F_T], MPI_STATUS_IGNORE);
           wilson_dslash_t_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, recv_vec[B_T],
-              recv_vec[F_T]);
-        }
-        else
-        {
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);
+        } else {
           checkCudaErrors(cudaDeviceSynchronize());
           wilson_dslash_t_recv<<<gridDim, blockDim>>>(
-              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], lat_1dim[T], parity, send_vec[F_T],
-              send_vec[B_T]);
+              gauge, dslash_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],
+              lat_1dim[T], parity, send_vec[F_T], send_vec[B_T]);
         }
         MPI_Barrier(MPI_COMM_WORLD);
       }
       // kappa
       {
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;
         }
       }
 #else
 #ifdef TEST_MPI_WILSON_CG_USE_WILSON_DSLASH
       // wilson_dslash
-      wilson_dslash<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y],
+      wilson_dslash<<<gridDim, blockDim>>>(gauge, dslash_in, dslash_out,
+                                           lat_1dim[X], lat_1dim[Y],
                                            lat_1dim[Z], lat_1dim[T], parity);
       // kappa
       {
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;
         }
       }
 #else
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         dslash_out[i] = dslash_in[i] * 2 + one;
       }
 #endif
 #endif
       {
         local_result = zero;
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           local_result += t[i].conj() * s[i];
         }
         MPI_Allreduce(&local_result, &tmp0, 2, MPI_DOUBLE, MPI_SUM,
@@ -748,8 +694,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       }
       {
         local_result = zero;
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           local_result += t[i].conj() * t[i];
         }
         MPI_Allreduce(&local_result, &tmp1, 2, MPI_DOUBLE, MPI_SUM,
@@ -761,18 +706,15 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##omega:" << omega.real << std::endl;
 #endif
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         x[i] = x[i] + p[i] * alpha + s[i] * omega;
       }
-      for (int i = 0; i < lat_4dim12; i++)
-      {
+      for (int i = 0; i < lat_4dim12; i++) {
         r[i] = s[i] - t[i] * omega;
       }
       {
         local_result = zero;
-        for (int i = 0; i < lat_4dim12; i++)
-        {
+        for (int i = 0; i < lat_4dim12; i++) {
           local_result += r[i].conj() * r[i];
         }
         MPI_Allreduce(&local_result, &r_norm2, 2, MPI_DOUBLE, MPI_SUM,
@@ -782,8 +724,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##Residual:" << r_norm2.real << std::endl;
       // break;
-      if (r_norm2.real < TOL || loop == MAX_ITER - 1)
-      {
+      if (r_norm2.real < TOL || loop == MAX_ITER - 1) {
         break;
       }
       rho_prev = rho;
