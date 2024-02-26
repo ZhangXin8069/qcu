@@ -35,7 +35,7 @@
 #define FORWARD 1
 #define SR 2
 
-#define WILSON_DSLASH
+// #define WILSON_DSLASH
 #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
 #define MPI_WILSON_DSLASH
