@@ -1,5 +1,6 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
+#ifdef CLOVER_DSLASH
 
 __global__ void make_clover(void *device_U, void *device_clover,
                             int device_lat_x, const int device_lat_y,
@@ -897,7 +898,6 @@ __global__ void give_clover(void *device_clover, void *device_dest,
   }
 }
 
-#ifdef CLOVER_DSLASH
 void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity) {
   const int lat_x = param->lattice_size[0] >> 1;
