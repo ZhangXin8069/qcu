@@ -6,5 +6,5 @@ CUDA_DEFINES = -DMPI_ENABLED -Dqcu_EXPORTS
 
 CUDA_INCLUDES = -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include
 
-CUDA_FLAGS =  -arch=sm_89 -O3 -Xcompiler=-fPIC -std=c++11
+CUDA_FLAGS =  -arch=sm_80 -O3 -Xcompiler=-fPIC -std=c++11
 
