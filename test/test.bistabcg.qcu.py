@@ -20,94 +20,70 @@ Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
 
 
-def dslash_qcu(tmp, Mp, p, U, param, kappa):
+def dslash_qcu(Mp, p, U, param, kappa):
     pyqcu.dslashQcu(Mp.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
     pyqcu.dslashQcu(Mp.odd_ptr, Mp.even_ptr, U.data_ptr, param, 1)
-    Mp.data[1, :] = p.data[1, :] - kappa*kappa*Mp.data[1, :]
+    Mp = p - kappa*kappa*Mp
 
 
-def compare(round):
-    x1 = cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128)*1
-    x_origion = LatticeFermion(latt_size, x1)
-    print("x_origion = ", x_origion.data[0, 0, 0, 0, 0, 0, :])
-    r1 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    r = LatticeFermion(latt_size, r1)
-    r2 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    r0 = LatticeFermion(latt_size, r2)
-    t0 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    t = LatticeFermion(latt_size, t0)
-    r_10 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    r_1 = LatticeFermion(latt_size, r_10)
-    p0 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    p = LatticeFermion(latt_size, p0)
-    tmp0 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    tmp = LatticeFermion(latt_size, tmp0)
-    tmp10 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    tmp1 = LatticeFermion(latt_size, tmp10)
-    Ap0 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    Ap = LatticeFermion(latt_size, Ap0)
-    b0 = cp.zeros((2, Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
-    b = LatticeFermion(latt_size, b0)
-    param = pyqcu.QcuParam()
-    param.lattice_size = latt_size
-    print('===============round ', round, '======================')
-    dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
-    kappa = 0.125
-    U = gauge_utils.gaussGauge(latt_size, 0)
-    dslash.loadGauge(U)
-    pyqcu.dslashQcu(tmp.even_ptr, x_origion.odd_ptr, U.data_ptr, param, 0)
-    pyqcu.dslashQcu(tmp.odd_ptr, x_origion.even_ptr, U.data_ptr, param, 1)
-    b.data[:] = x_origion.data[:] - kappa*tmp.data[:]
-    print(b.data[1, 0, 0, 0, 0, :])
-    pyqcu.dslashQcu(tmp.odd_ptr, b.even_ptr, U.data_ptr, param, 1)
-    b.data[1, :] += kappa*tmp.data[1, :]
-    print(b.data[1, 0, 0, 0, 0, :])
-    dslash_qcu(tmp1, tmp, x_origion, U, param, kappa)
-    print("b = \n", b.data[1, 0, 0, 0, 0, :],
-          '\nb_origion = \n', tmp.data[1, 0, 0, 0, 0, :])
-    x0 = cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128)*1
-    x = LatticeFermion(latt_size, x0)
+x_origion = cp.random.randn(
+    Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128)*1  # ?
+print("x_origion = ", x_origion.data[0, 0, 0, 0, 0, 0, :])
+r0 = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+r1 = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+t = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+p = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+tmp = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+Ap = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+b = cp.zeros((Lt, Lz, Ly, Lx//2, Ns, Nc), cp.complex128)
+param = pyqcu.QcuParam()
+param.lattice_size = latt_size
+dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
+kappa = 0.125
+U = gauge_utils.gaussGauge(latt_size, 0)
+dslash.loadGauge(U)
+pyqcu.dslashQcu(tmp.even_ptr, x_origion.odd_ptr, U.data_ptr, param, 0)
+pyqcu.dslashQcu(tmp.odd_ptr, x_origion.even_ptr, U.data_ptr, param, 1)
+b.data[:] = x_origion.data[:] - kappa*tmp.data[:]
+pyqcu.dslashQcu(tmp.odd_ptr, b.even_ptr, U.data_ptr, param, 1)
+b += kappa*tmp
+dslash_qcu(tmp, x_origion, U, param, kappa)
+x0 = cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128)*1
+x = LatticeFermion(latt_size, x0)
+cp.cuda.runtime.deviceSynchronize()
+t1 = perf_counter()
+dslash_qcu(tmp, x, U, param, kappa)
+r = b - tmp
+r0 = r
+p = r
+turns = 0
+for i in range(1, 300):
+    norm_r = cp.linalg.norm(r)
+    dslash_qcu(tmp, p, U, param, kappa)
+    alpha = cp.inner(r0.flatten().conjugate(), r.flatten(
+    ))/cp.inner(r0.flatten().conjugate(), tmp.flatten())
+    x = x + alpha*p
+    r1 = r - alpha*tmp
+    Ap = tmp
+    dslash_qcu(tmp, r, U, param, kappa)
+    t = tmp
+    omega = cp.inner(t.flatten().conjugate(), r.flatten(
+    ))/cp.inner(t.flatten().conjugate(), t.flatten())
+    x = x + omega*r1
+    dslash_qcu(tmp, r1, U, param, kappa)
+    r1 = r1 - omega*tmp
+    beta = cp.inner(r1.flatten().conjugate(), r1.flatten(
+    ))/cp.inner(r.flatten().conjugate(), r.flatten())
+    p = r1 + (alpha*beta)/omega*p - (alpha*beta)*Ap
+    r = r1
+    dslash_qcu(tmp, x, U, param, kappa)
     cp.cuda.runtime.deviceSynchronize()
-    t1 = perf_counter()
-    dslash_qcu(tmp1, tmp, x, U, param, kappa)
-    r.data[1, :] = b.data[1, :] - tmp.data[1, :]
-    r0.data[1, :] = r.data[1, :]
-    p.data[1, :] = r.data[1, :]
-    print("r=", r.data[0, 0, 0, 0, 0, 0, :])
-    print(tmp.data[0, 0, 0, 0, 0, 0, :])
-    turns = 0
-    for i in range(1, 3000):
-        norm_r = cp.linalg.norm(r.data[1, :])
-        dslash_qcu(tmp1, tmp, p, U, param, kappa)
-        alpha = cp.inner(r0.data[1, :].flatten().conjugate(), r.data[1, :].flatten(
-        ))/cp.inner(r0.data[1, :].flatten().conjugate(), tmp.data[1, :].flatten())
-        x.data[1, :] = x.data[1, :] + alpha*p.data[1, :]
-        r_1.data[1, :] = r.data[1, :] - alpha*tmp.data[1, :]
-        Ap.data[1, :] = tmp.data[1, :]
-        dslash_qcu(tmp1, tmp, r, U, param, kappa)
-        t.data[1, :] = tmp.data[1, :]
-        omega = cp.inner(t.data[1, :].flatten().conjugate(), r.data[1, :].flatten(
-        ))/cp.inner(t.data[1, :].flatten().conjugate(), t.data[1, :].flatten())
-        x.data[1, :] = x.data[1, :] + omega*r_1.data[1, :]
-        dslash_qcu(tmp1, tmp, r_1, U, param, kappa)
-        r_1.data[1, :] = r_1.data[1, :] - omega*tmp.data[1, :]
-        beta = cp.inner(r_1.data[1, :].flatten().conjugate(), r_1.data[1, :].flatten(
-        ))/cp.inner(r.data[1, :].flatten().conjugate(), r.data[1, :].flatten())
-        p.data[1, :] = r_1.data[1, :] + \
-            (alpha*beta)/omega*p.data[1, :] - (alpha*beta)*Ap.data[1, :]
-        r.data[1, :] = r_1.data[1, :]
-        dslash_qcu(tmp1, tmp, x, U, param, kappa)
-        cp.cuda.runtime.deviceSynchronize()
-        if (norm_r < 10e-16 or cp.isnan(norm_r)):
-            turns = i
-            break
-    print('difference: ', cp.linalg.norm(
-        x.data[1, :] - x_origion.data[1, :]) / cp.linalg.norm(x_origion.data[1, :]))
-    tmp.data[1, :] = x_origion.data[1, :] - kappa*tmp.data[1, :]
-    print("turns = ", turns, '\n')
-    t2 = perf_counter()
-    print(f'Quda dslash: {t2 - t1} sec')
-
-
-for i in range(0, 1):
-    compare(i)
+    if (norm_r < 10e-16 or cp.isnan(norm_r)):
+        turns = i
+        break
+print('difference: ', cp.linalg.norm(
+    x - x_origion) / cp.linalg.norm(x_origion))
+tmp = x_origion - kappa*tmp
+print("turns = ", turns, '\n')
+t2 = perf_counter()
+print(f'Quda dslash: {t2 - t1} sec')
