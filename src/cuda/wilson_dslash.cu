@@ -256,9 +256,9 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
             .count();
-    printf(
-        "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
-        double(duration) / 1e9);
+    // printf(
+    //     "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
+    //     double(duration) / 1e9);
   }
   {
     // free
