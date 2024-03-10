@@ -6,8 +6,7 @@
 #define TEST_MPI_WILSON_CG 0
 #define TEST_MPI_WILSON_CG_USE_WILSON_DSLASH 0
 
-void mpiBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
-              int parity, QcuParam *grid) {
+void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
   int lat_3dim[DIM];
