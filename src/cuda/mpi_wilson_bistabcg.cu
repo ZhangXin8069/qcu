@@ -169,13 +169,13 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
       std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
   err = cudaGetLastError();
   checkCudaErrors(err);
-  printf("mpi wilson cg total time: (without malloc free "
+  printf("mpi wilson bistabcg total time: (without malloc free "
          "memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
   mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
            zero);
-  printf("## difference: %f ", tmp.real);
+  printf("## difference: %.16f ", tmp.real);
   // free
   free_vec(send_vec, recv_vec);
   cudaFree(x_o);

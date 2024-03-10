@@ -42,7 +42,7 @@ def compare(round):
     pyqcu.mpiBistabCgQcu(U.data_ptr, param, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
-    print(f'QCU cg: {t2 - t1} sec')
+    print(f'QCU bistabcg: {t2 - t1} sec')
 
 
 for i in range(0, 1):
