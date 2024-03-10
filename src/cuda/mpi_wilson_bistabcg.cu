@@ -3,8 +3,6 @@
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_CG
 #define DEBUG_MPI_WILSON_CG
-#define TEST_MPI_WILSON_CG 0
-#define TEST_MPI_WILSON_CG_USE_WILSON_DSLASH 0
 
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
@@ -30,7 +28,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   MPI_Request recv_request[WARDS];
   void *send_vec[WARDS];
   void *recv_vec[WARDS];
-  malloc_recv(lat_3dim6, send_vec, recv_vec);
+  malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
   // define for mpi_wilson_cg
   int lat_4dim12 = lat_4dim * 12;
@@ -82,7 +80,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     r_tilde[i] = r[i];
   }
   for (int loop = 0; loop < MAX_ITER; loop++) {
-    cg_mpi_dot(local_result, lat_4dim12, r_tilde, r, rho, zero);
+    mpi_dot(local_result, lat_4dim12, r_tilde, r, rho, zero);
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##rho:" << rho.real << std::endl;
@@ -102,7 +100,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
             lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,
             send_request, recv_request, send_vec, recv_vec, dslash_in,
             dslash_out, Kappa, zero, one);
-    cg_mpi_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero);
+    mpi_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero);
     alpha = rho / tmp;
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
@@ -118,8 +116,8 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
             lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,
             send_request, recv_request, send_vec, recv_vec, dslash_in,
             dslash_out, Kappa, zero, one);
-    cg_mpi_dot(local_result, lat_4dim12, t, s, tmp0, zero);
-    cg_mpi_dot(local_result, lat_4dim12, t, t, tmp1, zero);
+    mpi_dot(local_result, lat_4dim12, t, s, tmp0, zero);
+    mpi_dot(local_result, lat_4dim12, t, t, tmp1, zero);
     omega = tmp0 / tmp1;
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
@@ -131,7 +129,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     for (int i = 0; i < lat_4dim12; i++) {
       r[i] = s[i] - t[i] * omega;
     }
-    cg_mpi_dot(local_result, lat_4dim12, r, r, r_norm2, zero);
+    mpi_dot(local_result, lat_4dim12, r, r, r_norm2, zero);
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##Residual:" << r_norm2.real << std::endl;
     // break;
@@ -151,7 +149,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          "sec\n",
          double(duration) / 1e9);
   // free
-  free_recv(send_vec, recv_vec);
+  free_vec(send_vec, recv_vec);
   cudaFree(x);
   cudaFree(b);
   cudaFree(r);

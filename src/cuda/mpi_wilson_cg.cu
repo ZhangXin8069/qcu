@@ -31,7 +31,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
   MPI_Request recv_request[WARDS];
   void *send_vec[WARDS];
   void *recv_vec[WARDS];
-  malloc_recv(lat_3dim6, send_vec, recv_vec);
+  malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
   // define for mpi_wilson_cg
   int lat_4dim12 = lat_4dim * 12;
@@ -152,7 +152,7 @@ void mpiCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
          "sec\n",
          double(duration) / 1e9);
   // free
-  free_recv(send_vec, recv_vec);
+  free_vec(send_vec, recv_vec);
   cudaFree(x);
   cudaFree(b);
   cudaFree(r);

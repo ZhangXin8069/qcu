@@ -895,7 +895,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   MPI_Request recv_request[WARDS];
   void *send_vec[WARDS];
   void *recv_vec[WARDS];
-  malloc_recv(lat_3dim6, send_vec, recv_vec);
+  malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   // mpi wilson dslash
@@ -911,6 +911,6 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
          "sec\n",
          double(duration) / 1e9);
   // free
-  free_recv(send_vec, recv_vec);
+  free_vec(send_vec, recv_vec);
 }
 #endif

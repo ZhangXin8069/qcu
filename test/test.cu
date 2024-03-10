@@ -27,7 +27,7 @@ void main(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
   MPI_Request recv_request[WARDS];
   void *send_vec[WARDS];
   void *recv_vec[WARDS];
-  malloc_recv(lat_3dim6, send_vec, recv_vec);
+  malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
   // define for mpi_wilson_cg
   int lat_4dim12 = lat_4dim * 12;
@@ -70,7 +70,7 @@ void main(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
   dslash_in = x;
   dslash_out = r;
   // define end
-  zero_recv(lat_3dim6, send_vec, recv_vec, zero);
+  zero_vec(lat_3dim6, send_vec, recv_vec, zero);
   _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
                 lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
                 move, send_request, recv_request, send_vec, recv_vec);
@@ -151,7 +151,7 @@ void main(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param,
          "sec\n",
          double(duration) / 1e9);
   // free
-  free_recv(send_vec, recv_vec);
+  free_vec(send_vec, recv_vec);
   cudaFree(x);
   cudaFree(b);
   cudaFree(r);

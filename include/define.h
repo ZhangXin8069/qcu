@@ -352,7 +352,7 @@
     grid_index_1dim[T] = node_rank % grid_1dim[T];                             \
   }
 
-#define zero_recv(lat_3dim6, send_vec, recv_vec, zero)                         \
+#define zero_vec(lat_3dim6, send_vec, recv_vec, zero)                          \
   {                                                                            \
     for (int i = 0; i < DIM; i++) {                                            \
       give_value(send_vec[i * SR], zero, lat_3dim6[i]);                        \
@@ -495,7 +495,7 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define malloc_recv(lat_3dim6, send_vec, recv_vec)                             \
+#define malloc_vec(lat_3dim6, send_vec, recv_vec)                              \
   {                                                                            \
     for (int i = 0; i < DIM; i++) {                                            \
       cudaMallocManaged(&send_vec[i * SR],                                     \
@@ -509,7 +509,7 @@
     }                                                                          \
   }
 
-#define free_recv(send_vec, recv_vec)                                          \
+#define free_vec(send_vec, recv_vec)                                           \
   {                                                                            \
     for (int i = 0; i < WARDS; i++) {                                          \
       cudaFree(send_vec[i]);                                                   \
@@ -517,34 +517,7 @@
     }                                                                          \
   }
 
-#define _dslash(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,     \
-                lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,   \
-                move, send_request, recv_request, send_vec, recv_vec,          \
-                dslash_in, dslash_out, Kappa, zero, one)                       \
-  {                                                                            \
-    if (TEST_MPI_WILSON_CG) {                                                  \
-      for (int i = 0; i < lat_4dim12; i++) {                                   \
-        dslash_out[i] = dslash_in[i] * 2 + one;                                \
-      }                                                                        \
-    } else {                                                                   \
-      if (TEST_MPI_WILSON_CG_USE_WILSON_DSLASH) {                              \
-        wilson_dslash<<<gridDim, blockDim>>>(                                  \
-            gauge, dslash_in, dslash_out, lat_1dim[X], lat_1dim[Y],            \
-            lat_1dim[Z], lat_1dim[T], parity);                                 \
-      } else {                                                                 \
-        zero_recv(lat_3dim6, send_vec, recv_vec, zero);                        \
-        _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,       \
-                      parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,      \
-                      grid_index_1dim, move, send_request, recv_request,       \
-                      send_vec, recv_vec);                                     \
-      }                                                                        \
-      for (int i = 0; i < lat_4dim12; i++) {                                   \
-        dslash_out[i] = dslash_in[i] - dslash_out[i] * Kappa;                  \
-      }                                                                        \
-    }                                                                          \
-  }
-
-#define cg_mpi_dot(local_result, lat_4dim12, val0, val1, tmp, zero)            \
+#define mpi_dot(local_result, lat_4dim12, val0, val1, tmp, zero)               \
   {                                                                            \
     {                                                                          \
       local_result = zero;                                                     \
@@ -555,6 +528,26 @@
                     MPI_COMM_WORLD);                                           \
       MPI_Barrier(MPI_COMM_WORLD);                                             \
     }                                                                          \
+  }
+
+#define _dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,         \
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
+                   send_request, recv_request, send_vec, recv_vec, zero)       \
+  {                                                                            \
+    zero_vec(lat_3dim6, send_vec, recv_vec, zero);                             \
+    _mpiDslashQcu(gridDim, blockDim, gauge, src_o, dest_e, EVEN, lat_1dim,     \
+                  lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
+                  send_request, recv_request, send_vec, recv_vec);             \
+  }
+
+#define _dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge,         \
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
+                   send_request, recv_request, send_vec, recv_vec, zero)       \
+  {                                                                            \
+    zero_vec(lat_3dim6, send_vec, recv_vec, zero);                             \
+    _mpiDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,      \
+                  lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
+                  send_request, recv_request, send_vec, recv_vec);             \
   }
 
 #endif
