@@ -2244,7 +2244,7 @@ static PyObject *__pyx_builtin_enumerate;
 static PyObject *__pyx_builtin_IndexError;
 /* #### Code section: string_decls ### */
 static const char __pyx_k_gc[] = "gc";
-static const char __pyx_k__11[] = "?";
+static const char __pyx_k__13[] = "?";
 static const char __pyx_k_grid[] = "grid";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
@@ -2256,6 +2256,7 @@ static const char __pyx_k_range[] = "range";
 static const char __pyx_k_enable[] = "enable";
 static const char __pyx_k_parity[] = "parity";
 static const char __pyx_k_reduce[] = "__reduce__";
+static const char __pyx_k_Pointer[] = "Pointer";
 static const char __pyx_k_disable[] = "disable";
 static const char __pyx_k_QcuParam[] = "QcuParam";
 static const char __pyx_k_getstate[] = "__getstate__";
@@ -2278,6 +2279,7 @@ static const char __pyx_k_stringsource[] = "<stringsource>";
 static const char __pyx_k_OverflowError[] = "OverflowError";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_testDslashQcu[] = "testDslashQcu";
+static const char __pyx_k_mpiBistabCgQcu[] = "mpiBistabCgQcu";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
 static const char __pyx_k_cline_in_traceback[] = "cline_in_traceback";
@@ -2291,10 +2293,11 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_8QcuParam_12lattice_size___get__(struct
 static int __pyx_pf_6pyquda_5pyqcu_8QcuParam_12lattice_size_2__set__(struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_self, PyObject *__pyx_v_value); /* proto */
 static PyObject *__pyx_pf_6pyquda_5pyqcu_8QcuParam_2__reduce_cython__(CYTHON_UNUSED struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_self); /* proto */
 static PyObject *__pyx_pf_6pyquda_5pyqcu_8QcuParam_4__setstate_cython__(CYTHON_UNUSED struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_self, CYTHON_UNUSED PyObject *__pyx_v___pyx_state); /* proto */
-static PyObject *__pyx_pf_6pyquda_5pyqcu_dslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity); /* proto */
-static PyObject *__pyx_pf_6pyquda_5pyqcu_2mpiDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
-static PyObject *__pyx_pf_6pyquda_5pyqcu_4mpiCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
-static PyObject *__pyx_pf_6pyquda_5pyqcu_6testDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity); /* proto */
+static PyObject *__pyx_pf_6pyquda_5pyqcu_testDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity); /* proto */
+static PyObject *__pyx_pf_6pyquda_5pyqcu_2dslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity); /* proto */
+static PyObject *__pyx_pf_6pyquda_5pyqcu_4mpiDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
+static PyObject *__pyx_pf_6pyquda_5pyqcu_6mpiCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
+static PyObject *__pyx_pf_6pyquda_5pyqcu_8mpiBistabCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
 static PyObject *__pyx_tp_new_6pyquda_5pyqcu_QcuParam(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
@@ -2337,11 +2340,12 @@ typedef struct {
   PyObject *__pyx_n_s_IndexError;
   PyObject *__pyx_n_s_OverflowError;
   PyObject *__pyx_kp_s_Pickling_of_struct_members_such;
+  PyObject *__pyx_n_s_Pointer;
   PyObject *__pyx_n_s_QcuParam;
   PyObject *__pyx_n_s_QcuParam___reduce_cython;
   PyObject *__pyx_n_s_QcuParam___setstate_cython;
   PyObject *__pyx_n_s_TypeError;
-  PyObject *__pyx_n_s__11;
+  PyObject *__pyx_n_s__13;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_s_cline_in_traceback;
   PyObject *__pyx_kp_u_disable;
@@ -2357,6 +2361,7 @@ typedef struct {
   PyObject *__pyx_n_s_is_coroutine;
   PyObject *__pyx_kp_u_isenabled;
   PyObject *__pyx_n_s_main;
+  PyObject *__pyx_n_s_mpiBistabCgQcu;
   PyObject *__pyx_n_s_mpiCgQcu;
   PyObject *__pyx_n_s_mpiDslashQcu;
   PyObject *__pyx_n_s_name;
@@ -2379,13 +2384,15 @@ typedef struct {
   PyObject *__pyx_tuple_;
   PyObject *__pyx_tuple__3;
   PyObject *__pyx_tuple__5;
-  PyObject *__pyx_tuple__7;
+  PyObject *__pyx_tuple__8;
+  PyObject *__pyx_tuple__11;
   PyObject *__pyx_codeobj__2;
   PyObject *__pyx_codeobj__4;
   PyObject *__pyx_codeobj__6;
-  PyObject *__pyx_codeobj__8;
+  PyObject *__pyx_codeobj__7;
   PyObject *__pyx_codeobj__9;
   PyObject *__pyx_codeobj__10;
+  PyObject *__pyx_codeobj__12;
 } __pyx_mstate;
 
 #if CYTHON_USE_MODULE_STATE
@@ -2436,11 +2443,12 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_IndexError);
   Py_CLEAR(clear_module_state->__pyx_n_s_OverflowError);
   Py_CLEAR(clear_module_state->__pyx_kp_s_Pickling_of_struct_members_such);
+  Py_CLEAR(clear_module_state->__pyx_n_s_Pointer);
   Py_CLEAR(clear_module_state->__pyx_n_s_QcuParam);
   Py_CLEAR(clear_module_state->__pyx_n_s_QcuParam___reduce_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_QcuParam___setstate_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_TypeError);
-  Py_CLEAR(clear_module_state->__pyx_n_s__11);
+  Py_CLEAR(clear_module_state->__pyx_n_s__13);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
   Py_CLEAR(clear_module_state->__pyx_kp_u_disable);
@@ -2456,6 +2464,7 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_is_coroutine);
   Py_CLEAR(clear_module_state->__pyx_kp_u_isenabled);
   Py_CLEAR(clear_module_state->__pyx_n_s_main);
+  Py_CLEAR(clear_module_state->__pyx_n_s_mpiBistabCgQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_mpiCgQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_mpiDslashQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_name);
@@ -2478,13 +2487,15 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_tuple_);
   Py_CLEAR(clear_module_state->__pyx_tuple__3);
   Py_CLEAR(clear_module_state->__pyx_tuple__5);
-  Py_CLEAR(clear_module_state->__pyx_tuple__7);
+  Py_CLEAR(clear_module_state->__pyx_tuple__8);
+  Py_CLEAR(clear_module_state->__pyx_tuple__11);
   Py_CLEAR(clear_module_state->__pyx_codeobj__2);
   Py_CLEAR(clear_module_state->__pyx_codeobj__4);
   Py_CLEAR(clear_module_state->__pyx_codeobj__6);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__8);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__7);
   Py_CLEAR(clear_module_state->__pyx_codeobj__9);
   Py_CLEAR(clear_module_state->__pyx_codeobj__10);
+  Py_CLEAR(clear_module_state->__pyx_codeobj__12);
   return 0;
 }
 #endif
@@ -2513,11 +2524,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_IndexError);
   Py_VISIT(traverse_module_state->__pyx_n_s_OverflowError);
   Py_VISIT(traverse_module_state->__pyx_kp_s_Pickling_of_struct_members_such);
+  Py_VISIT(traverse_module_state->__pyx_n_s_Pointer);
   Py_VISIT(traverse_module_state->__pyx_n_s_QcuParam);
   Py_VISIT(traverse_module_state->__pyx_n_s_QcuParam___reduce_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_QcuParam___setstate_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_TypeError);
-  Py_VISIT(traverse_module_state->__pyx_n_s__11);
+  Py_VISIT(traverse_module_state->__pyx_n_s__13);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
   Py_VISIT(traverse_module_state->__pyx_kp_u_disable);
@@ -2533,6 +2545,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_is_coroutine);
   Py_VISIT(traverse_module_state->__pyx_kp_u_isenabled);
   Py_VISIT(traverse_module_state->__pyx_n_s_main);
+  Py_VISIT(traverse_module_state->__pyx_n_s_mpiBistabCgQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_mpiCgQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_mpiDslashQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_name);
@@ -2555,13 +2568,15 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_tuple_);
   Py_VISIT(traverse_module_state->__pyx_tuple__3);
   Py_VISIT(traverse_module_state->__pyx_tuple__5);
-  Py_VISIT(traverse_module_state->__pyx_tuple__7);
+  Py_VISIT(traverse_module_state->__pyx_tuple__8);
+  Py_VISIT(traverse_module_state->__pyx_tuple__11);
   Py_VISIT(traverse_module_state->__pyx_codeobj__2);
   Py_VISIT(traverse_module_state->__pyx_codeobj__4);
   Py_VISIT(traverse_module_state->__pyx_codeobj__6);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__8);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__7);
   Py_VISIT(traverse_module_state->__pyx_codeobj__9);
   Py_VISIT(traverse_module_state->__pyx_codeobj__10);
+  Py_VISIT(traverse_module_state->__pyx_codeobj__12);
   return 0;
 }
 #endif
@@ -2604,11 +2619,12 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_IndexError __pyx_mstate_global->__pyx_n_s_IndexError
 #define __pyx_n_s_OverflowError __pyx_mstate_global->__pyx_n_s_OverflowError
 #define __pyx_kp_s_Pickling_of_struct_members_such __pyx_mstate_global->__pyx_kp_s_Pickling_of_struct_members_such
+#define __pyx_n_s_Pointer __pyx_mstate_global->__pyx_n_s_Pointer
 #define __pyx_n_s_QcuParam __pyx_mstate_global->__pyx_n_s_QcuParam
 #define __pyx_n_s_QcuParam___reduce_cython __pyx_mstate_global->__pyx_n_s_QcuParam___reduce_cython
 #define __pyx_n_s_QcuParam___setstate_cython __pyx_mstate_global->__pyx_n_s_QcuParam___setstate_cython
 #define __pyx_n_s_TypeError __pyx_mstate_global->__pyx_n_s_TypeError
-#define __pyx_n_s__11 __pyx_mstate_global->__pyx_n_s__11
+#define __pyx_n_s__13 __pyx_mstate_global->__pyx_n_s__13
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
 #define __pyx_kp_u_disable __pyx_mstate_global->__pyx_kp_u_disable
@@ -2624,6 +2640,7 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_is_coroutine __pyx_mstate_global->__pyx_n_s_is_coroutine
 #define __pyx_kp_u_isenabled __pyx_mstate_global->__pyx_kp_u_isenabled
 #define __pyx_n_s_main __pyx_mstate_global->__pyx_n_s_main
+#define __pyx_n_s_mpiBistabCgQcu __pyx_mstate_global->__pyx_n_s_mpiBistabCgQcu
 #define __pyx_n_s_mpiCgQcu __pyx_mstate_global->__pyx_n_s_mpiCgQcu
 #define __pyx_n_s_mpiDslashQcu __pyx_mstate_global->__pyx_n_s_mpiDslashQcu
 #define __pyx_n_s_name __pyx_mstate_global->__pyx_n_s_name
@@ -2646,13 +2663,15 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_tuple_ __pyx_mstate_global->__pyx_tuple_
 #define __pyx_tuple__3 __pyx_mstate_global->__pyx_tuple__3
 #define __pyx_tuple__5 __pyx_mstate_global->__pyx_tuple__5
-#define __pyx_tuple__7 __pyx_mstate_global->__pyx_tuple__7
+#define __pyx_tuple__8 __pyx_mstate_global->__pyx_tuple__8
+#define __pyx_tuple__11 __pyx_mstate_global->__pyx_tuple__11
 #define __pyx_codeobj__2 __pyx_mstate_global->__pyx_codeobj__2
 #define __pyx_codeobj__4 __pyx_mstate_global->__pyx_codeobj__4
 #define __pyx_codeobj__6 __pyx_mstate_global->__pyx_codeobj__6
-#define __pyx_codeobj__8 __pyx_mstate_global->__pyx_codeobj__8
+#define __pyx_codeobj__7 __pyx_mstate_global->__pyx_codeobj__7
 #define __pyx_codeobj__9 __pyx_mstate_global->__pyx_codeobj__9
 #define __pyx_codeobj__10 __pyx_mstate_global->__pyx_codeobj__10
+#define __pyx_codeobj__12 __pyx_mstate_global->__pyx_codeobj__12
 /* #### Code section: module_code ### */
 
 /* "carray.to_py":114
@@ -3352,7 +3371,7 @@ static int __pyx_pf_6pyquda_5pyqcu_8QcuParam_12lattice_size_2__set__(struct __py
  *     def lattice_size(self, value):
  *         self.param.lattice_size = value             # <<<<<<<<<<<<<<
  * 
- * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
+ * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
  */
   if (unlikely((__Pyx_carray_from_py_int(__pyx_v_value, __pyx_t_1, 4) < 0))) __PYX_ERR(1, 16, __pyx_L1_error)
   memcpy(&(__pyx_v_self->param.lattice_size[0]), __pyx_t_1, sizeof(__pyx_v_self->param.lattice_size[0]) * (4));
@@ -3592,21 +3611,222 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_8QcuParam_4__setstate_cython__(CYTHON_U
 /* "pyquda/src/pyqcu.pyx":18
  *         self.param.lattice_size = value
  * 
- * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
- *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyquda_5pyqcu_1dslashQcu(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyquda_5pyqcu_1testDslashQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_1dslashQcu = {"dslashQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_1dslashQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_6pyquda_5pyqcu_1dslashQcu(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_1testDslashQcu = {"testDslashQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_1testDslashQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pyquda_5pyqcu_1testDslashQcu(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+) {
+  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out = 0;
+  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in = 0;
+  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge = 0;
+  struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param = 0;
+  int __pyx_v_parity;
+  #if !CYTHON_METH_FASTCALL
+  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
+  #endif
+  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
+  PyObject* values[5] = {0,0,0,0,0};
+  int __pyx_lineno = 0;
+  const char *__pyx_filename = NULL;
+  int __pyx_clineno = 0;
+  PyObject *__pyx_r = 0;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("testDslashQcu (wrapper)", 0);
+  #if !CYTHON_METH_FASTCALL
+  #if CYTHON_ASSUME_SAFE_MACROS
+  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
+  #else
+  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
+  #endif
+  #endif
+  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
+  {
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_fermion_out,&__pyx_n_s_fermion_in,&__pyx_n_s_gauge,&__pyx_n_s_param,&__pyx_n_s_parity,0};
+    if (__pyx_kwds) {
+      Py_ssize_t kw_args;
+      switch (__pyx_nargs) {
+        case  5: values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
+        CYTHON_FALLTHROUGH;
+        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
+        CYTHON_FALLTHROUGH;
+        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
+        CYTHON_FALLTHROUGH;
+        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+        CYTHON_FALLTHROUGH;
+        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+        CYTHON_FALLTHROUGH;
+        case  0: break;
+        default: goto __pyx_L5_argtuple_error;
+      }
+      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
+      switch (__pyx_nargs) {
+        case  0:
+        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fermion_out)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else goto __pyx_L5_argtuple_error;
+        CYTHON_FALLTHROUGH;
+        case  1:
+        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fermion_in)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 1); __PYX_ERR(1, 18, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  2:
+        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_gauge)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 2); __PYX_ERR(1, 18, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  3:
+        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_param)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 3); __PYX_ERR(1, 18, __pyx_L3_error)
+        }
+        CYTHON_FALLTHROUGH;
+        case  4:
+        if (likely((values[4] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_parity)) != 0)) {
+          (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
+          kw_args--;
+        }
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else {
+          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 4); __PYX_ERR(1, 18, __pyx_L3_error)
+        }
+      }
+      if (unlikely(kw_args > 0)) {
+        const Py_ssize_t kwd_pos_args = __pyx_nargs;
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "testDslashQcu") < 0)) __PYX_ERR(1, 18, __pyx_L3_error)
+      }
+    } else if (unlikely(__pyx_nargs != 5)) {
+      goto __pyx_L5_argtuple_error;
+    } else {
+      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
+      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
+      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
+      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
+      values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
+    }
+    __pyx_v_fermion_out = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[0]);
+    __pyx_v_fermion_in = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[1]);
+    __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[2]);
+    __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[3]);
+    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+  }
+  goto __pyx_L6_skip;
+  __pyx_L5_argtuple_error:;
+  __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, __pyx_nargs); __PYX_ERR(1, 18, __pyx_L3_error)
+  __pyx_L6_skip:;
+  goto __pyx_L4_argument_unpacking_done;
+  __pyx_L3_error:;
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_AddTraceback("pyquda.pyqcu.testDslashQcu", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_RefNannyFinishContext();
+  return NULL;
+  __pyx_L4_argument_unpacking_done:;
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
+  __pyx_r = __pyx_pf_6pyquda_5pyqcu_testDslashQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity);
+
+  /* function exit code */
+  goto __pyx_L0;
+  __pyx_L1_error:;
+  __pyx_r = NULL;
+  __pyx_L0:;
+  {
+    Py_ssize_t __pyx_temp;
+    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
+      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
+    }
+  }
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+static PyObject *__pyx_pf_6pyquda_5pyqcu_testDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity) {
+  PyObject *__pyx_r = NULL;
+  __Pyx_RefNannyDeclarations
+  __Pyx_RefNannySetupContext("testDslashQcu", 1);
+
+  /* "pyquda/src/pyqcu.pyx":19
+ * 
+ * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)             # <<<<<<<<<<<<<<
+ * 
+ * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
+ */
+  testDslashQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), __pyx_v_parity);
+
+  /* "pyquda/src/pyqcu.pyx":18
+ *         self.param.lattice_size = value
+ * 
+ * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
+ */
+
+  /* function exit code */
+  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
+  __Pyx_XGIVEREF(__pyx_r);
+  __Pyx_RefNannyFinishContext();
+  return __pyx_r;
+}
+
+/* "pyquda/src/pyqcu.pyx":21
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
+ * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
+ *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
+ */
+
+/* Python wrapper */
+static PyObject *__pyx_pw_6pyquda_5pyqcu_3dslashQcu(PyObject *__pyx_self, 
+#if CYTHON_METH_FASTCALL
+PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
+#else
+PyObject *__pyx_args, PyObject *__pyx_kwds
+#endif
+); /*proto*/
+static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_3dslashQcu = {"dslashQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_3dslashQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pyquda_5pyqcu_3dslashQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3662,7 +3882,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -3670,9 +3890,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 1); __PYX_ERR(1, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 1); __PYX_ERR(1, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -3680,9 +3900,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 2); __PYX_ERR(1, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 2); __PYX_ERR(1, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -3690,9 +3910,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 3); __PYX_ERR(1, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 3); __PYX_ERR(1, 21, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -3700,14 +3920,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 4); __PYX_ERR(1, 18, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, 4); __PYX_ERR(1, 21, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "dslashQcu") < 0)) __PYX_ERR(1, 18, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "dslashQcu") < 0)) __PYX_ERR(1, 21, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 5)) {
       goto __pyx_L5_argtuple_error;
@@ -3722,11 +3942,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     __pyx_v_fermion_in = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[1]);
     __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[2]);
     __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[3]);
-    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 18, __pyx_L3_error)
+    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, __pyx_nargs); __PYX_ERR(1, 18, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("dslashQcu", 1, 5, 5, __pyx_nargs); __PYX_ERR(1, 21, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3740,11 +3960,11 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 18, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyquda_5pyqcu_dslashQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_r = __pyx_pf_6pyquda_5pyqcu_2dslashQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3761,12 +3981,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyquda_5pyqcu_dslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity) {
+static PyObject *__pyx_pf_6pyquda_5pyqcu_2dslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("dslashQcu", 1);
 
-  /* "pyquda/src/pyqcu.pyx":19
+  /* "pyquda/src/pyqcu.pyx":22
  * 
  * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)             # <<<<<<<<<<<<<<
@@ -3775,8 +3995,8 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_dslashQcu(CYTHON_UNUSED PyObject *__pyx
  */
   dslashQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), __pyx_v_parity);
 
-  /* "pyquda/src/pyqcu.pyx":18
- *         self.param.lattice_size = value
+  /* "pyquda/src/pyqcu.pyx":21
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
@@ -3790,7 +4010,7 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_dslashQcu(CYTHON_UNUSED PyObject *__pyx
   return __pyx_r;
 }
 
-/* "pyquda/src/pyqcu.pyx":21
+/* "pyquda/src/pyqcu.pyx":24
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  * def mpiDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
@@ -3799,15 +4019,15 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_dslashQcu(CYTHON_UNUSED PyObject *__pyx
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyquda_5pyqcu_3mpiDslashQcu(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyquda_5pyqcu_5mpiDslashQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_3mpiDslashQcu = {"mpiDslashQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_3mpiDslashQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_6pyquda_5pyqcu_3mpiDslashQcu(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_5mpiDslashQcu = {"mpiDslashQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_5mpiDslashQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pyquda_5pyqcu_5mpiDslashQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -3866,7 +4086,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -3874,9 +4094,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 1); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 1); __PYX_ERR(1, 24, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -3884,9 +4104,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 2); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 2); __PYX_ERR(1, 24, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -3894,9 +4114,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 3); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 3); __PYX_ERR(1, 24, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -3904,9 +4124,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 4); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 4); __PYX_ERR(1, 24, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -3914,14 +4134,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 5); __PYX_ERR(1, 21, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, 5); __PYX_ERR(1, 24, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "mpiDslashQcu") < 0)) __PYX_ERR(1, 21, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "mpiDslashQcu") < 0)) __PYX_ERR(1, 24, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
@@ -3937,12 +4157,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     __pyx_v_fermion_in = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[1]);
     __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[2]);
     __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[3]);
-    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 21, __pyx_L3_error)
+    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
     __pyx_v_grid = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[5]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 21, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("mpiDslashQcu", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 24, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -3956,12 +4176,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_grid), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "grid", 0))) __PYX_ERR(1, 21, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyquda_5pyqcu_2mpiDslashQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity, __pyx_v_grid);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_grid), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "grid", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_r = __pyx_pf_6pyquda_5pyqcu_4mpiDslashQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity, __pyx_v_grid);
 
   /* function exit code */
   goto __pyx_L0;
@@ -3978,12 +4198,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyquda_5pyqcu_2mpiDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid) {
+static PyObject *__pyx_pf_6pyquda_5pyqcu_4mpiDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("mpiDslashQcu", 1);
 
-  /* "pyquda/src/pyqcu.pyx":22
+  /* "pyquda/src/pyqcu.pyx":25
  * 
  * def mpiDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)             # <<<<<<<<<<<<<<
@@ -3992,7 +4212,7 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_2mpiDslashQcu(CYTHON_UNUSED PyObject *_
  */
   mpiDslashQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), __pyx_v_parity, (&__pyx_v_grid->param));
 
-  /* "pyquda/src/pyqcu.pyx":21
+  /* "pyquda/src/pyqcu.pyx":24
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  * def mpiDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
@@ -4007,7 +4227,7 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_2mpiDslashQcu(CYTHON_UNUSED PyObject *_
   return __pyx_r;
 }
 
-/* "pyquda/src/pyqcu.pyx":24
+/* "pyquda/src/pyqcu.pyx":27
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  * def mpiCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
@@ -4016,15 +4236,15 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_2mpiDslashQcu(CYTHON_UNUSED PyObject *_
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyquda_5pyqcu_5mpiCgQcu(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyquda_5pyqcu_7mpiCgQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_5mpiCgQcu = {"mpiCgQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_5mpiCgQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_6pyquda_5pyqcu_5mpiCgQcu(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_7mpiCgQcu = {"mpiCgQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_7mpiCgQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pyquda_5pyqcu_7mpiCgQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
@@ -4083,7 +4303,7 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
@@ -4091,9 +4311,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 1); __PYX_ERR(1, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 1); __PYX_ERR(1, 27, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
@@ -4101,9 +4321,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 2); __PYX_ERR(1, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 2); __PYX_ERR(1, 27, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  3:
@@ -4111,9 +4331,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 3); __PYX_ERR(1, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 3); __PYX_ERR(1, 27, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  4:
@@ -4121,9 +4341,9 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 4); __PYX_ERR(1, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 4); __PYX_ERR(1, 27, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  5:
@@ -4131,14 +4351,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
           (void)__Pyx_Arg_NewRef_FASTCALL(values[5]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 5); __PYX_ERR(1, 24, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, 5); __PYX_ERR(1, 27, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "mpiCgQcu") < 0)) __PYX_ERR(1, 24, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "mpiCgQcu") < 0)) __PYX_ERR(1, 27, __pyx_L3_error)
       }
     } else if (unlikely(__pyx_nargs != 6)) {
       goto __pyx_L5_argtuple_error;
@@ -4154,12 +4374,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
     __pyx_v_fermion_in = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[1]);
     __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[2]);
     __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[3]);
-    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 24, __pyx_L3_error)
+    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
     __pyx_v_grid = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[5]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 24, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("mpiCgQcu", 1, 6, 6, __pyx_nargs); __PYX_ERR(1, 27, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4173,12 +4393,12 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_grid), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "grid", 0))) __PYX_ERR(1, 24, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyquda_5pyqcu_4mpiCgQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity, __pyx_v_grid);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_grid), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "grid", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_r = __pyx_pf_6pyquda_5pyqcu_6mpiCgQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity, __pyx_v_grid);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4195,21 +4415,21 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyquda_5pyqcu_4mpiCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid) {
+static PyObject *__pyx_pf_6pyquda_5pyqcu_6mpiCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
   __Pyx_RefNannySetupContext("mpiCgQcu", 1);
 
-  /* "pyquda/src/pyqcu.pyx":25
+  /* "pyquda/src/pyqcu.pyx":28
  * 
  * def mpiCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)             # <<<<<<<<<<<<<<
  * 
- * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
+ * def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):
  */
   mpiCgQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), __pyx_v_parity, (&__pyx_v_grid->param));
 
-  /* "pyquda/src/pyqcu.pyx":24
+  /* "pyquda/src/pyqcu.pyx":27
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  * def mpiCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
@@ -4224,45 +4444,44 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_4mpiCgQcu(CYTHON_UNUSED PyObject *__pyx
   return __pyx_r;
 }
 
-/* "pyquda/src/pyqcu.pyx":27
+/* "pyquda/src/pyqcu.pyx":30
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
- * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
- *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):             # <<<<<<<<<<<<<<
+ *     qcu.mpiBistabCgQcu(gauge.ptr, &param.param, &grid.param)
+ * 
  */
 
 /* Python wrapper */
-static PyObject *__pyx_pw_6pyquda_5pyqcu_7testDslashQcu(PyObject *__pyx_self, 
+static PyObject *__pyx_pw_6pyquda_5pyqcu_9mpiBistabCgQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ); /*proto*/
-static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_7testDslashQcu = {"testDslashQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_7testDslashQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_6pyquda_5pyqcu_7testDslashQcu(PyObject *__pyx_self, 
+static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_9mpiBistabCgQcu = {"mpiBistabCgQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_9mpiBistabCgQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
+static PyObject *__pyx_pw_6pyquda_5pyqcu_9mpiBistabCgQcu(PyObject *__pyx_self, 
 #if CYTHON_METH_FASTCALL
 PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
 #else
 PyObject *__pyx_args, PyObject *__pyx_kwds
 #endif
 ) {
-  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out = 0;
-  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in = 0;
   struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge = 0;
   struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param = 0;
-  int __pyx_v_parity;
+  struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid = 0;
   #if !CYTHON_METH_FASTCALL
   CYTHON_UNUSED Py_ssize_t __pyx_nargs;
   #endif
   CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[5] = {0,0,0,0,0};
+  PyObject* values[3] = {0,0,0};
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
   PyObject *__pyx_r = 0;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("testDslashQcu (wrapper)", 0);
+  __Pyx_RefNannySetupContext("mpiBistabCgQcu (wrapper)", 0);
   #if !CYTHON_METH_FASTCALL
   #if CYTHON_ASSUME_SAFE_MACROS
   __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
@@ -4272,14 +4491,10 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   #endif
   __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
   {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_fermion_out,&__pyx_n_s_fermion_in,&__pyx_n_s_gauge,&__pyx_n_s_param,&__pyx_n_s_parity,0};
+    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_gauge,&__pyx_n_s_param,&__pyx_n_s_grid,0};
     if (__pyx_kwds) {
       Py_ssize_t kw_args;
       switch (__pyx_nargs) {
-        case  5: values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
-        CYTHON_FALLTHROUGH;
-        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
         case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
         CYTHON_FALLTHROUGH;
         case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
@@ -4292,75 +4507,51 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
       switch (__pyx_nargs) {
         case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fermion_out)) != 0)) {
+        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_gauge)) != 0)) {
           (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L3_error)
         else goto __pyx_L5_argtuple_error;
         CYTHON_FALLTHROUGH;
         case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fermion_in)) != 0)) {
+        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_param)) != 0)) {
           (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 1); __PYX_ERR(1, 27, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiBistabCgQcu", 1, 3, 3, 1); __PYX_ERR(1, 30, __pyx_L3_error)
         }
         CYTHON_FALLTHROUGH;
         case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_gauge)) != 0)) {
+        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_grid)) != 0)) {
           (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
           kw_args--;
         }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 30, __pyx_L3_error)
         else {
-          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 2); __PYX_ERR(1, 27, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_param)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 3); __PYX_ERR(1, 27, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  4:
-        if (likely((values[4] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_parity)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, 4); __PYX_ERR(1, 27, __pyx_L3_error)
+          __Pyx_RaiseArgtupleInvalid("mpiBistabCgQcu", 1, 3, 3, 2); __PYX_ERR(1, 30, __pyx_L3_error)
         }
       }
       if (unlikely(kw_args > 0)) {
         const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "testDslashQcu") < 0)) __PYX_ERR(1, 27, __pyx_L3_error)
+        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "mpiBistabCgQcu") < 0)) __PYX_ERR(1, 30, __pyx_L3_error)
       }
-    } else if (unlikely(__pyx_nargs != 5)) {
+    } else if (unlikely(__pyx_nargs != 3)) {
       goto __pyx_L5_argtuple_error;
     } else {
       values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
       values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
       values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-      values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
     }
-    __pyx_v_fermion_out = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[0]);
-    __pyx_v_fermion_in = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[1]);
-    __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[2]);
-    __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[3]);
-    __pyx_v_parity = __Pyx_PyInt_As_int(values[4]); if (unlikely((__pyx_v_parity == (int)-1) && PyErr_Occurred())) __PYX_ERR(1, 27, __pyx_L3_error)
+    __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[0]);
+    __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[1]);
+    __pyx_v_grid = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[2]);
   }
   goto __pyx_L6_skip;
   __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("testDslashQcu", 1, 5, 5, __pyx_nargs); __PYX_ERR(1, 27, __pyx_L3_error)
+  __Pyx_RaiseArgtupleInvalid("mpiBistabCgQcu", 1, 3, 3, __pyx_nargs); __PYX_ERR(1, 30, __pyx_L3_error)
   __pyx_L6_skip:;
   goto __pyx_L4_argument_unpacking_done;
   __pyx_L3_error:;
@@ -4370,15 +4561,14 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
       __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
     }
   }
-  __Pyx_AddTraceback("pyquda.pyqcu.testDslashQcu", __pyx_clineno, __pyx_lineno, __pyx_filename);
+  __Pyx_AddTraceback("pyquda.pyqcu.mpiBistabCgQcu", __pyx_clineno, __pyx_lineno, __pyx_filename);
   __Pyx_RefNannyFinishContext();
   return NULL;
   __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 27, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyquda_5pyqcu_6testDslashQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_parity);
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 0, "gauge", 0))) __PYX_ERR(1, 30, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 0, "param", 0))) __PYX_ERR(1, 30, __pyx_L1_error)
+  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_grid), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 0, "grid", 0))) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_r = __pyx_pf_6pyquda_5pyqcu_8mpiBistabCgQcu(__pyx_self, __pyx_v_gauge, __pyx_v_param, __pyx_v_grid);
 
   /* function exit code */
   goto __pyx_L0;
@@ -4395,23 +4585,25 @@ PyObject *__pyx_args, PyObject *__pyx_kwds
   return __pyx_r;
 }
 
-static PyObject *__pyx_pf_6pyquda_5pyqcu_6testDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity) {
+static PyObject *__pyx_pf_6pyquda_5pyqcu_8mpiBistabCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid) {
   PyObject *__pyx_r = NULL;
   __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("testDslashQcu", 1);
+  __Pyx_RefNannySetupContext("mpiBistabCgQcu", 1);
 
-  /* "pyquda/src/pyqcu.pyx":28
+  /* "pyquda/src/pyqcu.pyx":31
  * 
- * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):
- *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)             # <<<<<<<<<<<<<<
+ * def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):
+ *     qcu.mpiBistabCgQcu(gauge.ptr, &param.param, &grid.param)             # <<<<<<<<<<<<<<
+ * 
  */
-  testDslashQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), __pyx_v_parity);
+  mpiBistabCgQcu(__pyx_v_gauge->ptr, (&__pyx_v_param->param), (&__pyx_v_grid->param));
 
-  /* "pyquda/src/pyqcu.pyx":27
+  /* "pyquda/src/pyqcu.pyx":30
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
- * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
- *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):             # <<<<<<<<<<<<<<
+ *     qcu.mpiBistabCgQcu(gauge.ptr, &param.param, &grid.param)
+ * 
  */
 
   /* function exit code */
@@ -4598,11 +4790,12 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_IndexError, __pyx_k_IndexError, sizeof(__pyx_k_IndexError), 0, 0, 1, 1},
     {&__pyx_n_s_OverflowError, __pyx_k_OverflowError, sizeof(__pyx_k_OverflowError), 0, 0, 1, 1},
     {&__pyx_kp_s_Pickling_of_struct_members_such, __pyx_k_Pickling_of_struct_members_such, sizeof(__pyx_k_Pickling_of_struct_members_such), 0, 0, 1, 0},
+    {&__pyx_n_s_Pointer, __pyx_k_Pointer, sizeof(__pyx_k_Pointer), 0, 0, 1, 1},
     {&__pyx_n_s_QcuParam, __pyx_k_QcuParam, sizeof(__pyx_k_QcuParam), 0, 0, 1, 1},
     {&__pyx_n_s_QcuParam___reduce_cython, __pyx_k_QcuParam___reduce_cython, sizeof(__pyx_k_QcuParam___reduce_cython), 0, 0, 1, 1},
     {&__pyx_n_s_QcuParam___setstate_cython, __pyx_k_QcuParam___setstate_cython, sizeof(__pyx_k_QcuParam___setstate_cython), 0, 0, 1, 1},
     {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
-    {&__pyx_n_s__11, __pyx_k__11, sizeof(__pyx_k__11), 0, 0, 1, 1},
+    {&__pyx_n_s__13, __pyx_k__13, sizeof(__pyx_k__13), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
     {&__pyx_kp_u_disable, __pyx_k_disable, sizeof(__pyx_k_disable), 0, 1, 0, 0},
@@ -4618,6 +4811,7 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_is_coroutine, __pyx_k_is_coroutine, sizeof(__pyx_k_is_coroutine), 0, 0, 1, 1},
     {&__pyx_kp_u_isenabled, __pyx_k_isenabled, sizeof(__pyx_k_isenabled), 0, 1, 0, 0},
     {&__pyx_n_s_main, __pyx_k_main, sizeof(__pyx_k_main), 0, 0, 1, 1},
+    {&__pyx_n_s_mpiBistabCgQcu, __pyx_k_mpiBistabCgQcu, sizeof(__pyx_k_mpiBistabCgQcu), 0, 0, 1, 1},
     {&__pyx_n_s_mpiCgQcu, __pyx_k_mpiCgQcu, sizeof(__pyx_k_mpiCgQcu), 0, 0, 1, 1},
     {&__pyx_n_s_mpiDslashQcu, __pyx_k_mpiDslashQcu, sizeof(__pyx_k_mpiDslashQcu), 0, 0, 1, 1},
     {&__pyx_n_s_name, __pyx_k_name, sizeof(__pyx_k_name), 0, 0, 1, 1},
@@ -4682,43 +4876,56 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
   /* "pyquda/src/pyqcu.pyx":18
  *         self.param.lattice_size = value
  * 
- * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
- *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  */
   __pyx_tuple__5 = PyTuple_Pack(5, __pyx_n_s_fermion_out, __pyx_n_s_fermion_in, __pyx_n_s_gauge, __pyx_n_s_param, __pyx_n_s_parity); if (unlikely(!__pyx_tuple__5)) __PYX_ERR(1, 18, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_tuple__5);
   __Pyx_GIVEREF(__pyx_tuple__5);
-  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_dslashQcu, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(1, 18, __pyx_L1_error)
+  __pyx_codeobj__6 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_testDslashQcu, 18, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__6)) __PYX_ERR(1, 18, __pyx_L1_error)
 
   /* "pyquda/src/pyqcu.pyx":21
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
+ * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
+ *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
+ */
+  __pyx_codeobj__7 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_dslashQcu, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__7)) __PYX_ERR(1, 21, __pyx_L1_error)
+
+  /* "pyquda/src/pyqcu.pyx":24
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  * def mpiDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  */
-  __pyx_tuple__7 = PyTuple_Pack(6, __pyx_n_s_fermion_out, __pyx_n_s_fermion_in, __pyx_n_s_gauge, __pyx_n_s_param, __pyx_n_s_parity, __pyx_n_s_grid); if (unlikely(!__pyx_tuple__7)) __PYX_ERR(1, 21, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_tuple__7);
-  __Pyx_GIVEREF(__pyx_tuple__7);
-  __pyx_codeobj__8 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_mpiDslashQcu, 21, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__8)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_tuple__8 = PyTuple_Pack(6, __pyx_n_s_fermion_out, __pyx_n_s_fermion_in, __pyx_n_s_gauge, __pyx_n_s_param, __pyx_n_s_parity, __pyx_n_s_grid); if (unlikely(!__pyx_tuple__8)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__8);
+  __Pyx_GIVEREF(__pyx_tuple__8);
+  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_mpiDslashQcu, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(1, 24, __pyx_L1_error)
 
-  /* "pyquda/src/pyqcu.pyx":24
+  /* "pyquda/src/pyqcu.pyx":27
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  * def mpiCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  */
-  __pyx_codeobj__9 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__7, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_mpiCgQcu, 24, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__9)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(6, 0, 0, 6, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__8, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_mpiCgQcu, 27, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(1, 27, __pyx_L1_error)
 
-  /* "pyquda/src/pyqcu.pyx":27
+  /* "pyquda/src/pyqcu.pyx":30
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
- * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
- *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):             # <<<<<<<<<<<<<<
+ *     qcu.mpiBistabCgQcu(gauge.ptr, &param.param, &grid.param)
+ * 
  */
-  __pyx_codeobj__10 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__5, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_testDslashQcu, 27, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__10)) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_tuple__11 = PyTuple_Pack(3, __pyx_n_s_gauge, __pyx_n_s_param, __pyx_n_s_grid); if (unlikely(!__pyx_tuple__11)) __PYX_ERR(1, 30, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_tuple__11);
+  __Pyx_GIVEREF(__pyx_tuple__11);
+  __pyx_codeobj__12 = (PyObject*)__Pyx_PyCode_New(3, 0, 0, 3, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_mpiBistabCgQcu, 30, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__12)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5013,6 +5220,7 @@ static CYTHON_SMALL_CODE int __pyx_pymod_exec_pyqcu(PyObject *__pyx_pyinit_modul
   #endif
   PyObject *__pyx_t_1 = NULL;
   PyObject *__pyx_t_2 = NULL;
+  PyObject *__pyx_t_3 = NULL;
   int __pyx_lineno = 0;
   const char *__pyx_filename = NULL;
   int __pyx_clineno = 0;
@@ -5152,65 +5360,86 @@ if (!__Pyx_RefNanny) {
   /* "pyquda/src/pyqcu.pyx":18
  *         self.param.lattice_size = value
  * 
+ * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
+ */
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_1testDslashQcu, 0, __pyx_n_s_testDslashQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 18, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_2);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_testDslashQcu, __pyx_t_2) < 0) __PYX_ERR(1, 18, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+
+  /* "pyquda/src/pyqcu.pyx":21
+ *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * 
  * def dslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_1dslashQcu, 0, __pyx_n_s_dslashQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__6)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 18, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_3dslashQcu, 0, __pyx_n_s_dslashQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__7)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 21, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_dslashQcu, __pyx_t_2) < 0) __PYX_ERR(1, 18, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_dslashQcu, __pyx_t_2) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyquda/src/pyqcu.pyx":21
+  /* "pyquda/src/pyqcu.pyx":24
  *     qcu.dslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
  * 
  * def mpiDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_3mpiDslashQcu, 0, __pyx_n_s_mpiDslashQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__8)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 21, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_5mpiDslashQcu, 0, __pyx_n_s_mpiDslashQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mpiDslashQcu, __pyx_t_2) < 0) __PYX_ERR(1, 21, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mpiDslashQcu, __pyx_t_2) < 0) __PYX_ERR(1, 24, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyquda/src/pyqcu.pyx":24
+  /* "pyquda/src/pyqcu.pyx":27
  *     qcu.mpiDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  * def mpiCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_5mpiCgQcu, 0, __pyx_n_s_mpiCgQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__9)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 24, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_7mpiCgQcu, 0, __pyx_n_s_mpiCgQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 27, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mpiCgQcu, __pyx_t_2) < 0) __PYX_ERR(1, 24, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mpiCgQcu, __pyx_t_2) < 0) __PYX_ERR(1, 27, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
-  /* "pyquda/src/pyqcu.pyx":27
+  /* "pyquda/src/pyqcu.pyx":30
  *     qcu.mpiCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
  * 
- * def testDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity):             # <<<<<<<<<<<<<<
- *     qcu.testDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity)
+ * def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):             # <<<<<<<<<<<<<<
+ *     qcu.mpiBistabCgQcu(gauge.ptr, &param.param, &grid.param)
+ * 
  */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_7testDslashQcu, 0, __pyx_n_s_testDslashQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__10)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 27, __pyx_L1_error)
+  __pyx_t_2 = __Pyx_PyDict_NewPresized(3); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 30, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_testDslashQcu, __pyx_t_2) < 0) __PYX_ERR(1, 27, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_gauge, __pyx_n_s_Pointer) < 0) __PYX_ERR(1, 30, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_param, __pyx_n_s_QcuParam) < 0) __PYX_ERR(1, 30, __pyx_L1_error)
+  if (PyDict_SetItem(__pyx_t_2, __pyx_n_s_grid, __pyx_n_s_QcuParam) < 0) __PYX_ERR(1, 30, __pyx_L1_error)
+  __pyx_t_3 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_9mpiBistabCgQcu, 0, __pyx_n_s_mpiBistabCgQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__12)); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 30, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  __Pyx_CyFunction_SetAnnotationsDict(__pyx_t_3, __pyx_t_2);
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_mpiBistabCgQcu, __pyx_t_3) < 0) __PYX_ERR(1, 30, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /* "pyquda/src/pyqcu.pyx":1
  * cimport qcu             # <<<<<<<<<<<<<<
  * from pyquda.pointer cimport Pointer, Pointers, Pointerss
  * 
  */
-  __pyx_t_2 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_2) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
+  __pyx_t_3 = __Pyx_PyDict_NewPresized(0); if (unlikely(!__pyx_t_3)) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_GOTREF(__pyx_t_3);
+  if (PyDict_SetItem(__pyx_d, __pyx_n_s_test, __pyx_t_3) < 0) __PYX_ERR(1, 1, __pyx_L1_error)
+  __Pyx_DECREF(__pyx_t_3); __pyx_t_3 = 0;
 
   /*--- Wrapped vars code ---*/
 
   goto __pyx_L0;
   __pyx_L1_error:;
   __Pyx_XDECREF(__pyx_t_2);
+  __Pyx_XDECREF(__pyx_t_3);
   if (__pyx_m) {
     if (__pyx_d && stringtab_initialized) {
       __Pyx_AddTraceback("init pyquda.pyqcu", __pyx_clineno, __pyx_lineno, __pyx_filename);
@@ -9359,7 +9588,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
     if (unlikely(name == NULL) || unlikely(!PyUnicode_Check(name))) {
         PyErr_Clear();
         Py_XDECREF(name);
-        name = __Pyx_NewRef(__pyx_n_s__11);
+        name = __Pyx_NewRef(__pyx_n_s__13);
     }
     return name;
 }
