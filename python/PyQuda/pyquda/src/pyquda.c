@@ -23,7 +23,7 @@
             "quda"
         ],
         "library_dirs": [
-            "/home/zhangxin/PyQuda"
+            "/home/zhangxin/lib"
         ],
         "name": "pyquda.pyquda",
         "sources": [
