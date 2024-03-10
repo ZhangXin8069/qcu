@@ -519,15 +519,25 @@
 
 #define mpi_dot(local_result, lat_4dim12, val0, val1, tmp, zero)               \
   {                                                                            \
-    {                                                                          \
-      local_result = zero;                                                     \
-      for (int i = 0; i < lat_4dim12; i++) {                                   \
-        local_result += val0[i].conj() * val1[i];                              \
-      }                                                                        \
-      MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,               \
-                    MPI_COMM_WORLD);                                           \
-      MPI_Barrier(MPI_COMM_WORLD);                                             \
+    local_result = zero;                                                       \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      local_result += val0[i].conj() * val1[i];                                \
     }                                                                          \
+    MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,                 \
+                  MPI_COMM_WORLD);                                             \
+    MPI_Barrier(MPI_COMM_WORLD);                                               \
+  }
+
+#define mpi_diff(local_result, lat_4dim12, val0, val1, tmp, latt_tmp0, tmp0,   \
+                 tmp1, zero)                                                   \
+  {                                                                            \
+    give_value(latt_tmp0, zero, lat_4dim12);                                   \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      latt_tmp0[i] = val0[i] - val1[i];                                        \
+    }                                                                          \
+    mpi_dot(local_result, lat_4dim12, latt_tmp0, latt_tmp0, tmp0, zero);       \
+    mpi_dot(local_result, lat_4dim12, val1, val1, tmp1, zero);                 \
+    tmp = tmp0 / tmp1;                                                         \
   }
 
 #define _dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,         \
@@ -548,6 +558,25 @@
     _mpiDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,      \
                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
                   send_request, recv_request, send_vec, recv_vec);             \
+  }
+
+// src_o-kappa**2*dslash_oe(dslash_eo(src_o))
+#define _dslash(dest_o, src_o, kappa, latt_tmp0, latt_tmp1, node_rank,         \
+                gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,    \
+                grid_1dim, grid_index_1dim, move, send_request, recv_request,  \
+                send_vec, recv_vec, zero)                                      \
+  {                                                                            \
+    give_value(latt_tmp0, zero, lat_4dim12);                                   \
+    _dslash_eo(latt_tmp0, src_o, node_rank, gridDim, blockDim, gauge,          \
+               lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,         \
+               send_request, recv_request, send_vec, recv_vec, zero);          \
+    give_value(latt_tmp1, zero, lat_4dim12);                                   \
+    _dslash_oe(latt_tmp1, latt_tmp0, node_rank, gridDim, blockDim, gauge,      \
+               lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,         \
+               send_request, recv_request, send_vec, recv_vec, zero);          \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      dest_o[i] = src_o[i] - kappa * kappa * latt_tmp1[i];                     \
+    }                                                                          \
   }
 
 #endif
