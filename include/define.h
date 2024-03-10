@@ -575,7 +575,7 @@
                lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,         \
                send_request, recv_request, send_vec, recv_vec, zero);          \
     for (int i = 0; i < lat_4dim12; i++) {                                     \
-      dest_o[i] = src_o[i] - kappa * kappa * latt_tmp1[i];                     \
+      dest_o[i] = src_o[i] - latt_tmp1[i] * kappa * kappa;                     \
     }                                                                          \
   }
 

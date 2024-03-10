@@ -3,14 +3,6 @@
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG
 #define DEBUG_MPI_WILSON_CG
-
-_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge, lat_1dim,
-           lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
-           recv_request, send_vec, recv_vec, zero);
-_dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
-           lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
-           recv_request, send_vec, recv_vec, zero);
-
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
@@ -92,21 +84,21 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
-    b_e[i] = ans_e[i] - kappa * latt_tmp0[i]; // b_e=anw_e-kappa*D_eo(ans_o)
+    b_e[i] = ans_e[i] - latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
   }
   give_value(latt_tmp1, zero, lat_4dim12);
   _dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
-    b_o[i] = ans_o[i] - kappa * latt_tmp1[i]; // b_o=anw_o-kappa*D_oe(ans_e)
+    b_o[i] = ans_o[i] - latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
   }
   give_value(latt_tmp0, zero, lat_4dim12);
   _dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
-    b__o[i] = b_o[i] + kappa * latt_tmp0[i]; // b__o=b_o+kappa*D_oe(b_e)
+    b__o[i] = b_o[i] + latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
   }
   // bistabcg
   _dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
@@ -183,7 +175,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          double(duration) / 1e9);
   mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
            zero);
-  printf("## difference: %.9lf ", tmp);
+  printf("## difference: %.9lf ", tmp.real);
   // free
   free_vec(send_vec, recv_vec);
   cudaFree(x_o);
