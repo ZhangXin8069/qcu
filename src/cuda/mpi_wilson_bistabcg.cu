@@ -2,7 +2,7 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG
-#define DEBUG_MPI_WILSON_CG
+// #define DEBUG_MPI_WILSON_CG
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
