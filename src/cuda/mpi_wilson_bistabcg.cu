@@ -175,7 +175,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          double(duration) / 1e9);
   mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
            zero);
-  printf("## difference: %.9lf ", tmp.real);
+  printf("## difference: %f ", tmp.real);
   // free
   free_vec(send_vec, recv_vec);
   cudaFree(x_o);
