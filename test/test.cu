@@ -1,7 +1,6 @@
 #include <iostream>
 #pragma optimize(5)
 #include "../include/qcu.h"
-#ifdef TEST_WILSON_BISTABCG
 // #define DEBUG_MPI_WILSON_CG
 int main() {
   // define test
@@ -205,5 +204,3 @@ int main() {
   cudaFree(s);
   cudaFree(t);
 }
-
-#endif
