@@ -1,36 +1,28 @@
+#include <cstdio>
 #pragma optimize(5)
 #include "../include/qcu.h"
 // #define DEBUG_MPI_WILSON_CG
-int main() {
-  // define test
-  QcuParam *param;
-  param->lattice_size[X] = LAT_EXAMPLE;
-  param->lattice_size[Y] = LAT_EXAMPLE;
-  param->lattice_size[Z] = LAT_EXAMPLE;
-  param->lattice_size[T] = LAT_EXAMPLE;
-  QcuParam *grid;
-  grid->lattice_size[X] = GRID_EXAMPLE;
-  grid->lattice_size[Y] = GRID_EXAMPLE;
-  grid->lattice_size[Z] = GRID_EXAMPLE;
-  grid->lattice_size[T] = GRID_EXAMPLE;
-  // define end
+int main(int argc, char *argv[]) {
+  MPI_Init(&argc, &argv);
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
   int lat_3dim[DIM];
   int lat_4dim;
-  give_dims(param, lat_1dim, lat_3dim, lat_4dim);
+  lat_1dim[X] = LAT_EXAMPLE >> 1;
+  lat_1dim[Y] = LAT_EXAMPLE;
+  lat_1dim[Z] = LAT_EXAMPLE;
+  lat_1dim[T] = LAT_EXAMPLE;
+  lat_3dim[YZT] = lat_1dim[Y] * lat_1dim[Z] * lat_1dim[T];
+  lat_3dim[XZT] = lat_1dim[X] * lat_1dim[Z] * lat_1dim[T];
+  lat_3dim[XYT] = lat_1dim[X] * lat_1dim[Y] * lat_1dim[T];
+  lat_3dim[XYZ] = lat_1dim[X] * lat_1dim[Y] * lat_1dim[Z];
+  lat_4dim = lat_3dim[XYZ] * lat_1dim[T];
   int lat_3dim6[DIM];
   int lat_3dim12[DIM];
   for (int i = 0; i < DIM; i++) {
     lat_3dim6[i] = lat_3dim[i] * 6;
     lat_3dim12[i] = lat_3dim6[i] * 2;
   }
-  // define gauge
-  LatticeComplex *gauge;
-  cudaMallocManaged(&gauge,
-                    lat_4dim * LAT_D * LAT_C * LAT_C * sizeof(LatticeComplex));
-  give_rand(gauge, lat_4dim * LAT_D * LAT_C * LAT_C);
-  // define end
   cudaError_t err;
   dim3 gridDim(lat_4dim / BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
@@ -38,7 +30,15 @@ int main() {
   int move[BF];
   int grid_1dim[DIM];
   int grid_index_1dim[DIM];
-  give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
+  MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
+  grid_1dim[X] = GRID_EXAMPLE;
+  grid_1dim[Y] = GRID_EXAMPLE;
+  grid_1dim[Z] = GRID_EXAMPLE;
+  grid_1dim[T] = GRID_EXAMPLE;
+  grid_index_1dim[X] = node_rank / grid_1dim[T] / grid_1dim[Z] / grid_1dim[Y];
+  grid_index_1dim[Y] = node_rank / grid_1dim[T] / grid_1dim[Z] % grid_1dim[Y];
+  grid_index_1dim[Z] = node_rank / grid_1dim[T] % grid_1dim[Z];
+  grid_index_1dim[T] = node_rank % grid_1dim[T];
   MPI_Request send_request[WARDS];
   MPI_Request recv_request[WARDS];
   void *send_vec[WARDS];
@@ -79,6 +79,12 @@ int main() {
   cudaMallocManaged(&t, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
+  // define gauge
+  LatticeComplex *gauge;
+  cudaMallocManaged(&gauge, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD *
+                                sizeof(LatticeComplex));
+  give_value(gauge, one, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD);
+  // define end
   // give ans first
   give_rand(ans_e, lat_4dim12);
   give_rand(ans_o, lat_4dim12);
@@ -194,6 +200,7 @@ int main() {
   printf("## difference: %.16f ", tmp.real);
   // free
   free_vec(send_vec, recv_vec);
+  cudaFree(gauge);
   cudaFree(x_o);
   cudaFree(b__o);
   cudaFree(r);
@@ -202,5 +209,6 @@ int main() {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  printf("##hello world##\n");
   return 0;
 }

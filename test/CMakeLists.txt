@@ -22,7 +22,7 @@ include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
 include_directories(../include)
 
 # Set your source files
-aux_source_directory(src/cuda SOURCE_FILE)
+aux_source_directory(../src/cuda SOURCE_FILE)
 # Add an executable and link the necessary libraries
 find_package(MPI REQUIRED)
 add_executable(test test.cu ${SOURCE_FILE})

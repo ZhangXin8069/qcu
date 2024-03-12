@@ -23,6 +23,7 @@
 #define XYZ 3
 #define EVEN 0
 #define ODD 1
+#define EVENODD 2
 #define LAT_C 3
 #define LAT_S 4
 #define LAT_D 4
@@ -34,7 +35,7 @@
 #define NOWARD 0
 #define FORWARD 1
 #define SR 2
-#define LAT_EXAMPLE 32
+#define LAT_EXAMPLE 16
 #define GRID_EXAMPLE 1
 
 #define WILSON_DSLASH
