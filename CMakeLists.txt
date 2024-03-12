@@ -31,7 +31,6 @@ src/cuda/mpi_overlap_bistabcg.cu
 src/cuda/mpi_overlap_dslash.cu
 src/cuda/mpi_overlap_multgrid.cu
 src/cuda/mpi_wilson_bistabcg.cu
-src/cuda/mpi_wilson_cg.cu
 src/cuda/mpi_wilson_dslash.cu
 src/cuda/mpi_wilson_multgrid.cu
 src/cuda/test_clover_bistabcg.cu
