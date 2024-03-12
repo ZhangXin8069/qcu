@@ -63,5 +63,5 @@ set(SOURCES
 # Add an executable and link the necessary libraries
 find_package(MPI REQUIRED)
 add_executable(test ${SOURCES})
-target_link_libraries(test ${MPI_C_LIBRARIES})
-target_link_libraries(test ${CUDA_LIBRARIES})
+# target_link_libraries(test ${MPI_C_LIBRARIES})
+# target_link_libraries(test ${CUDA_LIBRARIES})
