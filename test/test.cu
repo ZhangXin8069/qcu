@@ -45,6 +45,12 @@ int main(int argc, char *argv[]) {
   void *recv_vec[WARDS];
   malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
+  // define gauge
+  LatticeComplex *gauge;
+  cudaMallocManaged(&gauge, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD *
+                                sizeof(LatticeComplex));
+  give_rand(gauge, lat_4dim * LAT_D * LAT_C * LAT_C);
+  // define end
   // define for mpi_wilson_cg
   int lat_4dim12 = lat_4dim * 12;
   LatticeComplex zero(0.0, 0.0);
@@ -79,12 +85,6 @@ int main(int argc, char *argv[]) {
   cudaMallocManaged(&t, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
-  // define gauge
-  LatticeComplex *gauge;
-  cudaMallocManaged(&gauge, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD *
-                                sizeof(LatticeComplex));
-  give_value(gauge, one, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD);
-  // define end
   // give ans first
   give_rand(ans_e, lat_4dim12);
   give_rand(ans_o, lat_4dim12);
@@ -209,6 +209,5 @@ int main(int argc, char *argv[]) {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
-  printf("##hello world##\n");
   return 0;
 }
