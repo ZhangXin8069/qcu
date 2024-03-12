@@ -187,5 +187,4 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaFree(s);
   cudaFree(t);
 }
-
 #endif

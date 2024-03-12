@@ -1,7 +1,6 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_DSLASH
-
 __global__ void wilson_dslash_clear_dest(void *device_dest, int device_lat_x,
                                          const int device_lat_y,
                                          const int device_lat_z) {
@@ -25,6 +24,7 @@ __global__ void wilson_dslash_clear_dest(void *device_dest, int device_lat_x,
        y * lat_x * 12 + x * 12);
   give_value(origin_dest, zero, 12);
 }
+
 __global__ void
 wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
@@ -159,6 +159,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
 __global__ void
 wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
@@ -370,6 +371,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
 __global__ void
 wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
@@ -449,6 +451,7 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
   } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
 __global__ void
 wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
@@ -580,6 +583,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
 __global__ void
 wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
@@ -659,6 +663,7 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
   } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
 __global__ void
 wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
                      int device_lat_x, const int device_lat_y,
@@ -790,6 +795,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
 __global__ void
 wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,

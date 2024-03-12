@@ -34,9 +34,11 @@
 #define NOWARD 0
 #define FORWARD 1
 #define SR 2
+#define LAT_EXAMPLE 32
+#define GRID_EXAMPLE 1
 
 #define WILSON_DSLASH
-// #define CLOVER_DSLASH
+#define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
 #define MPI_WILSON_DSLASH
 // #define MPI_CLOVER_DSLASH
@@ -44,11 +46,10 @@
 // #define TEST_WILSON_DSLASH
 // #define TEST_CLOVER_DSLASH
 // #define TEST_OVERLAP_DSLASH
-#define WILSON_BISTABCG
+// #define WILSON_BISTABCG
 // #define CLOVER_BISTABCG
 // #define OVERLAP_BISTABCG
 #define MPI_WILSON_BISTABCG
-#define MPI_WILSON_CG
 // #define MPI_CLOVER_BISTABCG
 // #define MPI_OVERLAP_BISTABCG
 // #define TEST_WILSON_BISTABCG
