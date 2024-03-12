@@ -21,37 +21,8 @@ set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
 include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
 include_directories(include)
 
-
-add_library(qcu SHARED 
-src/cuda/mpi_clover_bistabcg.cu
-src/cuda/mpi_clover_dslash.cu
-src/cuda/mpi_clover_multgrid.cu
-src/cuda/mpi_overlap_bistabcg.cu
-src/cuda/mpi_overlap_bistabcg.cu
-src/cuda/mpi_overlap_dslash.cu
-src/cuda/mpi_overlap_multgrid.cu
-src/cuda/mpi_wilson_bistabcg.cu
-src/cuda/mpi_wilson_dslash.cu
-src/cuda/mpi_wilson_multgrid.cu
-src/cuda/test_clover_bistabcg.cu
-src/cuda/test_clover_dslash.cu
-src/cuda/test_clover_multgrid.cu
-src/cuda/test_overlap_bistabcg.cu
-src/cuda/test_overlap_dslash.cu
-src/cuda/test_overlap_multgrid.cu
-src/cuda/test_wilson_bistabcg.cu
-src/cuda/test_wilson_dslash.cu
-src/cuda/test_wilson_multgrid.cu
-src/cuda/clover_bistabcg.cu
-src/cuda/clover_dslash.cu
-src/cuda/clover_multgrid.cu
-src/cuda/overlap_bistabcg.cu
-src/cuda/overlap_dslash.cu
-src/cuda/overlap_multgrid.cu
-src/cuda/wilson_bistabcg.cu
-src/cuda/wilson_dslash.cu
-src/cuda/wilson_multgrid.cu
-)
+aux_source_directory(src/cuda SOURCE_FILE)
+add_library(qcu SHARED ${SOURCE_FILE})
 
 find_package(MPI REQUIRED)
 target_link_libraries(qcu ${MPI_LIBRARIES})

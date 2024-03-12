@@ -1,1 +1,2 @@
-bash ./make.sh && nsys nvprof mpirun -n 1 ./test
+bash ./make.sh 
+nsys nvprof ./test

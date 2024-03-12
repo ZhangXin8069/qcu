@@ -202,4 +202,5 @@ int main() {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  return 0;
 }
