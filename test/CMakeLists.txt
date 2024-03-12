@@ -20,6 +20,7 @@ set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
 # Add include directories, including MPI include directories, including test's include
 include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
 include_directories(../include)
+include_directories(../src/cuda)
 
 # Set your source files
 set(SOURCES

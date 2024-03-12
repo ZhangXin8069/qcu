@@ -1,4 +1,3 @@
-#include <iostream>
 #pragma optimize(5)
 #include "../include/qcu.h"
 // #define DEBUG_MPI_WILSON_CG
