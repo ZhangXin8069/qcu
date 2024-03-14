@@ -1,10 +1,11 @@
 #pragma optimize(5)
-#include "../../include/qcu_cuda.h"
+#include "../../include/qcu.h"
+
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
                               const int device_lat_t, const int device_parity) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
@@ -16,7 +17,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -27,24 +28,24 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   const int x = parity - y * lat_x;
   parity = device_parity;
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U =
       ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
        z * lat_yxcc + y * lat_xcc + x * 9);
-  register LatticeComplex *origin_src =
+  LatticeComplex *origin_src =
       ((static_cast<LatticeComplex *>(device_src)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_dest =
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex *tmp_src;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex src[12];
-  register LatticeComplex dest[12];
+  LatticeComplex *tmp_U;
+  LatticeComplex *tmp_src;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex src[12];
+  LatticeComplex dest[12];
   // just wilson(Sum part)
   give_value(dest, zero, 12);
   {
@@ -228,3 +229,40 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   give_ptr(origin_dest, dest, 12);
 }
+
+#ifdef WILSON_DSLASH
+void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+               QcuParam *param, int parity) {
+  const int lat_x = param->lattice_size[0] >> 1;
+  const int lat_y = param->lattice_size[1];
+  const int lat_z = param->lattice_size[2];
+  const int lat_t = param->lattice_size[3];
+  void *clover;
+  checkCudaErrors(cudaMalloc(&clover, (lat_t * lat_z * lat_y * lat_x * 144) *
+                                          sizeof(LatticeComplex)));
+  cudaError_t err;
+  dim3 gridDim(lat_x * lat_y * lat_z * lat_t / BLOCK_SIZE);
+  dim3 blockDim(BLOCK_SIZE);
+  {
+    // wilson dslash
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto start = std::chrono::high_resolution_clock::now();
+    wilson_dslash<<<gridDim, blockDim>>>(gauge, fermion_in, fermion_out, lat_x,
+                                         lat_y, lat_z, lat_t, parity);
+    err = cudaGetLastError();
+    checkCudaErrors(err);
+    checkCudaErrors(cudaDeviceSynchronize());
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    // printf(
+    //     "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
+    //     double(duration) / 1e9);
+  }
+  {
+    // free
+    checkCudaErrors(cudaFree(clover));
+  }
+}
+#endif

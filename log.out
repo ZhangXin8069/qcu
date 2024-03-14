@@ -1,0 +1,20 @@
+rm: 无法删除".": 是一个目录
+rm: 无法删除"..": 是一个目录
+rm: 无法删除".git": 是一个目录
+rm: 无法删除"cmake_install.cmake": 没有那个文件或目录
+rm: 无法删除"CMakeCache.txt": 没有那个文件或目录
+rm: 无法删除"Makefile": 没有那个文件或目录
+~ ~/dcu/qcu
+~/configure ~ ~/dcu/qcu
+HOME:/public/home/zhangxin/configure
+~ ~/dcu/qcu
+~/dcu/qcu
+Currently Loaded Modulefiles:
+  1) compiler/devtoolset/7.3.1   3) compiler/gcc/7.3.1
+  2) compiler/dtk-23.04          4) hpcx/gcc-7.3.1
+/public/sugon/software/compiler/dtk-23.04 ~/dcu/qcu
+/public/sugon/software/compiler/dtk-23.04/cuda /public/sugon/software/compiler/dtk-23.04 ~/dcu/qcu
+/public/sugon/software/compiler/dtk-23.04 ~/dcu/qcu
+~/dcu/qcu
+-- The C compiler identification is Clang 14.0.0
+-- The CXX compiler identification is Clang 14.0.0
