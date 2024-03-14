@@ -68,5 +68,5 @@ def compare(round):
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
 
-for i in range(0, 500):
+for i in range(0, 10):
     compare(i)
