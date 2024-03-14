@@ -1,17 +1,15 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
-#include "../../include/qcu_cuda.h"
-#include <chrono>
-#include <cstdio>
+#ifdef MPI_WILSON_DSLASH
 
 __global__ void wilson_dslash_clear_dest(void *device_dest, int device_lat_x,
                                          const int device_lat_y,
                                          const int device_lat_z) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -20,8 +18,8 @@ __global__ void wilson_dslash_clear_dest(void *device_dest, int device_lat_x,
   parity -= z * move;
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_dest =
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
        y * lat_x * 12 + x * 12);
@@ -33,7 +31,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
                      const int device_lat_z, const int device_lat_t,
                      const int device_parity, void *device_b_x_send_vec,
                      void *device_f_x_send_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
@@ -45,7 +43,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -56,35 +54,34 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
   const int x = parity - y * lat_x;
   parity = device_parity;
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U =
       ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
        z * lat_yxcc + y * lat_xcc + x * 9);
-  register LatticeComplex *origin_src =
+  LatticeComplex *origin_src =
       ((static_cast<LatticeComplex *>(device_src)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_dest =
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_b_x_send_vec =
+  LatticeComplex *origin_b_x_send_vec =
       ((static_cast<LatticeComplex *>(device_b_x_send_vec)) +
        (t * lat_z * lat_y + z * lat_y + y) * 6);
-  register LatticeComplex *origin_f_x_send_vec =
+  LatticeComplex *origin_f_x_send_vec =
       ((static_cast<LatticeComplex *>(device_f_x_send_vec)) +
        (t * lat_z * lat_y + z * lat_y + y) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex *tmp_src;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex src[12];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_x_send_vec[6];
-  register LatticeComplex f_x_send_vec[6];
+  LatticeComplex *tmp_U;
+  LatticeComplex *tmp_src;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex src[12];
+  LatticeComplex dest[12];
+  LatticeComplex b_x_send_vec[6];
+  LatticeComplex f_x_send_vec[6];
   give_value(dest, zero, 12);
-  {
-    // x-1
+  { // x-1
     move_backward_x(move, x, lat_x, eo, parity);
     if (move != lat_x - 1) {
       tmp_U = (origin_U + move * 9 + (1 - parity) * lat_tzyxcc);
@@ -109,8 +106,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
     if (x == 0 && move == 0) { // even-odd
       // send in x+1 way
       give_ptr(src, origin_src, 12);
-      {
-        // sigma src
+      { // sigma src
         for (int c1 = 0; c1 < 3; c1++) {
           b_x_send_vec[c1] = src[c1] - src[c1 + 9] * I;
           b_x_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6] * I;
@@ -119,8 +115,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
       }
     }
   }
-  {
-    // x+1
+  { // x+1
     move_forward_x(move, x, lat_x, eo, parity);
     if (move != 1 - lat_x) {
       tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -147,8 +142,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
       tmp_U = (origin_U + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
-      {
-        // just tmp
+      { // just tmp
         for (int c0 = 0; c0 < 3; c0++) {
           tmp0 = zero;
           tmp1 = zero;
@@ -162,8 +156,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
         give_ptr(origin_f_x_send_vec, f_x_send_vec, 6);
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -171,12 +164,12 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
                      void *device_b_x_recv_vec, void *device_f_x_recv_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -187,36 +180,32 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
   const int x = parity - y * lat_x;
   parity = device_parity;
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
-       x * 9);
-  register LatticeComplex *origin_dest =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+                              t * lat_z * lat_y * lat_x * 9 +
+                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
        y * lat_x * 12 + x * 12);
-  register LatticeComplex *origin_b_x_recv_vec =
+  LatticeComplex *origin_b_x_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_x_recv_vec)) +
        (t * lat_z * lat_y + z * lat_y + y) * 6);
-  register LatticeComplex *origin_f_x_recv_vec =
+  LatticeComplex *origin_f_x_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_x_recv_vec)) +
        (t * lat_z * lat_y + z * lat_y + y) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_x_recv_vec[6];
-  register LatticeComplex f_x_recv_vec[6];
-  // needed
+  LatticeComplex *tmp_U;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex dest[12];
+  LatticeComplex b_x_recv_vec[6];
+  LatticeComplex f_x_recv_vec[6]; // needed
   give_value(dest, zero, 12);
-  {
-    // x-1
+  { // x-1
     move_backward_x(move, x, lat_x, eo, parity);
-    if (move == lat_x - 1) {
-      // recv in x-1 way
+    if (move == lat_x - 1) { // recv in x-1 way
       give_ptr(b_x_recv_vec, origin_b_x_recv_vec, 6);
       for (int c0 = 0; c0 < 3; c0++) {
         dest[c0] += b_x_recv_vec[c0];
@@ -226,11 +215,9 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
       }
     }
   }
-  {
-    // x+1
+  { // x+1
     move_forward_x(move, x, lat_x, eo, parity);
-    if (move == 1 - lat_x) {
-      // recv in x+1 way
+    if (move == 1 - lat_x) { // recv in x+1 way
       give_ptr(f_x_recv_vec, origin_f_x_recv_vec, 6);
       tmp_U = (origin_U + parity * lat_t * lat_z * lat_y * lat_x * 9);
       give_u(U, tmp_U);
@@ -249,8 +236,7 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
         }
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -259,7 +245,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
                      const int device_lat_z, const int device_lat_t,
                      const int device_parity, void *device_b_y_send_vec,
                      void *device_f_y_send_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
@@ -271,7 +257,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -281,35 +267,34 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U =
       ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
        z * lat_yxcc + y * lat_xcc + x * 9);
-  register LatticeComplex *origin_src =
+  LatticeComplex *origin_src =
       ((static_cast<LatticeComplex *>(device_src)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_dest =
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_b_y_send_vec =
+  LatticeComplex *origin_b_y_send_vec =
       ((static_cast<LatticeComplex *>(device_b_y_send_vec)) +
        (t * lat_z * lat_x + z * lat_x + x) * 6);
-  register LatticeComplex *origin_f_y_send_vec =
+  LatticeComplex *origin_f_y_send_vec =
       ((static_cast<LatticeComplex *>(device_f_y_send_vec)) +
        (t * lat_z * lat_x + z * lat_x + x) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex *tmp_src;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex src[12];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_y_send_vec[6];
-  register LatticeComplex f_y_send_vec[6];
+  LatticeComplex *tmp_U;
+  LatticeComplex *tmp_src;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex src[12];
+  LatticeComplex dest[12];
+  LatticeComplex b_y_send_vec[6];
+  LatticeComplex f_y_send_vec[6];
   give_value(dest, zero, 12);
-  {
-    // y-1
+  { // y-1
     move_backward(move, y, lat_y);
     if (move == -1) {
       tmp_U = (origin_U + move * lat_xcc + lat_tzyxcc * 2 +
@@ -331,11 +316,9 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp0;
         }
       }
-    } else {
-      // send in y+1 way
+    } else { // send in y+1 way
       give_ptr(src, origin_src, 12);
-      {
-        // sigma src
+      { // sigma src
         for (int c1 = 0; c1 < 3; c1++) {
           b_y_send_vec[c1] = src[c1] + src[c1 + 9];
           b_y_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 6];
@@ -344,8 +327,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
       }
     }
   }
-  {
-    // y+1
+  { // y+1
     move_forward(move, y, lat_y);
     if (move == 1) {
       tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
@@ -366,14 +348,12 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp0;
         }
       }
-    } else {
-      // send in y-1 way
+    } else { // send in y-1 way
       tmp_U =
           (origin_U + +lat_tzyxcc * 2 + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
-      {
-        // just tmp
+      { // just tmp
         for (int c0 = 0; c0 < 3; c0++) {
           tmp0 = zero;
           tmp1 = zero;
@@ -387,8 +367,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
         give_ptr(origin_f_y_send_vec, f_y_send_vec, 6);
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -396,12 +375,12 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
                      void *device_b_y_recv_vec, void *device_f_y_recv_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -411,36 +390,32 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
-       x * 9);
-  register LatticeComplex *origin_dest =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+                              t * lat_z * lat_y * lat_x * 9 +
+                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
        y * lat_x * 12 + x * 12);
-  register LatticeComplex *origin_b_y_recv_vec =
+  LatticeComplex *origin_b_y_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_y_recv_vec)) +
        (t * lat_z * lat_x + z * lat_x + x) * 6);
-  register LatticeComplex *origin_f_y_recv_vec =
+  LatticeComplex *origin_f_y_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_y_recv_vec)) +
        (t * lat_z * lat_x + z * lat_x + x) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_y_recv_vec[6];
-  register LatticeComplex f_y_recv_vec[6];
-  // needed
+  LatticeComplex *tmp_U;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex dest[12];
+  LatticeComplex b_y_recv_vec[6];
+  LatticeComplex f_y_recv_vec[6]; // needed
   give_value(dest, zero, 12);
-  {
-    // y-1
+  { // y-1
     move_backward(move, y, lat_y);
-    if (move != -1) {
-      // recv in y-1 way
+    if (move != -1) { // recv in y-1 way
       give_ptr(b_y_recv_vec, origin_b_y_recv_vec, 6);
       for (int c0 = 0; c0 < 3; c0++) {
         dest[c0] += b_y_recv_vec[c0];
@@ -450,11 +425,9 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
       }
     }
   }
-  {
-    // y+1
+  { // y+1
     move_forward(move, y, lat_y);
-    if (move != 1) {
-      // recv in y+1 way
+    if (move != 1) { // recv in y+1 way
       give_ptr(f_y_recv_vec, origin_f_y_recv_vec, 6);
       tmp_U = (origin_U + (parity + 2) * lat_t * lat_z * lat_y * lat_x * 9);
       give_u(U, tmp_U);
@@ -473,8 +446,7 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
         }
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -483,7 +455,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
                      const int device_lat_z, const int device_lat_t,
                      const int device_parity, void *device_b_z_send_vec,
                      void *device_f_z_send_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
@@ -495,7 +467,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -505,35 +477,34 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U =
       ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
        z * lat_yxcc + y * lat_xcc + x * 9);
-  register LatticeComplex *origin_src =
+  LatticeComplex *origin_src =
       ((static_cast<LatticeComplex *>(device_src)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_dest =
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_b_z_send_vec =
+  LatticeComplex *origin_b_z_send_vec =
       ((static_cast<LatticeComplex *>(device_b_z_send_vec)) +
        (t * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *origin_f_z_send_vec =
+  LatticeComplex *origin_f_z_send_vec =
       ((static_cast<LatticeComplex *>(device_f_z_send_vec)) +
        (t * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex *tmp_src;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex src[12];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_z_send_vec[6];
-  register LatticeComplex f_z_send_vec[6];
+  LatticeComplex *tmp_U;
+  LatticeComplex *tmp_src;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex src[12];
+  LatticeComplex dest[12];
+  LatticeComplex b_z_send_vec[6];
+  LatticeComplex f_z_send_vec[6];
   give_value(dest, zero, 12);
-  {
-    // z-1
+  { // z-1
     move_backward(move, z, lat_z);
     if (move == -1) {
       tmp_U = (origin_U + move * lat_yxcc + lat_tzyxcc * 4 +
@@ -555,11 +526,9 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp1 * I;
         }
       }
-    } else {
-      // send in z+1 way
+    } else { // send in z+1 way
       give_ptr(src, origin_src, 12);
-      {
-        // sigma src
+      { // sigma src
         for (int c1 = 0; c1 < 3; c1++) {
           b_z_send_vec[c1] = src[c1] - src[c1 + 6] * I;
           b_z_send_vec[c1 + 3] = src[c1 + 3] + src[c1 + 9] * I;
@@ -568,8 +537,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
       }
     }
   }
-  {
-    // z+1
+  { // z+1
     move_forward(move, z, lat_z);
     if (move == 1) {
       tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
@@ -590,14 +558,12 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp1 * I;
         }
       }
-    } else {
-      // send in z-1 way
+    } else { // send in z-1 way
       tmp_U =
           (origin_U + 4 * lat_tzyxcc + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
-      {
-        // just tmp
+      { // just tmp
         for (int c0 = 0; c0 < 3; c0++) {
           tmp0 = zero;
           tmp1 = zero;
@@ -611,8 +577,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
         give_ptr(origin_f_z_send_vec, f_z_send_vec, 6);
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -620,12 +585,12 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
                      void *device_b_z_recv_vec, void *device_f_z_recv_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -635,36 +600,32 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
-       x * 9);
-  register LatticeComplex *origin_dest =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+                              t * lat_z * lat_y * lat_x * 9 +
+                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
        y * lat_x * 12 + x * 12);
-  register LatticeComplex *origin_b_z_recv_vec =
+  LatticeComplex *origin_b_z_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_z_recv_vec)) +
        (t * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *origin_f_z_recv_vec =
+  LatticeComplex *origin_f_z_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_z_recv_vec)) +
        (t * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_z_recv_vec[6];
-  register LatticeComplex f_z_recv_vec[6];
-  // needed
+  LatticeComplex *tmp_U;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex dest[12];
+  LatticeComplex b_z_recv_vec[6];
+  LatticeComplex f_z_recv_vec[6]; // needed
   give_value(dest, zero, 12);
-  {
-    // z-1
+  { // z-1
     move_backward(move, z, lat_z);
-    if (move != -1) {
-      // recv in z-1 way
+    if (move != -1) { // recv in z-1 way
       give_ptr(b_z_recv_vec, origin_b_z_recv_vec, 6);
       for (int c0 = 0; c0 < 3; c0++) {
         dest[c0] += b_z_recv_vec[c0];
@@ -674,11 +635,9 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
       }
     }
   }
-  {
-    // z+1
+  { // z+1
     move_forward(move, z, lat_z);
-    if (move != 1) {
-      // recv in z+1 way
+    if (move != 1) { // recv in z+1 way
       give_ptr(f_z_recv_vec, origin_f_z_recv_vec, 6);
       tmp_U = (origin_U + (parity + 4) * lat_t * lat_z * lat_y * lat_x * 9);
       give_u(U, tmp_U);
@@ -697,8 +656,7 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
         }
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -707,7 +665,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
                      const int device_lat_z, const int device_lat_t,
                      const int device_parity, void *device_b_t_send_vec,
                      void *device_f_t_send_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
@@ -719,7 +677,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
   const int lat_xsc = lat_x * 12;
   const int lat_yxsc = lat_y * lat_xsc;
   const int lat_zyxsc = lat_z * lat_yxsc;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -729,35 +687,34 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U =
       ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
        z * lat_yxcc + y * lat_xcc + x * 9);
-  register LatticeComplex *origin_src =
+  LatticeComplex *origin_src =
       ((static_cast<LatticeComplex *>(device_src)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_dest =
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + t * lat_zyxsc +
        z * lat_yxsc + y * lat_xsc + x * 12);
-  register LatticeComplex *origin_b_t_send_vec =
+  LatticeComplex *origin_b_t_send_vec =
       ((static_cast<LatticeComplex *>(device_b_t_send_vec)) +
        (z * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *origin_f_t_send_vec =
+  LatticeComplex *origin_f_t_send_vec =
       ((static_cast<LatticeComplex *>(device_f_t_send_vec)) +
        (z * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex *tmp_src;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex src[12];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_t_send_vec[6];
-  register LatticeComplex f_t_send_vec[6];
+  LatticeComplex *tmp_U;
+  LatticeComplex *tmp_src;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex src[12];
+  LatticeComplex dest[12];
+  LatticeComplex b_t_send_vec[6];
+  LatticeComplex f_t_send_vec[6];
   give_value(dest, zero, 12);
-  {
-    // t-1
+  { // t-1
     move_backward(move, t, lat_t);
     if (move == -1) {
       tmp_U = (origin_U + move * lat_zyxcc + lat_tzyxcc * 6 +
@@ -779,11 +736,9 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] += tmp1;
         }
       }
-    } else {
-      // send in t+1 way
+    } else { // send in t+1 way
       give_ptr(src, origin_src, 12);
-      {
-        // sigma src
+      { // sigma src
         for (int c1 = 0; c1 < 3; c1++) {
           b_t_send_vec[c1] = src[c1] - src[c1 + 6];
           b_t_send_vec[c1 + 3] = src[c1 + 3] - src[c1 + 9];
@@ -792,8 +747,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
       }
     }
   }
-  {
-    // t+1
+  { // t+1
     move_forward(move, t, lat_t);
     if (move == 1) {
       tmp_U = (origin_U + lat_tzyxcc * 6 + parity * lat_tzyxcc);
@@ -814,14 +768,12 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
           dest[c0 + 9] -= tmp1;
         }
       }
-    } else {
-      // send in t-1 way
+    } else { // send in t-1 way
       tmp_U =
           (origin_U + lat_tzyxcc * 6 + (1 - parity) * lat_tzyxcc); // even-odd
       give_u(U, tmp_U);
       give_ptr(src, origin_src, 12);
-      {
-        // just tmp
+      { // just tmp
         for (int c0 = 0; c0 < 3; c0++) {
           tmp0 = zero;
           tmp1 = zero;
@@ -835,8 +787,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
         give_ptr(origin_f_t_send_vec, f_t_send_vec, 6);
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
 __global__ void
@@ -844,12 +795,12 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
                      const int device_lat_y, const int device_lat_z,
                      const int device_lat_t, const int device_parity,
                      void *device_b_t_recv_vec, void *device_f_t_recv_vec) {
-  register int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = blockIdx.x * blockDim.x + threadIdx.x;
   const int lat_x = device_lat_x;
   const int lat_y = device_lat_y;
   const int lat_z = device_lat_z;
   const int lat_t = device_lat_t;
-  register int move;
+  int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
   parity -= t * move;
@@ -859,36 +810,32 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = device_parity;
-  register LatticeComplex I(0.0, 1.0);
-  register LatticeComplex zero(0.0, 0.0);
-  register LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       t * lat_z * lat_y * lat_x * 9 + z * lat_y * lat_x * 9 + y * lat_x * 9 +
-       x * 9);
-  register LatticeComplex *origin_dest =
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+                              t * lat_z * lat_y * lat_x * 9 +
+                              z * lat_y * lat_x * 9 + y * lat_x * 9 + x * 9);
+  LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
        y * lat_x * 12 + x * 12);
-  register LatticeComplex *origin_b_t_recv_vec =
+  LatticeComplex *origin_b_t_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_t_recv_vec)) +
        (z * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *origin_f_t_recv_vec =
+  LatticeComplex *origin_f_t_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_t_recv_vec)) +
        (z * lat_y * lat_x + y * lat_x + x) * 6);
-  register LatticeComplex *tmp_U;
-  register LatticeComplex tmp0(0.0, 0.0);
-  register LatticeComplex tmp1(0.0, 0.0);
-  register LatticeComplex U[9];
-  register LatticeComplex dest[12];
-  register LatticeComplex b_t_recv_vec[6];
-  register LatticeComplex f_t_recv_vec[6];
-  // needed
+  LatticeComplex *tmp_U;
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex tmp1(0.0, 0.0);
+  LatticeComplex U[9];
+  LatticeComplex dest[12];
+  LatticeComplex b_t_recv_vec[6];
+  LatticeComplex f_t_recv_vec[6]; // needed
   give_value(dest, zero, 12);
-  {
-    // t-1
+  { // t-1
     move_backward(move, t, lat_t);
-    if (move != -1) {
-      // recv in t-1 way
+    if (move != -1) { // recv in t-1 way
       give_ptr(b_t_recv_vec, origin_b_t_recv_vec, 6);
       for (int c0 = 0; c0 < 3; c0++) {
         dest[c0] += b_t_recv_vec[c0];
@@ -898,11 +845,9 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
       }
     }
   }
-  {
-    // t+1
+  { // t+1
     move_forward(move, t, lat_t);
-    if (move != 1) {
-      // recv in t+1 way
+    if (move != 1) { // recv in t+1 way
       give_ptr(f_t_recv_vec, origin_f_t_recv_vec, 6);
       tmp_U = (origin_U + (parity + 6) * lat_t * lat_z * lat_y * lat_x * 9);
       give_u(U, tmp_U);
@@ -921,7 +866,51 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
         }
       }
     }
-  }
-  // just add
+  } // just add
   add_ptr(origin_dest, dest, 12);
 }
+
+void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                  QcuParam *param, int parity, QcuParam *grid) {
+  // define for mpi_wilson_dslash
+  int lat_1dim[DIM];
+  int lat_3dim[DIM];
+  int lat_4dim;
+  give_dims(param, lat_1dim, lat_3dim, lat_4dim);
+  int lat_3dim6[DIM];
+  int lat_3dim12[DIM];
+  for (int i = 0; i < DIM; i++) {
+    lat_3dim6[i] = lat_3dim[i] * 6;
+    lat_3dim12[i] = lat_3dim6[i] * 2;
+  }
+  cudaError_t err;
+  dim3 gridDim(lat_4dim / BLOCK_SIZE);
+  dim3 blockDim(BLOCK_SIZE);
+  int node_rank;
+  int move[BF];
+  int grid_1dim[DIM];
+  int grid_index_1dim[DIM];
+  give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
+  MPI_Request send_request[WARDS];
+  MPI_Request recv_request[WARDS];
+  void *send_vec[WARDS];
+  void *recv_vec[WARDS];
+  malloc_recv(lat_3dim6, send_vec, recv_vec);
+  // define end
+  auto start = std::chrono::high_resolution_clock::now();
+  // mpi wilson dslash
+  _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
+                lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
+                move, send_request, recv_request, send_vec, recv_vec);
+  auto end = std::chrono::high_resolution_clock::now();
+  auto duration =
+      std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  err = cudaGetLastError();
+  checkCudaErrors(err);
+  printf("mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
+         "sec\n",
+         double(duration) / 1e9);
+  // free
+  free_recv(send_vec, recv_vec);
+}
+#endif
