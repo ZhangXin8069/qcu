@@ -1,2 +1,2 @@
 bash ./make.sh 
-nsys nvprof ./test
+nvprof ./test
