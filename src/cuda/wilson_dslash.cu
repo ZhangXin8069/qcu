@@ -1,6 +1,6 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
-
+#ifdef WILSON_DSLASH
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
@@ -230,7 +230,6 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   give_ptr(origin_dest, dest, 12);
 }
 
-#ifdef WILSON_DSLASH
 void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity) {
   const int lat_x = param->lattice_size[0] >> 1;
@@ -257,8 +256,8 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
             .count();
     // printf(
-    //     "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
-    //     double(duration) / 1e9);
+    //     "wilson dslash total time: (without malloc free memcpy) : %.9lf
+    //     sec\n", double(duration) / 1e9);
   }
   {
     // free
