@@ -1,4 +1,4 @@
 bash ./make.sh
-pushd ../test
+pushd ./test
 mpirun -n 1 --mca btl tcp,vader,self,smcuda python ./test.mpi.bistabcg.qcu-np1.py
 popd
