@@ -1,4 +1,4 @@
 bash ./make.sh
 pushd ./test
-mpirun -n 1 python ./test.bistabcg.qcu.py
+nsys nvprof mpirun -n 1 python ./test.bistabcg.qcu.py
 popd

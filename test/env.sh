@@ -1,1 +1,2 @@
-../env.sh
+# init
+echo "There is nothing here!"

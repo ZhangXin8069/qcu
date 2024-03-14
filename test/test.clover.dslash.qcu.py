@@ -60,8 +60,8 @@ def compare(round):
 
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.dslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
-    pyqcu.dslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
+    pyqcu.dslashCloverQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
+    pyqcu.dslashCloverQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print("######Mp[0,0,0,1]:\n",Mp.lexico()[0,0,0,1])
