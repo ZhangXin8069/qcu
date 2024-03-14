@@ -1,3 +1,0 @@
-/home/zhangxin/qcu/CMakeFiles/qcu.dir
-/home/zhangxin/qcu/CMakeFiles/edit_cache.dir
-/home/zhangxin/qcu/CMakeFiles/rebuild_cache.dir
