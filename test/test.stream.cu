@@ -1,102 +1,77 @@
-#include "cuda_runtime.h"
+#include <cuda_runtime.h>
 #include <iostream>
-#include <math.h>
-#include <stdio.h>
 
-#define N (1024 * 1024)
-#define FULL_DATA_SIZE N * 20
-
-__global__ void kernel(int *a, int *b, int *c) {
-  int threadID = blockIdx.x * blockDim.x + threadIdx.x;
-
-  if (threadID < N) {
-    c[threadID] = (a[threadID] + b[threadID]) / 2;
+// CUDA 核函数，将矩阵乘以标量
+__global__ void matrixScalarMultiply(float *matrix, float scalar, float *result,
+                                     int rows, int cols) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  if (idx < rows * cols) {
+    for (int i = 0; i < 1000; ++i) { // 增加循环次数以增加计算量
+      result[idx] = matrix[idx] * scalar;
+    }
   }
 }
 
 int main() {
-  // 获取设备属性
-  cudaDeviceProp prop;
-  int deviceID;
-  cudaGetDevice(&deviceID);
-  cudaGetDeviceProperties(&prop, deviceID);
+  const int rows = 1000;
+  const int cols = 1000;
+  const int numStreams = 4; // 定义流的数量
 
-  // 检查设备是否支持重叠功能
-  if (!prop.deviceOverlap) {
-    printf("No device will handle overlaps. so no speed up from stream.\n");
-    return 0;
+  float scalar = 2.0f;
+  cudaEvent_t start, stop;
+
+  // 分配统一内存给矩阵和结果
+  float *matrix, *result;
+
+  cudaMallocManaged(&matrix, rows * cols * sizeof(float));
+  cudaMallocManaged(&result, rows * cols * sizeof(float));
+
+  // 初始化输入数据
+  for (int i = 0; i < rows * cols; ++i) {
+    matrix[i] = i;
+  }
+
+  cudaStream_t stream[numStreams];
+
+  // 创建流
+  for (int i = 0; i < numStreams; ++i) {
+    cudaStreamCreate(&stream[i]);
   }
 
   // 启动计时器
-  cudaEvent_t start, stop;
-  float elapsedTime;
   cudaEventCreate(&start);
   cudaEventCreate(&stop);
-  cudaEventRecord(start, 0);
+  cudaEventRecord(start);
 
-  // 创建一个CUDA流
-  cudaStream_t stream;
-  cudaStreamCreate(&stream);
-
-  int *host_a, *host_b, *host_c;
-  int *dev_a, *dev_b, *dev_c;
-
-  // 在GPU上分配内存
-  cudaMalloc((void **)&dev_a, N * sizeof(int));
-  cudaMalloc((void **)&dev_b, N * sizeof(int));
-  cudaMalloc((void **)&dev_c, N * sizeof(int));
-
-  // 在CPU上分配页锁定内存
-  cudaHostAlloc((void **)&host_a, FULL_DATA_SIZE * sizeof(int),
-                cudaHostAllocDefault);
-  cudaHostAlloc((void **)&host_b, FULL_DATA_SIZE * sizeof(int),
-                cudaHostAllocDefault);
-  cudaHostAlloc((void **)&host_c, FULL_DATA_SIZE * sizeof(int),
-                cudaHostAllocDefault);
-
-  // 主机上的内存赋值
-  for (int i = 0; i < FULL_DATA_SIZE; i++) {
-    host_a[i] = i;
-    host_b[i] = FULL_DATA_SIZE - i;
+  // 启动核函数，使用多个CUDA流
+  for (int i = 0; i < numStreams; ++i) {
+    matrixScalarMultiply<<<(rows * cols) / 256 + 1, 256, 0, stream[i]>>>(
+        matrix + i * (rows * cols / numStreams), scalar,
+        result + i * (rows * cols / numStreams), rows, cols);
   }
 
-  for (int i = 0; i < FULL_DATA_SIZE; i += N) {
-    cudaMemcpyAsync(dev_a, host_a + i, N * sizeof(int), cudaMemcpyHostToDevice,
-                    stream);
-    cudaMemcpyAsync(dev_b, host_b + i, N * sizeof(int), cudaMemcpyHostToDevice,
-                    stream);
-
-    kernel<<<N / 1024, 1024, 0, stream>>>(dev_a, dev_b, dev_c);
-
-    cudaMemcpyAsync(host_c + i, dev_c, N * sizeof(int), cudaMemcpyDeviceToHost,
-                    stream);
+  // 同步流，等待所有操作完成
+  for (int i = 0; i < numStreams; ++i) {
+    cudaStreamSynchronize(stream[i]);
+    cudaStreamDestroy(stream[i]);
   }
 
-  // wait until gpu execution finish
-  cudaStreamSynchronize(stream);
-
-  cudaEventRecord(stop, 0);
+  // 停止计时器并计算执行时间
+  cudaEventRecord(stop);
   cudaEventSynchronize(stop);
-  cudaEventElapsedTime(&elapsedTime, start, stop);
+  float milliseconds = 0;
+  cudaEventElapsedTime(&milliseconds, start, stop);
+  std::cout << "Execution time: " << milliseconds << " ms" << std::endl;
 
-  std::cout << "消耗时间： " << elapsedTime << std::endl;
-
-  // 输出前10个结果
-  for (int i = 0; i < 10; i++) {
-    std::cout << host_c[i] << std::endl;
+  // 打印部分结果
+  for (int i = 0; i < 10; ++i) {
+    std::cout << result[i] << " ";
   }
+  std::cout << std::endl;
 
-  getchar();
+  // 释放内存
+  cudaFree(matrix);
+  cudaFree(result);
 
-  // free stream and mem
-  cudaFreeHost(host_a);
-  cudaFreeHost(host_b);
-  cudaFreeHost(host_c);
-
-  cudaFree(dev_a);
-  cudaFree(dev_b);
-  cudaFree(dev_c);
-
-  cudaStreamDestroy(stream);
   return 0;
 }

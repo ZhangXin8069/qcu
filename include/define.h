@@ -312,7 +312,6 @@
     wilson_dslash_x_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);                    \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
     move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);                  \
     move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);                   \
     move[B] =                                                                  \
@@ -323,6 +322,7 @@
               MPI_COMM_WORLD, &recv_request[B_X]);                             \
     MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], B_X,        \
               MPI_COMM_WORLD, &recv_request[F_X]);                             \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     MPI_Isend(send_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], B_X,        \
               MPI_COMM_WORLD, &send_request[B_X]);                             \
     MPI_Isend(send_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], F_X,        \
@@ -330,7 +330,6 @@
     wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);                    \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
     move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);                  \
     move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);                   \
     move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];               \
@@ -339,6 +338,7 @@
               MPI_COMM_WORLD, &recv_request[B_Y]);                             \
     MPI_Irecv(recv_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], B_Y,        \
               MPI_COMM_WORLD, &recv_request[F_Y]);                             \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     MPI_Isend(send_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], B_Y,        \
               MPI_COMM_WORLD, &send_request[B_Y]);                             \
     MPI_Isend(send_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], F_Y,        \
@@ -346,7 +346,6 @@
     wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);                    \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
     move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);                  \
     move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);                   \
     move[B] = node_rank + move[B] * grid_1dim[T];                              \
@@ -355,6 +354,7 @@
               MPI_COMM_WORLD, &recv_request[B_Z]);                             \
     MPI_Irecv(recv_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], B_Z,        \
               MPI_COMM_WORLD, &recv_request[F_Z]);                             \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     MPI_Isend(send_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], B_Z,        \
               MPI_COMM_WORLD, &send_request[B_Z]);                             \
     MPI_Isend(send_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], F_Z,        \
@@ -362,7 +362,6 @@
     wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);                    \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
     move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);                  \
     move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);                   \
     move[B] = node_rank + move[B];                                             \
@@ -371,6 +370,7 @@
               MPI_COMM_WORLD, &recv_request[B_T]);                             \
     MPI_Irecv(recv_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], B_T,        \
               MPI_COMM_WORLD, &recv_request[F_T]);                             \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     MPI_Isend(send_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], B_T,        \
               MPI_COMM_WORLD, &send_request[B_T]);                             \
     MPI_Isend(send_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], F_T,        \
@@ -395,9 +395,8 @@
     wilson_dslash_t_recv<<<gridDim, blockDim>>>(                               \
         gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],             \
         lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);                    \
-    MPI_Barrier(MPI_COMM_WORLD);                                               \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
-  }
+    MPI_Barrier(MPI_COMM_WORLD);\
+}
 
 #define malloc_vec(lat_3dim6, send_vec, recv_vec)                              \
   {                                                                            \
