@@ -21,7 +21,7 @@
             "qcu"
         ],
         "library_dirs": [
-            "/home/aistudio/work/qcu/lib"
+            "/home/aistudio/work/qcu/bml-nv/lib"
         ],
         "name": "pyquda.pyqcu",
         "sources": [
