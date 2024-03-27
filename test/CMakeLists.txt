@@ -11,7 +11,7 @@ set(MAXRREGCOUNT "256")
 
 # Set CUDA architecture and other flags
 # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 -lnccl")
 set(CMAKE_CUDA_ARCHITECTURES "70")
 
 # Manually set MPI include and library paths
@@ -25,7 +25,8 @@ include_directories(../include)
 # Set your source files
 aux_source_directory(../src/cuda SOURCE_FILE)
 # Add an executable and link the necessary libraries
+
 find_package(MPI REQUIRED)
-add_executable(test test.mpi.bistabcg-np1.cu ${SOURCE_FILE})
+add_executable(test test.nccl.bistabcg-np4.cu ${SOURCE_FILE})
 target_link_libraries(test ${MPI_C_LIBRARIES})
 target_link_libraries(test ${CUDA_LIBRARIES})
