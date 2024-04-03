@@ -1,4 +1,4 @@
-#include <cstdio>
+
 #pragma optimize(5)
 #include "../include/qcu.h"
 // #define DEBUG_MPI_WILSON_CG
@@ -31,10 +31,10 @@ int main(int argc, char *argv[]) {
   int grid_1dim[DIM];
   int grid_index_1dim[DIM];
   MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
-  grid_1dim[X] = 2;
+  grid_1dim[X] = GRID_EXAMPLE;
   grid_1dim[Y] = GRID_EXAMPLE;
   grid_1dim[Z] = GRID_EXAMPLE;
-  grid_1dim[T] = 2;
+  grid_1dim[T] = GRID_EXAMPLE;
   grid_index_1dim[X] = node_rank / grid_1dim[T] / grid_1dim[Z] / grid_1dim[Y];
   grid_index_1dim[Y] = node_rank / grid_1dim[T] / grid_1dim[Z] % grid_1dim[Y];
   grid_index_1dim[Z] = node_rank / grid_1dim[T] % grid_1dim[Z];
@@ -209,5 +209,6 @@ int main(int argc, char *argv[]) {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  MPI_Finalize();
   return 0;
 }
