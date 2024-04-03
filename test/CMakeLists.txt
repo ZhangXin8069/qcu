@@ -27,6 +27,6 @@ aux_source_directory(../src/cuda SOURCE_FILE)
 # Add an executable and link the necessary libraries
 
 find_package(MPI REQUIRED)
-add_executable(test test.nccl.bistabcg-np4.cu ${SOURCE_FILE})
+add_executable(test test.nccl.bistabcg-np1.cu ${SOURCE_FILE})
 target_link_libraries(test ${MPI_C_LIBRARIES})
 target_link_libraries(test ${CUDA_LIBRARIES})
