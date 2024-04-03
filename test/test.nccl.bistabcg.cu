@@ -1,40 +1,7 @@
 #pragma optimize(5)
 #include "../include/qcu.h"
-#include <unistd.h>
-#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero, nccl_comm,   \
-                 stream)                                                       \
-  {                                                                            \
-    (*local_result) = zero;                                                    \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      (*local_result) += val0[i].conj() * val1[i];                             \
-    }                                                                          \
-    NCCLCHECK(ncclAllReduce((const void *)local_result, (void *)tmp, 2,        \
-                            ncclDouble, ncclSum, nccl_comm, stream));          \
-    CUDACHECK(cudaStreamSynchronize(stream));                                  \
-  }
-
-static uint64_t getHostHash(const char *string) {
-  // Based on DJB2a, result = result * 33 ^ char
-  uint64_t result = 5381;
-  for (int c = 0; string[c] != '\0'; c++) {
-    result = ((result << 5) + result) ^ string[c];
-  }
-  return result;
-}
-
-static void getHostName(char *hostname, int maxlen) {
-  gethostname(hostname, maxlen);
-  for (int i = 0; i < maxlen; i++) {
-    if (hostname[i] == '.') {
-      hostname[i] = '\0';
-      return;
-    }
-  }
-}
 
 int main(int argc, char *argv[]) {
-  int size = 32 * 1024 * 1024;
-
   int node_rank, node_size, localRank = 0;
   // initializing MPI
   MPICHECK(MPI_Init(&argc, &argv));
@@ -55,26 +22,17 @@ int main(int argc, char *argv[]) {
   }
   ncclUniqueId nccl_id;
   ncclComm_t nccl_comm;
-  float *sendbuff, *recvbuff;
   cudaStream_t stream;
   // get NCCL unique nccl_id at rank 0 and broadcast it to all others
   if (node_rank == 0)
     ncclGetUniqueId(&nccl_id);
   MPICHECK(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
                      MPI_COMM_WORLD));
-
-  // picking a GPU based on localRank, allocate device buffers
+  // picking a GPU based on localRank
   CUDACHECK(cudaSetDevice(localRank));
-  CUDACHECK(cudaMalloc(&sendbuff, size * sizeof(float)));
-  CUDACHECK(cudaMalloc(&recvbuff, size * sizeof(float)));
   CUDACHECK(cudaStreamCreate(&stream));
   // initializing NCCL
   NCCLCHECK(ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
-  // communicating using NCCL
-  NCCLCHECK(ncclAllReduce((const void *)sendbuff, (void *)recvbuff, size,
-                          ncclFloat, ncclSum, nccl_comm, stream));
-  // completing NCCL operation by synchronizing on the CUDA stream
-  CUDACHECK(cudaStreamSynchronize(stream));
   // mpi wilson bistabcg
   {
     // define for mpi_wilson_dslash
@@ -99,11 +57,9 @@ int main(int argc, char *argv[]) {
     cudaError_t err;
     dim3 gridDim(lat_4dim / BLOCK_SIZE);
     dim3 blockDim(BLOCK_SIZE);
-    int node_rank;
     int move[BF];
     int grid_1dim[DIM];
     int grid_index_1dim[DIM];
-    MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
     grid_1dim[X] = GRID_EXAMPLE;
     grid_1dim[Y] = GRID_EXAMPLE;
     grid_1dim[Z] = GRID_EXAMPLE;
@@ -279,8 +235,8 @@ int main(int argc, char *argv[]) {
            "memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
-    mpi_diff((*local_result), lat_4dim12, x_o, ans_o, (*tmp), latt_tmp0, (*tmp0),
-             (*tmp1), zero);
+    mpi_diff((*local_result), lat_4dim12, x_o, ans_o, (*tmp), latt_tmp0,
+             (*tmp0), (*tmp1), zero);
     printf("## difference: %.16f ", (*tmp).real);
     // free
     free_vec(send_vec, recv_vec);
@@ -294,9 +250,6 @@ int main(int argc, char *argv[]) {
     cudaFree(s);
     cudaFree(t);
   }
-  // free device buffers
-  CUDACHECK(cudaFree(sendbuff));
-  CUDACHECK(cudaFree(recvbuff));
   // finalizing NCCL
   ncclCommDestroy(nccl_comm);
   // finalizing MPI
