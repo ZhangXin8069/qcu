@@ -610,4 +610,35 @@
     }                                                                          \
   }
 
+#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero, nccl_comm,   \
+                 stream)                                                       \
+  {                                                                            \
+    (*local_result) = zero;                                                    \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      (*local_result) += val0[i].conj() * val1[i];                             \
+    }                                                                          \
+    NCCLCHECK(ncclAllReduce((const void *)local_result, (void *)tmp, 2,        \
+                            ncclDouble, ncclSum, nccl_comm, stream));          \
+    CUDACHECK(cudaStreamSynchronize(stream));                                  \
+  }
+
+static uint64_t getHostHash(const char *string) {
+  // Based on DJB2a, result = result * 33 ^ char
+  uint64_t result = 5381;
+  for (int c = 0; string[c] != '\0'; c++) {
+    result = ((result << 5) + result) ^ string[c];
+  }
+  return result;
+}
+
+static void getHostName(char *hostname, int maxlen) {
+  gethostname(hostname, maxlen);
+  for (int i = 0; i < maxlen; i++) {
+    if (hostname[i] == '.') {
+      hostname[i] = '\0';
+      return;
+    }
+  }
+}
+
 #endif

@@ -13,5 +13,6 @@
 #include <nccl.h>
 #include <random>
 #include <string>
+#include <unistd.h>
 
 #endif
