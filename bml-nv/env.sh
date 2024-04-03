@@ -5,7 +5,5 @@ echo 'HOME:'${_HOME}
 ## zhangxin
 export LD_LIBRARY_PATH=${_HOME}/lib:$LD_LIBRARY_PATH # if any
 export TERM=xterm-256color
-export PATH=$PATH:${_HOME}/bin
+export PATH=${_HOME}/bin:$PATH
 export PYTHONPATH="/home/aistudio/external-libraries" # bml
-## openmpi
-## cuda

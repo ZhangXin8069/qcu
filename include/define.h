@@ -35,7 +35,7 @@
 #define NOWARD 0
 #define FORWARD 1
 #define SR 2
-#define LAT_EXAMPLE 16
+#define LAT_EXAMPLE 32
 #define GRID_EXAMPLE 1
 
 #define WILSON_DSLASH
@@ -76,6 +76,35 @@
       exit(-1);                                                                \
     }                                                                          \
   }
+
+#define MPICHECK(cmd)                                                          \
+  do {                                                                         \
+    int e = cmd;                                                               \
+    if (e != MPI_SUCCESS) {                                                    \
+      printf("Failed: MPI error %s:%d '%d'\n", __FILE__, __LINE__, e);         \
+      exit(EXIT_FAILURE);                                                      \
+    }                                                                          \
+  } while (0)
+
+#define CUDACHECK(cmd)                                                         \
+  do {                                                                         \
+    cudaError_t e = cmd;                                                       \
+    if (e != cudaSuccess) {                                                    \
+      printf("Failed: Cuda error %s:%d '%s'\n", __FILE__, __LINE__,            \
+             cudaGetErrorString(e));                                           \
+      exit(EXIT_FAILURE);                                                      \
+    }                                                                          \
+  } while (0)
+
+#define NCCLCHECK(cmd)                                                         \
+  do {                                                                         \
+    ncclResult_t r = cmd;                                                      \
+    if (r != ncclSuccess) {                                                    \
+      printf("Failed, NCCL error %s:%d '%s'\n", __FILE__, __LINE__,            \
+             ncclGetErrorString(r));                                           \
+      exit(EXIT_FAILURE);                                                      \
+    }                                                                          \
+  } while (0)
 
 // little strange, but don't want change
 #define give_value(U, zero, n)                                                 \
@@ -580,5 +609,36 @@
       dest_o[i] = src_o[i] - latt_tmp1[i] * kappa * kappa;                     \
     }                                                                          \
   }
+
+#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero, nccl_comm,   \
+                 stream)                                                       \
+  {                                                                            \
+    (*local_result) = zero;                                                    \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      (*local_result) += val0[i].conj() * val1[i];                             \
+    }                                                                          \
+    NCCLCHECK(ncclAllReduce((const void *)local_result, (void *)tmp, 2,        \
+                            ncclDouble, ncclSum, nccl_comm, stream));          \
+    CUDACHECK(cudaStreamSynchronize(stream));                                  \
+  }
+
+static uint64_t getHostHash(const char *string) {
+  // Based on DJB2a, result = result * 33 ^ char
+  uint64_t result = 5381;
+  for (int c = 0; string[c] != '\0'; c++) {
+    result = ((result << 5) + result) ^ string[c];
+  }
+  return result;
+}
+
+static void getHostName(char *hostname, int maxlen) {
+  gethostname(hostname, maxlen);
+  for (int i = 0; i < maxlen; i++) {
+    if (hostname[i] == '.') {
+      hostname[i] = '\0';
+      return;
+    }
+  }
+}
 
 #endif
