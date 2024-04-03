@@ -12,5 +12,6 @@
 #include <mpi.h>
 #include <random>
 #include <string>
+#include <nccl.h>
 
 #endif
