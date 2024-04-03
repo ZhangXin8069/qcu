@@ -7,13 +7,21 @@
     for (int i = 0; i < lat_4dim12; i++) {                                     \
       local_result += val0[i].conj() * val1[i];                                \
     }                                                                          \
-    ncclAllReduce(&local_result, &tmp, 2, ncclDouble, ncclSum, nccl_comm,      \
-                  nccl_stream)                                                 \
+    NCCLCHECK(ncclGroupStart());                                               \
+    for (int i = 0; i < node_size; ++i)                                        \
+      NCCLCHECK(ncclAllReduce((const void *)sendbuff[i], (void *)recvbuff[i],  \
+                              data_size, ncclFloat, ncclSum, nccl_comms[i],    \
+                              stream[i]));                                     \
+    NCCLCHECK(ncclGroupEnd());                                                 \
+    for (int i = 0; i < node_size; ++i) {                                      \
+      CUDACHECK(cudaSetDevice(i));                                             \
+      CUDACHECK(cudaStreamSynchronize(stream[i]));                             \
+    }                                                                          \
   }
 
 int main(int argc, char *argv[]) {
   MPI_Init(&argc, &argv);
-  
+
   ncclComm_t nccl_comms[4];
   int node_size;
   MPI_Comm_size(MPI_COMM_WORLD, &node_size);
