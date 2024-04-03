@@ -1,2 +1,2 @@
 bash ./make.sh 
-nvprof mpirun -np 4 ./test
+mpirun -np 4 ./test
