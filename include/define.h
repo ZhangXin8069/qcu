@@ -559,16 +559,6 @@
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
 
-#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero)               \
-  {                                                                            \
-    local_result = zero;                                                       \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      local_result += val0[i].conj() * val1[i];                                \
-    } \
-    ncclAllReduce(&local_result, &tmp, 2, ncclDouble, ncclSum, nccl_comm, nccl_stream)        \                                                                 \                                          \
-  }\
-
-
 #define mpi_diff(local_result, lat_4dim12, val0, val1, tmp, latt_tmp0, tmp0,   \
                  tmp1, zero)                                                   \
   {                                                                            \
