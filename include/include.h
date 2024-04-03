@@ -10,7 +10,9 @@
 #include <cuda.h>
 #include <iostream>
 #include <mpi.h>
+#include <nccl.h>
 #include <random>
 #include <string>
+#include <unistd.h>
 
 #endif
