@@ -209,5 +209,6 @@ int main(int argc, char *argv[]) {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  MPI_Finalize();
   return 0;
 }

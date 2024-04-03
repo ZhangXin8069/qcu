@@ -219,5 +219,6 @@ int main(int argc, char *argv[]) {
   cudaFree(s);
   cudaFree(t);
   // ncclCommDestroy(nccl_comm);
+  MPI_Finalize();
   return 0;
 }

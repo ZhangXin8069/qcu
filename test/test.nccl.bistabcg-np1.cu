@@ -1,6 +1,7 @@
 #include <cstdio>
 #pragma optimize(5)
 #include "../include/qcu.h"
+#include "/usr/include/nccl.h"
 // #define DEBUG_MPI_WILSON_CG
 int main(int argc, char *argv[]) {
   MPI_Init(&argc, &argv);
@@ -50,6 +51,14 @@ int main(int argc, char *argv[]) {
   cudaMallocManaged(&gauge, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD *
                                 sizeof(LatticeComplex));
   give_rand(gauge, lat_4dim * LAT_D * LAT_C * LAT_C);
+  // define end
+  // define nccl
+  int node_size;
+  MPI_Comm_size(MPI_COMM_WORLD, &node_size);
+  ncclUniqueId nccl_id;
+  ncclGetUniqueId(&nccl_id);
+  ncclComm_t nccl_comm;
+  ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank);
   // define end
   // define for mpi_wilson_cg
   int lat_4dim12 = lat_4dim * 12;
@@ -209,5 +218,6 @@ int main(int argc, char *argv[]) {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  MPI_Finalize();
   return 0;
 }
