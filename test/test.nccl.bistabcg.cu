@@ -1,60 +1,80 @@
 #pragma optimize(5)
 #include "../include/qcu.h"
-
-#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero)              \
+#include <unistd.h>
+#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero, nccl_comm,   \
+                 stream)                                                       \
   {                                                                            \
-    local_result = zero;                                                       \
+    (*local_result) = zero;                                                    \
     for (int i = 0; i < lat_4dim12; i++) {                                     \
-      local_result += val0[i].conj() * val1[i];                                \
+      (*local_result) += val0[i].conj() * val1[i];                             \
     }                                                                          \
-    NCCLCHECK(ncclGroupStart());                                               \
-    for (int i = 0; i < node_size; ++i)                                        \
-      NCCLCHECK(ncclAllReduce((const void *)sendbuff[i], (void *)recvbuff[i],  \
-                              data_size, ncclFloat, ncclSum, nccl_comms[i],    \
-                              stream[i]));                                     \
-    NCCLCHECK(ncclGroupEnd());                                                 \
-    for (int i = 0; i < node_size; ++i) {                                      \
-      CUDACHECK(cudaSetDevice(i));                                             \
-      CUDACHECK(cudaStreamSynchronize(stream[i]));                             \
-    }                                                                          \
+    NCCLCHECK(ncclAllReduce((const void *)local_result, (void *)tmp, 2,        \
+                            ncclDouble, ncclSum, nccl_comm, stream));          \
+    CUDACHECK(cudaStreamSynchronize(stream));                                  \
   }
+
+static uint64_t getHostHash(const char *string) {
+  // Based on DJB2a, result = result * 33 ^ char
+  uint64_t result = 5381;
+  for (int c = 0; string[c] != '\0'; c++) {
+    result = ((result << 5) + result) ^ string[c];
+  }
+  return result;
+}
+
+static void getHostName(char *hostname, int maxlen) {
+  gethostname(hostname, maxlen);
+  for (int i = 0; i < maxlen; i++) {
+    if (hostname[i] == '.') {
+      hostname[i] = '\0';
+      return;
+    }
+  }
+}
 
 int main(int argc, char *argv[]) {
-  MPI_Init(&argc, &argv);
+  int size = 32 * 1024 * 1024;
 
-  ncclComm_t nccl_comms[4];
-  int node_size;
-  MPI_Comm_size(MPI_COMM_WORLD, &node_size);
-  int data_size = 32 * 1024 * 1024;
-  int nccl_devs[4] = {0, 1, 2, 3};
-  // allocating and initializing device buffers
-  float **sendbuff = (float **)malloc(node_size * sizeof(float *));
-  float **recvbuff = (float **)malloc(node_size * sizeof(float *));
-  cudaStream_t *stream =
-      (cudaStream_t *)malloc(sizeof(cudaStream_t) * node_size);
-  for (int i = 0; i < node_size; ++i) {
-    CUDACHECK(cudaSetDevice(i));
-    CUDACHECK(cudaMalloc((void **)sendbuff + i, data_size * sizeof(float)));
-    CUDACHECK(cudaMalloc((void **)recvbuff + i, data_size * sizeof(float)));
-    CUDACHECK(cudaMemset(sendbuff[i], 1, data_size * sizeof(float)));
-    CUDACHECK(cudaMemset(recvbuff[i], 0, data_size * sizeof(float)));
-    CUDACHECK(cudaStreamCreate(stream + i));
+  int node_rank, node_size, localRank = 0;
+  // initializing MPI
+  MPICHECK(MPI_Init(&argc, &argv));
+  MPICHECK(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
+  MPICHECK(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
+  // calculating localRank based on hostname which is used in selecting a GPU
+  uint64_t hostHashs[node_size];
+  char hostname[1024];
+  getHostName(hostname, 1024);
+  hostHashs[node_rank] = getHostHash(hostname);
+  MPICHECK(MPI_Allgather(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, hostHashs,
+                         sizeof(uint64_t), MPI_BYTE, MPI_COMM_WORLD));
+  for (int p = 0; p < node_size; p++) {
+    if (p == node_rank)
+      break;
+    if (hostHashs[p] == hostHashs[node_rank])
+      localRank++;
   }
+  ncclUniqueId nccl_id;
+  ncclComm_t nccl_comm;
+  float *sendbuff, *recvbuff;
+  cudaStream_t stream;
+  // get NCCL unique nccl_id at rank 0 and broadcast it to all others
+  if (node_rank == 0)
+    ncclGetUniqueId(&nccl_id);
+  MPICHECK(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
+                     MPI_COMM_WORLD));
+
+  // picking a GPU based on localRank, allocate device buffers
+  CUDACHECK(cudaSetDevice(localRank));
+  CUDACHECK(cudaMalloc(&sendbuff, size * sizeof(float)));
+  CUDACHECK(cudaMalloc(&recvbuff, size * sizeof(float)));
+  CUDACHECK(cudaStreamCreate(&stream));
   // initializing NCCL
-  NCCLCHECK(ncclCommInitAll(nccl_comms, node_size, nccl_devs));
-  // calling NCCL communication API. Group API is required when using
-  // multiple devices per thread
-  NCCLCHECK(ncclGroupStart());
-  for (int i = 0; i < node_size; ++i)
-    NCCLCHECK(ncclAllReduce((const void *)sendbuff[i], (void *)recvbuff[i],
-                            data_size, ncclFloat, ncclSum, nccl_comms[i],
-                            stream[i]));
-  NCCLCHECK(ncclGroupEnd());
-  // synchronizing on CUDA streams to wait for completion of NCCL operation
-  for (int i = 0; i < node_size; ++i) {
-    CUDACHECK(cudaSetDevice(i));
-    CUDACHECK(cudaStreamSynchronize(stream[i]));
-  }
+  NCCLCHECK(ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
+  // communicating using NCCL
+  NCCLCHECK(ncclAllReduce((const void *)sendbuff, (void *)recvbuff, size,
+                          ncclFloat, ncclSum, nccl_comm, stream));
+  // completing NCCL operation by synchronizing on the CUDA stream
+  CUDACHECK(cudaStreamSynchronize(stream));
   // mpi wilson bistabcg
   {
     // define for mpi_wilson_dslash
@@ -117,10 +137,14 @@ int main(int argc, char *argv[]) {
     LatticeComplex omega(1.0, 0.0);
     LatticeComplex beta(0.0, 0.0);
     double kappa = 0.125;
-    LatticeComplex tmp(0.0, 0.0);
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex local_result(0.0, 0.0);
+    LatticeComplex *tmp;
+    cudaMallocManaged(&tmp, sizeof(LatticeComplex));
+    LatticeComplex *tmp0;
+    cudaMallocManaged(&tmp0, sizeof(LatticeComplex));
+    LatticeComplex *tmp1;
+    cudaMallocManaged(&tmp1, sizeof(LatticeComplex));
+    LatticeComplex *local_result;
+    cudaMallocManaged(&local_result, sizeof(LatticeComplex));
     LatticeComplex *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde,
         *p, *v, *s, *t, *latt_tmp0, *latt_tmp1;
     cudaMallocManaged(&ans_e, lat_4dim12 * sizeof(LatticeComplex));
@@ -186,7 +210,9 @@ int main(int argc, char *argv[]) {
     // define end
     auto start = std::chrono::high_resolution_clock::now();
     for (int loop = 0; loop < MAX_ITER; loop++) {
-      mpi_dot(local_result, lat_4dim12, r_tilde, r, rho, zero);
+      nccl_dot(local_result, lat_4dim12, r_tilde, r, tmp, zero, nccl_comm,
+               stream);
+      rho = (*tmp);
 #ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##rho:" << rho.real << std::endl;
@@ -204,8 +230,9 @@ int main(int argc, char *argv[]) {
               gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
               grid_index_1dim, move, send_request, recv_request, send_vec,
               recv_vec, zero);
-      mpi_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero);
-      alpha = rho / tmp;
+      nccl_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero, nccl_comm,
+               stream);
+      alpha = rho / (*tmp);
 #ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##alpha:" << alpha.real << std::endl;
@@ -218,9 +245,9 @@ int main(int argc, char *argv[]) {
               gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
               grid_index_1dim, move, send_request, recv_request, send_vec,
               recv_vec, zero);
-      mpi_dot(local_result, lat_4dim12, t, s, tmp0, zero);
-      mpi_dot(local_result, lat_4dim12, t, t, tmp1, zero);
-      omega = tmp0 / tmp1;
+      nccl_dot(local_result, lat_4dim12, t, s, tmp0, zero, nccl_comm, stream);
+      nccl_dot(local_result, lat_4dim12, t, t, tmp1, zero, nccl_comm, stream);
+      omega = (*tmp0) / (*tmp1);
 #ifdef DEBUG_MPI_WILSON_CG
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##omega:" << omega.real << std::endl;
@@ -231,7 +258,8 @@ int main(int argc, char *argv[]) {
       for (int i = 0; i < lat_4dim12; i++) {
         r[i] = s[i] - t[i] * omega;
       }
-      mpi_dot(local_result, lat_4dim12, r, r, r_norm2, zero);
+      nccl_dot(local_result, lat_4dim12, r, r, tmp, zero, nccl_comm, stream);
+      r_norm2 = (*tmp);
       std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
                 << "##Residual:" << r_norm2.real << std::endl;
       // break;
@@ -251,9 +279,9 @@ int main(int argc, char *argv[]) {
            "memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
-    mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
-             zero);
-    printf("## difference: %.16f ", tmp.real);
+    mpi_diff((*local_result), lat_4dim12, x_o, ans_o, (*tmp), latt_tmp0, (*tmp0),
+             (*tmp1), zero);
+    printf("## difference: %.16f ", (*tmp).real);
     // free
     free_vec(send_vec, recv_vec);
     cudaFree(gauge);
@@ -267,15 +295,12 @@ int main(int argc, char *argv[]) {
     cudaFree(t);
   }
   // free device buffers
-  for (int i = 0; i < node_size; ++i) {
-    CUDACHECK(cudaSetDevice(i));
-    CUDACHECK(cudaFree(sendbuff[i]));
-    CUDACHECK(cudaFree(recvbuff[i]));
-  }
+  CUDACHECK(cudaFree(sendbuff));
+  CUDACHECK(cudaFree(recvbuff));
   // finalizing NCCL
-  for (int i = 0; i < node_size; ++i)
-    ncclCommDestroy(nccl_comms[i]);
-  printf("Success \n");
-  MPI_Finalize();
+  ncclCommDestroy(nccl_comm);
+  // finalizing MPI
+  MPICHECK(MPI_Finalize());
+  printf("[MPI Rank %d] Success \n", node_rank);
   return 0;
 }
