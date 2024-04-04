@@ -903,6 +903,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   void *recv_vec[WARDS];
   malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
+  checkCudaErrors(cudaDeviceSynchronize());
   auto start = std::chrono::high_resolution_clock::now();
   // mpi wilson dslash
   _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
