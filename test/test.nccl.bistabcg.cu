@@ -231,7 +231,7 @@ int main(int argc, char *argv[]) {
             .count();
     err = cudaGetLastError();
     checkCudaErrors(err);
-    printf("mpi wilson bistabcg total time: (without malloc free "
+    printf("nccl wilson bistabcg total time: (without malloc free "
            "memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
