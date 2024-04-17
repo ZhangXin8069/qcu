@@ -1,7 +1,7 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
-#ifdef MPI_WILSON_DSLASH
-void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+#ifdef NCCL_WILSON_DSLASH
+void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                   QcuParam *param, int parity, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
@@ -31,7 +31,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   checkCudaErrors(cudaDeviceSynchronize());
   auto start = std::chrono::high_resolution_clock::now();
   // mpi wilson dslash
-  _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
+  _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
                 lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
                 move, send_request, recv_request, send_vec, recv_vec);
   auto end = std::chrono::high_resolution_clock::now();
@@ -39,7 +39,7 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
       std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
   err = cudaGetLastError();
   checkCudaErrors(err);
-  printf("mpi wilson dslash total time: (without malloc free memcpy) :%.9lf "
+  printf("nccl wilson dslash total time: (without malloc free memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
   // free

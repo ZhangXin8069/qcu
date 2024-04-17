@@ -2,7 +2,6 @@
 #define _COMPLEX_H
 #pragma optimize(5)
 #include "./qcu.h"
-
 // Complex number class
 class Complex {
 public:
@@ -133,5 +132,4 @@ public:
     return std::to_string(real) + " + " + std::to_string(imag) + "i";
   }
 };
-
 #endif
