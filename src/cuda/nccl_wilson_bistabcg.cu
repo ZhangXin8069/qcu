@@ -9,6 +9,19 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // MPICHECK(MPI_Init(&argc, &argv));
   MPICHECK(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
   MPICHECK(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
+  // calculating localRank based on hostname which is used in selecting a GPU
+  uint64_t hostHashs[node_size];
+  char hostname[1024];
+  getHostName(hostname, 1024);
+  hostHashs[node_rank] = getHostHash(hostname);
+  MPICHECK(MPI_Allgather(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, hostHashs,
+                         sizeof(uint64_t), MPI_BYTE, MPI_COMM_WORLD));
+  for (int p = 0; p < node_size; p++) {
+    if (p == node_rank)
+      break;
+    if (hostHashs[p] == hostHashs[node_rank])
+      localRank++;
+  }
   ncclUniqueId nccl_id;
   ncclComm_t nccl_comm;
   cudaStream_t stream;
