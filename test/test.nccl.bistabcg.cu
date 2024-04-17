@@ -35,7 +35,7 @@ int main(int argc, char *argv[]) {
   NCCLCHECK(ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
   // mpi wilson bistabcg
   {
-    // define for mpi_wilson_dslash
+    // define for mpi_wilsonnccl_dslash
     int lat_1dim[DIM];
     int lat_3dim[DIM];
     int lat_4dim;
@@ -68,8 +68,6 @@ int main(int argc, char *argv[]) {
     grid_index_1dim[Y] = node_rank / grid_1dim[T] / grid_1dim[Z] % grid_1dim[Y];
     grid_index_1dim[Z] = node_rank / grid_1dim[T] % grid_1dim[Z];
     grid_index_1dim[T] = node_rank % grid_1dim[T];
-    MPI_Request send_request[WARDS];
-    MPI_Request recv_request[WARDS];
     void *send_vec[WARDS];
     void *recv_vec[WARDS];
     malloc_vec(lat_3dim6, send_vec, recv_vec);
@@ -135,30 +133,31 @@ int main(int argc, char *argv[]) {
     give_value(t, zero, lat_4dim12);
     // give b'_o(b__0)
     give_value(latt_tmp0, zero, lat_4dim12);
-    _dslash_eo(latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge, lat_1dim,
-               lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
-               recv_request, send_vec, recv_vec, zero);
+    nccl_dslash_eo(latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
     for (int i = 0; i < lat_4dim12; i++) {
       b_e[i] = ans_e[i] - latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
     }
     give_value(latt_tmp1, zero, lat_4dim12);
-    _dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
-               lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
-               recv_request, send_vec, recv_vec, zero);
+    nccl_dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
     for (int i = 0; i < lat_4dim12; i++) {
       b_o[i] = ans_o[i] - latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
     }
     give_value(latt_tmp0, zero, lat_4dim12);
-    _dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
-               lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
-               recv_request, send_vec, recv_vec, zero);
+    nccl_dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
     for (int i = 0; i < lat_4dim12; i++) {
       b__o[i] = b_o[i] + latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
     }
     // bistabcg
-    _dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
-            gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
-            move, send_request, recv_request, send_vec, recv_vec, zero);
+    nccl_dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+                stream);
     for (int i = 0; i < lat_4dim12; i++) {
       r[i] = b__o[i] - r[i];
       r_tilde[i] = r[i];
@@ -182,10 +181,10 @@ int main(int argc, char *argv[]) {
         p[i] = r[i] + (p[i] - v[i] * omega) * beta;
       }
       // v = A * p;
-      _dslash(v, p, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
-              gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
-              grid_index_1dim, move, send_request, recv_request, send_vec,
-              recv_vec, zero);
+      nccl_dslash(v, p, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                  blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                  grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+                  stream);
       nccl_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero, nccl_comm,
                stream);
       alpha = rho / (*tmp);
@@ -197,10 +196,10 @@ int main(int argc, char *argv[]) {
         s[i] = r[i] - v[i] * alpha;
       }
       // t = A * s;
-      _dslash(t, s, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
-              gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
-              grid_index_1dim, move, send_request, recv_request, send_vec,
-              recv_vec, zero);
+      nccl_dslash(t, s, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                  blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                  grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+                  stream);
       nccl_dot(local_result, lat_4dim12, t, s, tmp0, zero, nccl_comm, stream);
       nccl_dot(local_result, lat_4dim12, t, t, tmp1, zero, nccl_comm, stream);
       omega = (*tmp0) / (*tmp1);

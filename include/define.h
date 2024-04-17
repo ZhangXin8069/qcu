@@ -610,6 +610,155 @@
     }                                                                          \
   }
 
+static uint64_t getHostHash(const char *string) {
+  // Based on DJB2a, result = result * 33 ^ char
+  uint64_t result = 5381;
+  for (int c = 0; string[c] != '\0'; c++) {
+    result = ((result << 5) + result) ^ string[c];
+  }
+  return result;
+}
+
+static void getHostName(char *hostname, int maxlen) {
+  gethostname(hostname, maxlen);
+  for (int i = 0; i < maxlen; i++) {
+    if (hostname[i] == '.') {
+      hostname[i] = '\0';
+      return;
+    }
+  }
+}
+
+#define _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,      \
+                       parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,     \
+                       grid_index_1dim, move, send_vec, recv_vec, nccl_comm,   \
+                       stream)                                                 \
+  {                                                                            \
+    wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_1dim[X],  \
+                                                    lat_1dim[Y], lat_1dim[Z]); \
+    wilson_dslash_x_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);                    \
+    ncclGroupStart();                                                          \
+    if (grid_1dim[X] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);                \
+      move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);                 \
+      move[B] =                                                                \
+          node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      move[F] =                                                                \
+          node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      ncclRecv(recv_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclRecv(recv_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+    }                                                                          \
+    wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);                    \
+    if (grid_1dim[Y] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);                \
+      move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);                 \
+      move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];             \
+      move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];             \
+      ncclRecv(recv_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclRecv(recv_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+    }                                                                          \
+    wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);                    \
+    if (grid_1dim[Z] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);                \
+      move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);                 \
+      move[B] = node_rank + move[B] * grid_1dim[T];                            \
+      move[F] = node_rank + move[F] * grid_1dim[T];                            \
+      ncclRecv(recv_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclRecv(recv_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+    }                                                                          \
+    wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
+        gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
+        lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);                    \
+    if (grid_1dim[T] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);                \
+      move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);                 \
+      move[B] = node_rank + move[B];                                           \
+      move[F] = node_rank + move[F];                                           \
+      ncclRecv(recv_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclRecv(recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B], nccl_comm, \
+               stream);                                                        \
+      ncclSend(send_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F], nccl_comm, \
+               stream);                                                        \
+    }                                                                          \
+    if (grid_1dim[X] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_X], recv_vec[F_X]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_X], send_vec[B_X]);                  \
+    }                                                                          \
+    if (grid_1dim[Y] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_Y], recv_vec[F_Y]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_Y], send_vec[B_Y]);                  \
+    }                                                                          \
+    if (grid_1dim[Z] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_Z], recv_vec[F_Z]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_Z], send_vec[B_Z]);                  \
+    }                                                                          \
+    if (grid_1dim[T] != 1) {                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);                  \
+    } else {                                                                   \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
+          gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
+          lat_1dim[T], parity, send_vec[F_T], send_vec[B_T]);                  \
+    }                                                                          \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
+    ncclGroupEnd();                                                            \
+  }
+
 #define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero, nccl_comm,   \
                  stream)                                                       \
   {                                                                            \
@@ -636,23 +785,43 @@
     (*tmp) = (*tmp0) / (*tmp1);                                                \
   }
 
-static uint64_t getHostHash(const char *string) {
-  // Based on DJB2a, result = result * 33 ^ char
-  uint64_t result = 5381;
-  for (int c = 0; string[c] != '\0'; c++) {
-    result = ((result << 5) + result) ^ string[c];
+#define nccl_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,     \
+                       lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move, \
+                       send_vec, recv_vec, zero, nccl_comm, stream)            \
+  {                                                                            \
+    zero_vec(lat_3dim6, send_vec, recv_vec, zero);                             \
+    _ncclDslashQcu(gridDim, blockDim, gauge, src_o, dest_e, EVEN, lat_1dim,    \
+                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,    \
+                   send_vec, recv_vec, nccl_comm, stream);                     \
   }
-  return result;
-}
 
-static void getHostName(char *hostname, int maxlen) {
-  gethostname(hostname, maxlen);
-  for (int i = 0; i < maxlen; i++) {
-    if (hostname[i] == '.') {
-      hostname[i] = '\0';
-      return;
-    }
+#define nccl_dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge,     \
+                       lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move, \
+                       send_vec, recv_vec, zero, nccl_comm, stream)            \
+  {                                                                            \
+    zero_vec(lat_3dim6, send_vec, recv_vec, zero);                             \
+    _ncclDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,     \
+                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,    \
+                   send_vec, recv_vec, nccl_comm, stream);                     \
   }
-}
+
+// src_o-kappa**2*dslash_oe(dslash_eo(src_o))
+#define nccl_dslash(dest_o, src_o, kappa, latt_tmp0, latt_tmp1, node_rank,     \
+                    gridDim, blockDim, gauge, lat_1dim, lat_3dim12,            \
+                    lat_4dim12, grid_1dim, grid_index_1dim, move, send_vec,    \
+                    recv_vec, zero, nccl_comm, stream)                         \
+  {                                                                            \
+    give_value(latt_tmp0, zero, lat_4dim12);                                   \
+    nccl_dslash_eo(latt_tmp0, src_o, node_rank, gridDim, blockDim, gauge,      \
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
+                   send_vec, recv_vec, zero, nccl_comm, stream);               \
+    give_value(latt_tmp1, zero, lat_4dim12);                                   \
+    nccl_dslash_oe(latt_tmp1, latt_tmp0, node_rank, gridDim, blockDim, gauge,  \
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
+                   send_vec, recv_vec, zero, nccl_comm, stream);               \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      dest_o[i] = src_o[i] - latt_tmp1[i] * kappa * kappa;                     \
+    }                                                                          \
+  }
 
 #endif
