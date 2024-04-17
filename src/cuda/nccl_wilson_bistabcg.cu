@@ -1,25 +1,14 @@
+#include <iostream>
 #pragma optimize(5)
-#include "../include/qcu.h"
+#include "../../include/qcu.h"
+#ifdef NCCL_WILSON_BISTABCG
 // #define DEBUG_NCCL_WILSON_CG
-int main(int argc, char *argv[]) {
+void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   int node_rank, node_size, localRank = 0;
   // initializing MPI
-  MPICHECK(MPI_Init(&argc, &argv));
+  // MPICHECK(MPI_Init(&argc, &argv));
   MPICHECK(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
   MPICHECK(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
-  // calculating localRank based on hostname which is used in selecting a GPU
-  uint64_t hostHashs[node_size];
-  char hostname[1024];
-  getHostName(hostname, 1024);
-  hostHashs[node_rank] = getHostHash(hostname);
-  MPICHECK(MPI_Allgather(MPI_IN_PLACE, 0, MPI_DATATYPE_NULL, hostHashs,
-                         sizeof(uint64_t), MPI_BYTE, MPI_COMM_WORLD));
-  for (int p = 0; p < node_size; p++) {
-    if (p == node_rank)
-      break;
-    if (hostHashs[p] == hostHashs[node_rank])
-      localRank++;
-  }
   ncclUniqueId nccl_id;
   ncclComm_t nccl_comm;
   cudaStream_t stream;
@@ -35,19 +24,11 @@ int main(int argc, char *argv[]) {
   NCCLCHECK(ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
   // nccl wilson bistabcg
   {
-    // define for mpi_wilsonnccl_dslash
+    // define for nccl_wilson_dslash
     int lat_1dim[DIM];
     int lat_3dim[DIM];
     int lat_4dim;
-    lat_1dim[X] = LAT_EXAMPLE >> 1;
-    lat_1dim[Y] = LAT_EXAMPLE;
-    lat_1dim[Z] = LAT_EXAMPLE;
-    lat_1dim[T] = LAT_EXAMPLE;
-    lat_3dim[YZT] = lat_1dim[Y] * lat_1dim[Z] * lat_1dim[T];
-    lat_3dim[XZT] = lat_1dim[X] * lat_1dim[Z] * lat_1dim[T];
-    lat_3dim[XYT] = lat_1dim[X] * lat_1dim[Y] * lat_1dim[T];
-    lat_3dim[XYZ] = lat_1dim[X] * lat_1dim[Y] * lat_1dim[Z];
-    lat_4dim = lat_3dim[XYZ] * lat_1dim[T];
+    give_dims(param, lat_1dim, lat_3dim, lat_4dim);
     int lat_3dim6[DIM];
     int lat_3dim12[DIM];
     for (int i = 0; i < DIM; i++) {
@@ -60,25 +41,12 @@ int main(int argc, char *argv[]) {
     int move[BF];
     int grid_1dim[DIM];
     int grid_index_1dim[DIM];
-    grid_1dim[X] = GRID_EXAMPLE;
-    grid_1dim[Y] = GRID_EXAMPLE;
-    grid_1dim[Z] = GRID_EXAMPLE;
-    grid_1dim[T] = GRID_EXAMPLE;
-    grid_index_1dim[X] = node_rank / grid_1dim[T] / grid_1dim[Z] / grid_1dim[Y];
-    grid_index_1dim[Y] = node_rank / grid_1dim[T] / grid_1dim[Z] % grid_1dim[Y];
-    grid_index_1dim[Z] = node_rank / grid_1dim[T] % grid_1dim[Z];
-    grid_index_1dim[T] = node_rank % grid_1dim[T];
+    give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
     void *send_vec[WARDS];
     void *recv_vec[WARDS];
     malloc_vec(lat_3dim6, send_vec, recv_vec);
     // define end
-    // define gauge
-    LatticeComplex *gauge;
-    cudaMallocManaged(&gauge, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD *
-                                  sizeof(LatticeComplex));
-    give_rand(gauge, lat_4dim * LAT_D * LAT_C * LAT_C);
-    // define end
-    // define for mpi_wilson_cg
+    // define for nccl_wilson_bistabcg
     int lat_4dim12 = lat_4dim * 12;
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex one(1.0, 0.0);
@@ -252,7 +220,8 @@ int main(int argc, char *argv[]) {
   // finalizing NCCL
   ncclCommDestroy(nccl_comm);
   // finalizing MPI
-  MPICHECK(MPI_Finalize());
+  // MPICHECK(MPI_Finalize());
   printf("[MPI Rank %d] Success \n", node_rank);
-  return 0;
+  // return 0;
 }
+#endif

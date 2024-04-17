@@ -102,28 +102,28 @@ int main(int argc, char *argv[]) {
   give_value(t, zero, lat_4dim12);
   // give b'_o(b__0)
   give_value(latt_tmp0, zero, lat_4dim12);
-  _dslash_eo(latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge, lat_1dim,
+  mpi_dslash_eo(latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
     b_e[i] = ans_e[i] - latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
   }
   give_value(latt_tmp1, zero, lat_4dim12);
-  _dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
+  mpi_dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
     b_o[i] = ans_o[i] - latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
   }
   give_value(latt_tmp0, zero, lat_4dim12);
-  _dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
+  mpi_dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
     b__o[i] = b_o[i] + latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
   }
   // bistabcg
-  _dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
+  mpi_dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
           gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
           move, send_request, recv_request, send_vec, recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
@@ -147,7 +147,7 @@ int main(int argc, char *argv[]) {
       p[i] = r[i] + (p[i] - v[i] * omega) * beta;
     }
     // v = A * p;
-    _dslash(v, p, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
+    mpi_dslash(v, p, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
             gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
             move, send_request, recv_request, send_vec, recv_vec, zero);
     mpi_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero);
@@ -160,7 +160,7 @@ int main(int argc, char *argv[]) {
       s[i] = r[i] - v[i] * alpha;
     }
     // t = A * s;
-    _dslash(t, s, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
+    mpi_dslash(t, s, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim, blockDim,
             gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
             move, send_request, recv_request, send_vec, recv_vec, zero);
     mpi_dot(local_result, lat_4dim12, t, s, tmp0, zero);

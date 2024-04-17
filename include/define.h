@@ -44,16 +44,22 @@
 #define MPI_WILSON_DSLASH
 // #define MPI_CLOVER_DSLASH
 // #define MPI_OVERLAP_DSLASH
-// #define TEST_WILSON_DSLASH
-// #define TEST_CLOVER_DSLASH
+#define NCCL_WILSON_DSLASH
+// #define NCCL_CLOVER_DSLASH
+// #define NCCL_OVERLAP_DSLASH
+#define TEST_WILSON_DSLASH
+#define TEST_CLOVER_DSLASH
 // #define TEST_OVERLAP_DSLASH
-// #define WILSON_BISTABCG
+#define WILSON_BISTABCG
 // #define CLOVER_BISTABCG
 // #define OVERLAP_BISTABCG
 #define MPI_WILSON_BISTABCG
 // #define MPI_CLOVER_BISTABCG
 // #define MPI_OVERLAP_BISTABCG
-// #define TEST_WILSON_BISTABCG
+#define NCCL_WILSON_BISTABCG
+// #define NCCL_CLOVER_BISTABCG
+// #define NCCL_OVERLAP_BISTABCG
+#define TEST_WILSON_BISTABCG
 // #define TEST_CLOVER_BISTABCG
 // #define TEST_OVERLAP_BISTABCG
 // #define WILSON_MULTGRID
@@ -62,6 +68,9 @@
 // #define MPI_WILSON_MULTGRID
 // #define MPI_CLOVER_MULTGRID
 // #define MPI_OVERLAP_MULTGRID
+// #define NCCL_WILSON_MULTGRID
+// #define NCCL_CLOVER_MULTGRID
+// #define NCCL_OVERLAP_MULTGRID
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
@@ -571,7 +580,7 @@
     tmp = tmp0 / tmp1;                                                         \
   }
 
-#define _dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,         \
+#define mpi_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,         \
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
                    send_request, recv_request, send_vec, recv_vec, zero)       \
   {                                                                            \
@@ -581,7 +590,7 @@
                   send_request, recv_request, send_vec, recv_vec);             \
   }
 
-#define _dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge,         \
+#define mpi_dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge,         \
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
                    send_request, recv_request, send_vec, recv_vec, zero)       \
   {                                                                            \
@@ -592,17 +601,17 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define _dslash(dest_o, src_o, kappa, latt_tmp0, latt_tmp1, node_rank,         \
+#define mpi_dslash(dest_o, src_o, kappa, latt_tmp0, latt_tmp1, node_rank,         \
                 gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,    \
                 grid_1dim, grid_index_1dim, move, send_request, recv_request,  \
                 send_vec, recv_vec, zero)                                      \
   {                                                                            \
     give_value(latt_tmp0, zero, lat_4dim12);                                   \
-    _dslash_eo(latt_tmp0, src_o, node_rank, gridDim, blockDim, gauge,          \
+    mpi_dslash_eo(latt_tmp0, src_o, node_rank, gridDim, blockDim, gauge,          \
                lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,         \
                send_request, recv_request, send_vec, recv_vec, zero);          \
     give_value(latt_tmp1, zero, lat_4dim12);                                   \
-    _dslash_oe(latt_tmp1, latt_tmp0, node_rank, gridDim, blockDim, gauge,      \
+    mpi_dslash_oe(latt_tmp1, latt_tmp0, node_rank, gridDim, blockDim, gauge,      \
                lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,         \
                send_request, recv_request, send_vec, recv_vec, zero);          \
     for (int i = 0; i < lat_4dim12; i++) {                                     \
