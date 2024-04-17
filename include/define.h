@@ -622,6 +622,20 @@
     CUDACHECK(cudaStreamSynchronize(stream));                                  \
   }
 
+#define nccl_diff(local_result, lat_4dim12, val0, val1, tmp, latt_tmp0, tmp0,  \
+                  tmp1, zero, nccl_comm, stream)                               \
+  {                                                                            \
+    give_value(latt_tmp0, zero, lat_4dim12);                                   \
+    for (int i = 0; i < lat_4dim12; i++) {                                     \
+      latt_tmp0[i] = val0[i] - val1[i];                                        \
+    }                                                                          \
+    nccl_dot(local_result, lat_4dim12, latt_tmp0, latt_tmp0, tmp0, zero,       \
+             nccl_comm, stream);                                               \
+    nccl_dot(local_result, lat_4dim12, val1, val1, tmp1, zero, nccl_comm,      \
+             stream);                                                          \
+    (*tmp) = (*tmp0) / (*tmp1);                                                \
+  }
+
 static uint64_t getHostHash(const char *string) {
   // Based on DJB2a, result = result * 33 ^ char
   uint64_t result = 5381;
