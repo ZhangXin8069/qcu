@@ -28,7 +28,5 @@ add_library(qcu SHARED ${SOURCE_FILE})
 find_package(MPI REQUIRED)
 target_link_libraries(qcu ${MPI_LIBRARIES})
 target_link_libraries(qcu ${CUDA_LIBRARIES})
+target_link_libraries(qcu nccl)
 target_compile_definitions(qcu PRIVATE MPI_ENABLED)
-
-
-
