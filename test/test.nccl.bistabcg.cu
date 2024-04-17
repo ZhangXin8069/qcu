@@ -235,8 +235,8 @@ int main(int argc, char *argv[]) {
            "memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
-    mpi_diff((*local_result), lat_4dim12, x_o, ans_o, (*tmp), latt_tmp0,
-             (*tmp0), (*tmp1), zero);
+    nccl_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
+              zero, nccl_comm, stream);
     printf("## difference: %.16f ", (*tmp).real);
     // free
     free_vec(send_vec, recv_vec);
