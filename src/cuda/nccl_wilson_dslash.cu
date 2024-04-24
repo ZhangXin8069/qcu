@@ -3,10 +3,31 @@
 #ifdef NCCL_WILSON_DSLASH
 void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid) {
-  int node_rank, node_size, localRank = 0;
+  // define for nccl_wilson_dslash
+  int lat_1dim[DIM];
+  int lat_3dim[DIM];
+  int lat_4dim;
+  give_dims(param, lat_1dim, lat_3dim, lat_4dim);
+  int lat_3dim6[DIM];
+  int lat_3dim12[DIM];
+  for (int i = 0; i < DIM; i++) {
+    lat_3dim6[i] = lat_3dim[i] * 6;
+    lat_3dim12[i] = lat_3dim6[i] * 2;
+  }
+  cudaError_t err;
+  dim3 gridDim(lat_4dim / BLOCK_SIZE);
+  dim3 blockDim(BLOCK_SIZE);
+  int node_rank;
+  int move[BF];
+  int grid_1dim[DIM];
+  int grid_index_1dim[DIM];
+  give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
+  void *send_vec[WARDS];
+  void *recv_vec[WARDS];
+  malloc_vec(lat_3dim6, send_vec, recv_vec);
+  // define end
   // initializing MPI
-  // MPICHECK(MPI_Init(&argc, &argv));
-  MPICHECK(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
+  int node_size, localRank = 0;
   MPICHECK(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
   // calculating localRank based on hostname which is used in selecting a GPU
   uint64_t hostHashs[node_size];
@@ -34,28 +55,6 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   CUDACHECK(cudaStreamCreate(&stream));
   // initializing NCCL
   NCCLCHECK(ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
-  // define for nccl_wilson_dslash
-  int lat_1dim[DIM];
-  int lat_3dim[DIM];
-  int lat_4dim;
-  give_dims(param, lat_1dim, lat_3dim, lat_4dim);
-  int lat_3dim6[DIM];
-  int lat_3dim12[DIM];
-  for (int i = 0; i < DIM; i++) {
-    lat_3dim6[i] = lat_3dim[i] * 6;
-    lat_3dim12[i] = lat_3dim6[i] * 2;
-  }
-  cudaError_t err;
-  dim3 gridDim(lat_4dim / BLOCK_SIZE);
-  dim3 blockDim(BLOCK_SIZE);
-  int node_rank;
-  int move[BF];
-  int grid_1dim[DIM];
-  int grid_index_1dim[DIM];
-  give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
-  void *send_vec[WARDS];
-  void *recv_vec[WARDS];
-  malloc_vec(lat_3dim6, send_vec, recv_vec);
   // define end
   checkCudaErrors(cudaDeviceSynchronize());
   auto start = std::chrono::high_resolution_clock::now();
