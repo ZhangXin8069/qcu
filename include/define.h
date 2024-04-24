@@ -717,6 +717,8 @@ static void getHostName(char *hostname, int maxlen) {
     checkCudaErrors(cudaDeviceSynchronize());                                  \
     printf("move[B]:%d\n", move[B]);                                           \
     printf("move[F]:%d\n", move[F]);                                           \
+    printf("send_vec[B_T]:%d\n", send_vec[B_T]);                               \
+    printf("send_vec[F_T]:%d\n", send_vec[F_T]);                               \
     ncclGroupStart();                                                          \
     ncclSend(send_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B], nccl_comm,   \
              stream);                                                          \
@@ -727,6 +729,8 @@ static void getHostName(char *hostname, int maxlen) {
     ncclRecv(recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F], nccl_comm,   \
              stream);                                                          \
     ncclGroupEnd();                                                            \
+    printf("recv_vec[B_T]:%d\n", recv_vec[B_T]);                               \
+    printf("recv_vec[F_T]:%d\n", recv_vec[F_T]);                               \
     if (grid_1dim[X] != 1) {                                                   \
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
