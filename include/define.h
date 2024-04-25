@@ -74,6 +74,13 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
+#define print_ptr(ptr, index)                                                  \
+  {                                                                            \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
+    printf("ptr(%p)[%d]:%.9lf + %.9lfi\n", ptr, index,                         \
+           static_cast<LatticeComplex *>(ptr)[index].real,                     \
+           static_cast<LatticeComplex *>(ptr)[index].imag);                    \
+  }
 
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
@@ -715,10 +722,15 @@ static void getHostName(char *hostname, int maxlen) {
     move[B] = node_rank + move[B];                                             \
     move[F] = node_rank + move[F];                                             \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    printf("move[B]:%d\n", move[B]);                                           \
-    printf("move[F]:%d\n", move[F]);                                           \
-    printf("send_vec[B_T]:%d\n", send_vec[B_T]);                               \
-    printf("send_vec[F_T]:%d\n", send_vec[F_T]);                               \
+    printf("###SENDING###");                                                   \
+    print_ptr(send_vec[B_T], 0);                                               \
+    print_ptr(send_vec[F_T], 0);                                               \
+    print_ptr(send_vec[B_T], lat_3dim12[XYZ] - 2);                             \
+    print_ptr(send_vec[F_T], lat_3dim12[XYZ] - 2);                             \
+    print_ptr(recv_vec[B_T], 0);                                               \
+    print_ptr(recv_vec[F_T], 0);                                               \
+    print_ptr(recv_vec[B_T], lat_3dim12[XYZ] - 2);                             \
+    print_ptr(recv_vec[F_T], lat_3dim12[XYZ] - 2);                             \
     ncclGroupStart();                                                          \
     ncclSend(send_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B], nccl_comm,   \
              stream);                                                          \
@@ -729,8 +741,6 @@ static void getHostName(char *hostname, int maxlen) {
     ncclRecv(recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F], nccl_comm,   \
              stream);                                                          \
     ncclGroupEnd();                                                            \
-    printf("recv_vec[B_T]:%d\n", recv_vec[B_T]);                               \
-    printf("recv_vec[F_T]:%d\n", recv_vec[F_T]);                               \
     if (grid_1dim[X] != 1) {                                                   \
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
@@ -761,6 +771,16 @@ static void getHostName(char *hostname, int maxlen) {
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, send_vec[F_Z], send_vec[B_Z]);                  \
     }                                                                          \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
+    printf("###RECVING###");                                                   \
+    print_ptr(send_vec[B_T], 0);                                               \
+    print_ptr(send_vec[F_T], 0);                                               \
+    print_ptr(send_vec[B_T], lat_3dim12[XYZ] - 2);                             \
+    print_ptr(send_vec[F_T], lat_3dim12[XYZ] - 2);                             \
+    print_ptr(recv_vec[B_T], 0);                                               \
+    print_ptr(recv_vec[F_T], 0);                                               \
+    print_ptr(recv_vec[B_T], lat_3dim12[XYZ] - 2);                             \
+    print_ptr(recv_vec[F_T], lat_3dim12[XYZ] - 2);                             \
     wilson_dslash_t_recv<<<gridDim, blockDim>>>(                               \
         gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],             \
         lat_1dim[T], parity, recv_vec[B_T], recv_vec[F_T]);                    \
