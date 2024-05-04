@@ -35,7 +35,7 @@
 #define NOWARD 0
 #define FORWARD 1
 #define SR 2
-#define LAT_EXAMPLE 32
+#define LAT_EXAMPLE 8
 #define GRID_EXAMPLE 1
 
 #define WILSON_DSLASH
