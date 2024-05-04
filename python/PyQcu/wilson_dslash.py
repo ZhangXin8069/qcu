@@ -1,5 +1,5 @@
 import cupy
-import pyquda
+# import pyquda
 
 EVEN, ODD = 0, 1
 Nd, Ns, Nc = 4, 4, 3

@@ -14,10 +14,6 @@ set(MAXRREGCOUNT "256")
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
 set(CMAKE_CUDA_ARCHITECTURES "60")
 
-# Manually set MPI include and library paths
-# set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
-# set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
-
 # Add include directories, including MPI include directories, including qcu's include
 include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
 include_directories(include)
