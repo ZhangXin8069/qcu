@@ -8,7 +8,7 @@
 #include <ctime>
 #include <cuda.h>
 #include <iostream>
-#include <mpi.h>
+#include "/home/kfutfd/external-libraries/openmpi-4.1.5/include/mpi.h"
 #include <nccl.h>
 #include <random>
 #include <string>

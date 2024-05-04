@@ -60,7 +60,7 @@ int main(int argc, char *argv[]) {
     int move[BF];
     int grid_1dim[DIM];
     int grid_index_1dim[DIM];
-    grid_1dim[X] = GRID_EXAMPLE;
+    grid_1dim[X] = node_size;
     grid_1dim[Y] = GRID_EXAMPLE;
     grid_1dim[Z] = GRID_EXAMPLE;
     grid_1dim[T] = GRID_EXAMPLE;

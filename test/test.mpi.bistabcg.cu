@@ -26,12 +26,13 @@ int main(int argc, char *argv[]) {
   cudaError_t err;
   dim3 gridDim(lat_4dim / BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
-  int node_rank;
+  int node_rank,node_size;
   int move[BF];
   int grid_1dim[DIM];
   int grid_index_1dim[DIM];
   MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);
-  grid_1dim[X] = GRID_EXAMPLE;
+  MPI_Comm_size(MPI_COMM_WORLD, &node_size);
+  grid_1dim[X] = node_size;
   grid_1dim[Y] = GRID_EXAMPLE;
   grid_1dim[Z] = GRID_EXAMPLE;
   grid_1dim[T] = GRID_EXAMPLE;
