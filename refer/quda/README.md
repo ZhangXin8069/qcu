@@ -96,7 +96,7 @@ parallel jobs.
 
 You are most likely to want to specify the GPU architecture of the
 machine you are building for. Either configure QUDA_GPU_ARCH in step 3
-or specify e.g. -DQUDA_GPU_ARCH=sm_60 for a Pascal GPU in step 2.
+or specify e.g. -DQUDA_GPU_ARCH=sm_70 for a Pascal GPU in step 2.
 
 ### Multi-GPU support
 
