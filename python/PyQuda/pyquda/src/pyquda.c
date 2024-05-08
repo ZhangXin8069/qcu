@@ -23,7 +23,7 @@
             "quda"
         ],
         "library_dirs": [
-            "/home/aistudio/external-libraries/quda-develop/build/lib"
+            "/home/aistudio/work/qcu/bml-nv/lib"
         ],
         "name": "pyquda.pyquda",
         "sources": [

@@ -27,3 +27,8 @@ def mpiDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuPara
 def mpiBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):
     qcu.mpiBistabCgQcu(gauge.ptr, &param.param, &grid.param)
 
+def ncclDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):
+    qcu.ncclDslashQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
+
+def ncclBistabCgQcu(gauge: Pointer, param: QcuParam, grid: QcuParam):
+    qcu.ncclBistabCgQcu(gauge.ptr, &param.param, &grid.param)

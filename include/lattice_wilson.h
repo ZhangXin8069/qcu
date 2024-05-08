@@ -2,7 +2,6 @@
 #define _LATTICE_WILSON_H
 #pragma optimize(5)
 #include "./qcu.h"
-
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, int device_lat_x,
                               const int device_lat_y, const int device_lat_z,
@@ -70,5 +69,4 @@ __global__ void test_wilson_dslash(void *device_U, void *device_src,
                                    const int device_lat_z,
                                    const int device_lat_t,
                                    const int device_parity);
-
 #endif
