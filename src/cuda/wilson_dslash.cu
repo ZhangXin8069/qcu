@@ -251,11 +251,7 @@ __global__ void wilson_dslash_clear_dest(void *device_dest, int device_lat_x,
       ((static_cast<LatticeComplex *>(device_dest)) +
        t * lat_z * lat_y * lat_x * 12 + z * lat_y * lat_x * 12 +
        y * lat_x * 12 + x * 12);
-<<<<<<< HEAD
   host_give_value(origin_dest, zero, 12);
-=======
-  give_value(origin_dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
 }
 
 __global__ void
@@ -313,11 +309,7 @@ wilson_dslash_x_send(void *device_U, void *device_src, void *device_dest,
   LatticeComplex dest[12];
   LatticeComplex b_x_send_vec[6];
   LatticeComplex f_x_send_vec[6];
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // x-1
     move_backward_x(move, x, lat_x, eo, parity);
     if (move != lat_x - 1) {
@@ -440,11 +432,7 @@ wilson_dslash_x_recv(void *device_U, void *device_dest, int device_lat_x,
   LatticeComplex dest[12];
   LatticeComplex b_x_recv_vec[6];
   LatticeComplex f_x_recv_vec[6]; // needed
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // x-1
     move_backward_x(move, x, lat_x, eo, parity);
     if (move == lat_x - 1) { // recv in x-1 way
@@ -535,11 +523,7 @@ wilson_dslash_y_send(void *device_U, void *device_src, void *device_dest,
   LatticeComplex dest[12];
   LatticeComplex b_y_send_vec[6];
   LatticeComplex f_y_send_vec[6];
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // y-1
     move_backward(move, y, lat_y);
     if (move == -1) {
@@ -659,11 +643,7 @@ wilson_dslash_y_recv(void *device_U, void *device_dest, int device_lat_x,
   LatticeComplex dest[12];
   LatticeComplex b_y_recv_vec[6];
   LatticeComplex f_y_recv_vec[6]; // needed
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // y-1
     move_backward(move, y, lat_y);
     if (move != -1) { // recv in y-1 way
@@ -755,11 +735,7 @@ wilson_dslash_z_send(void *device_U, void *device_src, void *device_dest,
   LatticeComplex dest[12];
   LatticeComplex b_z_send_vec[6];
   LatticeComplex f_z_send_vec[6];
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // z-1
     move_backward(move, z, lat_z);
     if (move == -1) {
@@ -879,11 +855,7 @@ wilson_dslash_z_recv(void *device_U, void *device_dest, int device_lat_x,
   LatticeComplex dest[12];
   LatticeComplex b_z_recv_vec[6];
   LatticeComplex f_z_recv_vec[6]; // needed
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // z-1
     move_backward(move, z, lat_z);
     if (move != -1) { // recv in z-1 way
@@ -975,11 +947,7 @@ wilson_dslash_t_send(void *device_U, void *device_src, void *device_dest,
   LatticeComplex dest[12];
   LatticeComplex b_t_send_vec[6];
   LatticeComplex f_t_send_vec[6];
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // t-1
     move_backward(move, t, lat_t);
     if (move == -1) {
@@ -1099,11 +1067,7 @@ wilson_dslash_t_recv(void *device_U, void *device_dest, int device_lat_x,
   LatticeComplex dest[12];
   LatticeComplex b_t_recv_vec[6];
   LatticeComplex f_t_recv_vec[6]; // needed
-<<<<<<< HEAD
   host_give_value(dest, zero, 12);
-=======
-  give_value(dest, zero, 12);
->>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   { // t-1
     move_backward(move, t, lat_t);
     if (move != -1) { // recv in t-1 way
