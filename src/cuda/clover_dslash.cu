@@ -1,7 +1,6 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef CLOVER_DSLASH
-
 __global__ void make_clover(void *device_U, void *device_clover,
                             int device_lat_x, const int device_lat_y,
                             const int device_lat_z, const int device_lat_t,
@@ -44,13 +43,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
   // sigmaF
   {
     parity = device_parity;
-    give_value(clover, zero, 144);
-    give_value(origin_clover, zero, 144);
-    give_value(tmp1, zero, 9);
-    give_value(tmp2, zero, 9);
+    host_give_value(clover, zero, 144);
+    host_give_value(origin_clover, zero, 144);
+    host_give_value(tmp1, zero, 9);
+    host_give_value(tmp2, zero, 9);
   }
   // XY
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -173,7 +172,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // XZ
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -295,7 +294,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // XT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -419,7 +418,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // YZ
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
@@ -551,7 +550,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // YT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
@@ -682,7 +681,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
 
   // ZT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;z
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
@@ -895,89 +894,6 @@ __global__ void give_clover(void *device_clover, void *device_dest,
       }
     }
     give_ptr(origin_dest, tmp_dest, 12);
-  }
-}
-
-void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
-               QcuParam *param, int parity) {
-  const int lat_x = param->lattice_size[0] >> 1;
-  const int lat_y = param->lattice_size[1];
-  const int lat_z = param->lattice_size[2];
-  const int lat_t = param->lattice_size[3];
-  void *clover;
-  checkCudaErrors(cudaMalloc(&clover, (lat_t * lat_z * lat_y * lat_x * 144) *
-                                          sizeof(LatticeComplex)));
-  cudaError_t err;
-  dim3 gridDim(lat_x * lat_y * lat_z * lat_t / BLOCK_SIZE);
-  dim3 blockDim(BLOCK_SIZE);
-  {
-    // wilson dslash
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto start = std::chrono::high_resolution_clock::now();
-    wilson_dslash<<<gridDim, blockDim>>>(gauge, fermion_in, fermion_out, lat_x,
-                                         lat_y, lat_z, lat_t, parity);
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration =
-        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
-            .count();
-    err = cudaGetLastError();
-    checkCudaErrors(err);
-    printf(
-        "wilson dslash total time: (without malloc free memcpy) : %.9lf sec\n",
-        double(duration) / 1e9);
-  }
-  {
-    // make clover
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto start = std::chrono::high_resolution_clock::now();
-    make_clover<<<gridDim, blockDim>>>(gauge, clover, lat_x, lat_y, lat_z,
-                                       lat_t, parity);
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration =
-        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
-            .count();
-    err = cudaGetLastError();
-    checkCudaErrors(err);
-    printf("make clover total time: (without malloc free memcpy) :%.9lf sec\n ",
-           double(duration) / 1e9);
-  }
-  {
-    // inverse clover
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto start = std::chrono::high_resolution_clock::now();
-    inverse_clover<<<gridDim, blockDim>>>(clover, lat_x, lat_y, lat_z);
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration =
-        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
-            .count();
-    err = cudaGetLastError();
-    checkCudaErrors(err);
-    printf(
-        "inverse clover total time: (without malloc free memcpy) :%.9lf sec\n ",
-        double(duration) / 1e9);
-  }
-  {
-    // give clover
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto start = std::chrono::high_resolution_clock::now();
-    give_clover<<<gridDim, blockDim>>>(clover, fermion_out, lat_x, lat_y,
-                                       lat_z);
-    checkCudaErrors(cudaDeviceSynchronize());
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration =
-        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
-            .count();
-    err = cudaGetLastError();
-    checkCudaErrors(err);
-    printf("give clover total time: (without malloc free memcpy) :%.9lf sec\n ",
-           double(duration) / 1e9);
-  }
-  {
-    // free
-    checkCudaErrors(cudaFree(clover));
   }
 }
 #endif

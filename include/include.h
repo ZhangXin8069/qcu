@@ -1,6 +1,5 @@
 #ifndef _INCLUDE_H
 #define _INCLUDE_H
-
 #pragma optimize(5)
 #include <chrono>
 #include <cmath>
