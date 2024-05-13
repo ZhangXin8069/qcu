@@ -24,16 +24,18 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
   MPI_Request send_request[WARDS];
   MPI_Request recv_request[WARDS];
-  void *send_vec[WARDS];
-  void *recv_vec[WARDS];
-  malloc_vec(lat_3dim6, send_vec, recv_vec);
+  void *host_send_vec[WARDS];
+  void *host_recv_vec[WARDS];
+  void *device_send_vec[WARDS];
+  void *device_recv_vec[WARDS];
+  malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
   // define end
   checkCudaErrors(cudaDeviceSynchronize());
   auto start = std::chrono::high_resolution_clock::now();
   // mpi wilson dslash
   _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
                 lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
-                move, send_request, recv_request, send_vec, recv_vec);
+                move, send_request, recv_request, device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
   auto end = std::chrono::high_resolution_clock::now();
   auto duration =
       std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
@@ -43,6 +45,6 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
          "sec\n",
          double(duration) / 1e9);
   // free
-  free_vec(send_vec, recv_vec);
+  free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
 }
 #endif
