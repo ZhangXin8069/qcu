@@ -2,7 +2,6 @@
 #define _COMPLEX_VECTOR_H
 #pragma optimize(5)
 #include "./qcu.h"
-
 // Complex vector class
 class ComplexVector {
 public:
@@ -260,5 +259,4 @@ public:
     return result;
   }
 };
-
 #endif

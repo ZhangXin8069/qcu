@@ -68,9 +68,15 @@ int main(int argc, char *argv[]) {
     grid_index_1dim[Y] = node_rank / grid_1dim[T] / grid_1dim[Z] % grid_1dim[Y];
     grid_index_1dim[Z] = node_rank / grid_1dim[T] % grid_1dim[Z];
     grid_index_1dim[T] = node_rank % grid_1dim[T];
+<<<<<<< HEAD
     void *device_send_vec[WARDS];
     void *device_recv_vec[WARDS];
     malloc_vec(lat_3dim6, device_send_vec, device_recv_vec);
+=======
+    void *send_vec[WARDS];
+    void *recv_vec[WARDS];
+    malloc_vec(lat_3dim6, send_vec, recv_vec);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     // define end
     // define gauge
     LatticeComplex *gauge;
@@ -132,31 +138,58 @@ int main(int argc, char *argv[]) {
     host_give_value(s, zero, lat_4dim12);
     host_give_value(t, zero, lat_4dim12);
     // give b'_o(b__0)
+<<<<<<< HEAD
     host_give_value(device_latt_tmp0, zero, lat_4dim12);
     nccl_dslash_eo(device_latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                    device_send_vec, device_recv_vec, zero, nccl_comm, stream);
+=======
+    give_value(latt_tmp0, zero, lat_4dim12);
+    nccl_dslash_eo(latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     for (int i = 0; i < lat_4dim12; i++) {
       b_e[i] = ans_e[i] - device_latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
     }
+<<<<<<< HEAD
     host_give_value(device_latt_tmp1, zero, lat_4dim12);
     nccl_dslash_oe(device_latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                    device_send_vec, device_recv_vec, zero, nccl_comm, stream);
+=======
+    give_value(latt_tmp1, zero, lat_4dim12);
+    nccl_dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     for (int i = 0; i < lat_4dim12; i++) {
       b_o[i] = ans_o[i] - device_latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
     }
+<<<<<<< HEAD
     host_give_value(device_latt_tmp0, zero, lat_4dim12);
     nccl_dslash_oe(device_latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge,
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                    device_send_vec, device_recv_vec, zero, nccl_comm, stream);
+=======
+    give_value(latt_tmp0, zero, lat_4dim12);
+    nccl_dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     for (int i = 0; i < lat_4dim12; i++) {
       b__o[i] = b_o[i] + device_latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
     }
     // bistabcg
+<<<<<<< HEAD
     nccl_dslash(r, x_o, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim,
                 blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
                 grid_index_1dim, move, device_send_vec, device_recv_vec, zero, nccl_comm,
+=======
+    nccl_dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
                 stream);
     for (int i = 0; i < lat_4dim12; i++) {
       r[i] = b__o[i] - r[i];
@@ -181,9 +214,15 @@ int main(int argc, char *argv[]) {
         p[i] = r[i] + (p[i] - v[i] * omega) * beta;
       }
       // v = A * p;
+<<<<<<< HEAD
       nccl_dslash(v, p, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim,
                   blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
                   grid_index_1dim, move, device_send_vec, device_recv_vec, zero, nccl_comm,
+=======
+      nccl_dslash(v, p, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                  blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                  grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
                   stream);
       nccl_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero, nccl_comm,
                stream);
@@ -196,9 +235,15 @@ int main(int argc, char *argv[]) {
         s[i] = r[i] - v[i] * alpha;
       }
       // t = A * s;
+<<<<<<< HEAD
       nccl_dslash(t, s, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim,
                   blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
                   grid_index_1dim, move, device_send_vec, device_recv_vec, zero, nccl_comm,
+=======
+      nccl_dslash(t, s, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                  blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                  grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
                   stream);
       nccl_dot(local_result, lat_4dim12, t, s, tmp0, zero, nccl_comm, stream);
       nccl_dot(local_result, lat_4dim12, t, t, tmp1, zero, nccl_comm, stream);
@@ -234,7 +279,11 @@ int main(int argc, char *argv[]) {
            "memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
+<<<<<<< HEAD
     nccl_diff(local_result, lat_4dim12, x_o, ans_o, tmp, device_latt_tmp0, tmp0, tmp1,
+=======
+    nccl_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
               zero, nccl_comm, stream);
     printf("## difference: %.16f ", (*tmp).real);
     // free

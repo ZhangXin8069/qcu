@@ -22,11 +22,17 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   int grid_1dim[DIM];
   int grid_index_1dim[DIM];
   give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
+<<<<<<< HEAD
   void *host_send_vec[WARDS];
   void *host_recv_vec[WARDS];
   void *device_send_vec[WARDS];
   void *device_recv_vec[WARDS];
   malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+=======
+  void *send_vec[WARDS];
+  void *recv_vec[WARDS];
+  malloc_vec(lat_3dim6, send_vec, recv_vec);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   // define end
   // initializing MPI
   int node_size, localRank = 0;
@@ -64,7 +70,11 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   {
     _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
                    lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
+<<<<<<< HEAD
                    move, device_send_vec, device_recv_vec, nccl_comm, stream);
+=======
+                   move, send_vec, recv_vec, nccl_comm, stream);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
@@ -75,7 +85,11 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
            "sec\n",
            double(duration) / 1e9);
     // free
+<<<<<<< HEAD
     free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+=======
+    free_vec(send_vec, recv_vec);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
   }
   // finalizing NCCL
   ncclCommDestroy(nccl_comm);

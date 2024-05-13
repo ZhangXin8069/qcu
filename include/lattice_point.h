@@ -2,7 +2,6 @@
 #define _LATTICE_POINT_H
 #pragma optimize(5)
 #include "./qcu.h"
-
 // Lattice point class
 class LatticePoint {
 public:
@@ -138,5 +137,4 @@ public:
     return result;
   }
 };
-
 #endif
