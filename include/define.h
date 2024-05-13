@@ -136,6 +136,7 @@
     host_give_value(host_U, host_zero, n);                                     \
     cudaMemcpy(device_U, host_U, sizeof(LatticeComplex) * n,                   \
                cudaMemcpyHostToDevice);                                        \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
 #define host_give_rand(input_matrix, size)                                     \
@@ -151,6 +152,7 @@
     host_give_rand(host_input_matrix, size);                                   \
     cudaMemcpy(device_input_matrix, host_input_matrix,                         \
                sizeof(LatticeComplex) * size, cudaMemcpyHostToDevice);         \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
 #define host_zero_vec(lat_3dim6, host_send_vec, host_recv_vec, zero)           \
@@ -181,6 +183,7 @@
                  sizeof(LatticeComplex) * lat_3dim6[i],                        \
                  cudaMemcpyHostToDevice);                                      \
     }                                                                          \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
 #define give_ptr(U, origin_U, n)                                               \
@@ -600,7 +603,6 @@
 #define mpi_diff(local_result, lat_4dim12, val0, val1, tmp, device_latt_tmp0,  \
                  tmp0, tmp1, zero)                                             \
   {                                                                            \
-    host_give_value(device_latt_tmp0, zero, lat_4dim12);                       \
     for (int i = 0; i < lat_4dim12; i++) {                                     \
       device_latt_tmp0[i] = val0[i] - val1[i];                                 \
     }                                                                          \
@@ -615,8 +617,6 @@
                       send_request, recv_request, device_send_vec,             \
                       device_recv_vec, host_send_vec, host_recv_vec, zero)     \
   {                                                                            \
-    device_zero_vec(lat_3dim6, device_send_vec, device_recv_vec,               \
-                    host_send_vec, host_recv_vec, zero);                       \
     _mpiDslashQcu(gridDim, blockDim, gauge, src_o, dest_e, EVEN, lat_1dim,     \
                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
                   send_request, recv_request, device_send_vec,                 \
@@ -628,8 +628,6 @@
                       send_request, recv_request, device_send_vec,             \
                       device_recv_vec, host_send_vec, host_recv_vec, zero)     \
   {                                                                            \
-    device_zero_vec(lat_3dim6, device_send_vec, device_recv_vec,               \
-                    host_send_vec, host_recv_vec, zero);                       \
     _mpiDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,      \
                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
                   send_request, recv_request, device_send_vec,                 \
