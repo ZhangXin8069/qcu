@@ -26,6 +26,7 @@
 #define EVENODD 2
 #define LAT_C 3
 #define LAT_S 4
+#define LAT_SC 12
 #define LAT_D 4
 #define B 0
 #define F 1
