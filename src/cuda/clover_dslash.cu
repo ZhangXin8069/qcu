@@ -43,13 +43,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
   // sigmaF
   {
     parity = device_parity;
-    give_value(clover, zero, 144);
-    give_value(origin_clover, zero, 144);
-    give_value(tmp1, zero, 9);
-    give_value(tmp2, zero, 9);
+    host_give_value(clover, zero, 144);
+    host_give_value(origin_clover, zero, 144);
+    host_give_value(tmp1, zero, 9);
+    host_give_value(tmp2, zero, 9);
   }
   // XY
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -172,7 +172,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // XZ
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -294,7 +294,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // XT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
@@ -418,7 +418,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // YZ
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
@@ -550,7 +550,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     }
   }
   // YT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
@@ -681,7 +681,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
 
   // ZT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;z
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);

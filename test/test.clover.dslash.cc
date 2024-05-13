@@ -84,7 +84,7 @@ struct LatticeComplex {
   double norm2() const { return sqrt(real * real + imag * imag); }
 };
 
-#define give_value(U, zero, n)                                                 \
+#define host_give_value(U, zero, n)                                                 \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] = zero;                                                             \
@@ -98,7 +98,7 @@ struct LatticeComplex {
     }                                                                          \
   }
 
-#define give_rand(input_matrix, size)                                          \
+#define host_give_rand(input_matrix, size)                                          \
   {                                                                            \
     for (int i = 0; i < size; i++) {                                           \
       input_matrix[i].real = static_cast<double>(rand()) / RAND_MAX;           \
@@ -408,7 +408,7 @@ void dslash(void *device_U, void *device_src, void *device_dest,
   LatticeComplex src[12];
   LatticeComplex dest[12];
   // just wilson(Sum part)
-  give_value(dest, zero, 12);
+  host_give_value(dest, zero, 12);
   {
     // x-1
     move = (-1 + (x == 0) * lat_x) * (oe == parity);
@@ -628,13 +628,13 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
   // sigmaF
   {
     parity = device_parity;
-    give_value(clover, zero, 144);
-    give_value(origin_clover, zero, 144);
-    give_value(tmp1, zero, 9);
-    give_value(tmp2, zero, 9);
+    host_give_value(clover, zero, 144);
+    host_give_value(origin_clover, zero, 144);
+    host_give_value(tmp1, zero, 9);
+    host_give_value(tmp2, zero, 9);
   }
   // XY
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     move0 = 0;
@@ -762,7 +762,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
     }
   }
   // XZ
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     move0 = 0;
@@ -888,7 +888,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
     }
   }
   // XT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;x
     move0 = 0;
@@ -1015,7 +1015,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
     }
   }
   // YZ
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;y
     move0 = 0;
@@ -1151,7 +1151,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
     }
   }
   // YT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;y
     move0 = 0;
@@ -1286,7 +1286,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
   }
 
   // ZT
-  give_value(U, zero, 9);
+  host_give_value(U, zero, 9);
   {
     //// x,y,z,t;z
     move0 = 0;
@@ -1497,8 +1497,8 @@ int main() {
   LatticeComplex fermion_out[12];
   LatticeComplex clover[144];
   {
-    give_rand(gauge, 18 * 4);
-    give_rand(fermion_in, 12);
+    host_give_rand(gauge, 18 * 4);
+    host_give_rand(fermion_in, 12);
   }
   {
     // wilson dslash
