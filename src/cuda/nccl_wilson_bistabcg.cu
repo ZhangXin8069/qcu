@@ -55,11 +55,17 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     int grid_1dim[DIM];
     int grid_index_1dim[DIM];
     give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
+<<<<<<< HEAD
     void *host_send_vec[WARDS];
     void *host_recv_vec[WARDS];
     void *device_send_vec[WARDS];
     void *device_recv_vec[WARDS];
     malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+=======
+    void *send_vec[WARDS];
+    void *recv_vec[WARDS];
+    malloc_vec(lat_3dim6, send_vec, recv_vec);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     // define end
     // define for nccl_wilson_bistabcg
     int lat_4dim12 = lat_4dim * 12;
@@ -83,7 +89,11 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     LatticeComplex *local_result;
     cudaMallocManaged(&local_result, sizeof(LatticeComplex));
     LatticeComplex *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde,
+<<<<<<< HEAD
         *p, *v, *s, *t, *device_latt_tmp0, *device_latt_tmp1;
+=======
+        *p, *v, *s, *t, *latt_tmp0, *latt_tmp1;
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     cudaMallocManaged(&ans_e, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&ans_o, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&x_e, lat_4dim12 * sizeof(LatticeComplex));
@@ -97,6 +107,7 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     cudaMallocManaged(&v, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&s, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&t, lat_4dim12 * sizeof(LatticeComplex));
+<<<<<<< HEAD
     cudaMallocManaged(&device_latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&device_latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
     // give ans first
@@ -140,6 +151,51 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     nccl_dslash(r, x_o, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim,
                 blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
                 grid_index_1dim, move, device_send_vec, device_recv_vec, zero, nccl_comm,
+=======
+    cudaMallocManaged(&latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
+    cudaMallocManaged(&latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
+    // give ans first
+    give_rand(ans_e, lat_4dim12);
+    give_rand(ans_o, lat_4dim12);
+    // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t, latt_tmp0, latt_tmp1
+    give_rand(x_o, lat_4dim12);
+    // give_value(x_o, zero, lat_4dim12 );
+    give_value(b_e, zero, lat_4dim12);
+    give_value(b_o, zero, lat_4dim12);
+    give_value(b__o, zero, lat_4dim12);
+    give_value(r, zero, lat_4dim12);
+    give_value(r_tilde, zero, lat_4dim12);
+    give_value(p, zero, lat_4dim12);
+    give_value(v, zero, lat_4dim12);
+    give_value(s, zero, lat_4dim12);
+    give_value(t, zero, lat_4dim12);
+    // give b'_o(b__0)
+    give_value(latt_tmp0, zero, lat_4dim12);
+    nccl_dslash_eo(latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
+    for (int i = 0; i < lat_4dim12; i++) {
+      b_e[i] = ans_e[i] - latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
+    }
+    give_value(latt_tmp1, zero, lat_4dim12);
+    nccl_dslash_oe(latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
+    for (int i = 0; i < lat_4dim12; i++) {
+      b_o[i] = ans_o[i] - latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
+    }
+    give_value(latt_tmp0, zero, lat_4dim12);
+    nccl_dslash_oe(latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge,
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                   send_vec, recv_vec, zero, nccl_comm, stream);
+    for (int i = 0; i < lat_4dim12; i++) {
+      b__o[i] = b_o[i] + latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
+    }
+    // bistabcg
+    nccl_dslash(r, x_o, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
                 stream);
     for (int i = 0; i < lat_4dim12; i++) {
       r[i] = b__o[i] - r[i];
@@ -164,9 +220,15 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
         p[i] = r[i] + (p[i] - v[i] * omega) * beta;
       }
       // v = A * p;
+<<<<<<< HEAD
       nccl_dslash(v, p, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim,
                   blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
                   grid_index_1dim, move, device_send_vec, device_recv_vec, zero, nccl_comm,
+=======
+      nccl_dslash(v, p, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                  blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                  grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
                   stream);
       nccl_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero, nccl_comm,
                stream);
@@ -179,9 +241,15 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
         s[i] = r[i] - v[i] * alpha;
       }
       // t = A * s;
+<<<<<<< HEAD
       nccl_dslash(t, s, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim,
                   blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
                   grid_index_1dim, move, device_send_vec, device_recv_vec, zero, nccl_comm,
+=======
+      nccl_dslash(t, s, kappa, latt_tmp0, latt_tmp1, node_rank, gridDim,
+                  blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim,
+                  grid_index_1dim, move, send_vec, recv_vec, zero, nccl_comm,
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
                   stream);
       nccl_dot(local_result, lat_4dim12, t, s, tmp0, zero, nccl_comm, stream);
       nccl_dot(local_result, lat_4dim12, t, t, tmp1, zero, nccl_comm, stream);
@@ -217,11 +285,19 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
            "memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
+<<<<<<< HEAD
     nccl_diff(local_result, lat_4dim12, x_o, ans_o, tmp, device_latt_tmp0, tmp0, tmp1,
               zero, nccl_comm, stream);
     printf("## difference: %.16f ", (*tmp).real);
     // free
     free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+=======
+    nccl_diff(local_result, lat_4dim12, x_o, ans_o, tmp, latt_tmp0, tmp0, tmp1,
+              zero, nccl_comm, stream);
+    printf("## difference: %.16f ", (*tmp).real);
+    // free
+    free_vec(send_vec, recv_vec);
+>>>>>>> 13cba993c1f80d9ba1169f680f01d04c9ed1f482
     cudaFree(gauge);
     cudaFree(x_o);
     cudaFree(b__o);

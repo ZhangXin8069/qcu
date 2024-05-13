@@ -2,7 +2,6 @@
 #define _LATTICE_PARAM_H
 #pragma optimize(5)
 #include "./qcu.h"
-
 // Lattice param class
 class LatticeParam {
 public:
@@ -100,5 +99,4 @@ public:
     return result;
   }
 };
-
 #endif
