@@ -393,9 +393,9 @@
     wilson_dslash_x_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, device_send_vec[B_X], device_send_vec[F_X]);      \
-    cudaMemcpy(host_recv_vec[B_X], device_send_vec[B_X],                       \
+    cudaMemcpy(host_send_vec[B_X], device_send_vec[B_X],                       \
                sizeof(double) * lat_3dim12[YZT], cudaMemcpyDeviceToHost);      \
-    cudaMemcpy(host_recv_vec[F_X], device_send_vec[F_X],                       \
+    cudaMemcpy(host_send_vec[F_X], device_send_vec[F_X],                       \
                sizeof(double) * lat_3dim12[YZT], cudaMemcpyDeviceToHost);      \
     if (grid_1dim[X] != 1) {                                                   \
       move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);                \
@@ -417,9 +417,9 @@
     wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, device_send_vec[B_Y], device_send_vec[F_Y]);      \
-    cudaMemcpy(host_recv_vec[B_Y], device_send_vec[B_Y],                       \
+    cudaMemcpy(host_send_vec[B_Y], device_send_vec[B_Y],                       \
                sizeof(double) * lat_3dim12[XZT], cudaMemcpyDeviceToHost);      \
-    cudaMemcpy(host_recv_vec[F_Y], device_send_vec[F_Y],                       \
+    cudaMemcpy(host_send_vec[F_Y], device_send_vec[F_Y],                       \
                sizeof(double) * lat_3dim12[XZT], cudaMemcpyDeviceToHost);      \
     if (grid_1dim[Y] != 1) {                                                   \
       move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);                \
@@ -439,9 +439,9 @@
     wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, device_send_vec[B_Z], device_send_vec[F_Z]);      \
-    cudaMemcpy(host_recv_vec[B_Z], device_send_vec[B_Z],                       \
+    cudaMemcpy(host_send_vec[B_Z], device_send_vec[B_Z],                       \
                sizeof(double) * lat_3dim12[XYT], cudaMemcpyDeviceToHost);      \
-    cudaMemcpy(host_recv_vec[F_Z], device_send_vec[F_Z],                       \
+    cudaMemcpy(host_send_vec[F_Z], device_send_vec[F_Z],                       \
                sizeof(double) * lat_3dim12[XYT], cudaMemcpyDeviceToHost);      \
     if (grid_1dim[Z] != 1) {                                                   \
       move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);                \
@@ -461,9 +461,9 @@
     wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, device_send_vec[B_T], device_send_vec[F_T]);      \
-    cudaMemcpy(host_recv_vec[B_T], device_send_vec[B_T],                       \
+    cudaMemcpy(host_send_vec[B_T], device_send_vec[B_T],                       \
                sizeof(double) * lat_3dim12[XYZ], cudaMemcpyDeviceToHost);      \
-    cudaMemcpy(host_recv_vec[F_T], device_send_vec[F_T],                       \
+    cudaMemcpy(host_send_vec[F_T], device_send_vec[F_T],                       \
                sizeof(double) * lat_3dim12[XYZ], cudaMemcpyDeviceToHost);      \
     if (grid_1dim[T] != 1) {                                                   \
       move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);                \
@@ -483,10 +483,11 @@
     if (grid_1dim[X] != 1) {                                                   \
       MPI_Wait(&recv_request[B_X], MPI_STATUS_IGNORE);                         \
       MPI_Wait(&recv_request[F_X], MPI_STATUS_IGNORE);                         \
-      cudaMemcpy(device_recv_vec[B_X], host_send_vec[B_X],                     \
+      cudaMemcpy(device_recv_vec[B_X], host_recv_vec[B_X],                     \
                  sizeof(double) * lat_3dim12[YZT], cudaMemcpyHostToDevice);    \
-      cudaMemcpy(device_recv_vec[F_X], host_send_vec[F_X],                     \
+      cudaMemcpy(device_recv_vec[F_X], host_recv_vec[F_X],                     \
                  sizeof(double) * lat_3dim12[YZT], cudaMemcpyHostToDevice);    \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_X], device_recv_vec[F_X]);    \
@@ -499,10 +500,11 @@
     if (grid_1dim[Y] != 1) {                                                   \
       MPI_Wait(&recv_request[B_Y], MPI_STATUS_IGNORE);                         \
       MPI_Wait(&recv_request[F_Y], MPI_STATUS_IGNORE);                         \
-      cudaMemcpy(device_recv_vec[B_Y], host_send_vec[B_Y],                     \
+      cudaMemcpy(device_recv_vec[B_Y], host_recv_vec[B_Y],                     \
                  sizeof(double) * lat_3dim12[XZT], cudaMemcpyHostToDevice);    \
-      cudaMemcpy(device_recv_vec[F_Y], host_send_vec[F_Y],                     \
+      cudaMemcpy(device_recv_vec[F_Y], host_recv_vec[F_Y],                     \
                  sizeof(double) * lat_3dim12[XZT], cudaMemcpyHostToDevice);    \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_Y], device_recv_vec[F_Y]);    \
@@ -515,10 +517,11 @@
     if (grid_1dim[Z] != 1) {                                                   \
       MPI_Wait(&recv_request[B_Z], MPI_STATUS_IGNORE);                         \
       MPI_Wait(&recv_request[F_Z], MPI_STATUS_IGNORE);                         \
-      cudaMemcpy(device_recv_vec[B_Z], host_send_vec[B_Z],                     \
+      cudaMemcpy(device_recv_vec[B_Z], host_recv_vec[B_Z],                     \
                  sizeof(double) * lat_3dim12[XYT], cudaMemcpyHostToDevice);    \
-      cudaMemcpy(device_recv_vec[F_Z], host_send_vec[F_Z],                     \
+      cudaMemcpy(device_recv_vec[F_Z], host_recv_vec[F_Z],                     \
                  sizeof(double) * lat_3dim12[XYT], cudaMemcpyHostToDevice);    \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_Z], device_recv_vec[F_Z]);    \
@@ -531,10 +534,11 @@
     if (grid_1dim[T] != 1) {                                                   \
       MPI_Wait(&recv_request[B_T], MPI_STATUS_IGNORE);                         \
       MPI_Wait(&recv_request[F_T], MPI_STATUS_IGNORE);                         \
-      cudaMemcpy(device_recv_vec[B_T], host_send_vec[B_T],                     \
+      cudaMemcpy(device_recv_vec[B_T], host_recv_vec[B_T],                     \
                  sizeof(double) * lat_3dim12[XYZ], cudaMemcpyHostToDevice);    \
-      cudaMemcpy(device_recv_vec[F_T], host_send_vec[F_T],                     \
+      cudaMemcpy(device_recv_vec[F_T], host_recv_vec[F_T],                     \
                  sizeof(double) * lat_3dim12[XYZ], cudaMemcpyHostToDevice);    \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_T], device_recv_vec[F_T]);    \
