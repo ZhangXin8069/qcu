@@ -1,6 +1,8 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
-__global__ void give_random_value(void *device_random_value, unsigned long seed) {
+
+__global__ void give_random_value(void *device_random_value,
+                                  unsigned long seed) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int lat_4dim = gridDim.x * blockDim.x;
   if (idx < lat_4dim) {
@@ -17,7 +19,7 @@ __global__ void give_random_value(void *device_random_value, unsigned long seed)
 }
 
 __global__ void give_custom_value(void *device_custom_value, double real,
-                                      double imag) {
+                                  double imag) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int lat_4dim = gridDim.x * blockDim.x;
   if (idx < lat_4dim) {
