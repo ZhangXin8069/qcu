@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <iostream>
 #pragma optimize(5)
 #include "../../include/qcu.h"
@@ -71,10 +72,10 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeComplex *host_latt_tmp1 =
       (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
   // give ans first
-  give_random_value<<<gridDim, blockDim>>>(ans_e, node_rank);
-  give_random_value<<<gridDim, blockDim>>>(ans_o, node_rank);
+  give_random_value<<<gridDim, blockDim>>>(ans_e, node_rank + 12138);
+  give_random_value<<<gridDim, blockDim>>>(ans_o, node_rank + 83121);
   // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t
-  give_random_value<<<gridDim, blockDim>>>(x_o, node_rank);
+  give_random_value<<<gridDim, blockDim>>>(x_o, node_rank + 66666);
   give_custom_value<<<gridDim, blockDim>>>(b_e, 0.0, 0.0);
   give_custom_value<<<gridDim, blockDim>>>(b_o, 0.0, 0.0);
   give_custom_value<<<gridDim, blockDim>>>(b__o, 0.0, 0.0);
@@ -117,16 +118,10 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
              gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
              grid_1dim, grid_index_1dim, move, send_request, recv_request,
              device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
-  device_print(r, host_latt_tmp0, 0, lat_4dim12);
-  //   device_print(r, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
-  device_print(b__o, host_latt_tmp0, 0, lat_4dim12);
-  //   device_print(b__o, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
   wilson_bistabcg_give_rr<<<gridDim, blockDim>>>(r, b__o, r_tilde);
   checkCudaErrors(cudaDeviceSynchronize());
-  //   device_print(r, host_latt_tmp0, 0, lat_4dim12);
-  //   device_print(r, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
-  //   device_print(r_tilde, host_latt_tmp0, 0, lat_4dim12);
-  //   device_print(r_tilde, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
+  device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 0);
+  device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 1);
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
@@ -192,7 +187,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          double(duration) / 1e9);
   mpi_diff(local_result, x_o, ans_o, tmp, device_latt_tmp0, tmp0, tmp1, gridDim,
            blockDim);
-  printf("## difference: %.16f ", tmp.real);
+  printf("## difference: %.16f\n", tmp.real);
   // free
   free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
   cudaFree(ans_e);
