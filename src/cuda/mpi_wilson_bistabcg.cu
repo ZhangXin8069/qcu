@@ -126,6 +126,8 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
     mpi_dot(local_result, r_tilde, r, rho, gridDim, blockDim);
+    device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 2);
+    device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 3);
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##rho:" << rho.real << std::endl;
