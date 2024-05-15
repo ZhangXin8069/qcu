@@ -3,13 +3,13 @@
 #pragma optimize(5)
 #pragma once
 #include "./include.h"
-#include "./define.h"
-#include "./qcu_cuda.h"
-#include "./qcu_mpi.h"
 #include "./lattice_complex.h"
 #include "./lattice_gamma.h"
 #include "./lattice_clover.h"
 #include "./lattice_wilson.h"
+#include "./qcu_cuda.h"
+#include "./qcu_mpi.h"
+#include "./define.h"
 
 #ifdef __cplusplus
 extern "C" {
