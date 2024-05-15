@@ -1,5 +1,0 @@
-profile	1.1.0	1.1.0--sm_70	cpu_arch=x86_64,gpu_arch=sm_70,cuda_version=11.6.124	# Last updated Tue May 14 00:11:58 2024
-
-  total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
-
-# Total time spent in asynchronous execution = 0 seconds
