@@ -35,7 +35,7 @@
 #define NOWARD 0
 #define FORWARD 1
 #define SR 2
-#define LAT_EXAMPLE 32
+#define LAT_EXAMPLE 16
 #define GRID_EXAMPLE 1
 
 #define WILSON_DSLASH
@@ -44,7 +44,7 @@
 #define MPI_WILSON_DSLASH
 // #define MPI_CLOVER_DSLASH
 // #define MPI_OVERLAP_DSLASH
-#define NCCL_WILSON_DSLASH
+// #define NCCL_WILSON_DSLASH
 // #define NCCL_CLOVER_DSLASH
 // #define NCCL_OVERLAP_DSLASH
 #define TEST_WILSON_DSLASH
@@ -56,7 +56,7 @@
 #define MPI_WILSON_BISTABCG
 // #define MPI_CLOVER_BISTABCG
 // #define MPI_OVERLAP_BISTABCG
-#define NCCL_WILSON_BISTABCG
+// #define NCCL_WILSON_BISTABCG
 // #define NCCL_CLOVER_BISTABCG
 // #define NCCL_OVERLAP_BISTABCG
 #define TEST_WILSON_BISTABCG
@@ -409,10 +409,16 @@
     }                                                                          \
   }
 
+#define device2host(vec, lat_3dim12, host_vec)                                 \
+  {                                                                            \
+    cudaMemcpy(host_vec, vec, sizeof(double) * lat_3dim12,                     \
+               cudaMemcpyDeviceToHost);                                        \
+  }
+
 #define _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,       \
                       parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,      \
                       grid_index_1dim, move, send_request, recv_request,       \
-                      send_vec, recv_vec)                                      \
+                      send_vec, recv_vec, host_send_vec, host_recv_vec)        \
   {                                                                            \
     wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_1dim[X],  \
                                                     lat_1dim[Y], lat_1dim[Z]); \
@@ -543,17 +549,24 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define malloc_vec(lat_3dim6, send_vec, recv_vec)                              \
+#define malloc_vec(lat_3dim6, send_vec, recv_vec, host_send_vec,               \
+                   host_recv_vec)                                              \
   {                                                                            \
     for (int i = 0; i < DIM; i++) {                                            \
-      cudaMallocManaged(&send_vec[i * SR],                                     \
-                        lat_3dim6[i] * sizeof(LatticeComplex));                \
-      cudaMallocManaged(&send_vec[i * SR + 1],                                 \
-                        lat_3dim6[i] * sizeof(LatticeComplex));                \
-      cudaMallocManaged(&recv_vec[i * SR],                                     \
-                        lat_3dim6[i] * sizeof(LatticeComplex));                \
-      cudaMallocManaged(&recv_vec[i * SR + 1],                                 \
-                        lat_3dim6[i] * sizeof(LatticeComplex));                \
+      cudaMalloc(&send_vec[i * SR], lat_3dim6[i] * sizeof(LatticeComplex));    \
+      cudaMalloc(&send_vec[i * SR + 1],                                        \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&recv_vec[i * SR], lat_3dim6[i] * sizeof(LatticeComplex));    \
+      cudaMalloc(&recv_vec[i * SR + 1],                                        \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&host_send_vec[i * SR],                                       \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&host_send_vec[i * SR + 1],                                   \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&host_recv_vec[i * SR],                                       \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&host_recv_vec[i * SR + 1],                                   \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
     }                                                                          \
   }
 
