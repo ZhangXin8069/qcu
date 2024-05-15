@@ -590,33 +590,31 @@
     }                                                                          \
   }
 
-#define mpi_dot(local_result, lat_4dim12, val0, val1, tmp, zero)               \
+#define mpi_dot(local_result, val0, val1, tmp, gridDim, blockDim)              \
   {                                                                            \
-    local_result = zero;                                                       \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      local_result += val0[i].conj() * val1[i];                                \
-    }                                                                          \
+    wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(local_result, val0, val1); \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,                 \
                   MPI_COMM_WORLD);                                             \
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
 
-#define mpi_diff(local_result, lat_4dim12, val0, val1, tmp, device_latt_tmp0,  \
-                 tmp0, tmp1, zero)                                             \
+#define mpi_diff(local_result, val0, val1, tmp, device_latt_tmp0, tmp0, tmp1,  \
+                 gridDim, blockDim)                                            \
   {                                                                            \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      device_latt_tmp0[i] = val0[i] - val1[i];                                 \
-    }                                                                          \
-    mpi_dot(local_result, lat_4dim12, device_latt_tmp0, device_latt_tmp0,      \
-            tmp0, zero);                                                       \
-    mpi_dot(local_result, lat_4dim12, val1, val1, tmp1, zero);                 \
+    wilson_bistabcg_part_cut<<<gridDim, blockDim>>>(device_latt_tmp0, val0,    \
+                                                    val1);                     \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
+    mpi_dot(local_result, device_latt_tmp0, device_latt_tmp0, tmp0, gridDim,   \
+            blockDim);                                                         \
+    mpi_dot(local_result, val1, val1, tmp1, gridDim, blockDim);                \
     tmp = tmp0 / tmp1;                                                         \
   }
 
 #define mpi_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,      \
                       lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,  \
                       send_request, recv_request, device_send_vec,             \
-                      device_recv_vec, host_send_vec, host_recv_vec, zero)     \
+                      device_recv_vec, host_send_vec, host_recv_vec)           \
   {                                                                            \
     _mpiDslashQcu(gridDim, blockDim, gauge, src_o, dest_e, EVEN, lat_1dim,     \
                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
@@ -627,7 +625,7 @@
 #define mpi_dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge,      \
                       lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,  \
                       send_request, recv_request, device_send_vec,             \
-                      device_recv_vec, host_send_vec, host_recv_vec, zero)     \
+                      device_recv_vec, host_send_vec, host_recv_vec)           \
   {                                                                            \
     _mpiDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,      \
                   lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,     \
@@ -640,20 +638,19 @@
                    node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12,  \
                    lat_4dim12, grid_1dim, grid_index_1dim, move, send_request, \
                    recv_request, device_send_vec, device_recv_vec,             \
-                   host_send_vec, host_recv_vec, zero)                         \
+                   host_send_vec, host_recv_vec)                               \
   {                                                                            \
     mpi_dslash_eo(device_latt_tmp0, src_o, node_rank, gridDim, blockDim,       \
                   gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,     \
                   move, send_request, recv_request, device_send_vec,           \
-                  device_recv_vec, host_send_vec, host_recv_vec, zero);        \
+                  device_recv_vec, host_send_vec, host_recv_vec);              \
     mpi_dslash_oe(device_latt_tmp1, device_latt_tmp0, node_rank, gridDim,      \
                   blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,            \
                   grid_index_1dim, move, send_request, recv_request,           \
                   device_send_vec, device_recv_vec, host_send_vec,             \
-                  host_recv_vec, zero);                                        \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      dest_o[i] = src_o[i] - device_latt_tmp1[i] * kappa * kappa;              \
-    }                                                                          \
+                  host_recv_vec);                                              \
+    wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
+        dest_o, src_o, device_latt_tmp1, kappa);                               \
   }
 
 static uint64_t getHostHash(const char *string) {
