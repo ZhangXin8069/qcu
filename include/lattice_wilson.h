@@ -69,4 +69,10 @@ __global__ void test_wilson_dslash(void *device_U, void *device_src,
                                    const int device_lat_z,
                                    const int device_lat_t,
                                    const int device_parity);
+
+__global__ void wilson_bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
+                                      void *device_latt_tmp0, double kappa);
+
+__global__ void wilson_bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
+                                      void *device_latt_tmp1, double kappa);
 #endif

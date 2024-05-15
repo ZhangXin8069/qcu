@@ -3,25 +3,6 @@
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG
 // #define DEBUG_MPI_WILSON_CG
-__global__ void generateRandomNumbers(void *device_randomNumbers, int n, unsigned long seed) {
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    double *randomNumbers =static_cast<double *>(device_randomNumbers);
-    if (idx < n) {
-        curandState state;
-        curand_init(seed, idx, 0, &state);
-        randomNumbers[idx] = curand_uniform(&state);
-    }
-}
-
-__global__ void generateCustomNumbers(void *device_customNumbers, int n, double real, double imag) {
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    LatticeComplex *customNumbers =static_cast<LatticeComplex *>(device_customNumbers);
-    if (idx < n) {
-        customNumbers[idx].real = real;
-        customNumbers[idx].imag = imag;
-    }
-}
-
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
@@ -68,8 +49,8 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex local_result(0.0, 0.0);
-  void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde,
-      *p, *v, *s, *t, *device_latt_tmp0, *device_latt_tmp1;
+  void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
+      *t, *device_latt_tmp0, *device_latt_tmp1;
   cudaMalloc(&ans_e, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&ans_o, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&x_e, lat_4dim12 * sizeof(LatticeComplex));
@@ -85,14 +66,45 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaMalloc(&t, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&device_latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&device_latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
-  LatticeComplex *host_latt_tmp0 = (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
-  LatticeComplex *host_latt_tmp1 = (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
-  checkCudaErrors(cudaDeviceSynchronize());
+  LatticeComplex *host_latt_tmp0 =
+      (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
+  LatticeComplex *host_latt_tmp1 =
+      (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
+  // give ans first
+  give_random_value<<<gridDim, blockDim>>>(ans_e, node_rank);
+  give_random_value<<<gridDim, blockDim>>>(ans_o, node_rank);
+  // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t
+  give_random_value<<<gridDim, blockDim>>>(x_o, node_rank);
+  give_custom_value<<<gridDim, blockDim>>>(b_e, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(b_o, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(b__o, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(r, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(r_tilde, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(p, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(v, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(s, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(t, 0.0, 0.0);
+  // give b'_o(b__0)
+  give_custom_value<<<gridDim, blockDim>>>(device_latt_tmp0, 0.0, 0.0);
+  mpi_dslash_eo(device_latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
+                lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                send_request, recv_request, device_send_vec, device_recv_vec,
+                host_send_vec, host_recv_vec, zero);
+  wilson_bistabcg_give_b_e<<<gridDim, blockDim>>>(void *b_e, void *ans_e,
+                                      void *device_latt_tmp0, double kappa);
+  give_custom_value<<<gridDim, blockDim>>>(device_latt_tmp1, 0.0, 0.0);
+  mpi_dslash_oe(device_latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
+                lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
+                send_request, recv_request, device_send_vec, device_recv_vec,
+                host_send_vec, host_recv_vec, zero);
+  wilson_bistabcg_give_b_o<<<gridDim, blockDim>>>(void *b_o, void *ans_o,
+                                      void *device_latt_tmp1, double kappa);
+  give_custom_value<<<gridDim, blockDim>>>(device_latt_tmp0, 0.0, 0.0);
+
   auto start = std::chrono::high_resolution_clock::now();
-  int lat_4dim24=lat_4dim12*2;
-  generateRandomNumbers<<<gridDim, blockDim>>>(device_latt_tmp0, lat_4dim24, node_rank);
   checkCudaErrors(cudaDeviceSynchronize());
-  cudaMemcpy(host_latt_tmp0, device_latt_tmp0,sizeof(LatticeComplex)*lat_4dim12, cudaMemcpyDeviceToHost);
+  cudaMemcpy(host_latt_tmp0, device_latt_tmp0,
+             lat_4dim12 * sizeof(LatticeComplex), cudaMemcpyDeviceToHost);
   checkCudaErrors(cudaDeviceSynchronize());
   auto end = std::chrono::high_resolution_clock::now();
   auto duration =
@@ -103,9 +115,13 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          "memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
-  printf("[0]:%f,%f;[-1]::%f,%f;\n", host_latt_tmp0[0].real, host_latt_tmp0[0].imag,host_latt_tmp0[lat_4dim12-1].real,host_latt_tmp0[lat_4dim12-1].imag);
+  printf("[0]:%f,%f;[-1]:%f,%f;\n", host_latt_tmp0[0].real,
+         host_latt_tmp0[0].imag, host_latt_tmp0[lat_4dim12 - 1].real,
+         host_latt_tmp0[lat_4dim12 - 1].imag);
   // free
   free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+  cudaFree(ans_e);
+  cudaFree(ans_o);
   cudaFree(x_o);
   cudaFree(b__o);
   cudaFree(r);
@@ -114,5 +130,9 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  cudaFree(device_latt_tmp0);
+  cudaFree(device_latt_tmp1);
+  free(host_latt_tmp0);
+  free(host_latt_tmp1);
 }
 #endif
