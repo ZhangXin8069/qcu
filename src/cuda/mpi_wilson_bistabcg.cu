@@ -117,10 +117,16 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
              gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
              grid_1dim, grid_index_1dim, move, send_request, recv_request,
              device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+  device_print(r, host_latt_tmp0, 0, lat_4dim12);
+  //   device_print(r, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
+  device_print(b__o, host_latt_tmp0, 0, lat_4dim12);
+  //   device_print(b__o, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
   wilson_bistabcg_give_rr<<<gridDim, blockDim>>>(r, b__o, r_tilde);
   checkCudaErrors(cudaDeviceSynchronize());
-  device_print(r, host_latt_tmp0, 0, lat_4dim12);
-  device_print(r, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
+  //   device_print(r, host_latt_tmp0, 0, lat_4dim12);
+  //   device_print(r, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
+  //   device_print(r_tilde, host_latt_tmp0, 0, lat_4dim12);
+  //   device_print(r_tilde, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
