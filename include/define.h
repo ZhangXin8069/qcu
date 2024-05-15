@@ -1,5 +1,7 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
+#include "lattice_complex.h"
+#include <strings.h>
 #pragma optimize(5)
 #include "./qcu.h"
 #define BLOCK_SIZE 256
@@ -75,6 +77,13 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
+#define device_print(device_vec, host_vec, index, size)                        \
+  {                                                                            \
+    cudaMemcpy(host_vec, device_vec, size * sizeof(LatticeComplex),            \
+               cudaMemcpyDeviceToHost);                                        \
+    print_ptr(host_vec, index);                                                \
+  }
+
 #define print_ptr(ptr, index)                                                  \
   {                                                                            \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
