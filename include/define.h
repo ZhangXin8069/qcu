@@ -77,17 +77,23 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
-#define device_print(device_vec, host_vec, index, size)                        \
+#define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
   {                                                                            \
+    int index_;                                                                \
+    if (index < 0) {                                                           \
+      index_ = size + index;                                                   \
+    } else {                                                                   \
+      index_ = index;                                                          \
+    }                                                                          \
     cudaMemcpy(host_vec, device_vec, size * sizeof(LatticeComplex),            \
                cudaMemcpyDeviceToHost);                                        \
-    print_ptr(host_vec, index);                                                \
+    print_ptr(host_vec, index_, node_rank, tag);                               \
   }
 
-#define print_ptr(ptr, index)                                                  \
+#define print_ptr(ptr, index, node_rank, tag)                                  \
   {                                                                            \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    printf("ptr(%p)[%d]:%.9lf + %.9lfi\n", ptr, index,                         \
+    printf("#%d#<%d>ptr(%p)[%d]:%.9lf + %.9lfi\n", tag, node_rank, ptr, index, \
            static_cast<LatticeComplex *>(ptr)[index].real,                     \
            static_cast<LatticeComplex *>(ptr)[index].imag);                    \
   }
