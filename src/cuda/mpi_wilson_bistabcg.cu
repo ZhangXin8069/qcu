@@ -2,7 +2,7 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG
-// #define DEBUG_MPI_WILSON_CG
+#define DEBUG_MPI_WILSON_CG
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
@@ -49,8 +49,8 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex local_result(0.0, 0.0);
-  LatticeComplex *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde,
-      *p, *v, *s, *t, *device_latt_tmp0, *device_latt_tmp1;
+  void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
+      *t, *device_latt_tmp0, *device_latt_tmp1;
   cudaMalloc(&ans_e, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&ans_o, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&x_e, lat_4dim12 * sizeof(LatticeComplex));
@@ -66,65 +66,65 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaMalloc(&t, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&device_latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&device_latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
-  void *host_latt_tmp0 = (void *)malloc(lat_4dim12 * sizeof(LatticeComplex));
-  void *host_latt_tmp1 = (void *)malloc(lat_4dim12 * sizeof(LatticeComplex));
+  LatticeComplex *host_latt_tmp0 =
+      (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
+  LatticeComplex *host_latt_tmp1 =
+      (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
   // give ans first
-  device_give_rand(ans_e, host_latt_tmp0,lat_4dim12);
-  device_give_rand(ans_o, host_latt_tmp0,lat_4dim12);
-  // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t, device_latt_tmp0,
-  // device_latt_tmp1
-  device_give_rand(x_o, host_latt_tmp0, lat_4dim12);
-  // device_give_value(x_o, host_latt_tmp0, zero, lat_4dim12 );
-  device_give_value(b_e, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(b_o, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(b__o, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(r, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(r_tilde, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(p, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(v, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(s, host_latt_tmp0, zero, lat_4dim12);
-  device_give_value(t, host_latt_tmp0, zero, lat_4dim12);
+  give_random_value<<<gridDim, blockDim>>>(ans_e, node_rank);
+  give_random_value<<<gridDim, blockDim>>>(ans_o, node_rank);
+  // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t
+  give_random_value<<<gridDim, blockDim>>>(x_o, node_rank);
+  give_custom_value<<<gridDim, blockDim>>>(b_e, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(b_o, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(b__o, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(r, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(r_tilde, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(p, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(v, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(s, 0.0, 0.0);
+  give_custom_value<<<gridDim, blockDim>>>(t, 0.0, 0.0);
   // give b'_o(b__0)
-  device_give_value(device_latt_tmp0, host_latt_tmp0, zero, lat_4dim12);
+  give_custom_value<<<gridDim, blockDim>>>(device_latt_tmp0, 0.0, 0.0);
+  checkCudaErrors(cudaDeviceSynchronize());
   mpi_dslash_eo(device_latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
                 lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                 send_request, recv_request, device_send_vec, device_recv_vec,
-                host_send_vec, host_recv_vec, zero);
-  for (int i = 0; i < lat_4dim12; i++) {
-    b_e[i] =
-        ans_e[i] - device_latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
-  }
-  device_give_value(device_latt_tmp1, host_latt_tmp0, zero, lat_4dim12);
+                host_send_vec, host_recv_vec);
+  wilson_bistabcg_give_b_e<<<gridDim, blockDim>>>(b_e, ans_e, device_latt_tmp0,
+                                                  kappa);
+  checkCudaErrors(cudaDeviceSynchronize());
+  give_custom_value<<<gridDim, blockDim>>>(device_latt_tmp1, 0.0, 0.0);
+  checkCudaErrors(cudaDeviceSynchronize());
   mpi_dslash_oe(device_latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
                 lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                 send_request, recv_request, device_send_vec, device_recv_vec,
-                host_send_vec, host_recv_vec, zero);
-  for (int i = 0; i < lat_4dim12; i++) {
-    b_o[i] =
-        ans_o[i] - device_latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
-  }
-  device_give_value(device_latt_tmp0, host_latt_tmp0, zero, lat_4dim12);
+                host_send_vec, host_recv_vec);
+  wilson_bistabcg_give_b_o<<<gridDim, blockDim>>>(b_o, ans_o, device_latt_tmp1,
+                                                  kappa);
+  checkCudaErrors(cudaDeviceSynchronize());
+  give_custom_value<<<gridDim, blockDim>>>(device_latt_tmp0, 0.0, 0.0);
+  checkCudaErrors(cudaDeviceSynchronize());
   mpi_dslash_oe(device_latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge,
                 lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                 send_request, recv_request, device_send_vec, device_recv_vec,
-                host_send_vec, host_recv_vec, zero);
-  for (int i = 0; i < lat_4dim12; i++) {
-    b__o[i] = b_o[i] + device_latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
-  }
+                host_send_vec, host_recv_vec);
+  wilson_bistabcg_give_b__0<<<gridDim, blockDim>>>(b__o, b_o, device_latt_tmp0,
+                                                   kappa);
+  checkCudaErrors(cudaDeviceSynchronize());
   // bistabcg
   mpi_dslash(r, x_o, kappa, device_latt_tmp0, device_latt_tmp1, node_rank,
              gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
              grid_1dim, grid_index_1dim, move, send_request, recv_request,
-             device_send_vec, device_recv_vec, host_send_vec, host_recv_vec,
-             zero);
-  for (int i = 0; i < lat_4dim12; i++) {
-    r[i] = b__o[i] - r[i];
-    r_tilde[i] = r[i];
-  }
+             device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+  wilson_bistabcg_give_rr<<<gridDim, blockDim>>>(r, b__o, r_tilde);
+  checkCudaErrors(cudaDeviceSynchronize());
+  device_print(r, host_latt_tmp0, 0, lat_4dim12);
+  device_print(r, host_latt_tmp0, lat_4dim12 - 1, lat_4dim12);
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
-    mpi_dot(local_result, lat_4dim12, r_tilde, r, rho, zero);
+    mpi_dot(local_result, r_tilde, r, rho, gridDim, blockDim);
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##rho:" << rho.real << std::endl;
@@ -134,44 +134,38 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##beta:" << beta.real << std::endl;
 #endif
-    for (int i = 0; i < lat_4dim12; i++) {
-      p[i] = r[i] + (p[i] - v[i] * omega) * beta;
-    }
+    wilson_bistabcg_give_p<<<gridDim, blockDim>>>(p, r, v, omega, beta);
+    checkCudaErrors(cudaDeviceSynchronize());
     // v = A * p;
     mpi_dslash(v, p, kappa, device_latt_tmp0, device_latt_tmp1, node_rank,
                gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
                grid_1dim, grid_index_1dim, move, send_request, recv_request,
-               device_send_vec, device_recv_vec, host_send_vec, host_recv_vec,
-               zero);
-    mpi_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero);
+               device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+    mpi_dot(local_result, r_tilde, v, tmp, gridDim, blockDim);
     alpha = rho / tmp;
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##alpha:" << alpha.real << std::endl;
 #endif
-    for (int i = 0; i < lat_4dim12; i++) {
-      s[i] = r[i] - v[i] * alpha;
-    }
+    wilson_bistabcg_give_s<<<gridDim, blockDim>>>(s, r, v, alpha);
+    checkCudaErrors(cudaDeviceSynchronize());
     // t = A * s;
     mpi_dslash(t, s, kappa, device_latt_tmp0, device_latt_tmp1, node_rank,
                gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
                grid_1dim, grid_index_1dim, move, send_request, recv_request,
-               device_send_vec, device_recv_vec, host_send_vec, host_recv_vec,
-               zero);
-    mpi_dot(local_result, lat_4dim12, t, s, tmp0, zero);
-    mpi_dot(local_result, lat_4dim12, t, t, tmp1, zero);
+               device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+    mpi_dot(local_result, t, s, tmp0, gridDim, blockDim);
+    mpi_dot(local_result, t, t, tmp1, gridDim, blockDim);
     omega = tmp0 / tmp1;
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##omega:" << omega.real << std::endl;
 #endif
-    for (int i = 0; i < lat_4dim12; i++) {
-      x_o[i] = x_o[i] + p[i] * alpha + s[i] * omega;
-    }
-    for (int i = 0; i < lat_4dim12; i++) {
-      r[i] = s[i] - t[i] * omega;
-    }
-    mpi_dot(local_result, lat_4dim12, r, r, r_norm2, zero);
+    wilson_bistabcg_give_x_o<<<gridDim, blockDim>>>(x_o, p, s, alpha, omega);
+    checkCudaErrors(cudaDeviceSynchronize());
+    wilson_bistabcg_give_r<<<gridDim, blockDim>>>(r, s, t, omega);
+    checkCudaErrors(cudaDeviceSynchronize());
+    mpi_dot(local_result, r, r, r_norm2, gridDim, blockDim);
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##Residual:" << r_norm2.real << std::endl;
     // break;
@@ -190,11 +184,13 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          "memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
-  mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, device_latt_tmp0, tmp0,
-           tmp1, zero);
+  mpi_diff(local_result, x_o, ans_o, tmp, device_latt_tmp0, tmp0, tmp1, gridDim,
+           blockDim);
   printf("## difference: %.16f ", tmp.real);
   // free
   free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+  cudaFree(ans_e);
+  cudaFree(ans_o);
   cudaFree(x_o);
   cudaFree(b__o);
   cudaFree(r);
@@ -203,5 +199,9 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaFree(v);
   cudaFree(s);
   cudaFree(t);
+  cudaFree(device_latt_tmp0);
+  cudaFree(device_latt_tmp1);
+  free(host_latt_tmp0);
+  free(host_latt_tmp1);
 }
 #endif
