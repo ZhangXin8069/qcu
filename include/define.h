@@ -717,13 +717,13 @@ static void getHostName(char *hostname, int maxlen) {
           node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
       checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclGroupStart();                                                        \
-      ncclRecv(device_recv_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B],     \
-               nccl_comm, stream);                                             \
-      ncclRecv(device_recv_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
-               nccl_comm, stream);                                             \
       ncclSend(device_send_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
       ncclGroupEnd();                                                          \
     }                                                                          \
@@ -737,13 +737,13 @@ static void getHostName(char *hostname, int maxlen) {
       move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];             \
       checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclGroupStart();                                                        \
-      ncclRecv(device_recv_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B],     \
-               nccl_comm, stream);                                             \
-      ncclRecv(device_recv_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
-               nccl_comm, stream);                                             \
       ncclSend(device_send_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
       ncclGroupEnd();                                                          \
     }                                                                          \
@@ -757,13 +757,13 @@ static void getHostName(char *hostname, int maxlen) {
       move[F] = node_rank + move[F] * grid_1dim[T];                            \
       checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclGroupStart();                                                        \
-      ncclRecv(device_recv_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B],     \
-               nccl_comm, stream);                                             \
-      ncclRecv(device_recv_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
-               nccl_comm, stream);                                             \
       ncclSend(device_send_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
       ncclGroupEnd();                                                          \
     }                                                                          \
@@ -777,13 +777,13 @@ static void getHostName(char *hostname, int maxlen) {
       move[F] = node_rank + move[F];                                           \
       checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclGroupStart();                                                        \
-      ncclRecv(device_recv_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B],     \
-               nccl_comm, stream);                                             \
-      ncclRecv(device_recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
-               nccl_comm, stream);                                             \
       ncclSend(device_send_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B],     \
+               nccl_comm, stream);                                             \
+      ncclRecv(device_recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
       ncclGroupEnd();                                                          \
     }                                                                          \
