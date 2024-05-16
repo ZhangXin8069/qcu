@@ -3,10 +3,10 @@
 #pragma optimize(5)
 #include "./qcu.h"
 
-__global__ void wilson_bistabcg_part_dot(LatticeComplex local_result,
+__global__ void wilson_bistabcg_part_dot(void *device_dot_tmp,
                                          void *device_val0, void *device_val1);
 
 __global__ void wilson_bistabcg_part_cut(void *device_latt_tmp0,
                                          void *device_val0, void *device_val1);
-                                         
+
 #endif
