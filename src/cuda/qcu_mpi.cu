@@ -6,8 +6,6 @@ __global__ void wilson_bistabcg_part_dot(LatticeComplex local_result,
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int lat_4dim = gridDim.x * blockDim.x;
   if (idx < lat_4dim) {
-    local_result.real = 0.0;
-    local_result.imag = 0.0;
     LatticeComplex *val0 = static_cast<LatticeComplex *>(device_val0);
     LatticeComplex *val1 = static_cast<LatticeComplex *>(device_val1);
     for (int i = 0; i < LAT_SC; ++i) {

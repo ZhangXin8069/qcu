@@ -605,10 +605,13 @@
     }                                                                          \
   }
 
-#define mpi_dot(local_result, val0, val1, tmp, gridDim, blockDim)              \
+#define mpi_dot(local_result, val0, val1, tmp, gridDim, blockDim)              \//bug here! device doesn't return local_result
   {                                                                            \
+    local_result.real = 0.0;                                                   \
+    local_result.imag = 0.0;                                                   \
     wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(local_result, val0, val1); \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
+    printf("#local_result:%d\n", local_result.real);                           \
     MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,                 \
                   MPI_COMM_WORLD);                                             \
     MPI_Barrier(MPI_COMM_WORLD);                                               \
