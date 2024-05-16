@@ -35,8 +35,6 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define end
   // define for mpi_wilson_cg
   int lat_4dim12 = lat_4dim * 12;
-  LatticeComplex zero(0.0, 0.0);
-  LatticeComplex one(1.0, 0.0);
   LatticeComplex r_norm2(0.0, 0.0);
   const int MAX_ITER(1e3); // 300++?
   const double TOL(1e-6);
@@ -51,7 +49,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex local_result(0.0, 0.0);
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
-      *t, *device_latt_tmp0, *device_latt_tmp1;
+      *t, *device_latt_tmp0, *device_latt_tmp1, *device_dot_tmp;
   cudaMalloc(&ans_e, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&ans_o, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&x_e, lat_4dim12 * sizeof(LatticeComplex));
@@ -67,10 +65,13 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaMalloc(&t, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&device_latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
   cudaMalloc(&device_latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
+  cudaMalloc(&device_dot_tmp, lat_4dim * sizeof(LatticeComplex));
   LatticeComplex *host_latt_tmp0 =
       (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
   LatticeComplex *host_latt_tmp1 =
       (LatticeComplex *)malloc(lat_4dim12 * sizeof(LatticeComplex));
+  LatticeComplex *host_dot_tmp =
+      (LatticeComplex *)malloc(lat_4dim * sizeof(LatticeComplex));
   // give ans first
   give_random_value<<<gridDim, blockDim>>>(ans_e, node_rank + 12138);
   give_random_value<<<gridDim, blockDim>>>(ans_o, node_rank + 83121);
@@ -125,7 +126,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
-    mpi_dot(local_result, r_tilde, r, rho, gridDim, blockDim);
+    mpi_dot(device_dot_tmp, host_dot_tmp, r_tilde, r, rho, gridDim, blockDim);
     device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 2);
     device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 3);
 #ifdef DEBUG_MPI_WILSON_CG
@@ -144,7 +145,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
                gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
                grid_1dim, grid_index_1dim, move, send_request, recv_request,
                device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
-    mpi_dot(local_result, r_tilde, v, tmp, gridDim, blockDim);
+    mpi_dot(device_dot_tmp, host_dot_tmp, r_tilde, v, tmp, gridDim, blockDim);
     alpha = rho / tmp;
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
@@ -157,8 +158,8 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
                gridDim, blockDim, gauge, lat_1dim, lat_3dim12, lat_4dim12,
                grid_1dim, grid_index_1dim, move, send_request, recv_request,
                device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
-    mpi_dot(local_result, t, s, tmp0, gridDim, blockDim);
-    mpi_dot(local_result, t, t, tmp1, gridDim, blockDim);
+    mpi_dot(device_dot_tmp, host_dot_tmp, t, s, tmp0, gridDim, blockDim);
+    mpi_dot(device_dot_tmp, host_dot_tmp, t, t, tmp1, gridDim, blockDim);
     omega = tmp0 / tmp1;
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
@@ -168,7 +169,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
     checkCudaErrors(cudaDeviceSynchronize());
     wilson_bistabcg_give_r<<<gridDim, blockDim>>>(r, s, t, omega);
     checkCudaErrors(cudaDeviceSynchronize());
-    mpi_dot(local_result, r, r, r_norm2, gridDim, blockDim);
+    mpi_dot(device_dot_tmp, host_dot_tmp, r, r, r_norm2, gridDim, blockDim);
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##Residual:" << r_norm2.real << std::endl;
     // break;
@@ -187,8 +188,8 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          "memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
-  mpi_diff(local_result, x_o, ans_o, tmp, device_latt_tmp0, tmp0, tmp1, gridDim,
-           blockDim);
+  mpi_diff(device_dot_tmp, host_dot_tmp, x_o, ans_o, tmp, device_latt_tmp0,
+           tmp0, tmp1, gridDim, blockDim);
   printf("## difference: %.16f\n", tmp.real);
   // free
   free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);

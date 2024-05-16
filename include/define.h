@@ -605,27 +605,35 @@
     }                                                                          \
   }
 
-#define mpi_dot(local_result, val0, val1, tmp, gridDim, blockDim)              \//bug here! device doesn't return local_result
+#define mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,        \
+                blockDim)                                                      \
   {                                                                            \
-    local_result.real = 0.0;                                                   \
-    local_result.imag = 0.0;                                                   \
-    wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(local_result, val0, val1); \
+    LatticeComplex local_result(0.0, 0.0);                                     \
+    int lat_4dim = gridDim * blockDim;                                         \
+    wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(device_dot_tmp, val0,      \
+                                                    val1);                     \
+    cudaMemcpy(host_dot_tmp, device_dot_tmp,                                   \
+               sizeof(LatticeComplex) * lat_4dim, cudaMemcpyDeviceToHost);     \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
+    for (int i = 0; i < lat_4dim, i++) {                                       \
+      local_result += host_dot_tmp[i];                                         \
+    }                                                                          \
     printf("#local_result:%d\n", local_result.real);                           \
-    MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,                 \
+    MPI_Allreduce(&device_dot_tmp, host_dot_tmp, &tmp, 2, MPI_DOUBLE, MPI_SUM, \
                   MPI_COMM_WORLD);                                             \
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
 
-#define mpi_diff(local_result, val0, val1, tmp, device_latt_tmp0, tmp0, tmp1,  \
-                 gridDim, blockDim)                                            \
+#define mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,                \
+                 device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)              \
   {                                                                            \
     wilson_bistabcg_part_cut<<<gridDim, blockDim>>>(device_latt_tmp0, val0,    \
                                                     val1);                     \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    mpi_dot(local_result, device_latt_tmp0, device_latt_tmp0, tmp0, gridDim,   \
+    mpi_dot(device_dot_tmp, host_dot_tmp, device_latt_tmp0, device_latt_tmp0,  \
+            tmp0, gridDim, blockDim);                                          \
+    mpi_dot(device_dot_tmp, host_dot_tmp, val1, val1, tmp1, gridDim,           \
             blockDim);                                                         \
-    mpi_dot(local_result, val1, val1, tmp1, gridDim, blockDim);                \
     tmp = tmp0 / tmp1;                                                         \
   }
 
@@ -822,28 +830,29 @@ static void getHostName(char *hostname, int maxlen) {
     ncclGroupEnd();                                                            \
   }
 
-#define nccl_dot(local_result, lat_4dim12, val0, val1, tmp, zero, nccl_comm,   \
-                 stream)                                                       \
+#define nccl_dot(device_dot_tmp, host_dot_tmp, lat_4dim12, val0, val1, tmp,    \
+                 zero, nccl_comm, stream)                                      \
   {                                                                            \
     (*local_result) = zero;                                                    \
     for (int i = 0; i < lat_4dim12; i++) {                                     \
       (*local_result) += val0[i].conj() * val1[i];                             \
     }                                                                          \
-    NCCLCHECK(ncclAllReduce((const void *)local_result, (void *)tmp, 2,        \
-                            ncclDouble, ncclSum, nccl_comm, stream));          \
+    NCCLCHECK(ncclAllReduce((const void *)device_dot_tmp, host_dot_tmp,        \
+                            (void *)tmp, 2, ncclDouble, ncclSum, nccl_comm,    \
+                            stream));                                          \
     CUDACHECK(cudaStreamSynchronize(stream));                                  \
   }
 
-#define nccl_diff(local_result, lat_4dim12, val0, val1, tmp, device_latt_tmp0, \
-                  tmp0, tmp1, zero, nccl_comm, stream)                         \
+#define nccl_diff(device_dot_tmp, host_dot_tmp, lat_4dim12, val0, val1, tmp,   \
+                  device_latt_tmp0, tmp0, tmp1, zero, nccl_comm, stream)       \
   {                                                                            \
     for (int i = 0; i < lat_4dim12; i++) {                                     \
       device_latt_tmp0[i] = val0[i] - val1[i];                                 \
     }                                                                          \
-    nccl_dot(local_result, lat_4dim12, device_latt_tmp0, device_latt_tmp0,     \
-             tmp0, zero, nccl_comm, stream);                                   \
-    nccl_dot(local_result, lat_4dim12, val1, val1, tmp1, zero, nccl_comm,      \
-             stream);                                                          \
+    nccl_dot(device_dot_tmp, host_dot_tmp, lat_4dim12, device_latt_tmp0,       \
+             device_latt_tmp0, tmp0, zero, nccl_comm, stream);                 \
+    nccl_dot(device_dot_tmp, host_dot_tmp, lat_4dim12, val1, val1, tmp1, zero, \
+             nccl_comm, stream);                                               \
     (*tmp) = (*tmp0) / (*tmp1);                                                \
   }
 
