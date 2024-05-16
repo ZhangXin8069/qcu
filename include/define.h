@@ -609,17 +609,16 @@
                 blockDim)                                                      \
   {                                                                            \
     LatticeComplex local_result(0.0, 0.0);                                     \
-    int lat_4dim = gridDim * blockDim;                                         \
+    int lat_4dim = gridDim.x * blockDim.x;                                     \
     wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(device_dot_tmp, val0,      \
                                                     val1);                     \
     cudaMemcpy(host_dot_tmp, device_dot_tmp,                                   \
                sizeof(LatticeComplex) * lat_4dim, cudaMemcpyDeviceToHost);     \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    for (int i = 0; i < lat_4dim, i++) {                                       \
+    for (int i = 0; i < lat_4dim; i++) {                                       \
       local_result += host_dot_tmp[i];                                         \
     }                                                                          \
-    printf("#local_result:%d\n", local_result.real);                           \
-    MPI_Allreduce(&device_dot_tmp, host_dot_tmp, &tmp, 2, MPI_DOUBLE, MPI_SUM, \
+    MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,                 \
                   MPI_COMM_WORLD);                                             \
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
