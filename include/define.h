@@ -840,8 +840,7 @@ static void getHostName(char *hostname, int maxlen) {
 
 #define nccl_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,     \
                        lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move, \
-                       device_send_vec, device_recv_vec, zero, nccl_comm,      \
-                       stream)                                                 \
+                       device_send_vec, device_recv_vec, nccl_comm, stream)    \
   {                                                                            \
     _ncclDslashQcu(gridDim, blockDim, gauge, src_o, dest_e, EVEN, lat_1dim,    \
                    lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,    \
@@ -850,8 +849,7 @@ static void getHostName(char *hostname, int maxlen) {
 
 #define nccl_dslash_oe(dest_o, src_e, node_rank, gridDim, blockDim, gauge,     \
                        lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move, \
-                       device_send_vec, device_recv_vec, zero, nccl_comm,      \
-                       stream)                                                 \
+                       device_send_vec, device_recv_vec, nccl_comm, stream)    \
   {                                                                            \
     _ncclDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,     \
                    lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,    \
@@ -862,16 +860,15 @@ static void getHostName(char *hostname, int maxlen) {
 #define nccl_dslash(dest_o, src_o, kappa, device_latt_tmp0, device_latt_tmp1,  \
                     node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12, \
                     lat_4dim12, grid_1dim, grid_index_1dim, move,              \
-                    device_send_vec, device_recv_vec, zero, nccl_comm, stream) \
+                    device_send_vec, device_recv_vec, nccl_comm, stream)       \
   {                                                                            \
     nccl_dslash_eo(device_latt_tmp0, src_o, node_rank, gridDim, blockDim,      \
                    gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,    \
-                   move, device_send_vec, device_recv_vec, zero, nccl_comm,    \
-                   stream);                                                    \
+                   move, device_send_vec, device_recv_vec, nccl_comm, stream); \
     nccl_dslash_oe(device_latt_tmp1, device_latt_tmp0, node_rank, gridDim,     \
                    blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,           \
                    grid_index_1dim, move, device_send_vec, device_recv_vec,    \
-                   zero, nccl_comm, stream);                                   \
+                   nccl_comm, stream);                                         \
     wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
         dest_o, src_o, device_latt_tmp1, kappa);                               \
   }
