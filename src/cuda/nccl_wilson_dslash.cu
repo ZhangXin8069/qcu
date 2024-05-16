@@ -26,7 +26,8 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   void *host_recv_vec[WARDS];
   void *device_send_vec[WARDS];
   void *device_recv_vec[WARDS];
-  malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
+  malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec,
+             host_recv_vec);
   // define end
   // initializing MPI
   int node_size, localRank = 0;
@@ -61,27 +62,20 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   checkCudaErrors(cudaDeviceSynchronize());
   auto start = std::chrono::high_resolution_clock::now();
   // nccl wilson dslash
-  {
-    _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
-                   lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
-                   move, device_send_vec, device_recv_vec, nccl_comm, stream);
-    auto end = std::chrono::high_resolution_clock::now();
-    auto duration =
-        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
-            .count();
-    err = cudaGetLastError();
-    checkCudaErrors(err);
-    printf("nccl wilson dslash total time: (without malloc free memcpy) :%.9lf "
-           "sec\n",
-           double(duration) / 1e9);
-    // free
-    free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
-  }
+  _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out, parity,
+                 lat_1dim, lat_3dim12, node_rank, grid_1dim, grid_index_1dim,
+                 move, device_send_vec, device_recv_vec, nccl_comm, stream);
+  auto end = std::chrono::high_resolution_clock::now();
+  auto duration =
+      std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
+  err = cudaGetLastError();
+  checkCudaErrors(err);
+  printf("nccl wilson dslash total time: (without malloc free memcpy) :%.9lf "
+         "sec\n",
+         double(duration) / 1e9);
+  // free
+  free_vec(device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
   // finalizing NCCL
   ncclCommDestroy(nccl_comm);
-  // finalizing MPI
-  // MPICHECK(MPI_Finalize());
-  printf("[MPI Rank %d] Success \n", node_rank);
-  // return 0;
 }
 #endif
