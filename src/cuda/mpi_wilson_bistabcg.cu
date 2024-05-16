@@ -3,7 +3,7 @@
 #pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG
-#define DEBUG_MPI_WILSON_CG
+// #define DEBUG_MPI_WILSON_CG
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
   int lat_1dim[DIM];
@@ -121,14 +121,10 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
              device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
   wilson_bistabcg_give_rr<<<gridDim, blockDim>>>(r, b__o, r_tilde);
   checkCudaErrors(cudaDeviceSynchronize());
-  device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 0);
-  device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 1);
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
     mpi_dot(device_dot_tmp, host_dot_tmp, r_tilde, r, rho, gridDim, blockDim);
-    device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 2);
-    device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 3);
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##rho:" << rho.real << std::endl;
