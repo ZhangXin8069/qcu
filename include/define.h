@@ -77,6 +77,25 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
+static uint64_t getHostHash(const char *string) {
+  // Based on DJB2a, result = result * 33 ^ char
+  uint64_t result = 5381;
+  for (int c = 0; string[c] != '\0'; c++) {
+    result = ((result << 5) + result) ^ string[c];
+  }
+  return result;
+}
+
+static void getHostName(char *hostname, int maxlen) {
+  gethostname(hostname, maxlen);
+  for (int i = 0; i < maxlen; i++) {
+    if (hostname[i] == '.') {
+      hostname[i] = '\0';
+      return;
+    }
+  }
+}
+
 #define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
   {                                                                            \
     int index_;                                                                \
@@ -400,6 +419,40 @@
     grid_index_1dim[T] = node_rank % grid_1dim[T];                             \
   }
 
+#define malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec, \
+                   host_recv_vec)                                              \
+  {                                                                            \
+    for (int i = 0; i < DIM; i++) {                                            \
+      cudaMalloc(&device_send_vec[i * SR],                                     \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&device_send_vec[i * SR + 1],                                 \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&device_recv_vec[i * SR],                                     \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      cudaMalloc(&device_recv_vec[i * SR + 1],                                 \
+                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
+      host_send_vec[i * SR] =                                                  \
+          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
+      host_send_vec[i * SR + 1] =                                              \
+          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
+      host_recv_vec[i * SR] =                                                  \
+          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
+      host_recv_vec[i * SR + 1] =                                              \
+          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
+    }                                                                          \
+  }
+
+#define free_vec(device_send_vec, device_recv_vec, host_send_vec,              \
+                 host_recv_vec)                                                \
+  {                                                                            \
+    for (int i = 0; i < WARDS; i++) {                                          \
+      cudaFree(device_send_vec[i]);                                            \
+      cudaFree(device_recv_vec[i]);                                            \
+      free(host_send_vec[i]);                                                  \
+      free(host_recv_vec[i]);                                                  \
+    }                                                                          \
+  }
+
 #define _mpiDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,       \
                       parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,      \
                       grid_index_1dim, move, send_request, recv_request,       \
@@ -571,40 +624,6 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec, \
-                   host_recv_vec)                                              \
-  {                                                                            \
-    for (int i = 0; i < DIM; i++) {                                            \
-      cudaMalloc(&device_send_vec[i * SR],                                     \
-                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
-      cudaMalloc(&device_send_vec[i * SR + 1],                                 \
-                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
-      cudaMalloc(&device_recv_vec[i * SR],                                     \
-                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
-      cudaMalloc(&device_recv_vec[i * SR + 1],                                 \
-                 lat_3dim6[i] * sizeof(LatticeComplex));                       \
-      host_send_vec[i * SR] =                                                  \
-          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
-      host_send_vec[i * SR + 1] =                                              \
-          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
-      host_recv_vec[i * SR] =                                                  \
-          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
-      host_recv_vec[i * SR + 1] =                                              \
-          (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));               \
-    }                                                                          \
-  }
-
-#define free_vec(device_send_vec, device_recv_vec, host_send_vec,              \
-                 host_recv_vec)                                                \
-  {                                                                            \
-    for (int i = 0; i < WARDS; i++) {                                          \
-      cudaFree(device_send_vec[i]);                                            \
-      cudaFree(device_recv_vec[i]);                                            \
-      free(host_send_vec[i]);                                                  \
-      free(host_recv_vec[i]);                                                  \
-    }                                                                          \
-  }
-
 #define mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,        \
                 blockDim)                                                      \
   {                                                                            \
@@ -678,31 +697,11 @@
         dest_o, src_o, device_latt_tmp1, kappa);                               \
   }
 
-static uint64_t getHostHash(const char *string) {
-  // Based on DJB2a, result = result * 33 ^ char
-  uint64_t result = 5381;
-  for (int c = 0; string[c] != '\0'; c++) {
-    result = ((result << 5) + result) ^ string[c];
-  }
-  return result;
-}
-
-static void getHostName(char *hostname, int maxlen) {
-  gethostname(hostname, maxlen);
-  for (int i = 0; i < maxlen; i++) {
-    if (hostname[i] == '.') {
-      hostname[i] = '\0';
-      return;
-    }
-  }
-}
-
 #define _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,      \
                        parity, lat_1dim, lat_3dim12, node_rank, grid_1dim,     \
                        grid_index_1dim, move, device_send_vec,                 \
                        device_recv_vec, nccl_comm, stream)                     \
   {                                                                            \
-    ncclGroupStart();                                                          \
     wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_1dim[X],  \
                                                     lat_1dim[Y], lat_1dim[Z]); \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
@@ -716,15 +715,17 @@ static void getHostName(char *hostname, int maxlen) {
           node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
       move[F] =                                                                \
           node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      ncclGroupStart();                                                        \
       ncclRecv(device_recv_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclSend(device_send_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
+      ncclGroupEnd();                                                          \
     }                                                                          \
     wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
@@ -734,15 +735,17 @@ static void getHostName(char *hostname, int maxlen) {
       move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);                 \
       move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];             \
       move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];             \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      ncclGroupStart();                                                        \
       ncclRecv(device_recv_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclSend(device_send_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
+      ncclGroupEnd();                                                          \
     }                                                                          \
     wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
@@ -752,15 +755,17 @@ static void getHostName(char *hostname, int maxlen) {
       move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);                 \
       move[B] = node_rank + move[B] * grid_1dim[T];                            \
       move[F] = node_rank + move[F] * grid_1dim[T];                            \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      ncclGroupStart();                                                        \
       ncclRecv(device_recv_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclSend(device_send_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
+      ncclGroupEnd();                                                          \
     }                                                                          \
     wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
@@ -770,89 +775,67 @@ static void getHostName(char *hostname, int maxlen) {
       move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);                 \
       move[B] = node_rank + move[B];                                           \
       move[F] = node_rank + move[F];                                           \
+      checkCudaErrors(cudaDeviceSynchronize());                                \
+      ncclGroupStart();                                                        \
       ncclRecv(device_recv_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       ncclSend(device_send_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
+      ncclGroupEnd();                                                          \
     }                                                                          \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     if (grid_1dim[X] != 1) {                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_X], device_recv_vec[F_X]);    \
     } else {                                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_send_vec[F_X], device_send_vec[B_X]);    \
     }                                                                          \
     if (grid_1dim[Y] != 1) {                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_Y], device_recv_vec[F_Y]);    \
     } else {                                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_y_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_send_vec[F_Y], device_send_vec[B_Y]);    \
     }                                                                          \
     if (grid_1dim[Z] != 1) {                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_Z], device_recv_vec[F_Z]);    \
     } else {                                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_z_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_send_vec[F_Z], device_send_vec[B_Z]);    \
     }                                                                          \
     if (grid_1dim[T] != 1) {                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_recv_vec[B_T], device_recv_vec[F_T]);    \
     } else {                                                                   \
-      checkCudaErrors(cudaDeviceSynchronize());                                \
       wilson_dslash_t_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
           lat_1dim[T], parity, device_send_vec[F_T], device_send_vec[B_T]);    \
     }                                                                          \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    MPI_Barrier(MPI_COMM_WORLD);                                               \
-    ncclGroupEnd();                                                            \
   }
 
-#define nccl_dot(device_dot_tmp, host_dot_tmp, lat_4dim12, val0, val1, tmp,    \
-                 zero, nccl_comm, stream)                                      \
-  {                                                                            \
-    (*local_result) = zero;                                                    \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      (*local_result) += val0[i].conj() * val1[i];                             \
-    }                                                                          \
-    NCCLCHECK(ncclAllReduce((const void *)device_dot_tmp, host_dot_tmp,        \
-                            (void *)tmp, 2, ncclDouble, ncclSum, nccl_comm,    \
-                            stream));                                          \
-    CUDACHECK(cudaStreamSynchronize(stream));                                  \
-  }
+#define nccl_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,       \
+                 blockDim)                                                     \
+  { mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim, blockDim); }
 
-#define nccl_diff(device_dot_tmp, host_dot_tmp, lat_4dim12, val0, val1, tmp,   \
-                  device_latt_tmp0, tmp0, tmp1, zero, nccl_comm, stream)       \
+#define nccl_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,               \
+                  device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)             \
   {                                                                            \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      device_latt_tmp0[i] = val0[i] - val1[i];                                 \
-    }                                                                          \
-    nccl_dot(device_dot_tmp, host_dot_tmp, lat_4dim12, device_latt_tmp0,       \
-             device_latt_tmp0, tmp0, zero, nccl_comm, stream);                 \
-    nccl_dot(device_dot_tmp, host_dot_tmp, lat_4dim12, val1, val1, tmp1, zero, \
-             nccl_comm, stream);                                               \
-    (*tmp) = (*tmp0) / (*tmp1);                                                \
+    mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp, device_latt_tmp0,  \
+             tmp0, tmp1, gridDim, blockDim);                                   \
   }
 
 #define nccl_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,     \
@@ -860,8 +843,6 @@ static void getHostName(char *hostname, int maxlen) {
                        device_send_vec, device_recv_vec, zero, nccl_comm,      \
                        stream)                                                 \
   {                                                                            \
-    device_zero_vec(lat_3dim6, device_send_vec, device_recv_vec,               \
-                    host_send_vec, host_recv_vec, zero);                       \
     _ncclDslashQcu(gridDim, blockDim, gauge, src_o, dest_e, EVEN, lat_1dim,    \
                    lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,    \
                    device_send_vec, device_recv_vec, nccl_comm, stream);       \
@@ -872,8 +853,6 @@ static void getHostName(char *hostname, int maxlen) {
                        device_send_vec, device_recv_vec, zero, nccl_comm,      \
                        stream)                                                 \
   {                                                                            \
-    device_zero_vec(lat_3dim6, device_send_vec, device_recv_vec,               \
-                    host_send_vec, host_recv_vec, zero);                       \
     _ncclDslashQcu(gridDim, blockDim, gauge, src_e, dest_o, ODD, lat_1dim,     \
                    lat_3dim12, node_rank, grid_1dim, grid_index_1dim, move,    \
                    device_send_vec, device_recv_vec, nccl_comm, stream);       \
@@ -893,9 +872,8 @@ static void getHostName(char *hostname, int maxlen) {
                    blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,           \
                    grid_index_1dim, move, device_send_vec, device_recv_vec,    \
                    zero, nccl_comm, stream);                                   \
-    for (int i = 0; i < lat_4dim12; i++) {                                     \
-      dest_o[i] = src_o[i] - device_latt_tmp1[i] * kappa * kappa;              \
-    }                                                                          \
+    wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
+        dest_o, src_o, device_latt_tmp1, kappa);                               \
   }
 
 #endif
