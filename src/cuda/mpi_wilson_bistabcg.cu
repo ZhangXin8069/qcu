@@ -162,7 +162,6 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
               << "##omega:" << omega.real << std::endl;
 #endif
     wilson_bistabcg_give_x_o<<<gridDim, blockDim>>>(x_o, p, s, alpha, omega);
-    checkCudaErrors(cudaDeviceSynchronize());
     wilson_bistabcg_give_r<<<gridDim, blockDim>>>(r, s, t, omega);
     checkCudaErrors(cudaDeviceSynchronize());
     mpi_dot(device_dot_tmp, host_dot_tmp, r, r, r_norm2, gridDim, blockDim);
