@@ -1,6 +1,5 @@
-profile	1.1.0	1.1.0--sm_60	cpu_arch=x86_64,gpu_arch=sm_60,cuda_version=12.4.131	# Last updated Fri May 17 00:57:26 2024
+profile	1.1.0	1.1.0--sm_60	cpu_arch=x86_64,gpu_arch=sm_60,cuda_version=12.4.131	# Last updated Mon May 20 19:07:06 2024
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
-    0.104676	         100	         100	          20	  0.00523382	      8x32x32x64	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=1000,parity=1,topo=2111,p2p=0,gdr=0,nvshmem=0,pol=110000111100110000	# 132.23 Gflop/s, 230.80 GB/s, tuning took 0.379191 seconds at Thu May 16 00:58:41 2024
 
-# Total time spent in asynchronous execution = 0.104676 seconds
+# Total time spent in asynchronous execution = 0 seconds
