@@ -11,7 +11,7 @@ from pyquda.utils import gauge_utils
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 
-latt_size = [16, 16, 16, 32]
+latt_size = [32, 32, 32, 64]
 grid_size = [1, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Gx, Gy, Gz, Gt = grid_size
