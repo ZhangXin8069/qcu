@@ -7,6 +7,7 @@
 #include <cstdio>
 #include <ctime>
 #include <cuda.h>
+#include <curand_kernel.h>
 #include <iostream>
 #include <mpi.h>
 #include <nccl.h>
