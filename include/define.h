@@ -788,6 +788,7 @@ static void getHostName(char *hostname, int maxlen) {
       ncclGroupEnd();                                                          \
     }                                                                          \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
+    checkCudaErrors(cudaStreamSynchronize(stream));                            \
     if (grid_1dim[X] != 1) {                                                   \
       wilson_dslash_x_recv<<<gridDim, blockDim>>>(                             \
           gauge, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z],           \
