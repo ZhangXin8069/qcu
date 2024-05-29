@@ -40,7 +40,6 @@
 #define SR 2
 #define LAT_EXAMPLE 32
 #define GRID_EXAMPLE 1
-
 #define WILSON_DSLASH
 #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
@@ -83,9 +82,9 @@ static uint64_t getHostHash(const char *string) {
   for (int c = 0; string[c] != '\0'; c++) {
     result = ((result << 5) + result) ^ string[c];
   }
+
   return result;
 }
-
 static void getHostName(char *hostname, int maxlen) {
   gethostname(hostname, maxlen);
   for (int i = 0; i < maxlen; i++) {
@@ -136,7 +135,6 @@ static void getHostName(char *hostname, int maxlen) {
       exit(EXIT_FAILURE);                                                      \
     }                                                                          \
   } while (0)
-
 #define CUDACHECK(cmd)                                                         \
   do {                                                                         \
     cudaError_t e = cmd;                                                       \
@@ -146,7 +144,6 @@ static void getHostName(char *hostname, int maxlen) {
       exit(EXIT_FAILURE);                                                      \
     }                                                                          \
   } while (0)
-
 #define NCCLCHECK(cmd)                                                         \
   do {                                                                         \
     ncclResult_t r = cmd;                                                      \
@@ -156,7 +153,6 @@ static void getHostName(char *hostname, int maxlen) {
       exit(EXIT_FAILURE);                                                      \
     }                                                                          \
   } while (0)
-
 // little strange, but don't want change
 #define host_give_value(U, zero, n)                                            \
   {                                                                            \
@@ -705,6 +701,7 @@ static void getHostName(char *hostname, int maxlen) {
     wilson_dslash_clear_dest<<<gridDim, blockDim>>>(fermion_out, lat_1dim[X],  \
                                                     lat_1dim[Y], lat_1dim[Z]); \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
+    ncclGroupStart();                                                          \
     wilson_dslash_x_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
         lat_1dim[T], parity, device_send_vec[B_X], device_send_vec[F_X]);      \
@@ -716,7 +713,6 @@ static void getHostName(char *hostname, int maxlen) {
       move[F] =                                                                \
           node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      ncclGroupStart();                                                        \
       ncclSend(device_send_vec[B_X], lat_3dim12[YZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
@@ -725,7 +721,6 @@ static void getHostName(char *hostname, int maxlen) {
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_X], lat_3dim12[YZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      ncclGroupEnd();                                                          \
     }                                                                          \
     wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
@@ -736,7 +731,6 @@ static void getHostName(char *hostname, int maxlen) {
       move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];             \
       move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];             \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      ncclGroupStart();                                                        \
       ncclSend(device_send_vec[B_Y], lat_3dim12[XZT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
@@ -745,7 +739,6 @@ static void getHostName(char *hostname, int maxlen) {
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_Y], lat_3dim12[XZT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      ncclGroupEnd();                                                          \
     }                                                                          \
     wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
@@ -756,7 +749,6 @@ static void getHostName(char *hostname, int maxlen) {
       move[B] = node_rank + move[B] * grid_1dim[T];                            \
       move[F] = node_rank + move[F] * grid_1dim[T];                            \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      ncclGroupStart();                                                        \
       ncclSend(device_send_vec[B_Z], lat_3dim12[XYT], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
@@ -765,7 +757,6 @@ static void getHostName(char *hostname, int maxlen) {
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_Z], lat_3dim12[XYT], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      ncclGroupEnd();                                                          \
     }                                                                          \
     wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[X], lat_1dim[Y], lat_1dim[Z], \
@@ -776,7 +767,6 @@ static void getHostName(char *hostname, int maxlen) {
       move[B] = node_rank + move[B];                                           \
       move[F] = node_rank + move[F];                                           \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      ncclGroupStart();                                                        \
       ncclSend(device_send_vec[B_T], lat_3dim12[XYZ], ncclDouble, move[B],     \
                nccl_comm, stream);                                             \
       ncclSend(device_send_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
@@ -785,8 +775,8 @@ static void getHostName(char *hostname, int maxlen) {
                nccl_comm, stream);                                             \
       ncclRecv(device_recv_vec[F_T], lat_3dim12[XYZ], ncclDouble, move[F],     \
                nccl_comm, stream);                                             \
-      ncclGroupEnd();                                                          \
     }                                                                          \
+    ncclGroupEnd();                                                            \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
     checkCudaErrors(cudaStreamSynchronize(stream));                            \
     if (grid_1dim[X] != 1) {                                                   \
@@ -831,7 +821,6 @@ static void getHostName(char *hostname, int maxlen) {
 #define nccl_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,       \
                  blockDim)                                                     \
   { mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim, blockDim); }
-
 #define nccl_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,               \
                   device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)             \
   {                                                                            \
