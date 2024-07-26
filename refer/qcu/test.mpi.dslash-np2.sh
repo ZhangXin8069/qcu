@@ -1,0 +1,1 @@
+../../test.mpi.dslash-np2.sh
