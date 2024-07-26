@@ -1,1 +1,4 @@
-../../test.mpi.bistabcg-np4.sh
+bash ./make.sh
+pushd ./test
+mpirun -n 4 python ./test.mpi.cg.qcu-np4.py
+popd
