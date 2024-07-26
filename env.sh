@@ -6,7 +6,7 @@ echo 'HOME:'${_HOME}
 export LD_LIBRARY_PATH=${_HOME}/lib:$LD_LIBRARY_PATH # if any
 export TERM=xterm-256color
 export PATH=$PATH:${_HOME}/bin
-export PYTHONPATH=${_HOME}/PyQuda
+export PYTHONPATH=${_HOME}/lib
 export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${LD_LIBRARY_PATH}" # wsl
 ## openmpi
 MPI_HOME=/usr/local/openmpi
