@@ -1,7 +1,13 @@
 cmake_minimum_required(VERSION 3.8)
 include_directories(/usr/lib/x86_64-linux-gnu/openmpi/include)
-# set(CMAKE_CUDA_ARCHITECTURES 70)    # for V100
-set(CMAKE_CUDA_ARCHITECTURES 80)    # for 4060
+
+# Set the desired CUDA architecture (modify this as needed)
+# set(SM_ARCH "sm_80") # 4060 A100
+# set(SM_ARCH "sm_70") # V100
+# set(SM_ARCH "sm_60") # P100
+set(SM_ARCH "sm_80")
+set(CMAKE_CUDA_ARCHITECTURES "80")
+
 set(CMAKE_BUILD_TYPE Release)
 
 set(CMAKE_CXX_STANDARD 14)
