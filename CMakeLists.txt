@@ -4,7 +4,7 @@ project(QCU LANGUAGES C CXX CUDA)
 set(CMAKE_CXX_STANDARD 11)
 
 # Set the desired CUDA architecture (modify this as needed)
-set(SM_ARCH "sm_80")
+set(SM_ARCH "sm_89")
 
 # Other options like maxrregcount can be set similarly
 set(MAXRREGCOUNT "256")
@@ -13,7 +13,7 @@ set(MAXRREGCOUNT "256")
 # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
 # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH}")
-set(CMAKE_CUDA_ARCHITECTURES "80")
+set(CMAKE_CUDA_ARCHITECTURES "89")
 
 # Add include directories, including MPI include directories, including qcu's include
 set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
