@@ -1,1 +1,4 @@
-../../test.mpi.dslash-np1.sh
+bash ./make.sh
+pushd ./test
+mpirun -n 1 python ./test.mpi.dslash.qcu-np1.py
+popd

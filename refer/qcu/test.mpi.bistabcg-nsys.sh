@@ -1,1 +1,0 @@
-../../test.mpi.bistabcg-nsys.sh
