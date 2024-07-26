@@ -99,7 +99,7 @@ def test_mpi(round):
 
 
 
-for test in range(0, 5):
+for test in range(0, 10):
     test_mpi(test)
 
 

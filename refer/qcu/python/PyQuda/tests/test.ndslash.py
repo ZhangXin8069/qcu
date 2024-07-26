@@ -106,7 +106,7 @@ def test_mpi(round):
   
   print('================================================')
 
-for test in range(0, 5):
+for test in range(0, 10):
     test_mpi(test)
 
 

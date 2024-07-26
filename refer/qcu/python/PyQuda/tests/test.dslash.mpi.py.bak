@@ -120,7 +120,7 @@ def test_mpi(round):
   print('============================')
   #gauge = U.lexico()
   #print(gauge[0,0,0,0,0])
-for test in range(0, 5):
+for test in range(0, 10):
     test_mpi(test)
 
 def compare(round):

@@ -81,5 +81,6 @@ def test_mpi(round):
         Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
 
 
-for test in range(0, 1):
+for test in range(0, 10):
     test_mpi(test)
+

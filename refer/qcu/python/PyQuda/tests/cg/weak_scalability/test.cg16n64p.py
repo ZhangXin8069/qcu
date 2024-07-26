@@ -107,7 +107,8 @@ def test_mpi(round):
   if rank == 0: 
     print('============================')
 
-for test in range(0, 1):
+for test in range(0, 10):
     test_mpi(test)
+
 
 
