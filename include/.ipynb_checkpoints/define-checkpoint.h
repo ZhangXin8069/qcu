@@ -1,6 +1,6 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
-#pragma optimize(5)
+
 #include "./qcu.h"
 #define BLOCK_SIZE 256
 #define X 0

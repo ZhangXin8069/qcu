@@ -1,5 +1,5 @@
 #include <iostream>
-#pragma optimize(5)
+
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG_
 // #define DEBUG_MPI_WILSON_CG
