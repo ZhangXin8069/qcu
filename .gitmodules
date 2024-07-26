@@ -1,6 +1,0 @@
-[submodule "refer/wangjc/PyQuda"]
-	path = refer/wangjc/PyQuda
-	url = https://github.com/YellowBicycleee/PyQuda.git
-[submodule "refer/wangjc/qcu"]
-	path = refer/wangjc/qcu
-	url = https://github.com/YellowBicycleee/qcu.git
