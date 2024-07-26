@@ -5,7 +5,7 @@ echo 'HOME:'${_HOME}
 ## zhangxin
 export LD_LIBRARY_PATH=${_HOME}/lib:$LD_LIBRARY_PATH # if any
 export TERM=xterm-256color
-export PYTHONPATH=${HOME}/.local/lib/python3.10/site-packages # wsl
+# export PYTHONPATH=${HOME}/.local/lib/python3.10/site-packages # wsl
 export PYTHONPATH=${_HOME}/lib:${PYTHONPATH}
 export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${LD_LIBRARY_PATH}" # wsl
 ## openmpi
