@@ -1,0 +1,3 @@
+[submodule "refer/wjc_PyQuda"]
+	path = refer/wjc_PyQuda
+	url = https://github.com/YellowBicycleee/PyQuda.git
