@@ -6,8 +6,9 @@ set(CMAKE_CXX_STANDARD 11)
 # Set the desired CUDA architecture (modify this as needed)
 # set(SM_ARCH "sm_80") # 4060 A100
 # set(SM_ARCH "sm_70") # V100
-set(SM_ARCH "sm_60") # P100
-set(CMAKE_CUDA_ARCHITECTURES "60")
+# set(SM_ARCH "sm_60") # P100
+set(SM_ARCH "sm_80")
+set(CMAKE_CUDA_ARCHITECTURES "80")
 
 # Other options like maxrregcount can be set similarly
 set(MAXRREGCOUNT "256")
