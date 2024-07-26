@@ -1,5 +1,0 @@
-BasedOnStyle: LLVM
-BreakBeforeBraces: WebKit
-ColumnLimit: 119
-NamespaceIndentation: All
-SortIncludes: false
