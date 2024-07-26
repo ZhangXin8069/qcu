@@ -1,0 +1,1 @@
+../../test.mpi.bistabcg-np2.sh

@@ -1,4 +1,4 @@
-profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Fri Jul 26 23:10:14 2024
+profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Fri Jul 26 23:17:13 2024
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
    0.0500167	     77.5427	     77.5427	           1	   0.0500167	     16x16x16x32	N4quda7RNGInitE	GPU-offline,vol=131072stride=69632precision=8geometry=4Nc=3	# 0.00 Gflop/s, 0.00 GB/s, tuning took 6.635033 seconds at Fri Jul 26 17:52:39 2024
