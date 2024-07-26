@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 
 __global__ void wilson_bistabcg_part_dot(void *device_dot_tmp,

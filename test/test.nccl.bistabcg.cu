@@ -1,4 +1,4 @@
-#pragma optimize(5)
+
 #include "../include/qcu.h"
 // #define DEBUG_NCCL_WILSON_CG
 int main(int argc, char *argv[]) {

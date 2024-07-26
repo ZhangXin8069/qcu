@@ -1,4 +1,4 @@
-#pragma optimize(5)
+
 #include "qcu.h"
 #include <iostream>
 #include <random>

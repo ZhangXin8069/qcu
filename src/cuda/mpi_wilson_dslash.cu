@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_DSLASH
 void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,

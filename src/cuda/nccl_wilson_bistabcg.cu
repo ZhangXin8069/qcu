@@ -1,5 +1,3 @@
-#include <iostream>
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef NCCL_WILSON_BISTABCG
 // #define DEBUG_NCCL_WILSON_CG

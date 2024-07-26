@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 
 __global__ void give_random_value(void *device_random_value,

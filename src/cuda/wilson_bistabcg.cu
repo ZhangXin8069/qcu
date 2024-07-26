@@ -1,7 +1,5 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef WILSON_BISTABCG
-
 __global__ void wilson_bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                          void *device_latt_tmp0, double kappa) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;

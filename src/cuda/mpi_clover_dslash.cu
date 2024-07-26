@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef MPI_CLOVER_DSLASH
 __global__ void mpi_make_clover(void *device_U, void *device_clover,

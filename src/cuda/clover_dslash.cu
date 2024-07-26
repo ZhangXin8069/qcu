@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef CLOVER_DSLASH
 __global__ void make_clover(void *device_U, void *device_clover,

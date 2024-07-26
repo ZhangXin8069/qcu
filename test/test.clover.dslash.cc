@@ -1,7 +1,7 @@
 #include <filesystem>
 #include <limits>
 #include <sys/types.h>
-#pragma optimize(5)
+
 #include <chrono>
 #include <cmath>
 #include <cstdio>

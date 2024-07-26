@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef WILSON_DSLASH
 __global__ void wilson_dslash(void *device_U, void *device_src,

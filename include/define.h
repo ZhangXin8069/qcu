@@ -2,7 +2,7 @@
 #define _DEFINE_H
 #include "lattice_complex.h"
 #include <strings.h>
-#pragma optimize(5)
+
 #include "./qcu.h"
 #define BLOCK_SIZE 256
 #define X 0

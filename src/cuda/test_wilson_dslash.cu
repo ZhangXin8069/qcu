@@ -1,4 +1,3 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef TEST_WILSON_DSLASH
 void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
