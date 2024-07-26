@@ -11,7 +11,8 @@ set(MAXRREGCOUNT "256")
 
 # Set CUDA architecture and other flags
 # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
+# set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH}")
 set(CMAKE_CUDA_ARCHITECTURES "80")
 
 # Add include directories, including MPI include directories, including qcu's include
