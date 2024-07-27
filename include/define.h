@@ -217,10 +217,8 @@ static void getHostName(char *hostname, int maxlen) {
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define give_ptr(U, origin_U, n)                                               \
+#define give_ptr(share_real, share_imag, U, origin_U, n)                       \
   {                                                                            \
-    __shared__ double share_real[n];                                           \
-    __shared__ double share_imag[n];                                           \
     for (int i = 0; i < n; i++) {                                              \
       share_real[i] = origin_U[i].real;                                        \
       share_imag[i] = origin_U[i].imag;                                        \
@@ -231,10 +229,8 @@ static void getHostName(char *hostname, int maxlen) {
     }                                                                          \
   }
 
-#define give_u(tmp, tmp_U)                                                     \
+#define give_U(share_real, share_imag, tmp, tmp_U)                             \
   {                                                                            \
-    __shared__ double share_real[6];                                           \
-    __shared__ double share_imag[6];                                           \
     for (int i = 0; i < 6; i++) {                                              \
       share_real[i] = tmp_U[i].real;                                           \
       share_imag[i] = tmp_U[i].imag;                                           \

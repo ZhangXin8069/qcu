@@ -86,7 +86,7 @@
     }                                                                          \
   }
 
-#define give_ptr(U, origin_U, n)                                               \
+#define give_ptr(share_real, share_imag, U, origin_U, n)                                               \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] = origin_U[i];                                                      \
@@ -101,7 +101,7 @@
     }                                                                          \
   }
 
-#define give_u(tmp, tmp_U)                                                     \
+#define give_U(share_real, share_imag, tmp, tmp_U)                                                     \
   {                                                                            \
     for (int i = 0; i < 6; i++) {                                              \
       tmp[i] = tmp_U[i];                                                       \
