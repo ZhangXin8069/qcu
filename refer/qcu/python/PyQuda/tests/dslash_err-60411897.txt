@@ -1,0 +1,35 @@
+Traceback (most recent call last):
+  File "test.ndslash.py", line 39, in <module>
+    mpi.init(grid_size)
+  File "/public/home/wangjc_itp/miniconda3/envs/pyquda/lib/python3.8/site-packages/pyquda/mpi.py", line 32, in init
+    assert len(grid_size) == 4 and Gx * Gy * Gz * Gt == size
+AssertionError
+Traceback (most recent call last):
+  File "test.ndslash.py", line 39, in <module>
+    mpi.init(grid_size)
+  File "/public/home/wangjc_itp/miniconda3/envs/pyquda/lib/python3.8/site-packages/pyquda/mpi.py", line 32, in init
+    assert len(grid_size) == 4 and Gx * Gy * Gz * Gt == size
+AssertionError
+Traceback (most recent call last):
+  File "test.ndslash.py", line 39, in <module>
+    mpi.init(grid_size)
+  File "/public/home/wangjc_itp/miniconda3/envs/pyquda/lib/python3.8/site-packages/pyquda/mpi.py", line 32, in init
+    assert len(grid_size) == 4 and Gx * Gy * Gz * Gt == size
+AssertionError
+Traceback (most recent call last):
+  File "test.ndslash.py", line 39, in <module>
+    mpi.init(grid_size)
+  File "/public/home/wangjc_itp/miniconda3/envs/pyquda/lib/python3.8/site-packages/pyquda/mpi.py", line 32, in init
+    assert len(grid_size) == 4 and Gx * Gy * Gz * Gt == size
+AssertionError
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+nvprof --profile-child-processes -f -o log.nvvp%p mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[53333,1],3]
+  Exit code:    1
+--------------------------------------------------------------------------
