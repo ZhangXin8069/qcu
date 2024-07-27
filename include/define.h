@@ -219,15 +219,29 @@ static void getHostName(char *hostname, int maxlen) {
 
 #define give_ptr(U, origin_U, n)                                               \
   {                                                                            \
+    __shared__ double share_real[n];                                           \
+    __shared__ double share_imag[n];                                           \
     for (int i = 0; i < n; i++) {                                              \
-      U[i] = origin_U[i];                                                      \
+      share_real[i] = origin_U[i].real;                                        \
+      share_imag[i] = origin_U[i].imag;                                        \
+    }                                                                          \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i].real = share_real[i];                                               \
+      U[i].imag = share_imag[i];                                               \
     }                                                                          \
   }
 
 #define give_u(tmp, tmp_U)                                                     \
   {                                                                            \
+    __shared__ double share_real[6];                                           \
+    __shared__ double share_imag[6];                                           \
     for (int i = 0; i < 6; i++) {                                              \
-      tmp[i] = tmp_U[i];                                                       \
+      share_real[i] = tmp_U[i].real;                                           \
+      share_imag[i] = tmp_U[i].imag;                                           \
+    }                                                                          \
+    for (int i = 0; i < 6; i++) {                                              \
+      tmp[i].real = share_real[i];                                             \
+      tmp[i].imag = share_imag[i];                                             \
     }                                                                          \
     tmp[6] = (tmp[1] * tmp[5] - tmp[2] * tmp[4]).conj();                       \
     tmp[7] = (tmp[2] * tmp[3] - tmp[0] * tmp[5]).conj();                       \
