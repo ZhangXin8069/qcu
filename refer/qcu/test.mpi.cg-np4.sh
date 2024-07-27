@@ -1,4 +1,4 @@
 bash ./make.sh
 pushd ./test
-mpirun -n 4 python ./test.mpi.cg.qcu-np4.py
+nvprof --profile-child-processes -f -o log.nvvp%p mpirun -n 4 python ./test.mpi.cg.qcu-np4.py
 popd
