@@ -1,18 +1,18 @@
 #include <cstdio>
 #include <iostream>
-#pragma optimize(5)
+
 #include "../../include/qcu.h"
 #ifdef MPI_WILSON_BISTABCG
-#define DEBUG_MPI_WILSON_CG
+// #define DEBUG_MPI_WILSON_CG
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for mpi_wilson_dslash
-  int lat_1dim[DIM];
-  int lat_3dim[DIM];
+  int lat_1dim[_DIM_];
+  int lat_3dim[_DIM_];
   int lat_4dim;
   give_dims(param, lat_1dim, lat_3dim, lat_4dim);
-  int lat_3dim6[DIM];
-  int lat_3dim12[DIM];
-  for (int i = 0; i < DIM; i++) {
+  int lat_3dim6[_DIM_];
+  int lat_3dim12[_DIM_];
+  for (int i = 0; i < _DIM_; i++) {
     lat_3dim6[i] = lat_3dim[i] * 6;
     lat_3dim12[i] = lat_3dim6[i] * 2;
   }
@@ -20,16 +20,16 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   dim3 gridDim(lat_4dim / BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
   int node_rank;
-  int move[BF];
-  int grid_1dim[DIM];
-  int grid_index_1dim[DIM];
+  int move[_BF_];
+  int grid_1dim[_DIM_];
+  int grid_index_1dim[_DIM_];
   give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
-  MPI_Request send_request[WARDS];
-  MPI_Request recv_request[WARDS];
-  void *host_send_vec[WARDS];
-  void *host_recv_vec[WARDS];
-  void *device_send_vec[WARDS];
-  void *device_recv_vec[WARDS];
+  MPI_Request send_request[_WARDS_];
+  MPI_Request recv_request[_WARDS_];
+  void *host_send_vec[_WARDS_];
+  void *host_recv_vec[_WARDS_];
+  void *device_send_vec[_WARDS_];
+  void *device_recv_vec[_WARDS_];
   malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec,
              host_recv_vec);
   // define end
@@ -121,14 +121,10 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
              device_send_vec, device_recv_vec, host_send_vec, host_recv_vec);
   wilson_bistabcg_give_rr<<<gridDim, blockDim>>>(r, b__o, r_tilde);
   checkCudaErrors(cudaDeviceSynchronize());
-  device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 0);
-  device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 1);
   // define end
   auto start = std::chrono::high_resolution_clock::now();
   for (int loop = 0; loop < MAX_ITER; loop++) {
     mpi_dot(device_dot_tmp, host_dot_tmp, r_tilde, r, rho, gridDim, blockDim);
-    device_print(r, host_latt_tmp0, -1, lat_4dim12, node_rank, 2);
-    device_print(r_tilde, host_latt_tmp0, -1, lat_4dim12, node_rank, 3);
 #ifdef DEBUG_MPI_WILSON_CG
     std::cout << "##RANK:" << node_rank << "##LOOP:" << loop
               << "##rho:" << rho.real << std::endl;
@@ -166,7 +162,6 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
               << "##omega:" << omega.real << std::endl;
 #endif
     wilson_bistabcg_give_x_o<<<gridDim, blockDim>>>(x_o, p, s, alpha, omega);
-    checkCudaErrors(cudaDeviceSynchronize());
     wilson_bistabcg_give_r<<<gridDim, blockDim>>>(r, s, t, omega);
     checkCudaErrors(cudaDeviceSynchronize());
     mpi_dot(device_dot_tmp, host_dot_tmp, r, r, r_norm2, gridDim, blockDim);
