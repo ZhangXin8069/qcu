@@ -1,3 +1,0 @@
-[submodule "refer/quda"]
-	path = refer/quda
-	url = https://github.com/lattice/quda.git
