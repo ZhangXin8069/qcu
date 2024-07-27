@@ -1,6 +1,6 @@
 from pyquda.utils import gauge_utils
 from pyquda.field import LatticeFermion
-from pyquda import core, pyqcu, mpi
+from pyquda import core, pyqcu, mpi, quda
 import os
 import sys
 from time import perf_counter
@@ -20,12 +20,6 @@ mpi.init(grid_size)
 
 
 def compare(round):
-    # generate a vector p randomly
-    p = LatticeFermion(latt_size, cp.random.randn(
-        Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
-    Mp = LatticeFermion(latt_size)
-    Mp1 = LatticeFermion(latt_size)
-    Mp2 = LatticeFermion(latt_size)
     print('===============round ', round, '======================')
     # Set parameters in Dslash and use m=-3.5 to make kappa=1
     dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
@@ -37,6 +31,21 @@ def compare(round):
     param.lattice_size = latt_size
     grid = pyqcu.QcuParam()
     grid.lattice_size = grid_size
+    # generate vectors
+    ans = LatticeFermion(latt_size, cp.random.randn(
+        Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
+    b = LatticeFermion(latt_size)
+    quda.MatQuda(b.data_ptr, ans.data_ptr, dslash.invert_param)
+    quda_ans = LatticeFermion(latt_size)
+    print('===============quda-round ', round, '======================')
+    cp.cuda.runtime.deviceSynchronize()
+    t1 = perf_counter()
+    quda.invertQuda(quda_ans.data_ptr, b.data_ptr, dslash.invert_param)
+    cp.cuda.runtime.deviceSynchronize()
+    t2 = perf_counter()
+    print(f'QUDA bistabcg: {t2 - t1} sec')
+    print(f'quda x and x difference: , {cp.linalg.norm(quda_ans.data - ans.data) / cp.linalg.norm(ans.data)}')
+    print('===============qcu-round ', round, '======================')
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
     pyqcu.mpiBistabCgQcu(U.data_ptr, param, grid)
