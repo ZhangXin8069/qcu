@@ -19,3 +19,5 @@ export PATH=${CUDA_HOME}/bin:$PATH
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib:$LD_LIBRARY_PATH
 export CUDA_INCLUDE_PATH=${CUDA_HOME}/include:$CUDA_INCLUDE_PATH
 export MANPATH=${CUDA_HOME}/share/man:$MANPATH
+## quda
+export LD_LIBRARY_PATH=${HOME}/external-libraries/quda-develop/build/lib:$LD_LIBRARY_PATH # x99
