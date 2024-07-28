@@ -76,8 +76,7 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
-#define test(val)                                                              \
-  {}
+template <typename LATTICE_TEMPLATE>
 
 #define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
   {                                                                            \
