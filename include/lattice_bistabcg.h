@@ -92,16 +92,6 @@ struct LatticeBistabcg {
         (LatticeComplex *)malloc(set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     host_dot_tmp =
         (LatticeComplex *)malloc(set_ptr->lat_4dim * sizeof(LatticeComplex));
-    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        x_o, set_ptr->node_rank + 66666);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b__o, 0.0, 0.0);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, 0.0, 0.0);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(r_tilde, 0.0,
-                                                               0.0);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(p, 0.0, 0.0);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(v, 0.0, 0.0);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(s, 0.0, 0.0);
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(t, 0.0, 0.0);
   }
   void give(LatticeSet *_set_ptr) {
     set_ptr = _set_ptr;
@@ -189,7 +179,6 @@ struct LatticeBistabcg {
     dest = tmp0 / tmp1;
   }
   void run(void *gauge) {
-    print_norm2(x_o);
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
       dot(r_tilde, r, rho);
 #ifdef DEBUG_NCCL_WILSON_BISTABCG
