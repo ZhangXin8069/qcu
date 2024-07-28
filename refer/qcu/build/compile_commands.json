@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/comm/qcu_communicator.cu -o CMakeFiles/qcu.dir/src/comm/qcu_communicator.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/comm/qcu_communicator.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/qcd/qcu_dslash.cu -o CMakeFiles/qcu.dir/src/qcd/qcu_dslash.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/qcd/qcu_dslash.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/qcd/qcu_wilson_dslash.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/qcu_storage/qcu_storage.cu -o CMakeFiles/qcu.dir/src/qcu_storage/qcu_storage.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/qcu_storage/qcu_storage.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/qcu.cu -o CMakeFiles/qcu.dir/src/qcu.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/qcu.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/algebra/qcu_algebra.cu -o CMakeFiles/qcu.dir/src/algebra/qcu_algebra.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/algebra/qcu_algebra.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/solver/qcu_cg.cu -o CMakeFiles/qcu.dir/src/solver/qcu_cg.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/solver/qcu_cg.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/refer/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler  -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/refer/qcu/include -I/home/kfutfd/qcu/refer/qcu/interface -O3 -DNDEBUG --generate-code=arch=compute_60,code=[compute_60,sm_60] -std=c++14 -x cu -c /home/kfutfd/qcu/refer/qcu/src/tests/linear_algebra/test_kernels.cu -o CMakeFiles/test_linear_algebra.dir/src/tests/linear_algebra/test_kernels.cu.o",
+  "file": "/home/kfutfd/qcu/refer/qcu/src/tests/linear_algebra/test_kernels.cu"
+}
+]
