@@ -1,7 +1,6 @@
-#ifndef _QCU_CUDA_H
-#define _QCU_CUDA_H
+#ifndef _LATTICE_CUDA_H
+#define _LATTICE_CUDA_H
 
-#include "./qcu.h"
 
 __global__ void give_random_value(void *device_random_value,
                                   unsigned long seed);

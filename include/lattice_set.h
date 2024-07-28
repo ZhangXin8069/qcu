@@ -1,7 +1,6 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
-#include "./qcu.h"
-#include "define.h"
+#include "./define.h"
 
 struct LatticeSet {
   int lat_1dim[_DIM_];
@@ -36,7 +35,7 @@ struct LatticeSet {
     grid_1dim[_Z_] = _grid_lat_size[_Z_];
     grid_1dim[_T_] = _grid_lat_size[_T_];
   }
-  void give_example() {
+  void give() {
     lat_1dim[_X_] = _LAT_EXAMPLE_;
     lat_1dim[_Y_] = _LAT_EXAMPLE_;
     lat_1dim[_Z_] = _LAT_EXAMPLE_;
