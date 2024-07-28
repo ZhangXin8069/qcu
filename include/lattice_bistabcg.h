@@ -149,6 +149,7 @@ struct LatticeBistabcg {
                sizeof(LatticeComplex) * set_ptr->lat_4dim,
                cudaMemcpyDeviceToHost);
     checkCudaErrors(cudaDeviceSynchronize());
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
     for (int i = 0; i < set_ptr->lat_4dim; i++) {
       _ += host_dot_tmp[i];
     }
