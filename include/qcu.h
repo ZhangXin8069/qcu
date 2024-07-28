@@ -1,7 +1,7 @@
 #ifndef _QCU_H
 #define _QCU_H
 
-// #pragma once
+#pragma once
 #include "./define.h"
 #include "./include.h"
 #include "./lattice_bistabcg.h"
