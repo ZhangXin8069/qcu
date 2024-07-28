@@ -1,0 +1,157 @@
+[
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/clover_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/clover_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/clover_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/clover_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/clover_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_clover_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_clover_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_clover_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_clover_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_clover_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_overlap_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_overlap_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_overlap_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_overlap_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_overlap_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_overlap_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_wilson_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_wilson_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/mpi_wilson_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/mpi_wilson_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/nccl_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/nccl_wilson_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/nccl_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/nccl_wilson_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/overlap_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/overlap_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/overlap_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/overlap_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/overlap_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/overlap_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/qcu_cuda.cu -o CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/qcu_cuda.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/qcu_mpi.cu -o CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/qcu_mpi.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_clover_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_clover_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_clover_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_clover_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_clover_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_overlap_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_overlap_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_overlap_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_overlap_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_overlap_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_overlap_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_wilson_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_wilson_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/test_wilson_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/test_wilson_multgrid.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/wilson_bistabcg.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/wilson_dslash.cu"
+},
+{
+  "directory": "/home/zhangxin/qcu/build",
+  "command": "/usr/bin/nvcc -forward-unknown-to-host-compiler -DMPI_ENABLED -Dqcu_EXPORTS -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/zhangxin/qcu/src/cuda/wilson_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o",
+  "file": "/home/zhangxin/qcu/src/cuda/wilson_multgrid.cu"
+}
+]

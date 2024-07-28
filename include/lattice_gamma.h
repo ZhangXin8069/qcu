@@ -1,6 +1,6 @@
 #ifndef _LATTICE_GAMMA_H
 #define _LATTICE_GAMMA_H
-#pragma optimize(5)
+
 #include "./qcu.h"
 
 // Lattice gamma class

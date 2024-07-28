@@ -1,6 +1,6 @@
 #ifndef _QCU_H
 #define _QCU_H
-#pragma optimize(5)
+
 #pragma once
 #include "./include.h"
 #include "./lattice_complex.h"
