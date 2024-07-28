@@ -7,16 +7,16 @@
 // #define DEBUG_NCCL_WILSON_BISTABCG
 
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
-                                  void *device_latt_tmp0, double kappa);
+                                  void *device_tmps0, double kappa);
 
 __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
-                                  void *device_latt_tmp1, double kappa);
+                                  void *device_tmps1, double kappa);
 
 __global__ void bistabcg_give_b__0(void *device_b__o, void *device_b_o,
-                                   void *device_latt_tmp0, double kappa);
+                                   void *device_tmps0, double kappa);
 
 __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
-                                     void *device_latt_tmp1, double kappa);
+                                     void *device_tmps1, double kappa);
 
 __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
                                  void *device_r_tilde);
@@ -47,11 +47,11 @@ struct LatticeBistabcg {
   LatticeComplex tmp0;
   LatticeComplex tmp1;
   LatticeComplex local_result;
-  LatticeComplex *host_latt_tmp0;
-  LatticeComplex *host_latt_tmp1;
-  LatticeComplex *host_dot_tmp;
+  LatticeComplex *host_tmps0;
+  LatticeComplex *host_tmps1;
+  LatticeComplex *host_dots;
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
-      *t, *device_latt_tmp0, *device_latt_tmp1, *device_dot_tmp;
+      *t, *device_tmps0, *device_tmps1, *device_dots;
   void _init() {
     r_norm2.real = 0.0;
     r_norm2.imag = 0.0;
@@ -84,14 +84,14 @@ struct LatticeBistabcg {
     cudaMalloc(&v, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     cudaMalloc(&s, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     cudaMalloc(&t, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
-    cudaMalloc(&device_latt_tmp0, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
-    cudaMalloc(&device_latt_tmp1, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
-    cudaMalloc(&device_dot_tmp, set_ptr->lat_4dim * sizeof(LatticeComplex));
-    host_latt_tmp0 =
+    cudaMalloc(&device_tmps0, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
+    cudaMalloc(&device_tmps1, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
+    cudaMalloc(&device_dots, set_ptr->lat_4dim * sizeof(LatticeComplex));
+    host_tmps0 =
         (LatticeComplex *)malloc(set_ptr->lat_4dim12 * sizeof(LatticeComplex));
-    host_latt_tmp1 =
+    host_tmps1 =
         (LatticeComplex *)malloc(set_ptr->lat_4dim12 * sizeof(LatticeComplex));
-    host_dot_tmp =
+    host_dots =
         (LatticeComplex *)malloc(set_ptr->lat_4dim * sizeof(LatticeComplex));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(x_o, 1314999);
   }
@@ -99,22 +99,22 @@ struct LatticeBistabcg {
     set_ptr = _set_ptr;
     dslash.give(set_ptr);
     _init();
-    set_ptr->_print();
+    // set_ptr->_print();
   }
   void _dslash(void *fermion_out, void *fermion_in, void *gauge) {
     // src_o-_KAPPA_**2*dslash_oe(dslash_eo(src_o))
-    dslash.run_eo(device_latt_tmp0, fermion_in, gauge);
-    dslash.run_oe(device_latt_tmp1, device_latt_tmp0, gauge);
+    dslash.run_eo(device_tmps0, fermion_in, gauge);
+    dslash.run_oe(device_tmps1, device_tmps0, gauge);
     bistabcg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        fermion_out, fermion_in, device_latt_tmp1, _KAPPA_);
+        fermion_out, fermion_in, device_tmps1, _KAPPA_);
     checkCudaErrors(cudaDeviceSynchronize());
   }
   void init(void *_b_e, void *_b_o, void *gauge) {
     b_e = _b_e;
     b_o = _b_o;
-    dslash.run_oe(device_latt_tmp0, b_e, gauge);
+    dslash.run_oe(device_tmps0, b_e, gauge);
     bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        b__o, b_o, device_latt_tmp0, _KAPPA_);
+        b__o, b_o, device_tmps0, _KAPPA_);
     checkCudaErrors(cudaDeviceSynchronize());
     _dslash(r, x_o, gauge);
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, b__o, r_tilde);
@@ -127,15 +127,15 @@ struct LatticeBistabcg {
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_e, 8848);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_o, 12138);
     print_norm2(ans_o);
-    dslash.run_eo(device_latt_tmp0, ans_o, gauge);
+    dslash.run_eo(device_tmps0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        b_e, ans_e, device_latt_tmp0, _KAPPA_);
-    dslash.run_oe(device_latt_tmp1, ans_e, gauge);
+        b_e, ans_e, device_tmps0, _KAPPA_);
+    dslash.run_oe(device_tmps1, ans_e, gauge);
     bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        b_o, ans_o, device_latt_tmp1, _KAPPA_);
-    dslash.run_oe(device_latt_tmp0, b_e, gauge);
+        b_o, ans_o, device_tmps1, _KAPPA_);
+    dslash.run_oe(device_tmps0, b_e, gauge);
     bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        b__o, b_o, device_latt_tmp0, _KAPPA_);
+        b__o, b_o, device_tmps0, _KAPPA_);
     checkCudaErrors(cudaDeviceSynchronize());
     _dslash(r, x_o, gauge);
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, b__o, r_tilde);
@@ -143,15 +143,15 @@ struct LatticeBistabcg {
   }
   void dot(void *val0, void *val1, LatticeComplex dest) {
     LatticeComplex _(0.0, 0.0);
-    bistabcg_part_dot<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_dot_tmp,
+    bistabcg_part_dot<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_dots,
                                                                val0, val1);
-    cudaMemcpy(host_dot_tmp, device_dot_tmp,
+    cudaMemcpy(host_dots, device_dots,
                sizeof(LatticeComplex) * set_ptr->lat_4dim,
                cudaMemcpyDeviceToHost);
     checkCudaErrors(cudaDeviceSynchronize());
     checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
     for (int i = 0; i < set_ptr->lat_4dim; i++) {
-      _ += host_dot_tmp[i];
+      _ += host_dots[i];
     }
     MPI_Allreduce(&_, &dest, 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
     MPI_Barrier(MPI_COMM_WORLD);
@@ -171,10 +171,10 @@ struct LatticeBistabcg {
     tmp1.imag = 0.0;
     local_result.real = 0.0;
     local_result.imag = 0.0;
-    bistabcg_part_cut<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_latt_tmp0,
+    bistabcg_part_cut<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_tmps0,
                                                                val0, val1);
     checkCudaErrors(cudaDeviceSynchronize());
-    dot(device_latt_tmp0, device_latt_tmp0, tmp0);
+    dot(device_tmps0, device_tmps0, tmp0);
     dot(val1, val1, tmp1);
     dest = tmp0 / tmp1;
   }
@@ -243,10 +243,10 @@ struct LatticeBistabcg {
     cudaFree(v);
     cudaFree(s);
     cudaFree(t);
-    cudaFree(device_latt_tmp0);
-    cudaFree(device_latt_tmp1);
-    free(host_latt_tmp0);
-    free(host_latt_tmp1);
+    cudaFree(device_tmps0);
+    cudaFree(device_tmps1);
+    free(host_tmps0);
+    free(host_tmps1);
   }
 };
 

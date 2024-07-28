@@ -618,31 +618,31 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,        \
+#define mpi_dot(device_dots, host_dots, val0, val1, tmp, gridDim,        \
                 blockDim)                                                      \
   {                                                                            \
     LatticeComplex local_result(0.0, 0.0);                                     \
     int lat_4dim = gridDim.x * blockDim.x;                                     \
-    bistabcg_part_dot<<<gridDim, blockDim>>>(device_dot_tmp, val0, val1);      \
-    cudaMemcpy(host_dot_tmp, device_dot_tmp,                                   \
+    bistabcg_part_dot<<<gridDim, blockDim>>>(device_dots, val0, val1);      \
+    cudaMemcpy(host_dots, device_dots,                                   \
                sizeof(LatticeComplex) * lat_4dim, cudaMemcpyDeviceToHost);     \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
     for (int i = 0; i < lat_4dim; i++) {                                       \
-      local_result += host_dot_tmp[i];                                         \
+      local_result += host_dots[i];                                         \
     }                                                                          \
     MPI_Allreduce(&local_result, &tmp, 2, MPI_DOUBLE, MPI_SUM,                 \
                   MPI_COMM_WORLD);                                             \
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
 
-#define mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,                \
-                 device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)              \
+#define mpi_diff(device_dots, host_dots, val0, val1, tmp,                \
+                 device_tmps0, tmp0, tmp1, gridDim, blockDim)              \
   {                                                                            \
-    bistabcg_part_cut<<<gridDim, blockDim>>>(device_latt_tmp0, val0, val1);    \
+    bistabcg_part_cut<<<gridDim, blockDim>>>(device_tmps0, val0, val1);    \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    mpi_dot(device_dot_tmp, host_dot_tmp, device_latt_tmp0, device_latt_tmp0,  \
+    mpi_dot(device_dots, host_dots, device_tmps0, device_tmps0,  \
             tmp0, gridDim, blockDim);                                          \
-    mpi_dot(device_dot_tmp, host_dot_tmp, val1, val1, tmp1, gridDim,           \
+    mpi_dot(device_dots, host_dots, val1, val1, tmp1, gridDim,           \
             blockDim);                                                         \
     tmp = tmp0 / tmp1;                                                         \
   }
@@ -670,23 +670,23 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define mpi_dslash(dest_o, src_o, kappa, device_latt_tmp0, device_latt_tmp1,   \
+#define mpi_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,   \
                    node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12,  \
                    lat_4dim12, grid_1dim, grid_index_1dim, move, send_request, \
                    recv_request, device_send_vec, device_recv_vec,             \
                    host_send_vec, host_recv_vec)                               \
   {                                                                            \
-    mpi_dslash_eo(device_latt_tmp0, src_o, node_rank, gridDim, blockDim,       \
+    mpi_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim,       \
                   gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,     \
                   move, send_request, recv_request, device_send_vec,           \
                   device_recv_vec, host_send_vec, host_recv_vec);              \
-    mpi_dslash_oe(device_latt_tmp1, device_latt_tmp0, node_rank, gridDim,      \
+    mpi_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim,      \
                   blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,            \
                   grid_index_1dim, move, send_request, recv_request,           \
                   device_send_vec, device_recv_vec, host_send_vec,             \
                   host_recv_vec);                                              \
     bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o,                 \
-                                                device_latt_tmp1, kappa);      \
+                                                device_tmps1, kappa);      \
   }
 
 #define _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,      \
@@ -827,13 +827,13 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define nccl_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,       \
+#define nccl_dot(device_dots, host_dots, val0, val1, tmp, gridDim,       \
                  blockDim)                                                     \
-  { mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim, blockDim); }
-#define nccl_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,               \
-                  device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)             \
+  { mpi_dot(device_dots, host_dots, val0, val1, tmp, gridDim, blockDim); }
+#define nccl_diff(device_dots, host_dots, val0, val1, tmp,               \
+                  device_tmps0, tmp0, tmp1, gridDim, blockDim)             \
   {                                                                            \
-    mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp, device_latt_tmp0,  \
+    mpi_diff(device_dots, host_dots, val0, val1, tmp, device_tmps0,  \
              tmp0, tmp1, gridDim, blockDim);                                   \
   }
 
@@ -860,22 +860,22 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define nccl_dslash(dest_o, src_o, kappa, device_latt_tmp0, device_latt_tmp1,  \
+#define nccl_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,  \
                     node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12, \
                     lat_4dim12, grid_1dim, grid_index_1dim, move,              \
                     device_send_vec, device_recv_vec, qcu_nccl_comm,           \
                     qcu_stream)                                                \
   {                                                                            \
-    nccl_dslash_eo(device_latt_tmp0, src_o, node_rank, gridDim, blockDim,      \
+    nccl_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim,      \
                    gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,    \
                    move, device_send_vec, device_recv_vec, qcu_nccl_comm,      \
                    qcu_stream);                                                \
-    nccl_dslash_oe(device_latt_tmp1, device_latt_tmp0, node_rank, gridDim,     \
+    nccl_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim,     \
                    blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,           \
                    grid_index_1dim, move, device_send_vec, device_recv_vec,    \
                    qcu_nccl_comm, qcu_stream);                                 \
     bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o,                 \
-                                                device_latt_tmp1, kappa);      \
+                                                device_tmps1, kappa);      \
   }
 
 #endif
