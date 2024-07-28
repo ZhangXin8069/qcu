@@ -3,7 +3,7 @@
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
 #include "./lattice_mpi.h"
-#include "lattice_complex.h"
+
 // #define DEBUG_NCCL_WILSON_BISTABCG
 
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
@@ -126,7 +126,6 @@ struct LatticeBistabcg {
     cudaMalloc(&b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_e, 8848);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_o, 12138);
-    print_norm2(ans_o);
     dslash.run_eo(device_tmps0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_e, ans_e, device_tmps0, _KAPPA_);
@@ -145,6 +144,8 @@ struct LatticeBistabcg {
     LatticeComplex _(0.0, 0.0);
     bistabcg_part_dot<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_dots,
                                                                val0, val1);
+    checkCudaErrors(cudaDeviceSynchronize());
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
     cudaMemcpy(host_dots, device_dots,
                sizeof(LatticeComplex) * set_ptr->lat_4dim,
                cudaMemcpyDeviceToHost);
