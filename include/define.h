@@ -733,10 +733,6 @@
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
       ncclRecv(device_recv_vec[_F_Y_], lat_3dim12[_XZT_], ncclDouble,          \
                move[_F_], qcu_nccl_comm, qcu_stream);                          \
-      ncclSend(device_send_vec[_F_Y_], lat_3dim12[_XZT_], ncclDouble,          \
-               move[_F_], qcu_nccl_comm, qcu_stream);                          \
-      ncclRecv(device_recv_vec[_B_Y_], lat_3dim12[_XZT_], ncclDouble,          \
-               move[_B_], qcu_nccl_comm, qcu_stream);                          \
     }                                                                          \
     wilson_dslash_z_send<<<gridDim, blockDim, 0, qcu_stream>>>(                \
         gauge, fermion_in, fermion_out, lat_1dim[_X_], lat_1dim[_Y_],          \
