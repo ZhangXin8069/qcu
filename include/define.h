@@ -712,12 +712,12 @@
       cudaStreamSynchronize(qcu_stream);                                       \
       ncclSend(device_send_vec[_B_X_], lat_3dim12[_YZT_], ncclDouble,          \
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
+      ncclRecv(device_recv_vec[_F_X_], lat_3dim12[_YZT_], ncclDouble,          \
+               move[_F_], qcu_nccl_comm, qcu_stream);                          \
       ncclSend(device_send_vec[_F_X_], lat_3dim12[_YZT_], ncclDouble,          \
                move[_F_], qcu_nccl_comm, qcu_stream);                          \
       ncclRecv(device_recv_vec[_B_X_], lat_3dim12[_YZT_], ncclDouble,          \
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
-      ncclRecv(device_recv_vec[_F_X_], lat_3dim12[_YZT_], ncclDouble,          \
-               move[_F_], qcu_nccl_comm, qcu_stream);                          \
     }                                                                          \
     wilson_dslash_y_send<<<gridDim, blockDim, 0, qcu_stream>>>(                \
         gauge, fermion_in, fermion_out, lat_1dim[_X_], lat_1dim[_Y_],          \
@@ -750,12 +750,12 @@
       cudaStreamSynchronize(qcu_stream);                                       \
       ncclSend(device_send_vec[_B_Z_], lat_3dim12[_XYT_], ncclDouble,          \
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
+      ncclRecv(device_recv_vec[_F_Z_], lat_3dim12[_XYT_], ncclDouble,          \
+               move[_F_], qcu_nccl_comm, qcu_stream);                          \
       ncclSend(device_send_vec[_F_Z_], lat_3dim12[_XYT_], ncclDouble,          \
                move[_F_], qcu_nccl_comm, qcu_stream);                          \
       ncclRecv(device_recv_vec[_B_Z_], lat_3dim12[_XYT_], ncclDouble,          \
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
-      ncclRecv(device_recv_vec[_F_Z_], lat_3dim12[_XYT_], ncclDouble,          \
-               move[_F_], qcu_nccl_comm, qcu_stream);                          \
     }                                                                          \
     wilson_dslash_t_send<<<gridDim, blockDim, 0, qcu_stream>>>(                \
         gauge, fermion_in, fermion_out, lat_1dim[_X_], lat_1dim[_Y_],          \
@@ -769,12 +769,12 @@
       cudaStreamSynchronize(qcu_stream);                                       \
       ncclSend(device_send_vec[_B_T_], lat_3dim12[_XYZ_], ncclDouble,          \
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
+      ncclRecv(device_recv_vec[_F_T_], lat_3dim12[_XYZ_], ncclDouble,          \
+               move[_F_], qcu_nccl_comm, qcu_stream);                          \
       ncclSend(device_send_vec[_F_T_], lat_3dim12[_XYZ_], ncclDouble,          \
                move[_F_], qcu_nccl_comm, qcu_stream);                          \
       ncclRecv(device_recv_vec[_B_T_], lat_3dim12[_XYZ_], ncclDouble,          \
                move[_B_], qcu_nccl_comm, qcu_stream);                          \
-      ncclRecv(device_recv_vec[_F_T_], lat_3dim12[_XYZ_], ncclDouble,          \
-               move[_F_], qcu_nccl_comm, qcu_stream);                          \
     }                                                                          \
     checkCudaErrors(cudaStreamSynchronize(qcu_stream));                        \
     ncclGroupEnd();                                                            \
