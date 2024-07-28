@@ -713,6 +713,7 @@ static void getHostName(char *hostname, int maxlen) {
     wilson_dslash_clear_dest<<<gridDim, blockDim>>>(                           \
         fermion_out, lat_1dim[_X_], lat_1dim[_Y_], lat_1dim[_Z_]);             \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
+    cudaStreamSynchronize(stream);                                             \
     ncclGroupStart();                                                          \
     wilson_dslash_x_send<<<gridDim, blockDim>>>(                               \
         gauge, fermion_in, fermion_out, lat_1dim[_X_], lat_1dim[_Y_],          \
@@ -726,6 +727,7 @@ static void getHostName(char *hostname, int maxlen) {
       move[_F_] = node_rank + move[_F_] * grid_1dim[_Y_] * grid_1dim[_Z_] *    \
                                   grid_1dim[_T_];                              \
       checkCudaErrors(cudaDeviceSynchronize());                                \
+      cudaStreamSynchronize(stream);                                           \
       ncclSend(device_send_vec[_B_X_], lat_3dim12[_YZT_], ncclDouble,          \
                move[_B_], nccl_comm, stream);                                  \
       ncclSend(device_send_vec[_F_X_], lat_3dim12[_YZT_], ncclDouble,          \
@@ -745,6 +747,7 @@ static void getHostName(char *hostname, int maxlen) {
       move[_B_] = node_rank + move[_B_] * grid_1dim[_Z_] * grid_1dim[_T_];     \
       move[_F_] = node_rank + move[_F_] * grid_1dim[_Z_] * grid_1dim[_T_];     \
       checkCudaErrors(cudaDeviceSynchronize());                                \
+      cudaStreamSynchronize(stream);                                           \
       ncclSend(device_send_vec[_B_Y_], lat_3dim12[_XZT_], ncclDouble,          \
                move[_B_], nccl_comm, stream);                                  \
       ncclSend(device_send_vec[_F_Y_], lat_3dim12[_XZT_], ncclDouble,          \
@@ -764,6 +767,7 @@ static void getHostName(char *hostname, int maxlen) {
       move[_B_] = node_rank + move[_B_] * grid_1dim[_T_];                      \
       move[_F_] = node_rank + move[_F_] * grid_1dim[_T_];                      \
       checkCudaErrors(cudaDeviceSynchronize());                                \
+      cudaStreamSynchronize(stream);                                           \
       ncclSend(device_send_vec[_B_Z_], lat_3dim12[_XYT_], ncclDouble,          \
                move[_B_], nccl_comm, stream);                                  \
       ncclSend(device_send_vec[_F_Z_], lat_3dim12[_XYT_], ncclDouble,          \
@@ -783,6 +787,7 @@ static void getHostName(char *hostname, int maxlen) {
       move[_B_] = node_rank + move[_B_];                                       \
       move[_F_] = node_rank + move[_F_];                                       \
       checkCudaErrors(cudaDeviceSynchronize());                                \
+      cudaStreamSynchronize(stream);                                           \
       ncclSend(device_send_vec[_B_T_], lat_3dim12[_XYZ_], ncclDouble,          \
                move[_B_], nccl_comm, stream);                                  \
       ncclSend(device_send_vec[_F_T_], lat_3dim12[_XYZ_], ncclDouble,          \
