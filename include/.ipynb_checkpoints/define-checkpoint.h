@@ -1,13 +1,13 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
-
+#pragma optimize(5)
 #include "./qcu.h"
 #define BLOCK_SIZE 256
 #define X 0
 #define Y 1
 #define Z 2
 #define T 3
-#define _DIM_ 4
+#define DIM 4
 #define B_X 0
 #define F_X 1
 #define B_Y 2
@@ -16,7 +16,7 @@
 #define F_Z 5
 #define B_T 6
 #define F_T 7
-#define _WARDS_ 8
+#define WARDS 8
 #define YZT 0
 #define XZT 1
 #define XYT 2
@@ -26,17 +26,17 @@
 #define EVENODD 2
 #define LAT_C 3
 #define LAT_S 4
-#define _LAT_D_ 4
-#define _B_ 0
-#define _F_ 1
-#define _BF_ 2
-#define _OUTPUT_SIZE_ 10
-#define _BACKWARD_ -1
-#define _NOWARD_ 0
-#define _FORWARD_ 1
-#define _SR_ 2
-#define _LAT_EXAMPLE_ 16
-#define _GRID_EXAMPLE_ 1
+#define LAT_D 4
+#define B 0
+#define F 1
+#define BF 2
+#define OUTPUT_SIZE 10
+#define BACKWARD -1
+#define NOWARD 0
+#define FORWARD 1
+#define SR 2
+#define LAT_EXAMPLE 16
+#define GRID_EXAMPLE 1
 
 #define WILSON_DSLASH
 #define CLOVER_DSLASH
@@ -356,11 +356,11 @@
 
 #define zero_vec(lat_3dim6, send_vec, recv_vec, zero)                          \
   {                                                                            \
-    for (int i = 0; i < _DIM_; i++) {                                            \
-      give_value(send_vec[i * _SR_], zero, lat_3dim6[i]);                        \
-      give_value(send_vec[i * _SR_ + 1], zero, lat_3dim6[i]);                    \
-      give_value(recv_vec[i * _SR_], zero, lat_3dim6[i]);                        \
-      give_value(recv_vec[i * _SR_ + 1], zero, lat_3dim6[i]);                    \
+    for (int i = 0; i < DIM; i++) {                                            \
+      give_value(send_vec[i * SR], zero, lat_3dim6[i]);                        \
+      give_value(send_vec[i * SR + 1], zero, lat_3dim6[i]);                    \
+      give_value(recv_vec[i * SR], zero, lat_3dim6[i]);                        \
+      give_value(recv_vec[i * SR + 1], zero, lat_3dim6[i]);                    \
     }                                                                          \
   }
 
@@ -376,19 +376,19 @@
         lat_1dim[T], parity, send_vec[B_X], send_vec[F_X]);                    \
     if (grid_1dim[X] != 1) {                                                   \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      move_backward(move[_B_], grid_index_1dim[X], grid_1dim[X]);                \
-      move_forward(move[_F_], grid_index_1dim[X], grid_1dim[X]);                 \
-      move[_B_] =                                                                \
-          node_rank + move[_B_] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
-      move[_F_] =                                                                \
-          node_rank + move[_F_] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
-      MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[_B_], F_X,      \
+      move_backward(move[B], grid_index_1dim[X], grid_1dim[X]);                \
+      move_forward(move[F], grid_index_1dim[X], grid_1dim[X]);                 \
+      move[B] =                                                                \
+          node_rank + move[B] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      move[F] =                                                                \
+          node_rank + move[F] * grid_1dim[Y] * grid_1dim[Z] * grid_1dim[T];    \
+      MPI_Irecv(recv_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], F_X,      \
                 MPI_COMM_WORLD, &recv_request[B_X]);                           \
-      MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[_F_], B_X,      \
+      MPI_Irecv(recv_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], B_X,      \
                 MPI_COMM_WORLD, &recv_request[F_X]);                           \
-      MPI_Isend(send_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[_B_], B_X,      \
+      MPI_Isend(send_vec[B_X], lat_3dim12[YZT], MPI_DOUBLE, move[B], B_X,      \
                 MPI_COMM_WORLD, &send_request[B_X]);                           \
-      MPI_Isend(send_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[_F_], F_X,      \
+      MPI_Isend(send_vec[F_X], lat_3dim12[YZT], MPI_DOUBLE, move[F], F_X,      \
                 MPI_COMM_WORLD, &send_request[F_T]);                           \
     }                                                                          \
     wilson_dslash_y_send<<<gridDim, blockDim>>>(                               \
@@ -396,17 +396,17 @@
         lat_1dim[T], parity, send_vec[B_Y], send_vec[F_Y]);                    \
     if (grid_1dim[Y] != 1) {                                                   \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      move_backward(move[_B_], grid_index_1dim[Y], grid_1dim[Y]);                \
-      move_forward(move[_F_], grid_index_1dim[Y], grid_1dim[Y]);                 \
-      move[_B_] = node_rank + move[_B_] * grid_1dim[Z] * grid_1dim[T];             \
-      move[_F_] = node_rank + move[_F_] * grid_1dim[Z] * grid_1dim[T];             \
-      MPI_Irecv(recv_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[_B_], F_Y,      \
+      move_backward(move[B], grid_index_1dim[Y], grid_1dim[Y]);                \
+      move_forward(move[F], grid_index_1dim[Y], grid_1dim[Y]);                 \
+      move[B] = node_rank + move[B] * grid_1dim[Z] * grid_1dim[T];             \
+      move[F] = node_rank + move[F] * grid_1dim[Z] * grid_1dim[T];             \
+      MPI_Irecv(recv_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], F_Y,      \
                 MPI_COMM_WORLD, &recv_request[B_Y]);                           \
-      MPI_Irecv(recv_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[_F_], B_Y,      \
+      MPI_Irecv(recv_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], B_Y,      \
                 MPI_COMM_WORLD, &recv_request[F_Y]);                           \
-      MPI_Isend(send_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[_B_], B_Y,      \
+      MPI_Isend(send_vec[B_Y], lat_3dim12[XZT], MPI_DOUBLE, move[B], B_Y,      \
                 MPI_COMM_WORLD, &send_request[B_Y]);                           \
-      MPI_Isend(send_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[_F_], F_Y,      \
+      MPI_Isend(send_vec[F_Y], lat_3dim12[XZT], MPI_DOUBLE, move[F], F_Y,      \
                 MPI_COMM_WORLD, &send_request[F_Y]);                           \
     }                                                                          \
     wilson_dslash_z_send<<<gridDim, blockDim>>>(                               \
@@ -414,17 +414,17 @@
         lat_1dim[T], parity, send_vec[B_Z], send_vec[F_Z]);                    \
     if (grid_1dim[Z] != 1) {                                                   \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      move_backward(move[_B_], grid_index_1dim[Z], grid_1dim[Z]);                \
-      move_forward(move[_F_], grid_index_1dim[Z], grid_1dim[Z]);                 \
-      move[_B_] = node_rank + move[_B_] * grid_1dim[T];                            \
-      move[_F_] = node_rank + move[_F_] * grid_1dim[T];                            \
-      MPI_Irecv(recv_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[_B_], F_Z,      \
+      move_backward(move[B], grid_index_1dim[Z], grid_1dim[Z]);                \
+      move_forward(move[F], grid_index_1dim[Z], grid_1dim[Z]);                 \
+      move[B] = node_rank + move[B] * grid_1dim[T];                            \
+      move[F] = node_rank + move[F] * grid_1dim[T];                            \
+      MPI_Irecv(recv_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], F_Z,      \
                 MPI_COMM_WORLD, &recv_request[B_Z]);                           \
-      MPI_Irecv(recv_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[_F_], B_Z,      \
+      MPI_Irecv(recv_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], B_Z,      \
                 MPI_COMM_WORLD, &recv_request[F_Z]);                           \
-      MPI_Isend(send_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[_B_], B_Z,      \
+      MPI_Isend(send_vec[B_Z], lat_3dim12[XYT], MPI_DOUBLE, move[B], B_Z,      \
                 MPI_COMM_WORLD, &send_request[B_Z]);                           \
-      MPI_Isend(send_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[_F_], F_Z,      \
+      MPI_Isend(send_vec[F_Z], lat_3dim12[XYT], MPI_DOUBLE, move[F], F_Z,      \
                 MPI_COMM_WORLD, &send_request[F_Z]);                           \
     }                                                                          \
     wilson_dslash_t_send<<<gridDim, blockDim>>>(                               \
@@ -432,17 +432,17 @@
         lat_1dim[T], parity, send_vec[B_T], send_vec[F_T]);                    \
     if (grid_1dim[T] != 1) {                                                   \
       checkCudaErrors(cudaDeviceSynchronize());                                \
-      move_backward(move[_B_], grid_index_1dim[T], grid_1dim[T]);                \
-      move_forward(move[_F_], grid_index_1dim[T], grid_1dim[T]);                 \
-      move[_B_] = node_rank + move[_B_];                                           \
-      move[_F_] = node_rank + move[_F_];                                           \
-      MPI_Irecv(recv_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[_B_], F_T,      \
+      move_backward(move[B], grid_index_1dim[T], grid_1dim[T]);                \
+      move_forward(move[F], grid_index_1dim[T], grid_1dim[T]);                 \
+      move[B] = node_rank + move[B];                                           \
+      move[F] = node_rank + move[F];                                           \
+      MPI_Irecv(recv_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], F_T,      \
                 MPI_COMM_WORLD, &recv_request[B_T]);                           \
-      MPI_Irecv(recv_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[_F_], B_T,      \
+      MPI_Irecv(recv_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], B_T,      \
                 MPI_COMM_WORLD, &recv_request[F_T]);                           \
-      MPI_Isend(send_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[_B_], B_T,      \
+      MPI_Isend(send_vec[B_T], lat_3dim12[XYZ], MPI_DOUBLE, move[B], B_T,      \
                 MPI_COMM_WORLD, &send_request[B_T]);                           \
-      MPI_Isend(send_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[_F_], F_T,      \
+      MPI_Isend(send_vec[F_T], lat_3dim12[XYZ], MPI_DOUBLE, move[F], F_T,      \
                 MPI_COMM_WORLD, &send_request[F_T]);                           \
     }                                                                          \
     if (grid_1dim[X] != 1) {                                                   \
@@ -499,21 +499,21 @@
 
 #define malloc_vec(lat_3dim6, send_vec, recv_vec)                              \
   {                                                                            \
-    for (int i = 0; i < _DIM_; i++) {                                            \
-      cudaMallocManaged(&send_vec[i * _SR_],                                     \
+    for (int i = 0; i < DIM; i++) {                                            \
+      cudaMallocManaged(&send_vec[i * SR],                                     \
                         lat_3dim6[i] * sizeof(LatticeComplex));                \
-      cudaMallocManaged(&send_vec[i * _SR_ + 1],                                 \
+      cudaMallocManaged(&send_vec[i * SR + 1],                                 \
                         lat_3dim6[i] * sizeof(LatticeComplex));                \
-      cudaMallocManaged(&recv_vec[i * _SR_],                                     \
+      cudaMallocManaged(&recv_vec[i * SR],                                     \
                         lat_3dim6[i] * sizeof(LatticeComplex));                \
-      cudaMallocManaged(&recv_vec[i * _SR_ + 1],                                 \
+      cudaMallocManaged(&recv_vec[i * SR + 1],                                 \
                         lat_3dim6[i] * sizeof(LatticeComplex));                \
     }                                                                          \
   }
 
 #define free_vec(send_vec, recv_vec)                                           \
   {                                                                            \
-    for (int i = 0; i < _WARDS_; i++) {                                          \
+    for (int i = 0; i < WARDS; i++) {                                          \
       cudaFree(send_vec[i]);                                                   \
       cudaFree(recv_vec[i]);                                                   \
     }                                                                          \

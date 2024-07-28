@@ -1,6 +1,6 @@
 #ifndef _LATTICE_CLOVER_H
 #define _LATTICE_CLOVER_H
-
+#pragma optimize(5)
 #include "./qcu.h"
 
 __global__ void make_clover(void *device_U, void *device_clover,

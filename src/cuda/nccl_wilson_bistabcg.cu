@@ -1,3 +1,5 @@
+#include <iostream>
+#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef NCCL_WILSON_BISTABCG
 // #define DEBUG_NCCL_WILSON_CG
@@ -34,27 +36,27 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // initializing NCCL
   NCCLCHECK(ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
   // define for nccl_wilson_dslash
-  int lat_1dim[_DIM_];
-  int lat_3dim[_DIM_];
+  int lat_1dim[DIM];
+  int lat_3dim[DIM];
   int lat_4dim;
   give_dims(param, lat_1dim, lat_3dim, lat_4dim);
-  int lat_3dim6[_DIM_];
-  int lat_3dim12[_DIM_];
-  for (int i = 0; i < _DIM_; i++) {
+  int lat_3dim6[DIM];
+  int lat_3dim12[DIM];
+  for (int i = 0; i < DIM; i++) {
     lat_3dim6[i] = lat_3dim[i] * 6;
     lat_3dim12[i] = lat_3dim6[i] * 2;
   }
   cudaError_t err;
   dim3 gridDim(lat_4dim / BLOCK_SIZE);
   dim3 blockDim(BLOCK_SIZE);
-  int move[_BF_];
-  int grid_1dim[_DIM_];
-  int grid_index_1dim[_DIM_];
+  int move[BF];
+  int grid_1dim[DIM];
+  int grid_index_1dim[DIM];
   give_grid(grid, node_rank, grid_1dim, grid_index_1dim);
-  void *host_send_vec[_WARDS_];
-  void *host_recv_vec[_WARDS_];
-  void *device_send_vec[_WARDS_];
-  void *device_recv_vec[_WARDS_];
+  void *host_send_vec[WARDS];
+  void *host_recv_vec[WARDS];
+  void *device_send_vec[WARDS];
+  void *device_recv_vec[WARDS];
   malloc_vec(lat_3dim6, device_send_vec, device_recv_vec, host_send_vec,
              host_recv_vec);
   // define end

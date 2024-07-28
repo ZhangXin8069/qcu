@@ -1,6 +1,6 @@
 #ifndef _LATTICE_COMPLEX_H
 #define _LATTICE_COMPLEX_H
-
+#pragma optimize(5)
 #include "./qcu.h"
 struct LatticeComplex {
   double real;

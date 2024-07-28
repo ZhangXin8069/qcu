@@ -1,0 +1,13 @@
+*.lib
+*.a
+*.la
+*.lo
+
+*.dll
+*.so
+*.so.*
+*.dylib
+
+.vscode
+.cache
+build
