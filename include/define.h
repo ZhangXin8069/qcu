@@ -1,9 +1,7 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
-#include "lattice_complex.h"
-#include <strings.h>
+#include "./lattice_complex.h"
 
-#include "./qcu.h"
 #define _BLOCK_SIZE_ 256
 #define _X_ 0
 #define _Y_ 1
@@ -40,6 +38,12 @@
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
+#define _MAX_ITER_ 1e3
+#define _TOL_ 1e-6
+#define _KAPPA_ 0.125
+#define LATTICE_DSLASH
+#define LATTICE_BISTABCG
+#define LATTICE_MULTGRID
 #define WILSON_DSLASH
 #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
@@ -76,7 +80,6 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
-template <typename LATTICE_TEMPLATE>
 
 #define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
   {                                                                            \
@@ -620,8 +623,7 @@ template <typename LATTICE_TEMPLATE>
   {                                                                            \
     LatticeComplex local_result(0.0, 0.0);                                     \
     int lat_4dim = gridDim.x * blockDim.x;                                     \
-    wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(device_dot_tmp, val0,      \
-                                                    val1);                     \
+    bistabcg_part_dot<<<gridDim, blockDim>>>(device_dot_tmp, val0, val1);      \
     cudaMemcpy(host_dot_tmp, device_dot_tmp,                                   \
                sizeof(LatticeComplex) * lat_4dim, cudaMemcpyDeviceToHost);     \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
@@ -636,8 +638,7 @@ template <typename LATTICE_TEMPLATE>
 #define mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,                \
                  device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)              \
   {                                                                            \
-    wilson_bistabcg_part_cut<<<gridDim, blockDim>>>(device_latt_tmp0, val0,    \
-                                                    val1);                     \
+    bistabcg_part_cut<<<gridDim, blockDim>>>(device_latt_tmp0, val0, val1);    \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
     mpi_dot(device_dot_tmp, host_dot_tmp, device_latt_tmp0, device_latt_tmp0,  \
             tmp0, gridDim, blockDim);                                          \
@@ -684,8 +685,8 @@ template <typename LATTICE_TEMPLATE>
                   grid_index_1dim, move, send_request, recv_request,           \
                   device_send_vec, device_recv_vec, host_send_vec,             \
                   host_recv_vec);                                              \
-    wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
-        dest_o, src_o, device_latt_tmp1, kappa);                               \
+    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o,                 \
+                                                device_latt_tmp1, kappa);      \
   }
 
 #define _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,      \
@@ -693,6 +694,7 @@ template <typename LATTICE_TEMPLATE>
                        grid_index_1dim, move, device_send_vec,                 \
                        device_recv_vec, qcu_nccl_comm, qcu_stream)             \
   {                                                                            \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     ncclGroupStart();                                                          \
     wilson_dslash_clear_dest<<<gridDim, blockDim, 0, qcu_stream>>>(            \
         fermion_out, lat_1dim[_X_], lat_1dim[_Y_], lat_1dim[_Z_]);             \
@@ -822,6 +824,7 @@ template <typename LATTICE_TEMPLATE>
           device_send_vec[_B_T_]);                                             \
     }                                                                          \
     checkCudaErrors(cudaStreamSynchronize(qcu_stream));                        \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
 #define nccl_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,       \
@@ -871,8 +874,8 @@ template <typename LATTICE_TEMPLATE>
                    blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,           \
                    grid_index_1dim, move, device_send_vec, device_recv_vec,    \
                    qcu_nccl_comm, qcu_stream);                                 \
-    wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
-        dest_o, src_o, device_latt_tmp1, kappa);                               \
+    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o,                 \
+                                                device_latt_tmp1, kappa);      \
   }
 
 #endif
