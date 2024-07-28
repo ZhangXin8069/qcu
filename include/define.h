@@ -4,7 +4,7 @@
 #include <strings.h>
 
 #include "./qcu.h"
-#define BLOCK_SIZE 256
+#define _BLOCK_SIZE_ 256
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2

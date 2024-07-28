@@ -2,7 +2,7 @@
 #define _DEFINE_H
 
 #include "./qcu.h"
-#define BLOCK_SIZE 256
+#define _BLOCK_SIZE_ 256
 #define X 0
 #define Y 1
 #define Z 2
