@@ -1,5 +1,9 @@
-profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Sat Jul 27 18:22:34 2024
+profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Sat Jul 27 21:49:26 2024
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
+  0.00149847	     33.5733	     33.5733	           2	 0.000749237	      8x16x16x32	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=0000,xpay,parity=1,topo=1111,p2p=0,gdr=0,nvshmem=0,pol=110000111100110000	# 119.66 Gflop/s, 201.53 GB/s, tuning took 0.044333 seconds at Sat Jul 27 21:49:23 2024
+  0.00148241	     33.2134	     66.7866	           1	  0.00148241	     16x16x16x32	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=0000,xpay,parity=2,topo=1111,p2p=0,gdr=0,nvshmem=0,pol=110000111100110000	# 120.96 Gflop/s, 203.72 GB/s, tuning took 0.087249 seconds at Sat Jul 27 21:49:21 2024
+ 0.000749227	     16.7864	      83.573	           1	 0.000749227	      8x16x16x32	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=0000,xpay,dagger,parity=1,topo=1111,p2p=0,gdr=0,nvshmem=0,pol=110000111100110000	# 119.66 Gflop/s, 201.53 GB/s, tuning took 0.046426 seconds at Sat Jul 27 21:49:25 2024
+ 0.000733184	      16.427	         100	           1	 0.000733184	      8x16x16x32	N4quda6WilsonINS_9WilsonArgIdLi3ELi4EL21QudaReconstructType_s12EEEEE	policy,commDim=0000,dagger,parity=1,topo=1111,p2p=0,gdr=0,nvshmem=0,pol=110000111100110000	# 117.99 Gflop/s, 205.94 GB/s, tuning took 0.043333 seconds at Sat Jul 27 21:49:24 2024
 
-# Total time spent in asynchronous execution = 0 seconds
+# Total time spent in asynchronous execution = 0.0044633 seconds
