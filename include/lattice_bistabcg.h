@@ -3,7 +3,8 @@
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
 #include "./lattice_mpi.h"
-#define DEBUG_NCCL_WILSON_BISTABCG
+#include "lattice_complex.h"
+// #define DEBUG_NCCL_WILSON_BISTABCG
 
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                   void *device_latt_tmp0, double kappa);
@@ -92,11 +93,13 @@ struct LatticeBistabcg {
         (LatticeComplex *)malloc(set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     host_dot_tmp =
         (LatticeComplex *)malloc(set_ptr->lat_4dim * sizeof(LatticeComplex));
+    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(x_o, 1314999);
   }
   void give(LatticeSet *_set_ptr) {
     set_ptr = _set_ptr;
     dslash.give(set_ptr);
     _init();
+    set_ptr->_print();
   }
   void _dslash(void *fermion_out, void *fermion_in, void *gauge) {
     // src_o-_KAPPA_**2*dslash_oe(dslash_eo(src_o))
@@ -121,10 +124,9 @@ struct LatticeBistabcg {
   void init(void *gauge) {
     cudaMalloc(&b_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     cudaMalloc(&b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
-    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        ans_e, set_ptr->node_rank + 12138);
-    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(
-        ans_o, set_ptr->node_rank + 83121);
+    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_e, 8848);
+    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_o, 12138);
+    print_norm2(ans_o);
     dslash.run_eo(device_latt_tmp0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_e, ans_e, device_latt_tmp0, _KAPPA_);
@@ -140,27 +142,24 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaDeviceSynchronize());
   }
   void dot(void *val0, void *val1, LatticeComplex dest) {
-    dest.real = 0.0;
-    dest.imag = 0.0;
-    local_result.real = 0.0;
-    local_result.imag = 0.0;
+    LatticeComplex _(0.0, 0.0);
     bistabcg_part_dot<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_dot_tmp,
                                                                val0, val1);
     cudaMemcpy(host_dot_tmp, device_dot_tmp,
                sizeof(LatticeComplex) * set_ptr->lat_4dim,
                cudaMemcpyDeviceToHost);
     checkCudaErrors(cudaDeviceSynchronize());
-
     for (int i = 0; i < set_ptr->lat_4dim; i++) {
-      local_result += host_dot_tmp[i];
+      _ += host_dot_tmp[i];
     }
-    MPI_Allreduce(&local_result, &dest, 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Allreduce(&_, &dest, 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
     MPI_Barrier(MPI_COMM_WORLD);
   }
 
   void print_norm2(void *val) {
-    dot(val, val, tmp);
-    printf("#*%p*:%.9lf - from rank %d#\n", val, tmp.real, set_ptr->node_rank);
+    LatticeComplex _(0.0, 0.0);
+    dot(val, val, _);
+    printf("#*%p*:%.9lf - from rank %d#\n", val, _.real, set_ptr->node_rank);
   }
   void diff(void *val0, void *val1, LatticeComplex dest) {
     dest.real = 0.0;
