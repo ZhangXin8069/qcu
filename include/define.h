@@ -1,10 +1,8 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
-#include "lattice_complex.h"
-#include <strings.h>
+#include "./lattice_complex.h"
 
-#include "./qcu.h"
-#define BLOCK_SIZE 256
+#define _BLOCK_SIZE_ 256
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
@@ -40,6 +38,13 @@
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
+#define _MAX_ITER_ 1e3
+#define _TOL_ 1e-6
+#define _KAPPA_ 0.125
+#define _MEM_POOL_ 0
+#define _CHECK_ERROR_ 1
+#define BISTABCG
+#define MULTGRID
 #define WILSON_DSLASH
 #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
@@ -76,8 +81,6 @@
 // #define TEST_WILSON_MULTGRID
 // #define TEST_CLOVER_MULTGRID
 // #define TEST_OVERLAP_MULTGRID
-#define test(val)                                                              \
-  {}
 
 #define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
   {                                                                            \
@@ -102,41 +105,43 @@
 
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
-    if (err != cudaSuccess) {                                                  \
-      fprintf(stderr,                                                          \
-              "checkCudaErrors() API error = %04d \"%s\" from file <%s>, "     \
-              "line %i.\n",                                                    \
-              err, cudaGetErrorString(err), __FILE__, __LINE__);               \
-      exit(-1);                                                                \
+    if (_CHECK_ERROR_) {                                                         \
+      if (err != cudaSuccess) {                                                \
+        fprintf(stderr,                                                        \
+                "Failed: CUDA error %04d \"%s\" from file <%s>, "              \
+                "line %i.\n",                                                  \
+                err, cudaGetErrorString(err), __FILE__, __LINE__);             \
+        exit(EXIT_FAILURE);                                                    \
+      }                                                                        \
     }                                                                          \
   }
 
-#define MPICHECK(cmd)                                                          \
-  do {                                                                         \
-    int e = cmd;                                                               \
-    if (e != MPI_SUCCESS) {                                                    \
-      printf("Failed: MPI error %s:%d '%d'\n", __FILE__, __LINE__, e);         \
-      exit(EXIT_FAILURE);                                                      \
+#define checkMpiErrors(err)                                                    \
+  {                                                                            \
+    if (_CHECK_ERROR_) {                                                         \
+      if (err != MPI_SUCCESS) {                                                \
+        fprintf(stderr,                                                        \
+                "Failed: MPI error %04d from file <%s>, "                      \
+                "line %i.\n",                                                  \
+                err, __FILE__, __LINE__);                                      \
+        exit(EXIT_FAILURE);                                                    \
+      }                                                                        \
     }                                                                          \
-  } while (0)
-#define CUDACHECK(cmd)                                                         \
-  do {                                                                         \
-    cudaError_t e = cmd;                                                       \
-    if (e != cudaSuccess) {                                                    \
-      printf("Failed: Cuda error %s:%d '%s'\n", __FILE__, __LINE__,            \
-             cudaGetErrorString(e));                                           \
-      exit(EXIT_FAILURE);                                                      \
+  }
+
+#define checkNcclErrors(err)                                                   \
+  {                                                                            \
+    if (_CHECK_ERROR_) {                                                         \
+      if (err != ncclSuccess) {                                                \
+        fprintf(stderr,                                                        \
+                "Failed: NCCL error %04d \"%s\" from file <%s>, "              \
+                "line %i.\n",                                                  \
+                err, ncclGetErrorString(err), __FILE__, __LINE__);             \
+        exit(EXIT_FAILURE);                                                    \
+      }                                                                        \
     }                                                                          \
-  } while (0)
-#define NCCLCHECK(cmd)                                                         \
-  do {                                                                         \
-    ncclResult_t r = cmd;                                                      \
-    if (r != ncclSuccess) {                                                    \
-      printf("Failed, NCCL error %s:%d '%s'\n", __FILE__, __LINE__,            \
-             ncclGetErrorString(r));                                           \
-      exit(EXIT_FAILURE);                                                      \
-    }                                                                          \
-  } while (0)
+  }
+
 // little strange, but don't want change
 #define host_give_value(U, zero, n)                                            \
   {                                                                            \
@@ -616,15 +621,13 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,        \
-                blockDim)                                                      \
+#define mpi_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim, blockDim) \
   {                                                                            \
     LatticeComplex local_result(0.0, 0.0);                                     \
     int lat_4dim = gridDim.x * blockDim.x;                                     \
-    wilson_bistabcg_part_dot<<<gridDim, blockDim>>>(device_dot_tmp, val0,      \
-                                                    val1);                     \
-    cudaMemcpy(host_dot_tmp, device_dot_tmp,                                   \
-               sizeof(LatticeComplex) * lat_4dim, cudaMemcpyDeviceToHost);     \
+    bistabcg_part_dot<<<gridDim, blockDim>>>(device_dots, val0, val1);         \
+    cudaMemcpy(host_dot_tmp, device_dots, sizeof(LatticeComplex) * lat_4dim,   \
+               cudaMemcpyDeviceToHost);                                        \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
     for (int i = 0; i < lat_4dim; i++) {                                       \
       local_result += host_dot_tmp[i];                                         \
@@ -634,16 +637,14 @@
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
 
-#define mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,                \
-                 device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)              \
+#define mpi_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0,     \
+                 tmp0, tmp1, gridDim, blockDim)                                \
   {                                                                            \
-    wilson_bistabcg_part_cut<<<gridDim, blockDim>>>(device_latt_tmp0, val0,    \
-                                                    val1);                     \
+    bistabcg_part_cut<<<gridDim, blockDim>>>(device_tmps0, val0, val1);        \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    mpi_dot(device_dot_tmp, host_dot_tmp, device_latt_tmp0, device_latt_tmp0,  \
-            tmp0, gridDim, blockDim);                                          \
-    mpi_dot(device_dot_tmp, host_dot_tmp, val1, val1, tmp1, gridDim,           \
-            blockDim);                                                         \
+    mpi_dot(device_dots, host_dot_tmp, device_tmps0, device_tmps0, tmp0,       \
+            gridDim, blockDim);                                                \
+    mpi_dot(device_dots, host_dot_tmp, val1, val1, tmp1, gridDim, blockDim);   \
     tmp = tmp0 / tmp1;                                                         \
   }
 
@@ -670,23 +671,22 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define mpi_dslash(dest_o, src_o, kappa, device_latt_tmp0, device_latt_tmp1,   \
+#define mpi_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,           \
                    node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12,  \
                    lat_4dim12, grid_1dim, grid_index_1dim, move, send_request, \
                    recv_request, device_send_vec, device_recv_vec,             \
                    host_send_vec, host_recv_vec)                               \
   {                                                                            \
-    mpi_dslash_eo(device_latt_tmp0, src_o, node_rank, gridDim, blockDim,       \
+    mpi_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim, gauge,    \
+                  lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,      \
+                  send_request, recv_request, device_send_vec,                 \
+                  device_recv_vec, host_send_vec, host_recv_vec);              \
+    mpi_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim, blockDim,    \
                   gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,     \
                   move, send_request, recv_request, device_send_vec,           \
                   device_recv_vec, host_send_vec, host_recv_vec);              \
-    mpi_dslash_oe(device_latt_tmp1, device_latt_tmp0, node_rank, gridDim,      \
-                  blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,            \
-                  grid_index_1dim, move, send_request, recv_request,           \
-                  device_send_vec, device_recv_vec, host_send_vec,             \
-                  host_recv_vec);                                              \
-    wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
-        dest_o, src_o, device_latt_tmp1, kappa);                               \
+    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o, device_tmps1,   \
+                                                kappa);                        \
   }
 
 #define _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,      \
@@ -694,6 +694,7 @@
                        grid_index_1dim, move, device_send_vec,                 \
                        device_recv_vec, qcu_nccl_comm, qcu_stream)             \
   {                                                                            \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
     ncclGroupStart();                                                          \
     wilson_dslash_clear_dest<<<gridDim, blockDim, 0, qcu_stream>>>(            \
         fermion_out, lat_1dim[_X_], lat_1dim[_Y_], lat_1dim[_Z_]);             \
@@ -823,16 +824,17 @@
           device_send_vec[_B_T_]);                                             \
     }                                                                          \
     checkCudaErrors(cudaStreamSynchronize(qcu_stream));                        \
+    checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define nccl_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim,       \
+#define nccl_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim,          \
                  blockDim)                                                     \
-  { mpi_dot(device_dot_tmp, host_dot_tmp, val0, val1, tmp, gridDim, blockDim); }
-#define nccl_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp,               \
-                  device_latt_tmp0, tmp0, tmp1, gridDim, blockDim)             \
+  { mpi_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim, blockDim); }
+#define nccl_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0,    \
+                  tmp0, tmp1, gridDim, blockDim)                               \
   {                                                                            \
-    mpi_diff(device_dot_tmp, host_dot_tmp, val0, val1, tmp, device_latt_tmp0,  \
-             tmp0, tmp1, gridDim, blockDim);                                   \
+    mpi_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0, tmp0,   \
+             tmp1, gridDim, blockDim);                                         \
   }
 
 #define nccl_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,     \
@@ -858,22 +860,22 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define nccl_dslash(dest_o, src_o, kappa, device_latt_tmp0, device_latt_tmp1,  \
+#define nccl_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,          \
                     node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12, \
                     lat_4dim12, grid_1dim, grid_index_1dim, move,              \
                     device_send_vec, device_recv_vec, qcu_nccl_comm,           \
                     qcu_stream)                                                \
   {                                                                            \
-    nccl_dslash_eo(device_latt_tmp0, src_o, node_rank, gridDim, blockDim,      \
+    nccl_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim, gauge,   \
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
+                   device_send_vec, device_recv_vec, qcu_nccl_comm,            \
+                   qcu_stream);                                                \
+    nccl_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim, blockDim,   \
                    gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,    \
                    move, device_send_vec, device_recv_vec, qcu_nccl_comm,      \
                    qcu_stream);                                                \
-    nccl_dslash_oe(device_latt_tmp1, device_latt_tmp0, node_rank, gridDim,     \
-                   blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,           \
-                   grid_index_1dim, move, device_send_vec, device_recv_vec,    \
-                   qcu_nccl_comm, qcu_stream);                                 \
-    wilson_bistabcg_give_dest_o<<<gridDim, blockDim>>>(                        \
-        dest_o, src_o, device_latt_tmp1, kappa);                               \
+    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o, device_tmps1,   \
+                                                kappa);                        \
   }
 
 #endif

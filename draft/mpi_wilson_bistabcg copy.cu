@@ -49,7 +49,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex local_result(0.0, 0.0);
   LatticeComplex *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde,
-      *p, *v, *s, *t, *device_latt_tmp0, *device_latt_tmp1;
+      *p, *v, *s, *t, *device_tmps0, *device_tmps1;
   cudaMallocManaged(&ans_e, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&ans_o, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&x_e, lat_4dim12 * sizeof(LatticeComplex));
@@ -63,12 +63,12 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   cudaMallocManaged(&v, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&s, lat_4dim12 * sizeof(LatticeComplex));
   cudaMallocManaged(&t, lat_4dim12 * sizeof(LatticeComplex));
-  cudaMallocManaged(&device_latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
-  cudaMallocManaged(&device_latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
+  cudaMallocManaged(&device_tmps0, lat_4dim12 * sizeof(LatticeComplex));
+  cudaMallocManaged(&device_tmps1, lat_4dim12 * sizeof(LatticeComplex));
   // give ans first
   host_give_rand(ans_e, lat_4dim12);
   host_give_rand(ans_o, lat_4dim12);
-  // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t, device_latt_tmp0, device_latt_tmp1
+  // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t, device_tmps0, device_tmps1
   host_give_rand(x_o, lat_4dim12);
   // host_give_value(x_o, zero, lat_4dim12 );
   host_give_value(b_e, zero, lat_4dim12);
@@ -81,29 +81,29 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   host_give_value(s, zero, lat_4dim12);
   host_give_value(t, zero, lat_4dim12);
   // give b'_o(b__0)
-  host_give_value(device_latt_tmp0, zero, lat_4dim12);
-  mpi_dslash_eo(device_latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge, lat_1dim,
+  host_give_value(device_tmps0, zero, lat_4dim12);
+  mpi_dslash_eo(device_tmps0, ans_o, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, device_send_vec, device_recv_vec, host_send_vec,host_recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
-    b_e[i] = ans_e[i] - device_latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
+    b_e[i] = ans_e[i] - device_tmps0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
   }
-  host_give_value(device_latt_tmp1, zero, lat_4dim12);
-  mpi_dslash_oe(device_latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
+  host_give_value(device_tmps1, zero, lat_4dim12);
+  mpi_dslash_oe(device_tmps1, ans_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, device_send_vec, device_recv_vec, host_send_vec,host_recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
-    b_o[i] = ans_o[i] - device_latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
+    b_o[i] = ans_o[i] - device_tmps1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
   }
-  host_give_value(device_latt_tmp0, zero, lat_4dim12);
-  mpi_dslash_oe(device_latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
+  host_give_value(device_tmps0, zero, lat_4dim12);
+  mpi_dslash_oe(device_tmps0, b_e, node_rank, gridDim, blockDim, gauge, lat_1dim,
              lat_3dim12, grid_1dim, grid_index_1dim, move, send_request,
              recv_request, device_send_vec, device_recv_vec, host_send_vec,host_recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
-    b__o[i] = b_o[i] + device_latt_tmp0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
+    b__o[i] = b_o[i] + device_tmps0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
   }
   // bistabcg
-  mpi_dslash(r, x_o, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim, blockDim,
+  mpi_dslash(r, x_o, kappa, device_tmps0, device_tmps1, node_rank, gridDim, blockDim,
           gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
           move, send_request, recv_request, device_send_vec, device_recv_vec, host_send_vec,host_recv_vec, zero);
   for (int i = 0; i < lat_4dim12; i++) {
@@ -127,7 +127,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
       p[i] = r[i] + (p[i] - v[i] * omega) * beta;
     }
     // v = A * p;
-    mpi_dslash(v, p, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim, blockDim,
+    mpi_dslash(v, p, kappa, device_tmps0, device_tmps1, node_rank, gridDim, blockDim,
             gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
             move, send_request, recv_request, device_send_vec, device_recv_vec, host_send_vec,host_recv_vec, zero);
     mpi_dot(local_result, lat_4dim12, r_tilde, v, tmp, zero);
@@ -140,7 +140,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
       s[i] = r[i] - v[i] * alpha;
     }
     // t = A * s;
-    mpi_dslash(t, s, kappa, device_latt_tmp0, device_latt_tmp1, node_rank, gridDim, blockDim,
+    mpi_dslash(t, s, kappa, device_tmps0, device_tmps1, node_rank, gridDim, blockDim,
             gauge, lat_1dim, lat_3dim12, lat_4dim12, grid_1dim, grid_index_1dim,
             move, send_request, recv_request, device_send_vec, device_recv_vec, host_send_vec,host_recv_vec, zero);
     mpi_dot(local_result, lat_4dim12, t, s, tmp0, zero);
@@ -175,7 +175,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
          "memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
-  mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, device_latt_tmp0, tmp0, tmp1,
+  mpi_diff(local_result, lat_4dim12, x_o, ans_o, tmp, device_tmps0, tmp0, tmp1,
            zero);
   printf("## difference: %.16f ", tmp.real);
   // free

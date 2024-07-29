@@ -21,7 +21,7 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH}")
 # Add include directories, including MPI include directories, including qcu's include
 set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
 set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
-include_directories(${CMAKE_SOURCE_DIR}/include ${MPI_INCLUDE_PATH})
+include_directories(${MPI_INCLUDE_PATH})
 include_directories(include)
 
 aux_source_directory(src/cuda SOURCE_FILE)
