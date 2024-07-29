@@ -41,6 +41,8 @@
 #define _MAX_ITER_ 1e3
 #define _TOL_ 1e-6
 #define _KAPPA_ 0.125
+#define _MEM_POOL_ 0
+#define _CHECK_ERROR_ 1
 #define BISTABCG
 #define MULTGRID
 #define WILSON_DSLASH
@@ -103,34 +105,40 @@
 
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
-    if (err != cudaSuccess) {                                                  \
-      fprintf(stderr,                                                          \
-              "Failed: CUDA error %04d \"%s\" from file <%s>, "                \
-              "line %i.\n",                                                    \
-              err, cudaGetErrorString(err), __FILE__, __LINE__);               \
-      exit(EXIT_FAILURE);                                                      \
+    if (_CHECK_ERROR_) {                                                         \
+      if (err != cudaSuccess) {                                                \
+        fprintf(stderr,                                                        \
+                "Failed: CUDA error %04d \"%s\" from file <%s>, "              \
+                "line %i.\n",                                                  \
+                err, cudaGetErrorString(err), __FILE__, __LINE__);             \
+        exit(EXIT_FAILURE);                                                    \
+      }                                                                        \
     }                                                                          \
   }
 
 #define checkMpiErrors(err)                                                    \
   {                                                                            \
-    if (err != MPI_SUCCESS) {                                                  \
-      fprintf(stderr,                                                          \
-              "Failed: MPI error %04d from file <%s>, "                        \
-              "line %i.\n",                                                    \
-              err, __FILE__, __LINE__);                                        \
-      exit(EXIT_FAILURE);                                                      \
+    if (_CHECK_ERROR_) {                                                         \
+      if (err != MPI_SUCCESS) {                                                \
+        fprintf(stderr,                                                        \
+                "Failed: MPI error %04d from file <%s>, "                      \
+                "line %i.\n",                                                  \
+                err, __FILE__, __LINE__);                                      \
+        exit(EXIT_FAILURE);                                                    \
+      }                                                                        \
     }                                                                          \
   }
 
 #define checkNcclErrors(err)                                                   \
   {                                                                            \
-    if (err != ncclSuccess) {                                                  \
-      fprintf(stderr,                                                          \
-              "Failed: NCCL error %04d \"%s\" from file <%s>, "                \
-              "line %i.\n",                                                    \
-              err, ncclGetErrorString(err), __FILE__, __LINE__);               \
-      exit(EXIT_FAILURE);                                                      \
+    if (_CHECK_ERROR_) {                                                         \
+      if (err != ncclSuccess) {                                                \
+        fprintf(stderr,                                                        \
+                "Failed: NCCL error %04d \"%s\" from file <%s>, "              \
+                "line %i.\n",                                                  \
+                err, ncclGetErrorString(err), __FILE__, __LINE__);             \
+        exit(EXIT_FAILURE);                                                    \
+      }                                                                        \
     }                                                                          \
   }
 

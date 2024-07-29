@@ -2,8 +2,6 @@
 #define _INCLUDE_H
 
 #include <chrono>
-#include <cmath>
-#include <complex>
 #include <cstdio>
 #include <ctime>
 #include <cuda.h>
