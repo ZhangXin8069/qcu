@@ -94,6 +94,7 @@ struct LatticeBistabcg {
     host_dots =
         (LatticeComplex *)malloc(set_ptr->lat_4dim * sizeof(LatticeComplex));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(x_o, 1314999);
+    checkCudaErrors(cudaDeviceSynchronize());
   }
   void give(LatticeSet *_set_ptr) {
     set_ptr = _set_ptr;
@@ -126,6 +127,8 @@ struct LatticeBistabcg {
     cudaMalloc(&b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_e, 8848);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_o, 12138);
+    checkCudaErrors(cudaDeviceSynchronize());
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
     dslash.run_eo(device_tmps0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_e, ans_e, device_tmps0, _KAPPA_);
@@ -140,7 +143,7 @@ struct LatticeBistabcg {
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, b__o, r_tilde);
     checkCudaErrors(cudaDeviceSynchronize());
   }
-  void dot(void *val0, void *val1, LatticeComplex dest) {
+  void dot(void *val0, void *val1, LatticeComplex *dest_ptr) {
     LatticeComplex _(0.0, 0.0);
     bistabcg_part_dot<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_dots,
                                                                val0, val1);
@@ -154,18 +157,18 @@ struct LatticeBistabcg {
     for (int i = 0; i < set_ptr->lat_4dim; i++) {
       _ += host_dots[i];
     }
-    MPI_Allreduce(&_, &dest, 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+    MPI_Allreduce(&_, dest_ptr, 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
     MPI_Barrier(MPI_COMM_WORLD);
   }
 
   void print_norm2(void *val) {
     LatticeComplex _(0.0, 0.0);
-    dot(val, val, _);
+    dot(val, val, &_);
     printf("#*%p*:%.9lf - from rank %d#\n", val, _.real, set_ptr->node_rank);
   }
-  void diff(void *val0, void *val1, LatticeComplex dest) {
-    dest.real = 0.0;
-    dest.imag = 0.0;
+  void diff(void *val0, void *val1, LatticeComplex *dest_ptr) {
+    dest_ptr->real = 0.0;
+    dest_ptr->imag = 0.0;
     tmp0.real = 0.0;
     tmp0.imag = 0.0;
     tmp1.real = 0.0;
@@ -175,13 +178,13 @@ struct LatticeBistabcg {
     bistabcg_part_cut<<<set_ptr->gridDim, set_ptr->blockDim>>>(device_tmps0,
                                                                val0, val1);
     checkCudaErrors(cudaDeviceSynchronize());
-    dot(device_tmps0, device_tmps0, tmp0);
-    dot(val1, val1, tmp1);
-    dest = tmp0 / tmp1;
+    dot(device_tmps0, device_tmps0, &tmp0);
+    dot(val1, val1, &tmp1);
+    *dest_ptr = tmp0 / tmp1;
   }
   void run(void *gauge) {
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
-      dot(r_tilde, r, rho);
+      dot(r_tilde, r, &rho);
 #ifdef DEBUG_NCCL_WILSON_BISTABCG
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
                 << "##rho:" << rho.real << std::endl;
@@ -196,7 +199,7 @@ struct LatticeBistabcg {
       checkCudaErrors(cudaDeviceSynchronize());
       // v = A * p;
       _dslash(v, p, gauge);
-      dot(r_tilde, v, tmp);
+      dot(r_tilde, v, &tmp);
       alpha = rho / tmp;
 #ifdef DEBUG_NCCL_WILSON_BISTABCG
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
@@ -206,8 +209,8 @@ struct LatticeBistabcg {
       checkCudaErrors(cudaDeviceSynchronize());
       // t = A * s;
       _dslash(t, s, gauge);
-      dot(t, s, tmp0);
-      dot(t, t, tmp1);
+      dot(t, s, &tmp0);
+      dot(t, t, &tmp1);
       omega = tmp0 / tmp1;
 #ifdef DEBUG_NCCL_WILSON_BISTABCG
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
@@ -217,7 +220,7 @@ struct LatticeBistabcg {
                                                                  alpha, omega);
       bistabcg_give_r<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, s, t, omega);
       checkCudaErrors(cudaDeviceSynchronize());
-      dot(r, r, r_norm2);
+      dot(r, r, &r_norm2);
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
                 << "##Residual:" << r_norm2.real << std::endl;
       // break;
@@ -230,8 +233,9 @@ struct LatticeBistabcg {
   }
   void run_test(void *gauge) {
     run(gauge);
-    diff(x_o, ans_o, tmp);
+    diff(x_o, ans_o, &tmp);
     printf("## difference: %.16f\n", tmp.real);
+    set_ptr->_print();
   }
   void end() {
     cudaFree(ans_e);
