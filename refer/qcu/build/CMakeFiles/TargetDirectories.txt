@@ -1,4 +1,0 @@
-/home/kfutfd/qcu/refer/qcu/build/CMakeFiles/qcu.dir
-/home/kfutfd/qcu/refer/qcu/build/CMakeFiles/test_linear_algebra.dir
-/home/kfutfd/qcu/refer/qcu/build/CMakeFiles/edit_cache.dir
-/home/kfutfd/qcu/refer/qcu/build/CMakeFiles/rebuild_cache.dir
