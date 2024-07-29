@@ -105,39 +105,35 @@
   {                                                                            \
     if (err != cudaSuccess) {                                                  \
       fprintf(stderr,                                                          \
-              "checkCudaErrors() API error = %04d \"%s\" from file <%s>, "     \
+              "Failed: CUDA error %04d \"%s\" from file <%s>, "                \
               "line %i.\n",                                                    \
               err, cudaGetErrorString(err), __FILE__, __LINE__);               \
-      exit(-1);                                                                \
+      exit(EXIT_FAILURE);                                                      \
     }                                                                          \
   }
 
-#define MPICHECK(cmd)                                                          \
-  do {                                                                         \
-    int e = cmd;                                                               \
-    if (e != MPI_SUCCESS) {                                                    \
-      printf("Failed: MPI error %s:%d '%d'\n", __FILE__, __LINE__, e);         \
+#define checkMpiErrors(err)                                                    \
+  {                                                                            \
+    if (err != MPI_SUCCESS) {                                                  \
+      fprintf(stderr,                                                          \
+              "Failed: MPI error %04d from file <%s>, "                        \
+              "line %i.\n",                                                    \
+              err, __FILE__, __LINE__);                                        \
       exit(EXIT_FAILURE);                                                      \
     }                                                                          \
-  } while (0)
-#define CUDACHECK(cmd)                                                         \
-  do {                                                                         \
-    cudaError_t e = cmd;                                                       \
-    if (e != cudaSuccess) {                                                    \
-      printf("Failed: Cuda error %s:%d '%s'\n", __FILE__, __LINE__,            \
-             cudaGetErrorString(e));                                           \
+  }
+
+#define checkNcclErrors(err)                                                   \
+  {                                                                            \
+    if (err != ncclSuccess) {                                                  \
+      fprintf(stderr,                                                          \
+              "Failed: NCCL error %04d \"%s\" from file <%s>, "                \
+              "line %i.\n",                                                    \
+              err, ncclGetErrorString(err), __FILE__, __LINE__);               \
       exit(EXIT_FAILURE);                                                      \
     }                                                                          \
-  } while (0)
-#define NCCLCHECK(cmd)                                                         \
-  do {                                                                         \
-    ncclResult_t r = cmd;                                                      \
-    if (r != ncclSuccess) {                                                    \
-      printf("Failed, NCCL error %s:%d '%s'\n", __FILE__, __LINE__,            \
-             ncclGetErrorString(r));                                           \
-      exit(EXIT_FAILURE);                                                      \
-    }                                                                          \
-  } while (0)
+  }
+
 // little strange, but don't want change
 #define host_give_value(U, zero, n)                                            \
   {                                                                            \
@@ -617,14 +613,13 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define mpi_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim,        \
-                blockDim)                                                      \
+#define mpi_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim, blockDim) \
   {                                                                            \
     LatticeComplex local_result(0.0, 0.0);                                     \
     int lat_4dim = gridDim.x * blockDim.x;                                     \
-    bistabcg_part_dot<<<gridDim, blockDim>>>(device_dots, val0, val1);      \
-    cudaMemcpy(host_dot_tmp, device_dots,                                   \
-               sizeof(LatticeComplex) * lat_4dim, cudaMemcpyDeviceToHost);     \
+    bistabcg_part_dot<<<gridDim, blockDim>>>(device_dots, val0, val1);         \
+    cudaMemcpy(host_dot_tmp, device_dots, sizeof(LatticeComplex) * lat_4dim,   \
+               cudaMemcpyDeviceToHost);                                        \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
     for (int i = 0; i < lat_4dim; i++) {                                       \
       local_result += host_dot_tmp[i];                                         \
@@ -634,15 +629,14 @@
     MPI_Barrier(MPI_COMM_WORLD);                                               \
   }
 
-#define mpi_diff(device_dots, host_dot_tmp, val0, val1, tmp,                \
-                 device_tmps0, tmp0, tmp1, gridDim, blockDim)              \
+#define mpi_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0,     \
+                 tmp0, tmp1, gridDim, blockDim)                                \
   {                                                                            \
-    bistabcg_part_cut<<<gridDim, blockDim>>>(device_tmps0, val0, val1);    \
+    bistabcg_part_cut<<<gridDim, blockDim>>>(device_tmps0, val0, val1);        \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-    mpi_dot(device_dots, host_dot_tmp, device_tmps0, device_tmps0,  \
-            tmp0, gridDim, blockDim);                                          \
-    mpi_dot(device_dots, host_dot_tmp, val1, val1, tmp1, gridDim,           \
-            blockDim);                                                         \
+    mpi_dot(device_dots, host_dot_tmp, device_tmps0, device_tmps0, tmp0,       \
+            gridDim, blockDim);                                                \
+    mpi_dot(device_dots, host_dot_tmp, val1, val1, tmp1, gridDim, blockDim);   \
     tmp = tmp0 / tmp1;                                                         \
   }
 
@@ -669,23 +663,22 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define mpi_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,   \
+#define mpi_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,           \
                    node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12,  \
                    lat_4dim12, grid_1dim, grid_index_1dim, move, send_request, \
                    recv_request, device_send_vec, device_recv_vec,             \
                    host_send_vec, host_recv_vec)                               \
   {                                                                            \
-    mpi_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim,       \
+    mpi_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim, gauge,    \
+                  lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,      \
+                  send_request, recv_request, device_send_vec,                 \
+                  device_recv_vec, host_send_vec, host_recv_vec);              \
+    mpi_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim, blockDim,    \
                   gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,     \
                   move, send_request, recv_request, device_send_vec,           \
                   device_recv_vec, host_send_vec, host_recv_vec);              \
-    mpi_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim,      \
-                  blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,            \
-                  grid_index_1dim, move, send_request, recv_request,           \
-                  device_send_vec, device_recv_vec, host_send_vec,             \
-                  host_recv_vec);                                              \
-    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o,                 \
-                                                device_tmps1, kappa);      \
+    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o, device_tmps1,   \
+                                                kappa);                        \
   }
 
 #define _ncclDslashQcu(gridDim, blockDim, gauge, fermion_in, fermion_out,      \
@@ -826,14 +819,14 @@
     checkCudaErrors(cudaDeviceSynchronize());                                  \
   }
 
-#define nccl_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim,       \
+#define nccl_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim,          \
                  blockDim)                                                     \
   { mpi_dot(device_dots, host_dot_tmp, val0, val1, tmp, gridDim, blockDim); }
-#define nccl_diff(device_dots, host_dot_tmp, val0, val1, tmp,               \
-                  device_tmps0, tmp0, tmp1, gridDim, blockDim)             \
+#define nccl_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0,    \
+                  tmp0, tmp1, gridDim, blockDim)                               \
   {                                                                            \
-    mpi_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0,  \
-             tmp0, tmp1, gridDim, blockDim);                                   \
+    mpi_diff(device_dots, host_dot_tmp, val0, val1, tmp, device_tmps0, tmp0,   \
+             tmp1, gridDim, blockDim);                                         \
   }
 
 #define nccl_dslash_eo(dest_e, src_o, node_rank, gridDim, blockDim, gauge,     \
@@ -859,22 +852,22 @@
   }
 
 // src_o-kappa**2*dslash_oe(dslash_eo(src_o))
-#define nccl_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,  \
+#define nccl_dslash(dest_o, src_o, kappa, device_tmps0, device_tmps1,          \
                     node_rank, gridDim, blockDim, gauge, lat_1dim, lat_3dim12, \
                     lat_4dim12, grid_1dim, grid_index_1dim, move,              \
                     device_send_vec, device_recv_vec, qcu_nccl_comm,           \
                     qcu_stream)                                                \
   {                                                                            \
-    nccl_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim,      \
+    nccl_dslash_eo(device_tmps0, src_o, node_rank, gridDim, blockDim, gauge,   \
+                   lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,     \
+                   device_send_vec, device_recv_vec, qcu_nccl_comm,            \
+                   qcu_stream);                                                \
+    nccl_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim, blockDim,   \
                    gauge, lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim,    \
                    move, device_send_vec, device_recv_vec, qcu_nccl_comm,      \
                    qcu_stream);                                                \
-    nccl_dslash_oe(device_tmps1, device_tmps0, node_rank, gridDim,     \
-                   blockDim, gauge, lat_1dim, lat_3dim12, grid_1dim,           \
-                   grid_index_1dim, move, device_send_vec, device_recv_vec,    \
-                   qcu_nccl_comm, qcu_stream);                                 \
-    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o,                 \
-                                                device_tmps1, kappa);      \
+    bistabcg_give_dest_o<<<gridDim, blockDim>>>(dest_o, src_o, device_tmps1,   \
+                                                kappa);                        \
   }
 
 #endif
