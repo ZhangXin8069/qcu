@@ -53,6 +53,12 @@
 				"file" : 0,
 				"line" : 24,
 				"parent" : 0
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 25,
+				"parent" : 0
 			}
 		]
 	},
@@ -82,11 +88,11 @@
 			[
 				{
 					"backtrace" : 5,
-					"path" : "/home/zhangxin/qcu/include"
+					"path" : "/usr/lib/x86_64-linux-gnu/openmpi/include"
 				},
 				{
-					"backtrace" : 5,
-					"path" : "/usr/lib/x86_64-linux-gnu/openmpi/include"
+					"backtrace" : 6,
+					"path" : "/home/zhangxin/qcu/include"
 				}
 			],
 			"language" : "CUDA",
@@ -124,13 +130,7 @@
 				21,
 				22,
 				23,
-				24,
-				25,
-				26,
-				27,
-				28,
-				29,
-				30
+				24
 			]
 		}
 	],
@@ -222,13 +222,7 @@
 				21,
 				22,
 				23,
-				24,
-				25,
-				26,
-				27,
-				28,
-				29,
-				30
+				24
 			]
 		}
 	],
@@ -237,19 +231,31 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/cuda/clover_bistabcg.cu",
+			"path" : "src/cuda/lattice_bistabcg.cu",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/cuda/clover_dslash.cu",
+			"path" : "src/cuda/lattice_cuda.cu",
 			"sourceGroupIndex" : 0
 		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/cuda/clover_multgrid.cu",
+			"path" : "src/cuda/lattice_dslash.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/cuda/lattice_mpi.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/cuda/lattice_multgrid.cu",
 			"sourceGroupIndex" : 0
 		},
 		{
@@ -321,36 +327,6 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
-			"path" : "src/cuda/overlap_bistabcg.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/overlap_dslash.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/overlap_multgrid.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/qcu_cuda.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/qcu_mpi.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
 			"path" : "src/cuda/test_clover_bistabcg.cu",
 			"sourceGroupIndex" : 0
 		},
@@ -400,24 +376,6 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/cuda/test_wilson_multgrid.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/wilson_bistabcg.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/wilson_dslash.cu",
-			"sourceGroupIndex" : 0
-		},
-		{
-			"backtrace" : 1,
-			"compileGroupIndex" : 0,
-			"path" : "src/cuda/wilson_multgrid.cu",
 			"sourceGroupIndex" : 0
 		}
 	],

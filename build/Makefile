@@ -129,77 +129,125 @@ qcu/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/build
 .PHONY : qcu/fast
 
-src/cuda/clover_bistabcg.o: src/cuda/clover_bistabcg.cu.o
-.PHONY : src/cuda/clover_bistabcg.o
+src/cuda/lattice_bistabcg.o: src/cuda/lattice_bistabcg.cu.o
+.PHONY : src/cuda/lattice_bistabcg.o
 
 # target to build an object file
-src/cuda/clover_bistabcg.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o
-.PHONY : src/cuda/clover_bistabcg.cu.o
+src/cuda/lattice_bistabcg.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o
+.PHONY : src/cuda/lattice_bistabcg.cu.o
 
-src/cuda/clover_bistabcg.i: src/cuda/clover_bistabcg.cu.i
-.PHONY : src/cuda/clover_bistabcg.i
+src/cuda/lattice_bistabcg.i: src/cuda/lattice_bistabcg.cu.i
+.PHONY : src/cuda/lattice_bistabcg.i
 
 # target to preprocess a source file
-src/cuda/clover_bistabcg.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.i
-.PHONY : src/cuda/clover_bistabcg.cu.i
+src/cuda/lattice_bistabcg.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.i
+.PHONY : src/cuda/lattice_bistabcg.cu.i
 
-src/cuda/clover_bistabcg.s: src/cuda/clover_bistabcg.cu.s
-.PHONY : src/cuda/clover_bistabcg.s
+src/cuda/lattice_bistabcg.s: src/cuda/lattice_bistabcg.cu.s
+.PHONY : src/cuda/lattice_bistabcg.s
 
 # target to generate assembly for a file
-src/cuda/clover_bistabcg.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.s
-.PHONY : src/cuda/clover_bistabcg.cu.s
+src/cuda/lattice_bistabcg.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.s
+.PHONY : src/cuda/lattice_bistabcg.cu.s
 
-src/cuda/clover_dslash.o: src/cuda/clover_dslash.cu.o
-.PHONY : src/cuda/clover_dslash.o
+src/cuda/lattice_cuda.o: src/cuda/lattice_cuda.cu.o
+.PHONY : src/cuda/lattice_cuda.o
 
 # target to build an object file
-src/cuda/clover_dslash.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
-.PHONY : src/cuda/clover_dslash.cu.o
+src/cuda/lattice_cuda.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o
+.PHONY : src/cuda/lattice_cuda.cu.o
 
-src/cuda/clover_dslash.i: src/cuda/clover_dslash.cu.i
-.PHONY : src/cuda/clover_dslash.i
+src/cuda/lattice_cuda.i: src/cuda/lattice_cuda.cu.i
+.PHONY : src/cuda/lattice_cuda.i
 
 # target to preprocess a source file
-src/cuda/clover_dslash.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.i
-.PHONY : src/cuda/clover_dslash.cu.i
+src/cuda/lattice_cuda.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.i
+.PHONY : src/cuda/lattice_cuda.cu.i
 
-src/cuda/clover_dslash.s: src/cuda/clover_dslash.cu.s
-.PHONY : src/cuda/clover_dslash.s
+src/cuda/lattice_cuda.s: src/cuda/lattice_cuda.cu.s
+.PHONY : src/cuda/lattice_cuda.s
 
 # target to generate assembly for a file
-src/cuda/clover_dslash.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.s
-.PHONY : src/cuda/clover_dslash.cu.s
+src/cuda/lattice_cuda.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.s
+.PHONY : src/cuda/lattice_cuda.cu.s
 
-src/cuda/clover_multgrid.o: src/cuda/clover_multgrid.cu.o
-.PHONY : src/cuda/clover_multgrid.o
+src/cuda/lattice_dslash.o: src/cuda/lattice_dslash.cu.o
+.PHONY : src/cuda/lattice_dslash.o
 
 # target to build an object file
-src/cuda/clover_multgrid.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o
-.PHONY : src/cuda/clover_multgrid.cu.o
+src/cuda/lattice_dslash.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o
+.PHONY : src/cuda/lattice_dslash.cu.o
 
-src/cuda/clover_multgrid.i: src/cuda/clover_multgrid.cu.i
-.PHONY : src/cuda/clover_multgrid.i
+src/cuda/lattice_dslash.i: src/cuda/lattice_dslash.cu.i
+.PHONY : src/cuda/lattice_dslash.i
 
 # target to preprocess a source file
-src/cuda/clover_multgrid.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.i
-.PHONY : src/cuda/clover_multgrid.cu.i
+src/cuda/lattice_dslash.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.i
+.PHONY : src/cuda/lattice_dslash.cu.i
 
-src/cuda/clover_multgrid.s: src/cuda/clover_multgrid.cu.s
-.PHONY : src/cuda/clover_multgrid.s
+src/cuda/lattice_dslash.s: src/cuda/lattice_dslash.cu.s
+.PHONY : src/cuda/lattice_dslash.s
 
 # target to generate assembly for a file
-src/cuda/clover_multgrid.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.s
-.PHONY : src/cuda/clover_multgrid.cu.s
+src/cuda/lattice_dslash.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.s
+.PHONY : src/cuda/lattice_dslash.cu.s
+
+src/cuda/lattice_mpi.o: src/cuda/lattice_mpi.cu.o
+.PHONY : src/cuda/lattice_mpi.o
+
+# target to build an object file
+src/cuda/lattice_mpi.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o
+.PHONY : src/cuda/lattice_mpi.cu.o
+
+src/cuda/lattice_mpi.i: src/cuda/lattice_mpi.cu.i
+.PHONY : src/cuda/lattice_mpi.i
+
+# target to preprocess a source file
+src/cuda/lattice_mpi.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.i
+.PHONY : src/cuda/lattice_mpi.cu.i
+
+src/cuda/lattice_mpi.s: src/cuda/lattice_mpi.cu.s
+.PHONY : src/cuda/lattice_mpi.s
+
+# target to generate assembly for a file
+src/cuda/lattice_mpi.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.s
+.PHONY : src/cuda/lattice_mpi.cu.s
+
+src/cuda/lattice_multgrid.o: src/cuda/lattice_multgrid.cu.o
+.PHONY : src/cuda/lattice_multgrid.o
+
+# target to build an object file
+src/cuda/lattice_multgrid.cu.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o
+.PHONY : src/cuda/lattice_multgrid.cu.o
+
+src/cuda/lattice_multgrid.i: src/cuda/lattice_multgrid.cu.i
+.PHONY : src/cuda/lattice_multgrid.i
+
+# target to preprocess a source file
+src/cuda/lattice_multgrid.cu.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.i
+.PHONY : src/cuda/lattice_multgrid.cu.i
+
+src/cuda/lattice_multgrid.s: src/cuda/lattice_multgrid.cu.s
+.PHONY : src/cuda/lattice_multgrid.s
+
+# target to generate assembly for a file
+src/cuda/lattice_multgrid.cu.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.s
+.PHONY : src/cuda/lattice_multgrid.cu.s
 
 src/cuda/mpi_clover_bistabcg.o: src/cuda/mpi_clover_bistabcg.cu.o
 .PHONY : src/cuda/mpi_clover_bistabcg.o
@@ -465,126 +513,6 @@ src/cuda/nccl_wilson_dslash.cu.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.s
 .PHONY : src/cuda/nccl_wilson_dslash.cu.s
 
-src/cuda/overlap_bistabcg.o: src/cuda/overlap_bistabcg.cu.o
-.PHONY : src/cuda/overlap_bistabcg.o
-
-# target to build an object file
-src/cuda/overlap_bistabcg.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o
-.PHONY : src/cuda/overlap_bistabcg.cu.o
-
-src/cuda/overlap_bistabcg.i: src/cuda/overlap_bistabcg.cu.i
-.PHONY : src/cuda/overlap_bistabcg.i
-
-# target to preprocess a source file
-src/cuda/overlap_bistabcg.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.i
-.PHONY : src/cuda/overlap_bistabcg.cu.i
-
-src/cuda/overlap_bistabcg.s: src/cuda/overlap_bistabcg.cu.s
-.PHONY : src/cuda/overlap_bistabcg.s
-
-# target to generate assembly for a file
-src/cuda/overlap_bistabcg.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.s
-.PHONY : src/cuda/overlap_bistabcg.cu.s
-
-src/cuda/overlap_dslash.o: src/cuda/overlap_dslash.cu.o
-.PHONY : src/cuda/overlap_dslash.o
-
-# target to build an object file
-src/cuda/overlap_dslash.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o
-.PHONY : src/cuda/overlap_dslash.cu.o
-
-src/cuda/overlap_dslash.i: src/cuda/overlap_dslash.cu.i
-.PHONY : src/cuda/overlap_dslash.i
-
-# target to preprocess a source file
-src/cuda/overlap_dslash.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.i
-.PHONY : src/cuda/overlap_dslash.cu.i
-
-src/cuda/overlap_dslash.s: src/cuda/overlap_dslash.cu.s
-.PHONY : src/cuda/overlap_dslash.s
-
-# target to generate assembly for a file
-src/cuda/overlap_dslash.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.s
-.PHONY : src/cuda/overlap_dslash.cu.s
-
-src/cuda/overlap_multgrid.o: src/cuda/overlap_multgrid.cu.o
-.PHONY : src/cuda/overlap_multgrid.o
-
-# target to build an object file
-src/cuda/overlap_multgrid.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o
-.PHONY : src/cuda/overlap_multgrid.cu.o
-
-src/cuda/overlap_multgrid.i: src/cuda/overlap_multgrid.cu.i
-.PHONY : src/cuda/overlap_multgrid.i
-
-# target to preprocess a source file
-src/cuda/overlap_multgrid.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.i
-.PHONY : src/cuda/overlap_multgrid.cu.i
-
-src/cuda/overlap_multgrid.s: src/cuda/overlap_multgrid.cu.s
-.PHONY : src/cuda/overlap_multgrid.s
-
-# target to generate assembly for a file
-src/cuda/overlap_multgrid.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.s
-.PHONY : src/cuda/overlap_multgrid.cu.s
-
-src/cuda/qcu_cuda.o: src/cuda/qcu_cuda.cu.o
-.PHONY : src/cuda/qcu_cuda.o
-
-# target to build an object file
-src/cuda/qcu_cuda.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
-.PHONY : src/cuda/qcu_cuda.cu.o
-
-src/cuda/qcu_cuda.i: src/cuda/qcu_cuda.cu.i
-.PHONY : src/cuda/qcu_cuda.i
-
-# target to preprocess a source file
-src/cuda/qcu_cuda.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.i
-.PHONY : src/cuda/qcu_cuda.cu.i
-
-src/cuda/qcu_cuda.s: src/cuda/qcu_cuda.cu.s
-.PHONY : src/cuda/qcu_cuda.s
-
-# target to generate assembly for a file
-src/cuda/qcu_cuda.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.s
-.PHONY : src/cuda/qcu_cuda.cu.s
-
-src/cuda/qcu_mpi.o: src/cuda/qcu_mpi.cu.o
-.PHONY : src/cuda/qcu_mpi.o
-
-# target to build an object file
-src/cuda/qcu_mpi.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o
-.PHONY : src/cuda/qcu_mpi.cu.o
-
-src/cuda/qcu_mpi.i: src/cuda/qcu_mpi.cu.i
-.PHONY : src/cuda/qcu_mpi.i
-
-# target to preprocess a source file
-src/cuda/qcu_mpi.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.i
-.PHONY : src/cuda/qcu_mpi.cu.i
-
-src/cuda/qcu_mpi.s: src/cuda/qcu_mpi.cu.s
-.PHONY : src/cuda/qcu_mpi.s
-
-# target to generate assembly for a file
-src/cuda/qcu_mpi.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.s
-.PHONY : src/cuda/qcu_mpi.cu.s
-
 src/cuda/test_clover_bistabcg.o: src/cuda/test_clover_bistabcg.cu.o
 .PHONY : src/cuda/test_clover_bistabcg.o
 
@@ -801,78 +729,6 @@ src/cuda/test_wilson_multgrid.cu.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.s
 .PHONY : src/cuda/test_wilson_multgrid.cu.s
 
-src/cuda/wilson_bistabcg.o: src/cuda/wilson_bistabcg.cu.o
-.PHONY : src/cuda/wilson_bistabcg.o
-
-# target to build an object file
-src/cuda/wilson_bistabcg.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o
-.PHONY : src/cuda/wilson_bistabcg.cu.o
-
-src/cuda/wilson_bistabcg.i: src/cuda/wilson_bistabcg.cu.i
-.PHONY : src/cuda/wilson_bistabcg.i
-
-# target to preprocess a source file
-src/cuda/wilson_bistabcg.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.i
-.PHONY : src/cuda/wilson_bistabcg.cu.i
-
-src/cuda/wilson_bistabcg.s: src/cuda/wilson_bistabcg.cu.s
-.PHONY : src/cuda/wilson_bistabcg.s
-
-# target to generate assembly for a file
-src/cuda/wilson_bistabcg.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.s
-.PHONY : src/cuda/wilson_bistabcg.cu.s
-
-src/cuda/wilson_dslash.o: src/cuda/wilson_dslash.cu.o
-.PHONY : src/cuda/wilson_dslash.o
-
-# target to build an object file
-src/cuda/wilson_dslash.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
-.PHONY : src/cuda/wilson_dslash.cu.o
-
-src/cuda/wilson_dslash.i: src/cuda/wilson_dslash.cu.i
-.PHONY : src/cuda/wilson_dslash.i
-
-# target to preprocess a source file
-src/cuda/wilson_dslash.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.i
-.PHONY : src/cuda/wilson_dslash.cu.i
-
-src/cuda/wilson_dslash.s: src/cuda/wilson_dslash.cu.s
-.PHONY : src/cuda/wilson_dslash.s
-
-# target to generate assembly for a file
-src/cuda/wilson_dslash.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.s
-.PHONY : src/cuda/wilson_dslash.cu.s
-
-src/cuda/wilson_multgrid.o: src/cuda/wilson_multgrid.cu.o
-.PHONY : src/cuda/wilson_multgrid.o
-
-# target to build an object file
-src/cuda/wilson_multgrid.cu.o:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o
-.PHONY : src/cuda/wilson_multgrid.cu.o
-
-src/cuda/wilson_multgrid.i: src/cuda/wilson_multgrid.cu.i
-.PHONY : src/cuda/wilson_multgrid.i
-
-# target to preprocess a source file
-src/cuda/wilson_multgrid.cu.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.i
-.PHONY : src/cuda/wilson_multgrid.cu.i
-
-src/cuda/wilson_multgrid.s: src/cuda/wilson_multgrid.cu.s
-.PHONY : src/cuda/wilson_multgrid.s
-
-# target to generate assembly for a file
-src/cuda/wilson_multgrid.cu.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles/qcu.dir/build.make CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.s
-.PHONY : src/cuda/wilson_multgrid.cu.s
-
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -882,15 +738,21 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... qcu"
-	@echo "... src/cuda/clover_bistabcg.o"
-	@echo "... src/cuda/clover_bistabcg.i"
-	@echo "... src/cuda/clover_bistabcg.s"
-	@echo "... src/cuda/clover_dslash.o"
-	@echo "... src/cuda/clover_dslash.i"
-	@echo "... src/cuda/clover_dslash.s"
-	@echo "... src/cuda/clover_multgrid.o"
-	@echo "... src/cuda/clover_multgrid.i"
-	@echo "... src/cuda/clover_multgrid.s"
+	@echo "... src/cuda/lattice_bistabcg.o"
+	@echo "... src/cuda/lattice_bistabcg.i"
+	@echo "... src/cuda/lattice_bistabcg.s"
+	@echo "... src/cuda/lattice_cuda.o"
+	@echo "... src/cuda/lattice_cuda.i"
+	@echo "... src/cuda/lattice_cuda.s"
+	@echo "... src/cuda/lattice_dslash.o"
+	@echo "... src/cuda/lattice_dslash.i"
+	@echo "... src/cuda/lattice_dslash.s"
+	@echo "... src/cuda/lattice_mpi.o"
+	@echo "... src/cuda/lattice_mpi.i"
+	@echo "... src/cuda/lattice_mpi.s"
+	@echo "... src/cuda/lattice_multgrid.o"
+	@echo "... src/cuda/lattice_multgrid.i"
+	@echo "... src/cuda/lattice_multgrid.s"
 	@echo "... src/cuda/mpi_clover_bistabcg.o"
 	@echo "... src/cuda/mpi_clover_bistabcg.i"
 	@echo "... src/cuda/mpi_clover_bistabcg.s"
@@ -924,21 +786,6 @@ help:
 	@echo "... src/cuda/nccl_wilson_dslash.o"
 	@echo "... src/cuda/nccl_wilson_dslash.i"
 	@echo "... src/cuda/nccl_wilson_dslash.s"
-	@echo "... src/cuda/overlap_bistabcg.o"
-	@echo "... src/cuda/overlap_bistabcg.i"
-	@echo "... src/cuda/overlap_bistabcg.s"
-	@echo "... src/cuda/overlap_dslash.o"
-	@echo "... src/cuda/overlap_dslash.i"
-	@echo "... src/cuda/overlap_dslash.s"
-	@echo "... src/cuda/overlap_multgrid.o"
-	@echo "... src/cuda/overlap_multgrid.i"
-	@echo "... src/cuda/overlap_multgrid.s"
-	@echo "... src/cuda/qcu_cuda.o"
-	@echo "... src/cuda/qcu_cuda.i"
-	@echo "... src/cuda/qcu_cuda.s"
-	@echo "... src/cuda/qcu_mpi.o"
-	@echo "... src/cuda/qcu_mpi.i"
-	@echo "... src/cuda/qcu_mpi.s"
 	@echo "... src/cuda/test_clover_bistabcg.o"
 	@echo "... src/cuda/test_clover_bistabcg.i"
 	@echo "... src/cuda/test_clover_bistabcg.s"
@@ -966,15 +813,6 @@ help:
 	@echo "... src/cuda/test_wilson_multgrid.o"
 	@echo "... src/cuda/test_wilson_multgrid.i"
 	@echo "... src/cuda/test_wilson_multgrid.s"
-	@echo "... src/cuda/wilson_bistabcg.o"
-	@echo "... src/cuda/wilson_bistabcg.i"
-	@echo "... src/cuda/wilson_bistabcg.s"
-	@echo "... src/cuda/wilson_dslash.o"
-	@echo "... src/cuda/wilson_dslash.i"
-	@echo "... src/cuda/wilson_dslash.s"
-	@echo "... src/cuda/wilson_multgrid.o"
-	@echo "... src/cuda/wilson_multgrid.i"
-	@echo "... src/cuda/wilson_multgrid.s"
 .PHONY : help
 
 

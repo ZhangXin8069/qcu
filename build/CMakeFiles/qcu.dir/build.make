@@ -69,52 +69,80 @@ include CMakeFiles/qcu.dir/progress.make
 # Include the compile flags for this target's objects.
 include CMakeFiles/qcu.dir/flags.make
 
-CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o: ../src/cuda/clover_bistabcg.cu
-CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/clover_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o
+CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
+CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o: ../src/cuda/lattice_bistabcg.cu
+CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o"
+	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/lattice_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o
 
-CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.i"
+CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.i"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.s"
+CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o: ../src/cuda/clover_dslash.cu
-CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o: CMakeFiles/qcu.dir/flags.make
+CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o: ../src/cuda/lattice_cuda.cu
+CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o"
+	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o -MF CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/lattice_cuda.cu -o CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o
 
-CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.i"
+CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.i"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.s"
+CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o: ../src/cuda/clover_multgrid.cu
-CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/clover_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o
+CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
+CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o: ../src/cuda/lattice_dslash.cu
+CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o"
+	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/lattice_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o
 
-CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.i"
+CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.i"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.s"
+CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o: CMakeFiles/qcu.dir/flags.make
+CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o: ../src/cuda/lattice_mpi.cu
+CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o"
+	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o -MF CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/lattice_mpi.cu -o CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o
+
+CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.s"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
+
+CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
+CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o: ../src/cuda/lattice_multgrid.cu
+CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o"
+	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/lattice_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o
+
+CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.i"
+	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
+
+CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o: ../src/cuda/mpi_clover_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_clover_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.i: cmake_force
@@ -128,7 +156,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o: ../src/cuda/mpi_clover_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.i: cmake_force
@@ -142,7 +170,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o: ../src/cuda/mpi_clover_multgrid.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_clover_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.i: cmake_force
@@ -156,7 +184,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o: ../src/cuda/mpi_overlap_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_overlap_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.i: cmake_force
@@ -170,7 +198,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o: ../src/cuda/mpi_overlap_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_8) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_overlap_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.i: cmake_force
@@ -184,7 +212,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o: ../src/cuda/mpi_overlap_multgrid.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_9) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_overlap_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.i: cmake_force
@@ -198,7 +226,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o: ../src/cuda/mpi_wilson_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_10) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.i: cmake_force
@@ -212,7 +240,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o: ../src/cuda/mpi_wilson_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_11) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.i: cmake_force
@@ -226,7 +254,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o: ../src/cuda/mpi_wilson_multgrid.cu
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_12) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/mpi_wilson_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.i: cmake_force
@@ -240,7 +268,7 @@ CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o: ../src/cuda/nccl_wilson_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_13) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/nccl_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.i: cmake_force
@@ -254,7 +282,7 @@ CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o: ../src/cuda/nccl_wilson_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_14) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/nccl_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.i: cmake_force
@@ -265,80 +293,10 @@ CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o: ../src/cuda/overlap_bistabcg.cu
-CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_15) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/overlap_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o: ../src/cuda/overlap_dslash.cu
-CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_16) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/overlap_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o: ../src/cuda/overlap_multgrid.cu
-CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/overlap_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o: ../src/cuda/qcu_cuda.cu
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o -MF CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/qcu_cuda.cu -o CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o: ../src/cuda/qcu_mpi.cu
-CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o -MF CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/qcu_mpi.cu -o CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
 CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o: ../src/cuda/test_clover_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_17) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_clover_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.i: cmake_force
@@ -352,7 +310,7 @@ CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o: ../src/cuda/test_clover_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_18) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_clover_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.i: cmake_force
@@ -366,7 +324,7 @@ CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o: ../src/cuda/test_clover_multgrid.cu
 CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_19) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_clover_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.i: cmake_force
@@ -380,7 +338,7 @@ CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o: ../src/cuda/test_overlap_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_20) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_overlap_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.i: cmake_force
@@ -394,7 +352,7 @@ CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o: ../src/cuda/test_overlap_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_21) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_overlap_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.i: cmake_force
@@ -408,7 +366,7 @@ CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o: ../src/cuda/test_overlap_multgrid.cu
 CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_22) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_overlap_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.i: cmake_force
@@ -422,7 +380,7 @@ CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o: ../src/cuda/test_wilson_bistabcg.cu
 CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_23) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.i: cmake_force
@@ -436,7 +394,7 @@ CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o: ../src/cuda/test_wilson_dslash.cu
 CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_27) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_24) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.i: cmake_force
@@ -450,7 +408,7 @@ CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.s: cmake_force
 CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
 CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o: ../src/cuda/test_wilson_multgrid.cu
 CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_28) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_25) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o"
 	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/test_wilson_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
 
 CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.i: cmake_force
@@ -461,53 +419,13 @@ CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.s"
 	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
 
-CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o: ../src/cuda/wilson_bistabcg.cu
-CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_29) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o -MF CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o: ../src/cuda/wilson_dslash.cu
-CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_30) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o -MF CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/wilson_dslash.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o: CMakeFiles/qcu.dir/flags.make
-CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o: ../src/cuda/wilson_multgrid.cu
-CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o: CMakeFiles/qcu.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_31) "Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o"
-	/usr/bin/nvcc -forward-unknown-to-host-compiler $(CUDA_DEFINES) $(CUDA_INCLUDES) $(CUDA_FLAGS) -MD -MT CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o -MF CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o.d -x cu -c /home/zhangxin/qcu/src/cuda/wilson_multgrid.cu -o CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o
-
-CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CUDA source to CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.i"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_PREPROCESSED_SOURCE
-
-CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CUDA source to assembly CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.s"
-	$(CMAKE_COMMAND) -E cmake_unimplemented_variable CMAKE_CUDA_CREATE_ASSEMBLY_SOURCE
-
 # Object files for target qcu
 qcu_OBJECTS = \
-"CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o" \
+"CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o" \
+"CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o" \
+"CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o" \
+"CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o" \
+"CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o" \
@@ -519,11 +437,6 @@ qcu_OBJECTS = \
 "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o" \
@@ -532,17 +445,16 @@ qcu_OBJECTS = \
 "CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o" \
 "CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o" \
-"CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o"
+"CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o"
 
 # External object files for target qcu
 qcu_EXTERNAL_OBJECTS =
 
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/clover_bistabcg.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/clover_multgrid.cu.o
+libqcu.so: CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o
+libqcu.so: CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o
+libqcu.so: CMakeFiles/qcu.dir/src/cuda/lattice_dslash.cu.o
+libqcu.so: CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o
+libqcu.so: CMakeFiles/qcu.dir/src/cuda/lattice_multgrid.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
@@ -554,11 +466,6 @@ libqcu.so: CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/overlap_bistabcg.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/overlap_dslash.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/overlap_multgrid.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/qcu_cuda.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/qcu_mpi.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
@@ -568,14 +475,11 @@ libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
 libqcu.so: CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/wilson_bistabcg.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
-libqcu.so: CMakeFiles/qcu.dir/src/cuda/wilson_multgrid.cu.o
 libqcu.so: CMakeFiles/qcu.dir/build.make
 libqcu.so: /home/zhangxin/openmpi/lib/libmpi.so
 libqcu.so: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so
 libqcu.so: CMakeFiles/qcu.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_32) "Linking CUDA shared library libqcu.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/zhangxin/qcu/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_26) "Linking CUDA shared library libqcu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/qcu.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.

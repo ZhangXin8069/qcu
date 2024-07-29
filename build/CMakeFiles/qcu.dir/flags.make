@@ -4,7 +4,7 @@
 # compile CUDA with /usr/bin/nvcc
 CUDA_DEFINES = -DMPI_ENABLED -Dqcu_EXPORTS
 
-CUDA_INCLUDES = -I/home/zhangxin/qcu/include -I/usr/lib/x86_64-linux-gnu/openmpi/include
+CUDA_INCLUDES = -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/zhangxin/qcu/include
 
 CUDA_FLAGS =  -arch=sm_80 -g --generate-code=arch=compute_80,code=[compute_80,sm_80] -Xcompiler=-fPIC -std=c++11
 
