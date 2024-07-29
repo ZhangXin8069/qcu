@@ -12,6 +12,8 @@
 #include <mpi.h>
 #include <nccl.h>
 #include <random>
+#include <stdio.h>
+#include <stdlib.h>
 #include <string>
 #include <unistd.h>
 

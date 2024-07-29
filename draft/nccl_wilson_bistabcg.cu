@@ -33,17 +33,17 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
              host_recv_vec);
   // define end
   // initializing MPI
-  MPICHECK(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
-  MPICHECK(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
+  checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
+  checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
   // initializing NCCL
   if (node_rank == 0) {
     ncclGetUniqueId(&qcu_nccl_id);
   }
-  MPICHECK(MPI_Bcast((void *)&qcu_nccl_id, sizeof(qcu_nccl_id), MPI_BYTE, 0,
+  checkMpiErrors(MPI_Bcast((void *)&qcu_nccl_id, sizeof(qcu_nccl_id), MPI_BYTE, 0,
                      MPI_COMM_WORLD));
-  NCCLCHECK(
+  checkNcclErrors(
       ncclCommInitRank(&qcu_nccl_comm, node_size, qcu_nccl_id, node_rank));
-  CUDACHECK(cudaStreamCreate(&qcu_stream));
+  checkCudaErrors(cudaStreamCreate(&qcu_stream));
   // initializing NCCL
   // define end
   // define for bistabcg
