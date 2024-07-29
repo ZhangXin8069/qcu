@@ -5,7 +5,8 @@
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
 #include "./lattice_mpi.h"
-#define PRINT_NCCL_WILSON_BISTABCG
+// #define PRINT_NCCL_WILSON_BISTABCG
+
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
   LatticeWilsonDslash dslash;
@@ -105,12 +106,14 @@ struct LatticeBistabcg {
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_e, ans_e, device_tmps0, _KAPPA_);
     // test b=1*/
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b_e, 1.0, 0.0);
+    // give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b_e, 1.0,
+    // 0.0);
     dslash.run_oe(device_tmps1, ans_e, gauge);
     bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_o, ans_o, device_tmps1, _KAPPA_);
     // test b=1
-    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b_o, 1.0, 0.0);
+    // give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b_o, 1.0,
+    // 0.0);
     dslash.run_oe(device_tmps0, b_e, gauge);
     bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b__o, b_o, device_tmps0, _KAPPA_);
