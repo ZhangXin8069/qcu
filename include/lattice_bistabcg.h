@@ -26,9 +26,7 @@ struct LatticeBistabcg {
   LatticeComplex *host_tmps1;
   LatticeComplex *host_dots;
   cudaMemPool_t memPool;
-  cudaMemPoolProps poolProps;
-  size_t releaseThreshold;
-  cudaMemPoolAttr attr;
+
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
       *t, *device_tmps0, *device_tmps1, *device_dots;
   void _init() {
@@ -54,49 +52,55 @@ struct LatticeBistabcg {
       local_result.real = 0.0;
       local_result.imag = 0.0;
     }
-    { checkCudaErrors(cudaMemPoolCreate(&memPool, &poolProps)); }
+    {
+      // cudaMemPoolProps poolProps = {};
+      // poolProps.allocType = cudaMemAllocationTypePinned;
+      // poolProps.location.id = 0;
+      // poolProps.location.type = cudaMemLocationTypeDevice;
+      // checkCudaErrors(cudaMemPoolCreate(&memPool, &poolProps));
+    }
     {
       checkCudaErrors(
           cudaMallocAsync(&ans_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&ans_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&x_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&x_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&b__o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&r, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(cudaMallocAsync(
-          &r_tilde, set_ptr->lat_4dim12 * sizeof(LatticeComplex), memPool,
+          &r_tilde, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
           set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&p, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&v, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&s, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(
           cudaMallocAsync(&t, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          memPool, set_ptr->qcu_stream));
+                          set_ptr->qcu_stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_tmps0, set_ptr->lat_4dim12 * sizeof(LatticeComplex), memPool,
+          &device_tmps0, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
           set_ptr->qcu_stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_tmps1, set_ptr->lat_4dim12 * sizeof(LatticeComplex), memPool,
+          &device_tmps1, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
           set_ptr->qcu_stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_dots, set_ptr->lat_4dim * sizeof(LatticeComplex), memPool,
+          &device_dots, set_ptr->lat_4dim * sizeof(LatticeComplex),
           set_ptr->qcu_stream));
       host_tmps0 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
                                             sizeof(LatticeComplex));
@@ -140,10 +144,10 @@ struct LatticeBistabcg {
 
   void init(void *gauge) {
     checkCudaErrors(
-        cudaMallocAsync(&b_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex), 0,
+        cudaMallocAsync(&b_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
                         set_ptr->qcu_stream));
     checkCudaErrors(
-        cudaMallocAsync(&b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex), 0,
+        cudaMallocAsync(&b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
                         set_ptr->qcu_stream));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->qcu_stream>>>(ans_e, 8848);
@@ -288,21 +292,22 @@ struct LatticeBistabcg {
     printf("## difference: %.16f\n", tmp.real);
   }
   void end() {
-    checkCudaErrors(cudaFree(ans_e));
-    checkCudaErrors(cudaFree(ans_o));
-    checkCudaErrors(cudaFree(x_o));
-    checkCudaErrors(cudaFree(b__o));
-    checkCudaErrors(cudaFree(r));
-    checkCudaErrors(cudaFree(r_tilde));
-    checkCudaErrors(cudaFree(p));
-    checkCudaErrors(cudaFree(v));
-    checkCudaErrors(cudaFree(s));
-    checkCudaErrors(cudaFree(t));
-    checkCudaErrors(cudaFree(device_tmps0));
-    checkCudaErrors(cudaFree(device_tmps1));
+    checkCudaErrors(cudaFreeAsync(ans_e, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(ans_o, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(x_o, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(b__o, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(r, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(r_tilde, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(p, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(v, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(s, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(t, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(device_tmps0, set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(device_tmps1, set_ptr->qcu_stream));
     free(host_tmps0);
     free(host_tmps1);
-    checkCudaErrors(cudaMemPoolDestroy(memPool));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+    // checkCudaErrors(cudaMemPoolDestroy(memPool));
   }
 };
 

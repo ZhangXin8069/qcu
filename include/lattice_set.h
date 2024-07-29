@@ -25,9 +25,6 @@ struct LatticeSet {
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
   cudaMemPool_t memPool;
-  cudaMemPoolProps poolProps;
-  size_t releaseThreshold;
-  cudaMemPoolAttr attr;
 
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
@@ -76,7 +73,13 @@ struct LatticeSet {
       lat_4dim12 = lat_4dim * 12;
       gridDim = lat_4dim / _BLOCK_SIZE_;
     }
-    { checkCudaErrors(cudaMemPoolCreate(&memPool, &poolProps)); }
+    {
+      // cudaMemPoolProps poolProps = {};
+      // poolProps.allocType = cudaMemAllocationTypePinned;
+      // poolProps.location.id = 0;
+      // poolProps.location.type = cudaMemLocationTypeDevice;
+      // checkCudaErrors(cudaMemPoolCreate(&memPool, &poolProps));
+    }
     {
       for (int i = 0; i < _DIM_; i++) {
         checkCudaErrors(cudaStreamCreate(&qcu_streams[i * _SR_]));
@@ -85,16 +88,16 @@ struct LatticeSet {
         lat_3dim12[i] = lat_3dim6[i] * 2;
         checkCudaErrors(cudaMallocAsync(&device_send_vec[i * _SR_],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        memPool, qcu_stream));
+                                        qcu_stream));
         checkCudaErrors(cudaMallocAsync(&device_send_vec[i * _SR_ + 1],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        memPool, qcu_stream));
+                                        qcu_stream));
         checkCudaErrors(cudaMallocAsync(&device_recv_vec[i * _SR_],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        memPool, qcu_stream));
+                                        qcu_stream));
         checkCudaErrors(cudaMallocAsync(&device_recv_vec[i * _SR_ + 1],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        memPool, qcu_stream));
+                                        qcu_stream));
         host_send_vec[i * _SR_] =
             (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
         host_send_vec[i * _SR_ + 1] =
@@ -108,15 +111,16 @@ struct LatticeSet {
     }
   }
   void end() {
-    checkCudaErrors(cudaStreamDestroy(qcu_stream));
     for (int i = 0; i < _WARDS_; i++) {
-      checkCudaErrors(cudaFree(device_send_vec[i]));
-      checkCudaErrors(cudaFree(device_recv_vec[i]));
+      checkCudaErrors(cudaFreeAsync(device_send_vec[i], qcu_stream));
+      checkCudaErrors(cudaFreeAsync(device_recv_vec[i], qcu_stream));
       free(host_send_vec[i]);
       free(host_recv_vec[i]);
       checkCudaErrors(cudaStreamDestroy(qcu_streams[i]));
     }
-    checkCudaErrors(cudaMemPoolDestroy(memPool));
+    checkCudaErrors(cudaStreamSynchronize(qcu_stream));
+    checkCudaErrors(cudaStreamDestroy(qcu_stream));
+    // checkCudaErrors(cudaMemPoolDestroy(memPool));
     checkNcclErrors(ncclCommDestroy(qcu_nccl_comm));
   }
   void _print() {
