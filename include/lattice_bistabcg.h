@@ -113,6 +113,8 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaDeviceSynchronize());
     _dslash(r, x_o, gauge);
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, b__o, r_tilde);
+    give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(ans_o, 1.0,
+                                                               0.0); // test b=1
     checkCudaErrors(cudaDeviceSynchronize());
   }
   void dot(void *val0, void *val1, LatticeComplex *dest_ptr) {
