@@ -8,7 +8,7 @@ struct LatticeWilsonDslash {
   LatticeSet *set_ptr;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
   void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
-    checkCudaErrors(cudaDeviceSynchronize()); // needed
+    // checkCudaErrors(cudaDeviceSynchronize());
     wilson_dslash_clear_dest<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                                set_ptr->qcu_stream>>>(
         fermion_out, set_ptr->lat_1dim[_X_], set_ptr->lat_1dim[_Y_],
