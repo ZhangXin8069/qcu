@@ -1,6 +1,6 @@
-#pragma optimize(5)
 #include "../../include/qcu.h"
 #ifdef CLOVER_DSLASH
+
 __global__ void make_clover(void *device_U, void *device_clover,
                             int device_lat_x, const int device_lat_y,
                             const int device_lat_z, const int device_lat_t,
@@ -907,8 +907,8 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
   checkCudaErrors(cudaMalloc(&clover, (lat_t * lat_z * lat_y * lat_x * 144) *
                                           sizeof(LatticeComplex)));
   cudaError_t err;
-  dim3 gridDim(lat_x * lat_y * lat_z * lat_t / BLOCK_SIZE);
-  dim3 blockDim(BLOCK_SIZE);
+  dim3 gridDim(lat_x * lat_y * lat_z * lat_t / _BLOCK_SIZE_);
+  dim3 blockDim(_BLOCK_SIZE_);
   {
     // wilson dslash
     checkCudaErrors(cudaDeviceSynchronize());
@@ -979,4 +979,5 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaFree(clover));
   }
 }
+
 #endif

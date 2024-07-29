@@ -1,38 +1,11 @@
 #ifndef _LATTICE_BISTABCG_H
 #define _LATTICE_BISTABCG_H
+#include "./bistabcg.h"
+#include "./dslash.h"
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
 #include "./lattice_mpi.h"
-
-// #define DEBUG_NCCL_WILSON_BISTABCG
-
-__global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
-                                  void *device_tmps0, double kappa);
-
-__global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
-                                  void *device_tmps1, double kappa);
-
-__global__ void bistabcg_give_b__0(void *device_b__o, void *device_b_o,
-                                   void *device_tmps0, double kappa);
-
-__global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
-                                     void *device_tmps1, double kappa);
-
-__global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
-                                 void *device_r_tilde);
-
-__global__ void bistabcg_give_p(void *device_p, void *device_r, void *device_v,
-                                LatticeComplex omega, LatticeComplex beta);
-
-__global__ void bistabcg_give_s(void *device_s, void *device_r, void *device_v,
-                                LatticeComplex alpha);
-
-__global__ void bistabcg_give_x_o(void *device_x_o, void *device_p,
-                                  void *device_s, LatticeComplex alpha,
-                                  LatticeComplex omega);
-
-__global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
-                                LatticeComplex omega);
+// #define PRINT_NCCL_WILSON_BISTABCG
 
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
@@ -132,9 +105,15 @@ struct LatticeBistabcg {
     dslash.run_eo(device_tmps0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_e, ans_e, device_tmps0, _KAPPA_);
+    // test b=1*/
+    // give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b_e, 1.0,
+    // 0.0);
     dslash.run_oe(device_tmps1, ans_e, gauge);
     bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b_o, ans_o, device_tmps1, _KAPPA_);
+    // test b=1
+    // give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim>>>(b_o, 1.0,
+    // 0.0);
     dslash.run_oe(device_tmps0, b_e, gauge);
     bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim>>>(
         b__o, b_o, device_tmps0, _KAPPA_);
@@ -221,8 +200,10 @@ struct LatticeBistabcg {
       bistabcg_give_r<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, s, t, omega);
       checkCudaErrors(cudaDeviceSynchronize());
       dot(r, r, &r_norm2);
+#ifdef PRINT_NCCL_WILSON_BISTABCG
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
                 << "##Residual:" << r_norm2.real << std::endl;
+#endif
       // break;
       if (r_norm2.real < _TOL_ || loop == _MAX_ITER_ - 1) {
         break;
@@ -232,10 +213,23 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaDeviceSynchronize());
   }
   void run_test(void *gauge) {
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+    set_ptr->_print();
+#endif
+    auto start = std::chrono::high_resolution_clock::now();
     run(gauge);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    set_ptr->err = cudaGetLastError();
+    checkCudaErrors(set_ptr->err);
+    printf(
+        "nccl wilson bistabcg total time: (without malloc free memcpy) :%.9lf "
+        "sec\n",
+        double(duration) / 1e9);
     diff(x_o, ans_o, &tmp);
     printf("## difference: %.16f\n", tmp.real);
-    set_ptr->_print();
   }
   void end() {
     cudaFree(ans_e);

@@ -41,9 +41,8 @@
 #define _MAX_ITER_ 1e3
 #define _TOL_ 1e-6
 #define _KAPPA_ 0.125
-#define LATTICE_DSLASH
-#define LATTICE_BISTABCG
-#define LATTICE_MULTGRID
+#define BISTABCG
+#define MULTGRID
 #define WILSON_DSLASH
 #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
