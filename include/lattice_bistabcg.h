@@ -193,8 +193,10 @@ struct LatticeBistabcg {
       bistabcg_give_r<<<set_ptr->gridDim, set_ptr->blockDim>>>(r, s, t, omega);
       checkCudaErrors(cudaDeviceSynchronize());
       dot(r, r, &r_norm2);
+#ifdef PRINT_NCCL_WILSON_BISTABCG
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
                 << "##Residual:" << r_norm2.real << std::endl;
+#endif
       // break;
       if (r_norm2.real < _TOL_ || loop == _MAX_ITER_ - 1) {
         break;
@@ -204,10 +206,23 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaDeviceSynchronize());
   }
   void run_test(void *gauge) {
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+    set_ptr->_print();
+#endif
+    auto start = std::chrono::high_resolution_clock::now();
     run(gauge);
+    auto end = std::chrono::high_resolution_clock::now();
+    auto duration =
+        std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
+            .count();
+    set_ptr->err = cudaGetLastError();
+    checkCudaErrors(set_ptr->err);
+    printf(
+        "nccl wilson bistabcg total time: (without malloc free memcpy) :%.9lf "
+        "sec\n",
+        double(duration) / 1e9);
     diff(x_o, ans_o, &tmp);
     printf("## difference: %.16f\n", tmp.real);
-    set_ptr->_print();
   }
   void end() {
     cudaFree(ans_e);
