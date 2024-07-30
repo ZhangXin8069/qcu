@@ -8,11 +8,7 @@ import cupy as cp
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-<<<<<<< HEAD:test/test.mpi.bistabcg.qcu-np2.py
-latt_size = [32, 32, 32, 64]
-=======
 latt_size = [16, 16, 16, 32]
->>>>>>> eed22d2 (2024-07-31-01-36-26):draft/test.mpi.bistabcg.qcu-np2.py
 grid_size = [2, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3

@@ -1,10 +1,5 @@
-<<<<<<< HEAD:src/cpu/qcu_cpu.cc
-#pragma optimize(5)
-#include "qcu.h"
-=======
 #ifndef ZUDA_H
 #define ZUDA_H
->>>>>>> eed22d2 (2024-07-31-01-36-26):draft/.ipynb_checkpoints/zuda_cpu-checkpoint.h
 #include <iostream>
 #include <random>
 #include <time.h>
