@@ -130,7 +130,11 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25,
+				26,
+				27,
+				28
 			]
 		}
 	],
@@ -222,12 +226,28 @@
 				21,
 				22,
 				23,
-				24
+				24,
+				25,
+				26,
+				27,
+				28
 			]
 		}
 	],
 	"sources" : 
 	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/cuda/bistabcg.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/cuda/clover_dslash.cu",
+			"sourceGroupIndex" : 0
+		},
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
@@ -315,6 +335,12 @@
 		{
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
+			"path" : "src/cuda/multgrid.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
 			"path" : "src/cuda/nccl_wilson_bistabcg.cu",
 			"sourceGroupIndex" : 0
 		},
@@ -376,6 +402,12 @@
 			"backtrace" : 1,
 			"compileGroupIndex" : 0,
 			"path" : "src/cuda/test_wilson_multgrid.cu",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/cuda/wilson_dslash.cu",
 			"sourceGroupIndex" : 0
 		}
 	],

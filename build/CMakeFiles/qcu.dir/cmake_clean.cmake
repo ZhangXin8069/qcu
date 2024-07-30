@@ -1,4 +1,8 @@
 file(REMOVE_RECURSE
+  "CMakeFiles/qcu.dir/src/cuda/bistabcg.cu.o"
+  "CMakeFiles/qcu.dir/src/cuda/bistabcg.cu.o.d"
+  "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o"
+  "CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o"
   "CMakeFiles/qcu.dir/src/cuda/lattice_bistabcg.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o"
@@ -27,6 +31,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o"
   "CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o.d"
+  "CMakeFiles/qcu.dir/src/cuda/multgrid.cu.o"
+  "CMakeFiles/qcu.dir/src/cuda/multgrid.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o"
   "CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o"
@@ -49,6 +55,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o.d"
   "CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o"
   "CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o.d"
+  "CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o"
+  "CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o.d"
   "libqcu.pdb"
   "libqcu.so"
 )
