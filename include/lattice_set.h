@@ -15,15 +15,18 @@ struct LatticeSet {
   ncclUniqueId qcu_nccl_id;
   ncclComm_t qcu_nccl_comm;
   cudaStream_t stream;
+  cudaStream_t streams[_DIM_];
   cudaStream_t stream_wards[_WARDS_];
   int node_rank, node_size;
   int move[_BF_];
+  int move_wads[_WARDS_];
   int grid_1dim[_DIM_];
   int grid_index_1dim[_DIM_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
+  void *device_xyztsc[_DIM_ * 3];
 
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
