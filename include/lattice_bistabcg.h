@@ -6,8 +6,7 @@
 #include "./lattice_dslash.h"
 #include "./lattice_mpi.h"
 #include "define.h"
-// #define PRINT_NCCL_WILSON_BISTABCG
-
+#define PRINT_NCCL_WILSON_BISTABCG
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
   cudaError_t err;
@@ -53,43 +52,43 @@ struct LatticeBistabcg {
     }
     {
       checkCudaErrors(
-          cudaMallocAsync(&ans_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          cudaMallocAsync(&ans_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
       checkCudaErrors(
-          cudaMallocAsync(&ans_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          cudaMallocAsync(&ans_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &x_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &x_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &x_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &x_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(
-          cudaMallocAsync(&b__o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          cudaMallocAsync(&b__o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &r, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &r, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &r_tilde, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          &r_tilde, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &p, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &p, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &v, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &v, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &s, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &s, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &t, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+          &t, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_vec0, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          &device_vec0, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_vec1, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          &device_vec1, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &device_dots, set_ptr->lat_4dim * sizeof(LatticeComplex),
           set_ptr->stream));
-      host_vec0 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
+      host_vec0 = (LatticeComplex *)malloc(set_ptr->lat_4dim_SC *
                                            sizeof(LatticeComplex));
-      host_vec1 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
+      host_vec1 = (LatticeComplex *)malloc(set_ptr->lat_4dim_SC *
                                            sizeof(LatticeComplex));
       host_dots =
           (LatticeComplex *)malloc(set_ptr->lat_4dim * sizeof(LatticeComplex));
@@ -128,9 +127,9 @@ struct LatticeBistabcg {
 
   void init(void *gauge) {
     checkCudaErrors(cudaMallocAsync(
-        &b_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+        &b_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
-        &b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+        &b_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->stream>>>(ans_e, 8848);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,

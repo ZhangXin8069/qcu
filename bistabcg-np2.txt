@@ -23,32 +23,32 @@ HOME:/home/kfutfd/qcu
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/kfutfd/qcu
+[  7%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/bistabcg.cu.o
 [ 11%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_cuda.cu.o
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/bistabcg.cu.o
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
-[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
-[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
+[ 14%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_dslash.cu.o
 [ 18%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/lattice_mpi.cu.o
-[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
-[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o
-[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o
-[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o
-[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o
-[ 48%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
-[ 48%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
-[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
-[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o
-[ 59%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/multgrid.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
-[ 74%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o
-[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
-[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o
-[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
-[ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
-[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
-[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
-[ 96%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
+[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_multgrid.cu.o
+[ 29%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_clover_bistabcg.cu.o
+[ 29%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_bistabcg.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_dslash.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/clover_dslash.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_bistabcg.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_dslash.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_overlap_multgrid.cu.o
+[ 51%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/multgrid.cu.o
+[ 51%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/mpi_wilson_multgrid.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_bistabcg.cu.o
+[ 59%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/nccl_wilson_dslash.cu.o
+[ 62%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_bistabcg.cu.o
+[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_multgrid.cu.o
+[ 74%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_bistabcg.cu.o
+[ 74%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_clover_dslash.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_multgrid.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_overlap_dslash.cu.o
+[ 85%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_bistabcg.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_multgrid.cu.o
+[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/test_wilson_dslash.cu.o
+[ 96%] Building CUDA object CMakeFiles/qcu.dir/src/cuda/wilson_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 rm: cannot remove '.': Is a directory
@@ -57,16 +57,16 @@ rm: cannot remove '.git': Is a directory
 rm: cannot remove '"clangd.format.tabSize": 4': No such file or directory
 fatal: pathspec '.gitmodules' did not match any files
 ~/qcu/test ~/qcu
-==2007548== NVPROF is profiling process 2007548, command: python ./test.nccl.bistabcg.qcu-np2.py
-==2007547== NVPROF is profiling process 2007547, command: python ./test.nccl.bistabcg.qcu-np2.py
-==2007547== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
-==2007548== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==26722== NVPROF is profiling process 26722, command: python ./test.nccl.bistabcg.qcu-np2.py
+==26721== NVPROF is profiling process 26721, command: python ./test.nccl.bistabcg.qcu-np2.py
+==26722== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==26721== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
 Disabling GPU-Direct RDMA access
 Enabling peer-to-peer copy engine and direct load/store access
-Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3
-Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3
 Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3
 Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3
+Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3
+Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3
 QUDA 1.1.0 (git 1.1.0--sm_60)
 CUDA Driver version = 12020
 CUDA Runtime version = 12040
@@ -79,424 +79,128 @@ Loaded 105 sets of cached parameters from .cache/tunecache.tsv
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
 cublasCreated successfully
-==2007548== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
-==2007547== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+==26722== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
 ===============round  0 ======================
+==26721== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
 ===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-node_rank        :0
-node_size        :2
-gridDim.x        :2048
-blockDim.x       :256
-lat_1dim[_X_]    :16
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :32
-grid_1dim[_X_]   :1
-grid_1dim[_Y_]   :1
-grid_1dim[_Z_]   :1
-grid_1dim[_T_]   :2
-lat_3dim[_YZT_]  :32768
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :16384
-lat_4dim         :524288
-lat_4dim12       :6291456
-lat_3dim6[_YZT_] :196608
-lat_3dim6[_XZT_] :98304
-lat_3dim6[_XYT_] :98304
-lat_3dim6[_XYZ_] :98304
-lat_3dim12[_YZT_]:393216
-lat_3dim12[_XZT_]:196608
-lat_3dim12[_XYT_]:196608
-lat_3dim12[_XYZ_]:196608
-node_rank        :1
-node_size        :2
-gridDim.x        :2048
-blockDim.x       :256
-lat_1dim[_X_]    :16
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :32
-grid_1dim[_X_]   :1
-grid_1dim[_Y_]   :1
-grid_1dim[_Z_]   :1
-grid_1dim[_T_]   :2
-lat_3dim[_YZT_]  :32768
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :16384
-lat_4dim         :524288
-lat_4dim12       :6291456
-lat_3dim6[_YZT_] :196608
-lat_3dim6[_XZT_] :98304
-lat_3dim6[_XYT_] :98304
-lat_3dim6[_XYZ_] :98304
-lat_3dim12[_YZT_]:393216
-lat_3dim12[_XZT_]:196608
-lat_3dim12[_XYT_]:196608
-lat_3dim12[_XYZ_]:196608
-##RANK:0##LOOP:0##Residual:44381.3
-##RANK:1##LOOP:0##Residual:44381.3
-##RANK:0##LOOP:1##Residual:8312.56
-##RANK:1##LOOP:1##Residual:8312.56
-##RANK:0##LOOP:2##Residual:122628
-##RANK:1##LOOP:2##Residual:122628
-##RANK:0##LOOP:3##Residual:13108
-##RANK:1##LOOP:3##Residual:13108
-##RANK:0##LOOP:4##Residual:525.776
-##RANK:1##LOOP:4##Residual:525.776
-##RANK:0##LOOP:5##Residual:379.927
-##RANK:1##LOOP:5##Residual:379.927
-##RANK:0##LOOP:6##Residual:70.1235
-##RANK:1##LOOP:6##Residual:70.1235
-##RANK:0##LOOP:7##Residual:33.9859
-##RANK:1##LOOP:7##Residual:33.9859
-##RANK:0##LOOP:8##Residual:27.4711
-##RANK:1##LOOP:8##Residual:27.4711
-##RANK:0##LOOP:9##Residual:13.3582
-##RANK:1##LOOP:9##Residual:13.3582
-##RANK:0##LOOP:10##Residual:22.7975
-##RANK:1##LOOP:10##Residual:22.7975
-##RANK:0##LOOP:11##Residual:3.53297
-##RANK:1##LOOP:11##Residual:3.53297
-##RANK:0##LOOP:12##Residual:2.25523
-##RANK:1##LOOP:12##Residual:2.25523
-##RANK:0##LOOP:13##Residual:2.17061
-##RANK:1##LOOP:13##Residual:2.17061
-##RANK:0##LOOP:14##Residual:1.47988
-##RANK:1##LOOP:14##Residual:1.47988
-##RANK:0##LOOP:15##Residual:0.613294
-##RANK:1##LOOP:15##Residual:0.613294
-##RANK:0##LOOP:16##Residual:0.44448
-##RANK:1##LOOP:16##Residual:0.44448
-##RANK:0##LOOP:17##Residual:0.282638
-##RANK:1##LOOP:17##Residual:0.282638
-##RANK:0##LOOP:18##Residual:0.214762
-##RANK:1##LOOP:18##Residual:0.214762
-##RANK:0##LOOP:19##Residual:0.187331
-##RANK:1##LOOP:19##Residual:0.187331
-##RANK:0##LOOP:20##Residual:0.150848
-##RANK:1##LOOP:20##Residual:0.150848
-##RANK:0##LOOP:21##Residual:0.174325
-##RANK:1##LOOP:21##Residual:0.174325
-##RANK:0##LOOP:22##Residual:0.0722201
-##RANK:1##LOOP:22##Residual:0.0722201
-##RANK:0##LOOP:23##Residual:0.0542333
-##RANK:1##LOOP:23##Residual:0.0542333
-##RANK:0##LOOP:24##Residual:0.051906
-##RANK:1##LOOP:24##Residual:0.051906
-##RANK:0##LOOP:25##Residual:0.0171304
-##RANK:1##LOOP:25##Residual:0.0171304
-##RANK:0##LOOP:26##Residual:0.0126201
-##RANK:1##LOOP:26##Residual:0.0126201
-##RANK:0##LOOP:27##Residual:0.011543
-##RANK:1##LOOP:27##Residual:0.011543
-##RANK:0##LOOP:28##Residual:0.0113228
-##RANK:1##LOOP:28##Residual:0.0113228
-##RANK:0##LOOP:29##Residual:0.116185
-##RANK:1##LOOP:29##Residual:0.116185
-##RANK:0##LOOP:30##Residual:0.00903011
-##RANK:1##LOOP:30##Residual:0.00903011
-##RANK:0##LOOP:31##Residual:0.00701881
-##RANK:1##LOOP:31##Residual:0.00701881
-##RANK:0##LOOP:32##Residual:0.00963829
-##RANK:1##LOOP:32##Residual:0.00963829
-##RANK:0##LOOP:33##Residual:0.0341335
-##RANK:1##LOOP:33##Residual:0.0341335
-##RANK:0##LOOP:34##Residual:0.0656009
-##RANK:1##LOOP:34##Residual:0.0656009
-##RANK:0##LOOP:35##Residual:0.0721815
-##RANK:1##LOOP:35##Residual:0.0721815
-##RANK:0##LOOP:36##Residual:0.0337134
-##RANK:1##LOOP:36##Residual:0.0337134
-##RANK:0##LOOP:37##Residual:0.000850441
-##RANK:1##LOOP:37##Residual:0.000850441
-##RANK:0##LOOP:38##Residual:0.000275414
-##RANK:1##LOOP:38##Residual:0.000275414
-##RANK:0##LOOP:39##Residual:0.000344811
-##RANK:1##LOOP:39##Residual:0.000344811
-##RANK:0##LOOP:40##Residual:0.000237372
-##RANK:1##LOOP:40##Residual:0.000237372
-##RANK:0##LOOP:41##Residual:0.000271735
-##RANK:1##LOOP:41##Residual:0.000271735
-##RANK:0##LOOP:42##Residual:0.000205788
-##RANK:1##LOOP:42##Residual:0.000205788
-##RANK:0##LOOP:43##Residual:0.000254245
-##RANK:1##LOOP:43##Residual:0.000254245
-##RANK:0##LOOP:44##Residual:0.000568132
-##RANK:1##LOOP:44##Residual:0.000568132
-##RANK:0##LOOP:45##Residual:0.00013705
-##RANK:1##LOOP:45##Residual:0.00013705
-##RANK:0##LOOP:46##Residual:7.15576e-05
-##RANK:1##LOOP:46##Residual:7.15576e-05
-##RANK:0##LOOP:47##Residual:4.51516e-05
-##RANK:1##LOOP:47##Residual:4.51516e-05
-##RANK:0##LOOP:48##Residual:4.59139e-05
-##RANK:1##LOOP:48##Residual:4.59139e-05
-##RANK:0##LOOP:49##Residual:3.46958e-05
-##RANK:1##LOOP:49##Residual:3.46958e-05
-##RANK:0##LOOP:50##Residual:3.15385e-05
-##RANK:1##LOOP:50##Residual:3.15385e-05
-##RANK:0##LOOP:51##Residual:4.28777e-05
-##RANK:1##LOOP:51##Residual:4.28777e-05
-##RANK:0##LOOP:52##Residual:7.1717e-05
-##RANK:1##LOOP:52##Residual:7.1717e-05
-##RANK:0##LOOP:53##Residual:6.68662e-05
-##RANK:1##LOOP:53##Residual:6.68662e-05
-##RANK:0##LOOP:54##Residual:6.95126e-05
-##RANK:1##LOOP:54##Residual:6.95126e-05
-##RANK:0##LOOP:55##Residual:5.22829e-06
-##RANK:1##LOOP:55##Residual:5.22829e-06
-##RANK:0##LOOP:56##Residual:3.78076e-06
-##RANK:1##LOOP:56##Residual:3.78076e-06
-##RANK:0##LOOP:57##Residual:3.07916e-06
-##RANK:1##LOOP:57##Residual:3.07916e-06
-##RANK:0##LOOP:58##Residual:6.96145e-06
-##RANK:1##LOOP:58##Residual:6.96145e-06
-##RANK:0##LOOP:59##Residual:3.76509e-06
-##RANK:1##LOOP:59##Residual:3.76509e-06
-##RANK:0##LOOP:60##Residual:1.97283e-06
-##RANK:1##LOOP:60##Residual:1.97283e-06
-##RANK:0##LOOP:61##Residual:5.60689e-06
-##RANK:1##LOOP:61##Residual:5.60689e-06
-##RANK:0##LOOP:62##Residual:1.27815e-06
-##RANK:1##LOOP:62##Residual:1.27815e-06
-##RANK:0##LOOP:63##Residual:1.08e-06
-##RANK:1##LOOP:63##Residual:1.08e-06
-##RANK:0##LOOP:64##Residual:8.02298e-07
-##RANK:1##LOOP:64##Residual:8.02298e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :54.930453379 sec
-nccl wilson bistabcg total time: (without malloc free memcpy) :54.855702915 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.940319075 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.940329953 sec
 ## difference: 0.0000000001135480
 ## difference: 0.0000000001135480
-QCU bistabcg: 58.33618166700762 sec
-QCU bistabcg: 58.34650940800202 sec
+QCU bistabcg: 21.89711528299995 sec
+QCU bistabcg: 21.89641681199987 sec
 ===============round  1 ======================
 ===============round  1 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-node_rank        :0
-node_size        :2
-gridDim.x        :2048
-blockDim.x       :256
-lat_1dim[_X_]    :16
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :32
-grid_1dim[_X_]   :1
-grid_1dim[_Y_]   :1
-grid_1dim[_Z_]   :1
-grid_1dim[_T_]   :2
-lat_3dim[_YZT_]  :32768
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :16384
-lat_4dim         :524288
-lat_4dim12       :6291456
-lat_3dim6[_YZT_] :196608
-lat_3dim6[_XZT_] :98304
-lat_3dim6[_XYT_] :98304
-lat_3dim6[_XYZ_] :98304
-lat_3dim12[_YZT_]:393216
-lat_3dim12[_XZT_]:196608
-lat_3dim12[_XYT_]:196608
-lat_3dim12[_XYZ_]:196608
-node_rank        :1
-node_size        :2
-gridDim.x        :2048
-blockDim.x       :256
-lat_1dim[_X_]    :16
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :32
-grid_1dim[_X_]   :1
-grid_1dim[_Y_]   :1
-grid_1dim[_Z_]   :1
-grid_1dim[_T_]   :2
-lat_3dim[_YZT_]  :32768
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :16384
-lat_4dim         :524288
-lat_4dim12       :6291456
-lat_3dim6[_YZT_] :196608
-lat_3dim6[_XZT_] :98304
-lat_3dim6[_XYT_] :98304
-lat_3dim6[_XYZ_] :98304
-lat_3dim12[_YZT_]:393216
-lat_3dim12[_XZT_]:196608
-lat_3dim12[_XYT_]:196608
-lat_3dim12[_XYZ_]:196608
-##RANK:0##LOOP:0##Residual:44382.8
-##RANK:1##LOOP:0##Residual:44382.8
-##RANK:0##LOOP:1##Residual:8317.93
-##RANK:1##LOOP:1##Residual:8317.93
-##RANK:0##LOOP:2##Residual:134970
-##RANK:1##LOOP:2##Residual:134970
-##RANK:0##LOOP:3##Residual:19990.3
-##RANK:1##LOOP:3##Residual:19990.3
-##RANK:0##LOOP:4##Residual:566.303
-##RANK:1##LOOP:4##Residual:566.303
-##RANK:0##LOOP:5##Residual:9361.37
-##RANK:1##LOOP:5##Residual:9361.37
-##RANK:0##LOOP:6##Residual:88.5175
-##RANK:1##LOOP:6##Residual:88.5175
-##RANK:0##LOOP:7##Residual:40.0697
-##RANK:1##LOOP:7##Residual:40.0697
-##RANK:0##LOOP:8##Residual:30.509
-##RANK:1##LOOP:8##Residual:30.509
-##RANK:0##LOOP:9##Residual:15.62
-##RANK:1##LOOP:9##Residual:15.62
-##RANK:0##LOOP:10##Residual:28.0103
-##RANK:1##LOOP:10##Residual:28.0103
-##RANK:0##LOOP:11##Residual:2.48125
-##RANK:1##LOOP:11##Residual:2.48125
-##RANK:0##LOOP:12##Residual:1.41633
-##RANK:1##LOOP:12##Residual:1.41633
-##RANK:0##LOOP:13##Residual:1.15472
-##RANK:1##LOOP:13##Residual:1.15472
-##RANK:0##LOOP:14##Residual:0.610989
-##RANK:1##LOOP:14##Residual:0.610989
-##RANK:0##LOOP:15##Residual:1.0587
-##RANK:1##LOOP:15##Residual:1.0587
-##RANK:0##LOOP:16##Residual:0.88876
-##RANK:1##LOOP:16##Residual:0.88876
-##RANK:0##LOOP:17##Residual:0.273691
-##RANK:1##LOOP:17##Residual:0.273691
-##RANK:0##LOOP:18##Residual:0.224884
-##RANK:1##LOOP:18##Residual:0.224884
-##RANK:0##LOOP:19##Residual:0.419023
-##RANK:1##LOOP:19##Residual:0.419023
-##RANK:0##LOOP:20##Residual:0.0903322
-##RANK:1##LOOP:20##Residual:0.0903322
-##RANK:0##LOOP:21##Residual:0.100802
-##RANK:1##LOOP:21##Residual:0.100802
-##RANK:0##LOOP:22##Residual:0.0423793
-##RANK:1##LOOP:22##Residual:0.0423793
-##RANK:0##LOOP:23##Residual:0.0416454
-##RANK:1##LOOP:23##Residual:0.0416454
-##RANK:0##LOOP:24##Residual:0.0222054
-##RANK:1##LOOP:24##Residual:0.0222054
-##RANK:0##LOOP:25##Residual:0.014688
-##RANK:1##LOOP:25##Residual:0.014688
-##RANK:0##LOOP:26##Residual:0.00997819
-##RANK:1##LOOP:26##Residual:0.00997819
-##RANK:0##LOOP:27##Residual:0.00886459
-##RANK:1##LOOP:27##Residual:0.00886459
-##RANK:0##LOOP:28##Residual:0.00860673
-##RANK:1##LOOP:28##Residual:0.00860673
-##RANK:0##LOOP:29##Residual:0.0159725
-##RANK:1##LOOP:29##Residual:0.0159725
-##RANK:0##LOOP:30##Residual:0.00693671
-##RANK:1##LOOP:30##Residual:0.00693671
-##RANK:0##LOOP:31##Residual:0.00567705
-##RANK:1##LOOP:31##Residual:0.00567705
-##RANK:0##LOOP:32##Residual:0.00564216
-##RANK:1##LOOP:32##Residual:0.00564216
-##RANK:0##LOOP:33##Residual:0.00649055
-##RANK:1##LOOP:33##Residual:0.00649055
-##RANK:0##LOOP:34##Residual:0.087943
-##RANK:1##LOOP:34##Residual:0.087943
-##RANK:0##LOOP:35##Residual:0.0409924
-##RANK:1##LOOP:35##Residual:0.0409924
-##RANK:0##LOOP:36##Residual:0.00749585
-##RANK:1##LOOP:36##Residual:0.00749585
-##RANK:0##LOOP:37##Residual:0.000581484
-##RANK:1##LOOP:37##Residual:0.000581484
-##RANK:0##LOOP:38##Residual:0.000963719
-##RANK:1##LOOP:38##Residual:0.000963719
-##RANK:0##LOOP:39##Residual:0.00089113
-##RANK:1##LOOP:39##Residual:0.00089113
-##RANK:0##LOOP:40##Residual:0.000452803
-##RANK:1##LOOP:40##Residual:0.000452803
-##RANK:0##LOOP:41##Residual:0.000431731
-##RANK:1##LOOP:41##Residual:0.000431731
-##RANK:0##LOOP:42##Residual:0.000383272
-##RANK:1##LOOP:42##Residual:0.000383272
-##RANK:0##LOOP:43##Residual:0.000316767
-##RANK:1##LOOP:43##Residual:0.000316767
-##RANK:0##LOOP:44##Residual:0.000470826
-##RANK:1##LOOP:44##Residual:0.000470826
-##RANK:0##LOOP:45##Residual:0.00174471
-##RANK:1##LOOP:45##Residual:0.00174471
-##RANK:0##LOOP:46##Residual:0.000151937
-##RANK:1##LOOP:46##Residual:0.000151937
-##RANK:0##LOOP:47##Residual:7.21211e-05
-##RANK:1##LOOP:47##Residual:7.21211e-05
-##RANK:0##LOOP:48##Residual:0.000171153
-##RANK:1##LOOP:48##Residual:0.000171153
-##RANK:0##LOOP:49##Residual:0.000107712
-##RANK:1##LOOP:49##Residual:0.000107712
-##RANK:0##LOOP:50##Residual:0.000136793
-##RANK:1##LOOP:50##Residual:0.000136793
-##RANK:0##LOOP:51##Residual:0.000118489
-##RANK:1##LOOP:51##Residual:0.000118489
-##RANK:0##LOOP:52##Residual:0.000345883
-##RANK:1##LOOP:52##Residual:0.000345883
-##RANK:0##LOOP:53##Residual:0.000495826
-##RANK:1##LOOP:53##Residual:0.000495826
-##RANK:0##LOOP:54##Residual:0.000237766
-##RANK:1##LOOP:54##Residual:0.000237766
-##RANK:0##LOOP:55##Residual:5.68903e-06
-##RANK:1##LOOP:55##Residual:5.68903e-06
-##RANK:0##LOOP:56##Residual:4.4348e-06
-##RANK:1##LOOP:56##Residual:4.4348e-06
-##RANK:0##LOOP:57##Residual:3.3293e-06
-##RANK:1##LOOP:57##Residual:3.3293e-06
-##RANK:0##LOOP:58##Residual:1.48078e-05
-##RANK:1##LOOP:58##Residual:1.48078e-05
-##RANK:0##LOOP:59##Residual:4.55208e-06
-##RANK:1##LOOP:59##Residual:4.55208e-06
-##RANK:0##LOOP:60##Residual:2.42028e-06
-##RANK:1##LOOP:60##Residual:2.42028e-06
-##RANK:0##LOOP:61##Residual:4.72704e-06
-##RANK:1##LOOP:61##Residual:4.72704e-06
-##RANK:0##LOOP:62##Residual:1.37537e-06
-##RANK:1##LOOP:62##Residual:1.37537e-06
-##RANK:0##LOOP:63##Residual:1.15143e-06
-##RANK:1##LOOP:63##Residual:1.15143e-06
-##RANK:0##LOOP:64##Residual:1.0405e-06
-##RANK:1##LOOP:64##Residual:1.0405e-06
-##RANK:0##LOOP:65##Residual:1.90678e-06
-##RANK:1##LOOP:65##Residual:1.90678e-06
-##RANK:0##LOOP:66##Residual:7.39202e-07
-##RANK:1##LOOP:66##Residual:7.39202e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :55.423687669 sec
-nccl wilson bistabcg total time: (without malloc free memcpy) :55.387125833 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.645683354 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.645693086 sec
 ## difference: 0.0000000001045851
 ## difference: 0.0000000001045851
-QCU bistabcg: 57.75068665300205 sec
-QCU bistabcg: 57.833688615006395 sec
+QCU bistabcg: 20.739182002000007 sec
+QCU bistabcg: 20.73907274699991 sec
+===============round  2 ======================
+===============round  2 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.840873179 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.840851678 sec
+## difference: 0.0000000000149274
+## difference: 0.0000000000149274
+QCU bistabcg: 21.127720211999986 sec
+QCU bistabcg: 21.126974921000055 sec
+===============round  3 ======================
+===============round  3 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.725344252 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.725618506 sec
+## difference: 0.0000000001203742
+## difference: 0.0000000001203742
+QCU bistabcg: 20.570969692000062 sec
+QCU bistabcg: 20.571059808999962 sec
+===============round  4 ======================
+===============round  4 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :20.120067729 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :20.120142413 sec
+## difference: 0.0000000000225673
+## difference: 0.0000000000225673
+QCU bistabcg: 21.05912265500001 sec
+===============round  5 ======================
+QCU bistabcg: 21.072318347999953 sec
+===============round  5 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.689459232 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :19.689595678 sec
+## difference: 0.0000000000116104
+## difference: 0.0000000000116104
+QCU bistabcg: 21.07383245699998 sec
+QCU bistabcg: 21.073450217000072 sec
+===============round  6 ======================
+===============round  6 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :20.989160953 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :20.989087420 sec
+## difference: 0.0000000000109656
+## difference: 0.0000000000109656
+QCU bistabcg: 22.06824342899995 sec
+QCU bistabcg: 22.067463855999904 sec
+===============round  7 ======================
+===============round  7 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :18.501417522 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :18.540867461 sec
+## difference: 0.0000000000855012
+## difference: 0.0000000000855012
+QCU bistabcg: 19.571024380000154 sec
+===============round  8 ======================
+QCU bistabcg: 19.572416184000076 sec
+===============round  8 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :20.124868956 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :20.124813684 sec
+## difference: 0.0000000000149742
+## difference: 0.0000000000149742
+QCU bistabcg: 21.06535257099995 sec
+===============round  9 ======================
+QCU bistabcg: 21.067287698999962 sec
+===============round  9 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+nccl wilson bistabcg total time: (without malloc free memcpy) :18.646105428 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :18.646234042 sec
+## difference: 0.0000000000381425
+## difference: 0.0000000000381425
+QCU bistabcg: 20.063698421000026 sec
+QCU bistabcg: 20.064056764999805 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 15 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =     5.181 secs
-                     init     =     5.181 secs (100.000%),	 with        2 calls at 2.591e+06 us per call
-        total accounted       =     5.181 secs (100.000%)
-        total missing         =     0.000 secs (  0.000%)
+               initQuda Total time =     1.248 secs
+                     init     =     1.248 secs ( 99.999%),	 with        2 calls at 6.239e+05 us per call
+        total accounted       =     1.248 secs ( 99.999%)
+        total missing         =     0.000 secs (  0.001%)
 
-          loadGaugeQuda Total time =     0.883 secs
-                 download     =     0.566 secs ( 64.121%),	 with        4 calls at 1.416e+05 us per call
-                   upload     =     0.031 secs (  3.526%),	 with        2 calls at 1.558e+04 us per call
-                     init     =     0.153 secs ( 17.312%),	 with        4 calls at 3.823e+04 us per call
-                  compute     =     0.133 secs ( 15.022%),	 with        4 calls at 3.317e+04 us per call
-                     free     =     0.000 secs (  0.007%),	 with        4 calls at 1.625e+01 us per call
-        total accounted       =     0.883 secs ( 99.989%)
-        total missing         =     0.000 secs (  0.011%)
+          loadGaugeQuda Total time =     1.213 secs
+                 download     =     0.528 secs ( 43.533%),	 with       20 calls at 2.639e+04 us per call
+                   upload     =     0.125 secs ( 10.285%),	 with       10 calls at 1.247e+04 us per call
+                     init     =     0.491 secs ( 40.521%),	 with       20 calls at 2.457e+04 us per call
+                  compute     =     0.068 secs (  5.618%),	 with       20 calls at 3.406e+03 us per call
+                     free     =     0.000 secs (  0.014%),	 with       20 calls at 8.300e+00 us per call
+        total accounted       =     1.212 secs ( 99.971%)
+        total missing         =     0.000 secs (  0.029%)
 
-                endQuda Total time =     0.037 secs
+                endQuda Total time =     0.035 secs
 
-       initQuda-endQuda Total time =   125.967 secs
+       initQuda-endQuda Total time =   213.905 secs
 
-                   QUDA Total time =     6.679 secs
-                 download     =     0.566 secs (  8.481%),	 with        4 calls at 1.416e+05 us per call
-                   upload     =     0.031 secs (  0.466%),	 with        2 calls at 1.558e+04 us per call
-                     init     =     5.334 secs ( 79.871%),	 with        6 calls at 8.891e+05 us per call
-                  compute     =     0.710 secs ( 10.630%),	 with        6 calls at 1.183e+05 us per call
-                     free     =     0.000 secs (  0.001%),	 with        4 calls at 1.600e+01 us per call
-        total accounted       =     6.642 secs ( 99.449%)
-        total missing         =     0.037 secs (  0.551%)
+                   QUDA Total time =     3.293 secs
+                 download     =     0.528 secs ( 16.032%),	 with       20 calls at 2.640e+04 us per call
+                   upload     =     0.125 secs (  3.788%),	 with       10 calls at 1.247e+04 us per call
+                     init     =     1.739 secs ( 52.818%),	 with       22 calls at 7.905e+04 us per call
+                  compute     =     0.865 secs ( 26.277%),	 with       30 calls at 2.884e+04 us per call
+                     free     =     0.000 secs (  0.005%),	 with       20 calls at 8.150e+00 us per call
+        total accounted       =     3.257 secs ( 98.920%)
+        total missing         =     0.036 secs (  1.080%)
 
 Device memory used = 1428.0 MiB
 Pinned device memory used = 0.0 MiB
@@ -505,6 +209,6 @@ Shmem memory used = 0.0 MiB
 Page-locked host memory used = 48.0 MiB
 Total host memory used >= 66.0 MiB
 
-==2007548== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_2007548.nvvp
-==2007547== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_2007547.nvvp
+==26721== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_26721.nvvp
+==26722== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_26722.nvvp
 ~/qcu
