@@ -15,5 +15,10 @@ export MANPATH=${MPI_HOME}/share/man:$MANPATH
 CUDA_HOME=/usr/local/cuda
 export PATH=${CUDA_HOME}/bin:$PATH
 export LD_LIBRARY_PATH=${CUDA_HOME}/lib:$LD_LIBRARY_PATH
+<<<<<<< HEAD:snsc-dcu/env.sh
 export MANPATH=${CUDA_HOME}/share/man:$MANPATH
 export LD_LIBRARY_PATH="/usr/lib/wsl/lib:${LD_LIBRARY_PATH}" # wsl
+=======
+export CUDA_INCLUDE_PATH=${CUDA_HOME}/include:$CUDA_INCLUDE_PATH
+export MANPATH=${CUDA_HOME}/share/man:$MANPATH
+>>>>>>> eed22d2 (2024-07-31-01-36-26):x99_env.sh
