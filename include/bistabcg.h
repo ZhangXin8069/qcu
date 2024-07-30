@@ -3,16 +3,16 @@
 #include "./lattice_complex.h"
 
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
-                                  void *device_tmps0, double kappa);
+                                  void *device_vec0, double kappa);
 
 __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
-                                  void *device_tmps1, double kappa);
+                                  void *device_vec1, double kappa);
 
 __global__ void bistabcg_give_b__0(void *device_b__o, void *device_b_o,
-                                   void *device_tmps0, double kappa);
+                                   void *device_vec0, double kappa);
 
 __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
-                                     void *device_tmps1, double kappa);
+                                     void *device_vec1, double kappa);
 
 __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
                                  void *device_r_tilde);
