@@ -1,0 +1,8 @@
+#include "../include/qcu.h"
+#ifdef DRAFT
+void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+               QcuParam *param, int parity) {}
+void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                  QcuParam *param, int parity, QcuParam *grid) {}
+void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {}
+#endif
