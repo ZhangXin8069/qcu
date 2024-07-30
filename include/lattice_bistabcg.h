@@ -25,7 +25,6 @@ struct LatticeBistabcg {
   LatticeComplex *host_tmps0;
   LatticeComplex *host_tmps1;
   LatticeComplex *host_dots;
-  cudaMemPool_t memPool;
 
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
       *t, *device_tmps0, *device_tmps1, *device_dots;
@@ -51,13 +50,6 @@ struct LatticeBistabcg {
       tmp1.imag = 0.0;
       local_result.real = 0.0;
       local_result.imag = 0.0;
-    }
-    {
-      // cudaMemPoolProps poolProps = {};
-      // poolProps.allocType = cudaMemAllocationTypePinned;
-      // poolProps.location.id = 0;
-      // poolProps.location.type = cudaMemLocationTypeDevice;
-      // checkCudaErrors(cudaMemPoolCreate(&memPool, &poolProps));
     }
     {
       checkCudaErrors(
@@ -307,7 +299,6 @@ struct LatticeBistabcg {
     free(host_tmps0);
     free(host_tmps1);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    // checkCudaErrors(cudaMemPoolDestroy(memPool));
   }
 };
 

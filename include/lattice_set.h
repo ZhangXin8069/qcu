@@ -24,7 +24,6 @@ struct LatticeSet {
   void *host_recv_vec[_WARDS_];
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
-  cudaMemPool_t memPool;
 
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
@@ -74,13 +73,6 @@ struct LatticeSet {
       gridDim = lat_4dim / _BLOCK_SIZE_;
     }
     {
-      // cudaMemPoolProps poolProps = {};
-      // poolProps.allocType = cudaMemAllocationTypePinned;
-      // poolProps.location.id = 0;
-      // poolProps.location.type = cudaMemLocationTypeDevice;
-      // checkCudaErrors(cudaMemPoolCreate(&memPool, &poolProps));
-    }
-    {
       for (int i = 0; i < _DIM_; i++) {
         checkCudaErrors(cudaStreamCreate(&qcu_streams[i * _SR_]));
         checkCudaErrors(cudaStreamCreate(&qcu_streams[i * _SR_ + 1]));
@@ -120,7 +112,6 @@ struct LatticeSet {
     }
     checkCudaErrors(cudaStreamSynchronize(qcu_stream));
     checkCudaErrors(cudaStreamDestroy(qcu_stream));
-    // checkCudaErrors(cudaMemPoolDestroy(memPool));
     checkNcclErrors(ncclCommDestroy(qcu_nccl_comm));
   }
   void _print() {
