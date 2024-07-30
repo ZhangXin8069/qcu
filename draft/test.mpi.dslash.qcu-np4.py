@@ -13,13 +13,8 @@ from pyquda.field import LatticeFermion
 from pyquda.utils import gauge_utils
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-<<<<<<< HEAD:test/test.mpi.dslash.qcu-np4.py
-latt_size = [32, 32, 32, 64]
-grid_size = [1, 1, 1, 4]
-=======
 latt_size = [16, 16, 16, 32]
 grid_size = [2, 1, 1, 2]
->>>>>>> eed22d2 (2024-07-31-01-36-26):draft/test.mpi.dslash.qcu-np4.py
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
