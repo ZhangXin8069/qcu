@@ -6,7 +6,7 @@
 #include "./lattice_dslash.h"
 #include "./lattice_mpi.h"
 #include "define.h"
-#define PRINT_NCCL_WILSON_BISTABCG
+// #define PRINT_NCCL_WILSON_BISTABCG
 
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
@@ -22,12 +22,12 @@ struct LatticeBistabcg {
   LatticeComplex tmp0;
   LatticeComplex tmp1;
   LatticeComplex local_result;
-  LatticeComplex *host_tmps0;
-  LatticeComplex *host_tmps1;
+  LatticeComplex *host_vec0;
+  LatticeComplex *host_vec1;
   LatticeComplex *host_dots;
 
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
-      *t, *device_tmps0, *device_tmps1, *device_dots;
+      *t, *device_vec0, *device_vec1, *device_dots;
   void _init() {
     {
       r_norm2.real = 0.0;
@@ -54,55 +54,48 @@ struct LatticeBistabcg {
     {
       checkCudaErrors(
           cudaMallocAsync(&ans_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
+                          set_ptr->stream));
       checkCudaErrors(
           cudaMallocAsync(&ans_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&x_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&x_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
+                          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &x_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &x_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(
           cudaMallocAsync(&b__o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&r, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
+                          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &r, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &r_tilde, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&p, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&v, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&s, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
-      checkCudaErrors(
-          cudaMallocAsync(&t, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                          set_ptr->qcu_stream));
+          set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_tmps0, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-          set_ptr->qcu_stream));
+          &p, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
-          &device_tmps1, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-          set_ptr->qcu_stream));
+          &v, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &s, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &t, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vec0, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vec1, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
+          set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &device_dots, set_ptr->lat_4dim * sizeof(LatticeComplex),
-          set_ptr->qcu_stream));
-      host_tmps0 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
-                                            sizeof(LatticeComplex));
-      host_tmps1 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
-                                            sizeof(LatticeComplex));
+          set_ptr->stream));
+      host_vec0 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
+                                           sizeof(LatticeComplex));
+      host_vec1 = (LatticeComplex *)malloc(set_ptr->lat_4dim12 *
+                                           sizeof(LatticeComplex));
       host_dots =
           (LatticeComplex *)malloc(set_ptr->lat_4dim * sizeof(LatticeComplex));
       give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->qcu_stream>>>(x_o, 1314999);
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                          set_ptr->stream>>>(x_o, 1314999);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     }
   }
   void give(LatticeSet *_set_ptr) {
@@ -113,75 +106,69 @@ struct LatticeBistabcg {
   }
   void _dslash(void *fermion_out, void *fermion_in, void *gauge) {
     // src_o-_KAPPA_**2*dslash_oe(dslash_eo(src_o))
-    dslash.run_eo(device_tmps0, fermion_in, gauge);
-    dslash.run_oe(device_tmps1, device_tmps0, gauge);
+    dslash.run_eo(device_vec0, fermion_in, gauge);
+    dslash.run_oe(device_vec1, device_vec0, gauge);
     bistabcg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                           set_ptr->qcu_stream>>>(fermion_out, fermion_in,
-                                                  device_tmps1, _KAPPA_);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                           set_ptr->stream>>>(fermion_out, fermion_in,
+                                              device_vec1, _KAPPA_);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void init(void *_b_e, void *_b_o, void *gauge) {
     b_e = _b_e;
     b_o = _b_o;
-    dslash.run_oe(device_tmps0, b_e, gauge);
+    dslash.run_oe(device_vec0, b_e, gauge);
     bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                         set_ptr->qcu_stream>>>(b__o, b_o, device_tmps0,
-                                                _KAPPA_);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                         set_ptr->stream>>>(b__o, b_o, device_vec0, _KAPPA_);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     _dslash(r, x_o, gauge);
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                       set_ptr->qcu_stream>>>(r, b__o, r_tilde);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                       set_ptr->stream>>>(r, b__o, r_tilde);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
 
   void init(void *gauge) {
-    checkCudaErrors(
-        cudaMallocAsync(&b_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                        set_ptr->qcu_stream));
-    checkCudaErrors(
-        cudaMallocAsync(&b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex),
-                        set_ptr->qcu_stream));
+    checkCudaErrors(cudaMallocAsync(
+        &b_e, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
+    checkCudaErrors(cudaMallocAsync(
+        &b_o, set_ptr->lat_4dim12 * sizeof(LatticeComplex), set_ptr->stream));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(ans_e, 8848);
+                        set_ptr->stream>>>(ans_e, 8848);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(ans_o, 12138);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    dslash.run_eo(device_tmps0, ans_o, gauge);
+                        set_ptr->stream>>>(ans_o, 12138);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    dslash.run_eo(device_vec0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(b_e, ans_e, device_tmps0,
-                                               _KAPPA_);
+                        set_ptr->stream>>>(b_e, ans_e, device_vec0, _KAPPA_);
     // test b=1*/
     // give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-    //                     set_ptr->qcu_stream>>>(b_e, 1.0, 0.0);
-    dslash.run_oe(device_tmps1, ans_e, gauge);
+    //                     set_ptr->stream>>>(b_e, 1.0, 0.0);
+    dslash.run_oe(device_vec1, ans_e, gauge);
     bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(b_o, ans_o, device_tmps1,
-                                               _KAPPA_);
+                        set_ptr->stream>>>(b_o, ans_o, device_vec1, _KAPPA_);
     // test b=1
     // give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-    //                     set_ptr->qcu_stream>>>(b_o, 1.0, 0.0);
-    dslash.run_oe(device_tmps0, b_e, gauge);
+    //                     set_ptr->stream>>>(b_o, 1.0, 0.0);
+    dslash.run_oe(device_vec0, b_e, gauge);
     bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                         set_ptr->qcu_stream>>>(b__o, b_o, device_tmps0,
-                                                _KAPPA_);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                         set_ptr->stream>>>(b__o, b_o, device_vec0, _KAPPA_);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     _dslash(r, x_o, gauge);
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                       set_ptr->qcu_stream>>>(r, b__o, r_tilde);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                       set_ptr->stream>>>(r, b__o, r_tilde);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void dot(void *val0, void *val1, LatticeComplex *dest_ptr) {
     LatticeComplex _(0.0, 0.0);
     bistabcg_part_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(device_dots, val0, val1);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    checkCudaErrors(cudaMemcpyAsync(
-        host_dots, device_dots, sizeof(LatticeComplex) * set_ptr->lat_4dim,
-        cudaMemcpyDeviceToHost, set_ptr->qcu_stream));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                        set_ptr->stream>>>(device_dots, val0, val1);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    checkCudaErrors(cudaMemcpyAsync(host_dots, device_dots,
+                                    sizeof(LatticeComplex) * set_ptr->lat_4dim,
+                                    cudaMemcpyDeviceToHost, set_ptr->stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     for (int i = 0; i < set_ptr->lat_4dim; i++) {
       _ += host_dots[i];
     }
@@ -205,9 +192,9 @@ struct LatticeBistabcg {
     local_result.real = 0.0;
     local_result.imag = 0.0;
     bistabcg_part_cut<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(device_tmps0, val0, val1);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
-    dot(device_tmps0, device_tmps0, &tmp0);
+                        set_ptr->stream>>>(device_vec0, val0, val1);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    dot(device_vec0, device_vec0, &tmp0);
     dot(val1, val1, &tmp1);
     *dest_ptr = tmp0 / tmp1;
   }
@@ -224,8 +211,8 @@ struct LatticeBistabcg {
                 << "##beta:" << beta.real << std::endl;
 #endif
       bistabcg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(p, r, v, omega, beta);
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                        set_ptr->stream>>>(p, r, v, omega, beta);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       // v = A * p;
       _dslash(v, p, gauge);
       dot(r_tilde, v, &tmp);
@@ -235,8 +222,8 @@ struct LatticeBistabcg {
                 << "##alpha:" << alpha.real << std::endl;
 #endif
       bistabcg_give_s<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(s, r, v, alpha);
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                        set_ptr->stream>>>(s, r, v, alpha);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       // t = A * s;
       _dslash(t, s, gauge);
       dot(t, s, &tmp0);
@@ -247,10 +234,10 @@ struct LatticeBistabcg {
                 << "##omega:" << omega.real << std::endl;
 #endif
       bistabcg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->qcu_stream>>>(x_o, p, s, alpha, omega);
+                          set_ptr->stream>>>(x_o, p, s, alpha, omega);
       bistabcg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->qcu_stream>>>(r, s, t, omega);
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+                        set_ptr->stream>>>(r, s, t, omega);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       dot(r, r, &r_norm2);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
@@ -262,7 +249,7 @@ struct LatticeBistabcg {
       }
       rho_prev = rho;
     }
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void run_test(void *gauge) {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
@@ -284,21 +271,21 @@ struct LatticeBistabcg {
     printf("## difference: %.16f\n", tmp.real);
   }
   void end() {
-    checkCudaErrors(cudaFreeAsync(ans_e, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(ans_o, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(x_o, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(b__o, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(r, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(r_tilde, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(p, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(v, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(s, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(t, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(device_tmps0, set_ptr->qcu_stream));
-    checkCudaErrors(cudaFreeAsync(device_tmps1, set_ptr->qcu_stream));
-    free(host_tmps0);
-    free(host_tmps1);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->qcu_stream));
+    checkCudaErrors(cudaFreeAsync(ans_e, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(ans_o, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(x_o, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(b__o, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(r, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(r_tilde, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(p, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(v, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(s, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(t, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(device_vec0, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(device_vec1, set_ptr->stream));
+    free(host_vec0);
+    free(host_vec1);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
 };
 

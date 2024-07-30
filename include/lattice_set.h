@@ -14,8 +14,8 @@ struct LatticeSet {
   dim3 blockDim;
   ncclUniqueId qcu_nccl_id;
   ncclComm_t qcu_nccl_comm;
-  cudaStream_t qcu_stream;
-  cudaStream_t qcu_streams[_WARDS_];
+  cudaStream_t stream;
+  cudaStream_t stream_wards[_WARDS_];
   int node_rank, node_size;
   int move[_BF_];
   int grid_1dim[_DIM_];
@@ -57,7 +57,7 @@ struct LatticeSet {
                                MPI_BYTE, 0, MPI_COMM_WORLD));
       checkNcclErrors(
           ncclCommInitRank(&qcu_nccl_comm, node_size, qcu_nccl_id, node_rank));
-      checkCudaErrors(cudaStreamCreate(&qcu_stream));
+      checkCudaErrors(cudaStreamCreate(&stream));
       grid_index_1dim[_X_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];
       grid_index_1dim[_Y_] =
@@ -74,22 +74,22 @@ struct LatticeSet {
     }
     {
       for (int i = 0; i < _DIM_; i++) {
-        checkCudaErrors(cudaStreamCreate(&qcu_streams[i * _SR_]));
-        checkCudaErrors(cudaStreamCreate(&qcu_streams[i * _SR_ + 1]));
+        checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
+        checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
         lat_3dim6[i] = lat_3dim[i] * 6;
         lat_3dim12[i] = lat_3dim6[i] * 2;
         checkCudaErrors(cudaMallocAsync(&device_send_vec[i * _SR_],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        qcu_stream));
+                                        stream));
         checkCudaErrors(cudaMallocAsync(&device_send_vec[i * _SR_ + 1],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        qcu_stream));
+                                        stream));
         checkCudaErrors(cudaMallocAsync(&device_recv_vec[i * _SR_],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        qcu_stream));
+                                        stream));
         checkCudaErrors(cudaMallocAsync(&device_recv_vec[i * _SR_ + 1],
                                         lat_3dim6[i] * sizeof(LatticeComplex),
-                                        qcu_stream));
+                                        stream));
         host_send_vec[i * _SR_] =
             (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
         host_send_vec[i * _SR_ + 1] =
@@ -98,20 +98,20 @@ struct LatticeSet {
             (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
         host_recv_vec[i * _SR_ + 1] =
             (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
-        checkCudaErrors(cudaStreamSynchronize(qcu_stream));
+        checkCudaErrors(cudaStreamSynchronize(stream));
       }
     }
   }
   void end() {
     for (int i = 0; i < _WARDS_; i++) {
-      checkCudaErrors(cudaFreeAsync(device_send_vec[i], qcu_stream));
-      checkCudaErrors(cudaFreeAsync(device_recv_vec[i], qcu_stream));
+      checkCudaErrors(cudaFreeAsync(device_send_vec[i], stream));
+      checkCudaErrors(cudaFreeAsync(device_recv_vec[i], stream));
       free(host_send_vec[i]);
       free(host_recv_vec[i]);
-      checkCudaErrors(cudaStreamDestroy(qcu_streams[i]));
+      checkCudaErrors(cudaStreamDestroy(stream_wards[i]));
     }
-    checkCudaErrors(cudaStreamSynchronize(qcu_stream));
-    checkCudaErrors(cudaStreamDestroy(qcu_stream));
+    checkCudaErrors(cudaStreamSynchronize(stream));
+    checkCudaErrors(cudaStreamDestroy(stream));
     checkNcclErrors(ncclCommDestroy(qcu_nccl_comm));
   }
   void _print() {
