@@ -7,8 +7,8 @@ set(CMAKE_CXX_STANDARD 11)
 # set(SM_ARCH "sm_80") # 4060 A100
 # set(SM_ARCH "sm_70") # V100
 # set(SM_ARCH "sm_60") # P100
-set(SM_ARCH "sm_60")
-set(CMAKE_CUDA_ARCHITECTURES "60")
+set(SM_ARCH "sm_80")
+set(CMAKE_CUDA_ARCHITECTURES "80")
 
 # Set CUDA architecture and other flags
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
