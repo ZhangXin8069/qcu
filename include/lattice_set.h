@@ -1,14 +1,15 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
 #include "./define.h"
+#include "lattice_complex.h"
 
 struct LatticeSet {
   int lat_1dim[_DIM_];
   int lat_3dim[_DIM_];
   int lat_4dim;
-  int lat_3dim6[_DIM_];
-  int lat_3dim12[_DIM_];
-  int lat_4dim12;
+  int lat_3dim_Half_SC[_DIM_];
+  int lat_3dim_SC[_DIM_];
+  int lat_4dim_SC;
   cudaError_t err;
   dim3 gridDim;
   dim3 blockDim;
@@ -24,9 +25,10 @@ struct LatticeSet {
   int grid_index_1dim[_DIM_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
+  int host_xyztsc[_DIM_ * _LAT_C_];
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
-  void *device_xyztsc[_DIM_ * 3];
+  void *device_xyztsc;
 
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
@@ -37,6 +39,16 @@ struct LatticeSet {
     grid_1dim[_Y_] = _grid_lat_size[_Y_];
     grid_1dim[_Z_] = _grid_lat_size[_Z_];
     grid_1dim[_T_] = _grid_lat_size[_T_];
+  }
+  void give(int *_param_lat_size) {
+    lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
+    lat_1dim[_Y_] = _param_lat_size[_Y_];
+    lat_1dim[_Z_] = _param_lat_size[_Z_];
+    lat_1dim[_T_] = _param_lat_size[_T_];
+    grid_1dim[_X_] = _GRID_EXAMPLE_;
+    grid_1dim[_Y_] = _GRID_EXAMPLE_;
+    grid_1dim[_Z_] = _GRID_EXAMPLE_;
+    grid_1dim[_T_] = _GRID_EXAMPLE_;
   }
   void give() {
     lat_1dim[_X_] = _LAT_EXAMPLE_;
@@ -72,38 +84,57 @@ struct LatticeSet {
       lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];
       lat_3dim[_XYZ_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_];
       lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];
-      lat_4dim12 = lat_4dim * 12;
+      lat_4dim_SC = lat_4dim * _LAT_SC_;
       gridDim = lat_4dim / _BLOCK_SIZE_;
     }
     {
       for (int i = 0; i < _DIM_; i++) {
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
-        lat_3dim6[i] = lat_3dim[i] * 6;
-        lat_3dim12[i] = lat_3dim6[i] * 2;
-        checkCudaErrors(cudaMallocAsync(&device_send_vec[i * _SR_],
-                                        lat_3dim6[i] * sizeof(LatticeComplex),
-                                        stream));
-        checkCudaErrors(cudaMallocAsync(&device_send_vec[i * _SR_ + 1],
-                                        lat_3dim6[i] * sizeof(LatticeComplex),
-                                        stream));
-        checkCudaErrors(cudaMallocAsync(&device_recv_vec[i * _SR_],
-                                        lat_3dim6[i] * sizeof(LatticeComplex),
-                                        stream));
-        checkCudaErrors(cudaMallocAsync(&device_recv_vec[i * _SR_ + 1],
-                                        lat_3dim6[i] * sizeof(LatticeComplex),
-                                        stream));
+        lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
+        lat_3dim_SC[i] = lat_3dim_Half_SC[i] * 2;
+        checkCudaErrors(cudaMallocAsync(
+            &device_send_vec[i * _SR_],
+            lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+        checkCudaErrors(cudaMallocAsync(
+            &device_send_vec[i * _SR_ + 1],
+            lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+        checkCudaErrors(cudaMallocAsync(
+            &device_recv_vec[i * _SR_],
+            lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+        checkCudaErrors(cudaMallocAsync(
+            &device_recv_vec[i * _SR_ + 1],
+            lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
         host_send_vec[i * _SR_] =
-            (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
+            (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
         host_send_vec[i * _SR_ + 1] =
-            (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
+            (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
         host_recv_vec[i * _SR_] =
-            (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
+            (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
         host_recv_vec[i * _SR_ + 1] =
-            (void *)malloc(lat_3dim6[i] * sizeof(LatticeComplex));
-        checkCudaErrors(cudaStreamSynchronize(stream));
+            (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
       }
     }
+    {
+      checkCudaErrors(cudaMallocAsync(&device_xyztsc,
+                                      _DIM_ * _LAT_C_ * sizeof(int), stream));
+      host_xyztsc[_X_] = lat_1dim[_X_];
+      host_xyztsc[_Y_] = lat_1dim[_Y_];
+      host_xyztsc[_Z_] = lat_1dim[_Z_];
+      host_xyztsc[_T_] = lat_1dim[_T_];
+      host_xyztsc[_XCC_] = lat_1dim[_X_] * _LAT_CC_;
+      host_xyztsc[_YXCC_] = lat_1dim[_Y_] * host_xyztsc[_XCC_];
+      host_xyztsc[_ZYXCC_] = lat_1dim[_Z_] * host_xyztsc[_YXCC_];
+      host_xyztsc[_TZYXCC_] = lat_1dim[_T_] * host_xyztsc[_ZYXCC_];
+      host_xyztsc[_XSC_] = lat_1dim[_X_] * _LAT_SC_;
+      host_xyztsc[_YXSC_] = lat_1dim[_Y_] * host_xyztsc[_XSC_];
+      host_xyztsc[_ZYXSC_] = lat_1dim[_Z_] * host_xyztsc[_YXSC_];
+      host_xyztsc[_TZYXSC_] = lat_1dim[_T_] * host_xyztsc[_ZYXSC_];
+      checkCudaErrors(cudaMemcpyAsync(device_xyztsc, host_xyztsc,
+                                      _DIM_ * _LAT_C_ * sizeof(int),
+                                      cudaMemcpyHostToDevice, stream));
+    }
+    checkCudaErrors(cudaStreamSynchronize(stream));
   }
   void end() {
     for (int i = 0; i < _WARDS_; i++) {
@@ -113,6 +144,7 @@ struct LatticeSet {
       free(host_recv_vec[i]);
       checkCudaErrors(cudaStreamDestroy(stream_wards[i]));
     }
+    checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
     checkCudaErrors(cudaStreamSynchronize(stream));
     checkCudaErrors(cudaStreamDestroy(stream));
     checkNcclErrors(ncclCommDestroy(qcu_nccl_comm));
@@ -135,15 +167,15 @@ struct LatticeSet {
     printf("lat_3dim[_XYT_]  :%d\n", lat_3dim[_XYT_]);
     printf("lat_3dim[_XYZ_]  :%d\n", lat_3dim[_XYZ_]);
     printf("lat_4dim         :%d\n", lat_4dim);
-    printf("lat_4dim12       :%d\n", lat_4dim12);
-    printf("lat_3dim6[_YZT_] :%d\n", lat_3dim6[_YZT_]);
-    printf("lat_3dim6[_XZT_] :%d\n", lat_3dim6[_XZT_]);
-    printf("lat_3dim6[_XYT_] :%d\n", lat_3dim6[_XYT_]);
-    printf("lat_3dim6[_XYZ_] :%d\n", lat_3dim6[_XYZ_]);
-    printf("lat_3dim12[_YZT_]:%d\n", lat_3dim12[_YZT_]);
-    printf("lat_3dim12[_XZT_]:%d\n", lat_3dim12[_XZT_]);
-    printf("lat_3dim12[_XYT_]:%d\n", lat_3dim12[_XYT_]);
-    printf("lat_3dim12[_XYZ_]:%d\n", lat_3dim12[_XYZ_]);
+    printf("lat_4dim_SC       :%d\n", lat_4dim_SC);
+    printf("lat_3dim_Half_SC[_YZT_] :%d\n", lat_3dim_Half_SC[_YZT_]);
+    printf("lat_3dim_Half_SC[_XZT_] :%d\n", lat_3dim_Half_SC[_XZT_]);
+    printf("lat_3dim_Half_SC[_XYT_] :%d\n", lat_3dim_Half_SC[_XYT_]);
+    printf("lat_3dim_Half_SC[_XYZ_] :%d\n", lat_3dim_Half_SC[_XYZ_]);
+    printf("lat_3dim_SC[_YZT_]:%d\n", lat_3dim_SC[_YZT_]);
+    printf("lat_3dim_SC[_XZT_]:%d\n", lat_3dim_SC[_XZT_]);
+    printf("lat_3dim_SC[_XYT_]:%d\n", lat_3dim_SC[_XYT_]);
+    printf("lat_3dim_SC[_XYZ_]:%d\n", lat_3dim_SC[_XYZ_]);
   }
 };
 
