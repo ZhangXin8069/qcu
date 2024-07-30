@@ -873,7 +873,7 @@ __global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
     LatticeComplex pivot;
     LatticeComplex factor;
     LatticeComplex clover[_LAT_SCSC_];
-    LatticeComplex augmented_clover[_LAT_SC_ * _BF_];
+    LatticeComplex augmented_clover[_LAT_SCSC_ * _BF_];
     give_ptr(clover, origin_clover, _LAT_SCSC_);
     inverse(clover, clover, augmented_clover, pivot, factor, _LAT_SC_);
     give_ptr(origin_clover, clover, _LAT_SCSC_);
@@ -946,7 +946,8 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // make clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    make_clover<<<gridDim, blockDim>>>(gauge, clover, _set.device_xyztsc, parity);
+    make_clover<<<gridDim, blockDim>>>(gauge, clover, _set.device_xyztsc,
+                                       parity);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
