@@ -220,11 +220,11 @@ struct LatticeBistabcg {
       bistabcg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->streams[_a_]>>>(r, s, t, device_vals);
       dot(r, r, _norm2_tmp_, _a_);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     }
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
   }
   void run_test(void *gauge) {
     set_ptr->_print();
