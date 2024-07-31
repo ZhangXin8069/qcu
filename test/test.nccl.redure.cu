@@ -5,6 +5,7 @@
 
 #include <chrono>
 #include <cstdio>
+
 void func(int, int) {}
 class Timer {
 private:
@@ -69,11 +70,11 @@ inline double Tflops(size_t num, double time_second) {
 // clang-format on
 // printf("%s: Tflops = %lf\n", msg, timer.getElapsedTimeSecond() / (1e12));
 
-#define WARP_SIZE 32
+#define _WARP_SIZE_ 32
 #define PROFILE_DEBUG
 
 #ifdef PROFILE_DEBUG
-#define CHECK_CUDA(ans)                                                        \
+#define checkCudaErrors(ans)                                                        \
   do {                                                                         \
     cudaAssert((ans), __FILE__, __LINE__);                                     \
   } while (0)
@@ -87,7 +88,7 @@ inline void cudaAssert(cudaError_t code, const char *file, int line,
   }
 }
 #else
-#define CHECK_CUDA(ans) ans
+#define checkCudaErrors(ans) ans
 #endif
 
 template <typename T> struct AddOp {
@@ -104,7 +105,7 @@ template <typename T> struct SquareOp {
 
 template <template <typename> class ReductionOp, typename T>
 __device__ __forceinline__ T warpReduce(T val) {
-  for (int mask = WARP_SIZE / 2; mask > 0; mask >>= 1) {
+  for (int mask = _WARP_SIZE_ / 2; mask > 0; mask >>= 1) {
     val = ReductionOp<T>()(val, __shfl_xor_sync(0xffffffff, val, mask));
   }
   return val;
@@ -115,12 +116,12 @@ __device__ __forceinline__ T warpReduce(T val) {
 template <template <typename> class ReductionOp, typename T>
 __device__ __forceinline__ void blockReduce(T val, T *smem) {
   int tid = threadIdx.x;
-  int warp_id = tid / WARP_SIZE;
-  int lane_id = tid & (WARP_SIZE - 1);
+  int warp_id = tid / _WARP_SIZE_;
+  int lane_id = tid & (_WARP_SIZE_ - 1);
 
   int warp_nums =
-      (blockDim.x + WARP_SIZE - 1) /
-      WARP_SIZE; // 向上进1，以防分配的线程数量小于32导致warp nums为0
+      (blockDim.x + _WARP_SIZE_ - 1) /
+      _WARP_SIZE_; // 向上进1，以防分配的线程数量小于32导致warp nums为0
 
   val = warpReduce<ReductionOp, T>(val); // 先warp reduce
   if (lane_id == 0) {                    // TODO: 这个条件可能可以去掉
@@ -171,10 +172,10 @@ void reduction_gpu_async(OutputType *output, OutputType *temp,
 
   reduction_kernel<OutputType, InputType, ReduceOp>
       <<<grid_size, block_size, 0, stream>>>(temp, input, vector_length);
-  CHECK_CUDA(cudaGetLastError());
+  checkCudaErrors(cudaGetLastError());
   reduction_kernel<OutputType, OutputType, ReduceOp>
       <<<1, block_size, 0, stream>>>(output, temp, grid_size);
-  CHECK_CUDA(cudaGetLastError());
+  checkCudaErrors(cudaGetLastError());
 }
 
 template <typename OutputType = double, typename InputType = double,
@@ -188,12 +189,12 @@ void profile_reduction_gpu_sync(OutputType *output, OutputType *temp,
   for (int i = 0; i < 1000; i++) {
     reduction_kernel<OutputType, InputType, ReduceOp>
         <<<grid_size, block_size, 0, stream>>>(temp, input, vector_length);
-    CHECK_CUDA(cudaGetLastError());
+    checkCudaErrors(cudaGetLastError());
     reduction_kernel<OutputType, OutputType, ReduceOp>
         <<<1, block_size, 0, stream>>>(output, temp, grid_size);
-    CHECK_CUDA(cudaGetLastError());
+    checkCudaErrors(cudaGetLastError());
   }
-  CHECK_CUDA(cudaDeviceSynchronize());
+  checkCudaErrors(cudaDeviceSynchronize());
 }
 
 template <typename OutputType = double, typename InputType = double,
@@ -217,7 +218,8 @@ int main() {
   using InputType = double;
   using OutputType = double;
 
-  int size = 1 << 24;
+  int size = 32 * 32 * 32 * 32;
+  printf("size:%d", size);
   std::unique_ptr<InputType> h_input(new InputType[size]);
   std::unique_ptr<OutputType> h_output(new OutputType[size]);
 
@@ -226,17 +228,17 @@ int main() {
   OutputType *d_temp;
   OutputType d_res;
 
-  CHECK_CUDA(cudaMalloc(&d_input, size * sizeof(double)));
-  CHECK_CUDA(cudaMalloc(&d_output, sizeof(double)));
-  CHECK_CUDA(cudaMalloc(&d_temp, size * sizeof(double)));
+  checkCudaErrors(cudaMalloc(&d_input, size * sizeof(double)));
+  checkCudaErrors(cudaMalloc(&d_output, sizeof(double)));
+  checkCudaErrors(cudaMalloc(&d_temp, size * sizeof(double)));
 
   init_host_data(h_input.get(), size);
-  CHECK_CUDA(cudaMemcpy(d_input, h_input.get(), size * sizeof(double),
+  checkCudaErrors(cudaMemcpy(d_input, h_input.get(), size * sizeof(double),
                         cudaMemcpyHostToDevice));
 
   // cpu
   double res;
-  TIMER_EVENT(reduction_cpu(h_input.get(), size), 1, "reduction_cpu");
+  TIMER_EVENT(res = reduction_cpu(h_input.get(), size), 1, "reduction_cpu");
   // gpu
   // warm up
   profile_reduction_gpu_sync<double, double, AddOp>(d_output, d_temp, d_input,
@@ -245,13 +247,13 @@ int main() {
   TIMER_EVENT(profile_reduction_gpu_sync(d_output, d_temp, d_input, size, 0),
               // func(1, 1),
               1000, msg);
-  CHECK_CUDA(
+  checkCudaErrors(
       cudaMemcpy(&d_res, d_output, sizeof(double), cudaMemcpyDeviceToHost));
 
   printf("gpu res: %lf, cpu res: %lf\n", d_res, res);
 
   // free
-  CHECK_CUDA(cudaFree(d_input));
-  CHECK_CUDA(cudaFree(d_output));
-  CHECK_CUDA(cudaFree(d_temp));
+  checkCudaErrors(cudaFree(d_input));
+  checkCudaErrors(cudaFree(d_output));
+  checkCudaErrors(cudaFree(d_temp));
 }

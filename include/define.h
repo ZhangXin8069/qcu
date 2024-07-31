@@ -3,6 +3,7 @@
 #include "./lattice_complex.h"
 
 #define _BLOCK_SIZE_ 256
+#define _WARP_SIZE_ 32
 #define _a_ 0
 #define _b_ 1
 #define _c_ 2
@@ -14,6 +15,9 @@
 #define _alpha_ 4
 #define _beta_ 5
 #define _omega_ 6
+#define _send_tmp_ 7
+#define _norm2_tmp_ 8
+#define _diff_tmp_ 9
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2

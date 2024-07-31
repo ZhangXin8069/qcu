@@ -13,8 +13,8 @@ struct LatticeSet {
   cudaError_t err;
   dim3 gridDim;
   dim3 blockDim;
-  ncclUniqueId qcu_nccl_id;
-  ncclComm_t qcu_nccl_comm;
+  ncclUniqueId nccl_id;
+  ncclComm_t nccl_comm;
   cudaStream_t stream;
   cudaStream_t streams[_DIM_];
   cudaStream_t stream_wards[_WARDS_];
@@ -66,12 +66,12 @@ struct LatticeSet {
       checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
       checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
       if (node_rank == 0) {
-        checkNcclErrors(ncclGetUniqueId(&qcu_nccl_id));
+        checkNcclErrors(ncclGetUniqueId(&nccl_id));
       }
-      checkMpiErrors(MPI_Bcast((void *)&qcu_nccl_id, sizeof(qcu_nccl_id),
+      checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id),
                                MPI_BYTE, 0, MPI_COMM_WORLD));
       checkNcclErrors(
-          ncclCommInitRank(&qcu_nccl_comm, node_size, qcu_nccl_id, node_rank));
+          ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
       checkCudaErrors(cudaStreamCreate(&stream));
       grid_index_1dim[_X_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];
@@ -147,7 +147,7 @@ struct LatticeSet {
     checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
     checkCudaErrors(cudaStreamSynchronize(stream));
     checkCudaErrors(cudaStreamDestroy(stream));
-    checkNcclErrors(ncclCommDestroy(qcu_nccl_comm));
+    checkNcclErrors(ncclCommDestroy(nccl_comm));
   }
   void _print() {
     printf("node_rank        :%d\n", node_rank);
