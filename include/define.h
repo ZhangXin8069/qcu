@@ -18,6 +18,7 @@
 #define _send_tmp_ 7
 #define _norm2_tmp_ 8
 #define _diff_tmp_ 9
+#define _vals_size_ 10
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
