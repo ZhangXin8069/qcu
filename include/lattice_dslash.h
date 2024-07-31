@@ -185,7 +185,7 @@ struct LatticeWilsonDslash {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_F_Z_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_F_T_]));
     }
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
+    // checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
   }
 
   void run_eo(void *fermion_out, void *fermion_in, void *gauge,
