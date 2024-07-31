@@ -133,6 +133,7 @@ struct LatticeBistabcg {
     fermion_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                   set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
                                                     device_vals, vals_index);
+                                                    
   }
 
   void diff(void *device_vec0, void *device_vec1, const int vals_index,
