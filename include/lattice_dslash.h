@@ -48,17 +48,17 @@ struct LatticeWilsonDslash {
                                                       set_ptr->grid_1dim[_Z_] *
                                                       set_ptr->grid_1dim[_T_];
         ncclSend(set_ptr->device_send_vec[_B_X_], set_ptr->lat_3dim_SC[_YZT_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_X_]);
         ncclRecv(set_ptr->device_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_YZT_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_X_]);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_B_X_]));
         ncclSend(set_ptr->device_send_vec[_F_X_], set_ptr->lat_3dim_SC[_YZT_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_X_]);
         ncclRecv(set_ptr->device_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_YZT_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_X_]);
       }
       if (set_ptr->grid_1dim[_Y_] != 1) {
@@ -73,17 +73,17 @@ struct LatticeWilsonDslash {
                                                       set_ptr->grid_1dim[_Z_] *
                                                       set_ptr->grid_1dim[_T_];
         ncclSend(set_ptr->device_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_XZT_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_Y_]);
         ncclRecv(set_ptr->device_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_XZT_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_Y_]);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_B_Y_]));
         ncclSend(set_ptr->device_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_XZT_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_Y_]);
         ncclRecv(set_ptr->device_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_XZT_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_Y_]);
       }
       if (set_ptr->grid_1dim[_Z_] != 1) {
@@ -96,17 +96,17 @@ struct LatticeWilsonDslash {
         set_ptr->move[_F_] =
             set_ptr->node_rank + set_ptr->move[_F_] * set_ptr->grid_1dim[_T_];
         ncclSend(set_ptr->device_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_XYT_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_Z_]);
         ncclRecv(set_ptr->device_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_XYT_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_Z_]);
         cudaStreamSynchronize(set_ptr->stream_wards[_B_Z_]);
         ncclSend(set_ptr->device_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_XYT_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_Z_]);
         ncclRecv(set_ptr->device_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_XYT_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_Z_]);
       }
       if (set_ptr->grid_1dim[_T_] != 1) {
@@ -117,17 +117,17 @@ struct LatticeWilsonDslash {
         set_ptr->move[_B_] = set_ptr->node_rank + set_ptr->move[_B_];
         set_ptr->move[_F_] = set_ptr->node_rank + set_ptr->move[_F_];
         ncclSend(set_ptr->device_send_vec[_B_T_], set_ptr->lat_3dim_SC[_XYZ_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_T_]);
         ncclRecv(set_ptr->device_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_XYZ_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_B_T_]);
         cudaStreamSynchronize(set_ptr->stream_wards[_B_T_]);
         ncclSend(set_ptr->device_send_vec[_F_T_], set_ptr->lat_3dim_SC[_XYZ_],
-                 ncclDouble, set_ptr->move[_F_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_F_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_T_]);
         ncclRecv(set_ptr->device_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_XYZ_],
-                 ncclDouble, set_ptr->move[_B_], set_ptr->qcu_nccl_comm,
+                 ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_T_]);
       }
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));

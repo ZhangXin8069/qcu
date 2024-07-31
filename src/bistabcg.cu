@@ -41,6 +41,15 @@ __global__ void bistabcg_give_1omega(void *device_vals) {
   origin_vals[_omega_] = tmp0 / tmp1;
 }
 
+__global__ void bistabcg_give_1diff(void *device_vals) {
+  LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
+  LatticeComplex norm2_tmp;
+  norm2_tmp = origin_vals[_norm2_tmp_];
+  LatticeComplex diff_tmp;
+  diff_tmp = origin_vals[_diff_tmp_];
+  origin_vals[_diff_tmp_] = diff_tmp / norm2_tmp;
+}
+
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                   void *device_vec0, double kappa) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;

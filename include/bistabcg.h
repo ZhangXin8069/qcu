@@ -10,6 +10,8 @@ __global__ void bistabcg_give_1alpha(void *device_vals);
 
 __global__ void bistabcg_give_1omega(void *device_vals);
 
+__global__ void bistabcg_give_1diff(void *device_vals);
+
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                   void *device_vec0, double kappa);
 

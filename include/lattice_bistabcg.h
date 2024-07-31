@@ -6,6 +6,7 @@
 #include "./lattice_dslash.h"
 #include "define.h"
 #include "lattice_complex.h"
+#include <nccl.h>
 #define PRINT_NCCL_WILSON_BISTABCG
 
 struct LatticeBistabcg {
@@ -21,7 +22,8 @@ struct LatticeBistabcg {
   LatticeComplex omega;
 
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
-      *t, *device_vec0, *device_vec1, *device_vals;
+      *t, *device_vec0, *device_vec1, *device_dot_vec, *device_dot_tmp_vec,
+      *device_vals;
   void _init() {
     {
       checkCudaErrors(
@@ -58,10 +60,18 @@ struct LatticeBistabcg {
       checkCudaErrors(cudaMallocAsync(
           &device_vec1, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
           set_ptr->stream));
-      checkCudaErrors(cudaMallocAsync(&device_vals, 7 * sizeof(LatticeComplex),
+      checkCudaErrors(cudaMallocAsync(
+          &device_dot_vec, set_ptr->lat_4dim * sizeof(LatticeComplex),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_dot_tmp_vec, set_ptr->lat_4dim * sizeof(LatticeComplex),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(&device_vals, 10 * sizeof(LatticeComplex),
                                       set_ptr->stream));
       give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(x_o, 1314999);
+      perf_part_reduce(device_dot_vec, device_vals, device_dot_tmp_vec,
+                       set_ptr->lat_4dim, set_ptr->stream);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     }
   }
@@ -128,26 +138,41 @@ struct LatticeBistabcg {
 
   void dot(void *device_vec0, void *device_vec1, const int vals_index,
            const int stream_index) {
-    give_1zero<<<1, 1, 0, set_ptr->streams[stream_index]>>>(device_vals,
-                                                            vals_index);
-    fermion_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                  set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
-                                                    device_vals, vals_index);
-                                                    
+    // void * send_tmp_ptr=;
+    part_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+               set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
+                                                 device_dot_vec);
+    part_reduce(device_dot_vec, &(device_vals[_send_tmp_]), device_dot_tmp_vec,
+                set_ptr->lat_4dim, set_ptr->streams[stream_index]);
+    checkNcclErrors(ncclAllReduce(
+        &(device_vals[_send_tmp_]), &(device_vals[vals_index]), 2, ncclDouble,
+        ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]));
   }
 
-  void diff(void *device_vec0, void *device_vec1, const int vals_index,
-            const int stream_index) {
-    give_1zero<<<1, 1, 0, set_ptr->streams[stream_index]>>>(device_vals,
-                                                            vals_index);
-    fermion_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                   set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
-                                                     device_vals, vals_index);
+  void diff(void *device_vec0, void *device_vec1, const int stream_index) {
+    part_cut<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+               set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
+                                                 device_dot_vec);
+    part_reduce(device_dot_vec, &(device_vals[_send_tmp_]), device_dot_tmp_vec,
+                set_ptr->lat_4dim, set_ptr->streams[stream_index]);
+    checkNcclErrors(ncclAllReduce(
+        &(device_vals[_send_tmp_]), &(device_vals[_diff_tmp_]), 2, ncclDouble,
+        ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]));
+    part_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+               set_ptr->streams[stream_index]>>>(device_vec1, device_vec1,
+                                                 device_dot_vec);
+    part_reduce(device_dot_vec, &(device_vals[_norm2_tmp_]), device_dot_tmp_vec,
+                set_ptr->lat_4dim, set_ptr->streams[stream_index]);
+    checkNcclErrors(ncclAllReduce(
+        &(device_vals[_send_tmp_]), &(device_vals[_norm2_tmp_]), 2, ncclDouble,
+        ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]));
+    bistabcg_give_1diff<<<1, 1, 0, set_ptr->streams[stream_index]>>>(
+        device_vals);
   }
 
   void run(void *gauge) {
-    LatticeComplex r_norm2(0.0, 0.0);
-    dot(r, r, _tmp0_, _a_);
+    LatticeComplex norm2_tmp(0.0, 0.0);
+    dot(r, r, _norm2_tmp_, _a_);
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
       dot(r_tilde, r, _rho_, _a_);
       // beta = (rho / rho_prev) * (alpha / omega);
@@ -155,13 +180,13 @@ struct LatticeBistabcg {
       bistabcg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->streams[_a_]>>>(p, r, v, device_vals);
       // break;
-      checkCudaErrors(
-          cudaMemcpyAsync(&r_norm2, device_vals, sizeof(LatticeComplex),
-                          cudaMemcpyDeviceToHost, set_ptr->streams[_a_]));
+      checkCudaErrors(cudaMemcpyAsync(
+          &norm2_tmp, &(device_vals[_norm2_tmp_]), sizeof(LatticeComplex),
+          cudaMemcpyDeviceToHost, set_ptr->streams[_a_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
-                << "##Residual:" << r_norm2.real << std::endl;
-      if ((r_norm2.real < _TOL_ || loop == _MAX_ITER_ - 1)) {
+                << "##Residual:" << norm2_tmp.real << std::endl;
+      if ((norm2_tmp.real < _TOL_ || loop == _MAX_ITER_ - 1)) {
         break;
       }
       // v = A * p;
@@ -186,7 +211,7 @@ struct LatticeBistabcg {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       bistabcg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->streams[_a_]>>>(r, s, t, device_vals);
-      dot(r, r, _tmp0_, _a_);
+      dot(r, r, _norm2_tmp_, _a_);
     }
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
@@ -207,9 +232,13 @@ struct LatticeBistabcg {
         "nccl wilson bistabcg total time: (without malloc free memcpy) :%.9lf "
         "sec\n",
         double(duration) / 1e9);
-    diff(x_o, ans_o, _tmp0_, _a_);
+    LatticeComplex diff_tmp(0.0, 0.0);
+    diff(x_o, ans_o, _a_);
+    checkCudaErrors(cudaMemcpyAsync(
+        &diff_tmp, &(device_vals[_diff_tmp_]), sizeof(LatticeComplex),
+        cudaMemcpyDeviceToHost, set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-    printf("## difference: %.16f\n", tmp0.real);
+    printf("## difference: %.16f\n", diff_tmp.real);
   }
   void end() {
     checkCudaErrors(cudaFreeAsync(ans_e, set_ptr->stream));

@@ -1,2 +1,3 @@
 bash ./make.sh 
-nvprof --profile-child-processes -f -o log.nvvp%p mpirun -np 1 ./test
+rm log_*
+nvprof --profile-child-processes -f -o log_%h_%p.nvvp mpirun -np 1 ./test
