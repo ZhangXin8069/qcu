@@ -11,7 +11,7 @@ set(SM_ARCH "sm_60")
 set(CMAKE_CUDA_ARCHITECTURES "60")
 
 # Set CUDA architecture and other flags
-set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
+set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 -diag-suppress 20054")
 
 # Add include directories, including MPI include directories, including qcu's include
 set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
