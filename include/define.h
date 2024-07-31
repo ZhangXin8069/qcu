@@ -7,6 +7,13 @@
 #define _b_ 1
 #define _c_ 2
 #define _d_ 3
+#define _tmp0_ 0
+#define _tmp1_ 1
+#define _rho_prev_ 2
+#define _rho_ 3
+#define _alpha_ 4
+#define _beta_ 5
+#define _omega_ 6
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
@@ -59,6 +66,7 @@
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 #define DRAFT
+#define LATTICE_CUDA
 #define BISTABCG
 #define MULTGRID
 #define WILSON_DSLASH
@@ -73,7 +81,6 @@
 #define NCCL_WILSON_BISTABCG
 // #define NCCL_CLOVER_BISTABCG
 // #define NCCL_OVERLAP_BISTABCG
-#define TEST_WILSON_BISTABCG
 // #define WILSON_MULTGRID
 // #define CLOVER_MULTGRID
 // #define OVERLAP_MULTGRID
