@@ -70,24 +70,19 @@ struct LatticeBistabcg {
     {
       checkCudaErrors(cudaMallocAsync(
           &device_vals, _vals_size_ * sizeof(LatticeComplex), set_ptr->stream));
+      give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _tmp0_);
+      give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _tmp1_);
+      give_1one<<<1, 1, 0, set_ptr->stream>>>(device_vals, _rho_prev_);
+      give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _rho_);
+      give_1one<<<1, 1, 0, set_ptr->stream>>>(device_vals, _alpha_);
+      give_1one<<<1, 1, 0, set_ptr->stream>>>(device_vals, _omega_);
+      give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _send_tmp_);
       give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _norm2_tmp_);
-
-      host_vals[_tmp0_] = zero;
-      host_vals[_tmp1_] = zero;
-      host_vals[_rho_prev_] = one;
-      host_vals[_rho_] = zero;
-      host_vals[_alpha_] = one;
-      host_vals[_omega_] = one;
-      host_vals[_send_tmp_] = zero;
-      host_vals[_norm2_tmp_] = zero;
-      host_vals[_diff_tmp_] = zero;
-      checkCudaErrors(cudaMemcpyAsync(device_vals, host_vals,
-                                      _vals_size_ * sizeof(LatticeComplex),
-                                      cudaMemcpyHostToDevice, set_ptr->stream));
+      give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _diff_tmp_);
     }
     {
       give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(x_o, 1314999);
+                          set_ptr->stream>>>(x_o, 23333);
       perf_part_reduce(device_dot_vec, device_vals, device_dot_tmp_vec,
                        set_ptr->lat_4dim, set_ptr->stream);
     }
@@ -126,9 +121,9 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaMallocAsync(
         &b_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->stream>>>(ans_e, 8848);
+                        set_ptr->stream>>>(ans_e, 12138);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->stream>>>(ans_o, 12138);
+                        set_ptr->stream>>>(ans_o, 83121);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     dslash.run_eo(device_vec0, ans_o, gauge);
