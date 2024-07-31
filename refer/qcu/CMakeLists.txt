@@ -5,8 +5,8 @@ include_directories(/usr/lib/x86_64-linux-gnu/openmpi/include)
 # set(SM_ARCH "sm_80") # 4060 A100
 # set(SM_ARCH "sm_70") # V100
 # set(SM_ARCH "sm_60") # P100
-set(SM_ARCH "sm_80")
-set(CMAKE_CUDA_ARCHITECTURES "80")
+set(SM_ARCH "sm_60")
+set(CMAKE_CUDA_ARCHITECTURES "60")
 
 set(CMAKE_BUILD_TYPE Release)
 
