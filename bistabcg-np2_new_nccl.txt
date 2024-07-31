@@ -22,32 +22,167 @@
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/kfutfd/qcu
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
 [ 22%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
 [ 77%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
 [ 88%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-[100%] Linking CUDA shared library libqcu.so
-[100%] Built target qcu
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/nccl_wilson_dslash.cu(12): error: too few arguments in function call
+    _dslash.run_test(fermion_out, fermion_in, gauge, parity);
+                                                           ^
+
+5 errors detected in the compilation of "/home/kfutfd/qcu/src/nccl_wilson_dslash.cu".
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+make[2]: *** [CMakeFiles/qcu.dir/build.make:160: CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o] Error 2
+make[2]: *** Waiting for unfinished jobs....
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+4 errors detected in the compilation of "/home/kfutfd/qcu/src/nccl_wilson_bistabcg.cu".
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(109): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(130): error: too few arguments in function call
+      dslash.run_eo(device_vec0, ans_o, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(136): error: too few arguments in function call
+      dslash.run_oe(device_vec1, ans_e, gauge);
+                                             ^
+
+/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(142): error: too few arguments in function call
+      dslash.run_oe(device_vec0, b_e, gauge);
+                                           ^
+
+make[2]: *** [CMakeFiles/qcu.dir/build.make:146: CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o] Error 2
+4 errors detected in the compilation of "/home/kfutfd/qcu/src/lattice_cuda.cu".
+4 errors detected in the compilation of "/home/kfutfd/qcu/src/draft.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:118: CMakeFiles/qcu.dir/src/lattice_cuda.cu.o] Error 2
+4 errors detected in the compilation of "/home/kfutfd/qcu/src/bistabcg.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:104: CMakeFiles/qcu.dir/src/draft.cu.o] Error 2
+make[2]: *** [CMakeFiles/qcu.dir/build.make:76: CMakeFiles/qcu.dir/src/bistabcg.cu.o] Error 2
+/home/kfutfd/qcu/src/clover_dslash.cu(943): error: too few arguments in function call
+      _dslash.run_test(fermion_out, fermion_in, gauge, parity);
+                                                             ^
+
+4 errors detected in the compilation of "/home/kfutfd/qcu/src/wilson_dslash.cu".
+5 errors detected in the compilation of "/home/kfutfd/qcu/src/clover_dslash.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:174: CMakeFiles/qcu.dir/src/wilson_dslash.cu.o] Error 2
+make[2]: *** [CMakeFiles/qcu.dir/build.make:90: CMakeFiles/qcu.dir/src/clover_dslash.cu.o] Error 2
+make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/qcu.dir/all] Error 2
+make: *** [Makefile:91: all] Error 2
 rm: cannot remove '.': Is a directory
 rm: cannot remove '..': Is a directory
 rm: cannot remove '.git': Is a directory
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 fatal: pathspec '.gitmodules' did not match any files
 ~/qcu/test ~/qcu
-==1218732== NVPROF is profiling process 1218732, command: python ./test.nccl.bistabcg.qcu-np2.py
-==1218733== NVPROF is profiling process 1218733, command: python ./test.nccl.bistabcg.qcu-np2.py
-==1218732== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
-==1218733== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==1222887== NVPROF is profiling process 1222887, command: python ./test.nccl.bistabcg.qcu-np2.py
+==1222886== NVPROF is profiling process 1222886, command: python ./test.nccl.bistabcg.qcu-np2.py
+==1222887== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==1222886== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
 Disabling GPU-Direct RDMA access
 Enabling peer-to-peer copy engine and direct load/store access
-Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=0
-Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0
 Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0
 Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=0
+Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=0
+Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0
 QUDA 1.1.0 (git 1.1.0--sm_60)
 CUDA Driver version = 12020
 CUDA Runtime version = 12040
@@ -59,13 +194,13 @@ Loaded 16 sets of cached parameters from .cache/tunecache.tsv
 Loaded 16 sets of cached parameters from .cache/tunecache.tsv
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
-==1218733== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
-===============round  0 ======================
 cublasCreated successfully
-==1218732== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+==1222887== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+===============round  0 ======================
+==1222886== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
 ===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-node_rank        :1
+node_rank        :0
 node_size        :2
 gridDim.x        :2048
 blockDim.x       :256
@@ -91,7 +226,7 @@ lat_3dim_SC[_YZT_]:786432
 lat_3dim_SC[_XZT_]:196608
 lat_3dim_SC[_XYT_]:196608
 lat_3dim_SC[_XYZ_]:98304
-node_rank        :0
+node_rank        :1
 node_size        :2
 gridDim.x        :2048
 blockDim.x       :256
@@ -123,8 +258,8 @@ lat_3dim_SC[_XYZ_]:98304
 ##RANK:1##LOOP:1##Residual:44479.6
 ##RANK:0##LOOP:2##Residual:8323.12
 ##RANK:1##LOOP:2##Residual:8323.12
-##RANK:0##LOOP:3##Residual:88733.2
 ##RANK:1##LOOP:3##Residual:88733.2
+##RANK:0##LOOP:3##Residual:88733.2
 ##RANK:0##LOOP:4##Residual:12424
 ##RANK:1##LOOP:4##Residual:12424
 ##RANK:0##LOOP:5##Residual:426.285
@@ -159,30 +294,30 @@ lat_3dim_SC[_XYZ_]:98304
 ##RANK:1##LOOP:19##Residual:0.331376
 ##RANK:0##LOOP:20##Residual:0.436413
 ##RANK:1##LOOP:20##Residual:0.436413
-##RANK:0##LOOP:21##Residual:0.0904542
 ##RANK:1##LOOP:21##Residual:0.0904542
-##RANK:0##LOOP:22##Residual:0.0304353
+##RANK:0##LOOP:21##Residual:0.0904542
 ##RANK:1##LOOP:22##Residual:0.0304353
-##RANK:0##LOOP:23##Residual:0.0186555
+##RANK:0##LOOP:22##Residual:0.0304353
 ##RANK:1##LOOP:23##Residual:0.0186555
-##RANK:0##LOOP:24##Residual:0.0138972
+##RANK:0##LOOP:23##Residual:0.0186555
 ##RANK:1##LOOP:24##Residual:0.0138972
-##RANK:0##LOOP:25##Residual:0.0111434
+##RANK:0##LOOP:24##Residual:0.0138972
 ##RANK:1##LOOP:25##Residual:0.0111434
-##RANK:0##LOOP:26##Residual:0.0101311
+##RANK:0##LOOP:25##Residual:0.0111434
 ##RANK:1##LOOP:26##Residual:0.0101311
-##RANK:0##LOOP:27##Residual:0.00873064
+##RANK:0##LOOP:26##Residual:0.0101311
 ##RANK:1##LOOP:27##Residual:0.00873064
-##RANK:0##LOOP:28##Residual:0.0137009
+##RANK:0##LOOP:27##Residual:0.00873064
 ##RANK:1##LOOP:28##Residual:0.0137009
-##RANK:0##LOOP:29##Residual:0.0134756
+##RANK:0##LOOP:28##Residual:0.0137009
 ##RANK:1##LOOP:29##Residual:0.0134756
-##RANK:0##LOOP:30##Residual:0.0029568
+##RANK:0##LOOP:29##Residual:0.0134756
 ##RANK:1##LOOP:30##Residual:0.0029568
-##RANK:0##LOOP:31##Residual:0.00223957
+##RANK:0##LOOP:30##Residual:0.0029568
 ##RANK:1##LOOP:31##Residual:0.00223957
-##RANK:0##LOOP:32##Residual:0.00280812
+##RANK:0##LOOP:31##Residual:0.00223957
 ##RANK:1##LOOP:32##Residual:0.00280812
+##RANK:0##LOOP:32##Residual:0.00280812
 ##RANK:0##LOOP:33##Residual:0.000879517
 ##RANK:1##LOOP:33##Residual:0.000879517
 ##RANK:0##LOOP:34##Residual:0.00202137
@@ -252,43 +387,43 @@ lat_3dim_SC[_XYZ_]:98304
 ##RANK:0##LOOP:66##Residual:1.39807e-06
 ##RANK:1##LOOP:66##Residual:1.39807e-06
 ##RANK:0##LOOP:67##Residual:5.33165e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :7.808853123 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.801230946 sec
 ##RANK:1##LOOP:67##Residual:5.33165e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :7.809061184 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.800965402 sec
 ## difference: 0.0000002735975957
 ## difference: 0.0000002735975957
-QCU bistabcg: 9.210327652996057 sec
-QCU bistabcg: 9.211853293003514 sec
+QCU bistabcg: 9.235961988000781 sec
+QCU bistabcg: 9.237475835994701 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 16 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =     0.621 secs
-                     init     =     0.621 secs ( 99.998%),	 with        2 calls at 3.107e+05 us per call
-        total accounted       =     0.621 secs ( 99.998%)
-        total missing         =     0.000 secs (  0.002%)
+               initQuda Total time =     0.612 secs
+                     init     =     0.612 secs ( 99.999%),	 with        2 calls at 3.062e+05 us per call
+        total accounted       =     0.612 secs ( 99.999%)
+        total missing         =     0.000 secs (  0.001%)
 
-          loadGaugeQuda Total time =     0.103 secs
-                 download     =     0.067 secs ( 65.256%),	 with        2 calls at 3.359e+04 us per call
-                   upload     =     0.013 secs ( 12.287%),	 with        1 calls at 1.265e+04 us per call
-                     init     =     0.006 secs (  5.408%),	 with        2 calls at 2.784e+03 us per call
-                  compute     =     0.017 secs ( 16.415%),	 with        2 calls at 8.449e+03 us per call
-                     free     =     0.000 secs (  0.039%),	 with        2 calls at 2.000e+01 us per call
-        total accounted       =     0.102 secs ( 99.405%)
-        total missing         =     0.001 secs (  0.595%)
+          loadGaugeQuda Total time =     0.105 secs
+                 download     =     0.070 secs ( 66.161%),	 with        2 calls at 3.480e+04 us per call
+                   upload     =     0.013 secs ( 11.995%),	 with        1 calls at 1.262e+04 us per call
+                     init     =     0.005 secs (  5.125%),	 with        2 calls at 2.696e+03 us per call
+                  compute     =     0.017 secs ( 16.173%),	 with        2 calls at 8.507e+03 us per call
+                     free     =     0.000 secs (  0.036%),	 with        2 calls at 1.900e+01 us per call
+        total accounted       =     0.105 secs ( 99.490%)
+        total missing         =     0.001 secs (  0.510%)
 
-                endQuda Total time =     0.030 secs
+                endQuda Total time =     0.031 secs
 
-       initQuda-endQuda Total time =    11.305 secs
+       initQuda-endQuda Total time =    11.325 secs
 
-                   QUDA Total time =     0.832 secs
-                 download     =     0.067 secs (  8.070%),	 with        2 calls at 3.359e+04 us per call
-                   upload     =     0.013 secs (  1.520%),	 with        1 calls at 1.265e+04 us per call
-                     init     =     0.627 secs ( 75.326%),	 with        4 calls at 1.568e+05 us per call
-                  compute     =     0.095 secs ( 11.404%),	 with        3 calls at 3.164e+04 us per call
-                     free     =     0.000 secs (  0.005%),	 with        2 calls at 2.000e+01 us per call
-        total accounted       =     0.802 secs ( 96.324%)
-        total missing         =     0.031 secs (  3.676%)
+                   QUDA Total time =     0.802 secs
+                 download     =     0.070 secs (  8.675%),	 with        2 calls at 3.480e+04 us per call
+                   upload     =     0.013 secs (  1.573%),	 with        1 calls at 1.262e+04 us per call
+                     init     =     0.618 secs ( 77.001%),	 with        4 calls at 1.545e+05 us per call
+                  compute     =     0.071 secs (  8.807%),	 with        3 calls at 2.356e+04 us per call
+                     free     =     0.000 secs (  0.005%),	 with        2 calls at 1.900e+01 us per call
+        total accounted       =     0.771 secs ( 96.061%)
+        total missing         =     0.032 secs (  3.939%)
 
 Device memory used = 1406.2 MiB
 Pinned device memory used = 0.0 MiB
@@ -297,6 +432,6 @@ Shmem memory used = 0.0 MiB
 Page-locked host memory used = 54.0 MiB
 Total host memory used >= 74.3 MiB
 
-==1218732== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1218732.nvvp
-==1218733== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1218733.nvvp
+==1222887== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1222887.nvvp
+==1222886== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1222886.nvvp
 ~/qcu

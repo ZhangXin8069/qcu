@@ -940,7 +940,8 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
   dim3 blockDim(_BLOCK_SIZE_);
   {
     // wilson dslash
-    _dslash.run_test(fermion_out, fermion_in, gauge, parity);
+    _dslash.run_test(fermion_out, fermion_in, gauge, parity, _a_);
+    checkCudaErrors(cudaStreamSynchronize(_set.streams[_a_]));
   }
   {
     // make clover

@@ -8,13 +8,15 @@ struct LatticeWilsonDslash {
   LatticeSet *set_ptr;
   cudaError_t err;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
-  void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+  void run(void *fermion_out, void *fermion_in, void *gauge, int parity,
+           const int stream_index) {
     {
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+      checkCudaErrors(
+          cudaStreamSynchronize(set_ptr->streams[stream_index])); // needed
       // checkCudaErrors(cudaDeviceSynchronize()); // needed
       wilson_dslash_clear_dest<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(fermion_out,
-                                                    set_ptr->device_xyztsc);
+                                 set_ptr->streams[stream_index]>>>(
+          fermion_out, set_ptr->device_xyztsc);
       wilson_dslash_x_send<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                              set_ptr->stream_wards[_B_X_]>>>(
           gauge, fermion_in, fermion_out, set_ptr->device_xyztsc, parity,
@@ -130,7 +132,7 @@ struct LatticeWilsonDslash {
                  ncclDouble, set_ptr->move[_B_], set_ptr->nccl_comm,
                  set_ptr->stream_wards[_F_T_]);
       }
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
       ncclGroupEnd();
     }
     {
@@ -183,21 +185,26 @@ struct LatticeWilsonDslash {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_F_Z_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_F_T_]));
     }
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
   }
 
-  void run_eo(void *fermion_out, void *fermion_in, void *gauge) {
-    run(fermion_out, fermion_in, gauge, _EVEN_);
+  void run_eo(void *fermion_out, void *fermion_in, void *gauge,
+              const int stream_index) {
+    run(fermion_out, fermion_in, gauge, _EVEN_, stream_index);
   }
 
-  void run_oe(void *fermion_out, void *fermion_in, void *gauge) {
-    run(fermion_out, fermion_in, gauge, _ODD_);
+  void run_oe(void *fermion_out, void *fermion_in, void *gauge,
+              const int stream_index) {
+    run(fermion_out, fermion_in, gauge, _ODD_, stream_index);
   }
-  void run_test(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+  void run_test(void *fermion_out, void *fermion_in, void *gauge, int parity,
+                const int stream_index) {
 #ifdef PRINT_NCCL_WILSON_DSLASH
     set_ptr->_print();
 #endif
     auto start = std::chrono::high_resolution_clock::now();
-    run(fermion_out, fermion_in, gauge, parity);
+    run(fermion_out, fermion_in, gauge, parity, stream_index);
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)

@@ -17,6 +17,7 @@ struct LatticeSet {
   ncclComm_t nccl_comm;
   cudaStream_t stream;
   cudaStream_t streams[_DIM_];
+  cudaStream_t stream_dims[_DIM_];
   cudaStream_t stream_wards[_WARDS_];
   int node_rank, node_size;
   int move[_BF_];
@@ -90,6 +91,7 @@ struct LatticeSet {
     {
       for (int i = 0; i < _DIM_; i++) {
         checkCudaErrors(cudaStreamCreate(&streams[i]));
+        checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
@@ -140,6 +142,7 @@ struct LatticeSet {
   void end() {
     for (int i = 0; i < _DIM_; i++) {
       checkCudaErrors(cudaStreamDestroy(streams[i]));
+      checkCudaErrors(cudaStreamDestroy(stream_dims[i]));
       checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_], stream));
       checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_ + 1], stream));
       free(host_send_vec[i * _SR_]);
