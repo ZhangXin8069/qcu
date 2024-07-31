@@ -1,6 +1,6 @@
 #include "../../include/qcu.h"
 
-__global__ void wilson_bistabcg_part_dot(void *device_dot_tmp,
+__global__ void wilson_bistabcg_dot(void *device_dot_tmp,
                                          void *device_val0, void *device_val1) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int lat_4dim = gridDim.x * blockDim.x;
@@ -16,7 +16,7 @@ __global__ void wilson_bistabcg_part_dot(void *device_dot_tmp,
   }
 }
 
-__global__ void wilson_bistabcg_part_cut(void *device_latt_tmp0,
+__global__ void wilson_bistabcg_cut(void *device_latt_tmp0,
                                          void *device_val0, void *device_val1) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int lat_4dim = gridDim.x * blockDim.x;
