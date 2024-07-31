@@ -191,6 +191,7 @@ struct LatticeBistabcg {
           ((static_cast<LatticeComplex *>(device_vals)) + _norm2_tmp_),
           sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
           set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
                 << "##Residual:" << norm2_tmp.real << std::endl;
       if ((norm2_tmp.real < _TOL_ || loop == _MAX_ITER_ - 1)) {
@@ -228,7 +229,7 @@ struct LatticeBistabcg {
   void run_test(void *gauge) {
     set_ptr->_print();
     auto start = std::chrono::high_resolution_clock::now();
-    // run(gauge);
+    run(gauge);
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)

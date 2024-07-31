@@ -89,6 +89,7 @@ struct LatticeSet {
     }
     {
       for (int i = 0; i < _DIM_; i++) {
+        checkCudaErrors(cudaStreamCreate(&streams[i]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
@@ -137,12 +138,14 @@ struct LatticeSet {
     checkCudaErrors(cudaStreamSynchronize(stream));
   }
   void end() {
-    for (int i = 0; i < _WARDS_; i++) {
-      checkCudaErrors(cudaFreeAsync(device_send_vec[i], stream));
-      checkCudaErrors(cudaFreeAsync(device_recv_vec[i], stream));
-      free(host_send_vec[i]);
-      free(host_recv_vec[i]);
-      checkCudaErrors(cudaStreamDestroy(stream_wards[i]));
+    for (int i = 0; i < _DIM_; i++) {
+      checkCudaErrors(cudaStreamDestroy(streams[i]));
+      checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_], stream));
+      checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_ + 1], stream));
+      free(host_send_vec[i * _SR_]);
+      free(host_recv_vec[i * _SR_ + 1]);
+      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_]));
+      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_ + 1]));
     }
     checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
     checkCudaErrors(cudaStreamSynchronize(stream));
