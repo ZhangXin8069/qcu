@@ -23,787 +23,25 @@ HOME:/home/kfutfd/qcu
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/kfutfd/qcu
-[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
 [ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
 [ 55%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
 [ 55%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
 [ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
 [ 77%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
 [ 88%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-27 errors/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
- /home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-detected in the compilation of "/home/kfutfd/qcu/src/draft.cu".
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(145): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(147): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[vals_index]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 147); exit(
-                                                                                                                                                                                                                                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(156): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[7]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(158): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[9]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 158); exit(
-                                                                                                                                                                                                                                                                ^
-
-make[2]: *** [CMakeFiles/qcu.dir/build.make:104: CMakeFiles/qcu.dir/src/draft.cu.o] Error 2
-make[2]: *** Waiting for unfinished jobs....
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(164): error: expression must be a pointer to a complete object type
-      part_reduce(device_dot_vec, &(device_vals[8]), device_dot_tmp_vec,
-                                    ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-      { if (1) { if (ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]) != ncclSuccess) { fprintf(
-                                                         ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                           ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                             ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(166): error: expression must be a pointer to a complete object type
-     , "Failed: NCCL error %04d \"%s\" from file <%s>, " "line %i.\n", ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index]), ncclGetErrorString(ncclAllReduce( &(device_vals[7]), &(device_vals[8]), 2, ncclDouble, ncclSum, set_ptr->nccl_comm, set_ptr->streams[stream_index])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 166); exit(
-                                                                                                                                                                                                                                                                ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-27 errors detected in the compilation of "/home/kfutfd/qcu/src/lattice_cuda.cu".
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-        { if (1) { if (cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                      ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                        ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(183): error: expression must be a pointer to a complete object type
-       , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &norm2_tmp, &(device_vals[8]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 183); exit(
-                                                                                                                                                                                                                                                 ^
-
-27 errors detected in the compilation of "/home/kfutfd/qcu/src/nccl_wilson_dslash.cu".
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-27 errors /home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-detected in the compilation of "/home/kfutfd/qcu/src/nccl_wilson_bistabcg.cu"./home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-      { if (1) { if (cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]) != cudaSuccess) { fprintf(
-                                                   ^
-
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                     ^
-
-/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h(237): error: expression must be a pointer to a complete object type
-     , "Failed: CUDA error %04d \"%s\" from file <%s>, " "line %i.\n", cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0]), cudaGetErrorString(cudaMemcpyAsync( &diff_tmp, &(device_vals[9]), sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[0])), "/home/kfutfd/qcu/src/../include/./lattice_bistabcg.h", 237); exit(
-                                                                                                                                                                                                                                             ^
-
-make[2]: *** [CMakeFiles/qcu.dir/build.make:118: CMakeFiles/qcu.dir/src/lattice_cuda.cu.o] Error 2
-make[2]: *** [CMakeFiles/qcu.dir/build.make:160: CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o] Error 2
-27 errors detected in the compilation of "/home/kfutfd/qcu/src/bistabcg.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:146: CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o] Error 2
-make[2]: *** [CMakeFiles/qcu.dir/build.make:76: CMakeFiles/qcu.dir/src/bistabcg.cu.o] Error 2
-27 errors detected in the compilation of "/home/kfutfd/qcu/src/wilson_dslash.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:174: CMakeFiles/qcu.dir/src/wilson_dslash.cu.o] Error 2
-27 errors detected in the compilation of "/home/kfutfd/qcu/src/clover_dslash.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:90: CMakeFiles/qcu.dir/src/clover_dslash.cu.o] Error 2
-make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/qcu.dir/all] Error 2
-make: *** [Makefile:91: all] Error 2
+/home/kfutfd/qcu/src/lattice_cuda.cu(143): warning #20054-D: dynamic initialization is not supported for a function-scope static __shared__ variable within a __device__/__global__ function
+    __attribute__((shared)) OutputType smem[64];
+                                       ^
+          detected during:
+            instantiation of "void reduction_kernel<OutputType,InputType,ReductionOp>(OutputType *, const InputType *, int) [with OutputType=LatticeComplex, InputType=LatticeComplex, ReductionOp=AddOp]" at line 174
+            instantiation of "void profile_reduction_gpu_sync<OutputType,InputType,ReduceOp>(OutputType *, OutputType *, const InputType *, int, cudaStream_t) [with OutputType=LatticeComplex, InputType=LatticeComplex, ReduceOp=AddOp]" at line 191
+
+Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
+
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
 rm: cannot remove '.': Is a directory
 rm: cannot remove '..': Is a directory
 rm: cannot remove '.git': Is a directory
@@ -811,26 +49,157 @@ fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 fatal: pathspec '.gitmodules' did not match any files
 ~/qcu/test ~/qcu
 rm: cannot remove 'log_*': No such file or directory
-libqcu.so: undefined symbol: _Z12fermion_diffPvS_S_i
-libqcu.so: undefined symbol: _Z12fermion_diffPvS_S_i
-Traceback (most recent call last):
-  File "/home/kfutfd/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 3, in <module>
-Traceback (most recent call last):
-  File "/home/kfutfd/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 3, in <module>
-    from pyquda import core, pyqcu, mpi
-ImportError: libqcu.so: undefined symbol: _Z12fermion_diffPvS_S_i
-    from pyquda import core, pyqcu, mpi
-ImportError: libqcu.so: undefined symbol: _Z12fermion_diffPvS_S_i
+==1047426== NVPROF is profiling process 1047426, command: python ./test.nccl.bistabcg.qcu-np2.py
+==1047427== NVPROF is profiling process 1047427, command: python ./test.nccl.bistabcg.qcu-np2.py
+==1047426== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==1047427== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0
+Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=0
+Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=0
+Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0
+QUDA 1.1.0 (git 1.1.0--sm_60)
+CUDA Driver version = 12020
+CUDA Runtime version = 12040
+Found device 0: Tesla P100-PCIE-16GB
+Found device 1: Tesla P100-PCIE-16GB
+Using device 0: Tesla P100-PCIE-16GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: The path ".cache" specified by QUDA_RESOURCE_PATH does not exist or is not a directory.
+WARNING: Caching of tuned parameters will be disabled.
+WARNING: The path ".cache" specified by QUDA_RESOURCE_PATH does not exist or is not a directory.
+WARNING: Caching of tuned parameters will be disabled.
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+==1047427== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+==1047426== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+===============round  0 ======================
+===============round  0 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :64
+grid_1dim[_X_]   :2
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :1
+lat_3dim[_YZT_]  :65536
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :8192
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :393216
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :49152
+lat_3dim_SC[_YZT_]:786432
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:98304
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :64
+grid_1dim[_X_]   :2
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :1
+lat_3dim[_YZT_]  :65536
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :8192
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :393216
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :49152
+lat_3dim_SC[_YZT_]:786432
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:98304
+##RANK:0##LOOP:0##Residual:4.55041e+06
+##RANK:1##LOOP:0##Residual:4.55041e+06
+[x99-Yang:1047426] *** Process received signal ***
+[x99-Yang:1047426] Signal: Segmentation fault (11)
+[x99-Yang:1047426] Signal code: Address not mapped (1)
+[x99-Yang:1047426] Failing at address: 0x11
+[x99-Yang:1047427] *** Process received signal ***
+[x99-Yang:1047427] Signal: Segmentation fault (11)
+[x99-Yang:1047427] Signal code: Address not mapped (1)
+[x99-Yang:1047427] Failing at address: 0x11
+[x99-Yang:1047426] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7efcec87d520]
+[x99-Yang:1047426] [ 1] [x99-Yang:1047427] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7efc07f0b520]
+[x99-Yang:1047427] [ 1] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x259480)[0x7efc49259480]
+[x99-Yang:1047426] [ 2] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x371968)[0x7efc49371968]
+[x99-Yang:1047426] [ 3] libqcu.so(+0x7e642)[0x7efc6f503642]
+[x99-Yang:1047426] [ 4] libqcu.so(_Z43__device_stub__Z23bistabcg_give_1rho_prevPvPv+0x91)[0x7efc6f493551]
+[x99-Yang:1047426] [ 5] libqcu.so(_ZN15LatticeBistabcg3runEPv+0x91c)[0x7efc6f49877c]
+[x99-Yang:1047426] [ 6] libqcu.so(_ZN15LatticeBistabcg8run_testEPv+0x284)[0x7efc6f499084]
+[x99-Yang:1047426] [ 7] libqcu.so(ncclBistabCgQcu+0xe2)[0x7efc6f4970b2]
+[x99-Yang:1047426] [ 8] /home/kfutfd/external-libraries/pyquda/pyqcu.cpython-310-x86_64-linux-gnu.so(+0x93ae)[0x7efc6fb3a3ae]
+[x99-Yang:1047426] [ 9] python(_PyEval_EvalFrameDefault+0x644a)[0x55726be8359a]
+[x99-Yang:1047426] [10] python(_PyFunction_Vectorcall+0x7c)[0x55726be9559c]
+[x99-Yang:1047426] [11] python(_PyEval_EvalFrameDefault+0x6d7)[0x55726be7d827]
+[x99-Yang:1047426] [12] python(+0x13ff96)[0x55726be79f96]
+[x99-Yang:1047426] [13] python(PyEval_EvalCode+0x86)[0x55726bf6fc66]
+[x99-Yang:1047426] [14] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x259480)[0x7efb64a59480]
+[x99-Yang:1047427] [ 2] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x371968)[0x7efb64b71968]
+[x99-Yang:1047427] [ 3] libqcu.so(+0x7e642)[0x7efb8ab7b642]
+[x99-Yang:1047427] [ 4] libqcu.so(_Z43__device_stub__Z23bistabcg_give_1rho_prevPvPv+0x91)[0x7efb8ab0b551]
+[x99-Yang:1047427] [ 5] libqcu.so(_ZN15LatticeBistabcg3runEPv+0x91c)[0x7efb8ab1077c]
+[x99-Yang:1047427] [ 6] libqcu.so(_ZN15LatticeBistabcg8run_testEPv+0x284)[0x7efb8ab11084]
+[x99-Yang:1047427] [ 7] libqcu.so(ncclBistabCgQcu+0xe2)[0x7efb8ab0f0b2]
+[x99-Yang:1047427] [ 8] /home/kfutfd/external-libraries/pyquda/pyqcu.cpython-310-x86_64-linux-gnu.so(+0x93ae)[0x7efb8be533ae]
+[x99-Yang:1047427] [ 9] python(_PyEval_EvalFrameDefault+0x644a)[0x56219b76459a]
+[x99-Yang:1047427] [10] python(_PyFunction_Vectorcall+0x7c)[0x56219b77659c]
+[x99-Yang:1047427] [11] python(_PyEval_EvalFrameDefault+0x6d7)[0x56219b75e827]
+[x99-Yang:1047427] [12] python(+0x13ff96)[0x56219b75af96]
+[x99-Yang:1047427] [13] python(PyEval_EvalCode+0x86)[0x56219b850c66]
+[x99-Yang:1047427] [14] python(+0x260b38)[0x56219b87bb38]
+[x99-Yang:1047427] [15] python(+0x260b38)[0x55726bf9ab38]
+[x99-Yang:1047426] [15] python(+0x25a3fb)[0x56219b8753fb]
+[x99-Yang:1047427] [16] python(+0x25a3fb)[0x55726bf943fb]
+[x99-Yang:1047426] [16] python(+0x260885)[0x56219b87b885]
+[x99-Yang:1047427] [17] python(+0x260885)[0x55726bf9a885]
+[x99-Yang:1047426] [17] python(_PyRun_SimpleFileObject+0x1a8)[0x55726bf99d68]
+[x99-Yang:1047426] [18] python(_PyRun_SimpleFileObject+0x1a8)[0x56219b87ad68]
+[x99-Yang:1047427] [18] python(_PyRun_AnyFileObject+0x43)[0x56219b87a9b3]
+[x99-Yang:1047427] [19] python(_PyRun_AnyFileObject+0x43)[0x55726bf999b3]
+[x99-Yang:1047426] [19] python(Py_RunMain+0x2be)[0x55726bf8c45e]
+[x99-Yang:1047426] [20] python(Py_BytesMain+0x2d)[0x55726bf62a3d]
+[x99-Yang:1047426] python(Py_RunMain+0x2be)[0x56219b86d45e]
+[x99-Yang:1047427] [20] python(Py_BytesMain+0x2d)[0x56219b843a3d]
+[x99-Yang:1047427] [21] [21] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7efc07ef2d90]
+[x99-Yang:1047427] [22] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7efcec864d90]
+[x99-Yang:1047426] [22] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7efc07ef2e40]
+[x99-Yang:1047427] [23] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7efcec864e40]
+[x99-Yang:1047426] [23] python(_start+0x25)[0x56219b843935]
+[x99-Yang:1047427] *** End of error message ***
+python(_start+0x25)[0x55726bf62935]
+[x99-Yang:1047426] *** End of error message ***
+==1047426== Warning: Some profiling data are not recorded.
+==1047426== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1047426.nvvp
+==1047427== Warning: Some profiling data are not recorded.
+==1047427== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1047427.nvvp
 --------------------------------------------------------------------------
 Primary job  terminated normally, but 1 process returned
 a non-zero exit code. Per user-direction, the job has been aborted.
 --------------------------------------------------------------------------
 --------------------------------------------------------------------------
-mpirun detected that one or more processes exited with non-zero status, thus causing
-the job to be terminated. The first process to do so was:
-
-  Process name: [[21502,1],0]
-  Exit code:    1
+mpirun noticed that process rank 0 with PID 0 on node x99-Yang exited on signal 11 (Segmentation fault).
 --------------------------------------------------------------------------
-======== Error: Application returned non-zero code 1
+======== Error: Application returned non-zero code 139
 ~/qcu

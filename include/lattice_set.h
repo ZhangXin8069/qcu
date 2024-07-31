@@ -68,8 +68,8 @@ struct LatticeSet {
       if (node_rank == 0) {
         checkNcclErrors(ncclGetUniqueId(&nccl_id));
       }
-      checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id),
-                               MPI_BYTE, 0, MPI_COMM_WORLD));
+      checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
+                               MPI_COMM_WORLD));
       checkNcclErrors(
           ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
       checkCudaErrors(cudaStreamCreate(&stream));

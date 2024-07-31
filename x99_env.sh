@@ -3,6 +3,8 @@ _HOME=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 echo 'HOME:'${_HOME}
 # export
 ## zhangxin
+export NCCL_DEBUG=
+# export NCCL_DEBUG=INFO
 export LD_LIBRARY_PATH=${_HOME}/lib:$LD_LIBRARY_PATH # if any
 export TERM=xterm-256color
 export PYTHONPATH=${HOME}/external-libraries # x99

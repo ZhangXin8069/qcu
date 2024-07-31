@@ -244,7 +244,7 @@ int main() {
   profile_reduction_gpu_sync<double, double, AddOp>(d_output, d_temp, d_input,
                                                     size, 0);
   const char *msg = "reduction_gpu";
-  TIMER_EVENT(reduction_gpu_sync(d_output, d_temp, d_input, size, 0),
+  TIMER_EVENT(profile_reduction_gpu_sync(d_output, d_temp, d_input, size, 0),
               // func(1, 1),
               1000, msg);
   CHECK_CUDA(
