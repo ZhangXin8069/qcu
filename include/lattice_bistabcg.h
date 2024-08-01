@@ -101,7 +101,6 @@ struct LatticeBistabcg {
     bistabcg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                            set_ptr->stream>>>(fermion_out, fermion_in,
                                               device_vec1, _KAPPA_);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void init(void *_b_e, void *_b_o, void *gauge) {
     b_e = _b_e;
@@ -124,7 +123,6 @@ struct LatticeBistabcg {
                         set_ptr->stream>>>(ans_e, 12138);
     give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->stream>>>(ans_o, 83121);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     dslash.run_eo(device_vec0, ans_o, gauge);
     bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0,
@@ -186,7 +184,6 @@ struct LatticeBistabcg {
                   ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
                   device_dot_tmp_vec, set_ptr->lat_4dim,
                   set_ptr->streams[stream_index]);
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkNcclErrors(ncclAllReduce(
           ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
           ((static_cast<LatticeComplex *>(device_vals)) + _norm2_tmp_), 2,
@@ -201,7 +198,6 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(
         cudaMemcpyAsync((static_cast<LatticeComplex *>(host_vals)),
                         (static_cast<LatticeComplex *>(device_vals)),
