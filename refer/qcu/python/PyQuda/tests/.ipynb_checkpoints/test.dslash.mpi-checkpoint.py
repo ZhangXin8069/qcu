@@ -23,7 +23,7 @@ init()
 Nd, Ns, Nc = 4, 4, 3
 # latt_size = [Lx, Ly, Lz, Lt]
 
-latt_size = [32, 32, 32, 64]
+latt_size = [16, 16, 16, 32]
 grid_size = [1, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Gx, Gy, Gz, Gt = grid_size
