@@ -243,8 +243,8 @@ struct LatticeBistabcg {
       {
         // v = A * p;
         _dslash(v, p, gauge);
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       dot(r_tilde, v, _tmp0_, _d_);
       {
         // alpha = rho / tmp0;
@@ -286,7 +286,7 @@ struct LatticeBistabcg {
       {
         // x_o[i] = x_o[i] + p[i] * alpha + s[i] * omega;
         bistabcg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                            set_ptr->streams[_c_]>>>(x_o, p, s, device_vals);
+                            set_ptr->streams[_b_]>>>(x_o, p, s, device_vals);
       }
       {
         std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
