@@ -1,4 +1,3 @@
-HOME:/home/kfutfd/qcu
 -- The C compiler identification is GNU 11.4.0
 -- The CXX compiler identification is GNU 11.4.0
 -- The CUDA compiler identification is NVIDIA 12.4.131
@@ -23,23 +22,14 @@ HOME:/home/kfutfd/qcu
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/kfutfd/qcu
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
 [ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
 [ 55%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
 [ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
-[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
 [ 88%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-/home/kfutfd/qcu/src/lattice_cuda.cu(143): warning #20054-D: dynamic initialization is not supported for a function-scope static __shared__ variable within a __device__/__global__ function
-    __attribute__((shared)) OutputType smem[64];
-                                       ^
-          detected during:
-            instantiation of "void reduction_kernel<OutputType,InputType,ReductionOp>(OutputType *, const InputType *, int) [with OutputType=LatticeComplex, InputType=LatticeComplex, ReductionOp=AddOp]" at line 174
-            instantiation of "void profile_reduction_gpu_sync<OutputType,InputType,ReduceOp>(OutputType *, OutputType *, const InputType *, int, cudaStream_t) [with OutputType=LatticeComplex, InputType=LatticeComplex, ReduceOp=AddOp]" at line 191
-
-Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
-
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 rm: cannot remove '.': Is a directory
@@ -48,11 +38,10 @@ rm: cannot remove '.git': Is a directory
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 fatal: pathspec '.gitmodules' did not match any files
 ~/qcu/test ~/qcu
-rm: cannot remove 'log_*': No such file or directory
-==1047426== NVPROF is profiling process 1047426, command: python ./test.nccl.bistabcg.qcu-np2.py
-==1047427== NVPROF is profiling process 1047427, command: python ./test.nccl.bistabcg.qcu-np2.py
-==1047426== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
-==1047427== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==172662== NVPROF is profiling process 172662, command: python ./test.nccl.bistabcg.qcu-np2.py
+==172661== NVPROF is profiling process 172661, command: python ./test.nccl.bistabcg.qcu-np2.py
+==172662== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==172661== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
 Disabling GPU-Direct RDMA access
 Enabling peer-to-peer copy engine and direct load/store access
 Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0
@@ -66,44 +55,16 @@ Found device 0: Tesla P100-PCIE-16GB
 Found device 1: Tesla P100-PCIE-16GB
 Using device 0: Tesla P100-PCIE-16GB
 WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
-WARNING: The path ".cache" specified by QUDA_RESOURCE_PATH does not exist or is not a directory.
-WARNING: Caching of tuned parameters will be disabled.
-WARNING: The path ".cache" specified by QUDA_RESOURCE_PATH does not exist or is not a directory.
-WARNING: Caching of tuned parameters will be disabled.
+Loaded 27 sets of cached parameters from .cache/tunecache.tsv
+Loaded 27 sets of cached parameters from .cache/tunecache.tsv
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
 cublasCreated successfully
-==1047427== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
-==1047426== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+==172661== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+==172662== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
 ===============round  0 ======================
 ===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-node_rank        :1
-node_size        :2
-gridDim.x        :2048
-blockDim.x       :256
-lat_1dim[_X_]    :8
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :64
-grid_1dim[_X_]   :2
-grid_1dim[_Y_]   :1
-grid_1dim[_Z_]   :1
-grid_1dim[_T_]   :1
-lat_3dim[_YZT_]  :65536
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :8192
-lat_4dim         :524288
-lat_4dim_SC       :6291456
-lat_3dim_Half_SC[_YZT_] :393216
-lat_3dim_Half_SC[_XZT_] :98304
-lat_3dim_Half_SC[_XYT_] :98304
-lat_3dim_Half_SC[_XYZ_] :49152
-lat_3dim_SC[_YZT_]:786432
-lat_3dim_SC[_XZT_]:196608
-lat_3dim_SC[_XYT_]:196608
-lat_3dim_SC[_XYZ_]:98304
 node_rank        :0
 node_size        :2
 gridDim.x        :2048
@@ -130,76 +91,212 @@ lat_3dim_SC[_YZT_]:786432
 lat_3dim_SC[_XZT_]:196608
 lat_3dim_SC[_XYT_]:196608
 lat_3dim_SC[_XYZ_]:98304
-##RANK:0##LOOP:0##Residual:4.55041e+06
-##RANK:1##LOOP:0##Residual:4.55041e+06
-[x99-Yang:1047426] *** Process received signal ***
-[x99-Yang:1047426] Signal: Segmentation fault (11)
-[x99-Yang:1047426] Signal code: Address not mapped (1)
-[x99-Yang:1047426] Failing at address: 0x11
-[x99-Yang:1047427] *** Process received signal ***
-[x99-Yang:1047427] Signal: Segmentation fault (11)
-[x99-Yang:1047427] Signal code: Address not mapped (1)
-[x99-Yang:1047427] Failing at address: 0x11
-[x99-Yang:1047426] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7efcec87d520]
-[x99-Yang:1047426] [ 1] [x99-Yang:1047427] [ 0] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7efc07f0b520]
-[x99-Yang:1047427] [ 1] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x259480)[0x7efc49259480]
-[x99-Yang:1047426] [ 2] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x371968)[0x7efc49371968]
-[x99-Yang:1047426] [ 3] libqcu.so(+0x7e642)[0x7efc6f503642]
-[x99-Yang:1047426] [ 4] libqcu.so(_Z43__device_stub__Z23bistabcg_give_1rho_prevPvPv+0x91)[0x7efc6f493551]
-[x99-Yang:1047426] [ 5] libqcu.so(_ZN15LatticeBistabcg3runEPv+0x91c)[0x7efc6f49877c]
-[x99-Yang:1047426] [ 6] libqcu.so(_ZN15LatticeBistabcg8run_testEPv+0x284)[0x7efc6f499084]
-[x99-Yang:1047426] [ 7] libqcu.so(ncclBistabCgQcu+0xe2)[0x7efc6f4970b2]
-[x99-Yang:1047426] [ 8] /home/kfutfd/external-libraries/pyquda/pyqcu.cpython-310-x86_64-linux-gnu.so(+0x93ae)[0x7efc6fb3a3ae]
-[x99-Yang:1047426] [ 9] python(_PyEval_EvalFrameDefault+0x644a)[0x55726be8359a]
-[x99-Yang:1047426] [10] python(_PyFunction_Vectorcall+0x7c)[0x55726be9559c]
-[x99-Yang:1047426] [11] python(_PyEval_EvalFrameDefault+0x6d7)[0x55726be7d827]
-[x99-Yang:1047426] [12] python(+0x13ff96)[0x55726be79f96]
-[x99-Yang:1047426] [13] python(PyEval_EvalCode+0x86)[0x55726bf6fc66]
-[x99-Yang:1047426] [14] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x259480)[0x7efb64a59480]
-[x99-Yang:1047427] [ 2] /usr/lib/wsl/drivers/nv_dispwi.inf_amd64_ae79da740cd6a021/libcuda.so.1.1(+0x371968)[0x7efb64b71968]
-[x99-Yang:1047427] [ 3] libqcu.so(+0x7e642)[0x7efb8ab7b642]
-[x99-Yang:1047427] [ 4] libqcu.so(_Z43__device_stub__Z23bistabcg_give_1rho_prevPvPv+0x91)[0x7efb8ab0b551]
-[x99-Yang:1047427] [ 5] libqcu.so(_ZN15LatticeBistabcg3runEPv+0x91c)[0x7efb8ab1077c]
-[x99-Yang:1047427] [ 6] libqcu.so(_ZN15LatticeBistabcg8run_testEPv+0x284)[0x7efb8ab11084]
-[x99-Yang:1047427] [ 7] libqcu.so(ncclBistabCgQcu+0xe2)[0x7efb8ab0f0b2]
-[x99-Yang:1047427] [ 8] /home/kfutfd/external-libraries/pyquda/pyqcu.cpython-310-x86_64-linux-gnu.so(+0x93ae)[0x7efb8be533ae]
-[x99-Yang:1047427] [ 9] python(_PyEval_EvalFrameDefault+0x644a)[0x56219b76459a]
-[x99-Yang:1047427] [10] python(_PyFunction_Vectorcall+0x7c)[0x56219b77659c]
-[x99-Yang:1047427] [11] python(_PyEval_EvalFrameDefault+0x6d7)[0x56219b75e827]
-[x99-Yang:1047427] [12] python(+0x13ff96)[0x56219b75af96]
-[x99-Yang:1047427] [13] python(PyEval_EvalCode+0x86)[0x56219b850c66]
-[x99-Yang:1047427] [14] python(+0x260b38)[0x56219b87bb38]
-[x99-Yang:1047427] [15] python(+0x260b38)[0x55726bf9ab38]
-[x99-Yang:1047426] [15] python(+0x25a3fb)[0x56219b8753fb]
-[x99-Yang:1047427] [16] python(+0x25a3fb)[0x55726bf943fb]
-[x99-Yang:1047426] [16] python(+0x260885)[0x56219b87b885]
-[x99-Yang:1047427] [17] python(+0x260885)[0x55726bf9a885]
-[x99-Yang:1047426] [17] python(_PyRun_SimpleFileObject+0x1a8)[0x55726bf99d68]
-[x99-Yang:1047426] [18] python(_PyRun_SimpleFileObject+0x1a8)[0x56219b87ad68]
-[x99-Yang:1047427] [18] python(_PyRun_AnyFileObject+0x43)[0x56219b87a9b3]
-[x99-Yang:1047427] [19] python(_PyRun_AnyFileObject+0x43)[0x55726bf999b3]
-[x99-Yang:1047426] [19] python(Py_RunMain+0x2be)[0x55726bf8c45e]
-[x99-Yang:1047426] [20] python(Py_BytesMain+0x2d)[0x55726bf62a3d]
-[x99-Yang:1047426] python(Py_RunMain+0x2be)[0x56219b86d45e]
-[x99-Yang:1047427] [20] python(Py_BytesMain+0x2d)[0x56219b843a3d]
-[x99-Yang:1047427] [21] [21] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7efc07ef2d90]
-[x99-Yang:1047427] [22] /lib/x86_64-linux-gnu/libc.so.6(+0x29d90)[0x7efcec864d90]
-[x99-Yang:1047426] [22] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7efc07ef2e40]
-[x99-Yang:1047427] [23] /lib/x86_64-linux-gnu/libc.so.6(__libc_start_main+0x80)[0x7efcec864e40]
-[x99-Yang:1047426] [23] python(_start+0x25)[0x56219b843935]
-[x99-Yang:1047427] *** End of error message ***
-python(_start+0x25)[0x55726bf62935]
-[x99-Yang:1047426] *** End of error message ***
-==1047426== Warning: Some profiling data are not recorded.
-==1047426== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1047426.nvvp
-==1047427== Warning: Some profiling data are not recorded.
-==1047427== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_1047427.nvvp
---------------------------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code. Per user-direction, the job has been aborted.
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-mpirun noticed that process rank 0 with PID 0 on node x99-Yang exited on signal 11 (Segmentation fault).
---------------------------------------------------------------------------
-======== Error: Application returned non-zero code 139
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :64
+grid_1dim[_X_]   :2
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :1
+lat_3dim[_YZT_]  :65536
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :8192
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :393216
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :49152
+lat_3dim_SC[_YZT_]:786432
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:98304
+##RANK:0##LOOP:0##Residual:4.54895e+06
+##RANK:1##LOOP:0##Residual:4.54895e+06
+##RANK:0##LOOP:1##Residual:44479.6
+##RANK:1##LOOP:1##Residual:44479.6
+##RANK:0##LOOP:2##Residual:8323.12
+##RANK:1##LOOP:2##Residual:8323.12
+##RANK:0##LOOP:3##Residual:88733.2
+##RANK:1##LOOP:3##Residual:88733.2
+##RANK:1##LOOP:4##Residual:12424
+##RANK:0##LOOP:4##Residual:12424
+##RANK:1##LOOP:5##Residual:426.285
+##RANK:0##LOOP:5##Residual:426.285
+##RANK:1##LOOP:6##Residual:200.202
+##RANK:0##LOOP:6##Residual:200.202
+##RANK:1##LOOP:7##Residual:124.179
+##RANK:0##LOOP:7##Residual:124.179
+##RANK:1##LOOP:8##Residual:47.8069
+##RANK:0##LOOP:8##Residual:47.8069
+##RANK:1##LOOP:9##Residual:13.5706
+##RANK:0##LOOP:9##Residual:13.5706
+##RANK:1##LOOP:10##Residual:18.89
+##RANK:0##LOOP:10##Residual:18.89
+##RANK:1##LOOP:11##Residual:4.67069
+##RANK:0##LOOP:11##Residual:4.67069
+##RANK:1##LOOP:12##Residual:8.59472
+##RANK:0##LOOP:12##Residual:8.59472
+##RANK:1##LOOP:13##Residual:42.8359
+##RANK:0##LOOP:13##Residual:42.8359
+##RANK:1##LOOP:14##Residual:13.2314
+##RANK:0##LOOP:14##Residual:13.2314
+##RANK:1##LOOP:15##Residual:31.8215
+##RANK:0##LOOP:15##Residual:31.8215
+##RANK:1##LOOP:16##Residual:0.337315
+##RANK:0##LOOP:16##Residual:0.337315
+##RANK:1##LOOP:17##Residual:0.29056
+##RANK:0##LOOP:17##Residual:0.29056
+##RANK:1##LOOP:18##Residual:0.198486
+##RANK:0##LOOP:18##Residual:0.198486
+##RANK:1##LOOP:19##Residual:0.331376
+##RANK:0##LOOP:19##Residual:0.331376
+##RANK:1##LOOP:20##Residual:0.436413
+##RANK:0##LOOP:20##Residual:0.436413
+##RANK:1##LOOP:21##Residual:0.0904542
+##RANK:0##LOOP:21##Residual:0.0904542
+##RANK:1##LOOP:22##Residual:0.0304353
+##RANK:0##LOOP:22##Residual:0.0304353
+##RANK:1##LOOP:23##Residual:0.0186555
+##RANK:0##LOOP:23##Residual:0.0186555
+##RANK:1##LOOP:24##Residual:0.0138972
+##RANK:0##LOOP:24##Residual:0.0138972
+##RANK:1##LOOP:25##Residual:0.0111434
+##RANK:0##LOOP:25##Residual:0.0111434
+##RANK:1##LOOP:26##Residual:0.0101311
+##RANK:0##LOOP:26##Residual:0.0101311
+##RANK:1##LOOP:27##Residual:0.00873064
+##RANK:0##LOOP:27##Residual:0.00873064
+##RANK:1##LOOP:28##Residual:0.0137009
+##RANK:0##LOOP:28##Residual:0.0137009
+##RANK:1##LOOP:29##Residual:0.0134756
+##RANK:0##LOOP:29##Residual:0.0134756
+##RANK:0##LOOP:30##Residual:0.0029568
+##RANK:1##LOOP:30##Residual:0.0029568
+##RANK:0##LOOP:31##Residual:0.00223957
+##RANK:1##LOOP:31##Residual:0.00223957
+##RANK:0##LOOP:32##Residual:0.00280812
+##RANK:1##LOOP:32##Residual:0.00280812
+##RANK:1##LOOP:33##Residual:0.000879517
+##RANK:0##LOOP:33##Residual:0.000879517
+##RANK:1##LOOP:34##Residual:0.00202137
+##RANK:0##LOOP:34##Residual:0.00202137
+##RANK:0##LOOP:35##Residual:0.00202675
+##RANK:1##LOOP:35##Residual:0.00202675
+##RANK:0##LOOP:36##Residual:0.000924661
+##RANK:1##LOOP:36##Residual:0.000924661
+##RANK:0##LOOP:37##Residual:0.00129576
+##RANK:1##LOOP:37##Residual:0.00129576
+##RANK:0##LOOP:38##Residual:0.000868858
+##RANK:1##LOOP:38##Residual:0.000868858
+##RANK:0##LOOP:39##Residual:0.000939442
+##RANK:1##LOOP:39##Residual:0.000939442
+##RANK:0##LOOP:40##Residual:0.000623018
+##RANK:1##LOOP:40##Residual:0.000623018
+##RANK:1##LOOP:41##Residual:0.00229831
+##RANK:0##LOOP:41##Residual:0.00229831
+##RANK:1##LOOP:42##Residual:0.000575551
+##RANK:0##LOOP:42##Residual:0.000575551
+##RANK:0##LOOP:43##Residual:0.000631396
+##RANK:1##LOOP:43##Residual:0.000631396
+##RANK:0##LOOP:44##Residual:0.000466837
+##RANK:1##LOOP:44##Residual:0.000466837
+##RANK:0##LOOP:45##Residual:0.000199388
+##RANK:1##LOOP:45##Residual:0.000199388
+##RANK:0##LOOP:46##Residual:0.000129877
+##RANK:1##LOOP:46##Residual:0.000129877
+##RANK:0##LOOP:47##Residual:0.000228946
+##RANK:1##LOOP:47##Residual:0.000228946
+##RANK:0##LOOP:48##Residual:0.000150074
+##RANK:1##LOOP:48##Residual:0.000150074
+##RANK:0##LOOP:49##Residual:2.28263e-05
+##RANK:1##LOOP:49##Residual:2.28263e-05
+##RANK:0##LOOP:50##Residual:1.74612e-05
+##RANK:1##LOOP:50##Residual:1.74612e-05
+##RANK:0##LOOP:51##Residual:1.7137e-05
+##RANK:1##LOOP:51##Residual:1.7137e-05
+##RANK:1##LOOP:52##Residual:2.73552e-05
+##RANK:0##LOOP:52##Residual:2.73552e-05
+##RANK:1##LOOP:53##Residual:1.29432e-05
+##RANK:0##LOOP:53##Residual:1.29432e-05
+##RANK:0##LOOP:54##Residual:9.53801e-06
+##RANK:1##LOOP:54##Residual:9.53801e-06
+##RANK:1##LOOP:55##Residual:8.13105e-06
+##RANK:0##LOOP:55##Residual:8.13105e-06
+##RANK:1##LOOP:56##Residual:7.3752e-06
+##RANK:0##LOOP:56##Residual:7.3752e-06
+##RANK:1##LOOP:57##Residual:8.0919e-06
+##RANK:0##LOOP:57##Residual:8.0919e-06
+##RANK:1##LOOP:58##Residual:9.5433e-06
+##RANK:0##LOOP:58##Residual:9.5433e-06
+##RANK:1##LOOP:59##Residual:7.58893e-06
+##RANK:0##LOOP:59##Residual:7.58893e-06
+##RANK:1##LOOP:60##Residual:5.18881e-06
+##RANK:0##LOOP:60##Residual:5.18881e-06
+##RANK:1##LOOP:61##Residual:8.42656e-06
+##RANK:0##LOOP:61##Residual:8.42656e-06
+##RANK:0##LOOP:62##Residual:1.09726e-06
+##RANK:1##LOOP:62##Residual:1.09726e-06
+##RANK:0##LOOP:63##Residual:2.32099e-06
+##RANK:1##LOOP:63##Residual:2.32099e-06
+##RANK:0##LOOP:64##Residual:2.14666e-06
+##RANK:1##LOOP:64##Residual:2.14666e-06
+##RANK:0##LOOP:65##Residual:1.07703e-06
+##RANK:1##LOOP:65##Residual:1.07703e-06
+##RANK:0##LOOP:66##Residual:1.39807e-06
+##RANK:1##LOOP:66##Residual:1.39807e-06
+##RANK:0##LOOP:67##Residual:5.33165e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :30.077815388 sec
+##RANK:1##LOOP:67##Residual:5.33165e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :30.077500075 sec
+## difference: 0.0000004662180527
+## difference: 0.0000004662180527
+QCU bistabcg: 32.750069072999395 sec
+QCU bistabcg: 32.77081347300009 sec
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 16 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =     2.810 secs
+                     init     =     2.809 secs ( 99.969%),	 with        2 calls at 1.404e+06 us per call
+        total accounted       =     2.809 secs ( 99.969%)
+        total missing         =     0.001 secs (  0.031%)
+
+          loadGaugeQuda Total time =     0.219 secs
+                 download     =     0.087 secs ( 39.665%),	 with        2 calls at 4.334e+04 us per call
+                   upload     =     0.013 secs (  5.973%),	 with        1 calls at 1.305e+04 us per call
+                     init     =     0.099 secs ( 45.255%),	 with        2 calls at 4.944e+04 us per call
+                  compute     =     0.019 secs (  8.721%),	 with        2 calls at 9.528e+03 us per call
+                     free     =     0.000 secs (  0.021%),	 with        2 calls at 2.300e+01 us per call
+        total accounted       =     0.218 secs ( 99.635%)
+        total missing         =     0.001 secs (  0.365%)
+
+                endQuda Total time =     0.040 secs
+
+       initQuda-endQuda Total time =    39.184 secs
+
+                   QUDA Total time =     3.490 secs
+                 download     =     0.087 secs (  2.483%),	 with        2 calls at 4.334e+04 us per call
+                   upload     =     0.013 secs (  0.374%),	 with        1 calls at 1.305e+04 us per call
+                     init     =     2.908 secs ( 83.314%),	 with        4 calls at 7.269e+05 us per call
+                  compute     =     0.441 secs ( 12.650%),	 with        3 calls at 1.472e+05 us per call
+                     free     =     0.000 secs (  0.001%),	 with        2 calls at 2.300e+01 us per call
+        total accounted       =     3.449 secs ( 98.823%)
+        total missing         =     0.041 secs (  1.177%)
+
+Device memory used = 1406.2 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 54.0 MiB
+Total host memory used >= 74.3 MiB
+
+==172662== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_172662.nvvp
+==172661== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_172661.nvvp
 ~/qcu
