@@ -547,8 +547,6 @@ __global__ void wilson_dslash_y_compute(void *device_U, void *device_src,
   LatticeComplex U[_LAT_CC_];
   LatticeComplex src[_LAT_SC_];
   LatticeComplex dest[_LAT_SC_];
-  LatticeComplex b_y_send_vec[_LAT_HALF_SC_];
-  LatticeComplex f_y_send_vec[_LAT_HALF_SC_];
   { // y-1
     move_backward(move, y, lat_y);
     if (move == -1) {
@@ -637,8 +635,6 @@ __global__ void wilson_dslash_z_compute(void *device_U, void *device_src,
   LatticeComplex U[_LAT_CC_];
   LatticeComplex src[_LAT_SC_];
   LatticeComplex dest[_LAT_SC_];
-  LatticeComplex b_z_send_vec[_LAT_HALF_SC_];
-  LatticeComplex f_z_send_vec[_LAT_HALF_SC_];
   { // z-1
     move_backward(move, z, lat_z);
     if (move == -1) {
@@ -729,9 +725,6 @@ __global__ void wilson_dslash_t_compute(void *device_U, void *device_src,
   LatticeComplex U[_LAT_CC_];
   LatticeComplex src[_LAT_SC_];
   LatticeComplex dest[_LAT_SC_];
-  LatticeComplex b_t_send_vec[_LAT_HALF_SC_];
-  LatticeComplex f_t_send_vec[_LAT_HALF_SC_];
-
   { // t-1
     move_backward(move, t, lat_t);
     if (move == -1) {
