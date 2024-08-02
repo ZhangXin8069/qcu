@@ -50,7 +50,7 @@ rm: cannot remove '.cache': Is a directory
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 fatal: pathspec '.gitmodules' did not match any files
 ~/qcu/refer/qcu/test ~/qcu/refer/qcu
-The --profile-child-processes  switch is ignored by nsys.
+The  switch is ignored by nsys.
 WARNING: mpirun and any of its children processes will be profiled.
 
 Disabling GPU-Direct RDMA access
@@ -261,8 +261,128 @@ Page-locked host memory used = 10.5 MiB
 Total host memory used >= 14.5 MiB
 
 Generating '/tmp/nsys-report-dca7.qdstrm'
-[1/7] [0%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [0%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [5%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [14%                         ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [11%                         ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==21%                       ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==18%                       ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=16%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [===24%                      ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=====32%                    ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=======39%                  ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==========47%               ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [============55%             ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==============62%           ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [========================100%] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [========================100%] log_ZhangXin8069_19237.nvvp.nsys-rep
-[2/7] [0%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [1%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [2%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [3%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [4%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [5%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [6%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [7%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [8%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [9%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [10%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [11%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [12%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [13%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [14%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=15%                        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=16%                        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==18%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==19%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==20%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==21%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===22%                      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===23%                      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===24%                      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====25%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====26%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====27%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====28%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====29%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====30%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====31%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====32%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======33%                   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======34%                   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======35%                   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======36%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======37%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======38%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======39%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========40%                 ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========41%                 ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========42%                 ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========43%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========44%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========45%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========46%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==========47%               ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==========48%               ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==========49%               ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========50%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========51%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========52%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========53%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============54%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============55%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============56%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============57%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=============58%            ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=============59%            ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=============60%            ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============61%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============62%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============63%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============64%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===============65%          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===============66%          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===============67%          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================68%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================69%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================70%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================71%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=================72%        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=================73%        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=================74%        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================75%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================76%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================77%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================78%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================79%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================80%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================81%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================82%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====================83%     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====================84%     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====================85%     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================86%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================87%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================88%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================89%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======================90%   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======================91%   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======================92%   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================93%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================94%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================95%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================96%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================97% ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================98% ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================99% ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================100%] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================100%] log_ZhangXin8069_19237.nvvp.sqlite
+
+[1/7] [0%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [0%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [5%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [14%                         ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [11%                         ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [==21%                       ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [==18%                       ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [=16%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [===24%                      ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [=====32%                    ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [=======39%                  ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [==========47%               ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [============55%             ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [==============62%           ] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [========================100%] log_ZhangXin8069_19237.nvvp.nsys-rep
+[1/7] [========================100%] log_ZhangXin8069_19237.nvvp.nsys-rep
+
+[2/7] [0%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [1%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [2%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [3%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [4%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [5%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [6%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [7%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [8%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [9%                          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [10%                         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [11%                         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [12%                         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [13%                         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [14%                         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=15%                        ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=16%                        ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==18%                       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==19%                       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==20%                       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==21%                       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===22%                      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===23%                      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===24%                      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====25%                     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====26%                     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====27%                     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====28%                     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====29%                    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====30%                    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====31%                    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====32%                    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [======33%                   ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [======34%                   ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [======35%                   ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======36%                  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======37%                  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======38%                  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======39%                  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========40%                 ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========41%                 ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========42%                 ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=========43%                ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=========44%                ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=========45%                ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=========46%                ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==========47%               ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==========48%               ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==========49%               ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===========50%              ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===========51%              ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===========52%              ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===========53%              ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [============54%             ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [============55%             ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [============56%             ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [============57%             ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=============58%            ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=============59%            ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=============60%            ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==============61%           ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==============62%           ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==============63%           ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==============64%           ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===============65%          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===============66%          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===============67%          ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [================68%         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [================69%         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [================70%         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [================71%         ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=================72%        ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=================73%        ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=================74%        ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==================75%       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==================76%       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==================77%       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [==================78%       ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===================79%      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===================80%      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===================81%      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [===================82%      ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====================83%     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====================84%     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [====================85%     ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====================86%    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====================87%    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====================88%    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=====================89%    ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [======================90%   ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [======================91%   ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [======================92%   ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======================93%  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======================94%  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======================95%  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [=======================96%  ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========================97% ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========================98% ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========================99% ] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========================100%] log_ZhangXin8069_19237.nvvp.sqlite
+[2/7] [========================100%] log_ZhangXin8069_19237.nvvp.sqlite
 SKIPPED: /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.sqlite does not contain NV Tools Extension (NVTX) data.
 [3/7] Executing 'nvtx_sum' stats report
 [4/7] Executing 'cuda_api_sum' stats report

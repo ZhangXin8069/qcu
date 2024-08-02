@@ -1,4 +1,4 @@
-profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Fri Aug  2 18:32:07 2024
+profile	1.1.0	1.1.0--sm_70	cpu_arch=x86_64,gpu_arch=sm_70,cuda_version=11.6.124	# Last updated Sat Aug  3 01:18:46 2024
 
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
 
