@@ -1,0 +1,180 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- The CUDA compiler identification is NVIDIA 11.5.119
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/zhangxin/qcu
+[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+rm: cannot remove '.': Is a directory
+rm: cannot remove '..': Is a directory
+rm: cannot remove '.cache': Is a directory
+rm: cannot remove '.git': Is a directory
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+fatal: pathspec '.gitmodules' did not match any files
+~/qcu/test ~/qcu
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 12050
+CUDA Runtime version = 12030
+Found device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: ** Running on a device with compute capability 8.9 but QUDA was compiled for 8.0. **
+ -- This might result in a lower performance. Please consider adjusting QUDA_GPU_ARCH when running cmake.
+
+Using device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+Loaded 20 sets of cached parameters from .cache/tunecache.tsv
+Loaded 20 sets of cached parameters from .cache/tunecache.tsv
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+===============round  0 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.15400661300009233 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007282874 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007303543 sec
+QCU dslash: 1.2632711890000792 sec
+quda difference:  2.7651112771064477e-16
+===============round  1 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0056049990007522865 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007253190 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007300171 sec
+QCU dslash: 1.0887902929998745 sec
+quda difference:  2.7646935174843486e-16
+===============round  2 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.005946659999608528 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007286730 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007286609 sec
+QCU dslash: 1.0820954230002826 sec
+quda difference:  2.7630068304358014e-16
+===============round  3 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.00539912399926834 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006862040 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007832245 sec
+QCU dslash: 1.083456142999239 sec
+quda difference:  2.76069165818848e-16
+===============round  4 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0053431629994520335 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007304280 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007866051 sec
+QCU dslash: 1.0854762030003258 sec
+quda difference:  2.7659503133460583e-16
+===============round  5 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0054610449997198884 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007338958 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007351612 sec
+QCU dslash: 1.0923267079997458 sec
+quda difference:  2.7628505441496e-16
+===============round  6 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.005425188999652164 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011947681 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007275128 sec
+QCU dslash: 1.0823094359993775 sec
+quda difference:  2.765071266521908e-16
+===============round  7 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.006808403999457369 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007328793 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007282859 sec
+QCU dslash: 1.0822647869999855 sec
+quda difference:  2.7635743903010615e-16
+===============round  8 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.005266469000162033 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006914828 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007342682 sec
+QCU dslash: 1.1003106689995548 sec
+quda difference:  2.763039953229762e-16
+===============round  9 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.005394627999521617 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007332391 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007280425 sec
+QCU dslash: 1.107016561000819 sec
+quda difference:  2.763256026600582e-16
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 20 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =     0.017 secs
+                     init     =     0.017 secs ( 99.960%),	 with        2 calls at 8.686e+03 us per call
+        total accounted       =     0.017 secs ( 99.960%)
+        total missing         =     0.000 secs (  0.040%)
+
+          loadGaugeQuda Total time =     0.171 secs
+                 download     =     0.070 secs ( 41.066%),	 with       20 calls at 3.521e+03 us per call
+                   upload     =     0.019 secs ( 10.808%),	 with       10 calls at 1.854e+03 us per call
+                     init     =     0.052 secs ( 30.065%),	 with       20 calls at 2.578e+03 us per call
+                  compute     =     0.031 secs ( 17.847%),	 with       20 calls at 1.530e+03 us per call
+                     free     =     0.000 secs (  0.068%),	 with       20 calls at 5.850e+00 us per call
+        total accounted       =     0.171 secs ( 99.854%)
+        total missing         =     0.000 secs (  0.146%)
+
+             dslashQuda Total time =     0.153 secs
+                 download     =     0.006 secs (  4.166%),	 with       20 calls at 3.181e+02 us per call
+                   upload     =     0.000 secs (  0.261%),	 with       20 calls at 1.990e+01 us per call
+                     init     =     0.000 secs (  0.159%),	 with       20 calls at 1.215e+01 us per call
+                  compute     =     0.146 secs ( 95.393%),	 with       20 calls at 7.284e+03 us per call
+                     free     =     0.000 secs (  0.012%),	 with       20 calls at 9.500e-01 us per call
+        total accounted       =     0.153 secs ( 99.991%)
+        total missing         =     0.000 secs (  0.009%)
+
+                endQuda Total time =     0.006 secs
+
+       initQuda-endQuda Total time =    14.838 secs
+
+                   QUDA Total time =     2.384 secs
+                 download     =     0.077 secs (  3.221%),	 with       40 calls at 1.920e+03 us per call
+                   upload     =     0.019 secs (  0.794%),	 with       30 calls at 6.312e+02 us per call
+                     init     =     0.069 secs (  2.902%),	 with       42 calls at 1.647e+03 us per call
+                  compute     =     2.213 secs ( 92.812%),	 with       50 calls at 4.425e+04 us per call
+                     free     =     0.000 secs (  0.004%),	 with       40 calls at 2.600e+00 us per call
+        total accounted       =     2.378 secs ( 99.734%)
+        total missing         =     0.006 secs (  0.266%)
+
+Device memory used = 186.9 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 10.5 MiB
+Total host memory used >= 14.5 MiB
+
+FATAL ERROR: /dvs/p4/build/sw/devtools/Agora/Rel/CUDA12.3/QuadD/Target/quadd_d/quadd_d/jni/EventSource/Trace.cpp(1855): Throw in function QuadDCommon::Uuid QuadDDaemon::EventSource::Trace::GetCudaDeviceUuidForTimestamp(QuadDCommon::ProcessId, const ConstTraceEvent&, uint64_t) const
+Dynamic exception type: boost::wrapexcept<QuadDCommon::InternalErrorException>
+std::exception::what: InternalErrorException
+[QuadDCommon::tag_message*] = Can't find UUID for CUDA device 0 (PID 65349)
+
+~/qcu

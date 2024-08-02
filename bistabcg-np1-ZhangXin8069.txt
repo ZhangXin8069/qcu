@@ -1,0 +1,43 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- The CUDA compiler identification is NVIDIA 11.5.119
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/zhangxin/qcu
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+rm: cannot remove '.': Is a directory
+rm: cannot remove '..': Is a directory
+rm: cannot remove '.cache': Is a directory
+rm: cannot remove '.git': Is a directory
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+fatal: pathspec '.gitmodules' did not match any files
+~/qcu/test ~/qcu
+test.nccl.bistabcg-np1.sh: line 4: nsys: command not found
+~/qcu

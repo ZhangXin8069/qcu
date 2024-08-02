@@ -1,0 +1,320 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- The CUDA compiler identification is NVIDIA 11.5.119
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/zhangxin/qcu/refer/qcu
+[ 10%] Building CUDA object CMakeFiles/qcu.dir/src/qcd/qcu_dslash.cu.o
+[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/qcd/qcu_wilson_dslash.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/qcu_storage/qcu_storage.cu.o
+[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/comm/qcu_communicator.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/qcu.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/algebra/qcu_algebra.cu.o
+[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/solver/qcu_cg.cu.o
+/home/zhangxin/qcu/refer/qcu/src/solver/qcu_cg.cu(30): warning #177-D: variable "stream2" was declared but never referenced
+
+/home/zhangxin/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu(128): warning #177-D: variable "Nx" was declared but never referenced
+
+/home/zhangxin/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu(129): warning #177-D: variable "Ny" was declared but never referenced
+
+/home/zhangxin/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu(130): warning #177-D: variable "Nz" was declared but never referenced
+
+/home/zhangxin/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu(131): warning #177-D: variable "Nt" was declared but never referenced
+
+[ 80%] Linking CUDA shared library libqcu.so
+[ 80%] Built target qcu
+[ 90%] Building CUDA object CMakeFiles/test_linear_algebra.dir/src/tests/linear_algebra/test_kernels.cu.o
+[100%] Linking CUDA executable tests/test_linear_algebra
+[100%] Built target test_linear_algebra
+rm: cannot remove '.': Is a directory
+rm: cannot remove '..': Is a directory
+rm: cannot remove '.cache': Is a directory
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+fatal: pathspec '.gitmodules' did not match any files
+~/qcu/refer/qcu/test ~/qcu/refer/qcu
+The --profile-child-processes  switch is ignored by nsys.
+WARNING: mpirun and any of its children processes will be profiled.
+
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 12050
+CUDA Runtime version = 12030
+Found device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: ** Running on a device with compute capability 8.9 but QUDA was compiled for 8.0. **
+ -- This might result in a lower performance. Please consider adjusting QUDA_GPU_ARCH when running cmake.
+
+Using device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+Loaded 38 sets of cached parameters from .cache/tunecache.tsv
+Loaded 38 sets of cached parameters from .cache/tunecache.tsv
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.8572557610000331 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.8572557610000331 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9864105389999622 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9864105389999622 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6465588959999877 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6465588959999877 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9636088400000062 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9636088400000062 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6488297119999515 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6488297119999515 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 1.0524410580001131 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 1.0524410580001131 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.7974577930001487 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.7974577930001487 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 1.0178709250001248 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 1.0178709250001248 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6348267519999808 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6348267519999808 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9819247580001047 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9819247580001047 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.654573001000017 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.654573001000017 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9659931690000576 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9659931690000576 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6587919790001706 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6587919790001706 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9466967649998423 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9466967649998423 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6759626599998683 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6759626599998683 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 1.002626156999895 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 1.002626156999895 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6339517859998978 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6339517859998978 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9987127140000212 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9987127140000212 sec
+============================
+single latt size = [16, 16, 16, 32]
+norm(p) = 1773.6200269505305
+norm(p[0]) = 1254.1387483049873
+norm(p[1]) = 1254.1387483049873
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 7.991046e-10, true = 7.991046e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1567450346273865e-10, takes 0.6498367549997965 sec, norm_quda_x = 137995.62445181826
+quda rank 0 takes 0.6498367549997965 sec
+===============qcu==================
+CG inverter succeed in 167 iterations
+rank 0 my x and x difference: , 1.5471953684227674e-10, takes 0.9656281029999718 sec, my_x_norm = 137995.6244518183
+qcu rank 0 takes 0.9656281029999718 sec
+============================
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 38 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =     0.015 secs
+                     init     =     0.015 secs ( 99.830%),	 with        2 calls at 7.648e+03 us per call
+        total accounted       =     0.015 secs ( 99.830%)
+        total missing         =     0.000 secs (  0.170%)
+
+          loadGaugeQuda Total time =     0.106 secs
+                 download     =     0.071 secs ( 66.367%),	 with       20 calls at 3.525e+03 us per call
+                   upload     =     0.014 secs ( 13.573%),	 with       10 calls at 1.442e+03 us per call
+                     init     =     0.021 secs ( 19.795%),	 with       20 calls at 1.051e+03 us per call
+                  compute     =     0.000 secs (  0.008%),	 with       20 calls at 4.000e-01 us per call
+                     free     =     0.000 secs (  0.051%),	 with       20 calls at 2.700e+00 us per call
+        total accounted       =     0.106 secs ( 99.794%)
+        total missing         =     0.000 secs (  0.206%)
+
+             invertQuda Total time =     6.848 secs
+                 download     =     0.008 secs (  0.122%),	 with       10 calls at 8.344e+02 us per call
+                   upload     =     0.000 secs (  0.004%),	 with       10 calls at 2.480e+01 us per call
+                     init     =     0.004 secs (  0.058%),	 with       10 calls at 4.003e+02 us per call
+                 preamble     =     0.148 secs (  2.168%),	 with       20 calls at 7.422e+03 us per call
+                  compute     =     6.618 secs ( 96.644%),	 with       10 calls at 6.618e+05 us per call
+                 epilogue     =     0.037 secs (  0.547%),	 with       30 calls at 1.250e+03 us per call
+                     free     =     0.000 secs (  0.002%),	 with       20 calls at 5.250e+00 us per call
+        total accounted       =     6.817 secs ( 99.545%)
+        total missing         =     0.031 secs (  0.455%)
+
+                endQuda Total time =     0.005 secs
+
+       initQuda-endQuda Total time =    18.373 secs
+
+                   QUDA Total time =     7.626 secs
+                 download     =     0.079 secs (  1.034%),	 with       30 calls at 2.628e+03 us per call
+                   upload     =     0.015 secs (  0.192%),	 with       20 calls at 7.334e+02 us per call
+                     init     =     0.040 secs (  0.529%),	 with       32 calls at 1.261e+03 us per call
+                 preamble     =     0.148 secs (  1.946%),	 with       20 calls at 7.422e+03 us per call
+                  compute     =     7.270 secs ( 95.325%),	 with       40 calls at 1.817e+05 us per call
+                 epilogue     =     0.038 secs (  0.492%),	 with       30 calls at 1.250e+03 us per call
+                     free     =     0.000 secs (  0.002%),	 with       40 calls at 3.950e+00 us per call
+        total accounted       =     7.590 secs ( 99.521%)
+        total missing         =     0.037 secs (  0.479%)
+
+Device memory used = 224.1 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 10.5 MiB
+Total host memory used >= 14.5 MiB
+
+Generating '/tmp/nsys-report-dca7.qdstrm'
+[1/7] [0%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [0%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [5%                          ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [14%                         ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [11%                         ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==21%                       ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==18%                       ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=16%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [===24%                      ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=====32%                    ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [=======39%                  ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==========47%               ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [============55%             ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [==============62%           ] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [========================100%] log_ZhangXin8069_19237.nvvp.nsys-rep[1/7] [========================100%] log_ZhangXin8069_19237.nvvp.nsys-rep
+[2/7] [0%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [1%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [2%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [3%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [4%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [5%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [6%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [7%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [8%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [9%                          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [10%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [11%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [12%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [13%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [14%                         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=15%                        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=16%                        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=17%                        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==18%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==19%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==20%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==21%                       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===22%                      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===23%                      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===24%                      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====25%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====26%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====27%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====28%                     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====29%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====30%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====31%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====32%                    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======33%                   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======34%                   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======35%                   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======36%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======37%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======38%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======39%                  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========40%                 ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========41%                 ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========42%                 ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========43%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========44%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========45%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=========46%                ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==========47%               ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==========48%               ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==========49%               ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========50%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========51%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========52%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===========53%              ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============54%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============55%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============56%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [============57%             ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=============58%            ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=============59%            ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=============60%            ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============61%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============62%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============63%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==============64%           ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===============65%          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===============66%          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===============67%          ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================68%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================69%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================70%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [================71%         ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=================72%        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=================73%        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=================74%        ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================75%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================76%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================77%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [==================78%       ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================79%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================80%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================81%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [===================82%      ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====================83%     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====================84%     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [====================85%     ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================86%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================87%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================88%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=====================89%    ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======================90%   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======================91%   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [======================92%   ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================93%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================94%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================95%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [=======================96%  ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================97% ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================98% ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================99% ] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================100%] log_ZhangXin8069_19237.nvvp.sqlite[2/7] [========================100%] log_ZhangXin8069_19237.nvvp.sqlite
+SKIPPED: /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.sqlite does not contain NV Tools Extension (NVTX) data.
+[3/7] Executing 'nvtx_sum' stats report
+[4/7] Executing 'cuda_api_sum' stats report
+
+ Time (%)  Total Time (ns)  Num Calls  Avg (ns)   Med (ns)   Min (ns)  Max (ns)  StdDev (ns)                Name               
+ --------  ---------------  ---------  ---------  ---------  --------  --------  -----------  ---------------------------------
+     49.7       7660872100      34970   219069.8      790.0       237  22039642     432488.0  cudaStreamSynchronize            
+     29.4       4539632500       3580  1268053.8  1465149.5       737   5251053     650713.2  cuStreamSynchronize              
+     12.4       1917452521      19950    96112.9    44441.5      2869   4409431     148054.4  cudaMemcpyAsync                  
+      4.7        729666671        398  1833333.3    45950.5       208  76874294    9499225.3  cuCtxSynchronize                 
+      2.7        418620441      44771     9350.3     5026.0      2361  56901801     291263.4  cudaLaunchKernel                 
+      0.3         49292312        163   302406.8   223038.0      2326   6733658     532802.2  cudaMalloc                       
+      0.2         34245968        148   231391.7   134630.0      2093   6661636     558666.1  cudaFree                         
+      0.2         24582652         70   351180.7   260615.0     30750    852571     260973.6  cudaMemcpy                       
+      0.1         12858904        104   123643.3     6273.5       330   1826255     245967.0  cudaDeviceSynchronize            
+      0.1          9113217          9  1012579.7   328797.0    196353   5400464    1692046.1  cuModuleLoadData                 
+      0.0          5942110          8   742763.8   804337.0    260516   1269370     358043.6  cudaHostRegister                 
+      0.0          2941742       3580      821.7      549.0       165     71077       1542.5  cuEventRecord                    
+      0.0          2858744        350     8167.8     5585.5      2528     60840       6948.0  cuLaunchKernel                   
+      0.0          2053130       3580      573.5      408.0       188     59890       1208.8  cuStreamWaitEvent                
+      0.0          1990287        110    18093.5    15155.5      6100    208728      19061.5  cuMemcpyHtoDAsync_v2             
+      0.0          1907934        142    13436.2    11326.5      3038     71017       8727.4  cuMemsetD32Async                 
+      0.0          1758328          8   219791.0   185456.0    130832    509510     122014.4  cudaHostUnregister               
+      0.0          1432110         10   143211.0      641.5       534   1416144     447274.2  cudaStreamCreate                 
+      0.0          1012954        120     8441.3     5232.0      2718     62967      10439.3  cuMemcpyDtoD_v2                  
+      0.0           663468        120     5528.9     3791.0      2743     32686       3952.8  cuMemcpy                         
+      0.0           538200         60     8970.0     5940.0      4663     49457       6953.1  cudaMemsetAsync                  
+      0.0           455961         40    11399.0     7801.5      3460     55227      10333.9  cudaMemset2D                     
+      0.0           268500          9    29833.3      708.0       556    250306      82778.2  cudaStreamCreateWithPriority     
+      0.0           253193         70     3617.0      637.5       412    203148      24195.3  cudaStreamIsCapturing_v10000     
+      0.0           230168       1171      196.6       91.0        50    103899       3033.7  cuGetProcAddress_v2              
+      0.0           125406          1   125406.0   125406.0    125406    125406          0.0  cudaMemGetInfo                   
+      0.0           103063         10    10306.3    10478.5      9170     11138        759.4  cudaMemset                       
+      0.0            99605          2    49802.5    49802.5     28576     71029      30018.8  cuModuleUnload                   
+      0.0            75943          4    18985.8    17721.5     12868     27632       6452.8  cuMemsetD32_v2                   
+      0.0            38844        373      SKIPPED: /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.sqlite does not contain CUDA kernel data.
+SKIPPED: /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.sqlite does not contain GPU memory data.
+SKIPPED: /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.sqlite does not contain GPU memory data.
+104.1       88.0        55       814         61.7  cuGetProcAddress                 
+      0.0            22136         41      539.9      203.0       182      5979       1077.3  cudaEventCreateWithFlags         
+      0.0            10816         41      263.8      162.0       142      1655        334.7  cudaEventDestroy                 
+      0.0            10282          9     1142.4      636.0       448      5217       1533.5  cudaStreamDestroy                
+      0.0             3676          4      919.0      979.0       669      1049        171.5  cuInit                           
+      0.0             3367          2     1683.5     1683.5       913      2454       1089.7  cudaGetDeviceProperties_v2_v12000
+      0.0             2238          2     1119.0     1119.0      1072      1166         66.5  cudaEventCreate                  
+      0.0             1290          2      645.0      645.0       280      1010        516.2  cudaGetDriverEntryPoint_v11030   
+      0.0              805          4      201.3      101.0        91       512        207.2  cuModuleGetLoadingMode           
+
+[5/7] Executing 'cuda_gpu_kern_sum' stats report
+[6/7] Executing 'cuda_gpu_mem_time_sum' stats report
+[7/7] Executing 'cuda_gpu_mem_size_sum' stats report
+Generated:
+    /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.nsys-rep
+    /home/zhangxin/qcu/refer/qcu/test/log_ZhangXin8069_19237.nvvp.sqlite
+~/qcu/refer/qcu
