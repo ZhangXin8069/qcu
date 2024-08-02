@@ -1,0 +1,168 @@
+!SESSION 2024-08-03 01:24:23.577 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_422
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.837
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:24:23.839
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.ui 4 4 2024-08-03 01:24:41.995
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.editors.
+
+!ENTRY com.nvidia.viper 4 0 2024-08-03 01:24:58.131
+!MESSAGE Unable to locate CUPTI library. 
+
+Make sure that the CUPTI library is on your library path. It is located in folder 
+
+<CUDA_DIR>/extras/CUPTI/lib64
+OR
+<CUDA_DIR>/targets/x86_64-linux/lib
+!SESSION 2024-08-03 01:25:19.329 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_422
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.544
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:19.546
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-08-03 01:25:20.519
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui 4 4 2024-08-03 01:25:21.227
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.editors.
+
+!ENTRY com.nvidia.viper 4 0 2024-08-03 01:25:27.502
+!MESSAGE Unable to locate CUPTI library. 
+
+Make sure that the CUPTI library is on your library path. It is located in folder 
+
+<CUDA_DIR>/extras/CUPTI/lib64
+OR
+<CUDA_DIR>/targets/x86_64-linux/lib
+!SESSION 2024-08-03 01:25:42.806 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_422
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.979
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 01:25:42.981
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-08-03 01:25:59.450
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui 4 4 2024-08-03 01:26:00.206
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.editors.
+
+!ENTRY com.nvidia.viper 4 0 2024-08-03 01:26:05.499
+!MESSAGE Unable to locate CUPTI library. 
+
+Make sure that the CUPTI library is on your library path. It is located in folder 
+
+<CUDA_DIR>/extras/CUPTI/lib64
+OR
+<CUDA_DIR>/targets/x86_64-linux/lib
+!SESSION 2024-08-03 02:32:04.810 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_422
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.038
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-03 02:32:05.040
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-08-03 02:32:05.871
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
+
+!ENTRY org.eclipse.ui 4 4 2024-08-03 02:32:06.660
+!MESSAGE Referenced part does not exist yet: org.eclipse.ui.editors.
