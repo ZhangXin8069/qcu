@@ -1,6 +1,6 @@
 -- The C compiler identification is GNU 11.4.0
 -- The CXX compiler identification is GNU 11.4.0
--- The CUDA compiler identification is NVIDIA 11.5.119
+-- The CUDA compiler identification is NVIDIA 12.3.103
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
 -- Check for working C compiler: /usr/bin/cc - skipped
@@ -13,7 +13,7 @@
 -- Detecting CXX compile features - done
 -- Detecting CUDA compiler ABI info
 -- Detecting CUDA compiler ABI info - done
--- Check for working CUDA compiler: /usr/bin/nvcc - skipped
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
 -- Detecting CUDA compile features
 -- Detecting CUDA compile features - done
 -- Found MPI_C: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
@@ -22,19 +22,18 @@
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/zhangxin/qcu
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
 [ 44%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
-[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 rm: cannot remove '.': Is a directory
 rm: cannot remove '..': Is a directory
-rm: cannot remove '.cache': Is a directory
 rm: cannot remove '.git': Is a directory
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 fatal: pathspec '.gitmodules' did not match any files
@@ -100,56 +99,53 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:14##Residual:0.133418
 ##RANK:0##LOOP:15##Residual:0.177218
 ##RANK:0##LOOP:16##Residual:0.0511562
-##RANK:0##LOOP:17##Residual:0.0237459
-##RANK:0##LOOP:18##Residual:0.0935388
-##RANK:0##LOOP:19##Residual:0.0389647
-##RANK:0##LOOP:20##Residual:0.0696137
-##RANK:0##LOOP:21##Residual:0.496742
-##RANK:0##LOOP:22##Residual:0.0352965
-##RANK:0##LOOP:23##Residual:0.0325843
-##RANK:0##LOOP:24##Residual:0.0146372
-##RANK:0##LOOP:25##Residual:0.021022
-##RANK:0##LOOP:26##Residual:0.0287766
-##RANK:0##LOOP:27##Residual:0.000744393
-##RANK:0##LOOP:28##Residual:0.000741319
-##RANK:0##LOOP:29##Residual:0.000523591
-##RANK:0##LOOP:30##Residual:0.000587171
-##RANK:0##LOOP:31##Residual:0.000418783
-##RANK:0##LOOP:32##Residual:0.000372725
-##RANK:0##LOOP:33##Residual:0.000290059
-##RANK:0##LOOP:34##Residual:0.00135971
-##RANK:0##LOOP:35##Residual:0.000235018
-##RANK:0##LOOP:36##Residual:0.000144073
-##RANK:0##LOOP:37##Residual:6.57499e-05
-##RANK:0##LOOP:38##Residual:6.29856e-05
-##RANK:0##LOOP:39##Residual:6.49811e-05
-##RANK:0##LOOP:40##Residual:0.000130721
-##RANK:0##LOOP:41##Residual:6.11105e-05
-##RANK:0##LOOP:42##Residual:4.3352e-05
-##RANK:0##LOOP:43##Residual:0.000123165
-##RANK:0##LOOP:44##Residual:2.5281e-05
-##RANK:0##LOOP:45##Residual:1.26984e-05
-##RANK:0##LOOP:46##Residual:1.13197e-05
-##RANK:0##LOOP:47##Residual:1.01157e-05
-##RANK:0##LOOP:48##Residual:7.58417e-06
-##RANK:0##LOOP:49##Residual:8.08316e-06
-##RANK:0##LOOP:50##Residual:8.18207e-06
-##RANK:0##LOOP:51##Residual:1.38733e-05
-##RANK:0##LOOP:52##Residual:5.59685e-06
-##RANK:0##LOOP:53##Residual:5.01361e-06
-##RANK:0##LOOP:54##Residual:4.02802e-06
-##RANK:0##LOOP:55##Residual:3.562e-06
-##RANK:0##LOOP:56##Residual:3.62501e-06
-##RANK:0##LOOP:57##Residual:1.72261e-06
-##RANK:0##LOOP:58##Residual:1.56222e-06
-##RANK:0##LOOP:59##Residual:9.03351e-06
-##RANK:0##LOOP:60##Residual:1.24305e-06
-##RANK:0##LOOP:61##Residual:1.16785e-06
-##RANK:0##LOOP:62##Residual:4.71743e-06
-##RANK:0##LOOP:63##Residual:7.93171e-08
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.789166114 sec
-## difference: 0.0000001743732904
-QCU bistabcg: 1.2081881419999263 sec
+##RANK:0##LOOP:17##Residual:0.0476252
+##RANK:0##LOOP:18##Residual:0.218594
+##RANK:0##LOOP:19##Residual:0.129424
+##RANK:0##LOOP:20##Residual:0.0783969
+##RANK:0##LOOP:21##Residual:0.467012
+##RANK:0##LOOP:22##Residual:0.019351
+##RANK:0##LOOP:23##Residual:0.014889
+##RANK:0##LOOP:24##Residual:0.00671101
+##RANK:0##LOOP:25##Residual:0.0233627
+##RANK:0##LOOP:26##Residual:0.0220981
+##RANK:0##LOOP:27##Residual:0.000665685
+##RANK:0##LOOP:28##Residual:0.000658658
+##RANK:0##LOOP:29##Residual:0.000494647
+##RANK:0##LOOP:30##Residual:0.000472662
+##RANK:0##LOOP:31##Residual:0.000361862
+##RANK:0##LOOP:32##Residual:0.000323421
+##RANK:0##LOOP:33##Residual:0.0005212
+##RANK:0##LOOP:34##Residual:0.00131697
+##RANK:0##LOOP:35##Residual:0.000190236
+##RANK:0##LOOP:36##Residual:0.000122594
+##RANK:0##LOOP:37##Residual:6.56452e-05
+##RANK:0##LOOP:38##Residual:5.35957e-05
+##RANK:0##LOOP:39##Residual:4.86439e-05
+##RANK:0##LOOP:40##Residual:7.19421e-05
+##RANK:0##LOOP:41##Residual:4.07988e-05
+##RANK:0##LOOP:42##Residual:2.1928e-05
+##RANK:0##LOOP:43##Residual:1.89953e-05
+##RANK:0##LOOP:44##Residual:1.66069e-05
+##RANK:0##LOOP:45##Residual:9.1778e-06
+##RANK:0##LOOP:46##Residual:7.2685e-06
+##RANK:0##LOOP:47##Residual:6.9112e-06
+##RANK:0##LOOP:48##Residual:5.58914e-06
+##RANK:0##LOOP:49##Residual:6.5706e-06
+##RANK:0##LOOP:50##Residual:5.77068e-06
+##RANK:0##LOOP:51##Residual:5.15496e-06
+##RANK:0##LOOP:52##Residual:3.4583e-06
+##RANK:0##LOOP:53##Residual:2.81945e-06
+##RANK:0##LOOP:54##Residual:3.11718e-06
+##RANK:0##LOOP:55##Residual:2.1107e-06
+##RANK:0##LOOP:56##Residual:1.42583e-06
+##RANK:0##LOOP:57##Residual:3.41728e-06
+##RANK:0##LOOP:58##Residual:1.21955e-06
+##RANK:0##LOOP:59##Residual:1.10845e-06
+##RANK:0##LOOP:60##Residual:7.35638e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.732196321 sec
+## difference: 0.0000015095711384
+QCU bistabcg: 1.2349735139996483 sec
 ===============round  1 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -194,52 +190,52 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:13##Residual:0.200992
 ##RANK:0##LOOP:14##Residual:0.153201
 ##RANK:0##LOOP:15##Residual:0.207639
-##RANK:0##LOOP:16##Residual:0.0445133
-##RANK:0##LOOP:17##Residual:0.0402971
-##RANK:0##LOOP:18##Residual:0.106691
-##RANK:0##LOOP:19##Residual:10.2252
-##RANK:0##LOOP:20##Residual:0.042239
-##RANK:0##LOOP:21##Residual:0.185679
-##RANK:0##LOOP:22##Residual:0.0131973
-##RANK:0##LOOP:23##Residual:0.0097126
-##RANK:0##LOOP:24##Residual:0.00734564
-##RANK:0##LOOP:25##Residual:0.00512869
-##RANK:0##LOOP:26##Residual:0.0556765
-##RANK:0##LOOP:27##Residual:0.000819255
-##RANK:0##LOOP:28##Residual:0.000579965
-##RANK:0##LOOP:29##Residual:0.000475078
-##RANK:0##LOOP:30##Residual:0.00046047
-##RANK:0##LOOP:31##Residual:0.000345796
-##RANK:0##LOOP:32##Residual:0.00030031
-##RANK:0##LOOP:33##Residual:0.000436577
-##RANK:0##LOOP:34##Residual:0.000757494
-##RANK:0##LOOP:35##Residual:0.000175183
-##RANK:0##LOOP:36##Residual:0.000113785
-##RANK:0##LOOP:37##Residual:6.66793e-05
-##RANK:0##LOOP:38##Residual:6.93165e-05
-##RANK:0##LOOP:39##Residual:5.76924e-05
-##RANK:0##LOOP:40##Residual:9.53292e-05
-##RANK:0##LOOP:41##Residual:0.000103125
-##RANK:0##LOOP:42##Residual:1.27144e-05
-##RANK:0##LOOP:43##Residual:2.53216e-05
-##RANK:0##LOOP:44##Residual:2.43485e-05
-##RANK:0##LOOP:45##Residual:1.14001e-05
-##RANK:0##LOOP:46##Residual:1.09299e-05
-##RANK:0##LOOP:47##Residual:1.15848e-05
-##RANK:0##LOOP:48##Residual:9.93128e-06
-##RANK:0##LOOP:49##Residual:9.41225e-06
-##RANK:0##LOOP:50##Residual:5.0828e-05
-##RANK:0##LOOP:51##Residual:3.88558e-05
-##RANK:0##LOOP:52##Residual:1.56386e-05
-##RANK:0##LOOP:53##Residual:1.47854e-05
-##RANK:0##LOOP:54##Residual:1.54516e-05
-##RANK:0##LOOP:55##Residual:2.47572e-05
-##RANK:0##LOOP:56##Residual:0.000192522
-##RANK:0##LOOP:57##Residual:1.068e-05
-##RANK:0##LOOP:58##Residual:9.89237e-08
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.712034820 sec
-## difference: 0.0000008476591783
-QCU bistabcg: 1.0511354760001268 sec
+##RANK:0##LOOP:16##Residual:0.0373014
+##RANK:0##LOOP:17##Residual:0.02208
+##RANK:0##LOOP:18##Residual:0.0430559
+##RANK:0##LOOP:19##Residual:11.3756
+##RANK:0##LOOP:20##Residual:0.0424095
+##RANK:0##LOOP:21##Residual:0.180541
+##RANK:0##LOOP:22##Residual:0.0253449
+##RANK:0##LOOP:23##Residual:0.003505
+##RANK:0##LOOP:24##Residual:0.00296311
+##RANK:0##LOOP:25##Residual:0.00247706
+##RANK:0##LOOP:26##Residual:0.0237297
+##RANK:0##LOOP:27##Residual:0.000535941
+##RANK:0##LOOP:28##Residual:0.000450832
+##RANK:0##LOOP:29##Residual:0.000339906
+##RANK:0##LOOP:30##Residual:0.000314585
+##RANK:0##LOOP:31##Residual:0.000256503
+##RANK:0##LOOP:32##Residual:0.000225108
+##RANK:0##LOOP:33##Residual:0.000330418
+##RANK:0##LOOP:34##Residual:0.00054345
+##RANK:0##LOOP:35##Residual:0.000140875
+##RANK:0##LOOP:36##Residual:9.30503e-05
+##RANK:0##LOOP:37##Residual:5.44452e-05
+##RANK:0##LOOP:38##Residual:5.65748e-05
+##RANK:0##LOOP:39##Residual:5.87061e-05
+##RANK:0##LOOP:40##Residual:6.44883e-05
+##RANK:0##LOOP:41##Residual:5.14907e-05
+##RANK:0##LOOP:42##Residual:1.29936e-05
+##RANK:0##LOOP:43##Residual:3.94005e-05
+##RANK:0##LOOP:44##Residual:1.63078e-05
+##RANK:0##LOOP:45##Residual:1.28708e-05
+##RANK:0##LOOP:46##Residual:1.26185e-05
+##RANK:0##LOOP:47##Residual:1.2755e-05
+##RANK:0##LOOP:48##Residual:1.04822e-05
+##RANK:0##LOOP:49##Residual:1.03591e-05
+##RANK:0##LOOP:50##Residual:7.58448e-06
+##RANK:0##LOOP:51##Residual:1.91221e-05
+##RANK:0##LOOP:52##Residual:1.77262e-05
+##RANK:0##LOOP:53##Residual:2.50034e-05
+##RANK:0##LOOP:54##Residual:3.17724e-05
+##RANK:0##LOOP:55##Residual:0.000311238
+##RANK:0##LOOP:56##Residual:0.000138251
+##RANK:0##LOOP:57##Residual:2.47111e-06
+##RANK:0##LOOP:58##Residual:2.34299e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.699292572 sec
+## difference: 0.0000014909401773
+QCU bistabcg: 1.0510105319999639 sec
 ===============round  2 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -286,50 +282,49 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:15##Residual:0.663463
 ##RANK:0##LOOP:16##Residual:0.244719
 ##RANK:0##LOOP:17##Residual:0.123815
-##RANK:0##LOOP:18##Residual:0.125003
-##RANK:0##LOOP:19##Residual:0.0801162
-##RANK:0##LOOP:20##Residual:0.119607
-##RANK:0##LOOP:21##Residual:4.19122
-##RANK:0##LOOP:22##Residual:0.0347585
-##RANK:0##LOOP:23##Residual:0.0270005
-##RANK:0##LOOP:24##Residual:0.00658124
-##RANK:0##LOOP:25##Residual:0.00989168
-##RANK:0##LOOP:26##Residual:0.0261879
-##RANK:0##LOOP:27##Residual:0.000883901
-##RANK:0##LOOP:28##Residual:0.000621898
-##RANK:0##LOOP:29##Residual:0.000607964
-##RANK:0##LOOP:30##Residual:0.000561277
-##RANK:0##LOOP:31##Residual:0.000420054
-##RANK:0##LOOP:32##Residual:0.000353226
-##RANK:0##LOOP:33##Residual:0.000395411
-##RANK:0##LOOP:34##Residual:0.000680014
-##RANK:0##LOOP:35##Residual:0.000191532
-##RANK:0##LOOP:36##Residual:0.000278707
-##RANK:0##LOOP:37##Residual:9.00182e-05
-##RANK:0##LOOP:38##Residual:8.25826e-05
-##RANK:0##LOOP:39##Residual:9.26305e-05
-##RANK:0##LOOP:40##Residual:7.54013e-05
-##RANK:0##LOOP:41##Residual:3.63816e-05
-##RANK:0##LOOP:42##Residual:2.59431e-05
-##RANK:0##LOOP:43##Residual:3.94215e-05
-##RANK:0##LOOP:44##Residual:2.23829e-05
-##RANK:0##LOOP:45##Residual:1.62443e-05
-##RANK:0##LOOP:46##Residual:1.36183e-05
-##RANK:0##LOOP:47##Residual:1.33982e-05
-##RANK:0##LOOP:48##Residual:1.28229e-05
-##RANK:0##LOOP:49##Residual:8.84094e-06
-##RANK:0##LOOP:50##Residual:1.73528e-05
-##RANK:0##LOOP:51##Residual:5.95668e-06
-##RANK:0##LOOP:52##Residual:5.94253e-06
-##RANK:0##LOOP:53##Residual:7.06267e-06
-##RANK:0##LOOP:54##Residual:7.09526e-06
-##RANK:0##LOOP:55##Residual:6.21617e-06
-##RANK:0##LOOP:56##Residual:2.06379e-06
-##RANK:0##LOOP:57##Residual:2.676e-06
-##RANK:0##LOOP:58##Residual:5.43826e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.704520337 sec
-## difference: -0.0000074100294894
-QCU bistabcg: 1.056646969999747 sec
+##RANK:0##LOOP:18##Residual:0.121903
+##RANK:0##LOOP:19##Residual:0.0850125
+##RANK:0##LOOP:20##Residual:0.102204
+##RANK:0##LOOP:21##Residual:3.72098
+##RANK:0##LOOP:22##Residual:0.038977
+##RANK:0##LOOP:23##Residual:0.0241901
+##RANK:0##LOOP:24##Residual:0.00952884
+##RANK:0##LOOP:25##Residual:0.00995041
+##RANK:0##LOOP:26##Residual:0.0225767
+##RANK:0##LOOP:27##Residual:0.000767932
+##RANK:0##LOOP:28##Residual:0.000527925
+##RANK:0##LOOP:29##Residual:0.000545227
+##RANK:0##LOOP:30##Residual:0.000505862
+##RANK:0##LOOP:31##Residual:0.000367331
+##RANK:0##LOOP:32##Residual:0.000306162
+##RANK:0##LOOP:33##Residual:0.000330266
+##RANK:0##LOOP:34##Residual:0.000601143
+##RANK:0##LOOP:35##Residual:0.000170695
+##RANK:0##LOOP:36##Residual:0.000247464
+##RANK:0##LOOP:37##Residual:8.01949e-05
+##RANK:0##LOOP:38##Residual:7.33301e-05
+##RANK:0##LOOP:39##Residual:8.21744e-05
+##RANK:0##LOOP:40##Residual:6.30936e-05
+##RANK:0##LOOP:41##Residual:2.98219e-05
+##RANK:0##LOOP:42##Residual:2.18493e-05
+##RANK:0##LOOP:43##Residual:0.000162265
+##RANK:0##LOOP:44##Residual:1.41822e-05
+##RANK:0##LOOP:45##Residual:1.14885e-05
+##RANK:0##LOOP:46##Residual:1.08069e-05
+##RANK:0##LOOP:47##Residual:9.61702e-06
+##RANK:0##LOOP:48##Residual:7.53294e-06
+##RANK:0##LOOP:49##Residual:8.67168e-06
+##RANK:0##LOOP:50##Residual:9.91467e-06
+##RANK:0##LOOP:51##Residual:5.63601e-06
+##RANK:0##LOOP:52##Residual:5.36907e-06
+##RANK:0##LOOP:53##Residual:3.55047e-06
+##RANK:0##LOOP:54##Residual:2.40589e-06
+##RANK:0##LOOP:55##Residual:1.62354e-06
+##RANK:0##LOOP:56##Residual:1.12682e-06
+##RANK:0##LOOP:57##Residual:4.40413e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.720102085 sec
+## difference: -0.0000027663189397
+QCU bistabcg: 1.050604263000423 sec
 ===============round  3 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -361,66 +356,67 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:0##Residual:284077
 ##RANK:0##LOOP:1##Residual:2818.43
 ##RANK:0##LOOP:2##Residual:517.433
-##RANK:0##LOOP:3##Residual:1153.01
-##RANK:0##LOOP:4##Residual:342.748
-##RANK:0##LOOP:5##Residual:85.6737
-##RANK:0##LOOP:6##Residual:16.2071
-##RANK:0##LOOP:7##Residual:23.4604
-##RANK:0##LOOP:8##Residual:9.54063
-##RANK:0##LOOP:9##Residual:1.35863
-##RANK:0##LOOP:10##Residual:0.930267
-##RANK:0##LOOP:11##Residual:0.672633
-##RANK:0##LOOP:12##Residual:0.29812
-##RANK:0##LOOP:13##Residual:0.204133
-##RANK:0##LOOP:14##Residual:0.138032
-##RANK:0##LOOP:15##Residual:0.156363
-##RANK:0##LOOP:16##Residual:0.0669962
-##RANK:0##LOOP:17##Residual:0.029199
-##RANK:0##LOOP:18##Residual:0.184712
-##RANK:0##LOOP:19##Residual:0.276562
-##RANK:0##LOOP:20##Residual:0.0749112
-##RANK:0##LOOP:21##Residual:1.30963
-##RANK:0##LOOP:22##Residual:0.073722
-##RANK:0##LOOP:23##Residual:0.0205149
-##RANK:0##LOOP:24##Residual:0.016265
-##RANK:0##LOOP:25##Residual:0.0227856
-##RANK:0##LOOP:26##Residual:0.0258335
-##RANK:0##LOOP:27##Residual:0.000770297
-##RANK:0##LOOP:28##Residual:0.000625914
-##RANK:0##LOOP:29##Residual:0.000634555
-##RANK:0##LOOP:30##Residual:0.000551317
-##RANK:0##LOOP:31##Residual:0.000403576
-##RANK:0##LOOP:32##Residual:0.000278967
-##RANK:0##LOOP:33##Residual:0.000404682
-##RANK:0##LOOP:34##Residual:0.000464708
-##RANK:0##LOOP:35##Residual:0.000159803
-##RANK:0##LOOP:36##Residual:0.000139774
-##RANK:0##LOOP:37##Residual:9.09492e-05
-##RANK:0##LOOP:38##Residual:6.42377e-05
-##RANK:0##LOOP:39##Residual:4.60099e-05
-##RANK:0##LOOP:40##Residual:3.75235e-05
-##RANK:0##LOOP:41##Residual:3.58322e-05
-##RANK:0##LOOP:42##Residual:3.14652e-05
-##RANK:0##LOOP:43##Residual:0.000214069
-##RANK:0##LOOP:44##Residual:1.66425e-05
-##RANK:0##LOOP:45##Residual:1.33694e-05
-##RANK:0##LOOP:46##Residual:1.20808e-05
-##RANK:0##LOOP:47##Residual:1.2176e-05
-##RANK:0##LOOP:48##Residual:1.08986e-05
-##RANK:0##LOOP:49##Residual:1.84109e-05
-##RANK:0##LOOP:50##Residual:5.50469e-06
-##RANK:0##LOOP:51##Residual:5.68086e-06
-##RANK:0##LOOP:52##Residual:6.50265e-06
-##RANK:0##LOOP:53##Residual:4.02623e-06
-##RANK:0##LOOP:54##Residual:1.73606e-06
-##RANK:0##LOOP:55##Residual:1.3424e-06
-##RANK:0##LOOP:56##Residual:1.24225e-06
-##RANK:0##LOOP:57##Residual:1.97836e-06
-##RANK:0##LOOP:58##Residual:3.63364e-05
-##RANK:0##LOOP:59##Residual:2.80379e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.746061091 sec
-## difference: -0.0000025815366513
-QCU bistabcg: 1.0485989629996766 sec
+##RANK:0##LOOP:3##Residual:1152.56
+##RANK:0##LOOP:4##Residual:343.547
+##RANK:0##LOOP:5##Residual:86.0732
+##RANK:0##LOOP:6##Residual:16.2285
+##RANK:0##LOOP:7##Residual:23.4557
+##RANK:0##LOOP:8##Residual:9.56112
+##RANK:0##LOOP:9##Residual:1.35901
+##RANK:0##LOOP:10##Residual:0.93018
+##RANK:0##LOOP:11##Residual:0.672691
+##RANK:0##LOOP:12##Residual:0.298291
+##RANK:0##LOOP:13##Residual:0.204496
+##RANK:0##LOOP:14##Residual:0.138153
+##RANK:0##LOOP:15##Residual:0.156499
+##RANK:0##LOOP:16##Residual:0.0669923
+##RANK:0##LOOP:17##Residual:0.0573233
+##RANK:0##LOOP:18##Residual:0.553979
+##RANK:0##LOOP:19##Residual:0.6487
+##RANK:0##LOOP:20##Residual:0.0786205
+##RANK:0##LOOP:21##Residual:1.18693
+##RANK:0##LOOP:22##Residual:0.0417057
+##RANK:0##LOOP:23##Residual:0.0167933
+##RANK:0##LOOP:24##Residual:0.0068677
+##RANK:0##LOOP:25##Residual:0.0190589
+##RANK:0##LOOP:26##Residual:0.018143
+##RANK:0##LOOP:27##Residual:0.000848042
+##RANK:0##LOOP:28##Residual:0.000576478
+##RANK:0##LOOP:29##Residual:0.00050256
+##RANK:0##LOOP:30##Residual:0.000474444
+##RANK:0##LOOP:31##Residual:0.000365565
+##RANK:0##LOOP:32##Residual:0.000325634
+##RANK:0##LOOP:33##Residual:0.000415252
+##RANK:0##LOOP:34##Residual:0.000401887
+##RANK:0##LOOP:35##Residual:0.000160785
+##RANK:0##LOOP:36##Residual:0.000128978
+##RANK:0##LOOP:37##Residual:8.05176e-05
+##RANK:0##LOOP:38##Residual:7.43244e-05
+##RANK:0##LOOP:39##Residual:5.75762e-05
+##RANK:0##LOOP:40##Residual:4.59844e-05
+##RANK:0##LOOP:41##Residual:4.73636e-05
+##RANK:0##LOOP:42##Residual:3.56304e-05
+##RANK:0##LOOP:43##Residual:9.95416e-05
+##RANK:0##LOOP:44##Residual:2.08727e-05
+##RANK:0##LOOP:45##Residual:1.73729e-05
+##RANK:0##LOOP:46##Residual:1.42482e-05
+##RANK:0##LOOP:47##Residual:1.31953e-05
+##RANK:0##LOOP:48##Residual:1.16574e-05
+##RANK:0##LOOP:49##Residual:1.41443e-05
+##RANK:0##LOOP:50##Residual:2.83397e-05
+##RANK:0##LOOP:51##Residual:1.29297e-05
+##RANK:0##LOOP:52##Residual:5.39559e-06
+##RANK:0##LOOP:53##Residual:5.59796e-06
+##RANK:0##LOOP:54##Residual:5.12029e-06
+##RANK:0##LOOP:55##Residual:3.78332e-06
+##RANK:0##LOOP:56##Residual:2.2925e-06
+##RANK:0##LOOP:57##Residual:1.55095e-06
+##RANK:0##LOOP:58##Residual:4.94561e-06
+##RANK:0##LOOP:59##Residual:1.1529e-05
+##RANK:0##LOOP:60##Residual:2.3741e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.743257541 sec
+## difference: -0.0000030271884351
+QCU bistabcg: 1.0671553929996662 sec
 ===============round  4 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -470,48 +466,49 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:18##Residual:0.153334
 ##RANK:0##LOOP:19##Residual:0.430856
 ##RANK:0##LOOP:20##Residual:0.0871551
-##RANK:0##LOOP:21##Residual:3.24763
+##RANK:0##LOOP:21##Residual:3.24764
 ##RANK:0##LOOP:22##Residual:0.0408214
 ##RANK:0##LOOP:23##Residual:0.0128997
-##RANK:0##LOOP:24##Residual:0.00984987
-##RANK:0##LOOP:25##Residual:0.046824
-##RANK:0##LOOP:26##Residual:0.170561
-##RANK:0##LOOP:27##Residual:0.0311999
-##RANK:0##LOOP:28##Residual:0.000582055
-##RANK:0##LOOP:29##Residual:0.000619323
-##RANK:0##LOOP:30##Residual:0.00050492
-##RANK:0##LOOP:31##Residual:0.000396411
-##RANK:0##LOOP:32##Residual:0.000430337
-##RANK:0##LOOP:33##Residual:0.000470515
-##RANK:0##LOOP:34##Residual:0.00193404
-##RANK:0##LOOP:35##Residual:0.000280994
-##RANK:0##LOOP:36##Residual:0.000449639
-##RANK:0##LOOP:37##Residual:9.76507e-05
-##RANK:0##LOOP:38##Residual:7.03737e-05
-##RANK:0##LOOP:39##Residual:6.5136e-05
-##RANK:0##LOOP:40##Residual:3.23868e-05
-##RANK:0##LOOP:41##Residual:3.71154e-05
-##RANK:0##LOOP:42##Residual:3.16679e-05
-##RANK:0##LOOP:43##Residual:0.000320585
-##RANK:0##LOOP:44##Residual:1.35097e-05
-##RANK:0##LOOP:45##Residual:1.58974e-05
-##RANK:0##LOOP:46##Residual:1.37786e-05
-##RANK:0##LOOP:47##Residual:1.13962e-05
-##RANK:0##LOOP:48##Residual:1.4634e-05
-##RANK:0##LOOP:49##Residual:1.34191e-05
-##RANK:0##LOOP:50##Residual:1.40884e-05
-##RANK:0##LOOP:51##Residual:2.66876e-05
-##RANK:0##LOOP:52##Residual:9.17599e-06
-##RANK:0##LOOP:53##Residual:9.18634e-06
-##RANK:0##LOOP:54##Residual:6.7244e-06
-##RANK:0##LOOP:55##Residual:3.96431e-06
-##RANK:0##LOOP:56##Residual:5.19054e-06
-##RANK:0##LOOP:57##Residual:1.65139e-05
-##RANK:0##LOOP:58##Residual:2.93538e-05
-##RANK:0##LOOP:59##Residual:9.19321e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.740844829 sec
-## difference: 0.0000026411797429
-QCU bistabcg: 1.048312351000277 sec
+##RANK:0##LOOP:24##Residual:0.0065271
+##RANK:0##LOOP:25##Residual:0.0768828
+##RANK:0##LOOP:26##Residual:0.254882
+##RANK:0##LOOP:27##Residual:0.047129
+##RANK:0##LOOP:28##Residual:0.000626091
+##RANK:0##LOOP:29##Residual:0.000539798
+##RANK:0##LOOP:30##Residual:0.00050662
+##RANK:0##LOOP:31##Residual:0.000411488
+##RANK:0##LOOP:32##Residual:0.000237645
+##RANK:0##LOOP:33##Residual:0.000488826
+##RANK:0##LOOP:34##Residual:0.00181077
+##RANK:0##LOOP:35##Residual:0.00023667
+##RANK:0##LOOP:36##Residual:0.000861247
+##RANK:0##LOOP:37##Residual:5.89916e-05
+##RANK:0##LOOP:38##Residual:4.7887e-05
+##RANK:0##LOOP:39##Residual:4.48585e-05
+##RANK:0##LOOP:40##Residual:3.82636e-05
+##RANK:0##LOOP:41##Residual:6.34717e-05
+##RANK:0##LOOP:42##Residual:3.41955e-05
+##RANK:0##LOOP:43##Residual:0.00024433
+##RANK:0##LOOP:44##Residual:1.48946e-05
+##RANK:0##LOOP:45##Residual:1.36173e-05
+##RANK:0##LOOP:46##Residual:1.2646e-05
+##RANK:0##LOOP:47##Residual:1.10345e-05
+##RANK:0##LOOP:48##Residual:9.51687e-06
+##RANK:0##LOOP:49##Residual:1.12676e-05
+##RANK:0##LOOP:50##Residual:9.28616e-06
+##RANK:0##LOOP:51##Residual:1.14298e-05
+##RANK:0##LOOP:52##Residual:9.10211e-06
+##RANK:0##LOOP:53##Residual:6.10827e-06
+##RANK:0##LOOP:54##Residual:4.18633e-06
+##RANK:0##LOOP:55##Residual:5.94452e-06
+##RANK:0##LOOP:56##Residual:4.27719e-06
+##RANK:0##LOOP:57##Residual:4.30659e-06
+##RANK:0##LOOP:58##Residual:1.00548e-06
+##RANK:0##LOOP:59##Residual:1.17567e-06
+##RANK:0##LOOP:60##Residual:2.23709e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.751954277 sec
+## difference: -0.0000020488576616
+QCU bistabcg: 1.0509523609998723 sec
 ===============round  5 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -553,55 +550,57 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:10##Residual:0.706355
 ##RANK:0##LOOP:11##Residual:0.879573
 ##RANK:0##LOOP:12##Residual:0.26034
-##RANK:0##LOOP:13##Residual:0.189564
-##RANK:0##LOOP:14##Residual:0.147392
-##RANK:0##LOOP:15##Residual:0.278857
-##RANK:0##LOOP:16##Residual:0.776195
-##RANK:0##LOOP:17##Residual:0.0133115
-##RANK:0##LOOP:18##Residual:0.17858
-##RANK:0##LOOP:19##Residual:0.10037
-##RANK:0##LOOP:20##Residual:0.0977776
-##RANK:0##LOOP:21##Residual:0.909513
-##RANK:0##LOOP:22##Residual:0.0421086
-##RANK:0##LOOP:23##Residual:0.0132193
-##RANK:0##LOOP:24##Residual:0.00535244
-##RANK:0##LOOP:25##Residual:0.0655605
-##RANK:0##LOOP:26##Residual:0.0603005
-##RANK:0##LOOP:27##Residual:0.00191767
-##RANK:0##LOOP:28##Residual:0.00047564
-##RANK:0##LOOP:29##Residual:0.000481007
-##RANK:0##LOOP:30##Residual:0.000665178
-##RANK:0##LOOP:31##Residual:0.000394324
-##RANK:0##LOOP:32##Residual:0.000558863
-##RANK:0##LOOP:33##Residual:0.000387777
-##RANK:0##LOOP:34##Residual:0.00460722
-##RANK:0##LOOP:35##Residual:0.000284832
-##RANK:0##LOOP:36##Residual:0.000540062
-##RANK:0##LOOP:37##Residual:5.03522e-05
-##RANK:0##LOOP:38##Residual:5.59802e-05
-##RANK:0##LOOP:39##Residual:3.47744e-05
-##RANK:0##LOOP:40##Residual:2.79425e-05
-##RANK:0##LOOP:41##Residual:5.1283e-05
-##RANK:0##LOOP:42##Residual:3.70025e-05
-##RANK:0##LOOP:43##Residual:9.79254e-05
-##RANK:0##LOOP:44##Residual:1.63244e-05
-##RANK:0##LOOP:45##Residual:1.37962e-05
-##RANK:0##LOOP:46##Residual:1.29337e-05
-##RANK:0##LOOP:47##Residual:1.17417e-05
-##RANK:0##LOOP:48##Residual:1.05655e-05
-##RANK:0##LOOP:49##Residual:1.01306e-05
-##RANK:0##LOOP:50##Residual:1.31867e-05
-##RANK:0##LOOP:51##Residual:1.28032e-05
-##RANK:0##LOOP:52##Residual:7.4513e-06
-##RANK:0##LOOP:53##Residual:6.85407e-06
-##RANK:0##LOOP:54##Residual:5.89473e-06
-##RANK:0##LOOP:55##Residual:4.22141e-06
-##RANK:0##LOOP:56##Residual:3.74327e-06
-##RANK:0##LOOP:57##Residual:1.6674e-06
-##RANK:0##LOOP:58##Residual:5.15188e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.743243486 sec
-## difference: 0.0000028114751613
-QCU bistabcg: 1.0501916240000355 sec
+##RANK:0##LOOP:13##Residual:0.205473
+##RANK:0##LOOP:14##Residual:0.153568
+##RANK:0##LOOP:15##Residual:0.330715
+##RANK:0##LOOP:16##Residual:0.605519
+##RANK:0##LOOP:17##Residual:0.0150287
+##RANK:0##LOOP:18##Residual:0.209554
+##RANK:0##LOOP:19##Residual:0.152669
+##RANK:0##LOOP:20##Residual:0.0841423
+##RANK:0##LOOP:21##Residual:0.612355
+##RANK:0##LOOP:22##Residual:0.0548027
+##RANK:0##LOOP:23##Residual:0.0125576
+##RANK:0##LOOP:24##Residual:0.0110782
+##RANK:0##LOOP:25##Residual:0.0371411
+##RANK:0##LOOP:26##Residual:0.0479922
+##RANK:0##LOOP:27##Residual:0.00158975
+##RANK:0##LOOP:28##Residual:0.000556323
+##RANK:0##LOOP:29##Residual:0.000528567
+##RANK:0##LOOP:30##Residual:0.000484959
+##RANK:0##LOOP:31##Residual:0.000372238
+##RANK:0##LOOP:32##Residual:0.000469478
+##RANK:0##LOOP:33##Residual:0.00039406
+##RANK:0##LOOP:34##Residual:0.00645384
+##RANK:0##LOOP:35##Residual:0.000405346
+##RANK:0##LOOP:36##Residual:0.000676958
+##RANK:0##LOOP:37##Residual:4.00951e-05
+##RANK:0##LOOP:38##Residual:4.00509e-05
+##RANK:0##LOOP:39##Residual:2.61974e-05
+##RANK:0##LOOP:40##Residual:2.79983e-05
+##RANK:0##LOOP:41##Residual:6.4846e-05
+##RANK:0##LOOP:42##Residual:3.63582e-05
+##RANK:0##LOOP:43##Residual:0.000146106
+##RANK:0##LOOP:44##Residual:1.46628e-05
+##RANK:0##LOOP:45##Residual:1.30569e-05
+##RANK:0##LOOP:46##Residual:1.20387e-05
+##RANK:0##LOOP:47##Residual:9.03648e-06
+##RANK:0##LOOP:48##Residual:9.08484e-06
+##RANK:0##LOOP:49##Residual:9.79246e-06
+##RANK:0##LOOP:50##Residual:3.50559e-05
+##RANK:0##LOOP:51##Residual:0.0406478
+##RANK:0##LOOP:52##Residual:1.13667e-05
+##RANK:0##LOOP:53##Residual:1.14815e-05
+##RANK:0##LOOP:54##Residual:6.38121e-06
+##RANK:0##LOOP:55##Residual:3.58105e-06
+##RANK:0##LOOP:56##Residual:4.13163e-06
+##RANK:0##LOOP:57##Residual:3.7006e-05
+##RANK:0##LOOP:58##Residual:5.09575e-05
+##RANK:0##LOOP:59##Residual:1.79056e-06
+##RANK:0##LOOP:60##Residual:2.9134e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.774097547 sec
+## difference: 0.0000009679793015
+QCU bistabcg: 1.0527868720000697 sec
 ===============round  6 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -634,62 +633,64 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:1##Residual:2819.26
 ##RANK:0##LOOP:2##Residual:515.679
 ##RANK:0##LOOP:3##Residual:832.073
-##RANK:0##LOOP:4##Residual:326.631
-##RANK:0##LOOP:5##Residual:95.9736
-##RANK:0##LOOP:6##Residual:17.387
-##RANK:0##LOOP:7##Residual:16.0316
-##RANK:0##LOOP:8##Residual:6.29017
-##RANK:0##LOOP:9##Residual:1.9138
-##RANK:0##LOOP:10##Residual:1.06052
-##RANK:0##LOOP:11##Residual:0.598234
-##RANK:0##LOOP:12##Residual:0.313148
-##RANK:0##LOOP:13##Residual:0.195291
-##RANK:0##LOOP:14##Residual:0.162796
-##RANK:0##LOOP:15##Residual:0.152627
-##RANK:0##LOOP:16##Residual:0.128618
-##RANK:0##LOOP:17##Residual:0.0688451
-##RANK:0##LOOP:18##Residual:0.115213
-##RANK:0##LOOP:19##Residual:0.0876144
-##RANK:0##LOOP:20##Residual:0.102398
-##RANK:0##LOOP:21##Residual:1.03151
-##RANK:0##LOOP:22##Residual:0.0321427
-##RANK:0##LOOP:23##Residual:0.0219108
-##RANK:0##LOOP:24##Residual:0.0057042
-##RANK:0##LOOP:25##Residual:0.0922179
-##RANK:0##LOOP:26##Residual:0.0905973
-##RANK:0##LOOP:27##Residual:0.00254069
-##RANK:0##LOOP:28##Residual:0.000556596
-##RANK:0##LOOP:29##Residual:0.000561136
-##RANK:0##LOOP:30##Residual:0.000518709
-##RANK:0##LOOP:31##Residual:0.000372268
-##RANK:0##LOOP:32##Residual:0.000313748
-##RANK:0##LOOP:33##Residual:0.000385575
-##RANK:0##LOOP:34##Residual:0.00161059
-##RANK:0##LOOP:35##Residual:0.000180956
-##RANK:0##LOOP:36##Residual:0.00048169
-##RANK:0##LOOP:37##Residual:0.000153343
-##RANK:0##LOOP:38##Residual:8.71269e-05
-##RANK:0##LOOP:39##Residual:5.82245e-05
-##RANK:0##LOOP:40##Residual:4.87513e-05
-##RANK:0##LOOP:41##Residual:4.78235e-05
-##RANK:0##LOOP:42##Residual:4.75953e-05
-##RANK:0##LOOP:43##Residual:5.86083e-05
-##RANK:0##LOOP:44##Residual:2.52552e-05
-##RANK:0##LOOP:45##Residual:1.6974e-05
-##RANK:0##LOOP:46##Residual:1.5799e-05
-##RANK:0##LOOP:47##Residual:1.29855e-05
-##RANK:0##LOOP:48##Residual:1.30705e-05
-##RANK:0##LOOP:49##Residual:2.87957e-05
-##RANK:0##LOOP:50##Residual:2.3999e-05
-##RANK:0##LOOP:51##Residual:0.00040022
-##RANK:0##LOOP:52##Residual:5.74051e-06
-##RANK:0##LOOP:53##Residual:5.03438e-06
-##RANK:0##LOOP:54##Residual:4.69823e-06
-##RANK:0##LOOP:55##Residual:3.49769e-06
-##RANK:0##LOOP:56##Residual:6.37822e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.668611953 sec
-## difference: 0.0000039901339664
-QCU bistabcg: 1.050169348000054 sec
+##RANK:0##LOOP:4##Residual:192.686
+##RANK:0##LOOP:5##Residual:89.0853
+##RANK:0##LOOP:6##Residual:16.2835
+##RANK:0##LOOP:7##Residual:9.84128
+##RANK:0##LOOP:8##Residual:8.67922
+##RANK:0##LOOP:9##Residual:1.5166
+##RANK:0##LOOP:10##Residual:1.48783
+##RANK:0##LOOP:11##Residual:0.667526
+##RANK:0##LOOP:12##Residual:0.279806
+##RANK:0##LOOP:13##Residual:0.205673
+##RANK:0##LOOP:14##Residual:0.149571
+##RANK:0##LOOP:15##Residual:0.151393
+##RANK:0##LOOP:16##Residual:0.11186
+##RANK:0##LOOP:17##Residual:0.059661
+##RANK:0##LOOP:18##Residual:0.0959775
+##RANK:0##LOOP:19##Residual:0.0700631
+##RANK:0##LOOP:20##Residual:0.09391
+##RANK:0##LOOP:21##Residual:0.924012
+##RANK:0##LOOP:22##Residual:0.0293443
+##RANK:0##LOOP:23##Residual:0.0216001
+##RANK:0##LOOP:24##Residual:0.00475288
+##RANK:0##LOOP:25##Residual:0.0872969
+##RANK:0##LOOP:26##Residual:0.0836316
+##RANK:0##LOOP:27##Residual:0.00239488
+##RANK:0##LOOP:28##Residual:0.000527486
+##RANK:0##LOOP:29##Residual:0.000513182
+##RANK:0##LOOP:30##Residual:0.000475586
+##RANK:0##LOOP:31##Residual:0.000355577
+##RANK:0##LOOP:32##Residual:0.000293563
+##RANK:0##LOOP:33##Residual:0.000367048
+##RANK:0##LOOP:34##Residual:0.00149354
+##RANK:0##LOOP:35##Residual:0.000174165
+##RANK:0##LOOP:36##Residual:0.000483349
+##RANK:0##LOOP:37##Residual:0.000153248
+##RANK:0##LOOP:38##Residual:8.3835e-05
+##RANK:0##LOOP:39##Residual:5.56655e-05
+##RANK:0##LOOP:40##Residual:5.47332e-05
+##RANK:0##LOOP:41##Residual:5.31665e-05
+##RANK:0##LOOP:42##Residual:4.22053e-05
+##RANK:0##LOOP:43##Residual:0.000118213
+##RANK:0##LOOP:44##Residual:1.96688e-05
+##RANK:0##LOOP:45##Residual:1.64055e-05
+##RANK:0##LOOP:46##Residual:1.38653e-05
+##RANK:0##LOOP:47##Residual:1.25673e-05
+##RANK:0##LOOP:48##Residual:1.40074e-05
+##RANK:0##LOOP:49##Residual:1.03623e-05
+##RANK:0##LOOP:50##Residual:0.000157061
+##RANK:0##LOOP:51##Residual:7.11e-06
+##RANK:0##LOOP:52##Residual:1.14963e-05
+##RANK:0##LOOP:53##Residual:5.04223e-06
+##RANK:0##LOOP:54##Residual:4.42161e-06
+##RANK:0##LOOP:55##Residual:2.2119e-06
+##RANK:0##LOOP:56##Residual:1.57121e-06
+##RANK:0##LOOP:57##Residual:1.30622e-06
+##RANK:0##LOOP:58##Residual:4.94573e-08
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.703688481 sec
+## difference: 0.0000033777177570
+QCU bistabcg: 1.050864542000454 sec
 ===============round  7 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -737,49 +738,50 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:16##Residual:0.0595174
 ##RANK:0##LOOP:17##Residual:0.0334867
 ##RANK:0##LOOP:18##Residual:0.0329499
-##RANK:0##LOOP:19##Residual:0.697183
-##RANK:0##LOOP:20##Residual:0.150282
-##RANK:0##LOOP:21##Residual:0.869743
-##RANK:0##LOOP:22##Residual:0.031247
-##RANK:0##LOOP:23##Residual:0.0225608
-##RANK:0##LOOP:24##Residual:0.00560019
-##RANK:0##LOOP:25##Residual:0.150541
-##RANK:0##LOOP:26##Residual:0.142663
-##RANK:0##LOOP:27##Residual:0.0122183
-##RANK:0##LOOP:28##Residual:0.000607555
-##RANK:0##LOOP:29##Residual:0.00054005
-##RANK:0##LOOP:30##Residual:0.000468368
-##RANK:0##LOOP:31##Residual:0.000370481
-##RANK:0##LOOP:32##Residual:0.000291298
-##RANK:0##LOOP:33##Residual:0.000368975
-##RANK:0##LOOP:34##Residual:0.000392982
-##RANK:0##LOOP:35##Residual:0.000185613
-##RANK:0##LOOP:36##Residual:0.000198381
-##RANK:0##LOOP:37##Residual:0.00012877
-##RANK:0##LOOP:38##Residual:7.05694e-05
-##RANK:0##LOOP:39##Residual:5.26813e-05
-##RANK:0##LOOP:40##Residual:6.26411e-05
-##RANK:0##LOOP:41##Residual:5.52571e-05
-##RANK:0##LOOP:42##Residual:4.51554e-05
-##RANK:0##LOOP:43##Residual:9.46568e-05
-##RANK:0##LOOP:44##Residual:1.96404e-05
-##RANK:0##LOOP:45##Residual:1.50078e-05
-##RANK:0##LOOP:46##Residual:1.35563e-05
-##RANK:0##LOOP:47##Residual:1.23181e-05
-##RANK:0##LOOP:48##Residual:1.11139e-05
-##RANK:0##LOOP:49##Residual:2.62389e-05
-##RANK:0##LOOP:50##Residual:1.13894e-05
-##RANK:0##LOOP:51##Residual:5.94024e-06
-##RANK:0##LOOP:52##Residual:1.07116e-05
-##RANK:0##LOOP:53##Residual:4.37809e-06
-##RANK:0##LOOP:54##Residual:2.26593e-06
-##RANK:0##LOOP:55##Residual:2.04799e-06
-##RANK:0##LOOP:56##Residual:4.2782e-06
-##RANK:0##LOOP:57##Residual:3.11941e-06
-##RANK:0##LOOP:58##Residual:7.45556e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.721068356 sec
-## difference: 0.0000002733211455
-QCU bistabcg: 1.0484797199997047 sec
+##RANK:0##LOOP:19##Residual:0.514461
+##RANK:0##LOOP:20##Residual:0.121846
+##RANK:0##LOOP:21##Residual:0.772168
+##RANK:0##LOOP:22##Residual:0.0409392
+##RANK:0##LOOP:23##Residual:0.0222851
+##RANK:0##LOOP:24##Residual:0.00981646
+##RANK:0##LOOP:25##Residual:0.187445
+##RANK:0##LOOP:26##Residual:0.186167
+##RANK:0##LOOP:27##Residual:0.0129082
+##RANK:0##LOOP:28##Residual:0.000633949
+##RANK:0##LOOP:29##Residual:0.000569661
+##RANK:0##LOOP:30##Residual:0.000472362
+##RANK:0##LOOP:31##Residual:0.000371678
+##RANK:0##LOOP:32##Residual:0.000306558
+##RANK:0##LOOP:33##Residual:0.000424922
+##RANK:0##LOOP:34##Residual:0.00055237
+##RANK:0##LOOP:35##Residual:0.000231859
+##RANK:0##LOOP:36##Residual:0.000197718
+##RANK:0##LOOP:37##Residual:0.000160705
+##RANK:0##LOOP:38##Residual:9.44111e-05
+##RANK:0##LOOP:39##Residual:8.01191e-05
+##RANK:0##LOOP:40##Residual:7.37075e-05
+##RANK:0##LOOP:41##Residual:7.9582e-05
+##RANK:0##LOOP:42##Residual:8.0885e-05
+##RANK:0##LOOP:43##Residual:0.000114881
+##RANK:0##LOOP:44##Residual:2.71141e-05
+##RANK:0##LOOP:45##Residual:2.4259e-05
+##RANK:0##LOOP:46##Residual:1.89321e-05
+##RANK:0##LOOP:47##Residual:1.63417e-05
+##RANK:0##LOOP:48##Residual:1.80542e-05
+##RANK:0##LOOP:49##Residual:2.15541e-05
+##RANK:0##LOOP:50##Residual:0.000372432
+##RANK:0##LOOP:51##Residual:1.78696e-05
+##RANK:0##LOOP:52##Residual:8.48296e-06
+##RANK:0##LOOP:53##Residual:7.50834e-06
+##RANK:0##LOOP:54##Residual:7.34107e-06
+##RANK:0##LOOP:55##Residual:3.26796e-06
+##RANK:0##LOOP:56##Residual:2.65573e-06
+##RANK:0##LOOP:57##Residual:1.94928e-06
+##RANK:0##LOOP:58##Residual:8.1582e-05
+##RANK:0##LOOP:59##Residual:6.29777e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.713006148 sec
+## difference: -0.0000002020524242
+QCU bistabcg: 1.0527841579996675 sec
 ===============round  8 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -824,56 +826,56 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:13##Residual:0.263691
 ##RANK:0##LOOP:14##Residual:0.220742
 ##RANK:0##LOOP:15##Residual:3.69848
-##RANK:0##LOOP:16##Residual:0.0355346
-##RANK:0##LOOP:17##Residual:0.024304
-##RANK:0##LOOP:18##Residual:0.0497369
-##RANK:0##LOOP:19##Residual:0.0331398
-##RANK:0##LOOP:20##Residual:0.0650756
-##RANK:0##LOOP:21##Residual:1.18046
-##RANK:0##LOOP:22##Residual:0.0535488
-##RANK:0##LOOP:23##Residual:0.0197317
-##RANK:0##LOOP:24##Residual:0.016582
-##RANK:0##LOOP:25##Residual:0.00990012
-##RANK:0##LOOP:26##Residual:0.0315339
-##RANK:0##LOOP:27##Residual:0.00326189
-##RANK:0##LOOP:28##Residual:0.000696198
-##RANK:0##LOOP:29##Residual:0.00093748
-##RANK:0##LOOP:30##Residual:0.000789024
-##RANK:0##LOOP:31##Residual:0.00041216
-##RANK:0##LOOP:32##Residual:0.000340299
-##RANK:0##LOOP:33##Residual:0.000381137
-##RANK:0##LOOP:34##Residual:0.000515571
-##RANK:0##LOOP:35##Residual:0.000166378
-##RANK:0##LOOP:36##Residual:0.000190218
-##RANK:0##LOOP:37##Residual:8.34927e-05
-##RANK:0##LOOP:38##Residual:7.30985e-05
-##RANK:0##LOOP:39##Residual:5.96085e-05
-##RANK:0##LOOP:40##Residual:2.54915e-05
-##RANK:0##LOOP:41##Residual:4.02474e-05
-##RANK:0##LOOP:42##Residual:3.16221e-05
-##RANK:0##LOOP:43##Residual:0.00012895
-##RANK:0##LOOP:44##Residual:1.54036e-05
-##RANK:0##LOOP:45##Residual:1.11529e-05
-##RANK:0##LOOP:46##Residual:1.0463e-05
-##RANK:0##LOOP:47##Residual:9.40151e-06
-##RANK:0##LOOP:48##Residual:8.20798e-06
-##RANK:0##LOOP:49##Residual:8.01872e-06
-##RANK:0##LOOP:50##Residual:6.28359e-06
-##RANK:0##LOOP:51##Residual:4.2723e-06
-##RANK:0##LOOP:52##Residual:4.022e-06
-##RANK:0##LOOP:53##Residual:3.27433e-06
-##RANK:0##LOOP:54##Residual:3.07217e-06
-##RANK:0##LOOP:55##Residual:2.61589e-06
-##RANK:0##LOOP:56##Residual:2.48747e-06
-##RANK:0##LOOP:57##Residual:1.85063e-06
-##RANK:0##LOOP:58##Residual:3.1986e-06
-##RANK:0##LOOP:59##Residual:5.31553e-06
-##RANK:0##LOOP:60##Residual:2.97851e-06
-##RANK:0##LOOP:61##Residual:8.27194e-06
-##RANK:0##LOOP:62##Residual:7.79953e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.763791586 sec
-## difference: 0.0000026057918121
-QCU bistabcg: 1.0398501139998189 sec
+##RANK:0##LOOP:16##Residual:0.0427522
+##RANK:0##LOOP:17##Residual:0.0352722
+##RANK:0##LOOP:18##Residual:0.0936372
+##RANK:0##LOOP:19##Residual:0.0260812
+##RANK:0##LOOP:20##Residual:0.0605514
+##RANK:0##LOOP:21##Residual:1.09404
+##RANK:0##LOOP:22##Residual:0.0496683
+##RANK:0##LOOP:23##Residual:0.0184816
+##RANK:0##LOOP:24##Residual:0.015577
+##RANK:0##LOOP:25##Residual:0.00922704
+##RANK:0##LOOP:26##Residual:0.0295057
+##RANK:0##LOOP:27##Residual:0.00301931
+##RANK:0##LOOP:28##Residual:0.000702754
+##RANK:0##LOOP:29##Residual:0.000919293
+##RANK:0##LOOP:30##Residual:0.000762849
+##RANK:0##LOOP:31##Residual:0.000409039
+##RANK:0##LOOP:32##Residual:0.000338481
+##RANK:0##LOOP:33##Residual:0.000377088
+##RANK:0##LOOP:34##Residual:0.000517079
+##RANK:0##LOOP:35##Residual:0.000119915
+##RANK:0##LOOP:36##Residual:0.000153435
+##RANK:0##LOOP:37##Residual:5.68741e-05
+##RANK:0##LOOP:38##Residual:5.687e-05
+##RANK:0##LOOP:39##Residual:4.45046e-05
+##RANK:0##LOOP:40##Residual:1.82284e-05
+##RANK:0##LOOP:41##Residual:2.41218e-05
+##RANK:0##LOOP:42##Residual:1.80917e-05
+##RANK:0##LOOP:43##Residual:6.78969e-05
+##RANK:0##LOOP:44##Residual:1.20629e-05
+##RANK:0##LOOP:45##Residual:9.91962e-06
+##RANK:0##LOOP:46##Residual:9.06897e-06
+##RANK:0##LOOP:47##Residual:8.27955e-06
+##RANK:0##LOOP:48##Residual:7.35991e-06
+##RANK:0##LOOP:49##Residual:7.97358e-06
+##RANK:0##LOOP:50##Residual:6.03715e-06
+##RANK:0##LOOP:51##Residual:3.75258e-06
+##RANK:0##LOOP:52##Residual:4.75545e-06
+##RANK:0##LOOP:53##Residual:4.06698e-06
+##RANK:0##LOOP:54##Residual:3.28194e-06
+##RANK:0##LOOP:55##Residual:3.04464e-06
+##RANK:0##LOOP:56##Residual:2.4607e-06
+##RANK:0##LOOP:57##Residual:2.3195e-06
+##RANK:0##LOOP:58##Residual:4.38217e-06
+##RANK:0##LOOP:59##Residual:1.9038e-06
+##RANK:0##LOOP:60##Residual:1.9902e-06
+##RANK:0##LOOP:61##Residual:1.28644e-06
+##RANK:0##LOOP:62##Residual:2.04544e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.757468853 sec
+## difference: 0.0000021231129927
+QCU bistabcg: 1.0423138979995201 sec
 ===============round  9 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
@@ -911,91 +913,92 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:6##Residual:17.8539
 ##RANK:0##LOOP:7##Residual:44.4434
 ##RANK:0##LOOP:8##Residual:17.7056
-##RANK:0##LOOP:9##Residual:1.25317
-##RANK:0##LOOP:10##Residual:0.905362
-##RANK:0##LOOP:11##Residual:0.761833
-##RANK:0##LOOP:12##Residual:0.2516
-##RANK:0##LOOP:13##Residual:0.189554
-##RANK:0##LOOP:14##Residual:0.139515
-##RANK:0##LOOP:15##Residual:0.115956
-##RANK:0##LOOP:16##Residual:0.106195
-##RANK:0##LOOP:17##Residual:0.0900774
-##RANK:0##LOOP:18##Residual:0.20292
-##RANK:0##LOOP:19##Residual:2.11524
-##RANK:0##LOOP:20##Residual:0.105531
-##RANK:0##LOOP:21##Residual:2.57645
-##RANK:0##LOOP:22##Residual:0.104784
-##RANK:0##LOOP:23##Residual:0.015968
-##RANK:0##LOOP:24##Residual:0.0276704
-##RANK:0##LOOP:25##Residual:1.38616
-##RANK:0##LOOP:26##Residual:0.14139
-##RANK:0##LOOP:27##Residual:0.003111
-##RANK:0##LOOP:28##Residual:0.000664751
-##RANK:0##LOOP:29##Residual:0.000505468
-##RANK:0##LOOP:30##Residual:0.000485119
-##RANK:0##LOOP:31##Residual:0.000382066
-##RANK:0##LOOP:32##Residual:0.000352042
-##RANK:0##LOOP:33##Residual:0.000550111
-##RANK:0##LOOP:34##Residual:0.000671968
-##RANK:0##LOOP:35##Residual:0.000163408
-##RANK:0##LOOP:36##Residual:0.000383567
-##RANK:0##LOOP:37##Residual:7.35058e-05
-##RANK:0##LOOP:38##Residual:6.87675e-05
-##RANK:0##LOOP:39##Residual:6.66528e-05
-##RANK:0##LOOP:40##Residual:4.54938e-05
-##RANK:0##LOOP:41##Residual:5.16942e-05
-##RANK:0##LOOP:42##Residual:4.30219e-05
-##RANK:0##LOOP:43##Residual:0.000886065
-##RANK:0##LOOP:44##Residual:1.95213e-05
-##RANK:0##LOOP:45##Residual:1.46808e-05
-##RANK:0##LOOP:46##Residual:1.35186e-05
-##RANK:0##LOOP:47##Residual:1.22117e-05
-##RANK:0##LOOP:48##Residual:1.09512e-05
-##RANK:0##LOOP:49##Residual:1.54003e-05
-##RANK:0##LOOP:50##Residual:3.58394e-05
-##RANK:0##LOOP:51##Residual:8.17259e-06
-##RANK:0##LOOP:52##Residual:3.91771e-06
-##RANK:0##LOOP:53##Residual:4.779e-06
-##RANK:0##LOOP:54##Residual:4.55044e-06
-##RANK:0##LOOP:55##Residual:1.64453e-06
-##RANK:0##LOOP:56##Residual:1.3958e-06
-##RANK:0##LOOP:57##Residual:1.36088e-06
-##RANK:0##LOOP:58##Residual:1.86365e-06
-##RANK:0##LOOP:59##Residual:1.81766e-06
-##RANK:0##LOOP:60##Residual:2.43583e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.725642788 sec
-## difference: 0.0000080164082621
-QCU bistabcg: 1.0501668510005402 sec
+##RANK:0##LOOP:9##Residual:0.990956
+##RANK:0##LOOP:10##Residual:0.64503
+##RANK:0##LOOP:11##Residual:0.535388
+##RANK:0##LOOP:12##Residual:0.24924
+##RANK:0##LOOP:13##Residual:0.231898
+##RANK:0##LOOP:14##Residual:0.111545
+##RANK:0##LOOP:15##Residual:0.093835
+##RANK:0##LOOP:16##Residual:0.084306
+##RANK:0##LOOP:17##Residual:0.072929
+##RANK:0##LOOP:18##Residual:0.237574
+##RANK:0##LOOP:19##Residual:2.10057
+##RANK:0##LOOP:20##Residual:0.0949681
+##RANK:0##LOOP:21##Residual:2.23543
+##RANK:0##LOOP:22##Residual:0.078219
+##RANK:0##LOOP:23##Residual:0.013807
+##RANK:0##LOOP:24##Residual:0.0172586
+##RANK:0##LOOP:25##Residual:0.942699
+##RANK:0##LOOP:26##Residual:0.115764
+##RANK:0##LOOP:27##Residual:0.0027848
+##RANK:0##LOOP:28##Residual:0.000622381
+##RANK:0##LOOP:29##Residual:0.000519667
+##RANK:0##LOOP:30##Residual:0.000547514
+##RANK:0##LOOP:31##Residual:0.000378991
+##RANK:0##LOOP:32##Residual:0.000338057
+##RANK:0##LOOP:33##Residual:0.000490078
+##RANK:0##LOOP:34##Residual:0.000638971
+##RANK:0##LOOP:35##Residual:0.000171984
+##RANK:0##LOOP:36##Residual:0.000382196
+##RANK:0##LOOP:37##Residual:7.74054e-05
+##RANK:0##LOOP:38##Residual:7.24491e-05
+##RANK:0##LOOP:39##Residual:6.94636e-05
+##RANK:0##LOOP:40##Residual:4.42042e-05
+##RANK:0##LOOP:41##Residual:4.688e-05
+##RANK:0##LOOP:42##Residual:3.7626e-05
+##RANK:0##LOOP:43##Residual:0.000626651
+##RANK:0##LOOP:44##Residual:8.61902e-05
+##RANK:0##LOOP:45##Residual:1.5315e-05
+##RANK:0##LOOP:46##Residual:1.26848e-05
+##RANK:0##LOOP:47##Residual:1.18709e-05
+##RANK:0##LOOP:48##Residual:1.16395e-05
+##RANK:0##LOOP:49##Residual:1.0971e-05
+##RANK:0##LOOP:50##Residual:2.02271e-05
+##RANK:0##LOOP:51##Residual:1.74357e-05
+##RANK:0##LOOP:52##Residual:9.21298e-06
+##RANK:0##LOOP:53##Residual:5.7795e-06
+##RANK:0##LOOP:54##Residual:4.09875e-06
+##RANK:0##LOOP:55##Residual:3.44633e-06
+##RANK:0##LOOP:56##Residual:2.05058e-06
+##RANK:0##LOOP:57##Residual:1.70635e-06
+##RANK:0##LOOP:58##Residual:1.05486e-06
+##RANK:0##LOOP:59##Residual:3.0889e-06
+##RANK:0##LOOP:60##Residual:1.31166e-06
+##RANK:0##LOOP:61##Residual:1.52903e-07
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.803285337 sec
+## difference: -0.0000012570527219
+QCU bistabcg: 1.0535602640002253 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 16 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =     0.030 secs
-                     init     =     0.030 secs ( 99.983%),	 with        2 calls at 1.505e+04 us per call
-        total accounted       =     0.030 secs ( 99.983%)
-        total missing         =     0.000 secs (  0.017%)
+               initQuda Total time =     0.059 secs
+                     init     =     0.058 secs ( 99.349%),	 with        2 calls at 2.908e+04 us per call
+        total accounted       =     0.058 secs ( 99.349%)
+        total missing         =     0.000 secs (  0.651%)
 
-          loadGaugeQuda Total time =     0.126 secs
-                 download     =     0.064 secs ( 50.465%),	 with       20 calls at 3.179e+03 us per call
-                   upload     =     0.016 secs ( 12.585%),	 with       10 calls at 1.585e+03 us per call
-                     init     =     0.027 secs ( 21.571%),	 with       20 calls at 1.359e+03 us per call
-                  compute     =     0.019 secs ( 15.076%),	 with       20 calls at 9.496e+02 us per call
-                     free     =     0.000 secs (  0.074%),	 with       20 calls at 4.650e+00 us per call
-        total accounted       =     0.126 secs ( 99.770%)
-        total missing         =     0.000 secs (  0.230%)
+          loadGaugeQuda Total time =     0.131 secs
+                 download     =     0.069 secs ( 52.607%),	 with       20 calls at 3.456e+03 us per call
+                   upload     =     0.015 secs ( 11.072%),	 with       10 calls at 1.455e+03 us per call
+                     init     =     0.028 secs ( 21.308%),	 with       20 calls at 1.400e+03 us per call
+                  compute     =     0.019 secs ( 14.708%),	 with       20 calls at 9.662e+02 us per call
+                     free     =     0.000 secs (  0.072%),	 with       20 calls at 4.700e+00 us per call
+        total accounted       =     0.131 secs ( 99.766%)
+        total missing         =     0.000 secs (  0.234%)
 
-                endQuda Total time =     0.005 secs
+                endQuda Total time =     0.010 secs
 
-       initQuda-endQuda Total time =    12.248 secs
+       initQuda-endQuda Total time =    12.919 secs
 
-                   QUDA Total time =     0.796 secs
-                 download     =     0.064 secs (  7.983%),	 with       20 calls at 3.179e+03 us per call
-                   upload     =     0.016 secs (  1.991%),	 with       10 calls at 1.586e+03 us per call
-                     init     =     0.057 secs (  7.193%),	 with       22 calls at 2.604e+03 us per call
-                  compute     =     0.654 secs ( 82.160%),	 with       30 calls at 2.181e+04 us per call
-                     free     =     0.000 secs (  0.011%),	 with       20 calls at 4.550e+00 us per call
-        total accounted       =     0.791 secs ( 99.338%)
-        total missing         =     0.005 secs (  0.662%)
+                   QUDA Total time =     0.828 secs
+                 download     =     0.069 secs (  8.349%),	 with       20 calls at 3.456e+03 us per call
+                   upload     =     0.015 secs (  1.758%),	 with       10 calls at 1.455e+03 us per call
+                     init     =     0.086 secs ( 10.409%),	 with       22 calls at 3.917e+03 us per call
+                  compute     =     0.647 secs ( 78.213%),	 with       30 calls at 2.158e+04 us per call
+                     free     =     0.000 secs (  0.011%),	 with       20 calls at 4.500e+00 us per call
+        total accounted       =     0.817 secs ( 98.740%)
+        total missing         =     0.010 secs (  1.260%)
 
 Device memory used = 186.9 MiB
 Pinned device memory used = 0.0 MiB
@@ -1004,8 +1007,8 @@ Shmem memory used = 0.0 MiB
 Page-locked host memory used = 10.5 MiB
 Total host memory used >= 14.5 MiB
 
-Generating '/tmp/nsys-report-d1d7.qdstrm'
-[1/1] [0%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [0%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [====27%                     ] log_ZhangXin8069_72847.nsys-rep[1/1] [=15%                        ] log_ZhangXin8069_72847.nsys-rep[1/1] [10%                         ] log_ZhangXin8069_72847.nsys-rep[1/1] [7%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [==18%                       ] log_ZhangXin8069_72847.nsys-rep[1/1] [14%                         ] log_ZhangXin8069_72847.nsys-rep[1/1] [12%                         ] log_ZhangXin8069_72847.nsys-rep[1/1] [10%                         ] log_ZhangXin8069_72847.nsys-rep[1/1] [8%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [7%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [6%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [5%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [6%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [8%                          ] log_ZhangXin8069_72847.nsys-rep[1/1] [10%                         ] log_ZhangXin8069_72847.nsys-rep[1/1] [13%                         ] log_ZhangXin8069_72847.nsys-rep[1/1] [=15%                        ] log_ZhangXin8069_72847.nsys-rep[1/1] [=17%                        ] log_ZhangXin8069_72847.nsys-rep[1/1] [==20%                       ] log_ZhangXin8069_72847.nsys-rep[1/1] [===22%                      ] log_ZhangXin8069_72847.nsys-rep[1/1] [===24%                      ] log_ZhangXin8069_72847.nsys-rep[1/1] [====27%                     ] log_ZhangXin8069_72847.nsys-rep[1/1] [=====29%                    ] log_ZhangXin8069_72847.nsys-rep[1/1] [=====31%                    ] log_ZhangXin8069_72847.nsys-rep[1/1] [======34%                   ] log_ZhangXin8069_72847.nsys-rep[1/1] [=======36%                  ] log_ZhangXin8069_72847.nsys-rep[1/1] [=======38%                  ] log_ZhangXin8069_72847.nsys-rep[1/1] [========40%                 ] log_ZhangXin8069_72847.nsys-rep[1/1] [=========43%                ] log_ZhangXin8069_72847.nsys-rep[1/1] [=========45%                ] log_ZhangXin8069_72847.nsys-rep[1/1] [==========47%               ] log_ZhangXin8069_72847.nsys-rep[1/1] [===========50%              ] log_ZhangXin8069_72847.nsys-rep[1/1] [===========52%              ] log_ZhangXin8069_72847.nsys-rep[1/1] [============54%             ] log_ZhangXin8069_72847.nsys-rep[1/1] [============56%             ] log_ZhangXin8069_72847.nsys-rep[1/1] [=============58%            ] log_ZhangXin8069_72847.nsys-rep[1/1] [=============60%            ] log_ZhangXin8069_72847.nsys-rep[1/1] [==============62%           ] log_ZhangXin8069_72847.nsys-rep[1/1] [===============65%          ] log_ZhangXin8069_72847.nsys-rep[1/1] [===============67%          ] log_ZhangXin8069_72847.nsys-rep[1/1] [================69%         ] log_ZhangXin8069_72847.nsys-rep[1/1] [=================72%        ] log_ZhangXin8069_72847.nsys-rep[1/1] [=================74%        ] log_ZhangXin8069_72847.nsys-rep[1/1] [==================76%       ] log_ZhangXin8069_72847.nsys-rep[1/1] [==================78%       ] log_ZhangXin8069_72847.nsys-rep[1/1] [===================81%      ] log_ZhangXin8069_72847.nsys-rep[1/1] [====================83%     ] log_ZhangXin8069_72847.nsys-rep[1/1] [====================85%     ] log_ZhangXin8069_72847.nsys-rep[1/1] [=====================86%    ] log_ZhangXin8069_72847.nsys-rep[1/1] [========================100%] log_ZhangXin8069_72847.nsys-rep[1/1] [========================100%] log_ZhangXin8069_72847.nsys-rep
+Generating '/tmp/nsys-report-60c5.qdstrm'
+[1/1] [0%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [0%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [=16%                        ] log_ZhangXin8069_82790.nsys-rep[1/1] [13%                         ] log_ZhangXin8069_82790.nsys-rep[1/1] [11%                         ] log_ZhangXin8069_82790.nsys-rep[1/1] [9%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [8%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [7%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [6%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [5%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [5%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [7%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [9%                          ] log_ZhangXin8069_82790.nsys-rep[1/1] [11%                         ] log_ZhangXin8069_82790.nsys-rep[1/1] [13%                         ] log_ZhangXin8069_82790.nsys-rep[1/1] [=15%                        ] log_ZhangXin8069_82790.nsys-rep[1/1] [=17%                        ] log_ZhangXin8069_82790.nsys-rep[1/1] [==19%                       ] log_ZhangXin8069_82790.nsys-rep[1/1] [==21%                       ] log_ZhangXin8069_82790.nsys-rep[1/1] [===23%                      ] log_ZhangXin8069_82790.nsys-rep[1/1] [====25%                     ] log_ZhangXin8069_82790.nsys-rep[1/1] [====27%                     ] log_ZhangXin8069_82790.nsys-rep[1/1] [=====29%                    ] log_ZhangXin8069_82790.nsys-rep[1/1] [=====31%                    ] log_ZhangXin8069_82790.nsys-rep[1/1] [======33%                   ] log_ZhangXin8069_82790.nsys-rep[1/1] [======35%                   ] log_ZhangXin8069_82790.nsys-rep[1/1] [=======37%                  ] log_ZhangXin8069_82790.nsys-rep[1/1] [=======39%                  ] log_ZhangXin8069_82790.nsys-rep[1/1] [========41%                 ] log_ZhangXin8069_82790.nsys-rep[1/1] [=========43%                ] log_ZhangXin8069_82790.nsys-rep[1/1] [=========45%                ] log_ZhangXin8069_82790.nsys-rep[1/1] [==========47%               ] log_ZhangXin8069_82790.nsys-rep[1/1] [==========49%               ] log_ZhangXin8069_82790.nsys-rep[1/1] [===========51%              ] log_ZhangXin8069_82790.nsys-rep[1/1] [===========53%              ] log_ZhangXin8069_82790.nsys-rep[1/1] [============55%             ] log_ZhangXin8069_82790.nsys-rep[1/1] [============57%             ] log_ZhangXin8069_82790.nsys-rep[1/1] [=============59%            ] log_ZhangXin8069_82790.nsys-rep[1/1] [==============61%           ] log_ZhangXin8069_82790.nsys-rep[1/1] [==============63%           ] log_ZhangXin8069_82790.nsys-rep[1/1] [==============64%           ] log_ZhangXin8069_82790.nsys-rep[1/1] [===============66%          ] log_ZhangXin8069_82790.nsys-rep[1/1] [================68%         ] log_ZhangXin8069_82790.nsys-rep[1/1] [================70%         ] log_ZhangXin8069_82790.nsys-rep[1/1] [=================72%        ] log_ZhangXin8069_82790.nsys-rep[1/1] [=================74%        ] log_ZhangXin8069_82790.nsys-rep[1/1] [==================76%       ] log_ZhangXin8069_82790.nsys-rep[1/1] [==================78%       ] log_ZhangXin8069_82790.nsys-rep[1/1] [===================80%      ] log_ZhangXin8069_82790.nsys-rep[1/1] [===================82%      ] log_ZhangXin8069_82790.nsys-rep[1/1] [====================84%     ] log_ZhangXin8069_82790.nsys-rep[1/1] [=====================86%    ] log_ZhangXin8069_82790.nsys-rep[1/1] [=====================87%    ] log_ZhangXin8069_82790.nsys-rep[1/1] [=====================88%    ] log_ZhangXin8069_82790.nsys-rep[1/1] [========================100%] log_ZhangXin8069_82790.nsys-rep[1/1] [========================100%] log_ZhangXin8069_82790.nsys-rep
 Generated:
-    /home/zhangxin/qcu/test/log_ZhangXin8069_72847.nsys-rep
+    /home/zhangxin/qcu/test/log_ZhangXin8069_82790.nsys-rep
 ~/qcu
