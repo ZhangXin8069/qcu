@@ -220,12 +220,12 @@ struct LatticeBistabcg {
   void run(void *gauge) {
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
       dot(r_tilde, r, _rho_, _a_);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       {
         // beta = (rho / rho_prev) * (alpha / omega);
         bistabcg_give_1beta<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
       }
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));//needed, but don't know why.
       {
         // rho_prev = rho;
         bistabcg_give_1rho_prev<<<1, 1, 0, set_ptr->streams[_b_]>>>(
