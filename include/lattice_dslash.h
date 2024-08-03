@@ -3,7 +3,6 @@
 #include "./dslash.h"
 #include "./lattice_set.h"
 #include "define.h"
-
 struct LatticeWilsonDslash {
   LatticeSet *set_ptr;
   cudaError_t err;
@@ -12,9 +11,8 @@ struct LatticeWilsonDslash {
     {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
       // checkCudaErrors(cudaDeviceSynchronize()); // needed
-      wilson_dslash_clear_dest<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(fermion_out,
-                                                    set_ptr->device_xyztsc);
+      give_fermi_val<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                          set_ptr->stream>>>(fermion_out, 0.0, 0.0);
       wilson_dslash_x_send<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                              set_ptr->stream_wards[_B_X_]>>>(
           gauge, fermion_in, fermion_out, set_ptr->device_xyztsc, parity,
@@ -184,11 +182,9 @@ struct LatticeWilsonDslash {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_F_T_]));
     }
   }
-
   void run_eo(void *fermion_out, void *fermion_in, void *gauge) {
     run(fermion_out, fermion_in, gauge, _EVEN_);
   }
-
   void run_oe(void *fermion_out, void *fermion_in, void *gauge) {
     run(fermion_out, fermion_in, gauge, _ODD_);
   }
@@ -209,5 +205,4 @@ struct LatticeWilsonDslash {
            double(duration) / 1e9);
   }
 };
-
 #endif

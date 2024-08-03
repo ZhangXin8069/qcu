@@ -1,6 +1,6 @@
 #include "../include/qcu.h"
 #ifdef LATTICE_CUDA
-__global__ void give_random_value(void *device_random_value,
+__global__ void give_fermi_rand(void *device_random_value,
                                   unsigned long seed) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   LatticeComplex *random_value =
@@ -13,7 +13,7 @@ __global__ void give_random_value(void *device_random_value,
     random_value[idx * _LAT_SC_ + i].imag = curand_uniform(&state_imag);
   }
 }
-__global__ void give_custom_value(void *device_custom_value, double real,
+__global__ void give_fermi_val(void *device_custom_value, double real,
                                   double imag) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   LatticeComplex *custom_value =

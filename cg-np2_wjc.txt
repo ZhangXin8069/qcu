@@ -32,13 +32,11 @@
 /home/kfutfd/qcu/refer/qcu/src/solver/qcu_cg.cu(30): warning #177-D: variable "stream2" was declared but never referenced
     cudaStream_t stream2 = dslashParam->stream2;
                  ^
-
 Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
 
 /home/kfutfd/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu(128): warning #177-D: variable "Nx" was declared but never referenced
     int Nx = dslashParam_->Nx;
         ^
-
 Remark: The warnings can be suppressed with "-diag-suppress <warning-number>"
 
 /home/kfutfd/qcu/refer/qcu/src/qcd/qcu_wilson_dslash.cu(129): warning #177-D: variable "Ny" was declared but never referenced
@@ -298,7 +296,6 @@ Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
                      free     =     0.000 secs (  0.008%),	 with       20 calls at 6.950e+00 us per call
         total accounted       =     1.752 secs ( 98.189%)
         total missing         =     0.032 secs (  1.811%)
-
 Device memory used = 1461.0 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB

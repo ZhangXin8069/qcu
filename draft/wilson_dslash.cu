@@ -46,7 +46,6 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   LatticeComplex src[_LAT_SC_];
   LatticeComplex dest[_LAT_SC_];
   // just wilson(Sum part)
-  // host_give_value(dest, zero, _LAT_SC_);
   {
     // x-1
     move_backward_x(move, x, lat_x, eo, parity);
@@ -239,32 +238,6 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   give_ptr(origin_dest, dest, _LAT_SC_);
 }
 
-__global__ void wilson_dslash_clear_dest(void *device_dest,
-                                         void *device_xyztsc) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *xyztsc = static_cast<int *>(device_xyztsc);
-  const int lat_x = xyztsc[_X_];
-  const int lat_y = xyztsc[_Y_];
-  const int lat_z = xyztsc[_Z_];
-  const int lat_xsc = xyztsc[_XSC_];
-  const int lat_yxsc = xyztsc[_YXSC_];
-  const int lat_zyxsc = xyztsc[_ZYXSC_];
-  int move;
-  move = lat_x * lat_y * lat_z;
-  const int t = parity / move;
-  parity -= t * move;
-  move = lat_x * lat_y;
-  const int z = parity / move;
-  parity -= z * move;
-  const int y = parity / lat_x;
-  const int x = parity - y * lat_x;
-  LatticeComplex zero(0.0, 0.0);
-  LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) + t * lat_zyxsc +
-       z * lat_yxsc + y * lat_xsc + x * _LAT_SC_);
-  host_give_value(origin_dest, zero, _LAT_SC_);
-}
-
 __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity,
@@ -319,7 +292,6 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_x_send_vec[_LAT_HALF_SC_];
   LatticeComplex f_x_send_vec[_LAT_HALF_SC_];
-  // host_give_value(dest, zero, _LAT_SC_);
   { // x-1
     move_backward_x(move, x, lat_x, eo, parity);
     if (move != lat_x - 1) {
@@ -454,7 +426,6 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_x_recv_vec[_LAT_HALF_SC_];
   LatticeComplex f_x_recv_vec[_LAT_HALF_SC_]; // needed
-  // host_give_value(dest, zero, _LAT_SC_);
   { // x-1
     move_backward_x(move, x, lat_x, eo, parity);
     if (move == lat_x - 1) { // recv in x-1 way
@@ -545,7 +516,6 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_y_send_vec[_LAT_HALF_SC_];
   LatticeComplex f_y_send_vec[_LAT_HALF_SC_];
-  // host_give_value(dest, zero, _LAT_SC_);
   { // y-1
     move_backward(move, y, lat_y);
     if (move == -1) {
@@ -676,7 +646,6 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_y_recv_vec[_LAT_HALF_SC_];
   LatticeComplex f_y_recv_vec[_LAT_HALF_SC_]; // needed
-  // host_give_value(dest, zero, _LAT_SC_);
   { // y-1
     move_backward(move, y, lat_y);
     if (move != -1) { // recv in y-1 way
@@ -767,7 +736,6 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_z_send_vec[_LAT_HALF_SC_];
   LatticeComplex f_z_send_vec[_LAT_HALF_SC_];
-  // host_give_value(dest, zero, _LAT_SC_);
   { // z-1
     move_backward(move, z, lat_z);
     if (move == -1) {
@@ -899,7 +867,6 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_z_recv_vec[_LAT_HALF_SC_];
   LatticeComplex f_z_recv_vec[_LAT_HALF_SC_]; // needed
-  // host_give_value(dest, zero, _LAT_SC_);
   { // z-1
     move_backward(move, z, lat_z);
     if (move != -1) { // recv in z-1 way
@@ -991,7 +958,6 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_t_send_vec[_LAT_HALF_SC_];
   LatticeComplex f_t_send_vec[_LAT_HALF_SC_];
-  // host_give_value(dest, zero, _LAT_SC_);
   { // t-1
     move_backward(move, t, lat_t);
     if (move == -1) {
@@ -1123,7 +1089,6 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   LatticeComplex dest[_LAT_SC_];
   LatticeComplex b_t_recv_vec[_LAT_HALF_SC_];
   LatticeComplex f_t_recv_vec[_LAT_HALF_SC_]; // needed
-  // host_give_value(dest, zero, _LAT_SC_);
   { // t-1
     move_backward(move, t, lat_t);
     if (move != -1) { // recv in t-1 way

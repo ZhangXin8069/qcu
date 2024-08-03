@@ -5,12 +5,9 @@ from pyquda import init, core, quda, pyqcu, mpi
 import os
 import sys
 from time import perf_counter
-
 import cupy as cp
-
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
-
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 latt_size = [16, 16, 16, 32]
@@ -22,13 +19,11 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
-
 a = 1
 xi_0, nu = 1, 1
 coeff_r, coeff_t = 1, 1
 mass = -3.5
 # kappa = 1 / (2*mass+8)
-
 
 def compare(round):
     # generate a vector p randomly
@@ -74,7 +69,6 @@ def compare(round):
     print(f'QCU dslash: {t2 - t1} sec')
     print('difference: ', cp.linalg.norm(
         Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
-
 
 for i in range(0, 5):
     compare(i)

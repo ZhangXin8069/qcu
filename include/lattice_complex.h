@@ -2,7 +2,6 @@
 #define _LATTICE_COMPLEX_H
 
 #include "./include.h"
-
 struct LatticeComplex {
   double real;
   double imag;

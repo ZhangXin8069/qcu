@@ -162,7 +162,7 @@
     }                                                                          \
   }
 
-#define device_give_value(host_Udevice_U, host_zero, n)                        \
+#define device_give_value(host_U, device_U, host_zero, n)                      \
   {                                                                            \
     host_give_value(host_U, host_zero, n);                                     \
     cudaMemcpy(device_U, host_U, sizeof(LatticeComplex) * n,                   \

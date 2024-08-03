@@ -18,10 +18,8 @@ set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
 set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
 include_directories(${MPI_INCLUDE_PATH})
 include_directories(include)
-
 aux_source_directory(src SOURCE_FILE)
 add_library(qcu SHARED ${SOURCE_FILE})
-
 find_package(MPI REQUIRED)
 target_link_libraries(qcu ${MPI_LIBRARIES})
 target_link_libraries(qcu ${CUDA_LIBRARIES})

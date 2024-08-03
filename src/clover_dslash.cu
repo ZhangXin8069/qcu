@@ -1,6 +1,5 @@
 #include "../include/qcu.h"
 #ifdef CLOVER_DSLASH
-
 __global__ void make_clover(void *device_U, void *device_clover,
                             void *device_xyztsc, const int device_parity) {
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
@@ -843,7 +842,6 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   give_ptr(origin_clover, clover, _LAT_SCSC_);
 }
-
 __global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
   LatticeComplex *origin_clover;
   {
@@ -879,7 +877,6 @@ __global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
     give_ptr(origin_clover, clover, _LAT_SCSC_);
   }
 }
-
 __global__ void give_clover(void *device_clover, void *device_dest,
                             void *device_xyztsc) {
   LatticeComplex *origin_clover;
@@ -923,7 +920,6 @@ __global__ void give_clover(void *device_clover, void *device_dest,
     give_ptr(origin_dest, tmp_dest, _LAT_SC_);
   }
 }
-
 void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, int parity) {
   // define for nccl_clover_dslash

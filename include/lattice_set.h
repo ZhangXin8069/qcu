@@ -2,7 +2,6 @@
 #define _LATTICE_SET_H
 #include "./define.h"
 #include "lattice_complex.h"
-
 struct LatticeSet {
   int lat_1dim[_DIM_];
   int lat_3dim[_DIM_];

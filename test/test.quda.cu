@@ -1,12 +1,8 @@
 #include "dslash_test_utils.h"
-
 using namespace quda;
-
 dslash_test_type dtest_type = dslash_test_type::Dslash;
-
 int argc_copy;
 char **argv_copy;
-
 class DslashTest : public ::testing::Test
 {
 protected:
@@ -31,7 +27,6 @@ protected:
                  grid_partition[3]);
     }
   }
-
 public:
   virtual void SetUp()
   {
@@ -56,9 +51,7 @@ public:
     endQuda();
   }
 };
-
 TEST_F(DslashTest, benchmark) { dslash_test_wrapper.run_test(niter, /**show_metrics =*/true); }
-
 TEST_F(DslashTest, verify)
 {
   if (!verify_results) GTEST_SKIP();
@@ -77,7 +70,6 @@ TEST_F(DslashTest, verify)
 
   ASSERT_LE(deviation, tol) << "CPU and CUDA implementations do not agree";
 }
-
 int main(int argc, char **argv)
 {
   // initalize google test, includes command line options

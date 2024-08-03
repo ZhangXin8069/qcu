@@ -245,7 +245,6 @@ Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
                      free     =     0.000 secs (  0.004%),	 with        2 calls at 1.850e+01 us per call
         total accounted       =     1.024 secs ( 96.924%)
         total missing         =     0.032 secs (  3.076%)
-
 Device memory used = 1380.0 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB

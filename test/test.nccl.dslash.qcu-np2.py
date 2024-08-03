@@ -1,17 +1,13 @@
 import os
 import sys
 from time import perf_counter
-
 import cupy as cp
-
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
-
 from pyquda import init, core, quda, pyqcu, mpi
 from pyquda.enum_quda import QudaParity
 from pyquda.field import LatticeFermion
 from pyquda.utils import gauge_utils
-
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 latt_size = [32, 32, 32, 64]
 grid_size = [2, 1, 1, 1]
@@ -22,7 +18,6 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
-
 
 def compare(round):
     # generate a vector p randomly
@@ -67,6 +62,5 @@ def compare(round):
     # print("######test:Mp2[2,0,0,0]:\n",Mp2.lexico()[2,0,0,0])
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
-
 for i in range(0, 10):
     compare(i)
