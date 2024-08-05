@@ -697,7 +697,6 @@ __global__ void make_clover(void *device_U, void *device_clover,
       }
     }
   }
-
   // ZT
   host_give_value(U, zero, _LAT_CC_);
   {
@@ -991,5 +990,4 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaFree(clover));
   }
 }
-
 #endif

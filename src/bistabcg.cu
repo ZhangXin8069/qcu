@@ -236,5 +236,4 @@ __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
   }
   give_ptr(origin_r, r, _LAT_SC_);
 }
-
 #endif

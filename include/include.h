@@ -1,6 +1,5 @@
 #ifndef _INCLUDE_H
 #define _INCLUDE_H
-
 #include <chrono>
 #include <cstdio>
 #include <ctime>
@@ -15,6 +14,4 @@
 #include <string>
 #include <unistd.h>
 #include <memory>
-
-
 #endif

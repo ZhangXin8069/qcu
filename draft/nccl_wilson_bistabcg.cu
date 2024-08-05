@@ -85,10 +85,10 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeComplex *host_dots =
       (LatticeComplex *)malloc(lat_4dim * sizeof(LatticeComplex));
   // give ans first
-  give_random_value<<<gridDim, blockDim>>>(ans_e, node_rank + 12138);
-  give_random_value<<<gridDim, blockDim>>>(ans_o, node_rank + 83121);
+  give_fermi_rand<<<gridDim, blockDim>>>(ans_e, node_rank + 12138);
+  give_fermi_rand<<<gridDim, blockDim>>>(ans_o, node_rank + 83121);
   // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t
-  give_random_value<<<gridDim, blockDim>>>(x_o, node_rank + 66666);
+  give_fermi_rand<<<gridDim, blockDim>>>(x_o, node_rank + 66666);
   give_custom_value<<<gridDim, blockDim>>>(b_e, 0.0, 0.0);
   give_custom_value<<<gridDim, blockDim>>>(b_o, 0.0, 0.0);
   give_custom_value<<<gridDim, blockDim>>>(b__o, 0.0, 0.0);

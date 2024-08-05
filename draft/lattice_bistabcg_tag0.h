@@ -81,7 +81,7 @@ struct LatticeBistabcg {
       give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _diff_tmp_);
     }
     {
-      give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      give_fermi_rand<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(x_o, 23333);
       perf_part_reduce(device_dot_vec, device_vals, device_dot_tmp_vec,
                        set_ptr->lat_4dim, set_ptr->stream);
@@ -120,9 +120,9 @@ struct LatticeBistabcg {
         &b_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
         &b_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
-    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    give_fermi_rand<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->stream>>>(ans_e, 12138);
-    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    give_fermi_rand<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->stream>>>(ans_o, 83121);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));

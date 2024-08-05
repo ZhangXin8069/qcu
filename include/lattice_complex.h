@@ -1,6 +1,5 @@
 #ifndef _LATTICE_COMPLEX_H
 #define _LATTICE_COMPLEX_H
-
 #include "./include.h"
 struct LatticeComplex {
   double real;
@@ -91,5 +90,4 @@ struct LatticeComplex {
     return sqrt(real * real + imag * imag);
   }
 };
-
 #endif

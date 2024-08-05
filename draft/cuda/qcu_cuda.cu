@@ -1,6 +1,6 @@
 #include "../../include/qcu.h"
 
-__global__ void give_random_value(void *device_random_value,
+__global__ void give_fermi_rand(void *device_random_value,
                                   unsigned long seed) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int lat_4dim = gridDim.x * blockDim.x;
