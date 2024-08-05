@@ -25,8 +25,7 @@ __global__ void wilson_dslash_b_x_send(void *device_src, void *device_xyztsc,
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_x_send_vec =
       ((static_cast<LatticeComplex *>(device_b_x_send_vec)) +
        (((t * lat_z + z) * lat_y + y)) * _LAT_HALF_SC_);
@@ -68,8 +67,7 @@ __global__ void wilson_dslash_b_y_send(void *device_src, void *device_xyztsc,
   const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_y_send_vec =
       ((static_cast<LatticeComplex *>(device_b_y_send_vec)) +
        (((t * lat_z + z)) * lat_x + x) * _LAT_HALF_SC_);
@@ -110,8 +108,7 @@ __global__ void wilson_dslash_b_z_send(void *device_src, void *device_xyztsc,
   parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_z_send_vec =
       ((static_cast<LatticeComplex *>(device_b_z_send_vec)) +
        (((t)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -153,8 +150,7 @@ __global__ void wilson_dslash_b_t_send(void *device_src, void *device_xyztsc,
   const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_t_send_vec =
       ((static_cast<LatticeComplex *>(device_b_t_send_vec)) +
        (((z)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -201,11 +197,9 @@ __global__ void wilson_dslash_f_x_send(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_x_send_vec =
       ((static_cast<LatticeComplex *>(device_f_x_send_vec)) +
        (((t * lat_z + z) * lat_y + y)) * _LAT_HALF_SC_);
@@ -263,11 +257,9 @@ __global__ void wilson_dslash_f_y_send(void *device_U, void *device_src,
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_y_send_vec =
       ((static_cast<LatticeComplex *>(device_f_y_send_vec)) +
        (((t * lat_z + z)) * lat_x + x) * _LAT_HALF_SC_);
@@ -325,11 +317,9 @@ __global__ void wilson_dslash_f_z_send(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_z_send_vec =
       ((static_cast<LatticeComplex *>(device_f_z_send_vec)) +
        (((t)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -387,11 +377,9 @@ __global__ void wilson_dslash_f_t_send(void *device_U, void *device_src,
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_t_send_vec =
       ((static_cast<LatticeComplex *>(device_f_t_send_vec)) +
        (((z)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -453,14 +441,11 @@ __global__ void wilson_dslash_x_compute(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *tmp_U;
   LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
@@ -541,14 +526,11 @@ __global__ void wilson_dslash_y_compute(void *device_U, void *device_src,
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *tmp_U;
   LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
@@ -630,14 +612,11 @@ __global__ void wilson_dslash_z_compute(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *tmp_U;
   LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
@@ -720,14 +699,11 @@ __global__ void wilson_dslash_t_compute(void *device_U, void *device_src,
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_src =
-      ((static_cast<LatticeComplex *>(device_src)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_src)) + idx * _LAT_SC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *tmp_U;
   LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
@@ -812,8 +788,7 @@ __global__ void wilson_dslash_b_x_recv(void *device_dest, void *device_xyztsc,
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_x_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_x_recv_vec)) +
        (((t * lat_z + z) * lat_y + y)) * _LAT_HALF_SC_);
@@ -854,8 +829,7 @@ __global__ void wilson_dslash_b_y_recv(void *device_dest, void *device_xyztsc,
   const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_y_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_y_recv_vec)) +
        (((t * lat_z + z)) * lat_x + x) * _LAT_HALF_SC_);
@@ -897,8 +871,7 @@ __global__ void wilson_dslash_b_z_recv(void *device_dest, void *device_xyztsc,
   parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_z_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_z_recv_vec)) +
        (((t)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -940,8 +913,7 @@ __global__ void wilson_dslash_b_t_recv(void *device_dest, void *device_xyztsc,
   const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_b_t_recv_vec =
       ((static_cast<LatticeComplex *>(device_b_t_recv_vec)) +
        (((z)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -989,11 +961,9 @@ __global__ void wilson_dslash_f_x_recv(void *device_U, void *device_dest,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_x_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_x_recv_vec)) +
        (((t * lat_z + z) * lat_y + y)) * _LAT_HALF_SC_);
@@ -1050,11 +1020,9 @@ __global__ void wilson_dslash_f_y_recv(void *device_U, void *device_dest,
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_y_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_y_recv_vec)) +
        (((t * lat_z + z)) * lat_x + x) * _LAT_HALF_SC_);
@@ -1112,11 +1080,9 @@ __global__ void wilson_dslash_f_z_recv(void *device_U, void *device_dest,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_z_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_z_recv_vec)) +
        (((t)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
@@ -1174,11 +1140,9 @@ __global__ void wilson_dslash_f_t_recv(void *device_U, void *device_dest,
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_CC_);
+      ((static_cast<LatticeComplex *>(device_U)) + idx * _LAT_CC_);
   LatticeComplex *origin_dest =
-      ((static_cast<LatticeComplex *>(device_dest)) +
-       (((t * lat_z + z) * lat_y + y) * lat_x + x) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   LatticeComplex *origin_f_t_recv_vec =
       ((static_cast<LatticeComplex *>(device_f_t_recv_vec)) +
        (((z)*lat_y + y) * lat_x + x) * _LAT_HALF_SC_);
