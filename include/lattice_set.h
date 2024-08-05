@@ -167,6 +167,8 @@ struct LatticeSet {
       checkCudaErrors(cudaStreamDestroy(streams[i]));
       checkCudaErrors(cudaStreamDestroy(stream_dims[i]));
       checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_], stream));
+      checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_ + 1], stream));
+      checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_], stream));
       checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_ + 1], stream));
       free(host_send_vec[i * _SR_]);
       free(host_recv_vec[i * _SR_ + 1]);

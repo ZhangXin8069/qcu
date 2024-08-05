@@ -522,7 +522,6 @@ __global__ void wilson_dslash_y_compute(void *device_U, void *device_src,
   const int z = parity / move;
   parity -= z * move;
   const int y = parity / lat_x;
-  const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
@@ -606,8 +605,6 @@ __global__ void wilson_dslash_z_compute(void *device_U, void *device_src,
   move = lat_x * lat_y;
   const int z = parity / move;
   parity -= z * move;
-  const int y = parity / lat_x;
-  const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
@@ -690,12 +687,6 @@ __global__ void wilson_dslash_t_compute(void *device_U, void *device_src,
   int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
-  parity -= t * move;
-  move = lat_x * lat_y;
-  const int z = parity / move;
-  parity -= z * move;
-  const int y = parity / lat_x;
-  const int x = parity - y * lat_x;
   parity = device_parity;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U =
