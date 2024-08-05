@@ -145,6 +145,8 @@ struct LatticeBistabcg {
     _dslash(r, x_o, gauge);
     bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                        set_ptr->stream>>>(r, b__o, r_tilde);
+    checkCudaErrors(cudaFreeAsync(b_e, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(b_o, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void dot(void *device_vec0, void *device_vec1, const int vals_index,
