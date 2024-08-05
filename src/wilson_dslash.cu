@@ -6,7 +6,8 @@ b_send
 __global__ void wilson_dslash_b_x_send(void *device_src, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_x_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -50,7 +51,8 @@ __global__ void wilson_dslash_b_x_send(void *device_src, void *device_xyztsc,
 __global__ void wilson_dslash_b_y_send(void *device_src, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_y_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -80,8 +82,7 @@ __global__ void wilson_dslash_b_y_send(void *device_src, void *device_xyztsc,
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
           b_y_send_vec[c1] = src[c1] + src[c1 + _LAT_3C_];
-          b_y_send_vec[c1 + _LAT_1C_] =
-              src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_];
+          b_y_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_];
         }
         give_ptr(origin_b_y_send_vec, b_y_send_vec, _LAT_HALF_SC_);
       }
@@ -91,7 +92,8 @@ __global__ void wilson_dslash_b_y_send(void *device_src, void *device_xyztsc,
 __global__ void wilson_dslash_b_z_send(void *device_src, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_z_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -133,7 +135,8 @@ __global__ void wilson_dslash_b_z_send(void *device_src, void *device_xyztsc,
 __global__ void wilson_dslash_b_t_send(void *device_src, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_t_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -178,7 +181,8 @@ __global__ void wilson_dslash_f_x_send(void *device_U, void *device_src,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_x_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -241,7 +245,8 @@ __global__ void wilson_dslash_f_y_send(void *device_U, void *device_src,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_y_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -301,7 +306,8 @@ __global__ void wilson_dslash_f_z_send(void *device_U, void *device_src,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_z_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -362,7 +368,8 @@ __global__ void wilson_dslash_f_t_send(void *device_U, void *device_src,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_t_send_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -406,8 +413,8 @@ __global__ void wilson_dslash_f_t_send(void *device_U, void *device_src,
           tmp0 = zero;
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++) {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_]) *
-                    U[c1 * _LAT_C_ + c0].conj();
+            tmp0 +=
+                (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
             tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
@@ -425,7 +432,8 @@ compute
 __global__ void wilson_dslash_x_compute(void *device_U, void *device_src,
                                         void *device_dest, void *device_xyztsc,
                                         const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -514,7 +522,8 @@ __global__ void wilson_dslash_x_compute(void *device_U, void *device_src,
 __global__ void wilson_dslash_y_compute(void *device_U, void *device_src,
                                         void *device_dest, void *device_xyztsc,
                                         const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -601,7 +610,8 @@ __global__ void wilson_dslash_y_compute(void *device_U, void *device_src,
 __global__ void wilson_dslash_z_compute(void *device_U, void *device_src,
                                         void *device_dest, void *device_xyztsc,
                                         const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -673,8 +683,7 @@ __global__ void wilson_dslash_z_compute(void *device_U, void *device_src,
           tmp0 = zero;
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++) {
-            tmp0 +=
-                (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
             tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) *
                     U[c0 * _LAT_C_ + c1];
           }
@@ -691,7 +700,8 @@ __global__ void wilson_dslash_z_compute(void *device_U, void *device_src,
 __global__ void wilson_dslash_t_compute(void *device_U, void *device_src,
                                         void *device_dest, void *device_xyztsc,
                                         const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -738,8 +748,8 @@ __global__ void wilson_dslash_t_compute(void *device_U, void *device_src,
           tmp0 = zero;
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++) {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_]) *
-                    U[c1 * _LAT_C_ + c0].conj();
+            tmp0 +=
+                (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
             tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
@@ -764,8 +774,8 @@ __global__ void wilson_dslash_t_compute(void *device_U, void *device_src,
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++) {
             tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
-            tmp1 +=
-                (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
+            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) *
+                    U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
@@ -783,7 +793,8 @@ b_recv
 __global__ void wilson_dslash_b_x_recv(void *device_dest, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_x_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -826,7 +837,8 @@ __global__ void wilson_dslash_b_x_recv(void *device_dest, void *device_xyztsc,
 __global__ void wilson_dslash_b_y_recv(void *device_dest, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_y_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -867,7 +879,8 @@ __global__ void wilson_dslash_b_y_recv(void *device_dest, void *device_xyztsc,
 __global__ void wilson_dslash_b_z_recv(void *device_dest, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_z_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -909,7 +922,8 @@ __global__ void wilson_dslash_b_z_recv(void *device_dest, void *device_xyztsc,
 __global__ void wilson_dslash_b_t_recv(void *device_dest, void *device_xyztsc,
                                        const int device_parity,
                                        void *device_b_t_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -955,7 +969,8 @@ __global__ void wilson_dslash_f_x_recv(void *device_U, void *device_dest,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_x_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -1017,7 +1032,8 @@ __global__ void wilson_dslash_f_y_recv(void *device_U, void *device_dest,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_y_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -1077,7 +1093,8 @@ __global__ void wilson_dslash_f_z_recv(void *device_U, void *device_dest,
                                        void *device_xyztsc,
                                        const int device_parity,
                                        void *device_f_z_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -1135,10 +1152,11 @@ __global__ void wilson_dslash_f_z_recv(void *device_U, void *device_dest,
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
 __global__ void wilson_dslash_f_t_recv(void *device_U, void *device_dest,
-                                     void *device_xyztsc,
-                                     const int device_parity,
-                                     void *device_f_t_recv_vec) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+                                       void *device_xyztsc,
+                                       const int device_parity,
+                                       void *device_f_t_recv_vec) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -1201,7 +1219,8 @@ single wilson dslash
 __global__ void wilson_dslash(void *device_U, void *device_src,
                               void *device_dest, void *device_xyztsc,
                               const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
   int *xyztsc = static_cast<int *>(device_xyztsc);
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
@@ -1330,8 +1349,8 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
       tmp1 = zero;
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
         tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-        tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) *
-                U[c0 * _LAT_C_ + c1];
+        tmp1 +=
+            (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
       }
       dest[c0] += tmp0;
       dest[c0 + _LAT_1C_] += tmp1;
@@ -1353,8 +1372,8 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
       tmp0 = zero;
       tmp1 = zero;
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        tmp0 += (src[c1] + src[c1 + _LAT_2C_] * I) *
-                U[c1 * _LAT_C_ + c0].conj();
+        tmp0 +=
+            (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
         tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
                 U[c1 * _LAT_C_ + c0].conj();
       }
@@ -1378,8 +1397,8 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
       tmp1 = zero;
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
         tmp0 += (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
-        tmp1 +=
-            (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+        tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) *
+                U[c0 * _LAT_C_ + c1];
       }
       dest[c0] += tmp0;
       dest[c0 + _LAT_1C_] += tmp1;
@@ -1401,8 +1420,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
       tmp0 = zero;
       tmp1 = zero;
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        tmp0 +=
-            (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
+        tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
         tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
                 U[c1 * _LAT_C_ + c0].conj();
       }
@@ -1426,7 +1444,8 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
       tmp1 = zero;
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
         tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
-        tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
+        tmp1 +=
+            (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
       }
       dest[c0] += tmp0;
       dest[c0 + _LAT_1C_] += tmp1;
