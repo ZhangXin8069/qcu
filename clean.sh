@@ -1,4 +1,3 @@
-rm .*
 # rm -rf .cache
 rm -rf CMakeFiles
 rm cmake_install.cmake
