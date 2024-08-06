@@ -49,6 +49,9 @@
 #define _ODD_ 1
 #define _EVENODD_ 2
 #define _LAT_C_ 3
+#define _LAT_1C_ 3
+#define _LAT_2C_ 6
+#define _LAT_3C_ 9
 #define _LAT_S_ 4
 #define _LAT_CC_ 9
 #define _LAT_HALF_SC_ 6
