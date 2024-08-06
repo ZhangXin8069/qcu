@@ -14,7 +14,6 @@ sys.path.insert(0, os.path.join(test_dir, ".."))
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 latt_size = [16, 16, 16, 32]
-latt_size = [4, 4, 4, 8]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
@@ -44,7 +43,8 @@ def compare(round):
     # Set parameters in Dslash and use m=-3.5 to make kappa=1
 
     # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
-    dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu, coeff_t, coeff_r, multigrid=False,  anti_periodic_t=False)
+    dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
+                            coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
     # Generate gauge and then load it
     U = gauge_utils.gaussGauge(latt_size, round)
     dslash.loadGauge(U)
