@@ -246,7 +246,6 @@ __global__ void wilson_dslash_clear_dest(void *device_dest,
   const int z = parity / move;
   parity -= z * move;
   const int y = parity / lat_x;
-  const int x = parity - y * lat_x;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
@@ -396,13 +395,7 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
   const int lat_z = xyztsc[_Z_];
-  const int lat_xcc = xyztsc[_XCC_];
-  const int lat_yxcc = xyztsc[_YXCC_];
-  const int lat_zyxcc = xyztsc[_ZYXCC_];
   const int lat_tzyxcc = xyztsc[_TZYXCC_];
-  const int lat_xsc = xyztsc[_XSC_];
-  const int lat_yxsc = xyztsc[_YXSC_];
-  const int lat_zyxsc = xyztsc[_ZYXSC_];
   int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -815,13 +808,7 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   const int lat_x = xyztsc[_X_];
   const int lat_y = xyztsc[_Y_];
   const int lat_z = xyztsc[_Z_];
-  const int lat_xcc = xyztsc[_XCC_];
-  const int lat_yxcc = xyztsc[_YXCC_];
-  const int lat_zyxcc = xyztsc[_ZYXCC_];
   const int lat_tzyxcc = xyztsc[_TZYXCC_];
-  const int lat_xsc = xyztsc[_XSC_];
-  const int lat_yxsc = xyztsc[_YXSC_];
-  const int lat_zyxsc = xyztsc[_ZYXSC_];
   int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
