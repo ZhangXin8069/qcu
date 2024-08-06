@@ -227,7 +227,8 @@ struct LatticeBistabcg {
         // beta = (rho / rho_prev) * (alpha / omega);
         bistabcg_give_1beta<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
       }
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));//needed, but don't know why.
+      // needed, but don't know why.
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       {
         // rho_prev = rho;
         bistabcg_give_1rho_prev<<<1, 1, 0, set_ptr->streams[_b_]>>>(
