@@ -8,7 +8,8 @@
 *'"clangd.format.tabSize": 4'
 *.ipynb_checkpoints
 *.egg-info
-# *__pycache__
+*__pycache__
+*.o
 *.so
 *.nvvp
 *.nsys-rep
