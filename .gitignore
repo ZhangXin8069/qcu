@@ -12,4 +12,5 @@ draft
 *.nvvp
 *.nsys-rep
 *.profile
+*.sqlite
 *.swp
