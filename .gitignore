@@ -1,0 +1,18 @@
+ .cache
+build
+draft
+*CMakeFiles
+*cmake_install.cmake
+*CMakeCache.txt
+*Makefile
+*'"clangd.format.tabSize": 4'
+*.ipynb_checkpoints
+*.egg-info
+*pyquda
+*.so
+*.nvvp
+*.nsys-rep
+*.profile
+*.sqlite
+*.swp
+
