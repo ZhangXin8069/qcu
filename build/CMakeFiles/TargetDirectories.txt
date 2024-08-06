@@ -1,0 +1,3 @@
+/home/kfutfd/qcu/build/CMakeFiles/qcu.dir
+/home/kfutfd/qcu/build/CMakeFiles/edit_cache.dir
+/home/kfutfd/qcu/build/CMakeFiles/rebuild_cache.dir
