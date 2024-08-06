@@ -115,6 +115,7 @@ struct LatticeWilsonDslash {
             set_ptr->device_send_vec[_F_T_], set_ptr->device_send_vec[_B_T_]);
       }
     }
+    ncclGroupEnd();
     {
       if (set_ptr->grid_1dim[_X_] != 1) {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_wards[_B_X_]));
@@ -149,7 +150,6 @@ struct LatticeWilsonDslash {
             set_ptr->device_recv_vec[_B_T_], set_ptr->device_recv_vec[_F_T_]);
       }
     }
-    ncclGroupEnd();
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
