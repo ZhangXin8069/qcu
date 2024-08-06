@@ -17,11 +17,13 @@ struct LatticeSet {
   ncclComm_t nccl_comm;
   cudaStream_t stream;
   cudaStream_t streams[_DIM_];
+  cudaStream_t stream_dims[_DIM_];
   cudaStream_t stream_wards[_WARDS_];
   int node_rank, node_size;
   int move[_BF_];
-  int move_wads[_WARDS_];
+  int move_wards[_WARDS_];
   int grid_1dim[_DIM_];
+  int grid_3dim[_DIM_];
   int grid_index_1dim[_DIM_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
@@ -79,6 +81,10 @@ struct LatticeSet {
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] % grid_1dim[_Y_];
       grid_index_1dim[_Z_] = node_rank / grid_1dim[_T_] % grid_1dim[_Z_];
       grid_index_1dim[_T_] = node_rank % grid_1dim[_T_];
+      grid_3dim[_YZT_] = grid_1dim[_Y_] * grid_1dim[_Z_] * grid_1dim[_T_];
+      grid_3dim[_XZT_] = grid_1dim[_X_] * grid_1dim[_Z_] * grid_1dim[_T_];
+      grid_3dim[_XYT_] = grid_1dim[_X_] * grid_1dim[_Y_] * grid_1dim[_T_];
+      grid_3dim[_XYZ_] = grid_1dim[_X_] * grid_1dim[_Y_] * grid_1dim[_Z_];
       lat_3dim[_YZT_] = lat_1dim[_Y_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XZT_] = lat_1dim[_X_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];
@@ -88,8 +94,27 @@ struct LatticeSet {
       gridDim = lat_4dim / _BLOCK_SIZE_;
     }
     {
+      move_backward(move_wards[_B_X_], grid_index_1dim[_X_], grid_1dim[_X_]);
+      move_backward(move_wards[_B_Y_], grid_index_1dim[_Y_], grid_1dim[_Y_]);
+      move_backward(move_wards[_B_Z_], grid_index_1dim[_Z_], grid_1dim[_Z_]);
+      move_backward(move_wards[_B_T_], grid_index_1dim[_T_], grid_1dim[_T_]);
+      move_forward(move_wards[_F_X_], grid_index_1dim[_X_], grid_1dim[_X_]);
+      move_forward(move_wards[_F_Y_], grid_index_1dim[_Y_], grid_1dim[_Y_]);
+      move_forward(move_wards[_F_Z_], grid_index_1dim[_Z_], grid_1dim[_Z_]);
+      move_forward(move_wards[_F_T_], grid_index_1dim[_T_], grid_1dim[_T_]);
+      move_wards[_B_X_] = node_rank + move_wards[_B_X_] * grid_3dim[_YZT_];
+      move_wards[_B_Y_] = node_rank + move_wards[_B_Y_] * grid_3dim[_XZT_];
+      move_wards[_B_Z_] = node_rank + move_wards[_B_Z_] * grid_3dim[_XYT_];
+      move_wards[_B_T_] = node_rank + move_wards[_B_T_] * grid_3dim[_XYZ_];
+      move_wards[_F_X_] = node_rank + move_wards[_F_X_] * grid_3dim[_YZT_];
+      move_wards[_F_Y_] = node_rank + move_wards[_F_Y_] * grid_3dim[_XZT_];
+      move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_3dim[_XYT_];
+      move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
+    }
+    {
       for (int i = 0; i < _DIM_; i++) {
         checkCudaErrors(cudaStreamCreate(&streams[i]));
+        checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
@@ -140,6 +165,7 @@ struct LatticeSet {
   void end() {
     for (int i = 0; i < _DIM_; i++) {
       checkCudaErrors(cudaStreamDestroy(streams[i]));
+      checkCudaErrors(cudaStreamDestroy(stream_dims[i]));
       checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_], stream));
       checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_ + 1], stream));
       checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_], stream));
