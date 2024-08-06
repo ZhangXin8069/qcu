@@ -1,1 +1,1 @@
-pip install --upgrade . -t ./lib 
+pip3 install .
