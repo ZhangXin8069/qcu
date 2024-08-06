@@ -9,6 +9,7 @@ draft
 *.ipynb_checkpoints
 *.egg-info
 *pyquda
+*.so
 *.nvvp
 *.nsys-rep
 *.profile
