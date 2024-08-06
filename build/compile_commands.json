@@ -1,0 +1,42 @@
+[
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/bistabcg.cu -o CMakeFiles/qcu.dir/src/bistabcg.cu.o",
+  "file": "/home/kfutfd/qcu/src/bistabcg.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/clover_dslash.cu -o CMakeFiles/qcu.dir/src/clover_dslash.cu.o",
+  "file": "/home/kfutfd/qcu/src/clover_dslash.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/draft.cu -o CMakeFiles/qcu.dir/src/draft.cu.o",
+  "file": "/home/kfutfd/qcu/src/draft.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/lattice_cuda.cu -o CMakeFiles/qcu.dir/src/lattice_cuda.cu.o",
+  "file": "/home/kfutfd/qcu/src/lattice_cuda.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/multgrid.cu -o CMakeFiles/qcu.dir/src/multgrid.cu.o",
+  "file": "/home/kfutfd/qcu/src/multgrid.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/nccl_wilson_bistabcg.cu -o CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o",
+  "file": "/home/kfutfd/qcu/src/nccl_wilson_bistabcg.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/nccl_wilson_dslash.cu -o CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o",
+  "file": "/home/kfutfd/qcu/src/nccl_wilson_dslash.cu"
+},
+{
+  "directory": "/home/kfutfd/qcu/build",
+  "command": "/usr/local/cuda/bin/nvcc -forward-unknown-to-host-compiler -Dqcu_EXPORTS -I/usr/lib/x86_64-linux-gnu/openmpi/include -I/home/kfutfd/qcu/include  -arch=sm_60 -O3 -diag-suppress 20054 -g --generate-code=arch=compute_60,code=[compute_60,sm_60] -Xcompiler=-fPIC -std=c++11 -x cu -c /home/kfutfd/qcu/src/wilson_dslash.cu -o CMakeFiles/qcu.dir/src/wilson_dslash.cu.o",
+  "file": "/home/kfutfd/qcu/src/wilson_dslash.cu"
+}
+]
