@@ -233,19 +233,6 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
 __global__ void wilson_dslash_clear_dest(void *device_dest,
                                          void *device_xyztsc) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *xyztsc = static_cast<int *>(device_xyztsc);
-  const int lat_x = xyztsc[_X_];
-  const int lat_y = xyztsc[_Y_];
-  const int lat_z = xyztsc[_Z_];
-  int move;
-  move = lat_x * lat_y * lat_z;
-  const int t = parity / move;
-  parity -= t * move;
-  move = lat_x * lat_y;
-  const int z = parity / move;
-  parity -= z * move;
-  const int y = parity / lat_x;
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_dest =
       ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
