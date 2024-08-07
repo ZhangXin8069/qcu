@@ -31,10 +31,10 @@ struct LatticeWilsonDslash {
                              set_ptr->stream_dims[_T_]>>>(
           gauge, fermion_in, set_ptr->device_xyztsc, parity,
           set_ptr->device_send_vec[_B_T_], set_ptr->device_send_vec[_F_T_]);
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
     }
+    ncclGroupStart();
     {
-      ncclGroupStart();
       if (set_ptr->grid_1dim[_X_] != 1) {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
         ncclSend(set_ptr->device_send_vec[_B_X_], set_ptr->lat_3dim_SC[_YZT_],

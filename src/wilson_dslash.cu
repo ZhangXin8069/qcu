@@ -244,7 +244,11 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
     _ += (move != -1);
     move_forward(move, t, lat_t); // move!= 1
     _ += (move != 1);
-    give_ptr(origin_dest, dest, _LAT_SC_ * (_ == 0));
+    LatticeComplex __(double((_ == 0)), 0.0); // if inside,_==0
+    for (int i = 0; i < _LAT_SC_; i++) {
+      dest[i] = dest[i] * __;
+    }
+    give_ptr(origin_dest, dest, _LAT_SC_);
   }
 }
 __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
@@ -303,7 +307,12 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
         b_x_send_vec[c1 + _LAT_1C_] =
             src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I;
       }
-      give_ptr(origin_b_x_send_vec, b_x_send_vec, _LAT_HALF_SC_ * (move == 0));
+      int _((move == 0));
+      LatticeComplex __(double((_ == 0)), 0.0); // if inside,_==0
+      for (int i = 0; i < _LAT_SC_; i++) {
+        dest[i] = dest[i] * __;
+      }
+      give_ptr(origin_b_x_send_vec, b_x_send_vec, _LAT_HALF_SC_);
     }
   }
   {
@@ -336,7 +345,12 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
         f_x_send_vec[c0] = tmp0;
         f_x_send_vec[c0 + _LAT_1C_] = tmp1;
       }
-      give_ptr(origin_f_x_send_vec, f_x_send_vec, _LAT_HALF_SC_ * (move == 0));
+      int _((move == 0));
+      LatticeComplex __(double((_ == 0)), 0.0); // if inside,_==0
+      for (int i = 0; i < _LAT_SC_; i++) {
+        dest[i] = dest[i] * __;
+      }
+      give_ptr(origin_f_x_send_vec, f_x_send_vec, _LAT_HALF_SC_);
     }
   }
 }

@@ -1,6 +1,5 @@
 #ifndef _WILSON_DSLASH_H
 #define _WILSON_DSLASH_H
-
 __global__ void wilson_dslash_inside(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity);
