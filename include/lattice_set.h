@@ -90,10 +90,10 @@ struct LatticeSet {
       lat_3dim[_XZT_] = lat_1dim[_X_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];
       lat_3dim[_XYZ_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_];
-      gridDim_3dim[_YZT_] = lat_3dim[_YZT_];
-      gridDim_3dim[_XZT_] = lat_3dim[_XZT_];
-      gridDim_3dim[_XYT_] = lat_3dim[_XYT_];
-      gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_];
+      gridDim_3dim[_YZT_] = lat_3dim[_YZT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XZT_] = lat_3dim[_XZT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XYT_] = lat_3dim[_XYT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_] / _BLOCK_SIZE_;
       lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];
       lat_4dim_SC = lat_4dim * _LAT_SC_;
       gridDim = lat_4dim / _BLOCK_SIZE_;
