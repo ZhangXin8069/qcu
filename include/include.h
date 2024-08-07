@@ -2,6 +2,8 @@
 #define _INCLUDE_H
 
 #include <chrono>
+#include <cmath>
+#include <complex>
 #include <cstdio>
 #include <ctime>
 #include <cuda.h>
@@ -10,11 +12,7 @@
 #include <mpi.h>
 #include <nccl.h>
 #include <random>
-#include <stdio.h>
-#include <stdlib.h>
 #include <string>
 #include <unistd.h>
-#include <memory>
-
 
 #endif
