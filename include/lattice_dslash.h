@@ -13,8 +13,8 @@ struct LatticeWilsonDslash {
         give_custom_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                             set_ptr->stream>>>(fermion_out, 0.0, 0.0);
       }
-      ncclGroupStart();
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+      ncclGroupStart();
       { // x compute then send
         wilson_dslash_x_compute<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                                   set_ptr->stream_dims[_X_]>>>(
