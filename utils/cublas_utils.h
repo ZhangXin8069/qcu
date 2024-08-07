@@ -39,16 +39,6 @@
 #include <cuda_runtime_api.h>
 #include <library_types.h>
 
-// cublas API error checking
-#define CUBLAS_CHECK(err)                                                                          \
-    do {                                                                                           \
-        cublasStatus_t err_ = (err);                                                               \
-        if (err_ != CUBLAS_STATUS_SUCCESS) {                                                       \
-            std::printf("cublas error %d at %s:%d\n", err_, __FILE__, __LINE__);                   \
-            throw std::runtime_error("cublas error");                                              \
-        }                                                                                          \
-    } while (0)
-
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
 
