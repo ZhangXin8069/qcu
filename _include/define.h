@@ -49,11 +49,11 @@
 #define _ODD_ 1
 #define _EVENODD_ 2
 #define _LAT_C_ 3
-#define _LAT_S_ 4
-#define _LAT_CC_ 9
 #define _LAT_1C_ 3
 #define _LAT_2C_ 6
 #define _LAT_3C_ 9
+#define _LAT_S_ 4
+#define _LAT_CC_ 9
 #define _LAT_HALF_SC_ 6
 #define _LAT_SC_ 12
 #define _LAT_SCSC_ 144
@@ -68,7 +68,7 @@
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
-#define _MAX_ITER_ 1e2
+#define _MAX_ITER_ 1e3
 #define _TOL_ 1e-9
 #define _KAPPA_ 0.125
 #define _MEM_POOL_ 0

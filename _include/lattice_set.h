@@ -10,7 +10,6 @@ struct LatticeSet {
   int lat_3dim_Half_SC[_DIM_];
   int lat_3dim_SC[_DIM_];
   int lat_4dim_SC;
-  dim3 gridDim_3dim[_DIM_];
   cudaError_t err;
   dim3 gridDim;
   dim3 blockDim;
@@ -90,10 +89,6 @@ struct LatticeSet {
       lat_3dim[_XZT_] = lat_1dim[_X_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];
       lat_3dim[_XYZ_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_];
-      gridDim_3dim[_YZT_] = lat_3dim[_YZT_];
-      gridDim_3dim[_XZT_] = lat_3dim[_XZT_];
-      gridDim_3dim[_XYT_] = lat_3dim[_XYT_];
-      gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_];
       lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];
       lat_4dim_SC = lat_4dim * _LAT_SC_;
       gridDim = lat_4dim / _BLOCK_SIZE_;
