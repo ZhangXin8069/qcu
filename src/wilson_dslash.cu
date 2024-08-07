@@ -272,7 +272,6 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
-  LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex U[_LAT_CC_];
@@ -458,7 +457,6 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
-  LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex U[_LAT_CC_];
@@ -640,7 +638,6 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
-  LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex U[_LAT_CC_];
@@ -824,7 +821,6 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
-  LatticeComplex *tmp_src;
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex tmp1(0.0, 0.0);
   LatticeComplex U[_LAT_CC_];
