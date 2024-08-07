@@ -605,24 +605,23 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
          (((t * lat_z + z)) * lat_x + x) * _LAT_HALF_SC_);
   }
   { // y+1
-    move_forward(move, y, lat_y);
-    if (move != 1) { // recv in y+1 way
-      give_ptr(f_y_recv_vec, origin_f_y_recv_vec, _LAT_HALF_SC_);
-      tmp_U = (origin_U + (2 + parity) * lat_tzyxcc);
-      give_u(U, tmp_U);
-      {
-        for (int c0 = 0; c0 < _LAT_C_; c0++) {
-          tmp0 = zero;
-          tmp1 = zero;
-          for (int c1 = 0; c1 < _LAT_C_; c1++) {
-            tmp0 += f_y_recv_vec[c1] * U[c0 * _LAT_C_ + c1];
-            tmp1 += f_y_recv_vec[c1 + _LAT_1C_] * U[c0 * _LAT_C_ + c1];
-          }
-          dest[c0] += tmp0;
-          dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+    // move_forward(move, y, lat_y);
+    // recv in y+1 way
+    give_ptr(f_y_recv_vec, origin_f_y_recv_vec, _LAT_HALF_SC_);
+    tmp_U = (origin_U + (2 + parity) * lat_tzyxcc);
+    give_u(U, tmp_U);
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += f_y_recv_vec[c1] * U[c0 * _LAT_C_ + c1];
+          tmp1 += f_y_recv_vec[c1 + _LAT_1C_] * U[c0 * _LAT_C_ + c1];
         }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp1;
+        dest[c0 + _LAT_3C_] += tmp0;
       }
     }
   } // just add
