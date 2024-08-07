@@ -39,7 +39,7 @@ def compare(round):
     grid.lattice_size = grid_size
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.ncclBistabCgQcu(U.data_ptr, param, grid)
+    pyqcu.mpiBistabCgQcu(U.data_ptr, param, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'QCU bistabcg: {t2 - t1} sec')

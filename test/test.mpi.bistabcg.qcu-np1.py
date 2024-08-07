@@ -9,7 +9,7 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 latt_size = [16, 16, 16, 32]
-grid_size = [2, 1, 1, 1]
+grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
@@ -39,7 +39,7 @@ def compare(round):
     grid.lattice_size = grid_size
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.ncclBistabCgQcu(U.data_ptr, param, grid)
+    pyqcu.mpiBistabCgQcu(U.data_ptr, param, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'QCU bistabcg: {t2 - t1} sec')

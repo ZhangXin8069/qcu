@@ -14,7 +14,7 @@ from pyquda.utils import gauge_utils
 
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 latt_size = [16, 16, 16, 32]
-grid_size = [1, 1, 1, 1]
+grid_size = [2, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
@@ -55,8 +55,8 @@ def compare(round):
 
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.ncclDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
-    pyqcu.ncclDslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
+    pyqcu.mpiDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
+    pyqcu.mpiDslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     # pyqcu.testDslashQcu(Mp2.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
