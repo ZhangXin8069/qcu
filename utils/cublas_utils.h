@@ -34,7 +34,6 @@
 #include <random>
 #include <stdexcept>
 #include <string>
-
 #include <cuComplex.h>
 #include <cublas_api.h>
 #include <cuda_runtime_api.h>
