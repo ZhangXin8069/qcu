@@ -64,7 +64,7 @@ def compare(round):
     # cp.cuda.runtime.deviceSynchronize()
     print("######quda:Mp[0,0,0,0]:\n",Mp.lexico()[0,0,0,0])
     print("######mpi:Mp1[0,0,0,0]:\n",Mp1.lexico()[0,0,0,0])
-    print("######test:Mp2[2,0,0,0]:\n",Mp2.lexico()[2,0,0,0])
+    # print("######test:Mp2[2,0,0,0]:\n",Mp2.lexico()[2,0,0,0])
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
     # print("######quda:Mp[6,6,6,6]:\n",Mp.lexico()[6,6,6,6])
