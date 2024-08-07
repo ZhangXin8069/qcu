@@ -35,13 +35,13 @@
 #include <cuda_runtime.h>
 #include <curand.h>
 
-// curand API error checking
-#define CURAND_CHECK(err)                                                      \
+// CUDA API error checking
+#define CUDA_CHECK(err)                                                        \
   do {                                                                         \
-    curandStatus_t err_ = (err);                                               \
-    if (err_ != CURAND_STATUS_SUCCESS) {                                       \
-      std::printf("curand error %d at %s:%d\n", err_, __FILE__, __LINE__);     \
-      throw std::runtime_error("curand error");                                \
+    cudaError_t err_ = (err);                                                  \
+    if (err_ != cudaSuccess) {                                                 \
+      std::printf("CUDA error %d at %s:%d\n", err_, __FILE__, __LINE__);       \
+      throw std::runtime_error("CUDA error");                                  \
     }                                                                          \
   } while (0)
 
