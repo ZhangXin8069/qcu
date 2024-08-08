@@ -231,7 +231,7 @@ struct LatticeBistabcg {
   }
   void run(void *gauge) {
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
-      print_vals(loop);
+      // print_vals(loop);
       dot(r_tilde, r, _rho_, _a_);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       {
