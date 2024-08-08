@@ -1,5 +1,9 @@
 #ifndef _WILSON_DSLASH_H
 #define _WILSON_DSLASH_H
+__global__ void wilson_dslash(void *device_U, void *device_src,
+                                     void *device_dest, void *device_xyztsc,
+                                     const int device_parity);
+
 __global__ void wilson_dslash_inside(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity);
@@ -51,5 +55,4 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
                                      const int device_parity,
                                      void *device_b_t_recv_vec,
                                      void *device_f_t_recv_vec);
-
 #endif
