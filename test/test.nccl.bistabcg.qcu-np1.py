@@ -8,7 +8,7 @@ import cupy as cp
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-latt_size = [16, 16, 16, 32]
+latt_size = [32, 32, 32, 64]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
@@ -45,5 +45,5 @@ def compare(round):
     print(f'QCU bistabcg: {t2 - t1} sec')
 
 
-for i in range(0, 1):
+for i in range(0, 10):
     compare(i)

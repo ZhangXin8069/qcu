@@ -24,8 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #ifndef R2C_C2R_REFERENCE__H_
 #define R2C_C2R_REFERENCE__H_
+
 #include "common.h"
+
 int reference_r2c_window_c2r(unsigned batches, unsigned signal_size, unsigned window_size, float* input_signals, float* output_signals);
+
 #endif // R2C_C2R_REFERENCE__H_
+

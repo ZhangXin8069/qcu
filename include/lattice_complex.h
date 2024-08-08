@@ -2,7 +2,6 @@
 #define _LATTICE_COMPLEX_H
 
 #include "./include.h"
-using data_type = cuDoubleComplex;
 
 struct LatticeComplex {
   double real;

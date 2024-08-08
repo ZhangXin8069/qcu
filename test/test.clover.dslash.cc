@@ -5,6 +5,7 @@
 #include <chrono>
 #include <cmath>
 #include <cstdio>
+
 struct LatticeComplex {
   double real;
   double imag;
@@ -82,18 +83,21 @@ struct LatticeComplex {
   LatticeComplex conj() const { return LatticeComplex(real, -imag); }
   double norm2() const { return sqrt(real * real + imag * imag); }
 };
+
 #define host_give_value(U, zero, n)                                                 \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] = zero;                                                             \
     }                                                                          \
   }
+
 #define give_ptr(U, origin_U, n)                                               \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] = origin_U[i];                                                      \
     }                                                                          \
   }
+
 #define host_give_rand(input_matrix, size)                                          \
   {                                                                            \
     for (int i = 0; i < size; i++) {                                           \
@@ -101,6 +105,7 @@ struct LatticeComplex {
       input_matrix[i].imag = static_cast<double>(rand()) / RAND_MAX;           \
     }                                                                          \
   }
+
 #define give_u(tmp, tmp_U)                                                     \
   {                                                                            \
     for (int i = 0; i < 6; i++) {                                              \
@@ -110,18 +115,21 @@ struct LatticeComplex {
     tmp[7] = (tmp[2] * tmp[3] - tmp[0] * tmp[5]).conj();                       \
     tmp[8] = (tmp[0] * tmp[4] - tmp[1] * tmp[3]).conj();                       \
   }
+
 #define add(U, tmp, n)                                                         \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] += tmp[i];                                                          \
     }                                                                          \
   }
+
 #define subt(U, tmp, n)                                                        \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] -= tmp[i];                                                          \
     }                                                                          \
   }
+
 #define mult(tmp0, tmp1, tmp2, tmp3, zero)                                     \
   {                                                                            \
     for (int c0 = 0; c0 < 3; c0++) {                                           \
@@ -134,6 +142,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero)                         \
   {                                                                            \
     for (int c0 = 0; c0 < 3; c0++) {                                           \
@@ -146,6 +155,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero)                          \
   {                                                                            \
     for (int c0 = 0; c0 < 3; c0++) {                                           \
@@ -158,6 +168,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero)                          \
   {                                                                            \
     for (int c0 = 0; c0 < 3; c0++) {                                           \
@@ -170,6 +181,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero)                           \
   {                                                                            \
     for (int c0 = 0; c0 < 3; c0++) {                                           \
@@ -182,6 +194,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define inverse(input_matrix, inverse_matrix, augmented_matrix, pivot, factor, \
                 size)                                                          \
   {                                                                            \
@@ -214,6 +227,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define inverse_clover(input_matrix, inverse_matrix, augmented_matrix, pivot,  \
                        factor)                                                 \
   {                                                                            \
@@ -265,6 +279,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 #define print_gauge(input_gauge)                                               \
   {                                                                            \
     printf("############\n");                                                  \
@@ -284,6 +299,7 @@ struct LatticeComplex {
     printf("[%.9lf,%.9lf]", input_gauge[8].real, input_gauge[8].imag);         \
     printf("]\n");                                                             \
   }
+
 #define print_fermi(input_fermi)                                               \
   {                                                                            \
     int tmp;                                                                   \
@@ -315,6 +331,7 @@ struct LatticeComplex {
       printf("]\n");                                                           \
     }                                                                          \
   }
+
 #define print_clover(input_clover)                                             \
   {                                                                            \
     int tmp;                                                                   \
@@ -349,6 +366,7 @@ struct LatticeComplex {
       }                                                                        \
     }                                                                          \
   }
+
 void dslash(void *device_U, void *device_src, void *device_dest,
             int device_lat_x, const int device_lat_y, const int device_lat_z,
             const int device_lat_t, const int device_parity) {
@@ -572,6 +590,7 @@ void dslash(void *device_U, void *device_src, void *device_dest,
   }
   give_ptr(origin_dest, dest, 12);
 }
+
 void make_clover(void *device_U, void *device_clover, int device_lat_x,
                  const int device_lat_y, const int device_lat_z,
                  const int device_lat_t, const int device_parity) {
@@ -621,6 +640,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
     move0 = 0;
     tmp_U = (origin_U + parity * lat_tzyxcc);
     give_u(tmp1, tmp_U);
+
     //// x+1,y,z,t;y
     move0 = (1 - (x == lat_x - 1) * lat_x) * (oe != parity);
     tmp_U = (origin_U + move0 * 9 + lat_tzyxcc * 2 + (1 - parity) * lat_tzyxcc);
@@ -1264,6 +1284,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
       }
     }
   }
+
   // ZT
   host_give_value(U, zero, 9);
   {
@@ -1415,6 +1436,7 @@ void make_clover(void *device_U, void *device_clover, int device_lat_x,
     }
   }
 }
+
 void give_clover(void *device_clover, void *device_dest, int device_lat_x,
                  const int device_lat_y, const int device_lat_z) {
   const int lat_x = device_lat_x;
@@ -1463,6 +1485,7 @@ void give_clover(void *device_clover, void *device_dest, int device_lat_x,
   }
   print_fermi(dest);
 }
+
 int main() {
   int lat_x = 1;
   int lat_y = 1;
@@ -1493,6 +1516,7 @@ int main() {
     // just clover
     auto start = std::chrono::high_resolution_clock::now();
     make_clover(gauge, (void *)clover, lat_x, lat_y, lat_z, lat_t, parity);
+
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)

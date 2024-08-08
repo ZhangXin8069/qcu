@@ -9,9 +9,12 @@
  * without an express license agreement from NVIDIA CORPORATION or
  * its affiliates is strictly prohibited.
 */
+
 #include "benchmark_template_chunked.cuh"
 #include "nvcomp/gdeflate.h"
+
 static nvcompBatchedGdeflateOpts_t nvcompBatchedGdeflateOpts = {1};
+
 static bool handleCommandLineArgument(
     const std::string& arg,
     const char* const* additionalArgs,
@@ -30,6 +33,7 @@ static bool handleCommandLineArgument(
   }
   return false;
 }
+
 static bool isGdeflateInputValid(const std::vector<std::vector<char>>& data)
 {
   for (const auto& chunk : data) {
@@ -40,8 +44,10 @@ static bool isGdeflateInputValid(const std::vector<std::vector<char>>& data)
       return false;
     }
   }
+
   return true;
 }
+
 void run_benchmark(
     const std::vector<std::vector<char>>& data,
     const bool warmup,

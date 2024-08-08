@@ -1,5 +1,6 @@
 #include "../include/qcu.h"
 #ifdef NCCL_WILSON_DSLASH
+
 void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid) {
   // define for nccl_wilson_dslash

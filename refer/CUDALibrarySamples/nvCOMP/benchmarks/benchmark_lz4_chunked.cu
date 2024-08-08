@@ -9,9 +9,12 @@
  * without an express license agreement from NVIDIA CORPORATION or
  * its affiliates is strictly prohibited.
 */
+
 #include "benchmark_template_chunked.cuh"
 #include "nvcomp/lz4.h"
+
 static nvcompBatchedLZ4Opts_t nvcompBatchedLZ4TestOpts{NVCOMP_TYPE_CHAR};
+
 static bool handleCommandLineArgument(
     const std::string& arg,
     const char* const* additionalArgs,
@@ -26,6 +29,7 @@ static bool handleCommandLineArgument(
   }
   return false;
 }
+
 static bool isLZ4InputValid(const std::vector<std::vector<char>>& data)
 {
   // Find the type size, to check that all chunk sizes are a multiple of it.
@@ -52,6 +56,7 @@ static bool isLZ4InputValid(const std::vector<std::vector<char>>& data)
               << int(type) << std::endl;
     return false;
   }
+
   for (const auto& chunk : data) {
     if ((chunk.size() % typeSize) != 0) {
       std::cerr << "ERROR: Input data must have a length and chunk size that "
@@ -63,6 +68,7 @@ static bool isLZ4InputValid(const std::vector<std::vector<char>>& data)
   }
   return true;
 }
+
 void run_benchmark(
     const std::vector<std::vector<char>>& data,
     const bool warmup,

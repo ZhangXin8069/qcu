@@ -47,37 +47,50 @@
 # Users Notice.
 #
 cmake_minimum_required(VERSION 3.13)
+
 set(EXAMPLE_NAME get_set)
+
 project("cuDSS_${EXAMPLE_NAME}_example"
         DESCRIPTION  "cuDSS"
         HOMEPAGE_URL "https://docs.nvidia.com/cuda/cudss/index.html"
         LANGUAGES    CXX CUDA)
+
 set(CMAKE_CUDA_STANDARD          11)
 set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 set(CMAKE_CUDA_EXTENSIONS        OFF)
+
 # Find cuDSS
 find_package(cudss REQUIRED)
+
 set_source_files_properties(${EXAMPLE_NAME}.cpp PROPERTIES LANGUAGE CUDA)
+
 add_executable(${EXAMPLE_NAME}_example)
+
 target_sources(${EXAMPLE_NAME}_example
     PUBLIC ${PROJECT_SOURCE_DIR}/${EXAMPLE_NAME}.cpp
 )
+
 if (WIN32)
     target_include_directories(${EXAMPLE_NAME}_example PUBLIC ${cudss_INCLUDE_DIR})
     target_link_directories(${EXAMPLE_NAME}_example PUBLIC ${cudss_LIBRARY_DIR})
 endif()
+
 target_compile_options(${EXAMPLE_NAME}_example PRIVATE
     "$<$<CONFIG:Debug>:-lineinfo -g>"
     "$<$<CONFIG:RelWithDebInfo>:-lineinfo -g>"
 )
+
 target_link_libraries(${EXAMPLE_NAME}_example PUBLIC
     cudss
 )
+
 if(BUILD_STATIC)
     add_executable(${EXAMPLE_NAME}_example_static)
+
     target_sources(${EXAMPLE_NAME}_example_static
         PUBLIC ${PROJECT_SOURCE_DIR}/${EXAMPLE_NAME}.cpp
     )
+
     if (WIN32)
         target_include_directories(${EXAMPLE_NAME}_example_static PUBLIC ${cudss_INCLUDE_DIR})
         target_link_directories(${EXAMPLE_NAME}_example_static PUBLIC ${cudss_LIBRARY_DIR})
@@ -89,4 +102,5 @@ if(BUILD_STATIC)
             cudss_static
         )
     endif()
+
 endif()
