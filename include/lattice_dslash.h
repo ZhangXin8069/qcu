@@ -327,8 +327,8 @@ struct LatticeWilsonDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
-    // run_mpi(fermion_out, fermion_in, gauge, parity);
-    run_nccl(fermion_out, fermion_in, gauge, parity);
+    run_mpi(fermion_out, fermion_in, gauge, parity);
+    // run_nccl(fermion_out, fermion_in, gauge, parity);
   }
   void run_eo(void *fermion_out, void *fermion_in, void *gauge) {
     run(fermion_out, fermion_in, gauge, _EVEN_);
