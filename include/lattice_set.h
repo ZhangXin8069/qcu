@@ -118,9 +118,9 @@ struct LatticeSet {
     {
       for (int i = 0; i < _DIM_; i++) {
         CUBLAS_CHECK(cublasCreate(&cublasHs[i]));
-        checkCudaErrors(
-            cudaStreamCreateWithFlags(&streams[i], cudaStreamNonBlocking));
-        // checkCudaErrors(cudaStreamCreate(&streams[i]));
+        // checkCudaErrors(
+        //     cudaStreamCreateWithFlags(&streams[i], cudaStreamNonBlocking));
+        checkCudaErrors(cudaStreamCreate(&streams[i]));
         CUBLAS_CHECK(cublasSetStream(cublasHs[i], streams[i]));
         checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
