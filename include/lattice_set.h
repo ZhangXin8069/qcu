@@ -10,18 +10,21 @@ struct LatticeSet {
   int lat_3dim_Half_SC[_DIM_];
   int lat_3dim_SC[_DIM_];
   int lat_4dim_SC;
+  dim3 gridDim_3dim[_DIM_];
   cudaError_t err;
   dim3 gridDim;
   dim3 blockDim;
-  ncclUniqueId qcu_nccl_id;
-  ncclComm_t qcu_nccl_comm;
+  ncclUniqueId nccl_id;
+  ncclComm_t nccl_comm;
   cudaStream_t stream;
   cudaStream_t streams[_DIM_];
+  cudaStream_t stream_dims[_DIM_];
   cudaStream_t stream_wards[_WARDS_];
   int node_rank, node_size;
   int move[_BF_];
-  int move_wads[_WARDS_];
+  int move_wards[_WARDS_];
   int grid_1dim[_DIM_];
+  int grid_3dim[_DIM_];
   int grid_index_1dim[_DIM_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
@@ -31,7 +34,7 @@ struct LatticeSet {
   void *device_xyztsc;
 
   void give(int *_param_lat_size, int *_grid_lat_size) {
-    lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
+    lat_1dim[_X_] = _param_lat_size[_X_] / _EVENODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
     lat_1dim[_Z_] = _param_lat_size[_Z_];
     lat_1dim[_T_] = _param_lat_size[_T_];
@@ -66,12 +69,12 @@ struct LatticeSet {
       checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
       checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
       if (node_rank == 0) {
-        checkNcclErrors(ncclGetUniqueId(&qcu_nccl_id));
+        checkNcclErrors(ncclGetUniqueId(&nccl_id));
       }
-      checkMpiErrors(MPI_Bcast((void *)&qcu_nccl_id, sizeof(qcu_nccl_id),
-                               MPI_BYTE, 0, MPI_COMM_WORLD));
+      checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
+                               MPI_COMM_WORLD));
       checkNcclErrors(
-          ncclCommInitRank(&qcu_nccl_comm, node_size, qcu_nccl_id, node_rank));
+          ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
       checkCudaErrors(cudaStreamCreate(&stream));
       grid_index_1dim[_X_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];
@@ -79,16 +82,44 @@ struct LatticeSet {
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] % grid_1dim[_Y_];
       grid_index_1dim[_Z_] = node_rank / grid_1dim[_T_] % grid_1dim[_Z_];
       grid_index_1dim[_T_] = node_rank % grid_1dim[_T_];
+      grid_3dim[_YZT_] = grid_1dim[_Y_] * grid_1dim[_Z_] * grid_1dim[_T_];
+      grid_3dim[_XZT_] = grid_1dim[_X_] * grid_1dim[_Z_] * grid_1dim[_T_];
+      grid_3dim[_XYT_] = grid_1dim[_X_] * grid_1dim[_Y_] * grid_1dim[_T_];
+      grid_3dim[_XYZ_] = grid_1dim[_X_] * grid_1dim[_Y_] * grid_1dim[_Z_];
       lat_3dim[_YZT_] = lat_1dim[_Y_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XZT_] = lat_1dim[_X_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];
       lat_3dim[_XYZ_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_];
+      gridDim_3dim[_YZT_] = lat_3dim[_YZT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XZT_] = lat_3dim[_XZT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XYT_] = lat_3dim[_XYT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_] / _BLOCK_SIZE_;
       lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];
       lat_4dim_SC = lat_4dim * _LAT_SC_;
       gridDim = lat_4dim / _BLOCK_SIZE_;
     }
     {
+      move_backward(move_wards[_B_X_], grid_index_1dim[_X_], grid_1dim[_X_]);
+      move_backward(move_wards[_B_Y_], grid_index_1dim[_Y_], grid_1dim[_Y_]);
+      move_backward(move_wards[_B_Z_], grid_index_1dim[_Z_], grid_1dim[_Z_]);
+      move_backward(move_wards[_B_T_], grid_index_1dim[_T_], grid_1dim[_T_]);
+      move_forward(move_wards[_F_X_], grid_index_1dim[_X_], grid_1dim[_X_]);
+      move_forward(move_wards[_F_Y_], grid_index_1dim[_Y_], grid_1dim[_Y_]);
+      move_forward(move_wards[_F_Z_], grid_index_1dim[_Z_], grid_1dim[_Z_]);
+      move_forward(move_wards[_F_T_], grid_index_1dim[_T_], grid_1dim[_T_]);
+      move_wards[_B_X_] = node_rank + move_wards[_B_X_] * grid_3dim[_YZT_];
+      move_wards[_B_Y_] = node_rank + move_wards[_B_Y_] * grid_3dim[_XZT_];
+      move_wards[_B_Z_] = node_rank + move_wards[_B_Z_] * grid_3dim[_XYT_];
+      move_wards[_B_T_] = node_rank + move_wards[_B_T_] * grid_3dim[_XYZ_];
+      move_wards[_F_X_] = node_rank + move_wards[_F_X_] * grid_3dim[_YZT_];
+      move_wards[_F_Y_] = node_rank + move_wards[_F_Y_] * grid_3dim[_XZT_];
+      move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_3dim[_XYT_];
+      move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
+    }
+    {
       for (int i = 0; i < _DIM_; i++) {
+        checkCudaErrors(cudaStreamCreate(&streams[i]));
+        checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
         checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
@@ -137,17 +168,22 @@ struct LatticeSet {
     checkCudaErrors(cudaStreamSynchronize(stream));
   }
   void end() {
-    for (int i = 0; i < _WARDS_; i++) {
-      checkCudaErrors(cudaFreeAsync(device_send_vec[i], stream));
-      checkCudaErrors(cudaFreeAsync(device_recv_vec[i], stream));
-      free(host_send_vec[i]);
-      free(host_recv_vec[i]);
-      checkCudaErrors(cudaStreamDestroy(stream_wards[i]));
+    for (int i = 0; i < _DIM_; i++) {
+      checkCudaErrors(cudaStreamDestroy(streams[i]));
+      checkCudaErrors(cudaStreamDestroy(stream_dims[i]));
+      checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_], stream));
+      checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_ + 1], stream));
+      checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_], stream));
+      checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_ + 1], stream));
+      free(host_send_vec[i * _SR_]);
+      free(host_recv_vec[i * _SR_ + 1]);
+      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_]));
+      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_ + 1]));
     }
     checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
     checkCudaErrors(cudaStreamSynchronize(stream));
     checkCudaErrors(cudaStreamDestroy(stream));
-    checkNcclErrors(ncclCommDestroy(qcu_nccl_comm));
+    checkNcclErrors(ncclCommDestroy(nccl_comm));
   }
   void _print() {
     printf("node_rank        :%d\n", node_rank);

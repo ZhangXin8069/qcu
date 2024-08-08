@@ -3,10 +3,22 @@
 #include "./lattice_complex.h"
 
 #define _BLOCK_SIZE_ 256
+#define _WARP_SIZE_ 32
 #define _a_ 0
 #define _b_ 1
 #define _c_ 2
 #define _d_ 3
+#define _tmp0_ 0
+#define _tmp1_ 1
+#define _rho_prev_ 2
+#define _rho_ 3
+#define _alpha_ 4
+#define _beta_ 5
+#define _omega_ 6
+#define _send_tmp_ 7
+#define _norm2_tmp_ 8
+#define _diff_tmp_ 9
+#define _vals_size_ 10
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
@@ -39,6 +51,9 @@
 #define _LAT_C_ 3
 #define _LAT_S_ 4
 #define _LAT_CC_ 9
+#define _LAT_1C_ 3
+#define _LAT_2C_ 6
+#define _LAT_3C_ 9
 #define _LAT_HALF_SC_ 6
 #define _LAT_SC_ 12
 #define _LAT_SCSC_ 144
@@ -53,12 +68,13 @@
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
-#define _MAX_ITER_ 1e3
-#define _TOL_ 1e-6
+#define _MAX_ITER_ 1e2
+#define _TOL_ 1e-9
 #define _KAPPA_ 0.125
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 #define DRAFT
+#define LATTICE_CUDA
 #define BISTABCG
 #define MULTGRID
 #define WILSON_DSLASH
@@ -73,13 +89,30 @@
 #define NCCL_WILSON_BISTABCG
 // #define NCCL_CLOVER_BISTABCG
 // #define NCCL_OVERLAP_BISTABCG
-#define TEST_WILSON_BISTABCG
 // #define WILSON_MULTGRID
 // #define CLOVER_MULTGRID
 // #define OVERLAP_MULTGRID
 // #define NCCL_WILSON_MULTGRID
 // #define NCCL_CLOVER_MULTGRID
 // #define NCCL_OVERLAP_MULTGRID
+#define give_ptr(U, origin_U, n)                                               \
+  {                                                                            \
+    for (int i = 0; i < n; i++) {                                              \
+      U[i] = origin_U[i];                                                      \
+    }                                                                          \
+  }
+
+#define move_backward(move, y, lat_y)                                          \
+  { move = -1 + (y == 0) * lat_y; }
+
+#define move_forward(move, y, lat_y)                                           \
+  { move = 1 - (y == lat_y - 1) * lat_y; }
+
+#define move_backward_x(move, x, lat_x, eo, parity)                            \
+  { move = (-1 + (x == 0) * lat_x) * (eo == parity); }
+
+#define move_forward_x(move, x, lat_x, eo, parity)                             \
+  { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
 
 #define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
   {                                                                            \
@@ -203,13 +236,6 @@
                  cudaMemcpyHostToDevice);                                      \
     }                                                                          \
     checkCudaErrors(cudaDeviceSynchronize());                                  \
-  }
-
-#define give_ptr(U, origin_U, n)                                               \
-  {                                                                            \
-    for (int i = 0; i < n; i++) {                                              \
-      U[i] = origin_U[i];                                                      \
-    }                                                                          \
   }
 
 #define give_u(tmp, tmp_U)                                                     \
@@ -363,18 +389,6 @@
       }                                                                        \
     }                                                                          \
   }
-
-#define move_backward(move, y, lat_y)                                          \
-  { move = -1 + (y == 0) * lat_y; }
-
-#define move_forward(move, y, lat_y)                                           \
-  { move = 1 - (y == lat_y - 1) * lat_y; }
-
-#define move_backward_x(move, x, lat_x, eo, parity)                            \
-  { move = (-1 + (x == 0) * lat_x) * (eo == parity); }
-
-#define move_forward_x(move, x, lat_x, eo, parity)                             \
-  { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
 
 #define give_dims(param, lat_1dim, lat_3dim, lat_4dim)                         \
   {                                                                            \
