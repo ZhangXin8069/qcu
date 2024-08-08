@@ -144,6 +144,7 @@ void profile_reduction_gpu_sync(LatticeComplex *output, LatticeComplex *temp,
   }
   checkCudaErrors(cudaDeviceSynchronize());
 }
+
 void perf_part_reduce(void *device_src_vec, void *device_dest_val,
                       void *device_tmp_vec, int size, cudaStream_t stream) {
   LatticeComplex *origin_src_vec =

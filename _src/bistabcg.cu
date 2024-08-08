@@ -15,12 +15,14 @@ __global__ void bistabcg_give_1beta(void *device_vals) {
   beta = (rho / rho_prev) * (alpha / omega);
   origin_vals[_beta_] = beta;
 }
+
 __global__ void bistabcg_give_1rho_prev(void *device_vals) {
   LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex rho;
   rho = origin_vals[_rho_];
   origin_vals[_rho_prev_] = rho;
 }
+
 __global__ void bistabcg_give_1alpha(void *device_vals) {
   LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex rho;
@@ -29,6 +31,7 @@ __global__ void bistabcg_give_1alpha(void *device_vals) {
   tmp0 = origin_vals[_tmp0_];
   origin_vals[_alpha_] = rho / tmp0;
 }
+
 __global__ void bistabcg_give_1omega(void *device_vals) {
   LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex tmp0;
@@ -37,6 +40,7 @@ __global__ void bistabcg_give_1omega(void *device_vals) {
   tmp1 = origin_vals[_tmp1_];
   origin_vals[_omega_] = tmp0 / tmp1;
 }
+
 __global__ void bistabcg_give_1diff(void *device_vals) {
   LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex norm2_tmp;
@@ -45,6 +49,7 @@ __global__ void bistabcg_give_1diff(void *device_vals) {
   diff_tmp = origin_vals[_diff_tmp_];
   origin_vals[_diff_tmp_] = diff_tmp / norm2_tmp;
 }
+
 __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                   void *device_vec0, double kappa) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -64,6 +69,7 @@ __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
   }
   give_ptr(origin_b_e, b_e, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
                                   void *device_vec1, double kappa) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -83,6 +89,7 @@ __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
   }
   give_ptr(origin_b_o, b_o, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_b__0(void *device_b__o, void *device_b_o,
                                    void *device_vec0, double kappa) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -102,6 +109,7 @@ __global__ void bistabcg_give_b__0(void *device_b__o, void *device_b_o,
   }
   give_ptr(origin_b__o, b__o, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
                                      void *device_vec1, double kappa) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -121,6 +129,7 @@ __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
   }
   give_ptr(origin_dest_o, dest_o, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
                                  void *device_r_tilde) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -142,6 +151,7 @@ __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
   give_ptr(origin_r, r, _LAT_SC_);
   give_ptr(origin_r_tilde, r_tilde, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_p(void *device_p, void *device_r, void *device_v,
                                 void *device_vals) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -167,6 +177,7 @@ __global__ void bistabcg_give_p(void *device_p, void *device_r, void *device_v,
   }
   give_ptr(origin_p, p, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_s(void *device_s, void *device_r, void *device_v,
                                 void *device_vals) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -189,6 +200,7 @@ __global__ void bistabcg_give_s(void *device_s, void *device_r, void *device_v,
   }
   give_ptr(origin_s, s, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_x_o(void *device_x_o, void *device_p,
                                   void *device_s, void *device_vals) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -214,6 +226,7 @@ __global__ void bistabcg_give_x_o(void *device_x_o, void *device_p,
   }
   give_ptr(origin_x_o, x_o, _LAT_SC_);
 }
+
 __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
                                 void *device_vals) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -236,4 +249,5 @@ __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
   }
   give_ptr(origin_r, r, _LAT_SC_);
 }
+
 #endif

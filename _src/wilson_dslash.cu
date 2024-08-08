@@ -229,6 +229,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   }
   give_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_clear_dest(void *device_dest,
                                          void *device_xyztsc) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -237,6 +238,7 @@ __global__ void wilson_dslash_clear_dest(void *device_dest,
       ((static_cast<LatticeComplex *>(device_dest)) + idx * _LAT_SC_);
   host_give_value(origin_dest, zero, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity,
@@ -368,6 +370,7 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
                                      void *device_xyztsc,
                                      const int device_parity,
@@ -447,6 +450,7 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity,
@@ -572,6 +576,7 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
                                      void *device_xyztsc,
                                      const int device_parity,
@@ -650,6 +655,7 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity,
@@ -777,6 +783,7 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
                                      void *device_xyztsc,
                                      const int device_parity,
@@ -855,6 +862,7 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
                                      void *device_dest, void *device_xyztsc,
                                      const int device_parity,
@@ -982,6 +990,7 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
                                      void *device_xyztsc,
                                      const int device_parity,
@@ -1061,4 +1070,5 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   } // just add
   add_ptr(origin_dest, dest, _LAT_SC_);
 }
+
 #endif

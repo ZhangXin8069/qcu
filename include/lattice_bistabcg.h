@@ -208,38 +208,26 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     std::cout << "##RANK     :" << set_ptr->node_rank << "##LOOP:" << loop
               << std::endl
-              << "##tmp0     :" << host_vals[_tmp0_].real << ","
-              << host_vals[_tmp0_].imag << std::endl
-              << "##tmp1     :" << host_vals[_tmp1_].real << ","
-              << host_vals[_tmp1_].imag << std::endl
-              << "##rho_prev :" << host_vals[_rho_prev_].real << ","
-              << host_vals[_rho_prev_].imag << std::endl
-              << "##rho      :" << host_vals[_rho_].real << ","
-              << host_vals[_rho_].imag << std::endl
-              << "##alpha    :" << host_vals[_alpha_].real << ","
-              << host_vals[_alpha_].imag << std::endl
-              << "##beta     :" << host_vals[_beta_].real << ","
-              << host_vals[_beta_].imag << std::endl
-              << "##omega    :" << host_vals[_omega_].real << ","
-              << host_vals[_omega_].imag << std::endl
-              << "##send_tmp :" << host_vals[_send_tmp_].real << ","
-              << host_vals[_send_tmp_].imag << std::endl
-              << "##norm2_tmp:" << host_vals[_norm2_tmp_].real << ","
-              << host_vals[_norm2_tmp_].imag << std::endl
-              << "##diff_tmp :" << host_vals[_diff_tmp_].real << ","
-              << host_vals[_diff_tmp_].imag << std::endl;
+              << "##tmp0     :" << host_vals[_tmp0_].real << std::endl
+              << "##tmp1     :" << host_vals[_tmp1_].real << std::endl
+              << "##rho_prev :" << host_vals[_rho_prev_].real << std::endl
+              << "##rho      :" << host_vals[_rho_].real << std::endl
+              << "##alpha    :" << host_vals[_alpha_].real << std::endl
+              << "##beta     :" << host_vals[_beta_].real << std::endl
+              << "##omega    :" << host_vals[_omega_].real << std::endl
+              << "##send_tmp :" << host_vals[_send_tmp_].real << std::endl
+              << "##norm2_tmp:" << host_vals[_norm2_tmp_].real << std::endl
+              << "##diff_tmp :" << host_vals[_diff_tmp_].real << std::endl;
   }
   void run(void *gauge) {
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
-      // print_vals(loop);
       dot(r_tilde, r, _rho_, _a_);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       {
         // beta = (rho / rho_prev) * (alpha / omega);
         bistabcg_give_1beta<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
       }
-      checkCudaErrors(cudaStreamSynchronize(
-          set_ptr->streams[_a_])); // needed, but don't know why.
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));//needed, but don't know why.
       {
         // rho_prev = rho;
         bistabcg_give_1rho_prev<<<1, 1, 0, set_ptr->streams[_b_]>>>(

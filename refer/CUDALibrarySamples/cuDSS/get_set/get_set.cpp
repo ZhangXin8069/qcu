@@ -51,7 +51,9 @@
 #include <math.h>
 #include <assert.h>
 #include <cuda_runtime.h>
+
 #include "cudss.h"
+
 /*
     This example demonstrates usage of cuDSS APIs with a focus on
     using non-default settings and retrieving extra data from the
@@ -64,6 +66,7 @@
         b is the (dense) right-hand side vector (or matrix),
         x is the (dense) solution vector (or matrix).
 */
+
 #define CUDSS_EXAMPLE_FREE \
     do { \
         free(csr_offsets_h); \
@@ -79,6 +82,7 @@
         cudaFree(b_values_d); \
         cudaFree(diag_d); \
     } while(0);
+
 #define CUDA_CALL_AND_CHECK(call, msg) \
     do { \
         cuda_error = call; \
@@ -88,6 +92,8 @@
             return -1; \
         } \
     } while(0);
+
+
 #define CUDSS_CALL_AND_CHECK(call, status, msg) \
     do { \
         status = call; \
@@ -97,45 +103,57 @@
             return -2; \
         } \
     } while(0);
+
+
 int main (int argc, char *argv[]) {
     printf("---------------------------------------------------------\n");
     printf("cuDSS example: solving a real linear 5x5 system\n"
            "with a symmetric positive-definite matrix\n"
            "with extra settings and extra information retrieved\n");
     printf("---------------------------------------------------------\n");
+
     int major, minor, patch;
     cudssGetProperty(MAJOR_VERSION, &major);
     cudssGetProperty(MINOR_VERSION, &minor);
     cudssGetProperty(PATCH_LEVEL,   &patch);
     printf("CUDSS Version (Major,Minor,PatchLevel): %d.%d.%d\n", major, minor, patch);
+
     cudaError_t cuda_error = cudaSuccess;
     cudssStatus_t status = CUDSS_STATUS_SUCCESS;
+
     int n = 5;
     int nnz = 8;
     int nrhs = 1;
+
     int *csr_offsets_h = NULL;
     int *csr_columns_h = NULL;
     double *csr_values_h = NULL;
     double *x_values_h = NULL, *b_values_h = NULL;
     double *diag_h = NULL;
+
     int *csr_offsets_d = NULL;
     int *csr_columns_d = NULL;
     double *csr_values_d = NULL;
     double *x_values_d = NULL, *b_values_d = NULL;
     double *diag_d = NULL;
+
     /* Allocate host memory for the sparse input matrix A,
        right-hand side x and solution b*/
+
     csr_offsets_h = (int*)malloc((n + 1) * sizeof(int));
     csr_columns_h = (int*)malloc(nnz * sizeof(int));
     csr_values_h = (double*)malloc(nnz * sizeof(double));
     x_values_h = (double*)malloc(nrhs * n * sizeof(double));
     b_values_h = (double*)malloc(nrhs * n * sizeof(double));
+
     diag_h = (double*)malloc(n * sizeof(double));
+
     if (!csr_offsets_h || ! csr_columns_h || !csr_values_h ||
         !x_values_h || !b_values_h || !diag_h) {
         printf("Error: host memory allocation failed\n");
         return -1;
     }
+
     /* Initialize host memory for A and b */
     int i = 0;
     csr_offsets_h[i++] = 0;
@@ -144,18 +162,21 @@ int main (int argc, char *argv[]) {
     csr_offsets_h[i++] = 6;
     csr_offsets_h[i++] = 7;
     csr_offsets_h[i++] = 8;
+
     i = 0;
     csr_columns_h[i++] = 0; csr_columns_h[i++] = 2;
     csr_columns_h[i++] = 1; csr_columns_h[i++] = 2;
     csr_columns_h[i++] = 2; csr_columns_h[i++] = 4;
     csr_columns_h[i++] = 3;
     csr_columns_h[i++] = 4;
+
     i = 0;
     csr_values_h[i++] = 4.0; csr_values_h[i++] = 1.0;
     csr_values_h[i++] = 3.0; csr_values_h[i++] = 2.0;
     csr_values_h[i++] = 5.0; csr_values_h[i++] = 1.0;
     csr_values_h[i++] = 1.0;
     csr_values_h[i++] = 2.0;
+
     /* Note: Right-hand side b is initialized with values which correspond
        to the exact solution vector {1, 2, 3, 4, 5} */
     i = 0;
@@ -164,6 +185,7 @@ int main (int argc, char *argv[]) {
     b_values_h[i++] = 25.0;
     b_values_h[i++] = 4.0;
     b_values_h[i++] = 13.0;
+
     /* Allocate device memory for A, x, b and diag (for future use) */
     CUDA_CALL_AND_CHECK(cudaMalloc(&csr_offsets_d, (n + 1) * sizeof(int)),
                         "cudaMalloc for csr_offsets");
@@ -175,8 +197,10 @@ int main (int argc, char *argv[]) {
                         "cudaMalloc for b_values");
     CUDA_CALL_AND_CHECK(cudaMalloc(&x_values_d, nrhs * n * sizeof(double)),
                         "cudaMalloc for x_values");
+
     CUDA_CALL_AND_CHECK(cudaMalloc(&diag_d, n * sizeof(double)),
                         "cudaMalloc for diag");
+
     /* Copy host memory to device for A and b */
     CUDA_CALL_AND_CHECK(cudaMemcpy(csr_offsets_d, csr_offsets_h, (n + 1) * sizeof(int),
                         cudaMemcpyHostToDevice), "cudaMemcpy for csr_offsets");
@@ -186,30 +210,40 @@ int main (int argc, char *argv[]) {
                         cudaMemcpyHostToDevice), "cudaMemcpy for csr_values");
     CUDA_CALL_AND_CHECK(cudaMemcpy(b_values_d, b_values_h, nrhs * n * sizeof(double),
                         cudaMemcpyHostToDevice), "cudaMemcpy for b_values");
+
     cudaStream_t stream = NULL;
     CUDA_CALL_AND_CHECK(cudaStreamCreate(&stream), "cudaStreamCreate");
+
     /* Creating the cuDSS library handle */
     cudssHandle_t handle;
+
     CUDSS_CALL_AND_CHECK(cudssCreate(&handle), status, "cudssCreate");
+
     /* (optional) Setting the custom stream for the library handle */
     CUDSS_CALL_AND_CHECK(cudssSetStream(handle, stream), status, "cudssSetStream");
+
     /* Creating cuDSS solver configuration and data objects */
     cudssConfig_t solverConfig;
     cudssData_t solverData;
+
     CUDSS_CALL_AND_CHECK(cudssConfigCreate(&solverConfig), status, "cudssConfigCreate");
     CUDSS_CALL_AND_CHECK(cudssDataCreate(handle, &solverData), status, "cudssDataCreate");
+
     /* (optional) Setting algorithmic knobs */
     cudssAlgType_t reorder_alg = CUDSS_ALG_DEFAULT;
     CUDSS_CALL_AND_CHECK(cudssConfigSet(solverConfig, CUDSS_CONFIG_REORDERING_ALG,
                          &reorder_alg, sizeof(cudssAlgType_t)), status, "cudssSolverSet");
+
     /* Create matrix objects for the right-hand side b and solution x (as dense matrices). */
     cudssMatrix_t x, b;
+
     int64_t nrows = n, ncols = n;
     int ldb = ncols, ldx = nrows;
     CUDSS_CALL_AND_CHECK(cudssMatrixCreateDn(&b, ncols, nrhs, ldb, b_values_d, CUDA_R_64F,
                          CUDSS_LAYOUT_COL_MAJOR), status, "cudssMatrixCreateDn for b");
     CUDSS_CALL_AND_CHECK(cudssMatrixCreateDn(&x, nrows, nrhs, ldx, x_values_d, CUDA_R_64F,
                          CUDSS_LAYOUT_COL_MAJOR), status, "cudssMatrixCreateDn for x");
+
     /* Create a matrix object for the sparse input matrix. */
     cudssMatrix_t A;
     cudssMatrixType_t mtype     = CUDSS_MTYPE_SYMMETRIC;
@@ -218,9 +252,11 @@ int main (int argc, char *argv[]) {
     CUDSS_CALL_AND_CHECK(cudssMatrixCreateCsr(&A, nrows, ncols, nnz, csr_offsets_d, NULL,
                          csr_columns_d, csr_values_d, CUDA_R_32I, CUDA_R_64F, mtype, mview,
                          base), status, "cudssMatrixCreateCsr");
+
     /* Symbolic factorization */
     CUDSS_CALL_AND_CHECK(cudssExecute(handle, CUDSS_PHASE_ANALYSIS, solverConfig, solverData,
                          A, x, b), status, "cudssExecute for analysis");
+
     size_t sizeWritten;
     int row_perm[5];
     CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_PERM_REORDER_ROW, &row_perm,
@@ -228,15 +264,18 @@ int main (int argc, char *argv[]) {
                          status, "cudssDataGet for row reorder perm");
     for (int i = 0; i < n; i++)
         printf("row reorder perm[%d] = %d\n", i, row_perm[i]);
+
     int col_perm[5];
     CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_PERM_REORDER_COL, &col_perm,
                          sizeof(col_perm), &sizeWritten),
                          status, "cudssDataGet for col reorder perm");
     for (int i = 0; i < n; i++)
         printf("col reorder perm[%d] = %d\n", i, col_perm[i]);
+
     /* Factorization */
     CUDSS_CALL_AND_CHECK(cudssExecute(handle, CUDSS_PHASE_FACTORIZATION, solverConfig,
                          solverData, A, x, b), status, "cudssExecute for factor");
+
     /* (optional) Recommended: getting runtime errors from device side
         Note: cudssDataGet is a synchronous API.
         Note: per cuDSS documentation, CUDSS_DATA_INFO is always returned
@@ -246,14 +285,17 @@ int main (int argc, char *argv[]) {
     CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_INFO, &info,
                          sizeof(info), &sizeWritten), status, "cudssDataGet for info");
     printf("cuDSS info = %d\n", info);
+
     int npivots;
     CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_NPIVOTS, &npivots,
                          sizeof(npivots), &sizeWritten), status, "cudssDataGet for npivots");
     printf("cuDSS npivots = %d\n", npivots);
+
     int inertia[2];
     CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_INERTIA, &inertia,
                          sizeof(inertia), &sizeWritten), status, "cudssDataGet for inertia");
     printf("cuDSS inertia = %d %d\n", inertia[0], inertia[1]);
+
     /* (optional) Recommended: getting data back when the user does not know the size
         Note: cudssDataGet is a synchronous API.
     */
@@ -270,6 +312,7 @@ int main (int argc, char *argv[]) {
     CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_LU_NNZ, &lu_nnz,
                          sizeof(int64_t), NULL), status, "cudssDataGet for lu_nnz");
     printf("cuDSS #nnz in LU = %ld\n", lu_nnz);
+
     /*  Note: currently these features are only supported for CUDSS_ALG_1 and CUDSS_ALG_2
         reordering algorithms. */
     if (reorder_alg == CUDSS_ALG_1 || reorder_alg == CUDSS_ALG_2) {
@@ -279,6 +322,7 @@ int main (int argc, char *argv[]) {
                              status, "cudssDataGet for row final perm");
         for (int i = 0; i < n; i++)
             printf("final row perm[%d] = %d\n", i, row_final_perm[i]);
+
         int col_final_perm[5];
         CUDSS_CALL_AND_CHECK(cudssDataGet(handle, solverData, CUDSS_DATA_PERM_COL, &col_final_perm,
                              sizeof(col_final_perm), &sizeWritten),
@@ -286,6 +330,8 @@ int main (int argc, char *argv[]) {
         for (int i = 0; i < n; i++)
             printf("final col perm[%d] = %d\n", i, col_final_perm[i]);
     }
+
+
     /* (optional) Getting data back when the user knows the size
         Note: cudssDataGet is a synchronous API.
     */
@@ -295,13 +341,16 @@ int main (int argc, char *argv[]) {
                         cudaMemcpyDeviceToHost), "cudaMemcpy for diag");
     for (int i = 0; i < 5; i++)
         printf("diag[%d] = %f\n", i, diag_h[i]);
+
     int iter_ref_nsteps = 2;
     CUDSS_CALL_AND_CHECK(cudssConfigSet(solverConfig, CUDSS_CONFIG_IR_N_STEPS,
                          &iter_ref_nsteps, sizeof(iter_ref_nsteps)), status,
                          "cudssSolverSet for IR nsteps");
+
     /* Solving */
     CUDSS_CALL_AND_CHECK(cudssExecute(handle, CUDSS_PHASE_SOLVE, solverConfig, solverData,
                          A, x, b), status, "cudssExecute for solve");
+
     /* Destroying opaque objects, matrix wrappers and the cuDSS library handle */
     CUDSS_CALL_AND_CHECK(cudssMatrixDestroy(A), status, "cudssMatrixDestroy for A");
     CUDSS_CALL_AND_CHECK(cudssMatrixDestroy(b), status, "cudssMatrixDestroy for b");
@@ -309,21 +358,28 @@ int main (int argc, char *argv[]) {
     CUDSS_CALL_AND_CHECK(cudssDataDestroy(handle, solverData), status, "cudssDataDestroy");
     CUDSS_CALL_AND_CHECK(cudssConfigDestroy(solverConfig), status, "cudssConfigDestroy");
     CUDSS_CALL_AND_CHECK(cudssDestroy(handle), status, "cudssHandleDestroy");
+
     CUDA_CALL_AND_CHECK(cudaStreamSynchronize(stream), "cudaStreamSynchronize");
+
     /* Print the solution and compare against the exact solution */
     CUDA_CALL_AND_CHECK(cudaMemcpy(x_values_h, x_values_d, nrhs * n * sizeof(double),
                         cudaMemcpyDeviceToHost), "cudaMemcpy for x_values");
+
     int passed = 1;
     for (int i = 0; i < n; i++) {
         printf("x[%d] = %1.4f expected %1.4f\n", i, x_values_h[i], double(i+1));
         if (fabs(x_values_h[i] - (i + 1)) > 2.e-15)
           passed = 0;
     }
+
     /* Release the data allocated on the user side */
+
     CUDSS_EXAMPLE_FREE;
+
     if (status == CUDSS_STATUS_SUCCESS && passed)
         printf("Example PASSED\n");
     else
         printf("Example FAILED\n");
+
     return 0;
 }

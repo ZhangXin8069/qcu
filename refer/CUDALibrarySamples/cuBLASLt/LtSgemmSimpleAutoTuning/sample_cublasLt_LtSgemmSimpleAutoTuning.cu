@@ -25,19 +25,25 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
 #include <cstdio>
 #include <vector>
 #include <algorithm>
+
 #include <cublasLt.h>
 #include <cuda_runtime_api.h>
+
 #include "sample_cublasLt_LtSgemmSimpleAutoTuning.h"
 #include "helpers.h"
+
 float median(std::vector<float>& times) {
     const size_t size = times.size();
     if (size == 0) {
         return 0;
     }
+
     std::sort(times.begin(), times.end());
+
     const size_t mid = size / 2;
     if (size % 2 == 0) {
         return (times[mid] + times[mid - 1]) / 2;
@@ -46,6 +52,7 @@ float median(std::vector<float>& times) {
         return times[mid];
     }
 }
+
 /// Sample wrapper executing single precision gemm algorithm auto tuning by querying cublasLt heuristics for best algorithms,
 /// iterate over the results and pick the algorithm that have the best performance for the given problem
 ///
@@ -72,6 +79,7 @@ void LtSgemmSimpleAutoTuning(cublasLtHandle_t ltHandle,
     cublasLtMatmulDesc_t operationDesc = NULL;
     cublasLtMatrixLayout_t Adesc = NULL, Bdesc = NULL, Cdesc = NULL;
     cublasLtMatmulPreference_t preference = NULL;
+
     const int requestedAlgoCount = 8;
     int returnedResults = 0;
     cublasLtMatmulHeuristicResult_t heuristicResult[requestedAlgoCount] = { 0 };
@@ -80,36 +88,45 @@ void LtSgemmSimpleAutoTuning(cublasLtHandle_t ltHandle,
     float bestAlgoTime = 0;
     cudaStream_t stream;
     cudaEvent_t startEvent, stopEvent;
+
     // create operation desciriptor; see cublasLtMatmulDescAttributes_t for details about defaults; here we just need to
     // set the transforms for A and B
     checkCublasStatus(cublasLtMatmulDescCreate(&operationDesc, CUBLAS_COMPUTE_32F, CUDA_R_32F));
     checkCublasStatus(cublasLtMatmulDescSetAttribute(operationDesc, CUBLASLT_MATMUL_DESC_TRANSA, &transa, sizeof(transa)));
     checkCublasStatus(cublasLtMatmulDescSetAttribute(operationDesc, CUBLASLT_MATMUL_DESC_TRANSB, &transb, sizeof(transb)));
+
     // create matrix descriptors, we are good with the details here so no need to set any extra attributes
     checkCublasStatus(cublasLtMatrixLayoutCreate(&Adesc, CUDA_R_32F, transa == CUBLAS_OP_N ? m : k, transa == CUBLAS_OP_N ? k : m, lda));
     checkCublasStatus(cublasLtMatrixLayoutCreate(&Bdesc, CUDA_R_32F, transb == CUBLAS_OP_N ? k : n, transb == CUBLAS_OP_N ? n : k, ldb));
     checkCublasStatus(cublasLtMatrixLayoutCreate(&Cdesc, CUDA_R_32F, m, n, ldc));
+
     // create preference handle; here we could use extra attributes to disable tensor ops or to make sure algo selected
     // will work with badly aligned A, B, C; here for simplicity we just assume A,B,C are always well aligned (e.g.
     // directly come from cudaMalloc)
     checkCublasStatus(cublasLtMatmulPreferenceCreate(&preference));
     checkCublasStatus(cublasLtMatmulPreferenceSetAttribute(preference, CUBLASLT_MATMUL_PREF_MAX_WORKSPACE_BYTES,
         &workspaceSize, sizeof(workspaceSize)));
+
     // we just need the best available heuristic to try and run matmul. There is no guarantee this will work, e.g. if A
     // is badly aligned, you can request more (e.g. 32) algos and try to run them one by one until something works
     checkCublasStatus(cublasLtMatmulAlgoGetHeuristic(ltHandle, operationDesc, Adesc, Bdesc, Cdesc, Cdesc, preference,
         requestedAlgoCount, heuristicResult, &returnedResults));
+
     if (returnedResults == 0) {
         checkCublasStatus(CUBLAS_STATUS_NOT_SUPPORTED);
     }
+
     checkCudaStatus(cudaStreamCreate(&stream));
     checkCudaStatus(cudaEventCreate(&startEvent));
     checkCudaStatus(cudaEventCreate(&stopEvent));
+
     constexpr int repeatAlgoCheck = 5;
     std::vector<float> algoTimes(repeatAlgoCheck);
+
     for (int algoIdx = 0; algoIdx < returnedResults; algoIdx++) {
         for (int checkIdx = 0; checkIdx < repeatAlgoCheck; checkIdx++) {
             checkCudaStatus(cudaEventRecord(startEvent, stream));
+
             checkCublasStatus(cublasLtMatmul(ltHandle,
                                             operationDesc,
                                             alpha,
@@ -126,18 +143,23 @@ void LtSgemmSimpleAutoTuning(cublasLtHandle_t ltHandle,
                                             workspace,
                                             workspaceSize,
                                             stream));
+
             checkCudaStatus(cudaEventRecord(stopEvent, stream));
             checkCudaStatus(cudaEventSynchronize(stopEvent));
             checkCudaStatus(cudaEventElapsedTime(&time, startEvent, stopEvent));
             algoTimes[checkIdx] = time;
         }
+
         time = median(algoTimes);
+
         if (algoIdx == 0 || time < bestAlgoTime) {
             bestAlgoTime = time;
             bestAlgoIdx = algoIdx;
         }
     }
+
     memcpy(&algo, &heuristicResult[bestAlgoIdx].algo, sizeof(algo));
+
     // descriptors are no longer needed as all GPU work was already enqueued
     if (preference) checkCublasStatus(cublasLtMatmulPreferenceDestroy(preference));
     if (Cdesc) checkCublasStatus(cublasLtMatrixLayoutDestroy(Cdesc));

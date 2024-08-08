@@ -9,11 +9,14 @@
  * without an express license agreement from NVIDIA CORPORATION or
  * its affiliates is strictly prohibited.
 */
+
 #include "benchmark_template_chunked.cuh"
 #include "nvcomp/zstd.h"
+
 static nvcompBatchedZstdOpts_t nvcompBatchedZstdTestOpts{};
 static std::string filename;
 static bool do_output;
+
 static bool handleCommandLineArgument(
     const std::string& arg,
     const char* const* additionalArgs,
@@ -28,6 +31,7 @@ static bool handleCommandLineArgument(
   }
   return false; // Any other parameters means that we took in an invalid argument
 }
+
 static bool isZstdInputValid(const std::vector<std::vector<char>>& data)
 {
   for (const auto& chunk : data) {
@@ -38,8 +42,10 @@ static bool isZstdInputValid(const std::vector<std::vector<char>>& data)
       return false;
     }
   }
+
   return true;
 }
+
 void run_benchmark(
     const std::vector<std::vector<char>>& data,
     const bool warmup,

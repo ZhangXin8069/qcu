@@ -24,16 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
+
+
 /* 
  * Example showing the use of LTO callbacks with CUFFT to perform 
  * truncation with zero padding.
  * 
 */
+
 #include <cufftXt.h>
+
 struct cb_params {
 	unsigned window_N;
 	unsigned signal_size;
 };
+
 // This is the store callback routine. It filters high frequencies
 // based on a truncation window specified by the user
 // NOTE: unlike the non-LTO version, the callback device function
@@ -46,5 +51,7 @@ __device__ cufftComplex cufftJITCallbackLoadComplex(void *input,
 	const cb_params* params = static_cast<const cb_params*>(info);
 	cufftComplex* cb_output = static_cast<cufftComplex*>(input);
 	const unsigned sample   = index % params->signal_size;
+
 	return (sample < params->window_N) ? cb_output[index] : cufftComplex{0.f, 0.f};
 }
+

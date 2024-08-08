@@ -1,6 +1,7 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #include "./lattice_complex.h"
+
 #define _BLOCK_SIZE_ 256
 #define _WARP_SIZE_ 32
 #define _a_ 0
@@ -94,33 +95,6 @@
 // #define NCCL_WILSON_MULTGRID
 // #define NCCL_CLOVER_MULTGRID
 // #define NCCL_OVERLAP_MULTGRID
-// CUDA API error checking
-#define CUDA_CHECK(err)                                                        \
-  do {                                                                         \
-    cudaError_t err_ = (err);                                                  \
-    if (err_ != cudaSuccess) {                                                 \
-      std::printf("CUDA error %d at %s:%d\n", err_, __FILE__, __LINE__);       \
-      throw std::runtime_error("CUDA error");                                  \
-    }                                                                          \
-  } while (0)
-// cublas API error checking
-#define CUBLAS_CHECK(err)                                                      \
-  do {                                                                         \
-    cublasStatus_t err_ = (err);                                               \
-    if (err_ != CUBLAS_STATUS_SUCCESS) {                                       \
-      std::printf("cublas error %d at %s:%d\n", err_, __FILE__, __LINE__);     \
-      throw std::runtime_error("cublas error");                                \
-    }                                                                          \
-  } while (0)
-// curand API error checking
-#define CURAND_CHECK(err)                                                      \
-  do {                                                                         \
-    curandStatus_t err_ = (err);                                               \
-    if (err_ != CURAND_STATUS_SUCCESS) {                                       \
-      std::printf("curand error %d at %s:%d\n", err_, __FILE__, __LINE__);     \
-      throw std::runtime_error("curand error");                                \
-    }                                                                          \
-  } while (0)
 #define give_ptr(U, origin_U, n)                                               \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
