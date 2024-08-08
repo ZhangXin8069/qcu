@@ -9,7 +9,7 @@ struct LatticeWilsonDslash {
   LatticeSet *set_ptr;
   cudaError_t err;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
-  void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+  void run_nccl(void *fermion_out, void *fermion_in, void *gauge, int parity) {
     { // edge send part
       wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_X_]>>>(
@@ -53,7 +53,6 @@ struct LatticeWilsonDslash {
                ncclDouble, set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                set_ptr->stream_dims[_X_]);
       ncclGroupEnd();
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
     }
     {
       // y comm
@@ -75,7 +74,6 @@ struct LatticeWilsonDslash {
                ncclDouble, set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                set_ptr->stream_dims[_Y_]);
       ncclGroupEnd();
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
     }
     {
       // z comm
@@ -96,7 +94,6 @@ struct LatticeWilsonDslash {
                ncclDouble, set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                set_ptr->stream_dims[_Z_]);
       ncclGroupEnd();
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
     }
     {
       // t comm
@@ -117,10 +114,9 @@ struct LatticeWilsonDslash {
                ncclDouble, set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                set_ptr->stream_dims[_T_]);
       ncclGroupEnd();
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
     }
     {
-      // edge send part
+      // edge recv part
       wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                              set_ptr->stream>>>(
           gauge, fermion_out, set_ptr->device_xyztsc, parity,
@@ -144,7 +140,196 @@ struct LatticeWilsonDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
-
+  void run_mpi(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+    { // edge send part
+      wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                             set_ptr->stream_dims[_X_]>>>(
+          gauge, fermion_in, set_ptr->device_xyztsc, parity,
+          set_ptr->device_send_vec[_B_X_], set_ptr->device_send_vec[_F_X_]);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_B_X_], set_ptr->device_send_vec[_B_X_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_X_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_X_]));
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_F_X_], set_ptr->device_send_vec[_F_X_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_X_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_X_]));
+      wilson_dslash_y_send<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                             set_ptr->stream_dims[_Y_]>>>(
+          gauge, fermion_in, set_ptr->device_xyztsc, parity,
+          set_ptr->device_send_vec[_B_Y_], set_ptr->device_send_vec[_F_Y_]);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_B_Y_], set_ptr->device_send_vec[_B_Y_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_Y_]));
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_F_Y_], set_ptr->device_send_vec[_F_Y_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_Y_]));
+      wilson_dslash_z_send<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                             set_ptr->stream_dims[_Z_]>>>(
+          gauge, fermion_in, set_ptr->device_xyztsc, parity,
+          set_ptr->device_send_vec[_B_Z_], set_ptr->device_send_vec[_F_Z_]);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_B_Z_], set_ptr->device_send_vec[_B_Z_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_Z_]));
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_F_Z_], set_ptr->device_send_vec[_F_Z_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_Z_]));
+      wilson_dslash_t_send<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                             set_ptr->stream_dims[_T_]>>>(
+          gauge, fermion_in, set_ptr->device_xyztsc, parity,
+          set_ptr->device_send_vec[_B_T_], set_ptr->device_send_vec[_F_T_]);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_B_T_], set_ptr->device_send_vec[_B_T_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_T_]));
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->host_send_vec[_F_T_], set_ptr->device_send_vec[_F_T_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
+          set_ptr->stream_dims[_T_]));
+    }
+    {
+      // x comm
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+      MPI_Isend(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_X_], _B_X_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_B_X_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_B_X_]);
+      MPI_Isend(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_X_], _F_X_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_F_X_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_F_X_]);
+    }
+    {
+      // y comm
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+      MPI_Isend(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_Y_], _B_Y_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_B_Y_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_B_Y_]);
+      MPI_Isend(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_Y_], _F_Y_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_F_Y_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_F_Y_]);
+    }
+    {
+      // z comm
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+      MPI_Isend(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_Z_], _B_Z_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_B_Z_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_B_Z_]);
+      MPI_Isend(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_Z_], _F_Z_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_F_Z_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_F_Z_]);
+    }
+    {
+      // t comm
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
+      MPI_Isend(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_T_], _B_T_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_B_T_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_B_T_]);
+      MPI_Isend(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
+                MPI_DOUBLE, set_ptr->move_wards[_F_T_], _F_T_, MPI_COMM_WORLD,
+                &set_ptr->send_request[_F_T_]);
+      MPI_Irecv(set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
+                MPI_DOUBLE, set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
+                &set_ptr->recv_request[_F_T_]);
+    }
+    { // inside compute part ans wait
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+      wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                             set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                set_ptr->device_xyztsc, parity);
+      MPI_Wait(&set_ptr->recv_request[_B_X_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_F_X_], set_ptr->host_recv_vec[_F_X_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_X_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_X_]));
+      MPI_Wait(&set_ptr->recv_request[_F_X_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_B_X_], set_ptr->host_recv_vec[_B_X_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_X_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_X_]));
+      MPI_Wait(&set_ptr->recv_request[_B_Y_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_F_Y_], set_ptr->host_recv_vec[_F_Y_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_Y_]));
+      MPI_Wait(&set_ptr->recv_request[_F_Y_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_B_Y_], set_ptr->host_recv_vec[_B_Y_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_Y_]));
+      MPI_Wait(&set_ptr->recv_request[_B_Z_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_F_Z_], set_ptr->host_recv_vec[_F_Z_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_Z_]));
+      MPI_Wait(&set_ptr->recv_request[_F_Z_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_B_Z_], set_ptr->host_recv_vec[_B_Z_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_Z_]));
+      MPI_Wait(&set_ptr->recv_request[_B_T_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_F_T_], set_ptr->host_recv_vec[_F_T_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_T_]));
+      MPI_Wait(&set_ptr->recv_request[_F_T_], MPI_STATUS_IGNORE);
+      checkCudaErrors(cudaMemcpyAsync(
+          set_ptr->device_recv_vec[_B_T_], set_ptr->host_recv_vec[_B_T_],
+          sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
+          set_ptr->stream_dims[_T_]));
+    }
+    {
+      // edge recv part
+      wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                             set_ptr->stream>>>(
+          gauge, fermion_out, set_ptr->device_xyztsc, parity,
+          set_ptr->device_recv_vec[_B_X_], set_ptr->device_recv_vec[_F_X_]);
+      wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                             set_ptr->stream>>>(
+          gauge, fermion_out, set_ptr->device_xyztsc, parity,
+          set_ptr->device_recv_vec[_B_Y_], set_ptr->device_recv_vec[_F_Y_]);
+      wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                             set_ptr->stream>>>(
+          gauge, fermion_out, set_ptr->device_xyztsc, parity,
+          set_ptr->device_recv_vec[_B_Z_], set_ptr->device_recv_vec[_F_Z_]);
+      wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                             set_ptr->stream>>>(
+          gauge, fermion_out, set_ptr->device_xyztsc, parity,
+          set_ptr->device_recv_vec[_B_T_], set_ptr->device_recv_vec[_F_T_]);
+    }
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+  }
+  void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+    run_mpi(fermion_out, fermion_in, gauge, parity);
+    // run_nccl(fermion_out, fermion_in, gauge, parity);
+  }
   void run_eo(void *fermion_out, void *fermion_in, void *gauge) {
     run(fermion_out, fermion_in, gauge, _EVEN_);
   }
