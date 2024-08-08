@@ -1,0 +1,186 @@
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0-0c55538-dirty-gfx906)
+*** HIP BACKEND ***
+HIP Driver version = 50423453
+HIP Runtime version = 50423453
+Found device 0: Device 66a1
+Found device 1: Device 66a1
+Found device 2: Device 66a1
+Found device 3: Device 66a1
+Using device 0: Device 66a1
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+Loaded 279 sets of cached parameters from .cache/tunecache.tsv
+Loaded 279 sets of cached parameters from .cache/tunecache.tsv
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+hipblasCreated successfully
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+single latt size = [16, 16, 32, 32]
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p) = 2508.2774966099746
+norm(p[1]) = 1773.6200269505305
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+norm(p) = 2508.2774966099746
+norm(p[0]) = 1773.6200269505305
+norm(p[1]) = 1773.6200269505305
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 408 iterations, L2 relative residual: iterated = 9.552814e-10, true = 9.552814e-10 (requested = 1.000000e-09)
+rank 3 quda x and x difference: , 7.021557662683772e-10, takes 1.3049537170445547 sec, norm_quda_x = 195233.26271956693
+rank 0 quda x and x difference: , 7.774479258022836e-10, takes 1.3049577069468796 sec, norm_quda_x = 195501.89317726562
+rank 2 quda x and x difference: , 6.862510046662246e-10, takes 1.3049525470705703 sec, norm_quda_x = 195180.50198266905
+rank 9 quda x and x difference: , 6.793060948833845e-10, takes 1.3049178589135408 sec, norm_quda_x = 195142.29917258013
+rank 4 quda x and x difference: , 6.840248586967777e-10, takes 1.3049439936876297 sec, norm_quda_x = 195284.43700676254
+rank 6 quda x and x difference: , 6.740564033322772e-10, takes 1.3049055226147175 sec, norm_quda_x = 195155.8300359735
+rank 5 quda x and x difference: , 6.806448168896936e-10, takes 1.3049056828022003 sec, norm_quda_x = 195193.49028119136
+rank 1 quda x and x difference: , 7.935617327757284e-10, takes 1.3049542870139703 sec, norm_quda_x = 195299.1177516407
+rank 10 quda x and x difference: , 7.306055973288639e-10, takes 1.3049016911536455 sec, norm_quda_x = 195341.2845683815
+rank 7 quda x and x difference: , 6.38514629015902e-10, takes 1.3049078024923801 sec, norm_quda_x = 195090.06935934644
+rank 11 quda x and x difference: , 7.022471459089441e-10, takes 1.3049345798790455 sec, norm_quda_x = 195251.6010239143
+rank 8 quda x and x difference: , 7.538156575757777e-10, takes 1.3049278911203146 sec, norm_quda_x = 195168.15859168023
+rank 14 quda x and x difference: , 6.266068371847509e-10, takes 1.3049008641391993 sec, norm_quda_x = 195174.90099372456
+rank 15 quda x and x difference: , 7.668188777208231e-10, takes 1.3049028143286705 sec, norm_quda_x = 195265.68218118645
+rank 12 quda x and x difference: , 6.525896385288089e-10, takes 1.3049100134521723 sec, norm_quda_x = 195289.3974473134
+rank 13 quda x and x difference: , 6.769176414809729e-10, takes 1.3049049731343985 sec, norm_quda_x = 195127.22187851372
+===============qcu==================
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+CG inverter succeed in 410 iterations
+rank 0 qcu x and x difference: , 7.381358450847034e-10, takes 2.336475702933967 sec, my_x_norm = 195501.89317756248
+============================
+rank 1 qcu x and x difference: , 7.586316936690777e-10, takes 2.336610993021168 sec, my_x_norm = 195299.11775205896
+rank 13 qcu x and x difference: , 6.472080364199683e-10, takes 2.3367532286792994 sec, my_x_norm = 195127.22187847938
+rank 2 qcu x and x difference: , 6.578972634744263e-10, takes 2.3366954730590805 sec, my_x_norm = 195180.50198181462
+rank 15 qcu x and x difference: , 7.335668903742685e-10, takes 2.336633190512657 sec, my_x_norm = 195265.68217982413
+rank 14 qcu x and x difference: , 5.995216996595854e-10, takes 2.336648689582944 sec, my_x_norm = 195174.9009942046
+rank 12 qcu x and x difference: , 6.199154264170138e-10, takes 2.3365931287407875 sec, my_x_norm = 195289.39744735745
+rank 9 qcu x and x difference: , 6.540667674432559e-10, takes 2.3366418797522783 sec, my_x_norm = 195142.29917303575
+rank 8 qcu x and x difference: , 7.182217607953633e-10, takes 2.3367213904857635 sec, my_x_norm = 195168.15859100714
+rank 3 qcu x and x difference: , 6.777415417093963e-10, takes 2.336582922958769 sec, my_x_norm = 195233.26272026275
+rank 11 qcu x and x difference: , 6.716407006006254e-10, takes 2.3365867901593447 sec, my_x_norm = 195251.60102343865
+rank 10 qcu x and x difference: , 6.995669338065507e-10, takes 2.336661510169506 sec, my_x_norm = 195341.28456902882
+rank 4 qcu x and x difference: , 6.57076216912019e-10, takes 2.3366776518523693 sec, my_x_norm = 195284.4370067355
+rank 7 qcu x and x difference: , 6.114785124742373e-10, takes 2.336570283398032 sec, my_x_norm = 195090.0693599159
+rank 6 qcu x and x difference: , 6.461709836183063e-10, takes 2.3366518933326006 sec, my_x_norm = 195155.83003632483
+rank 5 qcu x and x difference: , 6.442497616646367e-10, takes 2.3366545643657446 sec, my_x_norm = 195193.49028065742
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 47 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =    17.001 secs
+                     init     =    17.001 secs (100.000%),	 with        2 calls at 8.500e+06 us per call
+        total accounted       =    17.001 secs (100.000%)
+        total missing         =     0.000 secs (  0.000%)
+
+          loadGaugeQuda Total time =     0.996 secs
+                 download     =     0.984 secs ( 98.767%),	 with        2 calls at 4.920e+05 us per call
+                   upload     =     0.002 secs (  0.157%),	 with        1 calls at 1.568e+03 us per call
+                     init     =     0.001 secs (  0.056%),	 with       14 calls at 3.957e+01 us per call
+                  compute     =     0.000 secs (  0.000%),	 with        2 calls at 1.000e+00 us per call
+                     free     =     0.000 secs (  0.005%),	 with       98 calls at 5.204e-01 us per call
+        total accounted       =     0.986 secs ( 98.985%)
+        total missing         =     0.010 secs (  1.015%)
+
+             invertQuda Total time =     1.304 secs
+                     init     =     0.002 secs (  0.147%),	 with       22 calls at 8.691e+01 us per call
+                 preamble     =     0.129 secs (  9.861%),	 with        2 calls at 6.431e+04 us per call
+                  compute     =     1.118 secs ( 85.720%),	 with     5019 calls at 2.228e+02 us per call
+                 epilogue     =     0.004 secs (  0.275%),	 with       15 calls at 2.394e+02 us per call
+                     free     =     0.000 secs (  0.029%),	 with     5070 calls at 7.337e-02 us per call
+        total accounted       =     1.253 secs ( 96.032%)
+        total missing         =     0.052 secs (  3.968%)
+
+                endQuda Total time =     0.039 secs
+                     free     =     0.000 secs (  0.013%),	 with       65 calls at 7.692e-02 us per call
+        total accounted       =     0.000 secs (  0.013%)
+        total missing         =     0.039 secs ( 99.987%)
+
+       initQuda-endQuda Total time =    26.198 secs
+
+                   QUDA Total time =    19.350 secs
+                 download     =     0.984 secs (  5.085%),	 with        2 calls at 4.920e+05 us per call
+                   upload     =     0.002 secs (  0.008%),	 with        1 calls at 1.568e+03 us per call
+                     init     =    17.003 secs ( 87.873%),	 with       37 calls at 4.595e+05 us per call
+                 preamble     =     0.129 secs (  0.665%),	 with        2 calls at 6.431e+04 us per call
+                  compute     =     1.123 secs (  5.804%),	 with     5022 calls at 2.236e+02 us per call
+                    comms     =     0.005 secs (  0.025%),	 with        2 calls at 2.374e+03 us per call
+                 epilogue     =     0.004 secs (  0.019%),	 with       15 calls at 2.393e+02 us per call
+                     free     =     0.000 secs (  0.000%),	 with      119 calls at 4.790e-01 us per call
+        total accounted       =    19.249 secs ( 99.478%)
+        total missing         =     0.101 secs (  0.522%)
+
+Device memory used = 414.0 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Page-locked host memory used = 18.0 MiB
+Total host memory used >= 18.1 MiB
+

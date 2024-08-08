@@ -8,7 +8,6 @@
 #include "./lattice_complex.h"
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
-#include "./lattice_mpi.h"
 #include "./lattice_set.h"
 
 #ifdef __cplusplus
