@@ -1,4 +1,5 @@
-profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Thu Aug  8 21:11:44 2024
+profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Thu Aug  8 23:10:17 2024
+
   total time	     percent	cum. percent	       calls	 time / call	          volume	name	aux	comment
    0.0500722	     80.1259	     80.1259	           1	   0.0500722	     16x16x16x32	N4quda7RNGInitE	GPU-offline,vol=131072stride=69632precision=8geometry=4Nc=3	# 0.00 Gflop/s, 0.00 GB/s, tuning took 6.645787 seconds at Tue Aug  6 22:59:46 2024
   0.00730624	     11.6915	     91.8174	           1	  0.00730624	     16x16x16x32	N4quda10GaugeGaussIdLi3EL21QudaReconstructType_s12EEE	GPU-offline,vol=131072stride=69632precision=8geometry=4Nc=3,lie_group	# 0.00 Gflop/s, 7.32 GB/s, tuning took 4.599862 seconds at Tue Aug  6 22:59:50 2024
@@ -16,4 +17,5 @@ profile	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	
  1.82065e-05	   0.0291343	     99.9508	           2	 9.10327e-06	     16x16x16x32	N4quda9CopyGaugeINS_12CopyGaugeArgIfdLi18ELb0ENS_5gauge11FloatNOrderIfLi18ELi4ELi12EL20QudaStaggeredPhase_s0ELb1EL19QudaGhostExchange_sn2147483648ELb0EEENS3_IdLi18ELi2ELi12ELS4_0ELb1ELS5_n2147483648ELb0EEEEEEE	GPU-offline,vol=131072stride=69632precision=8geometry=4Nc=3,vol=131072stride=69632precision=4geometry=4Nc=3,ghost	# 0.00 Gflop/s, 481.89 GB/s, tuning took 0.039743 seconds at Tue Aug  6 22:59:39 2024
  1.63383e-05	   0.0261446	      99.977	           2	 8.16914e-06	   bytes=2752512	cudaMemset	allocateGhostBuffer,lattice_field.cpp,293	# 0.00 Gflop/s, 336.94 GB/s, tuning took 0.000656 seconds at Tue Aug  6 22:59:38 2024
  1.43835e-05	   0.0230167	         100	           2	 7.19177e-06	   bytes=2752512	cudaMemset	allocateGhostBuffer,lattice_field.cpp,288	# 0.00 Gflop/s, 382.73 GB/s, tuning took 0.001014 seconds at Tue Aug  6 22:59:38 2024
+
 # Total time spent in kernels = 0.0624919 seconds
