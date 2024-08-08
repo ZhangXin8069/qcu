@@ -11,7 +11,6 @@ struct LatticeSet {
   int lat_3dim_SC[_DIM_];
   int lat_4dim_SC;
   dim3 gridDim_3dim[_DIM_];
-  cudaError_t err;
   dim3 gridDim;
   dim3 blockDim;
   ncclUniqueId nccl_id;
@@ -19,7 +18,7 @@ struct LatticeSet {
   cudaStream_t stream;
   cudaStream_t streams[_DIM_];
   cudaStream_t stream_dims[_DIM_];
-  cudaStream_t stream_wards[_WARDS_];
+  cudaError_t err;
   int node_rank, node_size;
   int move[_BF_];
   int move_wards[_WARDS_];
@@ -120,8 +119,6 @@ struct LatticeSet {
       for (int i = 0; i < _DIM_; i++) {
         checkCudaErrors(cudaStreamCreate(&streams[i]));
         checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
-        checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
-        checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
         lat_3dim_SC[i] = lat_3dim_Half_SC[i] * 2;
         checkCudaErrors(cudaMallocAsync(
@@ -177,8 +174,6 @@ struct LatticeSet {
       checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_ + 1], stream));
       free(host_send_vec[i * _SR_]);
       free(host_recv_vec[i * _SR_ + 1]);
-      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_]));
-      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_ + 1]));
     }
     checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
     checkCudaErrors(cudaStreamSynchronize(stream));
