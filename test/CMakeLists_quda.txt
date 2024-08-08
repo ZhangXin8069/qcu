@@ -2,18 +2,14 @@
 cmake_minimum_required(VERSION 3.8)
 project(test LANGUAGES C CXX CUDA)
 set(CMAKE_CXX_STANDARD 11)
-
 # Set the desired CUDA architecture (modify this as needed)
 set(SM_ARCH "sm_60")
 set(CMAKE_CUDA_ARCHITECTURES "60")
-
 # Other options like maxrregcount can be set similarly
 set(MAXRREGCOUNT "256")
-
 # Set CUDA architecture and other flags
 # set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3 --maxrregcount=${MAXRREGCOUNT}")
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=${SM_ARCH} -O3")
-
 # Add include directories, including MPI include directories, including test's include
 set(MPI_INCLUDE_PATH "/usr/lib/x86_64-linux-gnu/openmpi/include")
 set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
@@ -28,17 +24,14 @@ set(MPI_CXX_LIBRARIES "/usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so")
 # include_directories(${QUDA_HOME}"/tests/googletest/include")
 # include_directories(${QUDA_HOME}"/tests/host_reference") 
 # include_directories(${QUDA_HOME}"/tests/utils")
-
 # include_directories(${QUDA_HOME}"/build/include")
 # include_directories(${QUDA_HOME}"/build/include/externals")
 # include_directories(${QUDA_HOME}"/build/tests")
 # include_directories(${QUDA_HOME}"/build/tests/googletest/include")
 # include_directories(${QUDA_HOME}"/build/tests/host_reference") 
 # include_directories(${QUDA_HOME}"/build/tests/utils")
-
 # Set your source files
 # aux_source_directory(../src SOURCE_FILE)
-
 # Add an executable and link the necessary libraries
 find_package(MPI REQUIRED)
 #add_executable(test test.mpi.bistabcg.cu ${SOURCE_FILE})

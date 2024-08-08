@@ -1,5 +1,4 @@
 tunecache	1.1.0	1.1.0--sm_80	cpu_arch=x86_64,gpu_arch=sm_80,cuda_version=12.3.103	# Last updated Thu Aug  8 16:28:54 2024
-
           volume	name	aux	block.x	block.y	block.z	grid.x	grid.y	grid.z	shared_bytes	aux.x	aux.y	aux.z	aux.w	time	comment
      16x16x16x16	N4quda10GaugeGaussIdLi3EL21QudaReconstructType_s12EEE	GPU-offline,vol=65536stride=34816precision=8geometry=4Nc=3,lie_group	64	1	1	512	2	1	2049	-1	-1	-1	-1	0.00367548	# 0.00 Gflop/s, 7.27 GB/s, tuning took 2.369078 seconds at Thu Aug  8 14:24:47 2024
      16x16x16x16	N4quda12ExtractGhostIdLi3ENS_5gauge11FloatNOrderIdLi18ELi2ELi12EL20QudaStaggeredPhase_s0ELb1EL19QudaGhostExchange_sn2147483648ELb0EEEEE	GPU-offline,vol=65536stride=34816precision=8geometry=4Nc=3,extract	64	1	4	64	1	2	0	-1	-1	-1	-1	1.0148e-05	# 0.00 Gflop/s, 309.99 GB/s, tuning took 0.048791 seconds at Thu Aug  8 14:24:41 2024

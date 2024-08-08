@@ -18,14 +18,10 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
-
-
 def dslash_qcu(Mp, p, U, param, kappa):
     pyqcu.dslashQcu(Mp.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
     pyqcu.dslashQcu(Mp.odd_ptr, Mp.even_ptr, U.data_ptr, param, 1)
     Mp.data[1, :] = p.data[1, :] - kappa*kappa*Mp.data[1, :]
-
-
 x1 = cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128)*1
 x_ans = LatticeFermion(latt_size, x1)
 print("x_ans = ", x_ans.data[0, 0, 0, 0, 0, 0, :])

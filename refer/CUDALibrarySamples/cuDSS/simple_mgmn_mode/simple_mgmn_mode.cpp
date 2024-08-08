@@ -46,16 +46,13 @@
  * comments to the code, the above Disclaimer and U.S. Government End
  * Users Notice.
  */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
 #include <assert.h>
 #include <cuda_runtime.h>
-
 #include "cudss.h"
-
 #ifdef USE_MPI
 #  include "mpi.h"
 #  ifdef USE_NCCL
@@ -70,7 +67,6 @@
 #else
 #  error "This example needs to be compiled with MPI (and optionally with NCCL as well)"
 #endif
-
 /*
     This example demonstrates usage of MGMN mode in cuDSS for solving
     a system of linear algebraic equations with a sparse matrix:
@@ -82,10 +78,8 @@
     Note: in this example A, b and x are assumed to be fully present on
     the root process, the rest of the processes are assumed to have
     correct matrix shapes only.
-
     Note: The MGMN mode is intended to be used for solving large systems.
 */
-
 #define CUDSS_EXAMPLE_FREE \
     do { \
         free(csr_offsets_h); \
@@ -99,7 +93,6 @@
         cudaFree(x_values_d); \
         cudaFree(b_values_d); \
     } while(0);
-
 #define CUDA_CALL_AND_CHECK(call, msg) \
     do { \
         cuda_error = call; \
@@ -108,7 +101,6 @@
             return -3; \
         } \
     } while(0);
-
 #ifdef USE_MPI
 #  define MPI_CALL_AND_CHECK(call, msg) \
     do { \
@@ -129,8 +121,6 @@
     } while(0);
 #  endif
 #endif
-
-
 #define CUDSS_CALL_AND_CHECK(call, status, msg) \
     do { \
         status = call; \
@@ -140,8 +130,6 @@
             return -6; \
         } \
     } while(0);
-
-
 int main (int argc, char *argv[]) {
     cudaError_t   cuda_error = cudaSuccess;
     cudssStatus_t status     = CUDSS_STATUS_SUCCESS;
@@ -151,7 +139,6 @@ int main (int argc, char *argv[]) {
     ncclResult_t  nccl_result = ncclSuccess;
 #  endif
 #endif
-
     /* Initializing the communication backend
        Note: cuDSS can work with any CUDA-aware communication backend through the
        user-defined communication layers (see the documentation), but this example
@@ -163,7 +150,6 @@ int main (int argc, char *argv[]) {
 #ifdef USE_MPI
     MPI_CALL_AND_CHECK(MPI_Init(&argc, &argv), "MPI_Init");
 #endif
-
     /* Identifying the root process as the one with rank equal to 0 */
     int rank = 0, size = 1;
 #ifdef USE_MPI
@@ -182,7 +168,6 @@ int main (int argc, char *argv[]) {
         printf("---------------------------------------------------------\n");
         fflush(0);
     }
-
     /* Binding each process to a specific GPU device under the assumption
        that the number of processes does not exceed the number of devices */
     int device_count = 0;
@@ -197,7 +182,6 @@ int main (int argc, char *argv[]) {
     }
     int device_id = rank % device_count;
     CUDA_CALL_AND_CHECK(cudaSetDevice(device_id), "cudaSetDevice");
-
     /* Parsing the communication layer information from the input parameters */
     char comm_backend_name[1024];
     char comm_layer_lib[1024];
@@ -220,12 +204,9 @@ int main (int argc, char *argv[]) {
 #endif
         return -2;
     }
-
-
     /* Creating a communicator of the type matching the communication backend */
 #ifdef USE_MPI
     MPI_Comm *mpi_comm = NULL;
-
     #if USE_OPENMPI
     if (strcmp(comm_backend_name,"openmpi") == 0) {
         mpi_comm = (MPI_Comm*) malloc(sizeof(MPI_Comm));
@@ -246,21 +227,17 @@ int main (int argc, char *argv[]) {
     }
     #endif
 #endif
-
     int n = 5;
     int nnz = 8;
     int nrhs = 1;
-
     int *csr_offsets_h = NULL;
     int *csr_columns_h = NULL;
     double *csr_values_h = NULL;
     double *x_values_h = NULL, *b_values_h = NULL;
-
     int *csr_offsets_d = NULL;
     int *csr_columns_d = NULL;
     double *csr_values_d = NULL;
     double *x_values_d = NULL, *b_values_d = NULL;
-
     /* We only allocate host and device memory  for A,x and b for the root process */
     if (rank == 0) {
         /* Allocate host memory for the sparse input matrix A,
@@ -270,13 +247,11 @@ int main (int argc, char *argv[]) {
         csr_values_h = (double*)malloc(nnz * sizeof(double));
         x_values_h = (double*)malloc(nrhs * n * sizeof(double));
         b_values_h = (double*)malloc(nrhs * n * sizeof(double));
-
         if (!csr_offsets_h || ! csr_columns_h || !csr_values_h ||
             !x_values_h || !b_values_h) {
             printf("Error: host memory allocation failed\n");fflush(0);
             return -2;
         }
-
         /* Initialize host memory for A and b */
         int i = 0;
         csr_offsets_h[i++] = 0;
@@ -285,21 +260,18 @@ int main (int argc, char *argv[]) {
         csr_offsets_h[i++] = 6;
         csr_offsets_h[i++] = 7;
         csr_offsets_h[i++] = 8;
-
         i = 0;
         csr_columns_h[i++] = 0; csr_columns_h[i++] = 2;
         csr_columns_h[i++] = 1; csr_columns_h[i++] = 2;
         csr_columns_h[i++] = 2; csr_columns_h[i++] = 4;
         csr_columns_h[i++] = 3;
         csr_columns_h[i++] = 4;
-
         i = 0;
         csr_values_h[i++] = 4.0; csr_values_h[i++] = 1.0;
         csr_values_h[i++] = 3.0; csr_values_h[i++] = 2.0;
         csr_values_h[i++] = 5.0; csr_values_h[i++] = 1.0;
         csr_values_h[i++] = 1.0;
         csr_values_h[i++] = 2.0;
-
         /* Note: Right-hand side b is initialized with values which correspond
         to the exact solution vector {1, 2, 3, 4, 5} */
         i = 0;
@@ -308,7 +280,6 @@ int main (int argc, char *argv[]) {
         b_values_h[i++] = 25.0;
         b_values_h[i++] = 4.0;
         b_values_h[i++] = 13.0;
-
         /* Allocate device memory for A, x and b */
         CUDA_CALL_AND_CHECK(cudaMalloc(&csr_offsets_d, (n + 1) * sizeof(int)),
                             "cudaMalloc for csr_offsets");
@@ -320,7 +291,6 @@ int main (int argc, char *argv[]) {
                             "cudaMalloc for b_values");
         CUDA_CALL_AND_CHECK(cudaMalloc(&x_values_d, nrhs * n * sizeof(double)),
                             "cudaMalloc for x_values");
-
         /* Copy host memory to device for A and b */
         CUDA_CALL_AND_CHECK(cudaMemcpy(csr_offsets_d, csr_offsets_h, (n + 1) * sizeof(int),
                             cudaMemcpyHostToDevice), "cudaMemcpy for csr_offsets");
@@ -331,44 +301,34 @@ int main (int argc, char *argv[]) {
         CUDA_CALL_AND_CHECK(cudaMemcpy(b_values_d, b_values_h, nrhs * n * sizeof(double),
                             cudaMemcpyHostToDevice), "cudaMemcpy for b_values");
     }
-
     /* Create a CUDA stream */
     cudaStream_t stream = NULL;
     CUDA_CALL_AND_CHECK(cudaStreamCreate(&stream), "cudaStreamCreate");
-
     /* Creating the cuDSS library handle */
     cudssHandle_t handle;
-
     CUDSS_CALL_AND_CHECK(cudssCreate(&handle), status, "cudssCreate");
-
     /* Set the full name of the cuDSS communication layer library. 
       Note: if comm_layer_lib = NULL then cudssSetCommLayer takes
       the communication layer library name from the environment variable
       "CUDSS_COMM_LIB“ */
     cudssSetCommLayer(handle, comm_layer_lib);
-
     /* (optional) Setting the custom stream for the library handle */
     CUDSS_CALL_AND_CHECK(cudssSetStream(handle, stream), status, "cudssSetStream");
-
     /* Creating cuDSS solver configuration and data objects */
     cudssConfig_t solverConfig;
     cudssData_t solverData;
-
     CUDSS_CALL_AND_CHECK(cudssConfigCreate(&solverConfig), status, "cudssConfigCreate");
     CUDSS_CALL_AND_CHECK(cudssDataCreate(handle, &solverData), status, "cudssDataCreate");
-
     /* Create matrix objects for the right-hand side b and solution x (as dense matrices).
        Note: currently, solution and right0hand side arrays must be fully present only on
        the root process (rank = 0). */
     cudssMatrix_t x, b;
-
     int64_t nrows = n, ncols = n;
     int ldb = ncols, ldx = nrows;
     CUDSS_CALL_AND_CHECK(cudssMatrixCreateDn(&b, ncols, nrhs, ldb, b_values_d, CUDA_R_64F,
                          CUDSS_LAYOUT_COL_MAJOR), status, "cudssMatrixCreateDn for b");
     CUDSS_CALL_AND_CHECK(cudssMatrixCreateDn(&x, nrows, nrhs, ldx, x_values_d, CUDA_R_64F,
                          CUDSS_LAYOUT_COL_MAJOR), status, "cudssMatrixCreateDn for x");
-
     /* Create a matrix object for the sparse input matrix.
        Note: currently, matrix A must be fully present on the root process (rank = 0),
        and the rest of the processes should have correct shape of the matrix (but it is
@@ -380,7 +340,6 @@ int main (int argc, char *argv[]) {
     CUDSS_CALL_AND_CHECK(cudssMatrixCreateCsr(&A, nrows, ncols, nnz, csr_offsets_d, NULL,
                          csr_columns_d, csr_values_d, CUDA_R_32I, CUDA_R_64F, mtype, mview,
                          base), status, "cudssMatrixCreateCsr");
-
     /* Setting communicator to be used by MGMN mode of cuDSS */
 #ifdef USE_MPI
     #if USE_OPENMPI
@@ -398,19 +357,15 @@ int main (int argc, char *argv[]) {
     }
     #endif
 #endif
-
     /* Symbolic factorization */
     CUDSS_CALL_AND_CHECK(cudssExecute(handle, CUDSS_PHASE_ANALYSIS, solverConfig, solverData,
                          A, x, b), status, "cudssExecute for analysis");
-
     /* Factorization */
     CUDSS_CALL_AND_CHECK(cudssExecute(handle, CUDSS_PHASE_FACTORIZATION, solverConfig,
                          solverData, A, x, b), status, "cudssExecute for factor");
-
     /* Solving */
     CUDSS_CALL_AND_CHECK(cudssExecute(handle, CUDSS_PHASE_SOLVE, solverConfig, solverData,
                          A, x, b), status, "cudssExecute for solve");
-
     /* Destroying opaque objects, matrix wrappers and the cuDSS library handle */
     CUDSS_CALL_AND_CHECK(cudssMatrixDestroy(A), status, "cudssMatrixDestroy for A");
     CUDSS_CALL_AND_CHECK(cudssMatrixDestroy(b), status, "cudssMatrixDestroy for b");
@@ -418,29 +373,23 @@ int main (int argc, char *argv[]) {
     CUDSS_CALL_AND_CHECK(cudssDataDestroy(handle, solverData), status, "cudssDataDestroy");
     CUDSS_CALL_AND_CHECK(cudssConfigDestroy(solverConfig), status, "cudssConfigDestroy");
     CUDSS_CALL_AND_CHECK(cudssDestroy(handle), status, "cudssHandleDestroy");
-
     CUDA_CALL_AND_CHECK(cudaStreamSynchronize(stream), "cudaStreamSynchronize");
-
     /* (optional) For the root process, print the solution and compare against the exact solution */
     int passed = 1;
     if (rank == 0) {
         CUDA_CALL_AND_CHECK(cudaMemcpy(x_values_h, x_values_d, nrhs * n * sizeof(double),
                             cudaMemcpyDeviceToHost), "cudaMemcpy for x_values");
-
         for (int i = 0; i < n; i++) {
             printf("x[%d] = %1.4f expected %1.4f\n", i, x_values_h[i], double(i+1));
             if (fabs(x_values_h[i] - (i + 1)) > 2.e-15)
             passed = 0;
         }
     }
-
     /* (optional) For the root process, print the solution and compare against the exact solution */
     if (rank == 0) {
         /* Release the data allocated on the user side */
-
         CUDSS_EXAMPLE_FREE;
     }
-
     /* Deleting the memory allocated for the communicator */
 #if USE_MPI
     if (mpi_comm != NULL) free(mpi_comm);
@@ -449,13 +398,11 @@ int main (int argc, char *argv[]) {
     if (nccl_comm != NULL) NCCL_CALL_AND_CHECK(ncclCommDestroy(*nccl_comm),"ncclCommDestroy");
     if (nccl_comm != NULL) free(nccl_comm);
 #endif
-
     /* Cleanup for the communication backend
        See comments about calling MPI_Init() above */
 #ifdef USE_MPI
     MPI_Finalize();
 #endif
-
     if (status == CUDSS_STATUS_SUCCESS && passed) {
         if (rank == 0)
             printf("Example PASSED\n");

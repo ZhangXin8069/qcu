@@ -4,34 +4,24 @@ java.version=1.8.0_422
 java.vendor=Private Build
 BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
 Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.247
 !MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.250
 !MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.250
 !MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.250
 !MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.250
 !MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.250
 !MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.250
 !MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-07 00:12:24.251
 !MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.ui 4 4 2024-08-07 00:12:25.986
 !MESSAGE Referenced part does not exist yet: org.eclipse.ui.editors.
-
 !ENTRY org.eclipse.e4.ui.workbench.swt 4 2 2024-08-07 12:24:05.691
 !MESSAGE Problems occurred when invoking code from plug-in: "org.eclipse.e4.ui.workbench.swt".
 !STACK 0
@@ -126,7 +116,6 @@ Caused by: org.eclipse.swt.SWTException: Widget is disposed
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:55)
 	... 74 more
-
 !ENTRY org.eclipse.e4.ui.workbench 4 0 2024-08-07 12:24:05.694
 !MESSAGE Exception occurred while unrendering: org.eclipse.e4.ui.model.application.ui.basic.impl.TrimmedWindowImpl@138a7441 (elementId: IDEWindow, tags: [topLevel, shellMaximized], contributorURI: platform:/plugin/org.eclipse.ui.workbench) (widget: null, renderer: null, toBeRendered: true, onTop: false, visible: true, containerData: null, accessibilityPhrase: null) (label: %trimmedwindow.label.eclipseSDK, iconURI: null, tooltip: null, context: null, variables: [], x: -32, y: -32, width: 1200, height: 800)
 !STACK 0
@@ -221,10 +210,8 @@ Caused by: org.eclipse.swt.SWTException: Widget is disposed
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at org.eclipse.e4.core.internal.di.MethodRequestor.execute(MethodRequestor.java:55)
 	... 74 more
-
 !ENTRY org.eclipse.ui 2 2 2024-08-07 12:24:05.702
 !MESSAGE Invalid property category path: org.eclipse.cdt.managedbuilder.ui.properties.Page_head_build (bundle: org.eclipse.cdt.ui, propertyPage: org.eclipse.cdt.managedbuilder.ui.properties.BuildLogPreferencePage)
-
 !ENTRY org.eclipse.e4.ui.workbench 4 0 2024-08-07 12:24:05.714
 !MESSAGE FrameworkEvent ERROR
 !STACK 0
@@ -275,34 +262,24 @@ java.version=1.8.0_422
 java.vendor=Private Build
 BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
 Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.984
 !MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.osgi 4 0 2024-08-08 20:22:00.986
 !MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
-
 !ENTRY org.eclipse.core.resources 2 10035 2024-08-08 20:22:01.669
 !MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:07.004
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -368,7 +345,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:07.527
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -433,7 +409,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:09.871
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -499,7 +474,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:15.953
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -564,7 +538,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:16.621
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -629,7 +602,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:22.088
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -694,7 +666,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:29.818
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -760,7 +731,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:48:38.865
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -825,7 +795,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:17.541
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -890,7 +859,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:19.213
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -955,7 +923,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:20.577
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1020,7 +987,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:21.396
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1085,7 +1051,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:22.630
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1150,7 +1115,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:23.496
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1215,7 +1179,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:25.904
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1280,7 +1243,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:27.092
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1345,7 +1307,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:49:28.444
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1410,7 +1371,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:50:47.349
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1475,7 +1435,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:50:49.940
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1541,7 +1500,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:50:50.595
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1606,7 +1564,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:50:51.045
 !MESSAGE Unhandled event loop exception
 !STACK 0
@@ -1671,7 +1628,6 @@ org.eclipse.core.runtime.AssertionFailedException: null argument:
 	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:603)
 	at org.eclipse.equinox.launcher.Main.run(Main.java:1465)
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
-
 !ENTRY org.eclipse.ui 4 0 2024-08-08 20:50:51.465
 !MESSAGE Unhandled event loop exception
 !STACK 0

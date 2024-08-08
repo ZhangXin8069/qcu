@@ -10,15 +10,12 @@
 # without an express license agreement from NVIDIA CORPORATION or
 # its affiliates is strictly prohibited.
 #
-
 import sys
 import struct
 import argparse
 import numpy
 import warnings
-
 delimiter = ','
-
 def fixInput(val):
     if val is None:
         return 0
@@ -26,10 +23,7 @@ def fixInput(val):
         retval = int(val)
     except ValueError:
         retval = ord(val)
-
     return retval
-
-
 if len(sys.argv) != 5 and len(sys.argv) != 6:
     print("Usage:")
     print("\tcsv_to_binary.py <input filename> <column choice> <datatype> <output filename> [delimiter]")
@@ -52,15 +46,12 @@ if len(sys.argv) != 5 and len(sys.argv) != 6:
     print("    text_to_binary.py SpaceSeparatedData.txt 0 int FirstColumn.bin ' '")
     print()
     exit()
-
 in_fname = sys.argv[1]
 col_num = sys.argv[2]
 datatype = sys.argv[3]
 out_fname = sys.argv[4]
-
 if len(sys.argv) == 6:
     delimiter = sys.argv[5]
-
 # Add more datatypes if needed
 if datatype == "int":
     dtype = "int32"
@@ -75,10 +66,7 @@ elif datatype == "string":
 else:
     print("Please select datatype int, long, float, double, or string")
     exit()
-
-
 print("Reading column " + col_num + ", of type " + datatype + "...")
-
 chunk_size = 10000000
 finished = False
 offset = 0
@@ -88,11 +76,9 @@ with open(str(in_fname), "r") as inFile:
             while not finished:
                 in_data=numpy.genfromtxt(inFile, dtype=dtype,
                 max_rows=chunk_size, usecols=(int(col_num),), delimiter=delimiter, loose=False)
-
                 if offset == 0:
                     # don't warn about an empty file after we have read something
                     warnings.filterwarnings('ignore', r'genfromtxt: Empty input file:')
-
                 if in_data.size > 0:
                     in_data.tofile(newFile)
                     offset += in_data.size
