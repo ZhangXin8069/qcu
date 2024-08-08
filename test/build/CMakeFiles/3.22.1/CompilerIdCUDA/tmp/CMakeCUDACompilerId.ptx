@@ -5,10 +5,6 @@
 // Cuda compilation tools, release 12.3, V12.3.52
 // Based on NVVM 7.0.1
 //
-
 .version 8.3
 .target sm_52
 .address_size 64
-
-
-

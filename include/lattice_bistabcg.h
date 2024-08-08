@@ -224,11 +224,10 @@ struct LatticeBistabcg {
               << host_vals[_omega_].imag << std::endl
               << "##send_tmp :" << host_vals[_send_tmp_].real << ","
               << host_vals[_send_tmp_].imag << std::endl
-              << "##norm2_tmp:" << host_vals[_norm2_tmp_].real << "," <
-        host_vals[_norm2_tmp_].imag
-            << std::endl
-            << "##diff_tmp :" << host_vals[_diff_tmp_].real << "," <
-        host_vals[_diff_tmp_].imag << std::endl;
+              << "##norm2_tmp:" << host_vals[_norm2_tmp_].real << ","
+              << host_vals[_norm2_tmp_].imag << std::endl
+              << "##diff_tmp :" << host_vals[_diff_tmp_].real << ","
+              << host_vals[_diff_tmp_].imag << std::endl;
   }
   void run(void *gauge) {
     for (int loop = 0; loop < _MAX_ITER_; loop++) {

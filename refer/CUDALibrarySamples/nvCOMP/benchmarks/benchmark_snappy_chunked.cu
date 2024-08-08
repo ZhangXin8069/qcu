@@ -9,10 +9,8 @@
  * without an express license agreement from NVIDIA CORPORATION or
  * its affiliates is strictly prohibited.
 */
-
 #include "benchmark_template_chunked.cuh"
 #include "nvcomp/snappy.h"
-
 static bool handleCommandLineArgument(
     const std::string& arg,
     const char* const* additionalArgs,
@@ -21,7 +19,6 @@ static bool handleCommandLineArgument(
   // Snappy has no options.
   return false;
 }
-
 void run_benchmark(
     const std::vector<std::vector<char>>& data,
     const bool warmup,

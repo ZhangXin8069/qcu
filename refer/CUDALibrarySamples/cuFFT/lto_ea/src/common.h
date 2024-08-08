@@ -24,19 +24,15 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-
 #ifndef _COMMON__H_
 #define _COMMON__H_
-
 #include <cuda.h>
 #include <cufft.h>
 #include <complex>
-
 // Some helper definitions
 #define ERROR_VALUE -1
 #define PASS_VALUE   0
 #define PI 3.1415926535897932
-
 // Check CUDA API error
 inline int checkErrors(cudaError_t error, int line_number) {
 	if(error != cudaSuccess) {
@@ -45,7 +41,6 @@ inline int checkErrors(cudaError_t error, int line_number) {
 	}
 	return PASS_VALUE;
 }
-
 // Check cuFFT API error
 inline int checkErrors(cufftResult error, int line_number) {
 	if(error != CUFFT_SUCCESS) {
@@ -54,9 +49,7 @@ inline int checkErrors(cufftResult error, int line_number) {
 	}
 	return PASS_VALUE;
 }
-
 #define CHECK_ERROR(error) checkErrors(error, __LINE__)
-
 template<typename T>
 double compute_error(T* ref, T* out, unsigned batches, unsigned signal_size){
     double squared_diff = 0;
@@ -71,8 +64,5 @@ double compute_error(T* ref, T* out, unsigned batches, unsigned signal_size){
     }
     return std::sqrt(squared_diff / squared_norm);
 }
-
 void init_input_signals(unsigned batches, unsigned signal_size, float* signals);
-
 #endif // _COMMON__H_
-

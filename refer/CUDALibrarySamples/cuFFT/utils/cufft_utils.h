@@ -46,9 +46,7 @@
  * comments to the code, the above Disclaimer and U.S. Government End
  * Users Notice.
  */
-
 #pragma once
-
 // CUDA API error checking
 #ifndef CUDA_RT_CALL
 #define CUDA_RT_CALL( call )                                                                                           \
@@ -66,7 +64,6 @@
                      status );                                                                                         \
     }
 #endif  // CUDA_RT_CALL
-
 // cufft API error chekcing
 #ifndef CUFFT_CALL
 #define CUFFT_CALL( call )                                                                                             \
@@ -83,7 +80,6 @@
                      status );                                                                                         \
     }
 #endif  // CUFFT_CALL
-
 __global__
 void scaling_kernel(cufftComplex* data, int element_count, float scale) {
     const int tid = threadIdx.x + blockIdx.x * blockDim.x;

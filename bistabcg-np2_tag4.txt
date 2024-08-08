@@ -2025,12 +2025,10 @@ QCU bistabcg: 15.250373653005227 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 16 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
-
                initQuda Total time =     0.695 secs
                      init     =     0.695 secs ( 99.999%),	 with        2 calls at 3.476e+05 us per call
         total accounted       =     0.695 secs ( 99.999%)
         total missing         =     0.000 secs (  0.001%)
-
           loadGaugeQuda Total time =     0.646 secs
                  download     =     0.276 secs ( 42.694%),	 with       20 calls at 1.379e+04 us per call
                    upload     =     0.094 secs ( 14.481%),	 with       10 calls at 9.353e+03 us per call
@@ -2039,11 +2037,8 @@ Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
                      free     =     0.000 secs (  0.027%),	 with       20 calls at 8.700e+00 us per call
         total accounted       =     0.646 secs ( 99.944%)
         total missing         =     0.000 secs (  0.056%)
-
                 endQuda Total time =     0.034 secs
-
        initQuda-endQuda Total time =   151.733 secs
-
                    QUDA Total time =     1.875 secs
                  download     =     0.276 secs ( 14.706%),	 with       20 calls at 1.379e+04 us per call
                    upload     =     0.094 secs (  4.988%),	 with       10 calls at 9.354e+03 us per call
@@ -2052,14 +2047,12 @@ Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
                      free     =     0.000 secs (  0.009%),	 with       20 calls at 8.650e+00 us per call
         total accounted       =     1.841 secs ( 98.154%)
         total missing         =     0.035 secs (  1.846%)
-
 Device memory used = 1454.2 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
 Page-locked host memory used = 54.0 MiB
 Total host memory used >= 74.3 MiB
-
 ==440964== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_440964.nvvp
 ==440963== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_440963.nvvp
 ~/qcu

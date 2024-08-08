@@ -17,8 +17,6 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
-
-
 def compare(round):
     # generate a vector p randomly
     p = LatticeFermion(latt_size, cp.random.randn(
@@ -43,7 +41,5 @@ def compare(round):
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'QCU bistabcg: {t2 - t1} sec')
-
-
 for i in range(0, 1):
     compare(i)

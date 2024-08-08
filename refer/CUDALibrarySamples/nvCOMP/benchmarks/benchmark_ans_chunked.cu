@@ -9,12 +9,9 @@
  * without an express license agreement from NVIDIA CORPORATION or
  * its affiliates is strictly prohibited.
 */
-
 #include "benchmark_template_chunked.cuh"
 #include "nvcomp/ans.h"
-
 static nvcompBatchedANSOpts_t nvcompBatchedANSOpts = {nvcomp_rANS, uint8};
-
 static bool handleCommandLineArgument(
     const std::string& arg,
     const char* const* additionalArgs,
@@ -39,12 +36,10 @@ static bool handleCommandLineArgument(
                 << typeArg << std::endl;
       valid = false;
     }
-
     return valid;
   }
   return false;
 }
-
 static bool isANSInputValid(const std::vector<std::vector<char>>& data)
 {
   for (const auto& chunk : data) {
@@ -54,17 +49,14 @@ static bool isANSInputValid(const std::vector<std::vector<char>>& data)
                 << std::endl;
       return false;
     }
-
     if(nvcompBatchedANSOpts.data_type == float16 && chunk.size() % 2 != 0){
       std::cerr << "Error: chunk size must be a multiple of 2 when using "
 	           "ANS on float16 data."
                 << std::endl;
     }
   }
-
   return true;
 }
-
 void run_benchmark(
     const std::vector<std::vector<char>>& data,
     const bool warmup,

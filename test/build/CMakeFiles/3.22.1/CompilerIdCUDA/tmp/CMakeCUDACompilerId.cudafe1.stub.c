@@ -11,5 +11,4 @@ static void __nv_cudaEntityRegisterCallback(void **);
 static void __sti____cudaRegisterAll(void) __attribute__((__constructor__));
 static void __nv_cudaEntityRegisterCallback(void **__T0){__nv_dummy_param_ref(__T0);__nv_save_fatbinhandle_for_managed_rt(__T0);}
 static void __sti____cudaRegisterAll(void){__cudaRegisterBinary(__nv_cudaEntityRegisterCallback);}
-
 #pragma GCC diagnostic pop

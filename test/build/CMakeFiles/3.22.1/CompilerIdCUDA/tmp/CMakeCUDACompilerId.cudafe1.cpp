@@ -12,14 +12,12 @@ static char __nv_inited_managed_rt = 0; static void **__nv_fatbinhandle_for_mana
 #pragma GCC diagnostic pop
 # 1
 #pragma GCC diagnostic ignored "-Wunused-variable"
-
 # 1
 #define __nv_is_extended_device_lambda_closure_type(X) false
 #define __nv_is_extended_host_device_lambda_closure_type(X) false
 #define __nv_is_extended_device_lambda_with_preserved_return_type(X) false
 #if defined(__nv_is_extended_device_lambda_closure_type) && defined(__nv_is_extended_host_device_lambda_closure_type)&& defined(__nv_is_extended_device_lambda_with_preserved_return_type)
 #endif
-
 # 1
 # 61 "/usr/local/cuda/bin/../targets/x86_64-linux/include/cuda_runtime.h"
 #pragma GCC diagnostic push
@@ -34532,7 +34530,6 @@ require += (info_language_extensions_default[argc]);
 return require; 
 # 436
 } 
-
 # 1 "CMakeCUDACompilerId.cudafe1.stub.c"
 #define _NV_ANON_NAMESPACE _GLOBAL__N__76a84d38_22_CMakeCUDACompilerId_cu_bd57c623
 #ifdef _NV_ANON_NAMESPACE
