@@ -34,7 +34,7 @@ struct LatticeSet {
   void *device_xyztsc;
 
   void give(int *_param_lat_size, int *_grid_lat_size) {
-    lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
+    lat_1dim[_X_] = _param_lat_size[_X_] / _EVENODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
     lat_1dim[_Z_] = _param_lat_size[_Z_];
     lat_1dim[_T_] = _param_lat_size[_T_];
@@ -90,10 +90,10 @@ struct LatticeSet {
       lat_3dim[_XZT_] = lat_1dim[_X_] * lat_1dim[_Z_] * lat_1dim[_T_];
       lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];
       lat_3dim[_XYZ_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_];
-      gridDim_3dim[_YZT_] = lat_3dim[_YZT_];
-      gridDim_3dim[_XZT_] = lat_3dim[_XZT_];
-      gridDim_3dim[_XYT_] = lat_3dim[_XYT_];
-      gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_];
+      gridDim_3dim[_YZT_] = lat_3dim[_YZT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XZT_] = lat_3dim[_XZT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XYT_] = lat_3dim[_XYT_] / _BLOCK_SIZE_;
+      gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_] / _BLOCK_SIZE_;
       lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];
       lat_4dim_SC = lat_4dim * _LAT_SC_;
       gridDim = lat_4dim / _BLOCK_SIZE_;
