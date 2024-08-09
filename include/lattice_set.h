@@ -77,7 +77,6 @@ struct LatticeSet {
                                MPI_COMM_WORLD));
       checkNcclErrors(
           ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
-      checkCudaErrors(cudaStreamCreate(&stream));
       grid_index_1dim[_X_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];
       grid_index_1dim[_Y_] =
@@ -118,14 +117,17 @@ struct LatticeSet {
       move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_3dim[_XYT_];
       move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
     }
-    {
+    { // set stream and malloc vec
+      checkCudaErrors(
+          cudaStreamCreateWithFlags(&stream, cudaStreamNonBlocking));
       for (int i = 0; i < _DIM_; i++) {
         CUBLAS_CHECK(cublasCreate(&cublasHs[i]));
         checkCudaErrors(
             cudaStreamCreateWithFlags(&streams[i], cudaStreamNonBlocking));
         // checkCudaErrors(cudaStreamCreate(&streams[i]));
+        checkCudaErrors(
+            cudaStreamCreateWithFlags(&stream_dims[i], cudaStreamNonBlocking));
         CUBLAS_CHECK(cublasSetStream(cublasHs[i], streams[i]));
-        checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
         lat_3dim_SC[i] = lat_3dim_Half_SC[i] * 2;
         checkCudaErrors(cudaMallocAsync(
