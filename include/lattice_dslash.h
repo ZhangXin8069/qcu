@@ -60,7 +60,6 @@ struct LatticeWilsonDslash {
         ncclRecv(set_ptr->device_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_],
                  ncclDouble, set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_X_]);
-
         ncclGroupEnd();
       }
     }
@@ -80,13 +79,11 @@ struct LatticeWilsonDslash {
         ncclSend(set_ptr->device_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
                  ncclDouble, set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
-
         ncclRecv(set_ptr->device_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
                  ncclDouble, set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
         ncclGroupEnd();
         ncclGroupStart();
-
         ncclSend(set_ptr->device_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
                  ncclDouble, set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
