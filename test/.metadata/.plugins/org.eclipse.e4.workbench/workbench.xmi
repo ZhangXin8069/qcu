@@ -6,6 +6,8 @@
   <children xsi:type="basic:TrimmedWindow" xmi:id="_qI5CsVYHEe-WmPWOWGwnlQ" elementId="IDEWindow" contributorURI="platform:/plugin/org.eclipse.ui.workbench" selectedElement="_qI5CslYHEe-WmPWOWGwnlQ" label="%trimmedwindow.label.eclipseSDK" x="-32" y="-32" width="1200" height="800">
     <persistedState key="coolBarVisible" value="true"/>
     <persistedState key="perspectiveBarVisible" value="false"/>
+    <persistedState key="workingSets" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;workingSets/>"/>
+    <persistedState key="aggregateWorkingSetId"/>
     <tags>topLevel</tags>
     <tags>shellMaximized</tags>
     <children xsi:type="basic:PartSashContainer" xmi:id="_qI5CslYHEe-WmPWOWGwnlQ" selectedElement="_qI5Cs1YHEe-WmPWOWGwnlQ" horizontal="true">
@@ -20,12 +22,12 @@
           <tags>persp.viewSC:com.nvidia.viper.cpuview</tags>
           <tags>persp.viewSC:com.nvidia.viper.openaccview</tags>
           <tags>persp.viewSC:com.nvidia.viper.openmpview</tags>
-          <children xsi:type="basic:PartSashContainer" xmi:id="_qI5CtVYHEe-WmPWOWGwnlQ" selectedElement="_qI5CtlYHEe-WmPWOWGwnlQ">
+          <children xsi:type="basic:PartSashContainer" xmi:id="_qI5CtVYHEe-WmPWOWGwnlQ" selectedElement="_qI5Ct1YHEe-WmPWOWGwnlQ">
             <children xsi:type="advanced:Placeholder" xmi:id="_qI5CtlYHEe-WmPWOWGwnlQ" elementId="org.eclipse.ui.editorss" containerData="6000" ref="_qI5p1FYHEe-WmPWOWGwnlQ"/>
             <children xsi:type="basic:PartSashContainer" xmi:id="_qI5Ct1YHEe-WmPWOWGwnlQ" containerData="4000" selectedElement="_qI5CuFYHEe-WmPWOWGwnlQ" horizontal="true">
               <children xsi:type="basic:PartStack" xmi:id="_qI5CuFYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.analysisviewMStack" containerData="7500" selectedElement="_qI5CuVYHEe-WmPWOWGwnlQ">
                 <tags>newtablook</tags>
-                <tags>noFocus</tags>
+                <tags>active</tags>
                 <children xsi:type="advanced:Placeholder" xmi:id="_qI5CuVYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.analysisview" ref="_qI5p3lYHEe-WmPWOWGwnlQ"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_qI5CulYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.expertview" ref="_qI5p4lYHEe-WmPWOWGwnlQ"/>
                 <children xsi:type="advanced:Placeholder" xmi:id="_qI5Cu1YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.cpuview" ref="_qI5p7VYHEe-WmPWOWGwnlQ"/>
@@ -61,55 +63,18 @@
       <tags>categoryTag:Help</tags>
     </sharedElements>
     <sharedElements xsi:type="advanced:Area" xmi:id="_qI5p1FYHEe-WmPWOWGwnlQ" elementId="org.eclipse.ui.editorss" selectedElement="_qI5p1VYHEe-WmPWOWGwnlQ">
-      <children xsi:type="basic:PartStack" xmi:id="_qI5p1VYHEe-WmPWOWGwnlQ" elementId="org.eclipse.e4.primaryDataStack" selectedElement="_qI5p3FYHEe-WmPWOWGwnlQ">
+      <children xsi:type="basic:PartStack" xmi:id="_qI5p1VYHEe-WmPWOWGwnlQ" elementId="org.eclipse.e4.primaryDataStack">
         <tags>newtablook</tags>
         <tags>org.eclipse.e4.primaryDataStack</tags>
         <tags>EditorStack</tags>
-        <tags>active</tags>
-        <tags>noFocus</tags>
-        <children xsi:type="basic:Part" xmi:id="_qI5p1lYHEe-WmPWOWGwnlQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="log_x99-Yang_69305.nvvp" iconURI="platform:/plugin/com.nvidia.viper/icons/en/session.png" closeable="true">
-          <tags>Editor</tags>
-          <tags>com.nvidia.viper.sessioneditor</tags>
-          <tags>removeOnHide</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_qI5p11YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.sessioneditor">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:com.nvidia.viper.sessioneditor</tags>
-          </menus>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_qI5p2FYHEe-WmPWOWGwnlQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="log_x99-Yang_81648.nvvp" iconURI="platform:/plugin/com.nvidia.viper/icons/en/session.png" closeable="true">
-          <tags>Editor</tags>
-          <tags>com.nvidia.viper.sessioneditor</tags>
-          <tags>removeOnHide</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_qI5p2VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.sessioneditor">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:com.nvidia.viper.sessioneditor</tags>
-          </menus>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_qI5p2lYHEe-WmPWOWGwnlQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="log_x99-Yang_108793.nvvp" iconURI="platform:/plugin/com.nvidia.viper/icons/en/session.png" closeable="true">
-          <tags>Editor</tags>
-          <tags>com.nvidia.viper.sessioneditor</tags>
-          <tags>removeOnHide</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_qI5p21YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.sessioneditor">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:com.nvidia.viper.sessioneditor</tags>
-          </menus>
-        </children>
-        <children xsi:type="basic:Part" xmi:id="_qI5p3FYHEe-WmPWOWGwnlQ" elementId="org.eclipse.e4.ui.compatibility.editor" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityEditor" label="log_x99-Yang_152236.nvvp" iconURI="platform:/plugin/com.nvidia.viper/icons/en/session.png" closeable="true">
-          <tags>Editor</tags>
-          <tags>com.nvidia.viper.sessioneditor</tags>
-          <tags>removeOnHide</tags>
-          <tags>active</tags>
-          <menus xsi:type="menu:PopupMenu" xmi:id="_qI5p3VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.sessioneditor">
-            <tags>menuContribution:popup</tags>
-            <tags>popup:com.nvidia.viper.sessioneditor</tags>
-          </menus>
-        </children>
       </children>
     </sharedElements>
     <sharedElements xsi:type="basic:Part" xmi:id="_qI5p3lYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.analysisview" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.e4.compatibility.CompatibilityView" label="Analysis" iconURI="platform:/plugin/com.nvidia.viper/icons/en/analysis_view.png" closeable="true">
       <persistedState key="memento" value="&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?>&#xA;&lt;view/>"/>
       <tags>View</tags>
       <tags>categoryTag:Other</tags>
+      <tags>active</tags>
+      <tags>activeOnClose</tags>
       <menus xmi:id="_qI5p31YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.analysisview">
         <tags>ViewMenu</tags>
         <tags>menuContribution:menu</tags>
@@ -189,15 +154,6 @@
     <trimBars xmi:id="_qI6Q21YHEe-WmPWOWGwnlQ" elementId="org.eclipse.ui.main.toolbar" contributorURI="platform:/plugin/org.eclipse.ui.workbench">
       <children xsi:type="menu:ToolBar" xmi:id="_qI6Q3FYHEe-WmPWOWGwnlQ" elementId="file">
         <tags>Draggable</tags>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q3VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.sessionnew">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q3lYHEe-WmPWOWGwnlQ" elementId="save">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q31YHEe-WmPWOWGwnlQ" elementId="saveAs">
-          <tags>Opaque</tags>
-        </children>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qI6Q4FYHEe-WmPWOWGwnlQ" elementId="additions" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -217,63 +173,6 @@
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qI6Q8VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.sessioneditor">
         <tags>Draggable</tags>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q8lYHEe-WmPWOWGwnlQ">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q81YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.runanalysis">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q9FYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.runtimeline">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q9VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.popupexpert">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q9lYHEe-WmPWOWGwnlQ">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q91YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.scalein">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q-FYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.scaleout">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q-VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.scalefit">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q-lYHEe-WmPWOWGwnlQ">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q-1YHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.collapsealltimelines">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q_FYHEe-WmPWOWGwnlQ">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q_VYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.focustimeline">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q_lYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.unfocustimeline">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6Q_1YHEe-WmPWOWGwnlQ">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6RAFYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.colorbykernel">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6RAVYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.colorbystream">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6RAlYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.colorbyprocess">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6RA1YHEe-WmPWOWGwnlQ">
-          <tags>Opaque</tags>
-        </children>
-        <children xsi:type="menu:DirectToolItem" xmi:id="_qI6RBFYHEe-WmPWOWGwnlQ" elementId="com.nvidia.viper.popupdependencies">
-          <tags>Opaque</tags>
-        </children>
       </children>
       <children xsi:type="menu:ToolBar" xmi:id="_qI6RBVYHEe-WmPWOWGwnlQ" elementId="group.editor" toBeRendered="false">
         <tags>toolbarSeparator</tags>
@@ -573,6 +472,23 @@
     <tags>View</tags>
     <tags>categoryTag:General</tags>
   </descriptors>
+  <trimContributions xmi:id="_2r10UF9tEeO-yojH_y4TJA" elementId="org.eclipse.ui.ide.application.trimcontribution.QuickAccess" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" toBeRendered="false" parentId="org.eclipse.ui.main.toolbar" positionInParent="last">
+    <children xsi:type="menu:ToolControl" xmi:id="_76uUAF9tEeO-yojH_y4TJA" elementId="Spacer Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
+      <tags>glue</tags>
+      <tags>move_after:PerspectiveSpacer</tags>
+      <tags>SHOW_RESTORE_MENU</tags>
+    </children>
+    <children xsi:type="menu:ToolControl" xmi:id="_8tJPcF9tEeO-yojH_y4TJA" elementId="SearchField" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.ui.workbench/org.eclipse.ui.internal.quickaccess.SearchField">
+      <tags>move_after:Spacer Glue</tags>
+      <tags>HIDEABLE</tags>
+      <tags>SHOW_RESTORE_MENU</tags>
+    </children>
+    <children xsi:type="menu:ToolControl" xmi:id="_9LgmcF9tEeO-yojH_y4TJA" elementId="Search-PS Glue" contributorURI="platform:/plugin/org.eclipse.ui.ide.application" contributionURI="bundleclass://org.eclipse.e4.ui.workbench.renderers.swt/org.eclipse.e4.ui.workbench.renderers.swt.LayoutModifierToolControl">
+      <tags>glue</tags>
+      <tags>move_after:SearchField</tags>
+      <tags>SHOW_RESTORE_MENU</tags>
+    </children>
+  </trimContributions>
   <commands xmi:id="_qI8tkFYHEe-WmPWOWGwnlQ" elementId="org.eclipse.ui.window.pinEditor" commandName="Pin Editor" description="Pin the current editor" category="_qJAXv1YHEe-WmPWOWGwnlQ"/>
   <commands xmi:id="_qI8tkVYHEe-WmPWOWGwnlQ" elementId="org.eclipse.ui.navigate.nextTab" commandName="Next Tab" description="Switch to the next tab" category="_qJAXulYHEe-WmPWOWGwnlQ"/>
   <commands xmi:id="_qI8tklYHEe-WmPWOWGwnlQ" elementId="org.eclipse.ui.window.quickAccess" commandName="Quick Access" description="Quickly access UI elements" category="_qJAXv1YHEe-WmPWOWGwnlQ"/>
