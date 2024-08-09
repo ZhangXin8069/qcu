@@ -1,6 +1,9 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
+#pragma once
+// clang-format off
 #include "./lattice_complex.h"
+// clang-format on
 #define _BLOCK_SIZE_ 256
 #define _WARP_SIZE_ 32
 #define _a_ 0
