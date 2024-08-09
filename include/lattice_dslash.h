@@ -1,9 +1,10 @@
 #ifndef _LATTICE_DSLASH_H
 #define _LATTICE_DSLASH_H
+#pragma once
+// clang-format off
 #include "./dslash.h"
 #include "./lattice_set.h"
-#include "define.h"
-#include "wilson_dslash.h"
+// clang-format on
 struct LatticeWilsonDslash {
   LatticeSet *set_ptr;
   cudaError_t err;

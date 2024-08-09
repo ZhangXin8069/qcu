@@ -1,6 +1,9 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
+#pragma once
+// clang-format off
 #include "./define.h"
+// clang-format on
 struct LatticeSet {
   int lat_1dim[_DIM_];
   int lat_3dim[_DIM_];
