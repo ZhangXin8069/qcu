@@ -1,13 +1,13 @@
+#include "checker_utils.h"
+#include "cublas_utils.h"
+#include "curand_utils.h"
+#include "timer_utils.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cublas_v2.h>
 #include <cuda_runtime.h>
 #include <curand_kernel.h>
 #include <vector>
-#include "cublas_utils.h"
-#include "curand_utils.h"
-#include "checker_utils.h"
-#include "timer_utils.h"
 using data_type = cuDoubleComplex;
 int main(int argc, char *argv[]) {
   cublasHandle_t cublasH = NULL;
@@ -53,9 +53,6 @@ int main(int argc, char *argv[]) {
   CUDA_CHECK(cudaMemcpyAsync(B.data(), d_B, sizeof(data_type) * B.size(),
                              cudaMemcpyDeviceToHost, stream));
   CUDA_CHECK(cudaStreamSynchronize(stream));
-  /*
-   *   B = | 7.10 10.20 13.30 16.40 |
-   */
   printf("B\n");
   print_vector(B.size(), B.data());
   printf("=====\n");
@@ -65,6 +62,19 @@ int main(int argc, char *argv[]) {
   CUBLAS_CHECK(cublasDestroy(cublasH));
   CUDA_CHECK(cudaStreamDestroy(stream));
   CUDA_CHECK(cudaDeviceReset());
+  /*
+alpha = 2.1 + 1j
+A
+1.10 + 1.20j 2.30 + 2.40j 3.50 + 3.60j 4.70 + 4.80j
+=====
+B
+5.10 + 5.20j 6.30 + 6.40j 7.50 + 7.60j 8.70 + 8.80j
+=====
+B
+6.21 + 8.82j 8.73 + 13.74j 11.25 + 18.66j 13.77 + 23.58j
+=====
+dest(B) = B + alpha*A
+  */
   // {
   //   int N = 8388608;
   //   use_host_api(N);
