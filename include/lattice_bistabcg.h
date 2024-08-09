@@ -1,13 +1,12 @@
 #ifndef _LATTICE_BISTABCG_H
 #define _LATTICE_BISTABCG_H
+#pragma once
+// clang-format off
 #include "./bistabcg.h"
 #include "./dslash.h"
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
-#include "define.h"
-#include "lattice_complex.h"
-#include <cstdlib>
-#include <nccl.h>
+// clang-format on
 #define PRINT_NCCL_WILSON_BISTABCG
 struct LatticeBistabcg {
   LatticeSet *set_ptr;

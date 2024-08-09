@@ -1,6 +1,8 @@
 #ifndef _DSLASH_H
 #define _DSLASH_H
-#include "./clover_dslash.h"
+#pragma once
+// clang-format off
 #include "./wilson_dslash.h"
-
+#include "./clover_dslash.h"
+// clang-format on
 #endif
