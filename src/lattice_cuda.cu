@@ -1,4 +1,6 @@
 #include "../include/qcu.h"
+#include "lattice_complex.h"
+#include "lattice_set.h"
 #ifdef LATTICE_CUDA
 __global__ void give_random_value(void *device_random_value,
                                   unsigned long seed) {
@@ -71,6 +73,15 @@ __global__ void part_cut(void *device_vec0, void *device_vec1,
   }
   origin_dot_vec[idx] = _;
 }
+void LatticeDot(void *device_A, void *device_B, int size, void *device_val,
+                cublasHandle_t cublasH) {
+// dest(B) = B + alpha*A
+  CUBLAS_CHECK(cublasAxpyEx(
+      cublasH, size, device_val, traits<data_type>::cuda_data_type, device_A,
+      traits<data_type>::cuda_data_type, 1, device_B,
+      traits<data_type>::cuda_data_type, 1, traits<data_type>::cuda_data_type));
+}
+
 /*
 Copy from WangJianCheng.
 */
