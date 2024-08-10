@@ -151,12 +151,12 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaFreeAsync(b_o, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
-  void dot(void *device_vec0, void *device_vec1, const int vals_index,
+  void dot(void *vec0, void *vec1, const int vals_index,
            const int stream_index) {
     // dest(val) = dot(A,B)
     CUBLAS_CHECK(cublasDotcEx(
-        set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, device_vec0,
-        traits<data_type>::cuda_data_type, 1, device_vec1,
+        set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
+        traits<data_type>::cuda_data_type, 1, vec1,
         traits<data_type>::cuda_data_type, 1,
         ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
         traits<data_type>::cuda_data_type, traits<data_type>::cuda_data_type));
@@ -166,36 +166,12 @@ struct LatticeBistabcg {
         ncclDouble, ncclSum, set_ptr->nccl_comm,
         set_ptr->streams[stream_index]));
   }
-  void diff(void *device_vec0, void *device_vec1, const int stream_index) {
-    give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _norm2_tmp_);
-    {
-      part_cut<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                 set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
-                                                   device_dot_vec);
-      part_reduce(device_dot_vec,
-                  ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
-                  device_dot_tmp_vec, set_ptr->lat_4dim,
-                  set_ptr->streams[stream_index]);
-      checkNcclErrors(ncclAllReduce(
-          ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
-          ((static_cast<LatticeComplex *>(device_vals)) + _diff_tmp_), 2,
-          ncclDouble, ncclSum, set_ptr->nccl_comm,
-          set_ptr->streams[stream_index]));
-    }
-    {
-      part_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                 set_ptr->streams[stream_index]>>>(device_vec1, device_vec1,
-                                                   device_dot_vec);
-      part_reduce(device_dot_vec,
-                  ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
-                  device_dot_tmp_vec, set_ptr->lat_4dim,
-                  set_ptr->streams[stream_index]);
-      checkNcclErrors(ncclAllReduce(
-          ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
-          ((static_cast<LatticeComplex *>(device_vals)) + _norm2_tmp_), 2,
-          ncclDouble, ncclSum, set_ptr->nccl_comm,
-          set_ptr->streams[stream_index]));
-    }
+  void diff(void *x, void *ans, const int stream_index) {
+    bistabcg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                         set_ptr->streams[stream_index]>>>(x, ans, device_vec0,
+                                                           device_vals);
+    dot(device_vec0, device_vec0, _diff_tmp_, stream_index);
+    dot(ans, ans, _norm2_tmp_, stream_index);
     bistabcg_give_1diff<<<1, 1, 0, set_ptr->streams[stream_index]>>>(
         device_vals);
   }

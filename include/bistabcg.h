@@ -43,4 +43,6 @@ __global__ void bistabcg_give_x_o(void *device_x_o, void *device_p,
 __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
                                 void *device_vals);
 
+__global__ void bistabcg_give_diff(void *device_x, void *device_ans,
+                                   void *device_vec, void *device_vals);
 #endif
