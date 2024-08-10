@@ -177,6 +177,7 @@ struct LatticeBistabcg {
   }
   void print_vals(int loop = 0) {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
@@ -209,9 +210,9 @@ struct LatticeBistabcg {
               << "##norm2_tmp:" << host_vals[_norm2_tmp_].real << ","
               << host_vals[_norm2_tmp_].imag << std::endl
               << "##diff_tmp :" << host_vals[_diff_tmp_].real << ","
-              << host_vals[_diff_tmp_].imag << std::endl;
-    << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << ","
-    << host_vals[_lat_xyzt_].imag << std::endl;
+              << host_vals[_diff_tmp_].imag << std::endl
+              << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << ","
+              << host_vals[_lat_xyzt_].imag << std::endl;
     // exit(1);
 #endif
   }
