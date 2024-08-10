@@ -23,7 +23,6 @@ void perf_part_reduce(void *device_src_vec, void *device_dest_val,
 
 void part_reduce(void *device_src_vec, void *device_dest_val,
                  void *device_tmp_vec, int size, cudaStream_t stream);
-/*
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
 // device memory pitch alignment
@@ -88,6 +87,8 @@ template <> struct traits<cuDoubleComplex> {
     return make_cuDoubleComplex(v.x * f, v.y * f);
   }
 };
+
+/*
 template <typename T>
 void print_matrix(const int &m, const int &n, const T *A, const int &lda);
 template <>
