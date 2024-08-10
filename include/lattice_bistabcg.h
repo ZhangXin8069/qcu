@@ -210,7 +210,9 @@ struct LatticeBistabcg {
               << host_vals[_norm2_tmp_].imag << std::endl
               << "##diff_tmp :" << host_vals[_diff_tmp_].real << ","
               << host_vals[_diff_tmp_].imag << std::endl;
-    exit(1);
+    << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << ","
+    << host_vals[_lat_xyzt_].imag << std::endl;
+    // exit(1);
 #endif
   }
   void run(void *gauge) {
@@ -298,9 +300,6 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void run_test(void *gauge) {
-#ifdef PRINT_NCCL_WILSON_BISTABCG
-    set_ptr->_print();
-#endif
     auto start = std::chrono::high_resolution_clock::now();
     run(gauge);
     auto end = std::chrono::high_resolution_clock::now();
@@ -321,6 +320,10 @@ struct LatticeBistabcg {
         sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+    set_ptr->_print();
+    print_vals();
+#endif
   }
   void end() {
     checkCudaErrors(cudaFreeAsync(ans_e, set_ptr->stream));

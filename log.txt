@@ -28,14 +28,14 @@
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/zhangxin/qcu
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
 [ 22%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
@@ -151,39 +151,39 @@ lat_3dim_SC[_XYZ_]:24576
 ##RANK:0##LOOP:63##Residual:6.09402e-09
 ##RANK:0##LOOP:64##Residual:1.26163e-09
 ##RANK:0##LOOP:65##Residual:7.98532e-10
-nccl wilson bistabcg total time: (without malloc free memcpy) :0.480670875 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.496395967 sec
 ## difference: 0.0000000000011900
-QCU bistabcg: 1.2010901519997788 sec
+QCU bistabcg: 1.2059658319994924 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 16 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =     0.019 secs
-                     init     =     0.019 secs ( 99.964%),	 with        2 calls at 9.612e+03 us per call
-        total accounted       =     0.019 secs ( 99.964%)
-        total missing         =     0.000 secs (  0.036%)
+               initQuda Total time =     0.017 secs
+                     init     =     0.017 secs ( 99.965%),	 with        2 calls at 8.542e+03 us per call
+        total accounted       =     0.017 secs ( 99.965%)
+        total missing         =     0.000 secs (  0.035%)
 
           loadGaugeQuda Total time =     0.033 secs
-                 download     =     0.024 secs ( 70.912%),	 with        2 calls at 1.187e+04 us per call
-                   upload     =     0.004 secs ( 12.983%),	 with        1 calls at 4.346e+03 us per call
-                     init     =     0.002 secs (  4.496%),	 with        2 calls at 7.525e+02 us per call
-                  compute     =     0.004 secs ( 11.457%),	 with        2 calls at 1.918e+03 us per call
-                     free     =     0.000 secs (  0.021%),	 with        2 calls at 3.500e+00 us per call
-        total accounted       =     0.033 secs ( 99.869%)
-        total missing         =     0.000 secs (  0.131%)
+                 download     =     0.026 secs ( 79.874%),	 with        2 calls at 1.304e+04 us per call
+                   upload     =     0.002 secs (  7.180%),	 with        1 calls at 2.345e+03 us per call
+                     init     =     0.001 secs (  3.558%),	 with        2 calls at 5.810e+02 us per call
+                  compute     =     0.003 secs (  9.164%),	 with        2 calls at 1.496e+03 us per call
+                     free     =     0.000 secs (  0.101%),	 with        2 calls at 1.650e+01 us per call
+        total accounted       =     0.033 secs ( 99.878%)
+        total missing         =     0.000 secs (  0.122%)
 
-                endQuda Total time =     0.008 secs
+                endQuda Total time =     0.005 secs
 
-       initQuda-endQuda Total time =     2.084 secs
+       initQuda-endQuda Total time =     2.070 secs
 
-                   QUDA Total time =     0.143 secs
-                 download     =     0.024 secs ( 16.592%),	 with        2 calls at 1.187e+04 us per call
-                   upload     =     0.004 secs (  3.038%),	 with        1 calls at 4.346e+03 us per call
-                     init     =     0.021 secs ( 14.491%),	 with        4 calls at 5.183e+03 us per call
-                  compute     =     0.086 secs ( 60.050%),	 with        3 calls at 2.864e+04 us per call
-                     free     =     0.000 secs (  0.005%),	 with        2 calls at 3.500e+00 us per call
-        total accounted       =     0.135 secs ( 94.175%)
-        total missing         =     0.008 secs (  5.825%)
+                   QUDA Total time =     0.138 secs
+                 download     =     0.026 secs ( 18.916%),	 with        2 calls at 1.304e+04 us per call
+                   upload     =     0.002 secs (  1.700%),	 with        1 calls at 2.345e+03 us per call
+                     init     =     0.018 secs ( 13.232%),	 with        4 calls at 4.562e+03 us per call
+                  compute     =     0.086 secs ( 62.586%),	 with        3 calls at 2.877e+04 us per call
+                     free     =     0.000 secs (  0.022%),	 with        2 calls at 1.550e+01 us per call
+        total accounted       =     0.133 secs ( 96.457%)
+        total missing         =     0.005 secs (  3.543%)
 
 Device memory used = 180.9 MiB
 Pinned device memory used = 0.0 MiB
