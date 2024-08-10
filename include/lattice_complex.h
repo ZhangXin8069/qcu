@@ -1,9 +1,7 @@
 #ifndef _LATTICE_COMPLEX_H
 #define _LATTICE_COMPLEX_H
-#pragma once
-// clang-format off
+
 #include "./include.h"
-// clang-format on
 using data_type = cuDoubleComplex;
 
 struct LatticeComplex {

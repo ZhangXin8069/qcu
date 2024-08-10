@@ -1,9 +1,7 @@
 #ifndef _BISTABCG_H
 #define _BISTABCG_H
-#pragma once
-// clang-format off
 #include "./lattice_complex.h"
-// clang-format on
+
 __global__ void bistabcg_give_1beta(void *device_vals);
 
 __global__ void bistabcg_give_1rho_prev(void *device_vals);

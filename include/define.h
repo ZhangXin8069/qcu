@@ -1,9 +1,6 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
-#pragma once
-// clang-format off
 #include "./lattice_complex.h"
-// clang-format on
 #define _BLOCK_SIZE_ 256
 #define _WARP_SIZE_ 32
 #define _a_ 0
@@ -70,7 +67,7 @@
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
-#define _MAX_ITER_ 1e3
+#define _MAX_ITER_ 1e2
 #define _TOL_ 1e-9
 #define _KAPPA_ 0.125
 #define _MEM_POOL_ 0

@@ -1,12 +1,13 @@
 #ifndef _LATTICE_BISTABCG_H
 #define _LATTICE_BISTABCG_H
-#pragma once
-// clang-format off
 #include "./bistabcg.h"
 #include "./dslash.h"
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
-// clang-format on
+#include "define.h"
+#include "lattice_complex.h"
+#include <cstdlib>
+#include <nccl.h>
 #define PRINT_NCCL_WILSON_BISTABCG
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
@@ -148,13 +149,13 @@ struct LatticeBistabcg {
   }
   void dot(void *device_vec0, void *device_vec1, const int vals_index,
            const int stream_index) {
-    part_dot<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-               set_ptr->streams[stream_index]>>>(device_vec0, device_vec1,
-                                                 device_dot_vec);
-    part_reduce(device_dot_vec,
-                ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
-                device_dot_tmp_vec, set_ptr->lat_4dim,
-                set_ptr->streams[stream_index]);
+    // dest(val) = dot(A,B)
+    CUBLAS_CHECK(cublasDotcEx(
+        set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, device_vec0,
+        traits<data_type>::cuda_data_type, 1, device_vec1,
+        traits<data_type>::cuda_data_type, 1,
+        ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
+        traits<data_type>::cuda_data_type, traits<data_type>::cuda_data_type));
     checkNcclErrors(ncclAllReduce(
         ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
         ((static_cast<LatticeComplex *>(device_vals)) + vals_index), 2,

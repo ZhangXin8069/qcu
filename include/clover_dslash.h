@@ -1,6 +1,5 @@
 #ifndef _CLOVER_DSLASH_H
 #define _CLOVER_DSLASH_H
-#pragma once
 __global__ void make_clover(void *device_U, void *device_clover,
                             void *device_xyztsc,
                             const int device_parity);

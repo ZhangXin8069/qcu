@@ -1,9 +1,7 @@
 #ifndef _LATTICE_CUDA_H
 #define _LATTICE_CUDA_H
-#pragma once
-// clang-format off
 #include "./include.h"
-// clang-format on
+
 __global__ void give_random_value(void *device_random_value,
                                   unsigned long seed);
 
@@ -25,7 +23,6 @@ void perf_part_reduce(void *device_src_vec, void *device_dest_val,
 
 void part_reduce(void *device_src_vec, void *device_dest_val,
                  void *device_tmp_vec, int size, cudaStream_t stream);
-
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
 // device memory pitch alignment
@@ -90,6 +87,7 @@ template <> struct traits<cuDoubleComplex> {
     return make_cuDoubleComplex(v.x * f, v.y * f);
   }
 };
+
 /*
 template <typename T>
 void print_matrix(const int &m, const int &n, const T *A, const int &lda);
@@ -222,7 +220,6 @@ template <> void print_vector(const int &m, const cuDoubleComplex *A) {
   }
   std::printf("\n");
 }
-*/
 template <typename T>
 void generate_random_matrix(int m, int n, T **A, int *lda) {
   std::random_device rd;
@@ -260,7 +257,6 @@ void make_diag_dominant_matrix(int m, int n, T *A, int lda) {
 }
 // Returns cudaDataType value as defined in library_types.h for the string
 // containing type name
-/*
 cudaDataType get_cuda_library_type(std::string type_string) {
   if (type_string.compare("CUDA_R_16F") == 0)
     return CUDA_R_16F;
@@ -293,7 +289,6 @@ cudaDataType get_cuda_library_type(std::string type_string) {
   else
     throw std::runtime_error("Unknown CUDA datatype");
 }
-*/
 struct GPUTimer {
   GPUTimer() {
     cudaEventCreate(&start_);

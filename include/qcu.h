@@ -2,7 +2,6 @@
 #define _QCU_H
 
 #pragma once
-// clang-format off
 #include "./define.h"
 #include "./include.h"
 #include "./lattice_bistabcg.h"
@@ -10,7 +9,7 @@
 #include "./lattice_cuda.h"
 #include "./lattice_dslash.h"
 #include "./lattice_set.h"
-// clang-format on
+
 #ifdef __cplusplus
 extern "C" {
 #endif
