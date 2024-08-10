@@ -78,8 +78,6 @@ struct LatticeBistabcg {
     {
       give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(x_o, 23333);
-      perf_part_reduce(device_dot_vec, device_vals, device_dot_tmp_vec,
-                       set_ptr->lat_4dim, set_ptr->stream);
     }
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
