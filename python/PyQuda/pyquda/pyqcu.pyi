@@ -21,5 +21,5 @@ def mpiBistabCgQcu(gauge: Pointer, param: QcuParam,
 def ncclDslashQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
                  param: QcuParam, parity: int, grid: QcuParam) -> None: ...
 
-def ncclBistabCgQcu(gauge: Pointer, param: QcuParam,
+def ncclBistabCgQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer, param: QcuParam,
                    grid: QcuParam) -> None: ...

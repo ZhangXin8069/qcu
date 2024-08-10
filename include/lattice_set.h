@@ -20,6 +20,8 @@ struct LatticeSet {
   cublasHandle_t cublasHs[_DIM_];
   cudaStream_t streams[_DIM_];
   cudaStream_t stream_dims[_DIM_];
+  float time;
+  cudaEvent_t start, stop;
   cudaError_t err;
   int node_rank, node_size;
   int move[_BF_];
@@ -68,6 +70,10 @@ struct LatticeSet {
   void init() {
     {
       blockDim = _BLOCK_SIZE_;
+      cudaEventCreate(&start);
+      cudaEventCreate(&stop);
+      cudaEventRecord(start, 0);
+      cudaEventSynchronize(start);
       checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
       checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
       if (node_rank == 0) {
@@ -173,7 +179,15 @@ struct LatticeSet {
     }
     checkCudaErrors(cudaStreamSynchronize(stream));
   }
+  float get_time() {
+    cudaEventRecord(stop, 0);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&time, start, stop);
+    return time; // ms
+  }
   void end() {
+    cudaEventDestroy(start);
+    cudaEventDestroy(stop);
     for (int i = 0; i < _DIM_; i++) {
       CUBLAS_CHECK(cublasDestroy(cublasHs[i]));
       checkCudaErrors(cudaStreamDestroy(streams[i]));

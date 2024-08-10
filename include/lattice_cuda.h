@@ -3,28 +3,8 @@
 #pragma once
 // clang-format off
 #include "./include.h"
+#include "./lattice_set.h"
 // clang-format on
-__global__ void give_random_value(void *device_random_value,
-                                  unsigned long seed);
-
-__global__ void give_custom_value(void *device_custom_value, double real,
-                                  double imag);
-
-__global__ void give_1zero(void *device_vals, const int vals_index);
-
-__global__ void give_1one(void *device_vals, const int vals_index);
-
-__global__ void part_dot(void *device_vec0, void *device_vec1,
-                         void *device_dot_vec);
-
-__global__ void part_cut(void *device_vec0, void *device_vec1,
-                         void *device_dot_vec);
-
-void perf_part_reduce(void *device_src_vec, void *device_dest_val,
-                      void *device_tmp_vec, int size, cudaStream_t stream);
-
-void part_reduce(void *device_src_vec, void *device_dest_val,
-                 void *device_tmp_vec, int size, cudaStream_t stream);
 
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
@@ -222,7 +202,6 @@ template <> void print_vector(const int &m, const cuDoubleComplex *A) {
   }
   std::printf("\n");
 }
-*/
 template <typename T>
 void generate_random_matrix(int m, int n, T **A, int *lda) {
   std::random_device rd;
@@ -260,7 +239,6 @@ void make_diag_dominant_matrix(int m, int n, T *A, int lda) {
 }
 // Returns cudaDataType value as defined in library_types.h for the string
 // containing type name
-/*
 cudaDataType get_cuda_library_type(std::string type_string) {
   if (type_string.compare("CUDA_R_16F") == 0)
     return CUDA_R_16F;
@@ -294,13 +272,13 @@ cudaDataType get_cuda_library_type(std::string type_string) {
     throw std::runtime_error("Unknown CUDA datatype");
 }
 */
-struct GPUTimer {
-  GPUTimer() {
+struct CudaTimer {
+  CudaTimer() {
     cudaEventCreate(&start_);
     cudaEventCreate(&stop_);
     cudaEventRecord(start_, 0);
   }
-  ~GPUTimer() {
+  ~CudaTimer() {
     cudaEventDestroy(start_);
     cudaEventDestroy(stop_);
   }
@@ -318,7 +296,7 @@ private:
 };
 /*
         // Set up timing
-        GPUTimer timer;
+        CudaTimer timer;
         timer.start();
         HANDLE_ERROR(cutensorContract(handle,
                                       planJit,
@@ -328,4 +306,26 @@ private:
         // Synchronize and measure timing
         auto time = timer.seconds();
 */
+
+__global__ void give_random_value(void *device_random_value,
+                                  unsigned long seed);
+__global__ void give_custom_value(void *device_custom_value, double real,
+                                  double imag);
+__global__ void give_1zero(void *device_vals, const int vals_index);
+__global__ void give_1one(void *device_vals, const int vals_index);
+__global__ void give_1custom_value(void *device_vals, const int vals_index,
+                                   double real, double imag);
+__global__ void give_1axpy(void *device_vals, const int valA_index,
+                           const int valB_index, double real, double imag);
+void LatticeAxpy(void *device_A, void *device_B, void *device_val, int size,
+                 cublasHandle_t cublasH);
+void LatticeAxpy(void *device_A, void *device_B, double real, double imag,
+                 int size, cublasHandle_t cublasH);
+void LatticeCopy(void *device_A, void *device_B, int size,
+                 cublasHandle_t cublasH);
+void LatticeSwap(void *device_A, void *device_B, int size,
+                 cublasHandle_t cublasH);
+void LatticeDot(void *device_A, void *device_B, void *device_val, int size,
+                cublasHandle_t cublasH);
+
 #endif

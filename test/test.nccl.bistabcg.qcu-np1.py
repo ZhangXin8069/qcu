@@ -1,48 +1,76 @@
+from pyquda.mpi import comm, rank, size, grid, coord, gpuid
 from pyquda.utils import gauge_utils
 from pyquda.field import LatticeFermion
-from pyquda import core, pyqcu, mpi
+from pyquda.enum_quda import QudaParity
+from pyquda import init, core, quda, mpi, qcu as qcu
 import os
 import sys
 from time import perf_counter
 import cupy as cp
+import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
-sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
+Nd, Ns, Nc = 4, 4, 3
 latt_size = [16, 16, 16, 32]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
-Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
 latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
+xi_0, nu = 1, 1
+mass = 0
+# coeff_r, coeff_t = 1,1
+coeff_r, coeff_t = 0, 0
 mpi.init(grid_size)
+print(f'single latt size = {latt_size}')
 
 
 def compare(round):
-    # generate a vector p randomly
-    p = LatticeFermion(latt_size, cp.random.randn(
-        Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
-    Mp = LatticeFermion(latt_size)
-    Mp1 = LatticeFermion(latt_size)
-    Mp2 = LatticeFermion(latt_size)
-    print('===============round ', round, '======================')
-    # Set parameters in Dslash and use m=-3.5 to make kappa=1
-    dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
-    # Generate gauge and then load it
-    U = gauge_utils.gaussGauge(latt_size, round)
+    # set
+    # p = LatticeFermion(latt_size, cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
+    p = LatticeFermion(latt_size, cp.ones(
+        [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
+    qcu_p = LatticeFermion(latt_size)
+    quda_p = LatticeFermion(latt_size)
+    qcu_x = LatticeFermion(latt_size)
+    quda_x = LatticeFermion(latt_size)
+    dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu, coeff_t,
+                            coeff_r, multigrid=False, anti_periodic_t=False)
+    U = gauge_utils.gaussGauge(latt_size, 0)
     dslash.loadGauge(U)
-    # then execute my code
-    param = pyqcu.QcuParam()
-    param.lattice_size = latt_size
-    grid = pyqcu.QcuParam()
-    grid.lattice_size = grid_size
+    # quda
     cp.cuda.runtime.deviceSynchronize()
+    if rank == 0:
+        print('================quda=================')
     t1 = perf_counter()
-    pyqcu.ncclBistabCgQcu(U.data_ptr, param, grid)
+    quda.invertQuda(quda_x.data_ptr, p.data_ptr, dslash.invert_param)
+    # D*x=p, to get quda_x
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
-    print(f'QCU bistabcg: {t2 - t1} sec')
+    quda.MatQuda(quda_p.data_ptr, quda_x.data_ptr, dslash.invert_param)
+    # quda_p=D*quda_x
+    cp.cuda.runtime.deviceSynchronize()
+    print(f'rank {rank} quda x and x difference: , {cp.linalg.norm(quda_p.data - p.data) / cp.linalg.norm(quda_p.data)}, takes {t2 - t1} sec, norm_quda_x = {cp.linalg.norm(quda_x.data)}')
+    print(f'quda rank {rank} takes {t2 - t1} sec')
+    # qcu
+    param = qcu.QcuParam()
+    param.lattice_size = latt_size
+    grid = qcu.QcuParam()
+    grid.lattice_size = grid_size
+    cp.cuda.runtime.deviceSynchronize()
+    if rank == 0:
+        print('===============qcu==================')
+    t1 = perf_counter()
+    qcu.ncclBistabCgQcu(U.data_ptr, qcu_x.data_ptr, p.data_ptr, param, grid)
+    # D*x=p, to get qcu_x
+    cp.cuda.runtime.deviceSynchronize()
+    t2 = perf_counter()
+    quda.MatQuda(qcu_p.data_ptr, qcu_x.data_ptr, dslash.invert_param)
+    # qcu_p=D*qcu_x
+    print(f'rank {rank} my x and x difference: , {cp.linalg.norm(qcu_p.data - p.data) / cp.linalg.norm(qcu_p.data)}, takes {t2 - t1} sec, my_x_norm = {cp.linalg.norm(qcu_x.data)}')
+    print(f'qcu rank {rank} takes {t2 - t1} sec')
+    print('============================')
 
 
 for i in range(0, 1):

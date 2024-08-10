@@ -71,6 +71,7 @@
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
 #define _MAX_ITER_ 1e3
+// #define _MAX_ITER_ 3 // test
 #define _TOL_ 1e-9
 #define _KAPPA_ 0.125
 #define _MEM_POOL_ 0

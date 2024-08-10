@@ -1,7 +1,6 @@
 #include "../include/qcu.h"
-#include "lattice_complex.h"
-#include "lattice_set.h"
 #ifdef LATTICE_CUDA
+
 __global__ void give_random_value(void *device_random_value,
                                   unsigned long seed) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -35,150 +34,52 @@ __global__ void give_1one(void *device_vals, const int vals_index) {
   LatticeComplex _(1.0, 0.0);
   origin_vals[vals_index] = _;
 }
-__global__ void part_dot(void *device_vec0, void *device_vec1,
-                         void *device_dot_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  LatticeComplex *origin_vec0 =
-      (static_cast<LatticeComplex *>(device_vec0) + idx * _LAT_SC_);
-  LatticeComplex *origin_vec1 =
-      (static_cast<LatticeComplex *>(device_vec1) + idx * _LAT_SC_);
-  LatticeComplex *origin_dot_vec =
-      static_cast<LatticeComplex *>(device_dot_vec);
-  LatticeComplex vec0[_LAT_SC_];
-  LatticeComplex vec1[_LAT_SC_];
-  LatticeComplex _(0.0, 0.0);
-  give_ptr(vec0, origin_vec0, _LAT_SC_);
-  give_ptr(vec1, origin_vec1, _LAT_SC_);
-  for (int i = 0; i < _LAT_SC_; ++i) {
-    _ += vec0[i].conj() * vec1[i];
-  }
-  origin_dot_vec[idx] = _;
+__global__ void give_1custom_value(void *device_vals, const int vals_index,
+                                   double real, double imag) {
+  LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
+  LatticeComplex _(real, imag);
+  origin_vals[vals_index] = _;
 }
-__global__ void part_cut(void *device_vec0, void *device_vec1,
-                         void *device_dot_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  LatticeComplex *origin_vec0 =
-      (static_cast<LatticeComplex *>(device_vec0) + idx * _LAT_SC_);
-  LatticeComplex *origin_vec1 =
-      (static_cast<LatticeComplex *>(device_vec1) + idx * _LAT_SC_);
-  LatticeComplex *origin_dot_vec =
-      static_cast<LatticeComplex *>(device_dot_vec);
-  LatticeComplex vec0[_LAT_SC_];
-  LatticeComplex vec1[_LAT_SC_];
-  LatticeComplex _(0.0, 0.0);
-  give_ptr(vec0, origin_vec0, _LAT_SC_);
-  give_ptr(vec1, origin_vec1, _LAT_SC_);
-  for (int i = 0; i < _LAT_SC_; ++i) {
-    _ += vec0[i] - vec1[i];
-  }
-  origin_dot_vec[idx] = _;
+__global__ void give_1axpy(void *device_vals, const int valA_index,
+                           const int valB_index, double real, double imag) {
+  LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
+  LatticeComplex _(real, imag);
+  origin_vals[valB_index] =
+      origin_vals[valB_index] + origin_vals[valA_index] * _;
 }
-void LatticeDot(void *device_A, void *device_B, int size, void *device_val,
-                cublasHandle_t cublasH) {
-// dest(B) = B + alpha*A
+void LatticeAxpy(void *device_A, void *device_B, void *device_val, int size,
+                 cublasHandle_t cublasH) {
+  // dest(B) = B + alpha*A
   CUBLAS_CHECK(cublasAxpyEx(
       cublasH, size, device_val, traits<data_type>::cuda_data_type, device_A,
       traits<data_type>::cuda_data_type, 1, device_B,
       traits<data_type>::cuda_data_type, 1, traits<data_type>::cuda_data_type));
 }
-
-/*
-Copy from WangJianCheng.
-*/
-struct AddOp {
-  __device__ __host__ __forceinline__ LatticeComplex
-  operator()(const LatticeComplex &a, const LatticeComplex &b) const {
-    return a + b;
-  }
-};
-__device__ __forceinline__ LatticeComplex warpReduce(LatticeComplex val) {
-  for (int mask = _WARP_SIZE_ / 2; mask > 0; mask >>= 1) {
-    LatticeComplex other;
-    other.real = __shfl_xor_sync(0xffffffff, val.real, mask);
-    other.imag = __shfl_xor_sync(0xffffffff, val.imag, mask);
-    val = AddOp()(val, other);
-  }
-  return val;
+void LatticeAxpy(void *device_A, void *device_B, double real, double imag,
+                 int size, cublasHandle_t cublasH) {
+  // dest(B) = B + alpha*A
+  LatticeComplex _(real, imag);
+  CUBLAS_CHECK(cublasAxpyEx(
+      cublasH, size, &_, traits<data_type>::cuda_data_type, device_A,
+      traits<data_type>::cuda_data_type, 1, device_B,
+      traits<data_type>::cuda_data_type, 1, traits<data_type>::cuda_data_type));
 }
-__device__ __forceinline__ void blockReduce(LatticeComplex val,
-                                            LatticeComplex *smem) {
-  int tid = threadIdx.x;
-  int warp_id = tid / _WARP_SIZE_;
-  int lane_id = tid & (_WARP_SIZE_ - 1);
-  int warp_nums = (blockDim.x + _WARP_SIZE_ - 1) / _WARP_SIZE_;
-  val = warpReduce(val);
-  if (lane_id == 0) {
-    smem[warp_id] = val;
-  }
-  __syncthreads();
-  LatticeComplex warp_val = tid < warp_nums ? smem[tid] : LatticeComplex();
-  LatticeComplex block_res = warpReduce(warp_val);
-  __syncwarp();
-  if (tid == 0) {
-    smem[0] = block_res;
-  }
+void LatticeCopy(void *device_A, void *device_B, int size,
+                 cublasHandle_t cublasH) {
+  CUBLAS_CHECK(cublasDswap(cublasH, size * sizeof(data_type) / sizeof(double),
+                           (double *)device_A, 1, (double *)device_B, 1));
 }
-__global__ void reduction_kernel(LatticeComplex *output,
-                                 const LatticeComplex *input,
-                                 int vector_length) {
-  int global_id = blockIdx.x * blockDim.x + threadIdx.x;
-  int total_threads = gridDim.x * blockDim.x;
-  AddOp reduce_op{};
-  LatticeComplex thread_sum(0.0, 0.0);
-  for (int i = global_id; i < vector_length; i += total_threads) {
-    thread_sum = reduce_op(thread_sum, input[i]);
-  }
-  __shared__ LatticeComplex smem[64];
-  blockReduce(thread_sum, smem);
-  if (threadIdx.x == 0) {
-    output[blockIdx.x] = smem[0];
-  }
+void LatticeSwap(void *device_A, void *device_B, int size,
+                 cublasHandle_t cublasH) {
+  CUBLAS_CHECK(cublasDcopy(cublasH, size * sizeof(data_type) / sizeof(double),
+                           (double *)device_A, 1, (double *)device_B, 1));
 }
-void reduction_gpu_async(LatticeComplex *output, LatticeComplex *temp,
-                         const LatticeComplex *input, int vector_length,
-                         cudaStream_t stream) {
-  int grid_size = (vector_length + _BLOCK_SIZE_ - 1) / _BLOCK_SIZE_;
-  reduction_kernel<<<grid_size, _BLOCK_SIZE_, 0, stream>>>(temp, input,
-                                                           vector_length);
-  reduction_kernel<<<1, _BLOCK_SIZE_, 0, stream>>>(output, temp, grid_size);
+void LatticeDot(void *device_A, void *device_B, void *device_val, int size,
+                cublasHandle_t cublasH) {
+  // dest(val) = dot(A,B)
+  CUBLAS_CHECK(cublasDotcEx(
+      cublasH, size, device_A, traits<data_type>::cuda_data_type, 1, device_B,
+      traits<data_type>::cuda_data_type, 1, device_val,
+      traits<data_type>::cuda_data_type, traits<data_type>::cuda_data_type));
 }
-void profile_reduction_gpu_sync(LatticeComplex *output, LatticeComplex *temp,
-                                const LatticeComplex *input, int vector_length,
-                                cudaStream_t stream) {
-  int grid_size = (vector_length + _BLOCK_SIZE_ - 1) / _BLOCK_SIZE_;
-  for (int i = 0; i < 1000; i++) {
-    reduction_kernel<<<grid_size, _BLOCK_SIZE_, 0, stream>>>(temp, input,
-                                                             vector_length);
-    checkCudaErrors(cudaGetLastError());
-    reduction_kernel<<<1, _BLOCK_SIZE_, 0, stream>>>(output, temp, grid_size);
-    checkCudaErrors(cudaGetLastError());
-  }
-  checkCudaErrors(cudaDeviceSynchronize());
-}
-
-void perf_part_reduce(void *device_src_vec, void *device_dest_val,
-                      void *device_tmp_vec, int size, cudaStream_t stream) {
-  LatticeComplex *origin_src_vec =
-      static_cast<LatticeComplex *>(device_src_vec);
-  LatticeComplex *origin_dest_val =
-      static_cast<LatticeComplex *>(device_dest_val);
-  LatticeComplex *origin_tmp_vec =
-      static_cast<LatticeComplex *>(device_tmp_vec);
-  profile_reduction_gpu_sync(origin_dest_val, origin_tmp_vec, origin_src_vec,
-                             size, stream);
-}
-void part_reduce(void *device_src_vec, void *device_dest_val,
-                 void *device_tmp_vec, int size, cudaStream_t stream) {
-  LatticeComplex *origin_src_vec =
-      static_cast<LatticeComplex *>(device_src_vec);
-  LatticeComplex *origin_dest_val =
-      static_cast<LatticeComplex *>(device_dest_val);
-  LatticeComplex *origin_tmp_vec =
-      static_cast<LatticeComplex *>(device_tmp_vec);
-  reduction_gpu_async(origin_dest_val, origin_tmp_vec, origin_src_vec, size,
-                      stream);
-}
-/*
-Copy from WangJianCheng.
-*/
 #endif
