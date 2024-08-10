@@ -12,6 +12,9 @@ __global__ void give_1zero(void *device_vals, const int vals_index);
 
 __global__ void give_1one(void *device_vals, const int vals_index);
 
+__global__ void give_1custom(void *device_vals, const int vals_index,
+                             double real, double imag);
+
 __global__ void part_dot(void *device_vec0, void *device_vec1,
                          void *device_dot_vec);
 
