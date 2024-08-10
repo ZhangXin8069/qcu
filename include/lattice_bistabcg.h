@@ -75,10 +75,8 @@ struct LatticeBistabcg {
       give_1custom<<<1, 1, 0, set_ptr->stream>>>(
           device_vals, _lat_xyzt_, double(set_ptr->lat_4dim), 0.0);
     }
-    {
-      give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(x_o, 23333);
-    }
+    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                        set_ptr->stream>>>(x_o, 23333);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
   void give(LatticeSet *_set_ptr) {
@@ -141,6 +139,20 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaFreeAsync(b_e, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(b_o, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    { // test
+      diff(x_o, ans_o, _a_);
+      checkCudaErrors(cudaMemcpyAsync(
+          ((static_cast<LatticeComplex *>(host_vals)) + _diff_tmp_),
+          ((static_cast<LatticeComplex *>(device_vals)) + _diff_tmp_),
+          sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+          set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+      set_ptr->_print();
+      print_vals();
+#endif
+    }
   }
   void dot(void *vec0, void *vec1, const int vals_index,
            const int stream_index) {
@@ -307,18 +319,20 @@ struct LatticeBistabcg {
         "nccl wilson bistabcg total time: (without malloc free memcpy) :%.9lf "
         "sec\n",
         double(duration) / 1e9);
-    // checkCudaErrors(cudaDeviceSynchronize());
-    diff(x_o, ans_o, _a_);
-    checkCudaErrors(cudaMemcpyAsync(
-        ((static_cast<LatticeComplex *>(host_vals)) + _diff_tmp_),
-        ((static_cast<LatticeComplex *>(device_vals)) + _diff_tmp_),
-        sizeof(LatticeComplex), cudaMemcpyDeviceToHost, set_ptr->streams[_a_]));
-    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-    printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
+    { // test
+      diff(x_o, ans_o, _a_);
+      checkCudaErrors(cudaMemcpyAsync(
+          ((static_cast<LatticeComplex *>(host_vals)) + _diff_tmp_),
+          ((static_cast<LatticeComplex *>(device_vals)) + _diff_tmp_),
+          sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+          set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
-    set_ptr->_print();
-    print_vals();
+      set_ptr->_print();
+      print_vals();
 #endif
+    }
   }
   void end() {
     checkCudaErrors(cudaFreeAsync(ans_e, set_ptr->stream));
