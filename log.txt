@@ -1,6 +1,6 @@
 -- The C compiler identification is GNU 11.4.0
 -- The CXX compiler identification is GNU 11.4.0
--- The CUDA compiler identification is NVIDIA 12.4.131
+-- The CUDA compiler identification is NVIDIA 12.3.52
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
 -- Check for working C compiler: /usr/bin/cc - skipped
@@ -16,287 +16,180 @@
 -- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
 -- Detecting CUDA compile features
 -- Detecting CUDA compile features - done
--- Found MPI_C: /home/kfutfd/external-libraries/openmpi-4.1.5/lib/libmpi.so (found version "3.1") 
--- Found MPI_CXX: /home/kfutfd/external-libraries/openmpi-4.1.5/lib/libmpi.so (found version "3.1") 
+-- Found MPI_C: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/local/openmpi/lib/libmpi.so (found version "3.1") 
 -- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found CUDA: /usr/local/cuda (found version "12.3") 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/kfutfd/qcu
-[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+-- Build files have been written to: /home/zhangxin/qcu
+[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
 [ 88%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
-[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
-rm: cannot remove '.': Is a directory
-rm: cannot remove '..': Is a directory
-rm: cannot remove '.git': Is a directory
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 fatal: pathspec '.gitmodules' did not match any files
 ~/qcu/test ~/qcu
-==172662== NVPROF is profiling process 172662, command: python ./test.nccl.bistabcg.qcu-np2.py
-==172661== NVPROF is profiling process 172661, command: python ./test.nccl.bistabcg.qcu-np2.py
-==172662== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
-==172661== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
 Disabling GPU-Direct RDMA access
 Enabling peer-to-peer copy engine and direct load/store access
-Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0
-Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=0
-Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=0
-Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0
-QUDA 1.1.0 (git 1.1.0--sm_60)
-CUDA Driver version = 12020
-CUDA Runtime version = 12040
-Found device 0: Tesla P100-PCIE-16GB
-Found device 1: Tesla P100-PCIE-16GB
-Using device 0: Tesla P100-PCIE-16GB
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 12060
+CUDA Runtime version = 12030
+Found device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: ** Running on a device with compute capability 8.9 but QUDA was compiled for 8.0. **
+ -- This might result in a lower performance. Please consider adjusting QUDA_GPU_ARCH when running cmake.
+
+Using device 0: NVIDIA GeForce RTX 4060 Laptop GPU
 WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
-Loaded 27 sets of cached parameters from .cache/tunecache.tsv
-Loaded 27 sets of cached parameters from .cache/tunecache.tsv
+Loaded 112 sets of cached parameters from .cache/tunecache.tsv
+Loaded 112 sets of cached parameters from .cache/tunecache.tsv
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
 cublasCreated successfully
-==172661== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
-==172662== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
-===============round  0 ======================
 ===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 node_rank        :0
-node_size        :2
-gridDim.x        :2048
+node_size        :1
+gridDim.x        :256
 blockDim.x       :256
 lat_1dim[_X_]    :8
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :64
-grid_1dim[_X_]   :2
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
 grid_1dim[_Y_]   :1
 grid_1dim[_Z_]   :1
 grid_1dim[_T_]   :1
-lat_3dim[_YZT_]  :65536
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :8192
-lat_4dim         :524288
-lat_4dim_SC       :6291456
-lat_3dim_Half_SC[_YZT_] :393216
-lat_3dim_Half_SC[_XZT_] :98304
-lat_3dim_Half_SC[_XYT_] :98304
-lat_3dim_Half_SC[_XYZ_] :49152
-lat_3dim_SC[_YZT_]:786432
-lat_3dim_SC[_XZT_]:196608
-lat_3dim_SC[_XYT_]:196608
-lat_3dim_SC[_XYZ_]:98304
-node_rank        :1
-node_size        :2
-gridDim.x        :2048
-blockDim.x       :256
-lat_1dim[_X_]    :8
-lat_1dim[_Y_]    :32
-lat_1dim[_Z_]    :32
-lat_1dim[_T_]    :64
-grid_1dim[_X_]   :2
-grid_1dim[_Y_]   :1
-grid_1dim[_Z_]   :1
-grid_1dim[_T_]   :1
-lat_3dim[_YZT_]  :65536
-lat_3dim[_XZT_]  :16384
-lat_3dim[_XYT_]  :16384
-lat_3dim[_XYZ_]  :8192
-lat_4dim         :524288
-lat_4dim_SC       :6291456
-lat_3dim_Half_SC[_YZT_] :393216
-lat_3dim_Half_SC[_XZT_] :98304
-lat_3dim_Half_SC[_XYT_] :98304
-lat_3dim_Half_SC[_XYZ_] :49152
-lat_3dim_SC[_YZT_]:786432
-lat_3dim_SC[_XZT_]:196608
-lat_3dim_SC[_XYT_]:196608
-lat_3dim_SC[_XYZ_]:98304
-##RANK:0##LOOP:0##Residual:4.54895e+06
-##RANK:1##LOOP:0##Residual:4.54895e+06
-##RANK:0##LOOP:1##Residual:44479.6
-##RANK:1##LOOP:1##Residual:44479.6
-##RANK:0##LOOP:2##Residual:8323.12
-##RANK:1##LOOP:2##Residual:8323.12
-##RANK:0##LOOP:3##Residual:88733.2
-##RANK:1##LOOP:3##Residual:88733.2
-##RANK:1##LOOP:4##Residual:12424
-##RANK:0##LOOP:4##Residual:12424
-##RANK:1##LOOP:5##Residual:426.285
-##RANK:0##LOOP:5##Residual:426.285
-##RANK:1##LOOP:6##Residual:200.202
-##RANK:0##LOOP:6##Residual:200.202
-##RANK:1##LOOP:7##Residual:124.179
-##RANK:0##LOOP:7##Residual:124.179
-##RANK:1##LOOP:8##Residual:47.8069
-##RANK:0##LOOP:8##Residual:47.8069
-##RANK:1##LOOP:9##Residual:13.5706
-##RANK:0##LOOP:9##Residual:13.5706
-##RANK:1##LOOP:10##Residual:18.89
-##RANK:0##LOOP:10##Residual:18.89
-##RANK:1##LOOP:11##Residual:4.67069
-##RANK:0##LOOP:11##Residual:4.67069
-##RANK:1##LOOP:12##Residual:8.59472
-##RANK:0##LOOP:12##Residual:8.59472
-##RANK:1##LOOP:13##Residual:42.8359
-##RANK:0##LOOP:13##Residual:42.8359
-##RANK:1##LOOP:14##Residual:13.2314
-##RANK:0##LOOP:14##Residual:13.2314
-##RANK:1##LOOP:15##Residual:31.8215
-##RANK:0##LOOP:15##Residual:31.8215
-##RANK:1##LOOP:16##Residual:0.337315
-##RANK:0##LOOP:16##Residual:0.337315
-##RANK:1##LOOP:17##Residual:0.29056
-##RANK:0##LOOP:17##Residual:0.29056
-##RANK:1##LOOP:18##Residual:0.198486
-##RANK:0##LOOP:18##Residual:0.198486
-##RANK:1##LOOP:19##Residual:0.331376
-##RANK:0##LOOP:19##Residual:0.331376
-##RANK:1##LOOP:20##Residual:0.436413
-##RANK:0##LOOP:20##Residual:0.436413
-##RANK:1##LOOP:21##Residual:0.0904542
-##RANK:0##LOOP:21##Residual:0.0904542
-##RANK:1##LOOP:22##Residual:0.0304353
-##RANK:0##LOOP:22##Residual:0.0304353
-##RANK:1##LOOP:23##Residual:0.0186555
-##RANK:0##LOOP:23##Residual:0.0186555
-##RANK:1##LOOP:24##Residual:0.0138972
-##RANK:0##LOOP:24##Residual:0.0138972
-##RANK:1##LOOP:25##Residual:0.0111434
-##RANK:0##LOOP:25##Residual:0.0111434
-##RANK:1##LOOP:26##Residual:0.0101311
-##RANK:0##LOOP:26##Residual:0.0101311
-##RANK:1##LOOP:27##Residual:0.00873064
-##RANK:0##LOOP:27##Residual:0.00873064
-##RANK:1##LOOP:28##Residual:0.0137009
-##RANK:0##LOOP:28##Residual:0.0137009
-##RANK:1##LOOP:29##Residual:0.0134756
-##RANK:0##LOOP:29##Residual:0.0134756
-##RANK:0##LOOP:30##Residual:0.0029568
-##RANK:1##LOOP:30##Residual:0.0029568
-##RANK:0##LOOP:31##Residual:0.00223957
-##RANK:1##LOOP:31##Residual:0.00223957
-##RANK:0##LOOP:32##Residual:0.00280812
-##RANK:1##LOOP:32##Residual:0.00280812
-##RANK:1##LOOP:33##Residual:0.000879517
-##RANK:0##LOOP:33##Residual:0.000879517
-##RANK:1##LOOP:34##Residual:0.00202137
-##RANK:0##LOOP:34##Residual:0.00202137
-##RANK:0##LOOP:35##Residual:0.00202675
-##RANK:1##LOOP:35##Residual:0.00202675
-##RANK:0##LOOP:36##Residual:0.000924661
-##RANK:1##LOOP:36##Residual:0.000924661
-##RANK:0##LOOP:37##Residual:0.00129576
-##RANK:1##LOOP:37##Residual:0.00129576
-##RANK:0##LOOP:38##Residual:0.000868858
-##RANK:1##LOOP:38##Residual:0.000868858
-##RANK:0##LOOP:39##Residual:0.000939442
-##RANK:1##LOOP:39##Residual:0.000939442
-##RANK:0##LOOP:40##Residual:0.000623018
-##RANK:1##LOOP:40##Residual:0.000623018
-##RANK:1##LOOP:41##Residual:0.00229831
-##RANK:0##LOOP:41##Residual:0.00229831
-##RANK:1##LOOP:42##Residual:0.000575551
-##RANK:0##LOOP:42##Residual:0.000575551
-##RANK:0##LOOP:43##Residual:0.000631396
-##RANK:1##LOOP:43##Residual:0.000631396
-##RANK:0##LOOP:44##Residual:0.000466837
-##RANK:1##LOOP:44##Residual:0.000466837
-##RANK:0##LOOP:45##Residual:0.000199388
-##RANK:1##LOOP:45##Residual:0.000199388
-##RANK:0##LOOP:46##Residual:0.000129877
-##RANK:1##LOOP:46##Residual:0.000129877
-##RANK:0##LOOP:47##Residual:0.000228946
-##RANK:1##LOOP:47##Residual:0.000228946
-##RANK:0##LOOP:48##Residual:0.000150074
-##RANK:1##LOOP:48##Residual:0.000150074
-##RANK:0##LOOP:49##Residual:2.28263e-05
-##RANK:1##LOOP:49##Residual:2.28263e-05
-##RANK:0##LOOP:50##Residual:1.74612e-05
-##RANK:1##LOOP:50##Residual:1.74612e-05
-##RANK:0##LOOP:51##Residual:1.7137e-05
-##RANK:1##LOOP:51##Residual:1.7137e-05
-##RANK:1##LOOP:52##Residual:2.73552e-05
-##RANK:0##LOOP:52##Residual:2.73552e-05
-##RANK:1##LOOP:53##Residual:1.29432e-05
-##RANK:0##LOOP:53##Residual:1.29432e-05
-##RANK:0##LOOP:54##Residual:9.53801e-06
-##RANK:1##LOOP:54##Residual:9.53801e-06
-##RANK:1##LOOP:55##Residual:8.13105e-06
-##RANK:0##LOOP:55##Residual:8.13105e-06
-##RANK:1##LOOP:56##Residual:7.3752e-06
-##RANK:0##LOOP:56##Residual:7.3752e-06
-##RANK:1##LOOP:57##Residual:8.0919e-06
-##RANK:0##LOOP:57##Residual:8.0919e-06
-##RANK:1##LOOP:58##Residual:9.5433e-06
-##RANK:0##LOOP:58##Residual:9.5433e-06
-##RANK:1##LOOP:59##Residual:7.58893e-06
-##RANK:0##LOOP:59##Residual:7.58893e-06
-##RANK:1##LOOP:60##Residual:5.18881e-06
-##RANK:0##LOOP:60##Residual:5.18881e-06
-##RANK:1##LOOP:61##Residual:8.42656e-06
-##RANK:0##LOOP:61##Residual:8.42656e-06
-##RANK:0##LOOP:62##Residual:1.09726e-06
-##RANK:1##LOOP:62##Residual:1.09726e-06
-##RANK:0##LOOP:63##Residual:2.32099e-06
-##RANK:1##LOOP:63##Residual:2.32099e-06
-##RANK:0##LOOP:64##Residual:2.14666e-06
-##RANK:1##LOOP:64##Residual:2.14666e-06
-##RANK:0##LOOP:65##Residual:1.07703e-06
-##RANK:1##LOOP:65##Residual:1.07703e-06
-##RANK:0##LOOP:66##Residual:1.39807e-06
-##RANK:1##LOOP:66##Residual:1.39807e-06
-##RANK:0##LOOP:67##Residual:5.33165e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :30.077815388 sec
-##RANK:1##LOOP:67##Residual:5.33165e-07
-nccl wilson bistabcg total time: (without malloc free memcpy) :30.077500075 sec
-## difference: 0.0000004662180527
-## difference: 0.0000004662180527
-QCU bistabcg: 32.750069072999395 sec
-QCU bistabcg: 32.77081347300009 sec
+lat_3dim[_YZT_]  :8192
+lat_3dim[_XZT_]  :4096
+lat_3dim[_XYT_]  :4096
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :65536
+lat_4dim_SC       :786432
+lat_3dim_Half_SC[_YZT_] :49152
+lat_3dim_Half_SC[_XZT_] :24576
+lat_3dim_Half_SC[_XYT_] :24576
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:98304
+lat_3dim_SC[_XZT_]:49152
+lat_3dim_SC[_XYT_]:49152
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:284047
+##RANK:0##LOOP:1##Residual:2775.11
+##RANK:0##LOOP:2##Residual:516.042
+##RANK:0##LOOP:3##Residual:918.773
+##RANK:0##LOOP:4##Residual:335.428
+##RANK:0##LOOP:5##Residual:110.426
+##RANK:0##LOOP:6##Residual:15.3399
+##RANK:0##LOOP:7##Residual:13.012
+##RANK:0##LOOP:8##Residual:6.1502
+##RANK:0##LOOP:9##Residual:0.791791
+##RANK:0##LOOP:10##Residual:4.49752
+##RANK:0##LOOP:11##Residual:0.243503
+##RANK:0##LOOP:12##Residual:0.1564
+##RANK:0##LOOP:13##Residual:0.0801848
+##RANK:0##LOOP:14##Residual:0.0557415
+##RANK:0##LOOP:15##Residual:0.0574067
+##RANK:0##LOOP:16##Residual:0.0174411
+##RANK:0##LOOP:17##Residual:0.0128715
+##RANK:0##LOOP:18##Residual:0.0380055
+##RANK:0##LOOP:19##Residual:0.0187493
+##RANK:0##LOOP:20##Residual:0.0194402
+##RANK:0##LOOP:21##Residual:0.0997216
+##RANK:0##LOOP:22##Residual:0.00343694
+##RANK:0##LOOP:23##Residual:0.00249183
+##RANK:0##LOOP:24##Residual:0.00124755
+##RANK:0##LOOP:25##Residual:0.00352167
+##RANK:0##LOOP:26##Residual:0.00286739
+##RANK:0##LOOP:27##Residual:0.000343397
+##RANK:0##LOOP:28##Residual:0.000332614
+##RANK:0##LOOP:29##Residual:0.000202516
+##RANK:0##LOOP:30##Residual:0.000160875
+##RANK:0##LOOP:31##Residual:0.000137478
+##RANK:0##LOOP:32##Residual:0.000112966
+##RANK:0##LOOP:33##Residual:0.000177896
+##RANK:0##LOOP:34##Residual:0.000431851
+##RANK:0##LOOP:35##Residual:7.22013e-05
+##RANK:0##LOOP:36##Residual:4.88598e-05
+##RANK:0##LOOP:37##Residual:2.609e-05
+##RANK:0##LOOP:38##Residual:2.18281e-05
+##RANK:0##LOOP:39##Residual:2.21004e-05
+##RANK:0##LOOP:40##Residual:3.15074e-05
+##RANK:0##LOOP:41##Residual:1.40254e-05
+##RANK:0##LOOP:42##Residual:8.23726e-06
+##RANK:0##LOOP:43##Residual:7.01536e-05
+##RANK:0##LOOP:44##Residual:4.47198e-06
+##RANK:0##LOOP:45##Residual:3.41445e-06
+##RANK:0##LOOP:46##Residual:3.03946e-06
+##RANK:0##LOOP:47##Residual:2.45204e-06
+##RANK:0##LOOP:48##Residual:2.22053e-06
+##RANK:0##LOOP:49##Residual:2.01107e-06
+##RANK:0##LOOP:50##Residual:1.06363e-06
+##RANK:0##LOOP:51##Residual:1.35326e-06
+##RANK:0##LOOP:52##Residual:1.24024e-06
+##RANK:0##LOOP:53##Residual:7.63925e-07
+##RANK:0##LOOP:54##Residual:6.31631e-07
+##RANK:0##LOOP:55##Residual:4.97325e-07
+##RANK:0##LOOP:56##Residual:6.46291e-07
+##RANK:0##LOOP:57##Residual:4.09044e-07
+##RANK:0##LOOP:58##Residual:6.93162e-07
+##RANK:0##LOOP:59##Residual:1.1438e-06
+##RANK:0##LOOP:60##Residual:2.99477e-09
+##RANK:0##LOOP:61##Residual:1.72449e-09
+##RANK:0##LOOP:62##Residual:1.52537e-09
+##RANK:0##LOOP:63##Residual:6.09402e-09
+##RANK:0##LOOP:64##Residual:1.26163e-09
+##RANK:0##LOOP:65##Residual:7.98532e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.480670875 sec
+## difference: 0.0000000000011900
+QCU bistabcg: 1.2010901519997788 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 16 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
 
-               initQuda Total time =     2.810 secs
-                     init     =     2.809 secs ( 99.969%),	 with        2 calls at 1.404e+06 us per call
-        total accounted       =     2.809 secs ( 99.969%)
-        total missing         =     0.001 secs (  0.031%)
+               initQuda Total time =     0.019 secs
+                     init     =     0.019 secs ( 99.964%),	 with        2 calls at 9.612e+03 us per call
+        total accounted       =     0.019 secs ( 99.964%)
+        total missing         =     0.000 secs (  0.036%)
 
-          loadGaugeQuda Total time =     0.219 secs
-                 download     =     0.087 secs ( 39.665%),	 with        2 calls at 4.334e+04 us per call
-                   upload     =     0.013 secs (  5.973%),	 with        1 calls at 1.305e+04 us per call
-                     init     =     0.099 secs ( 45.255%),	 with        2 calls at 4.944e+04 us per call
-                  compute     =     0.019 secs (  8.721%),	 with        2 calls at 9.528e+03 us per call
-                     free     =     0.000 secs (  0.021%),	 with        2 calls at 2.300e+01 us per call
-        total accounted       =     0.218 secs ( 99.635%)
-        total missing         =     0.001 secs (  0.365%)
+          loadGaugeQuda Total time =     0.033 secs
+                 download     =     0.024 secs ( 70.912%),	 with        2 calls at 1.187e+04 us per call
+                   upload     =     0.004 secs ( 12.983%),	 with        1 calls at 4.346e+03 us per call
+                     init     =     0.002 secs (  4.496%),	 with        2 calls at 7.525e+02 us per call
+                  compute     =     0.004 secs ( 11.457%),	 with        2 calls at 1.918e+03 us per call
+                     free     =     0.000 secs (  0.021%),	 with        2 calls at 3.500e+00 us per call
+        total accounted       =     0.033 secs ( 99.869%)
+        total missing         =     0.000 secs (  0.131%)
 
-                endQuda Total time =     0.040 secs
+                endQuda Total time =     0.008 secs
 
-       initQuda-endQuda Total time =    39.184 secs
+       initQuda-endQuda Total time =     2.084 secs
 
-                   QUDA Total time =     3.490 secs
-                 download     =     0.087 secs (  2.483%),	 with        2 calls at 4.334e+04 us per call
-                   upload     =     0.013 secs (  0.374%),	 with        1 calls at 1.305e+04 us per call
-                     init     =     2.908 secs ( 83.314%),	 with        4 calls at 7.269e+05 us per call
-                  compute     =     0.441 secs ( 12.650%),	 with        3 calls at 1.472e+05 us per call
-                     free     =     0.000 secs (  0.001%),	 with        2 calls at 2.300e+01 us per call
-        total accounted       =     3.449 secs ( 98.823%)
-        total missing         =     0.041 secs (  1.177%)
+                   QUDA Total time =     0.143 secs
+                 download     =     0.024 secs ( 16.592%),	 with        2 calls at 1.187e+04 us per call
+                   upload     =     0.004 secs (  3.038%),	 with        1 calls at 4.346e+03 us per call
+                     init     =     0.021 secs ( 14.491%),	 with        4 calls at 5.183e+03 us per call
+                  compute     =     0.086 secs ( 60.050%),	 with        3 calls at 2.864e+04 us per call
+                     free     =     0.000 secs (  0.005%),	 with        2 calls at 3.500e+00 us per call
+        total accounted       =     0.135 secs ( 94.175%)
+        total missing         =     0.008 secs (  5.825%)
 
-Device memory used = 1406.2 MiB
+Device memory used = 180.9 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
-Page-locked host memory used = 54.0 MiB
-Total host memory used >= 74.3 MiB
+Page-locked host memory used = 10.5 MiB
+Total host memory used >= 14.5 MiB
 
-==172662== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_172662.nvvp
-==172661== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_172661.nvvp
 ~/qcu

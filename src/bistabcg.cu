@@ -181,4 +181,16 @@ __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
   }
 }
 
+__global__ void bistabcg_give_diff(void *device_x, void *device_ans,
+                                   void *device_vec, void *device_vals) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  LatticeComplex *x = (static_cast<LatticeComplex *>(device_x) + idx);
+  LatticeComplex *ans = (static_cast<LatticeComplex *>(device_ans) + idx);
+  LatticeComplex *vec = (static_cast<LatticeComplex *>(device_vec) + idx);
+  int _ = int(((LatticeComplex *)device_vals)[_lat_xyzt_].real);
+  for (int i = 0; i < _LAT_SC_ * _; i += _) {
+    vec[i] = x[i] - ans[i];
+  }
+}
+
 #endif
