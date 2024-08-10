@@ -116,8 +116,8 @@ struct LatticeBistabcg {
                         set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
         &x_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
-    give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->stream>>>(x_o, 23333);
+    // give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    //                     set_ptr->stream>>>(x_o, 23333);
     checkCudaErrors(cudaMallocAsync(
         &b_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
