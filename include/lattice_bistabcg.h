@@ -21,8 +21,7 @@ struct LatticeBistabcg {
   LatticeComplex beta;
   LatticeComplex omega;
   void *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p, *v, *s,
-      *t, *device_vec0, *device_vec1, *device_dot_vec, *device_dot_tmp_vec,
-      *device_vals;
+      *t, *device_vec0, *device_vec1, *device_vals;
   LatticeComplex host_vals[_vals_size_];
   void _init() {
     {
@@ -59,12 +58,6 @@ struct LatticeBistabcg {
           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &device_vec1, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
-          set_ptr->stream));
-      checkCudaErrors(cudaMallocAsync(
-          &device_dot_vec, set_ptr->lat_4dim * sizeof(LatticeComplex),
-          set_ptr->stream));
-      checkCudaErrors(cudaMallocAsync(
-          &device_dot_tmp_vec, set_ptr->lat_4dim * sizeof(LatticeComplex),
           set_ptr->stream));
     }
     {
@@ -167,6 +160,10 @@ struct LatticeBistabcg {
         set_ptr->streams[stream_index]));
   }
   void diff(void *x, void *ans, const int stream_index) {
+    { // test
+      dot(x, x, _tmp0_, stream_index);
+      dot(ans, ans, _tmp1_, stream_index);
+    }
     bistabcg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->streams[stream_index]>>>(x, ans, device_vec0,
                                                            device_vals);
@@ -211,8 +208,7 @@ struct LatticeBistabcg {
               << host_vals[_norm2_tmp_].imag << std::endl
               << "##diff_tmp :" << host_vals[_diff_tmp_].real << ","
               << host_vals[_diff_tmp_].imag << std::endl
-              << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << ","
-              << host_vals[_lat_xyzt_].imag << std::endl;
+              << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << std::endl;
     // exit(1);
 #endif
   }
@@ -339,8 +335,6 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaFreeAsync(t, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vec0, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vec1, set_ptr->stream));
-    checkCudaErrors(cudaFreeAsync(device_dot_vec, set_ptr->stream));
-    checkCudaErrors(cudaFreeAsync(device_dot_tmp_vec, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vals, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
