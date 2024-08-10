@@ -330,7 +330,7 @@ struct LatticeBistabcg {
       printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
       set_ptr->_print();
-      print_vals();
+      print_vals(666);
 #endif
     }
     { // test again
@@ -344,7 +344,7 @@ struct LatticeBistabcg {
       printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
       set_ptr->_print();
-      print_vals();
+      print_vals(999);
 #endif
     }
   }
