@@ -16,6 +16,7 @@ struct LatticeSet {
   dim3 blockDim;
   ncclUniqueId nccl_id;
   ncclComm_t nccl_comm;
+  cublasHandle_t cublasH;
   cudaStream_t stream;
   cublasHandle_t cublasHs[_DIM_];
   cudaStream_t streams[_DIM_];
@@ -124,7 +125,10 @@ struct LatticeSet {
       move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
     }
     { // set stream and malloc vec
-      checkCudaErrors(cudaStreamCreate(&stream));
+      CUBLAS_CHECK(cublasCreate(&cublasH));
+      checkCudaErrors(
+          cudaStreamCreateWithFlags(&stream, cudaStreamNonBlocking));
+      CUBLAS_CHECK(cublasSetStream(cublasH, stream));
       for (int i = 0; i < _DIM_; i++) {
         CUBLAS_CHECK(cublasCreate(&cublasHs[i]));
         checkCudaErrors(
@@ -200,6 +204,7 @@ struct LatticeSet {
       free(host_recv_vec[i * _SR_ + 1]);
     }
     checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
+    CUBLAS_CHECK(cublasDestroy(cublasH));
     checkCudaErrors(cudaStreamSynchronize(stream));
     checkCudaErrors(cudaStreamDestroy(stream));
     // CUDA_CHECK(cudaDeviceReset());// don't use this !

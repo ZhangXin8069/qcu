@@ -8,7 +8,7 @@
 #include "lattice_complex.h"
 #include <cstdlib>
 #include <nccl.h>
-// #define PRINT_NCCL_WILSON_BISTABCG
+#define PRINT_NCCL_WILSON_BISTABCG
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
   cudaError_t err;
@@ -23,7 +23,7 @@ struct LatticeBistabcg {
   void *gauge, *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p,
       *v, *s, *t, *device_vec0, *device_vec1, *device_vals;
   LatticeComplex host_vals[_vals_size_];
-  int if_input;
+  int if_input, if_test;
   void _init() {
     {
       checkCudaErrors(
@@ -130,12 +130,14 @@ struct LatticeBistabcg {
   }
   void init(void *_x, void *_b, void *_gauge) {
     _init();
-    if_input = 1;
+    if_input = 0;
     gauge = _gauge;
-    x_e = _x;
-    x_o = ((static_cast<LatticeComplex *>(_x)) + set_ptr->lat_4dim_SC);
-    b_e = _b;
-    b_o = ((static_cast<LatticeComplex *>(_b)) + set_ptr->lat_4dim_SC);
+    if (if_input) {
+      x_e = _x;
+      x_o = ((static_cast<LatticeComplex *>(_x)) + set_ptr->lat_4dim_SC);
+      b_e = _b;
+      b_o = ((static_cast<LatticeComplex *>(_b)) + set_ptr->lat_4dim_SC);
+    }
     __init();
   }
   void init(void *_gauge) {
@@ -277,12 +279,37 @@ struct LatticeBistabcg {
                             set_ptr->streams[_b_]>>>(x_o, p, s, device_vals);
       }
       {
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+        std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
+                  << "##Residual:" << host_vals[_norm2_tmp_].real << std::endl;
+#endif
         if ((host_vals[_norm2_tmp_].real < _TOL_ || loop == _MAX_ITER_ - 1)) {
           std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
                     << "##Residual:" << host_vals[_norm2_tmp_].real
                     << std::endl;
           break;
         }
+      }
+      if (if_input) {
+        // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
+        CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
+                                 set_ptr->lat_4dim_SC * sizeof(data_type) /
+                                     sizeof(double),
+                                 (double *)b_e, 1, (double *)device_vec0, 1));
+        dslash.run_eo(device_vec1, x_o, gauge);
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+        LatticeComplex _(_KAPPA_, 0.0);
+        // dest(B) = B + alpha*A
+        CUBLAS_CHECK(
+            cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
+                         traits<data_type>::cuda_data_type, device_vec1,
+                         traits<data_type>::cuda_data_type, 1, device_vec0,
+                         traits<data_type>::cuda_data_type, 1,
+                         traits<data_type>::cuda_data_type));
+        CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
+                                 set_ptr->lat_4dim_SC * sizeof(data_type) /
+                                     sizeof(double),
+                                 (double *)device_vec0, 1, (double *)x_e, 1));
       }
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
