@@ -33,6 +33,12 @@ __global__ void give_1one(void *device_vals, const int vals_index) {
   LatticeComplex _(1.0, 0.0);
   origin_vals[vals_index] = _;
 }
+__global__ void give_1custom(void *device_vals, const int vals_index,
+                             double real, double imag) {
+  LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
+  LatticeComplex _(real, imag);
+  origin_vals[vals_index] = _;
+}
 __global__ void part_dot(void *device_vec0, void *device_vec1,
                          void *device_dot_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;

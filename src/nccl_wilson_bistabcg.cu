@@ -9,8 +9,8 @@ void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   LatticeBistabcg _cg;
   _cg.give(&_set);
   _cg.init(gauge);
-  _cg.run_test(gauge);
-  _cg.end();
+  _cg.run_test();
+  _cg.end();  
   _set.end();
 }
 #endif

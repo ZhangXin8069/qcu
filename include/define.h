@@ -1,13 +1,16 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #include "./lattice_complex.h"
-
 #define _BLOCK_SIZE_ 256
 #define _WARP_SIZE_ 32
 #define _a_ 0
 #define _b_ 1
 #define _c_ 2
 #define _d_ 3
+// #define _a_ 0 // test
+// #define _b_ 0 // test
+// #define _c_ 0 // test
+// #define _d_ 0 // test
 #define _tmp0_ 0
 #define _tmp1_ 1
 #define _rho_prev_ 2
@@ -18,7 +21,8 @@
 #define _send_tmp_ 7
 #define _norm2_tmp_ 8
 #define _diff_tmp_ 9
-#define _vals_size_ 10
+#define _lat_xyzt_ 10
+#define _vals_size_ 11
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
@@ -68,7 +72,7 @@
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
-#define _MAX_ITER_ 1e2
+#define _MAX_ITER_ 1e3
 #define _TOL_ 1e-9
 #define _KAPPA_ 0.125
 #define _MEM_POOL_ 0
@@ -95,6 +99,33 @@
 // #define NCCL_WILSON_MULTGRID
 // #define NCCL_CLOVER_MULTGRID
 // #define NCCL_OVERLAP_MULTGRID
+// CUDA API error checking
+#define CUDA_CHECK(err)                                                        \
+  do {                                                                         \
+    cudaError_t err_ = (err);                                                  \
+    if (err_ != cudaSuccess) {                                                 \
+      std::printf("CUDA error %d at %s:%d\n", err_, __FILE__, __LINE__);       \
+      throw std::runtime_error("CUDA error");                                  \
+    }                                                                          \
+  } while (0)
+// cublas API error checking
+#define CUBLAS_CHECK(err)                                                      \
+  do {                                                                         \
+    cublasStatus_t err_ = (err);                                               \
+    if (err_ != CUBLAS_STATUS_SUCCESS) {                                       \
+      std::printf("cublas error %d at %s:%d\n", err_, __FILE__, __LINE__);     \
+      throw std::runtime_error("cublas error");                                \
+    }                                                                          \
+  } while (0)
+// curand API error checking
+#define CURAND_CHECK(err)                                                      \
+  do {                                                                         \
+    curandStatus_t err_ = (err);                                               \
+    if (err_ != CURAND_STATUS_SUCCESS) {                                       \
+      std::printf("curand error %d at %s:%d\n", err_, __FILE__, __LINE__);     \
+      throw std::runtime_error("curand error");                                \
+    }                                                                          \
+  } while (0)
 #define give_ptr(U, origin_U, n)                                               \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \

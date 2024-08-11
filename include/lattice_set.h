@@ -1,8 +1,9 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
+#pragma once
+// clang-format off
 #include "./define.h"
-#include "lattice_complex.h"
-
+// clang-format on
 struct LatticeSet {
   int lat_1dim[_DIM_];
   int lat_3dim[_DIM_];
@@ -11,28 +12,31 @@ struct LatticeSet {
   int lat_3dim_SC[_DIM_];
   int lat_4dim_SC;
   dim3 gridDim_3dim[_DIM_];
-  cudaError_t err;
   dim3 gridDim;
   dim3 blockDim;
   ncclUniqueId nccl_id;
   ncclComm_t nccl_comm;
   cudaStream_t stream;
+  cublasHandle_t cublasHs[_DIM_];
   cudaStream_t streams[_DIM_];
   cudaStream_t stream_dims[_DIM_];
-  cudaStream_t stream_wards[_WARDS_];
+  float time;
+  cudaEvent_t start, stop;
+  cudaError_t err;
   int node_rank, node_size;
   int move[_BF_];
   int move_wards[_WARDS_];
   int grid_1dim[_DIM_];
   int grid_3dim[_DIM_];
   int grid_index_1dim[_DIM_];
+  MPI_Request send_request[_WARDS_];
+  MPI_Request recv_request[_WARDS_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
   int host_xyztsc[_DIM_ * _LAT_C_];
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
   void *device_xyztsc;
-
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] / _EVENODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
@@ -66,6 +70,10 @@ struct LatticeSet {
   void init() {
     {
       blockDim = _BLOCK_SIZE_;
+      cudaEventCreate(&start);
+      cudaEventCreate(&stop);
+      cudaEventRecord(start, 0);
+      cudaEventSynchronize(start);
       checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
       checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
       if (node_rank == 0) {
@@ -75,7 +83,6 @@ struct LatticeSet {
                                MPI_COMM_WORLD));
       checkNcclErrors(
           ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
-      checkCudaErrors(cudaStreamCreate(&stream));
       grid_index_1dim[_X_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];
       grid_index_1dim[_Y_] =
@@ -116,12 +123,16 @@ struct LatticeSet {
       move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_3dim[_XYT_];
       move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
     }
-    {
+    { // set stream and malloc vec
+      checkCudaErrors(cudaStreamCreate(&stream));
       for (int i = 0; i < _DIM_; i++) {
-        checkCudaErrors(cudaStreamCreate(&streams[i]));
-        checkCudaErrors(cudaStreamCreate(&stream_dims[i]));
-        checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_]));
-        checkCudaErrors(cudaStreamCreate(&stream_wards[i * _SR_ + 1]));
+        CUBLAS_CHECK(cublasCreate(&cublasHs[i]));
+        checkCudaErrors(
+            cudaStreamCreateWithFlags(&streams[i], cudaStreamNonBlocking));
+        // checkCudaErrors(cudaStreamCreate(&streams[i]));
+        checkCudaErrors(
+            cudaStreamCreateWithFlags(&stream_dims[i], cudaStreamNonBlocking));
+        CUBLAS_CHECK(cublasSetStream(cublasHs[i], streams[i]));
         lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
         lat_3dim_SC[i] = lat_3dim_Half_SC[i] * 2;
         checkCudaErrors(cudaMallocAsync(
@@ -167,8 +178,18 @@ struct LatticeSet {
     }
     checkCudaErrors(cudaStreamSynchronize(stream));
   }
+  float get_time() {
+    cudaEventRecord(stop, 0);
+    cudaEventSynchronize(stop);
+    cudaEventElapsedTime(&time, start, stop);
+    return time; // ms
+  }
   void end() {
+    cudaEventDestroy(start);
+    cudaEventDestroy(stop);
+    checkNcclErrors(ncclCommDestroy(nccl_comm));
     for (int i = 0; i < _DIM_; i++) {
+      CUBLAS_CHECK(cublasDestroy(cublasHs[i]));
       checkCudaErrors(cudaStreamDestroy(streams[i]));
       checkCudaErrors(cudaStreamDestroy(stream_dims[i]));
       checkCudaErrors(cudaFreeAsync(device_send_vec[i * _SR_], stream));
@@ -177,13 +198,11 @@ struct LatticeSet {
       checkCudaErrors(cudaFreeAsync(device_recv_vec[i * _SR_ + 1], stream));
       free(host_send_vec[i * _SR_]);
       free(host_recv_vec[i * _SR_ + 1]);
-      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_]));
-      checkCudaErrors(cudaStreamDestroy(stream_wards[i * _SR_ + 1]));
     }
     checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
     checkCudaErrors(cudaStreamSynchronize(stream));
     checkCudaErrors(cudaStreamDestroy(stream));
-    checkNcclErrors(ncclCommDestroy(nccl_comm));
+    // CUDA_CHECK(cudaDeviceReset());// don't use this !
   }
   void _print() {
     printf("node_rank        :%d\n", node_rank);
@@ -214,5 +233,4 @@ struct LatticeSet {
     printf("lat_3dim_SC[_XYZ_]:%d\n", lat_3dim_SC[_XYZ_]);
   }
 };
-
 #endif
