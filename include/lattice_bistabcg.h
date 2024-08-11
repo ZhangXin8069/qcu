@@ -353,24 +353,16 @@ struct LatticeBistabcg {
         double(duration) / 1e9);
   }
   void run() {
-    if_test = 0;
-    if (if_test) {
-      CUBLAS_CHECK(
-          cublasDcopy(set_ptr->cublasH,
-                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                      (double *)b_o, 1, (double *)x_o, 1));
-      CUBLAS_CHECK(
-          cublasDcopy(set_ptr->cublasH,
-                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                      (double *)b_e, 1, (double *)x_e, 1));
-    } else {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
-      set_ptr->_print();
+    set_ptr->_print();
 #endif
-      _run();
-      if (if_input == 0) {
-        _diff(x_o, ans_o);
-      }
+    _run();
+    if (if_input == 0) {
+      _diff(x_o, ans_o);
+    } else {
+      _dslash(device_vec1, x_o, gauge);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      _diff(device_vec1, b__o);
     }
   }
   void end() {
