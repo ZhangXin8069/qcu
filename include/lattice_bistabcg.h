@@ -130,14 +130,12 @@ struct LatticeBistabcg {
   }
   void init(void *_x, void *_b, void *_gauge) {
     _init();
-    if_input = 0;
+    if_input = 1;
     gauge = _gauge;
-    if (if_input) {
-      x_e = _x;
-      x_o = ((static_cast<LatticeComplex *>(_x)) + set_ptr->lat_4dim_SC);
-      b_e = _b;
-      b_o = ((static_cast<LatticeComplex *>(_b)) + set_ptr->lat_4dim_SC);
-    }
+    x_e = _x;
+    x_o = ((static_cast<LatticeComplex *>(_x)) + set_ptr->lat_4dim_SC);
+    b_e = _b;
+    b_o = ((static_cast<LatticeComplex *>(_b)) + set_ptr->lat_4dim_SC);
     __init();
   }
   void init(void *_gauge) {
@@ -333,12 +331,24 @@ struct LatticeBistabcg {
         double(duration) / 1e9);
   }
   void run() {
+    if_test = 0;
+    if (if_test) {
+      CUBLAS_CHECK(
+          cublasDcopy(set_ptr->cublasH,
+                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                      (double *)b_o, 1, (double *)x_o, 1));
+      CUBLAS_CHECK(
+          cublasDcopy(set_ptr->cublasH,
+                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                      (double *)b_e, 1, (double *)x_e, 1));
+    } else {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
-    set_ptr->_print();
+      set_ptr->_print();
 #endif
-    _run();
-    if (if_input == 0) {
-      _diff(x_o, ans_o);
+      _run();
+      if (if_input == 0) {
+        _diff(x_o, ans_o);
+      }
     }
   }
   void end() {
