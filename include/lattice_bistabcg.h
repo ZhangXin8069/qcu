@@ -139,20 +139,6 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaFreeAsync(b_e, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(b_o, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-    { // test
-      diff(x_o, ans_o, device_vec0, _a_);
-      checkCudaErrors(cudaMemcpyAsync(
-          ((static_cast<LatticeComplex *>(host_vals)) + _diff_tmp_),
-          ((static_cast<LatticeComplex *>(device_vals)) + _diff_tmp_),
-          sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
-          set_ptr->streams[_a_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-      printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
-#ifdef PRINT_NCCL_WILSON_BISTABCG
-      set_ptr->_print();
-      print_vals();
-#endif
-    }
   }
   void dot(void *vec0, void *vec1, const int vals_index,
            const int stream_index) {
