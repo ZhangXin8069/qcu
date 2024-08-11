@@ -8,7 +8,7 @@
 #include "lattice_complex.h"
 #include <cstdlib>
 #include <nccl.h>
-#define PRINT_NCCL_WILSON_BISTABCG
+// #define PRINT_NCCL_WILSON_BISTABCG
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
   cudaError_t err;
@@ -183,7 +183,6 @@ struct LatticeBistabcg {
         device_vals);
   }
   void print_vals(int loop = 0) {
-#ifdef PRINT_NCCL_WILSON_BISTABCG
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
@@ -220,7 +219,6 @@ struct LatticeBistabcg {
               << host_vals[_diff_tmp_].imag << std::endl
               << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << std::endl;
     // exit(1);
-#endif
   }
   void run(void *gauge) {
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
@@ -293,9 +291,10 @@ struct LatticeBistabcg {
                             set_ptr->streams[_b_]>>>(x_o, p, s, device_vals);
       }
       {
-        std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
-                  << "##Residual:" << host_vals[_norm2_tmp_].real << std::endl;
         if ((host_vals[_norm2_tmp_].real < _TOL_ || loop == _MAX_ITER_ - 1)) {
+          std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
+                    << "##Residual:" << host_vals[_norm2_tmp_].real
+                    << std::endl;
           break;
         }
       }
@@ -330,9 +329,9 @@ struct LatticeBistabcg {
       printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
       set_ptr->_print();
-      print_vals(666);
 #endif
     }
+    print_vals(666);
     { // test again
       diff(x_o, ans_o, _a_);
       checkCudaErrors(cudaMemcpyAsync(
@@ -344,8 +343,8 @@ struct LatticeBistabcg {
       printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
       set_ptr->_print();
-      print_vals(999);
 #endif
+      print_vals(999);
     }
   }
   void end() {
