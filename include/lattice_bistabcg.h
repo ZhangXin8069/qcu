@@ -160,17 +160,11 @@ struct LatticeBistabcg {
         set_ptr->streams[stream_index]));
   }
   void _diff(void *x, void *ans) { // there is a bug
-    // print_vals(666);
-    // dot(device_vec0, device_vec0, _tmp0_, _a_);
-    // dot(device_vec1, device_vec1, _tmp1_, _a_);
-    // dot(x, x, _diff_tmp_, _a_);
     dot(ans, ans, _norm2_tmp_, _a_);
-    // print_vals(777);
     bistabcg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->streams[_a_]>>>(x, ans, device_vec0,
                                                   device_vals);
     dot(device_vec0, device_vec0, _diff_tmp_, _a_);
-    // print_vals(888);
     bistabcg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
     print_vals(999);
   }
@@ -297,7 +291,7 @@ struct LatticeBistabcg {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     }
   }
-  void run() {
+  void _run() {
     auto start = std::chrono::high_resolution_clock::now();
     run_nccl();
     auto end = std::chrono::high_resolution_clock::now();
@@ -311,12 +305,14 @@ struct LatticeBistabcg {
         "sec\n",
         double(duration) / 1e9);
   }
-  void run_test() {
-    run();
-    _diff(x_o, ans_o);
+  void run() {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
     set_ptr->_print();
 #endif
+    _run();
+    if (if_input == 0) {
+      _diff(x_o, ans_o);
+    }
   }
   void end() {
     if (if_input == 0) {
