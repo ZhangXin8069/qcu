@@ -7,6 +7,10 @@
 #define _b_ 1
 #define _c_ 2
 #define _d_ 3
+// #define _a_ 0 // test
+// #define _b_ 0 // test
+// #define _c_ 0 // test
+// #define _d_ 0 // test
 #define _tmp0_ 0
 #define _tmp1_ 1
 #define _rho_prev_ 2
