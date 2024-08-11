@@ -1,0 +1,777 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- The CUDA compiler identification is NVIDIA 12.4.131
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /home/kfutfd/external-libraries/openmpi-4.1.5/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /home/kfutfd/external-libraries/openmpi-4.1.5/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found CUDA: /usr/local/cuda (found version "12.4") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/kfutfd/qcu
+[ 11%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 22%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 44%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 55%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 77%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 88%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+fatal: pathspec '.gitmodules' did not match any files
+~/qcu/test ~/qcu
+==215174== NVPROF is profiling process 215174, command: python ./test.nccl.bistabcg.qcu-np2.py
+==215175== NVPROF is profiling process 215175, command: python ./test.nccl.bistabcg.qcu-np2.py
+==215174== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+==215175== Warning: Unified Memory Profiling is not supported on the current configuration because a pair of devices without peer-to-peer support is detected on this multi-GPU setup. When peer mappings are not available, system falls back to using zero-copy memory. It can cause kernels, which access unified memory, to run slower. More details can be found at: http://docs.nvidia.com/cuda/cuda-c-programming-guide/index.html#um-managed-memory
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=0
+Intra-node (non peer-to-peer) enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=0
+Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=0
+Intra-node (non peer-to-peer) enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=0
+QUDA 1.1.0 (git 1.1.0--sm_60)
+CUDA Driver version = 12020
+CUDA Runtime version = 12040
+Found device 0: Tesla P100-PCIE-16GB
+Found device 1: Tesla P100-PCIE-16GB
+Using device 0: Tesla P100-PCIE-16GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: The path ".cache" specified by QUDA_RESOURCE_PATH does not exist or is not a directory.
+WARNING: Caching of tuned parameters will be disabled.
+WARNING: The path ".cache" specified by QUDA_RESOURCE_PATH does not exist or is not a directory.
+WARNING: Caching of tuned parameters will be disabled.
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+==215174== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+==215175== Warning: Profiling results might be incorrect with current version of nvcc compiler used to compile cuda app. Compile with nvcc compiler 9.0 or later version to get correct profiling results. Ignore this warning if code is already compiled with the recommended nvcc version 
+===============round  0 ======================
+===============round  0 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:0##LOOP:117##Residual:8.56357e-10
+##RANK:1##LOOP:117##Residual:8.56357e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.480632093 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.482767444 sec
+## difference: 1.4034884626616557
+## difference: 1.4034884626616557
+######TIME :######TIME :10548.8######
+##RANK     :0##LOOP:666
+##tmp0     :3.69648e+07,1.17761e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :1.16625e-06,4.70574e-05
+##rho      :1.16625e-06,4.70574e-05
+##alpha    :0.161279,-1.44534
+##beta     :-0.311927,0.322585
+##omega    :1.68428,0.354334
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :1.40349,-2.32431e-21
+##lat_xyzt :524288
+10548.9######
+##RANK     :1##LOOP:666
+##tmp0     :3.69648e+07,1.17761e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :1.16625e-06,4.70574e-05
+##rho      :1.16625e-06,4.70574e-05
+##alpha    :0.161279,-1.44534
+##beta     :-0.311927,0.322585
+##omega    :1.68428,0.354334
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :1.40349,-2.32431e-21
+##lat_xyzt :524288
+## difference: 1.4034884626616557
+## difference: 1.4034884626616557
+######TIME :######TIME :10554.7######
+##RANK     :0##LOOP:999
+##tmp0     :3.69648e+07,1.17761e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :1.16625e-06,4.70574e-05
+##rho      :1.16625e-06,4.70574e-05
+##alpha    :0.161279,-1.44534
+##beta     :-0.311927,0.322585
+##omega    :1.68428,0.354334
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :1.40349,-2.32431e-21
+##lat_xyzt :524288
+10554.7######
+##RANK     :1##LOOP:999
+##tmp0     :3.69648e+07,1.17761e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :1.16625e-06,4.70574e-05
+##rho      :1.16625e-06,4.70574e-05
+##alpha    :0.161279,-1.44534
+##beta     :-0.311927,0.322585
+##omega    :1.68428,0.354334
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :1.40349,-2.32431e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.864344476001861 sec
+===============round  1 ======================
+QCU bistabcg: 10.891381303001253 sec
+===============round  1 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:1##LOOP:116##Residual:3.00481e-10
+##RANK:0##LOOP:116##Residual:3.00481e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.543006745 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.543979800 sec
+## difference: 0.9585007104062150
+## difference: 0.9585007104062150
+######TIME :######TIME :10100######
+##RANK     :0##LOOP:666
+##tmp0     :3.02858e+07,-1.70863e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :8.14938e-07,-2.31596e-05
+##rho      :8.14938e-07,-2.31596e-05
+##alpha    :0.638285,0.0333378
+##beta     :-0.08901,-0.0719286
+##omega    :1.98901,-0.584094
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958501,4.32318e-21
+##lat_xyzt :524288
+10098.6######
+##RANK     :1##LOOP:666
+##tmp0     :3.02858e+07,-1.70863e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :8.14938e-07,-2.31596e-05
+##rho      :8.14938e-07,-2.31596e-05
+##alpha    :0.638285,0.0333378
+##beta     :-0.08901,-0.0719286
+##omega    :1.98901,-0.584094
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958501,4.32318e-21
+##lat_xyzt :524288
+## difference: 0.9585007104062150
+## difference: 0.9585007104062150
+######TIME :######TIME :10105.7######
+##RANK     :0##LOOP:999
+##tmp0     :3.02858e+07,-1.70863e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :8.14938e-07,-2.31596e-05
+##rho      :8.14938e-07,-2.31596e-05
+##alpha    :0.638285,0.0333378
+##beta     :-0.08901,-0.0719286
+##omega    :1.98901,-0.584094
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958501,4.32318e-21
+##lat_xyzt :524288
+10104.2######
+##RANK     :1##LOOP:999
+##tmp0     :3.02858e+07,-1.70863e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :8.14938e-07,-2.31596e-05
+##rho      :8.14938e-07,-2.31596e-05
+##alpha    :0.638285,0.0333378
+##beta     :-0.08901,-0.0719286
+##omega    :1.98901,-0.584094
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958501,4.32318e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.606673862996104 sec
+===============round  2 ======================
+QCU bistabcg: 10.627543525995861 sec
+===============round  2 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:0##LOOP:116##Residual:2.69671e-10
+##RANK:1##LOOP:116##Residual:2.69671e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.513772894 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.515220404 sec
+## difference: 0.9599595794281932
+## difference: 0.9599595794281932
+######TIME :######TIME :10064.2######
+##RANK     :0##LOOP:666
+##tmp0     :3.0309e+07,-5.60145e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :1.31053e-05,-2.43552e-05
+##rho      :1.31053e-05,-2.43552e-05
+##alpha    :0.575244,0.202365
+##beta     :0.0140099,-0.0372778
+##omega    :1.82864,-0.825411
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95996,-7.91623e-21
+##lat_xyzt :524288
+10064.4######
+##RANK     :1##LOOP:666
+##tmp0     :3.0309e+07,-5.60145e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :1.31053e-05,-2.43552e-05
+##rho      :1.31053e-05,-2.43552e-05
+##alpha    :0.575244,0.202365
+##beta     :0.0140099,-0.0372778
+##omega    :1.82864,-0.825411
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95996,-7.91623e-21
+##lat_xyzt :524288
+## difference: 0.9599595794281932
+## difference: 0.9599595794281932
+######TIME :######TIME :10070.8######
+##RANK     :0##LOOP:999
+##tmp0     :3.0309e+07,-5.60145e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :1.31053e-05,-2.43552e-05
+##rho      :1.31053e-05,-2.43552e-05
+##alpha    :0.575244,0.202365
+##beta     :0.0140099,-0.0372778
+##omega    :1.82864,-0.825411
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95996,-7.91623e-21
+##lat_xyzt :524288
+10070.7######
+##RANK     :1##LOOP:999
+##tmp0     :3.0309e+07,-5.60145e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :1.31053e-05,-2.43552e-05
+##rho      :1.31053e-05,-2.43552e-05
+##alpha    :0.575244,0.202365
+##beta     :0.0140099,-0.0372778
+##omega    :1.82864,-0.825411
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95996,-7.91623e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.11432606499875 sec
+===============round  3 ======================
+QCU bistabcg: 10.13155610299873 sec
+===============round  3 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:0##LOOP:116##Residual:1.60601e-10
+##RANK:1##LOOP:116##Residual:1.60601e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.552774488 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.554036056 sec
+## difference: 0.9583258487199522
+## difference: 0.9583258487199522
+######TIME :######TIME :10110.8######
+##RANK     :0##LOOP:666
+##tmp0     :3.02827e+07,-1.0419e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.23876e-05,-9.95559e-06
+##rho      :2.23876e-05,-9.95559e-06
+##alpha    :0.682987,-0.150726
+##beta     :-0.130972,-0.0844081
+##omega    :2.10098,0.827163
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958326,6.98554e-21
+##lat_xyzt :524288
+10111.3######
+##RANK     :1##LOOP:666
+##tmp0     :3.02827e+07,-1.0419e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.23876e-05,-9.95559e-06
+##rho      :2.23876e-05,-9.95559e-06
+##alpha    :0.682987,-0.150726
+##beta     :-0.130972,-0.0844081
+##omega    :2.10098,0.827163
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958326,6.98554e-21
+##lat_xyzt :524288
+## difference: 0.9583258487199522
+## difference: 0.9583258487199522
+######TIME :######TIME :10116.6######
+##RANK     :0##LOOP:999
+##tmp0     :3.02827e+07,-1.0419e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.23876e-05,-9.95559e-06
+##rho      :2.23876e-05,-9.95559e-06
+##alpha    :0.682987,-0.150726
+##beta     :-0.130972,-0.0844081
+##omega    :2.10098,0.827163
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958326,6.98554e-21
+##lat_xyzt :524288
+10117.1######
+##RANK     :1##LOOP:999
+##tmp0     :3.02827e+07,-1.0419e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.23876e-05,-9.95559e-06
+##rho      :2.23876e-05,-9.95559e-06
+##alpha    :0.682987,-0.150726
+##beta     :-0.130972,-0.0844081
+##omega    :2.10098,0.827163
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.958326,6.98554e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.626634718995774 sec
+===============round  4 ======================
+QCU bistabcg: 10.644607455004007 sec
+===============round  4 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:0##LOOP:116##Residual:2.84089e-10
+##RANK:1##LOOP:116##Residual:2.84089e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.456576047 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.457763036 sec
+## difference: 0.9602283612502346
+## difference: 0.9602283612502346
+######TIME :######TIME :9980.54######
+##RANK     :0##LOOP:666
+##tmp0     :3.03129e+07,5.37683e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.98977e-06,-2.49018e-05
+##rho      :-7.98977e-06,-2.49018e-05
+##alpha    :0.624378,-0.182887
+##beta     :-0.147314,0.0348557
+##omega    :2.2438,1.52921
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.960228,1.45753e-21
+##lat_xyzt :524288
+9980.56######
+##RANK     :1##LOOP:666
+##tmp0     :3.03129e+07,5.37683e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.98977e-06,-2.49018e-05
+##rho      :-7.98977e-06,-2.49018e-05
+##alpha    :0.624378,-0.182887
+##beta     :-0.147314,0.0348557
+##omega    :2.2438,1.52921
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.960228,1.45753e-21
+##lat_xyzt :524288
+## difference: 0.9602283612502346
+## difference: 0.9602283612502346
+######TIME :######TIME :9986.56######
+##RANK     :0##LOOP:999
+##tmp0     :3.03129e+07,5.37683e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.98977e-06,-2.49018e-05
+##rho      :-7.98977e-06,-2.49018e-05
+##alpha    :0.624378,-0.182887
+##beta     :-0.147314,0.0348557
+##omega    :2.2438,1.52921
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.960228,1.45753e-21
+##lat_xyzt :524288
+9986.54######
+##RANK     :1##LOOP:999
+##tmp0     :3.03129e+07,5.37683e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.98977e-06,-2.49018e-05
+##rho      :-7.98977e-06,-2.49018e-05
+##alpha    :0.624378,-0.182887
+##beta     :-0.147314,0.0348557
+##omega    :2.2438,1.52921
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.960228,1.45753e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.119028580003942 sec
+===============round  5 ======================
+QCU bistabcg: 10.131143300997792 sec
+===============round  5 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:1##LOOP:116##Residual:2.32029e-10
+##RANK:0##LOOP:116##Residual:2.32029e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.562232862 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.563942736 sec
+## difference: 0.9592022031021887
+## difference: 0.9592022031021887
+######TIME :######TIME :10094.7######
+##RANK     :0##LOOP:666
+##tmp0     :3.02965e+07,3.97304e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.13274e-05,1.75596e-06
+##rho      :-1.13274e-05,1.75596e-06
+##alpha    :0.336534,-0.153813
+##beta     :-0.0305326,0.00575201
+##omega    :1.61871,0.405744
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959202,8.69934e-21
+##lat_xyzt :524288
+10093.7######
+##RANK     :1##LOOP:666
+##tmp0     :3.02965e+07,3.97304e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.13274e-05,1.75596e-06
+##rho      :-1.13274e-05,1.75596e-06
+##alpha    :0.336534,-0.153813
+##beta     :-0.0305326,0.00575201
+##omega    :1.61871,0.405744
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959202,8.69934e-21
+##lat_xyzt :524288
+## difference: 0.9592022031021887
+## difference: 0.9592022031021887
+######TIME :######TIME :10100.5######
+##RANK     :0##LOOP:999
+##tmp0     :3.02965e+07,3.97304e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.13274e-05,1.75596e-06
+##rho      :-1.13274e-05,1.75596e-06
+##alpha    :0.336534,-0.153813
+##beta     :-0.0305326,0.00575201
+##omega    :1.61871,0.405744
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959202,8.69934e-21
+##lat_xyzt :524288
+10099.6######
+##RANK     :1##LOOP:999
+##tmp0     :3.02965e+07,3.97304e-14
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.13274e-05,1.75596e-06
+##rho      :-1.13274e-05,1.75596e-06
+##alpha    :0.336534,-0.153813
+##beta     :-0.0305326,0.00575201
+##omega    :1.61871,0.405744
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959202,8.69934e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.139727447000041 sec
+===============round  6 ======================
+QCU bistabcg: 10.619723285002692 sec
+===============round  6 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:1##LOOP:116##Residual:2.44817e-10
+##RANK:0##LOOP:116##Residual:2.44817e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.577414810 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.580309298 sec
+## difference: 0.9594778350292504
+## difference: 0.9594778350292504
+######TIME :######TIME :10165.6######
+##RANK     :0##LOOP:666
+##tmp0     :3.03011e+07,1.04687e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.02471e-06,-4.35732e-06
+##rho      :2.02471e-06,-4.35732e-06
+##alpha    :0.584727,-0.161053
+##beta     :-0.0658288,0.00120046
+##omega    :2.14265,-0.096111
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959478,-1.75307e-21
+##lat_xyzt :524288
+10166.4######
+##RANK     :1##LOOP:666
+##tmp0     :3.03011e+07,1.04687e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.02471e-06,-4.35732e-06
+##rho      :2.02471e-06,-4.35732e-06
+##alpha    :0.584727,-0.161053
+##beta     :-0.0658288,0.00120046
+##omega    :2.14265,-0.096111
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959478,-1.75307e-21
+##lat_xyzt :524288
+## difference: 0.9594778350292504
+## difference: 0.9594778350292504
+######TIME :######TIME :10171.5######
+##RANK     :0##LOOP:999
+##tmp0     :3.03011e+07,1.04687e-13
+##tmp1     :8.39059e+06,0
+10172.1######
+##RANK     :1##LOOP:999
+##tmp0     :3.03011e+07,1.04687e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :2.02471e-06,-4.35732e-06
+##rho      :2.02471e-06,-4.35732e-06
+##rho_prev :2.02471e-06,-4.35732e-06
+##rho      :2.02471e-06,-4.35732e-06
+##alpha    :0.584727,-0.161053
+##beta     :-0.0658288,0.00120046
+##omega    :2.14265,-0.096111
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959478,-1.75307e-21
+##lat_xyzt :524288
+##alpha    :0.584727,-0.161053
+##beta     :-0.0658288,0.00120046
+##omega    :2.14265,-0.096111
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959478,-1.75307e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.623071412999707 sec
+===============round  7 ======================
+QCU bistabcg: 10.647625279001659 sec
+===============round  7 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:1##LOOP:116##Residual:1.97544e-10
+##RANK:0##LOOP:116##Residual:1.97544e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.563549545 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.563660186 sec
+## difference: 0.9585195543193364
+## difference: 0.9585195543193364
+######TIME :######TIME :10184.9######
+##RANK     :0##LOOP:666
+##tmp0     :3.02854e+07,2.96768e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.14869e-06,-1.53233e-05
+##rho      :-7.14869e-06,-1.53233e-05
+##alpha    :0.692705,-0.191463
+##beta     :-0.172634,-0.125226
+##omega    :2.31762,0.268592
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95852,-7.67974e-21
+##lat_xyzt :524288
+10183.6######
+##RANK     :1##LOOP:666
+##tmp0     :3.02854e+07,2.96768e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.14869e-06,-1.53233e-05
+##rho      :-7.14869e-06,-1.53233e-05
+##alpha    :0.692705,-0.191463
+##beta     :-0.172634,-0.125226
+##omega    :2.31762,0.268592
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95852,-7.67974e-21
+##lat_xyzt :524288
+## difference: 0.9585195543193364
+## difference: 0.9585195543193364
+######TIME :######TIME :10191.1######
+##RANK     :0##LOOP:999
+##tmp0     :3.02854e+07,2.96768e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.14869e-06,-1.53233e-05
+##rho      :-7.14869e-06,-1.53233e-05
+##alpha    :0.692705,-0.191463
+##beta     :-0.172634,-0.125226
+##omega    :2.31762,0.268592
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95852,-7.67974e-21
+##lat_xyzt :524288
+10189.8######
+##RANK     :1##LOOP:999
+##tmp0     :3.02854e+07,2.96768e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-7.14869e-06,-1.53233e-05
+##rho      :-7.14869e-06,-1.53233e-05
+##alpha    :0.692705,-0.191463
+##beta     :-0.172634,-0.125226
+##omega    :2.31762,0.268592
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.95852,-7.67974e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.626137075996667 sec
+===============round  8 ======================
+QCU bistabcg: 10.636348118001479 sec
+===============round  8 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:0##LOOP:116##Residual:1.96174e-10
+##RANK:1##LOOP:116##Residual:1.96174e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.598120447 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :9.598583250 sec
+## difference: 0.9596486807014136
+## difference: 0.9596486807014136
+######TIME :######TIME :10167.8######
+##RANK     :0##LOOP:666
+##tmp0     :3.03034e+07,2.22544e-13
+##tmp1     :8.39059e+06,0
+10168######
+##RANK     :1##LOOP:666
+##tmp0     :3.03034e+07,2.22544e-13
+##rho_prev :3.05502e-06,-1.44115e-05
+##rho      :3.05502e-06,-1.44115e-05
+##tmp1     :8.39059e+06,0
+##rho_prev :3.05502e-06,-1.44115e-05
+##rho      :3.05502e-06,-1.44115e-05
+##alpha    :0.503636,0.0185558
+##beta     :-0.0593188,-0.0591398
+##alpha    :0.503636,0.0185558
+##beta     :-0.0593188,-0.0591398
+##omega    :1.76547,0.266232
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959649,-1.54885e-21
+##omega    :1.76547,0.266232
+##lat_xyzt :524288
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959649,-1.54885e-21
+##lat_xyzt :524288
+## difference: 0.9596486807014136
+## difference: 0.9596486807014136
+######TIME :10173.9######
+##RANK     :0##LOOP:999
+##tmp0     :3.03034e+07,2.22544e-13
+######TIME :##tmp1     :8.39059e+06,0
+##rho_prev :3.05502e-06,-1.44115e-05
+##rho      :3.05502e-06,-1.44115e-05
+##alpha    :0.503636,0.0185558
+##beta     :-0.0593188,-0.0591398
+##omega    :1.76547,0.266232
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959649,-1.54885e-21
+##lat_xyzt :524288
+10174.3######
+##RANK     :1##LOOP:999
+##tmp0     :3.03034e+07,2.22544e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :3.05502e-06,-1.44115e-05
+##rho      :3.05502e-06,-1.44115e-05
+##alpha    :0.503636,0.0185558
+##beta     :-0.0593188,-0.0591398
+##omega    :1.76547,0.266232
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959649,-1.54885e-21
+##lat_xyzt :524288
+QCU bistabcg: 10.636699361006322 sec
+QCU bistabcg: 10.637318262000917 sec
+===============round  9 ======================
+===============round  9 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+## difference: 0.4998075569640436
+## difference: 0.4998075569640436
+##RANK:0##LOOP:116##Residual:2.66496e-10
+##RANK:1##LOOP:116##Residual:2.66496e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.109287662 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.109226453 sec
+## difference: 0.9597733451319375
+## difference: 0.9597733451319375
+######TIME :######TIME :8656.35######
+##RANK     :0##LOOP:666
+##tmp0     :3.03057e+07,1.77741e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.8097e-05,-2.53405e-05
+##rho      :-1.8097e-05,-2.53405e-05
+##alpha    :0.580019,-0.1171
+##beta     :-0.031183,0.00369232
+##omega    :2.00944,0.818948
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959773,9.49065e-22
+##lat_xyzt :524288
+8655.45######
+##RANK     :1##LOOP:666
+##tmp0     :3.03057e+07,1.77741e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.8097e-05,-2.53405e-05
+##rho      :-1.8097e-05,-2.53405e-05
+##alpha    :0.580019,-0.1171
+##beta     :-0.031183,0.00369232
+##omega    :2.00944,0.818948
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959773,9.49065e-22
+##lat_xyzt :524288
+## difference: 0.9597733451319375
+## difference: 0.9597733451319375
+######TIME :######TIME :8661.57######
+##RANK     :0##LOOP:999
+##tmp0     :3.03057e+07,1.77741e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.8097e-05,-2.53405e-05
+##rho      :-1.8097e-05,-2.53405e-05
+##alpha    :0.580019,-0.1171
+##beta     :-0.031183,0.00369232
+##omega    :2.00944,0.818948
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959773,9.49065e-22
+##lat_xyzt :524288
+8660.85######
+##RANK     :1##LOOP:999
+##tmp0     :3.03057e+07,1.77741e-13
+##tmp1     :8.39059e+06,0
+##rho_prev :-1.8097e-05,-2.53405e-05
+##rho      :-1.8097e-05,-2.53405e-05
+##alpha    :0.580019,-0.1171
+##beta     :-0.031183,0.00369232
+##omega    :2.00944,0.818948
+##send_tmp :4.19529e+06,0
+##norm2_tmp:8.39059e+06,0
+##diff_tmp :0.959773,9.49065e-22
+##lat_xyzt :524288
+QCU bistabcg: 9.099760306002281 sec
+QCU bistabcg: 9.115265202002774 sec
+
+               initQuda Total time =     1.103 secs
+                     init     =     1.103 secs ( 99.999%),	 with        2 calls at 5.515e+05 us per call
+        total accounted       =     1.103 secs ( 99.999%)
+        total missing         =     0.000 secs (  0.001%)
+
+          loadGaugeQuda Total time =    12.033 secs
+                 download     =     4.044 secs ( 33.608%),	 with       20 calls at 2.022e+05 us per call
+                   upload     =     3.291 secs ( 27.353%),	 with       10 calls at 3.291e+05 us per call
+                     init     =     0.775 secs (  6.438%),	 with       20 calls at 3.873e+04 us per call
+                  compute     =     3.922 secs ( 32.596%),	 with       20 calls at 1.961e+05 us per call
+                     free     =     0.000 secs (  0.002%),	 with       20 calls at 1.010e+01 us per call
+        total accounted       =    12.032 secs ( 99.996%)
+        total missing         =     0.000 secs (  0.004%)
+
+                endQuda Total time =     0.037 secs
+
+       initQuda-endQuda Total time =   129.766 secs
+
+                   QUDA Total time =    23.676 secs
+                 download     =     4.044 secs ( 17.081%),	 with       20 calls at 2.022e+05 us per call
+                   upload     =     3.291 secs ( 13.901%),	 with       10 calls at 3.291e+05 us per call
+                     init     =     1.878 secs (  7.931%),	 with       22 calls at 8.535e+04 us per call
+                  compute     =    14.425 secs ( 60.928%),	 with       30 calls at 4.808e+05 us per call
+                     free     =     0.000 secs (  0.001%),	 with       20 calls at 9.950e+00 us per call
+        total accounted       =    23.638 secs ( 99.842%)
+        total missing         =     0.037 secs (  0.158%)
+
+Device memory used = 1454.2 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 54.0 MiB
+Total host memory used >= 102.0 MiB
+
+==215175== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_215175.nvvp
+==215174== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_215174.nvvp
+~/qcu
