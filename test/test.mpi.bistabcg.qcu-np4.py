@@ -41,5 +41,5 @@ def compare(round):
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'QCU bistabcg: {t2 - t1} sec')
-for i in range(0, 1):
+for i in range(0, 10):
     compare(i)
