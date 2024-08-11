@@ -1,6 +1,5 @@
 #include "../include/qcu.h"
 #ifdef NCCL_WILSON_BISTABCG
-
 void ncclBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {
   // define for nccl_wilson_bistabcg
   LatticeSet _set;

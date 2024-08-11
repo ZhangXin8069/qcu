@@ -218,12 +218,10 @@ QCU bistabcg: 16.56027917099982 sec
 WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
 Saving 15 sets of cached parameters to .cache/profile_0.tsv
 Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
-
                initQuda Total time =     0.838 secs
                      init     =     0.838 secs ( 99.999%),	 with        2 calls at 4.192e+05 us per call
         total accounted       =     0.838 secs ( 99.999%)
         total missing         =     0.000 secs (  0.001%)
-
           loadGaugeQuda Total time =     0.097 secs
                  download     =     0.060 secs ( 61.755%),	 with        2 calls at 2.997e+04 us per call
                    upload     =     0.016 secs ( 16.543%),	 with        1 calls at 1.606e+04 us per call
@@ -232,11 +230,8 @@ Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
                      free     =     0.000 secs (  0.038%),	 with        2 calls at 1.850e+01 us per call
         total accounted       =     0.097 secs ( 99.951%)
         total missing         =     0.000 secs (  0.049%)
-
                 endQuda Total time =     0.032 secs
-
        initQuda-endQuda Total time =    18.941 secs
-
                    QUDA Total time =     1.056 secs
                  download     =     0.060 secs (  5.675%),	 with        2 calls at 2.997e+04 us per call
                    upload     =     0.016 secs (  1.520%),	 with        1 calls at 1.606e+04 us per call
@@ -245,12 +240,10 @@ Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
                      free     =     0.000 secs (  0.004%),	 with        2 calls at 1.850e+01 us per call
         total accounted       =     1.024 secs ( 96.924%)
         total missing         =     0.032 secs (  3.076%)
-
 Device memory used = 1380.0 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
 Page-locked host memory used = 48.0 MiB
 Total host memory used >= 66.0 MiB
-
 ~/qcu
