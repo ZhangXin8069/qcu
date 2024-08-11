@@ -9,6 +9,11 @@ struct LatticeWilsonDslash {
   cudaError_t err;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
   void run_nccl(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
     { // edge send part
       wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_X_]>>>(
@@ -185,8 +190,17 @@ struct LatticeWilsonDslash {
       }
     }
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
   }
   void run_mpi(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
     { // edge send part
       wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_X_]>>>(
@@ -435,6 +449,10 @@ struct LatticeWilsonDslash {
       }
     }
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
   }
   void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
     // run_mpi(fermion_out, fermion_in, gauge, parity);
