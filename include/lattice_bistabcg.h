@@ -330,7 +330,21 @@ struct LatticeBistabcg {
       printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
 #ifdef PRINT_NCCL_WILSON_BISTABCG
       set_ptr->_print();
-      print_vals();
+      print_vals(666);
+#endif
+    }
+    { // test again
+      diff(x_o, ans_o, _a_);
+      checkCudaErrors(cudaMemcpyAsync(
+          ((static_cast<LatticeComplex *>(host_vals)) + _diff_tmp_),
+          ((static_cast<LatticeComplex *>(device_vals)) + _diff_tmp_),
+          sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+          set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      printf("## difference: %.16f\n", host_vals[_diff_tmp_].real);
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+      set_ptr->_print();
+      print_vals(999);
 #endif
     }
   }
