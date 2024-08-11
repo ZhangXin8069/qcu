@@ -11,7 +11,7 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
-latt_size = [16, 16, 16, 32]
+latt_size = [32, 32, 32, 64]
 grid_size = [2, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Gx, Gy, Gz, Gt = grid_size
@@ -39,20 +39,20 @@ dslash.loadGauge(U)
 
 
 def compare(round):
-    # quda
-    cp.cuda.runtime.deviceSynchronize()
-    if rank == 0:
-        print('================quda=================')
-    t1 = perf_counter()
-    quda.invertQuda(quda_x.data_ptr, p.data_ptr, dslash.invert_param)
-    # D*x=p, to get quda_x
-    cp.cuda.runtime.deviceSynchronize()
-    t2 = perf_counter()
-    quda.MatQuda(quda_p.data_ptr, quda_x.data_ptr, dslash.invert_param)
-    # quda_p=D*quda_x
-    cp.cuda.runtime.deviceSynchronize()
-    print(f'rank {rank} quda x and x difference: , {cp.linalg.norm(quda_p.data - p.data) / cp.linalg.norm(quda_p.data)}, takes {t2 - t1} sec, norm_quda_x = {cp.linalg.norm(quda_x.data)}')
-    print(f'quda rank {rank} takes {t2 - t1} sec')
+    # # quda
+    # cp.cuda.runtime.deviceSynchronize()
+    # if rank == 0:
+    #     print('================quda=================')
+    # t1 = perf_counter()
+    # quda.invertQuda(quda_x.data_ptr, p.data_ptr, dslash.invert_param)
+    # # D*x=p, to get quda_x
+    # cp.cuda.runtime.deviceSynchronize()
+    # t2 = perf_counter()
+    # quda.MatQuda(quda_p.data_ptr, quda_x.data_ptr, dslash.invert_param)
+    # # quda_p=D*quda_x
+    # cp.cuda.runtime.deviceSynchronize()
+    # print(f'rank {rank} quda x and x difference: , {cp.linalg.norm(quda_p.data - p.data) / cp.linalg.norm(quda_p.data)}, takes {t2 - t1} sec, norm_quda_x = {cp.linalg.norm(quda_x.data)}')
+    # print(f'quda rank {rank} takes {t2 - t1} sec')
     # qcu
     param = qcu.QcuParam()
     param.lattice_size = latt_size
@@ -68,9 +68,9 @@ def compare(round):
     # D*x=p, to get qcu_x
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
-    quda.MatQuda(qcu_p.data_ptr, qcu_x.data_ptr, dslash.invert_param)
+    # quda.MatQuda(qcu_p.data_ptr, qcu_x.data_ptr, dslash.invert_param)
     # qcu_p=D*qcu_x
-    print(f'rank {rank} my x and x difference: , {cp.linalg.norm(qcu_p.data - p.data) / cp.linalg.norm(qcu_p.data)}, takes {t2 - t1} sec, my_x_norm = {cp.linalg.norm(qcu_x.data)}')
+    # print(f'rank {rank} my x and x difference: , {cp.linalg.norm(qcu_p.data - p.data) / cp.linalg.norm(qcu_p.data)}, takes {t2 - t1} sec, my_x_norm = {cp.linalg.norm(qcu_x.data)}')
     print(f'qcu rank {rank} takes {t2 - t1} sec')
     print('============================')
 
