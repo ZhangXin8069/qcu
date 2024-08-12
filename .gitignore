@@ -16,4 +16,5 @@
 *.profile
 *.sqlite
 *.sw*
+*.metadata
 _*
