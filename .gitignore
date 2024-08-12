@@ -16,4 +16,4 @@
 *.profile
 *.sqlite
 *.swp
-
+_*
