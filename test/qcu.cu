@@ -1,13 +1,13 @@
+#include "checker_utils.h"
+#include "cublas_utils.h"
+#include "curand_utils.h"
+#include "timer_utils.h"
 #include <cstdio>
 #include <cstdlib>
 #include <cublas_v2.h>
 #include <cuda_runtime.h>
 #include <curand_kernel.h>
 #include <vector>
-#include "cublas_utils.h"
-#include "curand_utils.h"
-#include "checker_utils.h"
-#include "timer_utils.h"
 using data_type = cuDoubleComplex;
 int main(int argc, char *argv[]) {
   cublasHandle_t cublasH = NULL;
