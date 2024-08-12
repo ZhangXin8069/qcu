@@ -15,5 +15,5 @@
 *.nsys-rep
 *.profile
 *.sqlite
-*.swp
-
+*.sw*
+_*
