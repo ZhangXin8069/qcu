@@ -10,6 +10,7 @@
 *.egg-info
 *__pycache__
 *.o
+*.out
 *.so
 *.nvvp
 *.nsys-rep
@@ -17,4 +18,5 @@
 *.sqlite
 *.sw*
 *.metadata
+*RemoteSystemsTempFiles
 _*
