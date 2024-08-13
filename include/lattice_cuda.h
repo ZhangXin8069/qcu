@@ -1,6 +1,7 @@
 #ifndef _LATTICE_CUDA_H
 #define _LATTICE_CUDA_H
 #include "./include.h"
+#include "./lattice_set.h"
 
 __global__ void give_random_value(void *device_random_value,
                                   unsigned long seed);
@@ -90,7 +91,6 @@ template <> struct traits<cuDoubleComplex> {
     return make_cuDoubleComplex(v.x * f, v.y * f);
   }
 };
-
 /*
 template <typename T>
 void print_matrix(const int &m, const int &n, const T *A, const int &lda);
@@ -326,4 +326,17 @@ private:
         // Synchronize and measure timing
         auto time = timer.seconds();
 */
+
+__global__ void _tzyxsc2sctzyx(void *device_fermi, void *device___fermi,
+                               int lat_4dim);
+__global__ void _sctzyx2tzyxsc(void *device_fermi, void *device___fermi,
+                               int lat_4dim);
+void tzyxsc2sctzyx(void *fermion, LatticeSet *set_ptr);
+void sctzyx2tzyxsc(void *fermion, LatticeSet *set_ptr);
+__global__ void _tzyxdcc2dcctzyx(void *device_gauge, void *device___gauge,
+                                 int lat_4dim);
+__global__ void _dcctzyx2tzyxdcc(void *device_gauge, void *device___gauge,
+                                 int lat_4dim);
+void tzyxdcc2dcctzyx(void *gauge, LatticeSet *set_ptr);
+void dcctzyx2tzyxdcc(void *gauge, LatticeSet *set_ptr);
 #endif

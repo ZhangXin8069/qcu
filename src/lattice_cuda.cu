@@ -176,4 +176,106 @@ void part_reduce(void *device_src_vec, void *device_dest_val,
 /*
 Copy from WangJianCheng.
 */
+
+__global__ void _tzyxsc2sctzyx(void *device_fermi, void *device___fermi,
+                               int lat_4dim) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  LatticeComplex *fermion =
+      ((static_cast<LatticeComplex *>(device_fermi)) + idx * _LAT_SC_);
+  LatticeComplex *_fermi =
+      ((static_cast<LatticeComplex *>(device___fermi)) + idx);
+  for (int i = 0; i < _LAT_SC_; i++) {
+    _fermi[i * lat_4dim] = fermion[i];
+  }
+}
+__global__ void _sctzyx2tzyxsc(void *device_fermi, void *device___fermi,
+                               int lat_4dim) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  LatticeComplex *fermion =
+      ((static_cast<LatticeComplex *>(device_fermi)) + idx);
+  LatticeComplex *_fermi =
+      ((static_cast<LatticeComplex *>(device___fermi)) + idx * _LAT_SC_);
+  for (int i = 0; i < _LAT_SC_; i++) {
+    _fermi[i] = fermion[i * lat_4dim];
+  }
+}
+void tzyxsc2sctzyx(void *fermion, LatticeSet *set_ptr) {
+  void *_fermi;
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+  checkCudaErrors(cudaMallocAsync(
+      &_fermi, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
+  _tzyxsc2sctzyx<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+      fermion, _fermi, set_ptr->lat_4dim);
+  CUBLAS_CHECK(
+      cublasDcopy(set_ptr->cublasH,
+                  set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                  (double *)_fermi, 1, (double *)fermion, 1));
+  checkCudaErrors(cudaFreeAsync(_fermi, set_ptr->stream));
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+}
+void sctzyx2tzyxsc(void *fermion, LatticeSet *set_ptr) {
+  void *_fermi;
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+  checkCudaErrors(cudaMallocAsync(
+      &_fermi, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
+  _sctzyx2tzyxsc<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+      fermion, _fermi, set_ptr->lat_4dim);
+  CUBLAS_CHECK(
+      cublasDcopy(set_ptr->cublasH,
+                  set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                  (double *)_fermi, 1, (double *)fermion, 1));
+  checkCudaErrors(cudaFreeAsync(_fermi, set_ptr->stream));
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+}
+__global__ void _tzyxdcc2dcctzyx(void *device_gauge, void *device___gauge,
+                                 int lat_4dim) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  LatticeComplex *gauge =
+      ((static_cast<LatticeComplex *>(device_gauge)) + idx * _LAT_DCC_);
+  LatticeComplex *_gauge =
+      ((static_cast<LatticeComplex *>(device___gauge)) + idx);
+  for (int i = 0; i < _LAT_DCC_; i++) {
+    _gauge[i * lat_4dim] = gauge[i];
+  }
+}
+__global__ void _dcctzyx2tzyxdcc(void *device_gauge, void *device___gauge,
+                                 int lat_4dim) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  LatticeComplex *gauge = ((static_cast<LatticeComplex *>(device_gauge)) + idx);
+  LatticeComplex *_gauge =
+      ((static_cast<LatticeComplex *>(device___gauge)) + idx * _LAT_DCC_);
+  for (int i = 0; i < _LAT_DCC_; i++) {
+    _gauge[i] = gauge[i * lat_4dim];
+  }
+}
+void tzyxdcc2dcctzyx(void *gauge, LatticeSet *set_ptr) {
+  void *_gauge;
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+  checkCudaErrors(
+      cudaMallocAsync(&_gauge, set_ptr->lat_4dim_DCC * sizeof(LatticeComplex),
+                      set_ptr->stream));
+  _tzyxdcc2dcctzyx<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+      gauge, _gauge, set_ptr->lat_4dim);
+  CUBLAS_CHECK(
+      cublasDcopy(set_ptr->cublasH,
+                  set_ptr->lat_4dim_DCC * sizeof(data_type) / sizeof(double),
+                  (double *)_gauge, 1, (double *)gauge, 1));
+  checkCudaErrors(cudaFreeAsync(_gauge, set_ptr->stream));
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+}
+void dcctzyx2tzyxdcc(void *gauge, LatticeSet *set_ptr) {
+  void *_gauge;
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+  checkCudaErrors(
+      cudaMallocAsync(&_gauge, set_ptr->lat_4dim_DCC * sizeof(LatticeComplex),
+                      set_ptr->stream));
+  _dcctzyx2tzyxdcc<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+      gauge, _gauge, set_ptr->lat_4dim);
+  CUBLAS_CHECK(
+      cublasDcopy(set_ptr->cublasH,
+                  set_ptr->lat_4dim_DCC * sizeof(data_type) / sizeof(double),
+                  (double *)_gauge, 1, (double *)gauge, 1));
+  checkCudaErrors(cudaFreeAsync(_gauge, set_ptr->stream));
+  checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+}
 #endif
