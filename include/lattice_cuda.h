@@ -333,10 +333,10 @@ __global__ void _sctzyx2tzyxsc(void *device_fermi, void *device___fermi,
                                int lat_4dim);
 void tzyxsc2sctzyx(void *fermion, LatticeSet *set_ptr);
 void sctzyx2tzyxsc(void *fermion, LatticeSet *set_ptr);
-__global__ void _tzyxdcc2dcctzyx(void *device_gauge, void *device___gauge,
+__global__ void _dptzyxcc2ccdptzyx(void *device_gauge, void *device___gauge,
                                  int lat_4dim);
-__global__ void _dcctzyx2tzyxdcc(void *device_gauge, void *device___gauge,
+__global__ void _ccdptzyx2dptzyxcc(void *device_gauge, void *device___gauge,
                                  int lat_4dim);
-void tzyxdcc2dcctzyx(void *gauge, LatticeSet *set_ptr);
-void dcctzyx2tzyxdcc(void *gauge, LatticeSet *set_ptr);
+void dptzyxcc2ccdptzyx(void *gauge, LatticeSet *set_ptr);
+void ccdptzyx2dptzyxcc(void *gauge, LatticeSet *set_ptr);
 #endif

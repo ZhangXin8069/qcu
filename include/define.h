@@ -251,7 +251,7 @@
 #define give_u(U, tmp_U, lat_tzyx)                                             \
   {                                                                            \
     for (int i = 0; i < 6; i++) {                                              \
-      U[i] = tmp_U[i * lat_tzyx];                                              \
+      U[i] = tmp_U[i * _LAT_D_ * _EVENODD_ * lat_tzyx];                        \
     }                                                                          \
     U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
@@ -281,22 +281,22 @@
       origin_dest[i * lat_tzyx] += dest[i];                                    \
     }                                                                          \
   }
-#define give_recv(recv, origin_recv, lat_tzyx)                                 \
+#define give_recv(recv, origin_recv, lat_3dim)                                 \
   {                                                                            \
     for (int i = 0; i < _LAT_HALF_SC_; i++) {                                  \
-      recv[i] = origin_recv[i * lat_tzyx];                                     \
+      recv[i] = origin_recv[i * lat_3dim];                                     \
     }                                                                          \
   }
-#define give_send(origin_send, send, lat_tzyx)                                 \
+#define give_send(origin_send, send, lat_3dim)                                 \
   {                                                                            \
     for (int i = 0; i < _LAT_HALF_SC_; i++) {                                  \
-      origin_send[i * lat_tzyx] = send[i];                                     \
+      origin_send[i * lat_3dim] = send[i];                                     \
     }                                                                          \
   }
-#define give_send_x(origin_send, send, lat_tzyx, _)                            \
+#define give_send_x(origin_send, send, lat_3dim, _)                            \
   {                                                                            \
     for (int i = 0; i < _LAT_HALF_SC_ * _; i++) {                              \
-      origin_send[i * lat_tzyx] = send[i];                                     \
+      origin_send[i * lat_3dim] = send[i];                                     \
     }                                                                          \
   }
 #define add_value(U, tmp, n)                                                   \
