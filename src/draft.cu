@@ -7,6 +7,9 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 
   _set.give(param->lattice_size);
   _set.init();
+  dptzyxcc2ccdptzyx(gauge, &_set);
+  tzyxsc2sctzyx(fermion_in, &_set);
+  tzyxsc2sctzyx(fermion_out, &_set);
   auto start = std::chrono::high_resolution_clock::now();
   wilson_dslash<<<_set.gridDim, _set.blockDim>>>(gauge, fermion_in, fermion_out,
                                                  _set.device_lat_xyzt, parity);
@@ -18,6 +21,9 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   printf("wilson dslash total time: (without malloc free memcpy) :%.9lf "
          "sec\n",
          double(duration) / 1e9);
+  ccdptzyx2dptzyxcc(gauge, &_set);
+  sctzyx2tzyxsc(fermion_in, &_set);
+  sctzyx2tzyxsc(fermion_out, &_set);
   _set.end();
 }
 void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,

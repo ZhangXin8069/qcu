@@ -28,8 +28,6 @@ print(f'single latt size = {latt_size}')
 # p = LatticeFermion(latt_size, cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
 p = LatticeFermion(latt_size, cp.ones(
     [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
-x = LatticeFermion(latt_size, cp.ones(
-    [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
 qcu_p = LatticeFermion(latt_size)
 quda_p = LatticeFermion(latt_size)
 qcu_x = LatticeFermion(latt_size)
@@ -37,7 +35,6 @@ quda_x = LatticeFermion(latt_size)
 dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu, coeff_t,
                         coeff_r, multigrid=False, anti_periodic_t=False)
 U = gauge_utils.gaussGauge(latt_size, 0)
-qcu_U = gauge_utils.gaussGauge(latt_size, 0)
 dslash.loadGauge(U)
 
 
@@ -64,17 +61,11 @@ def compare(round):
     cp.cuda.runtime.deviceSynchronize()
     if rank == 0:
         print('===============qcu==================')
-    qcu_x.data[:] = x.data
-    qcu_p.data[:] = p.data
-    qcu_U.data[:] = U.data
     t1 = perf_counter()
-    # qcu.ncclBistabCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
+    qcu.ncclBistabCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
     # qcu.ncclBistabCgQcu(qcu_x.data_ptr,
     #                     quda_x.data_ptr, U.data_ptr, param, grid)
     # D*x=p, to get qcu_x
-    # test
-    qcu.ncclBistabCgQcu(qcu_x.data_ptr, qcu_p.data_ptr,
-                        qcu_U.data_ptr, param, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     quda.MatQuda(qcu_p.data_ptr, qcu_x.data_ptr, dslash.invert_param)
