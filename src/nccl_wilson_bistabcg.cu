@@ -1,4 +1,5 @@
 #include "../include/qcu.h"
+#include "lattice_set.h"
 #ifdef NCCL_WILSON_BISTABCG
 
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
@@ -7,11 +8,17 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   LatticeSet _set;
   _set.give(param->lattice_size, grid->lattice_size);
   _set.init();
+  tzyxdcc2dcctzyx(gauge, &_set);
+  tzyxsc2sctzyx(fermion_in, &_set);
+  tzyxsc2sctzyx(fermion_out, &_set);
   LatticeBistabcg _cg;
   _cg.give(&_set);
   _cg.init(fermion_out, fermion_in, gauge);
   _cg.run();
   _cg.end();
+  dcctzyx2tzyxdcc(gauge, &_set);
+  sctzyx2tzyxsc(fermion_in, &_set);
+  sctzyx2tzyxsc(fermion_out, &_set);
   _set.end();
 }
 #endif

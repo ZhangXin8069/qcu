@@ -1,21 +1,18 @@
 #include "../include/qcu.h"
+#include "define.h"
 #ifdef CLOVER_DSLASH
-
+// wait for rebuild
 __global__ void make_clover(void *device_U, void *device_clover,
-                            void *device_xyztsc, const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *xyztsc = static_cast<int *>(device_xyztsc);
-  const int lat_x = xyztsc[_X_];
-  const int lat_y = xyztsc[_Y_];
-  const int lat_z = xyztsc[_Z_];
-  const int lat_t = xyztsc[_T_];
-  const int lat_xcc = xyztsc[_XCC_];
-  const int lat_yxcc = xyztsc[_YXCC_];
-  const int lat_zyxcc = xyztsc[_ZYXCC_];
-  const int lat_tzyxcc = xyztsc[_TZYXCC_];
-  const int lat_xsc = xyztsc[_XSC_];
-  const int lat_yxsc = xyztsc[_YXSC_];
-  const int lat_zyxsc = xyztsc[_ZYXSC_];
+                            void *device_lat_xyzt, const int device_parity) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  const int lat_x = lat_xyzt[_X_];
+  const int lat_y = lat_xyzt[_Y_];
+  const int lat_z = lat_xyzt[_Z_];
+  const int lat_t = lat_xyzt[_T_];
+  const int lat_tzyx = lat_xyzt[_XYZT_];
+  const int lat_tzyxcc = lat_tzyx * _LAT_CC_;
   int move0;
   int move1;
   move0 = lat_x * lat_y * lat_z;
@@ -30,12 +27,9 @@ __global__ void make_clover(void *device_U, void *device_clover,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex tmp0(0.0, 0.0);
-  LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
-       z * lat_yxcc + y * lat_xcc + x * _LAT_CC_);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
   LatticeComplex *origin_clover =
-      ((static_cast<LatticeComplex *>(device_clover)) +
-       (t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_clover)) + idx);
   LatticeComplex *tmp_U;
   LatticeComplex tmp1[_LAT_CC_];
   LatticeComplex tmp2[_LAT_CC_];
@@ -844,16 +838,16 @@ __global__ void make_clover(void *device_U, void *device_clover,
   give_ptr(origin_clover, clover, _LAT_SCSC_);
 }
 
-__global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
+__global__ void inverse_clover(void *device_clover, void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
   {
-    int *xyztsc = static_cast<int *>(device_xyztsc);
-    const int lat_x = xyztsc[_X_];
-    const int lat_y = xyztsc[_Y_];
-    const int lat_z = xyztsc[_Z_];
-    const int lat_xsc = xyztsc[_XSC_];
-    const int lat_yxsc = xyztsc[_YXSC_];
-    const int lat_zyxsc = xyztsc[_ZYXSC_];
+    int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+    const int lat_x = lat_xyzt[_X_];
+    const int lat_y = lat_xyzt[_Y_];
+    const int lat_z = lat_xyzt[_Z_];
+    const int lat_xsc = lat_xyzt[_XSC_];
+    const int lat_yxsc = lat_xyzt[_YXSC_];
+    const int lat_zyxsc = lat_xyzt[_ZYXSC_];
     int tmp1;
     int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
     tmp1 = lat_x * lat_y * lat_z;
@@ -864,10 +858,7 @@ __global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
     tmp2 -= z * tmp1;
     const int y = tmp2 / lat_x;
     const int x = tmp2 - y * lat_x;
-    origin_clover =
-        ((static_cast<LatticeComplex *>(device_clover)) +
-         (t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_) *
-             _LAT_SC_);
+    origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
   }
   {
     LatticeComplex pivot;
@@ -881,17 +872,17 @@ __global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
 }
 
 __global__ void give_clover(void *device_clover, void *device_dest,
-                            void *device_xyztsc) {
+                            void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
   LatticeComplex *origin_dest;
   {
-    int *xyztsc = static_cast<int *>(device_xyztsc);
-    const int lat_x = xyztsc[_X_];
-    const int lat_y = xyztsc[_Y_];
-    const int lat_z = xyztsc[_Z_];
-    const int lat_xsc = xyztsc[_XSC_];
-    const int lat_yxsc = xyztsc[_YXSC_];
-    const int lat_zyxsc = xyztsc[_ZYXSC_];
+    int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+    const int lat_x = lat_xyzt[_X_];
+    const int lat_y = lat_xyzt[_Y_];
+    const int lat_z = lat_xyzt[_Z_];
+    const int lat_xsc = lat_xyzt[_XSC_];
+    const int lat_yxsc = lat_xyzt[_YXSC_];
+    const int lat_zyxsc = lat_xyzt[_ZYXSC_];
     int tmp1;
     int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
     tmp1 = lat_x * lat_y * lat_z;
@@ -902,10 +893,7 @@ __global__ void give_clover(void *device_clover, void *device_dest,
     tmp2 -= z * tmp1;
     const int y = tmp2 / lat_x;
     const int x = tmp2 - y * lat_x;
-    origin_clover =
-        ((static_cast<LatticeComplex *>(device_clover)) +
-         (t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_) *
-             _LAT_SC_);
+    origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
     origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
                    t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_);
   }
@@ -946,7 +934,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // make clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    make_clover<<<gridDim, blockDim>>>(gauge, clover, _set.device_xyztsc,
+    make_clover<<<gridDim, blockDim>>>(gauge, clover, _set.device_lat_xyzt,
                                        parity);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
@@ -962,7 +950,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // inverse clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    inverse_clover<<<gridDim, blockDim>>>(clover, _set.device_xyztsc);
+    inverse_clover<<<gridDim, blockDim>>>(clover, _set.device_lat_xyzt);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -978,7 +966,8 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // give clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    give_clover<<<gridDim, blockDim>>>(clover, fermion_out, _set.device_xyztsc);
+    give_clover<<<gridDim, blockDim>>>(clover, fermion_out,
+                                       _set.device_lat_xyzt);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
