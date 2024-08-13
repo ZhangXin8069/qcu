@@ -41,7 +41,7 @@ struct LatticeSet {
   void *device_recv_vec[_WARDS_];
   void *device_lat_xyzt;
   void give(int *_param_lat_size, int *_grid_lat_size) {
-    lat_1dim[_X_] = _param_lat_size[_X_] / _EVENODD_; // even-odd
+    lat_1dim[_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
     lat_1dim[_Z_] = _param_lat_size[_Z_];
     lat_1dim[_T_] = _param_lat_size[_T_];
