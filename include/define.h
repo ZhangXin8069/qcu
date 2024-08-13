@@ -45,7 +45,7 @@
 #define _XYZ_ 3
 #define _EVEN_ 0
 #define _ODD_ 1
-#define _EVENODD_ 2
+#define _EVEN_ODD_ 2
 #define _LAT_C_ 3
 #define _LAT_S_ 4
 #define _LAT_CC_ 9
@@ -251,7 +251,7 @@
 #define give_u(U, tmp_U, lat_tzyx)                                             \
   {                                                                            \
     for (int i = 0; i < 6; i++) {                                              \
-      U[i] = tmp_U[i * _LAT_D_ * _EVENODD_ * lat_tzyx];                        \
+      U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                        \
     }                                                                          \
     U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
