@@ -177,24 +177,24 @@ void part_reduce(void *device_src_vec, void *device_dest_val,
 Copy from WangJianCheng.
 */
 
-__global__ void _tzyxsc2sctzyx(void *device_fermi, void *device___fermi,
+__global__ void _tzyxsc2sctzyx(void *device_fermi, void *device__fermi,
                                int lat_4dim) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   LatticeComplex *fermion =
       ((static_cast<LatticeComplex *>(device_fermi)) + idx * _LAT_SC_);
   LatticeComplex *_fermi =
-      ((static_cast<LatticeComplex *>(device___fermi)) + idx);
+      ((static_cast<LatticeComplex *>(device__fermi)) + idx);
   for (int i = 0; i < _LAT_SC_; i++) {
     _fermi[i * lat_4dim] = fermion[i];
   }
 }
-__global__ void _sctzyx2tzyxsc(void *device_fermi, void *device___fermi,
+__global__ void _sctzyx2tzyxsc(void *device_fermi, void *device__fermi,
                                int lat_4dim) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   LatticeComplex *fermion =
       ((static_cast<LatticeComplex *>(device_fermi)) + idx);
   LatticeComplex *_fermi =
-      ((static_cast<LatticeComplex *>(device___fermi)) + idx * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device__fermi)) + idx * _LAT_SC_);
   for (int i = 0; i < _LAT_SC_; i++) {
     _fermi[i] = fermion[i * lat_4dim];
   }
@@ -227,23 +227,23 @@ void sctzyx2tzyxsc(void *fermion, LatticeSet *set_ptr) {
   checkCudaErrors(cudaFreeAsync(_fermi, set_ptr->stream));
   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
 }
-__global__ void _tzyxdcc2dcctzyx(void *device_gauge, void *device___gauge,
+__global__ void _tzyxdcc2dcctzyx(void *device_gauge, void *device__gauge,
                                  int lat_4dim) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   LatticeComplex *gauge =
       ((static_cast<LatticeComplex *>(device_gauge)) + idx * _LAT_DCC_);
   LatticeComplex *_gauge =
-      ((static_cast<LatticeComplex *>(device___gauge)) + idx);
+      ((static_cast<LatticeComplex *>(device__gauge)) + idx);
   for (int i = 0; i < _LAT_DCC_; i++) {
     _gauge[i * lat_4dim] = gauge[i];
   }
 }
-__global__ void _dcctzyx2tzyxdcc(void *device_gauge, void *device___gauge,
+__global__ void _dcctzyx2tzyxdcc(void *device_gauge, void *device__gauge,
                                  int lat_4dim) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   LatticeComplex *gauge = ((static_cast<LatticeComplex *>(device_gauge)) + idx);
   LatticeComplex *_gauge =
-      ((static_cast<LatticeComplex *>(device___gauge)) + idx * _LAT_DCC_);
+      ((static_cast<LatticeComplex *>(device__gauge)) + idx * _LAT_DCC_);
   for (int i = 0; i < _LAT_DCC_; i++) {
     _gauge[i] = gauge[i * lat_4dim];
   }
