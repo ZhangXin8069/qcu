@@ -1,21 +1,21 @@
 #include "../include/qcu.h"
+#include "define.h"
 #ifdef CLOVER_DSLASH
-
+// wait for rebuild
 __global__ void make_clover(void *device_U, void *device_clover,
-                            void *device_xyztsc, const int device_parity) {
-  int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *xyztsc = static_cast<int *>(device_xyztsc);
-  const int lat_x = xyztsc[_X_];
-  const int lat_y = xyztsc[_Y_];
-  const int lat_z = xyztsc[_Z_];
-  const int lat_t = xyztsc[_T_];
-  const int lat_xcc = xyztsc[_XCC_];
-  const int lat_yxcc = xyztsc[_YXCC_];
-  const int lat_zyxcc = xyztsc[_ZYXCC_];
-  const int lat_tzyxcc = xyztsc[_TZYXCC_];
-  const int lat_xsc = xyztsc[_XSC_];
-  const int lat_yxsc = xyztsc[_YXSC_];
-  const int lat_zyxsc = xyztsc[_ZYXSC_];
+                            void *device_lat_xyzt, const int device_parity) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  const int lat_x = lat_xyzt[_X_];
+  const int lat_y = lat_xyzt[_Y_];
+  const int lat_z = lat_xyzt[_Z_];
+  const int lat_t = lat_xyzt[_T_];
+  const int lat_xcc = lat_x * _LAT_CC_;
+  const int lat_yxcc = lat_y * lat_xcc;
+  const int lat_zyxcc = lat_z * lat_yxcc;
+  const int lat_tzyx = lat_xyzt[_XYZT_];
+  const int lat_tzyxcc = lat_tzyx * _LAT_CC_;
   int move0;
   int move1;
   move0 = lat_x * lat_y * lat_z;
@@ -30,12 +30,9 @@ __global__ void make_clover(void *device_U, void *device_clover,
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex tmp0(0.0, 0.0);
-  LatticeComplex *origin_U =
-      ((static_cast<LatticeComplex *>(device_U)) + t * lat_zyxcc +
-       z * lat_yxcc + y * lat_xcc + x * _LAT_CC_);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
   LatticeComplex *origin_clover =
-      ((static_cast<LatticeComplex *>(device_clover)) +
-       (t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_) * _LAT_SC_);
+      ((static_cast<LatticeComplex *>(device_clover)) + idx);
   LatticeComplex *tmp_U;
   LatticeComplex tmp1[_LAT_CC_];
   LatticeComplex tmp2[_LAT_CC_];
@@ -55,38 +52,38 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x+1,y,z,t;y
     move_forward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
     //// x,y+1,z,t;x;dag
     move_forward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;y;dag
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x-1,y+1,z,t;x;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     move_forward(move1, y, lat_y);
     tmp_U =
         (origin_U + move0 * _LAT_CC_ + move1 * lat_xcc + parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -94,14 +91,14 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x-1,y,z,t;x
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -109,13 +106,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     //// x-1,y,z,t;x;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x-1,y-1,z,t;y;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     move_backward(move1, y, lat_y);
     tmp_U = (origin_U + move0 * _LAT_CC_ + move1 * lat_xcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -124,7 +121,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, y, lat_y);
     tmp_U =
         (origin_U + move0 * _LAT_CC_ + move1 * lat_xcc + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -132,7 +129,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -141,11 +138,11 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y-1,z,t;x
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -154,13 +151,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, y, lat_y);
     tmp_U = (origin_U + move0 * _LAT_CC_ + move1 * lat_xcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;x;dag
     tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -183,38 +180,38 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x+1,y,z,t;z
     move_forward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
     //// x,y,z+1,t;x;dag
     move_forward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;z;dag
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
   {
     //// x,y,z,t;z
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x-1,y,z+1,t;x;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     move_forward(move1, z, lat_z);
     tmp_U =
         (origin_U + move0 * _LAT_CC_ + move1 * lat_yxcc + parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -222,14 +219,14 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x-1,y,z,t;x
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -237,13 +234,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     //// x-1,y,z,t;x;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x-1,y,z-1,t;z;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     move_backward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * _LAT_CC_ + move1 * lat_yxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -252,7 +249,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, z, lat_z);
     tmp_U =
         (origin_U + move0 * _LAT_CC_ + move1 * lat_yxcc + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -260,7 +257,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -269,11 +266,11 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z-1,t;x
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -282,13 +279,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * _LAT_CC_ + move1 * lat_yxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;x;dag
     tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -311,38 +308,38 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     //// x,y,z,t;x
     tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x+1,y,z,t;t
     move_forward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
     //// x,y,z,t+1;x;dag
     move_forward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;t;dag
     tmp_U = (origin_U + lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
   {
     //// x,y,z,t;t
     tmp_U = (origin_U + lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x-1,y,z,t+1;x;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     move_forward(move1, t, lat_t);
     tmp_U =
         (origin_U + move0 * _LAT_CC_ + move1 * lat_zyxcc + parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -350,14 +347,14 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x-1,y,z,t;x
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -365,13 +362,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     //// x-1,y,z,t;x;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     tmp_U = (origin_U + move0 * _LAT_CC_ + (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x-1,y,z,t-1;t;dag
     move_backward_x(move0, x, lat_x, eo, parity);
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * _LAT_CC_ + move1 * lat_zyxcc +
              lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -380,7 +377,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, t, lat_t);
     tmp_U =
         (origin_U + move0 * _LAT_CC_ + move1 * lat_zyxcc + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -388,7 +385,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -397,11 +394,11 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z,t-1;x
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -410,13 +407,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * _LAT_CC_ + move1 * lat_zyxcc +
              lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;x;dag
     tmp_U = (origin_U + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -439,12 +436,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y+1,z,t;z
     move_forward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -452,26 +449,26 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_forward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;z;dag
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
   {
     //// x,y,z,t;z
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y-1,z+1,t;y;dag
     move_backward(move0, y, lat_y);
     move_forward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_yxcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -479,7 +476,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -487,7 +484,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -496,13 +493,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y-1,z-1,t;z;dag
     move_backward(move0, y, lat_y);
     move_backward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_yxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -511,7 +508,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_yxcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -519,7 +516,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -528,12 +525,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z-1,t;y
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -542,13 +539,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, z, lat_z);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_yxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;y;dag
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -571,12 +568,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     //// x,y,z,t;y
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y+1,z,t;t
     move_forward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -584,26 +581,26 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_forward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;t;dag
     tmp_U = (origin_U + lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
   {
     //// x,y,z,t;t
     tmp_U = (origin_U + lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y-1,z,t+1;y;dag
     move_backward(move0, y, lat_y);
     move_forward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_zyxcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -611,7 +608,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -619,7 +616,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -628,13 +625,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, y, lat_y);
     tmp_U = (origin_U + move0 * lat_xcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y-1,z,t-1;t;dag
     move_backward(move0, y, lat_y);
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_zyxcc +
              lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -643,7 +640,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_zyxcc + lat_tzyxcc * 2 +
              parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -651,7 +648,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -660,12 +657,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z,t-1;y
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * 2 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -674,13 +671,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_xcc + move1 * lat_zyxcc +
              lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;y;dag
     tmp_U = (origin_U + lat_tzyxcc * 2 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -704,12 +701,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     //// x,y,z,t;z
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z+1,t;t
     move_forward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -717,26 +714,26 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_forward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;t;dag
     tmp_U = (origin_U + lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
   {
     //// x,y,z,t;t
     tmp_U = (origin_U + lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z-1,t+1;z;dag
     move_backward(move0, z, lat_z);
     move_forward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_yxcc + move1 * lat_zyxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -744,7 +741,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -752,7 +749,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -761,13 +758,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, z, lat_z);
     tmp_U = (origin_U + move0 * lat_yxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z-1,t-1;t;dag
     move_backward(move0, z, lat_z);
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_yxcc + move1 * lat_zyxcc +
              lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -776,7 +773,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_yxcc + move1 * lat_zyxcc + lat_tzyxcc * 4 +
              parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
@@ -784,7 +781,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -793,12 +790,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * _LAT_HALF_SC_ +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     //// x,y,z,t-1;z
     move_backward(move0, t, lat_t);
     tmp_U = (origin_U + move0 * lat_zyxcc + lat_tzyxcc * 4 +
              (1 - parity) * lat_tzyxcc);
-    give_u(tmp2, tmp_U);
+    give_u(tmp2, tmp_U, lat_tzyx);
     mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
   {
@@ -807,13 +804,13 @@ __global__ void make_clover(void *device_U, void *device_clover,
     move_backward(move1, t, lat_t);
     tmp_U = (origin_U + move0 * lat_yxcc + move1 * lat_zyxcc +
              lat_tzyxcc * _LAT_HALF_SC_ + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
   {
     //// x,y,z,t;z;dag
     tmp_U = (origin_U + lat_tzyxcc * 4 + parity * lat_tzyxcc);
-    give_u(tmp1, tmp_U);
+    give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
   add_ptr(U, tmp3, _LAT_CC_);
@@ -844,30 +841,12 @@ __global__ void make_clover(void *device_U, void *device_clover,
   give_ptr(origin_clover, clover, _LAT_SCSC_);
 }
 
-__global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
+__global__ void inverse_clover(void *device_clover, void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
   {
-    int *xyztsc = static_cast<int *>(device_xyztsc);
-    const int lat_x = xyztsc[_X_];
-    const int lat_y = xyztsc[_Y_];
-    const int lat_z = xyztsc[_Z_];
-    const int lat_xsc = xyztsc[_XSC_];
-    const int lat_yxsc = xyztsc[_YXSC_];
-    const int lat_zyxsc = xyztsc[_ZYXSC_];
-    int tmp1;
-    int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
-    tmp1 = lat_x * lat_y * lat_z;
-    const int t = tmp2 / tmp1;
-    tmp2 -= t * tmp1;
-    tmp1 = lat_x * lat_y;
-    const int z = tmp2 / tmp1;
-    tmp2 -= z * tmp1;
-    const int y = tmp2 / lat_x;
-    const int x = tmp2 - y * lat_x;
-    origin_clover =
-        ((static_cast<LatticeComplex *>(device_clover)) +
-         (t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_) *
-             _LAT_SC_);
+    // int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
   }
   {
     LatticeComplex pivot;
@@ -881,33 +860,14 @@ __global__ void inverse_clover(void *device_clover, void *device_xyztsc) {
 }
 
 __global__ void give_clover(void *device_clover, void *device_dest,
-                            void *device_xyztsc) {
+                            void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
   LatticeComplex *origin_dest;
   {
-    int *xyztsc = static_cast<int *>(device_xyztsc);
-    const int lat_x = xyztsc[_X_];
-    const int lat_y = xyztsc[_Y_];
-    const int lat_z = xyztsc[_Z_];
-    const int lat_xsc = xyztsc[_XSC_];
-    const int lat_yxsc = xyztsc[_YXSC_];
-    const int lat_zyxsc = xyztsc[_ZYXSC_];
-    int tmp1;
-    int tmp2 = blockIdx.x * blockDim.x + threadIdx.x;
-    tmp1 = lat_x * lat_y * lat_z;
-    const int t = tmp2 / tmp1;
-    tmp2 -= t * tmp1;
-    tmp1 = lat_x * lat_y;
-    const int z = tmp2 / tmp1;
-    tmp2 -= z * tmp1;
-    const int y = tmp2 / lat_x;
-    const int x = tmp2 - y * lat_x;
-    origin_clover =
-        ((static_cast<LatticeComplex *>(device_clover)) +
-         (t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_) *
-             _LAT_SC_);
-    origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
-                   t * lat_zyxsc + z * lat_yxsc + y * lat_xsc + x * _LAT_SC_);
+    // int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
+    origin_dest = ((static_cast<LatticeComplex *>(device_dest)) + idx);
   }
   {
     LatticeComplex clover[_LAT_SCSC_];
@@ -946,7 +906,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // make clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    make_clover<<<gridDim, blockDim>>>(gauge, clover, _set.device_xyztsc,
+    make_clover<<<gridDim, blockDim>>>(gauge, clover, _set.device_lat_xyzt,
                                        parity);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
@@ -962,7 +922,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // inverse clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    inverse_clover<<<gridDim, blockDim>>>(clover, _set.device_xyztsc);
+    inverse_clover<<<gridDim, blockDim>>>(clover, _set.device_lat_xyzt);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -978,7 +938,8 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // give clover
     checkCudaErrors(cudaDeviceSynchronize());
     auto start = std::chrono::high_resolution_clock::now();
-    give_clover<<<gridDim, blockDim>>>(clover, fermion_out, _set.device_xyztsc);
+    give_clover<<<gridDim, blockDim>>>(clover, fermion_out,
+                                       _set.device_lat_xyzt);
     checkCudaErrors(cudaDeviceSynchronize());
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
