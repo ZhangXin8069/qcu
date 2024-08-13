@@ -8,6 +8,7 @@ import sys
 from time import perf_counter
 import cupy as cp
 import numpy as np
+np.set_printoptions(threshold=np.inf)
 test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
@@ -71,9 +72,32 @@ def compare(round):
     quda.MatQuda(qcu_p.data_ptr, qcu_x.data_ptr, dslash.invert_param)
     # qcu_p=D*qcu_x
     print(f'rank {rank} my x and x difference: , {cp.linalg.norm(qcu_p.data - p.data) / cp.linalg.norm(qcu_p.data)}, takes {t2 - t1} sec, my_x_norm = {cp.linalg.norm(qcu_x.data)}')
+    print(f'rank {rank} qcu and quda difference: , {cp.linalg.norm(qcu_x.data - quda_x.data) / cp.linalg.norm(qcu_x.data)}, takes {t2 - t1} sec, my_x_norm = {cp.linalg.norm(qcu_x.data)}')
     print(f'qcu rank {rank} takes {t2 - t1} sec')
     print('============================')
+    print("######quda:quda_x[0,0,0,0]:\n", quda_x.lexico()[0, 0, 0, 0])
+    print("######qcu:qcu_x[0,0,0,0]:\n", qcu_x.lexico()[0, 0, 0, 0])
+    print("######quda:quda_x[6,6,6,6]:\n", quda_x.lexico()[6, 6, 6, 6])
+    print("######qcu:qcu_x[6,6,6,6]:\n", qcu_x.lexico()[6, 6, 6, 6])
+    print("######quda:quda_x[-1,-1,-1,-1]:\n", quda_x.lexico()[-1, -1, -1, -1])
+    print("######qcu:qcu_x[-1,-1,-1,-1]:\n", qcu_x.lexico()[-1, -1, -1, -1])
+    print("######quda:quda_x[-6,-6,-6,-6]:\n", quda_x.lexico()[-6, -6, -6, -6])
+    print("######qcu:qcu_x[-6,-6,-6,-6]:\n", qcu_x.lexico()[-6, -6, -6, -6])
+    _ = np.where(
+        np.sum(np.sum(np.abs(qcu_x.data-quda_x.data), axis=0), axis=0) > 1e-1)
+    print("######T:", _[0], ",\n", len(_[0]))
+    print("######Z:", _[1], ",\n", len(_[1]))
+    print("######Y:", _[2], ",\n", len(_[2]))
+    print("######X:", _[3], ",\n", len(_[3]))
+    print("######diff_x[0,0,0,0]:\n",
+          (qcu_x.lexico()-quda_x.lexico())[0, 0, 0, 0])
+    print("######diff_x[6,6,6,6]:\n",
+          (qcu_x.lexico()-quda_x.lexico())[6, 6, 6, 6])
+    print("######diff_x[-1,-1,-1,-1]:\n",
+          (qcu_x.lexico()-quda_x.lexico())[-1, -1, -1, -1])
+    print("######diff_x[-6,-6,-6,-6]:\n",
+          (qcu_x.lexico()-quda_x.lexico())[-6, -6, -6, -6])
 
 
-for i in range(0, 10):
+for i in range(0, 1):
     compare(i)

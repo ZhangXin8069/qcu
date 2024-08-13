@@ -223,8 +223,8 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-    checkCudaErrors(cudaStreamSynchronize(
-        set_ptr->streams[_d_])) for (int loop = 0; loop < _MAX_ITER_; loop++) {
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
+    for (int loop = 0; loop < _MAX_ITER_; loop++) {
       dot(r_tilde, r, _rho_, _a_);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       {

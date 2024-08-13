@@ -19,7 +19,6 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   ccdptzyx2dptzyxcc(gauge, &_set);
   sctzyx2tzyxsc(fermion_in, &_set);
   sctzyx2tzyxsc(fermion_out, &_set);
-  _set._print();
   _set.end();
 }
 #endif
