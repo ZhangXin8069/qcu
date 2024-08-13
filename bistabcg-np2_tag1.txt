@@ -70,3 +70,922 @@ single latt size = [32, 32, 32, 32]
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
 ===============qcu==================
 ===============qcu==================
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.473721989 sec
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.473725059 sec
+######TIME :6222.09######
+##RANK     :0##LOOP:999
+######TIME :##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+6224.29######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.6399e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.37558e-18,-2.45179e-38
+##lat_xyzt :524288
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.69857e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.37558e-18,-2.45179e-38
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.75930127700849 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.7676659909921 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.347969010 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.347997733 sec
+######TIME :5672.11######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.58944e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :6.95122e-18,-2.31073e-38
+##lat_xyzt :524288
+######TIME :5664.69######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.32681e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :6.95122e-18,-2.31073e-38
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.0752529129968025 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.067663473993889 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.393475617 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.393573312 sec
+######TIME :5741.9######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.50384e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.18999e-17,-8.79236e-37
+######TIME :5742.05######
+##lat_xyzt :524288
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :6.80344e-09,-6.37005e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.18999e-17,-8.79236e-37
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.0625109520042315 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.0625155180023285 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.529077317 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.529069041 sec
+######TIME :5871.68######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+######TIME :5871.72######
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :7.49896e-09,-3.63369e-29
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :1.46374e-16,-1.54751e-36
+##lat_xyzt :524288
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :7.06484e-09,-6.92225e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :1.46374e-16,-1.54751e-36
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.06360131999827 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.0747801969992 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.453852025 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.454030894 sec
+######TIME :5740.48######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :7.47223e-09,-4.31901e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.86557e-17,-6.96048e-37
+##lat_xyzt :524288
+######TIME :5729.46######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.53773e-10,-4.93038e-32
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.86557e-17,-6.96048e-37
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.049717293004505 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.073112418001983 sec
+============================
+===============qcu==================
+##RANK:1##LOOP:120##Residual:9.49585e-10
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.563590835 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.563585017 sec
+######TIME :5855.26######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+######TIME :##alpha    :0.792912,-0.281081
+5867.46######
+##RANK     :1##LOOP:999
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :7.50811e-09,-4.97968e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :1.42581e-16,-1.80992e-36
+##lat_xyzt :524288
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :6.67827e-09,-8.31262e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :1.42581e-16,-1.80992e-36
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.0720936650031945 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.068534730002284 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.476786916 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.476966770 sec
+######TIME :5767.35######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+######TIME :5775.99######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##send_tmp :7.38896e-09,-5.35932e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :1.44983e-16,-1.65289e-36
+##lat_xyzt :524288
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :7.03639e-09,-6.29117e-29
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :1.44983e-16,-1.65289e-36
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.061338181010797 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.08255647799524 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.411762525 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.411633613 sec
+######TIME :5723.51######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.71943e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.39913e-18,-2.45962e-38
+##lat_xyzt :524288
+######TIME :5711.14######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.64247e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :7.39913e-18,-2.45962e-38
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.068513399994117 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.069501072997809 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.458646445 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.458764680 sec
+######TIME :5759.98######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.29235e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :6.54721e-18,-2.17642e-38
+##lat_xyzt :524288
+######TIME :5746.35######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.22192e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :6.54721e-18,-2.17642e-38
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.061569665995194 sec
+============================
+===============qcu==================
+qcu rank 0 takes 6.066302539999015 sec
+============================
+===============qcu==================
+##RANK:0##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.241102238 sec
+##RANK:1##LOOP:120##Residual:9.49585e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :5.241079948 sec
+######TIME :5577.6######
+##RANK     :1##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+######TIME :5596.08######
+##RANK     :0##LOOP:999
+##tmp0     :2.96942e-11,3.41148e-12
+##tmp1     :6.7917e-12,8.71622e-32
+##rho_prev :5.87392e-06,1.30134e-06
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##rho      :5.87392e-06,1.30134e-06
+##alpha    :0.792912,-0.281081
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.36957e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :6.96427e-18,-2.31506e-38
+##lat_xyzt :524288
+##beta     :0.0829091,0.0612254
+##omega    :4.37213,0.502302
+##send_tmp :3.55966e-10,0
+##norm2_tmp:9.94969e+07,3.30748e-13
+##diff_tmp :6.96427e-18,-2.31506e-38
+##lat_xyzt :524288
+node_rank        :0
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+node_rank        :1
+node_size        :2
+gridDim.x        :2048
+blockDim.x       :256
+lat_1dim[_X_]    :16
+lat_1dim[_Y_]    :32
+lat_1dim[_Z_]    :32
+lat_1dim[_T_]    :32
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :32768
+lat_3dim[_XZT_]  :16384
+lat_3dim[_XYT_]  :16384
+lat_3dim[_XYZ_]  :16384
+lat_4dim         :524288
+lat_4dim_SC       :6291456
+lat_3dim_Half_SC[_YZT_] :196608
+lat_3dim_Half_SC[_XZT_] :98304
+lat_3dim_Half_SC[_XYT_] :98304
+lat_3dim_Half_SC[_XYZ_] :98304
+lat_3dim_SC[_YZT_]:393216
+lat_3dim_SC[_XZT_]:196608
+lat_3dim_SC[_XYT_]:196608
+lat_3dim_SC[_XYZ_]:196608
+qcu rank 0 takes 6.073651932994835 sec
+============================
+qcu rank 0 takes 6.064698706992203 sec
+============================
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 15 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =     0.585 secs
+                     init     =     0.585 secs ( 99.999%),	 with        2 calls at 2.926e+05 us per call
+        total accounted       =     0.585 secs ( 99.999%)
+        total missing         =     0.000 secs (  0.001%)
+
+          loadGaugeQuda Total time =     0.103 secs
+                 download     =     0.067 secs ( 65.693%),	 with        2 calls at 3.374e+04 us per call
+                   upload     =     0.013 secs ( 12.922%),	 with        1 calls at 1.327e+04 us per call
+                     init     =     0.005 secs (  5.297%),	 with        2 calls at 2.720e+03 us per call
+                  compute     =     0.016 secs ( 16.004%),	 with        2 calls at 8.220e+03 us per call
+                     free     =     0.000 secs (  0.037%),	 with        2 calls at 1.900e+01 us per call
+        total accounted       =     0.103 secs ( 99.953%)
+        total missing         =     0.000 secs (  0.047%)
+
+                endQuda Total time =     0.040 secs
+
+       initQuda-endQuda Total time =    63.360 secs
+
+                   QUDA Total time =     0.784 secs
+                 download     =     0.067 secs (  8.606%),	 with        2 calls at 3.374e+04 us per call
+                   upload     =     0.013 secs (  1.693%),	 with        1 calls at 1.327e+04 us per call
+                     init     =     0.591 secs ( 75.335%),	 with        4 calls at 1.477e+05 us per call
+                  compute     =     0.072 secs (  9.205%),	 with        3 calls at 2.406e+04 us per call
+                     free     =     0.000 secs (  0.005%),	 with        2 calls at 1.950e+01 us per call
+        total accounted       =     0.744 secs ( 94.844%)
+        total missing         =     0.040 secs (  5.156%)
+
+Device memory used = 1380.0 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 48.0 MiB
+Total host memory used >= 66.0 MiB
+
+==460654== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_460654.nvvp
+==460653== Generated result file: /home/kfutfd/qcu/test/log_x99-Yang_460653.nvvp
+~/qcu
