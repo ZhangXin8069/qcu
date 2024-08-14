@@ -1,4 +1,4 @@
 # source ./env.sh
 cmake .
-make -j48
+make -j16
 bash ./clean.sh
