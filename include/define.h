@@ -1,7 +1,8 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #include "./lattice_complex.h"
-#define _BLOCK_SIZE_ 256
+// #define _BLOCK_SIZE_ 256
+#define _BLOCK_SIZE_ 32
 #define _WARP_SIZE_ 32
 #define _a_ 0
 #define _b_ 1
@@ -80,7 +81,7 @@
 #define CLOVER_DSLASH
 // #define OVERLAP_DSLASH
 #define NCCL_WILSON_DSLASH
-// #define NCCL_CLOVER_DSLASH
+#define NCCL_CLOVER_DSLASH
 // #define NCCL_OVERLAP_DSLASH
 #define WILSON_BISTABCG
 // #define CLOVER_BISTABCG
@@ -191,67 +192,24 @@
     }                                                                          \
   }
 // little strange, but don't want change
-#define host_give_value(U, zero, n)                                            \
+#define give_vals(U, zero, n)                                                  \
   {                                                                            \
     LatticeComplex *tmp_U = static_cast<LatticeComplex *>(U);                  \
     for (int i = 0; i < n; i++) {                                              \
       tmp_U[i] = zero;                                                         \
     }                                                                          \
   }
-#define device_give_value(host_Udevice_U, host_zero, n)                        \
-  {                                                                            \
-    host_give_value(host_U, host_zero, n);                                     \
-    cudaMemcpy(device_U, host_U, sizeof(LatticeComplex) * n,                   \
-               cudaMemcpyHostToDevice);                                        \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
-  }
-#define host_give_rand(input_matrix, size)                                     \
+#define give_rand(input_matrix, size)                                          \
   {                                                                            \
     for (int i = 0; i < size; i++) {                                           \
       input_matrix[i].real = static_cast<double>(rand()) / RAND_MAX;           \
       input_matrix[i].imag = static_cast<double>(rand()) / RAND_MAX;           \
     }                                                                          \
   }
-#define device_give_rand(host_input_matrix, device_input_matrix, size)         \
-  {                                                                            \
-    host_give_rand(host_input_matrix, size);                                   \
-    cudaMemcpy(device_input_matrix, host_input_matrix,                         \
-               sizeof(LatticeComplex) * size, cudaMemcpyHostToDevice);         \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
-  }
-#define host_zero_vec(lat_3dim_Half_SC, host_send_vec, host_recv_vec, zero)    \
-  {                                                                            \
-    for (int i = 0; i < _DIM_; i++) {                                          \
-      host_give_value(host_send_vec[i * _SR_], zero, lat_3dim_Half_SC[i]);     \
-      host_give_value(host_send_vec[i * _SR_ + 1], zero, lat_3dim_Half_SC[i]); \
-      host_give_value(host_recv_vec[i * _SR_], zero, lat_3dim_Half_SC[i]);     \
-      host_give_value(host_recv_vec[i * _SR_ + 1], zero, lat_3dim_Half_SC[i]); \
-    }                                                                          \
-  }
-#define device_zero_vec(lat_3dim_Half_SC, device_send_vec, device_recv_vec,    \
-                        host_send_vec, host_recv_vec, zero)                    \
-  {                                                                            \
-    host_zero_vec(lat_3dim_Half_SC, host_send_vec, host_recv_vec, zero);       \
-    for (int i = 0; i < _DIM_; i++) {                                          \
-      cudaMemcpy(device_send_vec[i * _SR_], device_send_vec[i * _SR_],         \
-                 sizeof(LatticeComplex) * lat_3dim_Half_SC[i],                 \
-                 cudaMemcpyHostToDevice);                                      \
-      cudaMemcpy(device_send_vec[i * _SR_ + 1], device_send_vec[i * _SR_ + 1], \
-                 sizeof(LatticeComplex) * lat_3dim_Half_SC[i],                 \
-                 cudaMemcpyHostToDevice);                                      \
-      cudaMemcpy(device_recv_vec[i * _SR_], device_recv_vec[i * _SR_],         \
-                 sizeof(LatticeComplex) * lat_3dim_Half_SC[i],                 \
-                 cudaMemcpyHostToDevice);                                      \
-      cudaMemcpy(device_recv_vec[i * _SR_ + 1], device_recv_vec[i * _SR_ + 1], \
-                 sizeof(LatticeComplex) * lat_3dim_Half_SC[i],                 \
-                 cudaMemcpyHostToDevice);                                      \
-    }                                                                          \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
-  }
 #define give_u(U, tmp_U, lat_tzyx)                                             \
   {                                                                            \
     for (int i = 0; i < 6; i++) {                                              \
-      U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                        \
+      U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                       \
     }                                                                          \
     U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
@@ -299,49 +257,37 @@
       origin_send[i * lat_3dim] = send[i];                                     \
     }                                                                          \
   }
-#define add_value(U, tmp, n)                                                   \
+#define give_clr(origin_clr, clr, lat_tzyx)                                    \
   {                                                                            \
-    for (int i = 0; i < n; i++) {                                              \
-      U[i] += tmp;                                                             \
+    for (int i = 0; i < _LAT_SCSC_; i++) {                                     \
+      origin_clr[i * lat_tzyx] = clr[i];                                       \
     }                                                                          \
   }
-#define subt_value(U, tmp, n)                                                  \
+#define get_clr(clr, origin_clr, lat_tzyx)                                     \
   {                                                                            \
-    for (int i = 0; i < n; i++) {                                              \
-      U[i] -= tmp;                                                             \
+    for (int i = 0; i < _LAT_SCSC_; i++) {                                     \
+      clr[i] = origin_clr[i * lat_tzyx];                                       \
     }                                                                          \
   }
-#define mult_value(U, tmp, n)                                                  \
-  {                                                                            \
-    for (int i = 0; i < n; i++) {                                              \
-      U[i] *= tmp;                                                             \
-    }                                                                          \
-  }
-#define divi_value(U, tmp, n)                                                  \
-  {                                                                            \
-    for (int i = 0; i < n; i++) {                                              \
-      U[i] /= tmp;                                                             \
-    }                                                                          \
-  }
-#define add_ptr(U, tmp, n)                                                     \
+#define add_vals(U, tmp, n)                                                    \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] += tmp[i];                                                          \
     }                                                                          \
   }
-#define subt_ptr(U, tmp, n)                                                    \
+#define subt_vals(U, tmp, n)                                                   \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] -= tmp[i];                                                          \
     }                                                                          \
   }
-#define mult_ptr(U, tmp, n)                                                    \
+#define mult_vals(U, tmp, n)                                                   \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] *= tmp[i];                                                          \
     }                                                                          \
   }
-#define divi_ptr(U, tmp, n)                                                    \
+#define divi_vals(U, tmp, n)                                                   \
   {                                                                            \
     for (int i = 0; i < n; i++) {                                              \
       U[i] /= tmp[i];                                                          \
