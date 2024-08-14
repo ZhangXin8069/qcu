@@ -5,9 +5,11 @@
 using data_type = cuDoubleComplex;
 
 struct LatticeComplex {
-  double2 _data;
-  double &real = ((double *)&_data)[0];
-  double &imag = ((double *)&_data)[1];
+  // double2 _data;
+  // double &real = ((double *)&_data)[0];
+  // double &imag = ((double *)&_data)[1];
+  double real;
+  double imag;
   __host__ __device__ LatticeComplex(double _real = 0.0, double _imag = 0.0) {
     real = _real;
     imag = _imag;
