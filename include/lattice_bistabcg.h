@@ -339,6 +339,7 @@ struct LatticeBistabcg {
     }
   }
   void run_nccl_just_cg() {
+    // D dag wait to do......
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
@@ -348,7 +349,7 @@ struct LatticeBistabcg {
     CUBLAS_CHECK(
         cublasDcopy(set_ptr->cublasH,
                     set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                    (double *)p, 1, (double *)r, 1));
+                    (double *)r, 1, (double *)p, 1));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     for (int loop = 0; loop < _MAX_ITER_; loop++) {
       {
@@ -450,6 +451,7 @@ struct LatticeBistabcg {
   void _run() {
     auto start = std::chrono::high_resolution_clock::now();
     run_nccl();
+    // run_nccl_just_cg();
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
