@@ -1,8 +1,7 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #include "./lattice_complex.h"
-// #define _BLOCK_SIZE_ 256
-#define _BLOCK_SIZE_ 32
+#define _BLOCK_SIZE_ 256
 #define _WARP_SIZE_ 32
 #define _a_ 0
 #define _b_ 1
