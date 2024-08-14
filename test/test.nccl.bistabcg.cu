@@ -76,7 +76,7 @@ int main(int argc, char *argv[]) {
     LatticeComplex *gauge;
     cudaMallocManaged(&gauge, lat_4dim * LAT_D * LAT_C * LAT_C * EVENODD *
                                   sizeof(LatticeComplex));
-    host_give_rand(gauge, lat_4dim * LAT_D * LAT_C * LAT_C);
+    give_rand(gauge, lat_4dim * LAT_D * LAT_C * LAT_C);
     // define end
     // define for mpi_wilson_cg
     int lat_4dim12 = lat_4dim * 12;
@@ -117,36 +117,36 @@ int main(int argc, char *argv[]) {
     cudaMallocManaged(&device_latt_tmp0, lat_4dim12 * sizeof(LatticeComplex));
     cudaMallocManaged(&device_latt_tmp1, lat_4dim12 * sizeof(LatticeComplex));
     // give ans first
-    host_give_rand(ans_e, lat_4dim12);
-    host_give_rand(ans_o, lat_4dim12);
+    give_rand(ans_e, lat_4dim12);
+    give_rand(ans_o, lat_4dim12);
     // give x_o, b_e, b_o ,b__o, r, r_tilde, p, v, s, t, device_latt_tmp0, device_latt_tmp1
-    host_give_rand(x_o, lat_4dim12);
-    // host_give_value(x_o, zero, lat_4dim12 );
-    host_give_value(b_e, zero, lat_4dim12);
-    host_give_value(b_o, zero, lat_4dim12);
-    host_give_value(b__o, zero, lat_4dim12);
-    host_give_value(r, zero, lat_4dim12);
-    host_give_value(r_tilde, zero, lat_4dim12);
-    host_give_value(p, zero, lat_4dim12);
-    host_give_value(v, zero, lat_4dim12);
-    host_give_value(s, zero, lat_4dim12);
-    host_give_value(t, zero, lat_4dim12);
+    give_rand(x_o, lat_4dim12);
+    // give_vals(x_o, zero, lat_4dim12 );
+    give_vals(b_e, zero, lat_4dim12);
+    give_vals(b_o, zero, lat_4dim12);
+    give_vals(b__o, zero, lat_4dim12);
+    give_vals(r, zero, lat_4dim12);
+    give_vals(r_tilde, zero, lat_4dim12);
+    give_vals(p, zero, lat_4dim12);
+    give_vals(v, zero, lat_4dim12);
+    give_vals(s, zero, lat_4dim12);
+    give_vals(t, zero, lat_4dim12);
     // give b'_o(b__0)
-    host_give_value(device_latt_tmp0, zero, lat_4dim12);
+    give_vals(device_latt_tmp0, zero, lat_4dim12);
     nccl_dslash_eo(device_latt_tmp0, ans_o, node_rank, gridDim, blockDim, gauge,
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                    device_send_vec, device_recv_vec, zero, nccl_comm, stream);
     for (int i = 0; i < lat_4dim12; i++) {
       b_e[i] = ans_e[i] - device_latt_tmp0[i] * kappa; // b_e=anw_e-kappa*D_eo(ans_o)
     }
-    host_give_value(device_latt_tmp1, zero, lat_4dim12);
+    give_vals(device_latt_tmp1, zero, lat_4dim12);
     nccl_dslash_oe(device_latt_tmp1, ans_e, node_rank, gridDim, blockDim, gauge,
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                    device_send_vec, device_recv_vec, zero, nccl_comm, stream);
     for (int i = 0; i < lat_4dim12; i++) {
       b_o[i] = ans_o[i] - device_latt_tmp1[i] * kappa; // b_o=anw_o-kappa*D_oe(ans_e)
     }
-    host_give_value(device_latt_tmp0, zero, lat_4dim12);
+    give_vals(device_latt_tmp0, zero, lat_4dim12);
     nccl_dslash_oe(device_latt_tmp0, b_e, node_rank, gridDim, blockDim, gauge,
                    lat_1dim, lat_3dim12, grid_1dim, grid_index_1dim, move,
                    device_send_vec, device_recv_vec, zero, nccl_comm, stream);

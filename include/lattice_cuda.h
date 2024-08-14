@@ -3,10 +3,10 @@
 #include "./include.h"
 #include "./lattice_set.h"
 
-__global__ void give_random_value(void *device_random_value,
+__global__ void give_random_vals(void *device_random_vals,
                                   unsigned long seed);
 
-__global__ void give_custom_value(void *device_custom_value, double real,
+__global__ void give_custom_vals(void *device_custom_vals, double real,
                                   double imag);
 
 __global__ void give_1zero(void *device_vals, const int vals_index);

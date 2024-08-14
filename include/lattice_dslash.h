@@ -4,7 +4,7 @@
 #include "./lattice_set.h"
 #include "define.h"
 #include "wilson_dslash.h"
-struct LatticeWilsonDslash {
+struct LatticeDslash {
   LatticeSet *set_ptr;
   cudaError_t err;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }

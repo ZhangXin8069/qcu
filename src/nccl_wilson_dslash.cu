@@ -9,7 +9,7 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   dptzyxcc2ccdptzyx(gauge, &_set);
   tzyxsc2sctzyx(fermion_in, &_set);
   tzyxsc2sctzyx(fermion_out, &_set);
-  LatticeWilsonDslash _dslash;
+  LatticeDslash _dslash;
   _dslash.give(&_set);
   _dslash.run_test(fermion_out, fermion_in, gauge, parity);
   ccdptzyx2dptzyxcc(gauge, &_set);
