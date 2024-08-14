@@ -12,7 +12,7 @@
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
   cudaError_t err;
-  LatticeWilsonDslash dslash;
+  LatticeDslash dslash;
   LatticeComplex tmp0;
   LatticeComplex tmp1;
   LatticeComplex rho_prev;
@@ -79,9 +79,9 @@ struct LatticeBistabcg {
       checkCudaErrors(
           cudaMallocAsync(&ans_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
-      give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(ans_e, 12138);
-      give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(ans_o, 83121);
       checkCudaErrors(
           cudaMallocAsync(&b_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
@@ -105,7 +105,7 @@ struct LatticeBistabcg {
                            set_ptr->stream>>>(b__o, b_o, device_vec0, _KAPPA_,
                                               device_vals);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      give_random_value<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(x_o, 23333);
       _dslash(r, x_o, gauge);
       bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
