@@ -148,13 +148,6 @@
                cudaMemcpyDeviceToHost);                                        \
     print_ptr(host_vec, index_, node_rank, tag);                               \
   }
-#define print_ptr(ptr, index, node_rank, tag)                                  \
-  {                                                                            \
-    checkCudaErrors(cudaDeviceSynchronize());                                  \
-    printf("#%d#<%d>ptr(%p)[%d]:%.9lf + %.9lfi\n", tag, node_rank, ptr, index, \
-           static_cast<LatticeComplex *>(ptr)[index].real,                     \
-           static_cast<LatticeComplex *>(ptr)[index].imag);                    \
-  }
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (_CHECK_ERROR_) {                                                       \

@@ -12,9 +12,14 @@ sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [16, 16, 16, 32]
 latt_size = [16, 16, 16, 16]
-latt_size = [8, 16, 16, 16]
-latt_size = [16, 32, 32, 64]
+# latt_size = [8, 16, 16, 16]
+latt_size = [8, 4, 8, 64]
+# latt_size = [4, 16, 16, 32]
+# latt_size = [8, 16, 16, 16]
+# latt_size = [16, 32, 32, 64]
 # latt_size = [4, 4, 4, 4]
+# latt_size = [8, 8, 8, 8]
+# latt_size = [8, 8, 8, 16]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
@@ -67,8 +72,7 @@ def compare(round):
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
     print("######Mp1[0,0,0,1]:\n", Mp1.lexico()[0, 0, 0, 1])
     print(f'QCU dslash: {t2 - t1} sec')
-    print('difference: ', cp.linalg.norm(
-        Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
+    print(f'rank {0} my x and x difference: {cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data)}, takes {t2 - t1} sec, my_norm = {cp.linalg.norm(Mp1.data)}, norm = {cp.linalg.norm(Mp.data)}')
     print("######", Mp.lexico().shape)
     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
     diff = np.sum(diff_x, axis=(-1, -2))
