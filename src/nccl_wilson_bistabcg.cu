@@ -1,4 +1,6 @@
+// clang-format off
 #include "../include/qcu.h"
+#include "lattice_complex.h"
 #include "lattice_set.h"
 #ifdef NCCL_WILSON_BISTABCG
 
@@ -8,17 +10,19 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   LatticeSet _set;
   _set.give(param->lattice_size, grid->lattice_size);
   _set.init();
-  tzyxdcc2dcctzyx(gauge, &_set);
-  tzyxsc2sctzyx(fermion_in, &_set);
-  tzyxsc2sctzyx(fermion_out, &_set);
-  LatticeBistabcg _cg;
-  _cg.give(&_set);
-  _cg.init(fermion_out, fermion_in, gauge);
-  _cg.run();
-  _cg.end();
-  dcctzyx2tzyxdcc(gauge, &_set);
-  sctzyx2tzyxsc(fermion_in, &_set);
-  sctzyx2tzyxsc(fermion_out, &_set);
+  dptzyxcc2ccdptzyx(gauge, &_set);
+  ptzyxsc2psctzyx(fermion_in, &_set);
+  ptzyxsc2psctzyx(fermion_out, &_set);
+  LatticeBistabcg _bistabcg;
+  _bistabcg.give(&_set);
+  _bistabcg.init(fermion_out, fermion_in, gauge);
+  _bistabcg.run();
+  _bistabcg.end();
+  ccdptzyx2dptzyxcc(gauge, &_set);
+  psctzyx2ptzyxsc(fermion_in, &_set);
+  psctzyx2ptzyxsc(fermion_out, &_set);
   _set.end();
+  printf("###%d\n",int(sizeof(double2)));
+  printf("###%d\n",int(sizeof(LatticeComplex)));
 }
 #endif
