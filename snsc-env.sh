@@ -1,1 +1,1 @@
-conda activate snsc-qcu
+# there is nothing here!
