@@ -1,6 +1,8 @@
 .cache
 ./test/.cache
 ./test/.metadata
+./python/PyQuda*
+./python/pyquda
 *build
 *draft
 *CMakeFiles
