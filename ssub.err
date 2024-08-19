@@ -21,10 +21,10 @@ fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 Traceback (most recent call last):
 Traceback (most recent call last):
   File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 5, in <module>
-  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 5, in <module>
-    from pyquda import init, core, quda, mpi, qcu as qcu
     from pyquda import init, core, quda, mpi, qcu as qcu
 ImportError: cannot import name 'qcu' from 'pyquda' (/public/home/zhangxin/qcu/lib/pyquda/__init__.py)
+  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 5, in <module>
+    from pyquda import init, core, quda, mpi, qcu as qcu
 ImportError: cannot import name 'qcu' from 'pyquda' (/public/home/zhangxin/qcu/lib/pyquda/__init__.py)
 --------------------------------------------------------------------------
 Primary job  terminated normally, but 1 process returned
@@ -34,6 +34,6 @@ a non-zero exit code. Per user-direction, the job has been aborted.
 mpirun detected that one or more processes exited with non-zero status, thus causing
 the job to be terminated. The first process to do so was:
 
-  Process name: [[25285,1],0]
+  Process name: [[21547,1],0]
   Exit code:    1
 --------------------------------------------------------------------------
