@@ -3920,3 +3920,36 @@ org.eclipse.core.internal.resources.ResourceException: The project description f
 	at org.eclipse.equinox.launcher.Main.main(Main.java:1438)
 !SUBENTRY 2 org.eclipse.core.resources 4 567 2024-08-12 11:57:58.399
 !MESSAGE The project description file (.project) for 'RemoteSystemsTempFiles' is missing.  This file contains important information about the project.  The project will not function properly until this file is restored.
+!SESSION 2024-08-13 20:51:37.078 -----------------------------------------------
+eclipse.buildId=unknown
+java.version=1.8.0_422
+java.vendor=Private Build
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en
+Command-line arguments:  -os linux -ws gtk -arch x86_64 -data @noDefault
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.422
+!MESSAGE Bundle reference:file:org.eclipse.equinox.http.jetty_3.0.200.v20131021-1843.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.423
+!MESSAGE Bundle reference:file:org.eclipse.jetty.continuation_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.423
+!MESSAGE Bundle reference:file:org.eclipse.jetty.http_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.423
+!MESSAGE Bundle reference:file:org.eclipse.jetty.io_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.423
+!MESSAGE Bundle reference:file:org.eclipse.jetty.security_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.424
+!MESSAGE Bundle reference:file:org.eclipse.jetty.server_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.424
+!MESSAGE Bundle reference:file:org.eclipse.jetty.servlet_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.osgi 4 0 2024-08-13 20:51:37.424
+!MESSAGE Bundle reference:file:org.eclipse.jetty.util_8.1.14.v20131031.jar@4 not found.
+
+!ENTRY org.eclipse.core.resources 2 10035 2024-08-13 20:51:38.241
+!MESSAGE The workspace exited with unsaved changes in the previous session; refreshing workspace to recover changes.
