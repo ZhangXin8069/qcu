@@ -1,4 +1,6 @@
-*.cache
+.cache
+./test/.cache
+./test/.metadata
 *build
 *draft
 *CMakeFiles
