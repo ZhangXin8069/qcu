@@ -1,11 +1,12 @@
 #ifndef _LATTICE_CUDA_H
 #define _LATTICE_CUDA_H
 #include "./include.h"
+#include "./lattice_set.h"
 
-__global__ void give_random_value(void *device_random_value,
+__global__ void give_random_vals(void *device_random_vals,
                                   unsigned long seed);
 
-__global__ void give_custom_value(void *device_custom_value, double real,
+__global__ void give_custom_vals(void *device_custom_vals, double real,
                                   double imag);
 
 __global__ void give_1zero(void *device_vals, const int vals_index);
@@ -14,18 +15,6 @@ __global__ void give_1one(void *device_vals, const int vals_index);
 
 __global__ void give_1custom(void *device_vals, const int vals_index,
                              double real, double imag);
-
-__global__ void part_dot(void *device_vec0, void *device_vec1,
-                         void *device_dot_vec);
-
-__global__ void part_cut(void *device_vec0, void *device_vec1,
-                         void *device_dot_vec);
-
-void perf_part_reduce(void *device_src_vec, void *device_dest_val,
-                      void *device_tmp_vec, int size, cudaStream_t stream);
-
-void part_reduce(void *device_src_vec, void *device_dest_val,
-                 void *device_tmp_vec, int size, cudaStream_t stream);
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
 // device memory pitch alignment
@@ -90,7 +79,6 @@ template <> struct traits<cuDoubleComplex> {
     return make_cuDoubleComplex(v.x * f, v.y * f);
   }
 };
-
 /*
 template <typename T>
 void print_matrix(const int &m, const int &n, const T *A, const int &lda);
@@ -326,4 +314,23 @@ private:
         // Synchronize and measure timing
         auto time = timer.seconds();
 */
+
+__global__ void _tzyxsc2sctzyx(void *device_fermi, void *device___fermi,
+                               int lat_4dim);
+__global__ void _sctzyx2tzyxsc(void *device_fermi, void *device___fermi,
+                               int lat_4dim);
+void tzyxsc2sctzyx(void *fermion, LatticeSet *set_ptr);
+void sctzyx2tzyxsc(void *fermion, LatticeSet *set_ptr);
+__global__ void _dptzyxcc2ccdptzyx(void *device_gauge, void *device___gauge,
+                                   int lat_4dim);
+__global__ void _ccdptzyx2dptzyxcc(void *device_gauge, void *device___gauge,
+                                   int lat_4dim);
+void dptzyxcc2ccdptzyx(void *gauge, LatticeSet *set_ptr);
+void ccdptzyx2dptzyxcc(void *gauge, LatticeSet *set_ptr);
+__global__ void _ptzyxsc2psctzyx(void *device_fermi, void *device___fermi,
+                                 int lat_4dim);
+__global__ void _psctzyx2ptzyxsc(void *device_fermi, void *device___fermi,
+                                 int lat_4dim);
+void ptzyxsc2psctzyx(void *fermion, LatticeSet *set_ptr);
+void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr);
 #endif
