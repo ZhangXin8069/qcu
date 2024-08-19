@@ -12,6 +12,7 @@ struct LatticeSet {
   int lat_3dim_Half_SC[_DIM_];
   int lat_3dim_SC[_DIM_];
   int lat_4dim_SC;
+  int lat_4dim_DCC;
   dim3 gridDim_3dim[_DIM_];
   dim3 gridDim;
   dim3 blockDim;
@@ -35,12 +36,12 @@ struct LatticeSet {
   MPI_Request recv_request[_WARDS_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
-  int host_xyztsc[_DIM_ * _LAT_C_];
+  int host_lat_xyzt[_VALS_SIZE_];
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
-  void *device_xyztsc;
+  void *device_lat_xyzt;
   void give(int *_param_lat_size, int *_grid_lat_size) {
-    lat_1dim[_X_] = _param_lat_size[_X_] / _EVENODD_; // even-odd
+    lat_1dim[_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
     lat_1dim[_Z_] = _param_lat_size[_Z_];
     lat_1dim[_T_] = _param_lat_size[_T_];
@@ -105,6 +106,7 @@ struct LatticeSet {
       gridDim_3dim[_XYZ_] = lat_3dim[_XYZ_] / _BLOCK_SIZE_;
       lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];
       lat_4dim_SC = lat_4dim * _LAT_SC_;
+      lat_4dim_DCC = lat_4dim * _LAT_DCC_;
       gridDim = lat_4dim / _BLOCK_SIZE_;
     }
     {
@@ -163,22 +165,16 @@ struct LatticeSet {
       }
     }
     {
-      checkCudaErrors(cudaMallocAsync(&device_xyztsc,
-                                      _DIM_ * _LAT_C_ * sizeof(int), stream));
-      host_xyztsc[_X_] = lat_1dim[_X_];
-      host_xyztsc[_Y_] = lat_1dim[_Y_];
-      host_xyztsc[_Z_] = lat_1dim[_Z_];
-      host_xyztsc[_T_] = lat_1dim[_T_];
-      host_xyztsc[_XCC_] = lat_1dim[_X_] * _LAT_CC_;
-      host_xyztsc[_YXCC_] = lat_1dim[_Y_] * host_xyztsc[_XCC_];
-      host_xyztsc[_ZYXCC_] = lat_1dim[_Z_] * host_xyztsc[_YXCC_];
-      host_xyztsc[_TZYXCC_] = lat_1dim[_T_] * host_xyztsc[_ZYXCC_];
-      host_xyztsc[_XSC_] = lat_1dim[_X_] * _LAT_SC_;
-      host_xyztsc[_YXSC_] = lat_1dim[_Y_] * host_xyztsc[_XSC_];
-      host_xyztsc[_ZYXSC_] = lat_1dim[_Z_] * host_xyztsc[_YXSC_];
-      host_xyztsc[_TZYXSC_] = lat_1dim[_T_] * host_xyztsc[_ZYXSC_];
-      checkCudaErrors(cudaMemcpyAsync(device_xyztsc, host_xyztsc,
-                                      _DIM_ * _LAT_C_ * sizeof(int),
+      checkCudaErrors(
+          cudaMallocAsync(&device_lat_xyzt, _VALS_SIZE_ * sizeof(int), stream));
+      host_lat_xyzt[_X_] = lat_1dim[_X_];
+      host_lat_xyzt[_Y_] = lat_1dim[_Y_];
+      host_lat_xyzt[_Z_] = lat_1dim[_Z_];
+      host_lat_xyzt[_T_] = lat_1dim[_T_];
+      host_lat_xyzt[_XYZT_] =
+          lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_] * lat_1dim[_T_];
+      checkCudaErrors(cudaMemcpyAsync(device_lat_xyzt, host_lat_xyzt,
+                                      _VALS_SIZE_ * sizeof(int),
                                       cudaMemcpyHostToDevice, stream));
     }
     checkCudaErrors(cudaStreamSynchronize(stream));
@@ -193,10 +189,10 @@ struct LatticeSet {
     checkCudaErrors(cudaStreamSynchronize(stream));
     cudaEventDestroy(start);
     cudaEventDestroy(stop);
-    checkCudaErrors(cudaFreeAsync(device_xyztsc, stream));
+    checkCudaErrors(cudaFreeAsync(device_lat_xyzt, stream));
     for (int i = 0; i < _DIM_; i++) {
-    checkCudaErrors(cudaStreamSynchronize(streams[i]));
-    checkCudaErrors(cudaStreamSynchronize(stream_dims[i]));
+      checkCudaErrors(cudaStreamSynchronize(streams[i]));
+      checkCudaErrors(cudaStreamSynchronize(stream_dims[i]));
       CUBLAS_CHECK(cublasDestroy(cublasHs[i]));
       checkCudaErrors(cudaStreamDestroy(streams[i]));
       checkCudaErrors(cudaStreamDestroy(stream_dims[i]));
@@ -242,4 +238,5 @@ struct LatticeSet {
     printf("lat_3dim_SC[_XYZ_]:%d\n", lat_3dim_SC[_XYZ_]);
   }
 };
+
 #endif
