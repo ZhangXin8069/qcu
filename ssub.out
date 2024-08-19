@@ -32,21 +32,3414 @@ HOME:/public/home/zhangxin/qcu
 -- Looking for pthread_create in pthread - found
 -- Found Threads: TRUE  
 -- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /public/home/zhangxin/qcu
 [ 10%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
-[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
 [ 40%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
 [ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
 [ 60%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
-[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
-[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
 [ 90%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 ~/qcu/test ~/qcu
-/public/home/zhangxin/qcu/lib/libqcu.so: undefined symbol: ncclAllReduce
-/public/home/zhangxin/qcu/lib/libqcu.so: undefined symbol: ncclAllReduce
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3, access rank = (  0)
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-PCIE-40GB
+Found device 1: NVIDIA A100-PCIE-40GB
+Using device 0: NVIDIA A100-PCIE-40GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+ERROR: Cache file .cache/tunecache.tsv does not match current QUDA build. 
+Please delete this file or set the QUDA_RESOURCE_PATH environment variable to point to a new path. (rank 0, host gpu024.snsc.cn, tune.cpp:393 in void quda::loadTuneCache()())
+       last kernel called was (name=,volume=,aux=)
+Saving 0 sets of cached parameters to .cache/tunecache_error.tsv
+~/qcu
+~/qcu ~/qcu
+HOME:/public/home/zhangxin/qcu
+~/qcu
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[ 10%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+~/qcu/test ~/qcu
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3, access rank = (  0)
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-PCIE-40GB
+Found device 1: NVIDIA A100-PCIE-40GB
+Using device 0: NVIDIA A100-PCIE-40GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+single latt size = [16, 16, 16, 16]
+single latt size = [16, 16, 16, 16]
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+Saving 143 sets of cached parameters to .cache/tunecache.tsv
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 20.962944846018218 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 20.962944846018218 sec
+===============qcu==================
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 20.96278669498861 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 20.96278669498861 sec
+===============qcu==================
+node_rank        :0
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:20##Residual:47911
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.185842355 sec
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.185237124 sec
+######TIME :636.939######
+######TIME :##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+609.911######
+##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 1.0896907630376518 sec, my_x_norm = 97602.71727740216
+qcu rank 0 takes 1.0896907630376518 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 1.0508762610843405 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 1.0508762610843405 sec
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+Saving 159 sets of cached parameters to .cache/tunecache.tsv
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.05408329202327877 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.05408329202327877 sec
+===============qcu==================
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.053635190008208156 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.053635190008208156 sec
+===============qcu==================
+node_rank        :1
+node_rank        :0
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+node_size        :2
+gridDim.x        :1024
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:0##LOOP:20##Residual:47911
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.151890136 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.152541744 sec
+######TIME :265.147######
+##RANK     :1##LOOP:999
+######TIME :##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+265.321######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5721196969971061 sec, my_x_norm = 97602.71727740216
+qcu rank 0 takes 0.5721196969971061 sec
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5723557899473235 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5723557899473235 sec
+============================
+================quda=================
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.04805699491407722 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.04805699491407722 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.048253359040245414 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.048253359040245414 sec
+===============qcu==================
+===============qcu==================
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+node_rank        :0
+node_size        :2
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:1##LOOP:0##Residual:6.29208e+06
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:20##Residual:47911
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149623234 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149559588 sec
+######TIME :######TIME :262.5######
+##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+262.454######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5692276429617777 sec, my_x_norm = 97602.71727740216
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5624502010177821 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5624502010177821 sec
+============================
+================quda=================
+qcu rank 0 takes 0.5692276429617777 sec
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.047481227084062994 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.047481227084062994 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.04775657900609076 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.04775657900609076 sec
+===============qcu==================
+===============qcu==================
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+node_rank        :0
+node_size        :2
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+##RANK:1##LOOP:0##Residual:6.29208e+06
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:20##Residual:47911
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.151402877 sec
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.151785842 sec
+######TIME :264.385######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+######TIME :##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+264.437######
+##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5624963360605761 sec, my_x_norm = 97602.71727740216
+qcu rank 0 takes 0.5624963360605761 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5739804559852928 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5739804559852928 sec
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.04786211799364537 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.04786211799364537 sec
+===============qcu==================
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.048183731036260724 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.048183731036260724 sec
+===============qcu==================
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+node_rank        :0
+node_size        :2
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+gridDim.x        :1024
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.150579540 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.150079135 sec
+######TIME :268.144######
+##RANK     :1##LOOP:999
+######TIME :##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+268.033######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5737084778957069 sec, my_x_norm = 97602.71727740216
+qcu rank 0 takes 0.5737084778957069 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.563593509956263 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.563593509956263 sec
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.04861774598248303 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.04861774598248303 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.04832759907003492 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.04832759907003492 sec
+===============qcu==================
+===============qcu==================
+node_rank        :0
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+node_size        :2
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.150195705 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149674156 sec
+######TIME :236.86######
+##RANK     :1##LOOP:999
+######TIME :##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+236.803######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5630653339903802 sec, my_x_norm = 97602.71727740216
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5700032119639218 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5630653339903802 sec
+qcu rank 0 takes 0.5700032119639218 sec
+============================
+================quda=================
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.04746005102060735 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.04746005102060735 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.04760093393269926 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.04760093393269926 sec
+===============qcu==================
+===============qcu==================
+node_rank        :0
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149884669 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149383738 sec
+######TIME :264.329######
+######TIME :##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+264.294######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5639182480517775 sec, my_x_norm = 97602.71727740216
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5703819500049576 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5703819500049576 sec
+============================
+================quda=================
+qcu rank 0 takes 0.5639182480517775 sec
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.04824660706799477 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.04824660706799477 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.0485515589825809 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.0485515589825809 sec
+===============qcu==================
+===============qcu==================
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+node_rank        :0
+node_size        :2
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+gridDim.x        :1024
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:15##Residual:148565
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:20##Residual:47911
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.150262953 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149767654 sec
+######TIME :265.954######
+######TIME :##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+265.903######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5722916889935732 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5722916889935732 sec
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5765621409518644 sec, my_x_norm = 97602.71727740216
+============================
+================quda=================
+qcu rank 0 takes 0.5765621409518644 sec
+============================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.047623364022001624 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.047623364022001624 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.047807842027395964 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.047807842027395964 sec
+===============qcu==================
+===============qcu==================
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+node_rank        :0
+node_size        :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+gridDim.x        :1024
+blockDim.x       :32
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:14##Residual:283166
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149867571 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149363675 sec
+######TIME :######TIME :260.688######
+##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+260.647######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5656299600377679 sec, my_x_norm = 97602.71727740216
+qcu rank 0 takes 0.5656299600377679 sec
+============================
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5692293419269845 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5692293419269845 sec
+============================
+================quda=================
+================quda=================
+CG: Convergence at 165 iterations, L2 relative residual: iterated = 8.002253e-10, true = 8.002253e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 2.156746074252469e-10, takes 0.04769521299749613 sec, norm_quda_x = 97602.71730682898
+quda rank 0 takes 0.04769521299749613 sec
+rank 0 quda x and x difference: , 2.1623679450412767e-10, takes 0.047630507964640856 sec, norm_quda_x = 97552.55989551985
+quda rank 0 takes 0.047630507964640856 sec
+===============qcu==================
+===============qcu==================
+node_rank        :0
+node_size        :2
+node_rank        :1
+node_size        :2
+gridDim.x        :1024
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+gridDim.x        :1024
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+blockDim.x       :32
+lat_1dim[_X_]    :8
+lat_1dim[_Y_]    :16
+lat_1dim[_Z_]    :16
+lat_1dim[_T_]    :16
+grid_1dim[_X_]   :1
+grid_1dim[_Y_]   :1
+grid_1dim[_Z_]   :1
+grid_1dim[_T_]   :2
+lat_3dim[_YZT_]  :4096
+lat_3dim[_XZT_]  :2048
+lat_3dim[_XYT_]  :2048
+lat_3dim[_XYZ_]  :2048
+lat_4dim         :32768
+lat_4dim_SC       :393216
+lat_3dim_Half_SC[_YZT_] :24576
+lat_3dim_Half_SC[_XZT_] :12288
+lat_3dim_Half_SC[_XYT_] :12288
+lat_3dim_Half_SC[_XYZ_] :12288
+lat_3dim_SC[_YZT_]:49152
+lat_3dim_SC[_XZT_]:24576
+lat_3dim_SC[_XYT_]:24576
+lat_3dim_SC[_XYZ_]:24576
+##RANK:0##LOOP:0##Residual:6.29208e+06
+##RANK:1##LOOP:0##Residual:6.29208e+06
+##RANK:0##LOOP:1##Residual:1.89572e+08
+##RANK:1##LOOP:1##Residual:1.89572e+08
+##RANK:0##LOOP:2##Residual:1.79984e+07
+##RANK:1##LOOP:2##Residual:1.79984e+07
+##RANK:0##LOOP:3##Residual:1.36382e+07
+##RANK:1##LOOP:3##Residual:1.36382e+07
+##RANK:0##LOOP:4##Residual:8.95201e+06
+##RANK:1##LOOP:4##Residual:8.95201e+06
+##RANK:0##LOOP:5##Residual:9.01802e+06
+##RANK:1##LOOP:5##Residual:9.01802e+06
+##RANK:0##LOOP:6##Residual:6.27923e+06
+##RANK:1##LOOP:6##Residual:6.27923e+06
+##RANK:0##LOOP:7##Residual:5.0687e+06
+##RANK:1##LOOP:7##Residual:5.0687e+06
+##RANK:0##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:8##Residual:3.60288e+06
+##RANK:1##LOOP:9##Residual:1.82398e+07
+##RANK:0##LOOP:9##Residual:1.82398e+07
+##RANK:1##LOOP:10##Residual:8.55342e+06
+##RANK:0##LOOP:10##Residual:8.55342e+06
+##RANK:1##LOOP:11##Residual:5.53523e+06
+##RANK:0##LOOP:11##Residual:5.53523e+06
+##RANK:1##LOOP:12##Residual:443152
+##RANK:0##LOOP:12##Residual:443152
+##RANK:1##LOOP:13##Residual:461015
+##RANK:0##LOOP:13##Residual:461015
+##RANK:1##LOOP:14##Residual:283166
+##RANK:0##LOOP:14##Residual:283166
+##RANK:0##LOOP:15##Residual:148565
+##RANK:1##LOOP:15##Residual:148565
+##RANK:1##LOOP:16##Residual:885392
+##RANK:0##LOOP:16##Residual:885392
+##RANK:1##LOOP:17##Residual:146791
+##RANK:0##LOOP:17##Residual:146791
+##RANK:1##LOOP:18##Residual:114185
+##RANK:0##LOOP:18##Residual:114185
+##RANK:1##LOOP:19##Residual:101473
+##RANK:0##LOOP:19##Residual:101473
+##RANK:0##LOOP:20##Residual:47911
+##RANK:1##LOOP:20##Residual:47911
+##RANK:0##LOOP:21##Residual:43459
+##RANK:1##LOOP:21##Residual:43459
+##RANK:0##LOOP:22##Residual:109681
+##RANK:1##LOOP:22##Residual:109681
+##RANK:0##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:23##Residual:38900.3
+##RANK:1##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:24##Residual:55648.7
+##RANK:0##LOOP:25##Residual:54875.7
+##RANK:1##LOOP:25##Residual:54875.7
+##RANK:0##LOOP:26##Residual:127546
+##RANK:1##LOOP:26##Residual:127546
+##RANK:1##LOOP:27##Residual:33022.4
+##RANK:0##LOOP:27##Residual:33022.4
+##RANK:1##LOOP:28##Residual:27691.2
+##RANK:0##LOOP:28##Residual:27691.2
+##RANK:1##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:29##Residual:1250.33
+##RANK:0##LOOP:30##Residual:715.283
+##RANK:1##LOOP:30##Residual:715.283
+##RANK:0##LOOP:31##Residual:541.125
+##RANK:1##LOOP:31##Residual:541.125
+##RANK:0##LOOP:32##Residual:423.605
+##RANK:1##LOOP:32##Residual:423.605
+##RANK:0##LOOP:33##Residual:399.832
+##RANK:1##LOOP:33##Residual:399.832
+##RANK:0##LOOP:34##Residual:600.062
+##RANK:1##LOOP:34##Residual:600.062
+##RANK:0##LOOP:35##Residual:346.83
+##RANK:1##LOOP:35##Residual:346.83
+##RANK:0##LOOP:36##Residual:272.401
+##RANK:1##LOOP:36##Residual:272.401
+##RANK:0##LOOP:37##Residual:183.385
+##RANK:1##LOOP:37##Residual:183.385
+##RANK:0##LOOP:38##Residual:133.342
+##RANK:1##LOOP:38##Residual:133.342
+##RANK:0##LOOP:39##Residual:113.63
+##RANK:1##LOOP:39##Residual:113.63
+##RANK:0##LOOP:40##Residual:70.7804
+##RANK:1##LOOP:40##Residual:70.7804
+##RANK:0##LOOP:41##Residual:51.7942
+##RANK:1##LOOP:41##Residual:51.7942
+##RANK:0##LOOP:42##Residual:32.3508
+##RANK:1##LOOP:42##Residual:32.3508
+##RANK:0##LOOP:43##Residual:26.6915
+##RANK:1##LOOP:43##Residual:26.6915
+##RANK:0##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:44##Residual:47.5008
+##RANK:1##LOOP:45##Residual:14.663
+##RANK:0##LOOP:45##Residual:14.663
+##RANK:1##LOOP:46##Residual:12.5436
+##RANK:0##LOOP:46##Residual:12.5436
+##RANK:1##LOOP:47##Residual:10.7153
+##RANK:0##LOOP:47##Residual:10.7153
+##RANK:1##LOOP:48##Residual:8.76892
+##RANK:0##LOOP:48##Residual:8.76892
+##RANK:1##LOOP:49##Residual:8.07002
+##RANK:0##LOOP:49##Residual:8.07002
+##RANK:1##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:50##Residual:6.57956
+##RANK:0##LOOP:51##Residual:3.73566
+##RANK:1##LOOP:51##Residual:3.73566
+##RANK:0##LOOP:52##Residual:3.10639
+##RANK:1##LOOP:52##Residual:3.10639
+##RANK:0##LOOP:53##Residual:3.34053
+##RANK:1##LOOP:53##Residual:3.34053
+##RANK:0##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:54##Residual:2.1922
+##RANK:1##LOOP:55##Residual:1.55733
+##RANK:0##LOOP:55##Residual:1.55733
+##RANK:1##LOOP:56##Residual:1.21211
+##RANK:0##LOOP:56##Residual:1.21211
+##RANK:1##LOOP:57##Residual:0.926034
+##RANK:0##LOOP:57##Residual:0.926034
+##RANK:1##LOOP:58##Residual:0.7652
+##RANK:0##LOOP:58##Residual:0.7652
+##RANK:1##LOOP:59##Residual:0.672101
+##RANK:0##LOOP:59##Residual:0.672101
+##RANK:1##LOOP:60##Residual:1.81852
+##RANK:0##LOOP:60##Residual:1.81852
+##RANK:1##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:61##Residual:0.180898
+##RANK:0##LOOP:62##Residual:7.19737
+##RANK:1##LOOP:62##Residual:7.19737
+##RANK:0##LOOP:63##Residual:6.14534
+##RANK:1##LOOP:63##Residual:6.14534
+##RANK:0##LOOP:64##Residual:0.209599
+##RANK:1##LOOP:64##Residual:0.209599
+##RANK:0##LOOP:65##Residual:0.224704
+##RANK:1##LOOP:65##Residual:0.224704
+##RANK:0##LOOP:66##Residual:0.0139985
+##RANK:1##LOOP:66##Residual:0.0139985
+##RANK:0##LOOP:67##Residual:0.101517
+##RANK:1##LOOP:67##Residual:0.101517
+##RANK:0##LOOP:68##Residual:0.00171536
+##RANK:1##LOOP:68##Residual:0.00171536
+##RANK:0##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:69##Residual:0.0014182
+##RANK:1##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:70##Residual:0.00114852
+##RANK:0##LOOP:71##Residual:0.00109183
+##RANK:1##LOOP:71##Residual:0.00109183
+##RANK:0##LOOP:72##Residual:0.000950971
+##RANK:1##LOOP:72##Residual:0.000950971
+##RANK:0##LOOP:73##Residual:0.000706535
+##RANK:1##LOOP:73##Residual:0.000706535
+##RANK:0##LOOP:74##Residual:0.000679141
+##RANK:1##LOOP:74##Residual:0.000679141
+##RANK:0##LOOP:75##Residual:0.0016199
+##RANK:1##LOOP:75##Residual:0.0016199
+##RANK:0##LOOP:76##Residual:0.00179463
+##RANK:1##LOOP:76##Residual:0.00179463
+##RANK:0##LOOP:77##Residual:0.000668026
+##RANK:1##LOOP:77##Residual:0.000668026
+##RANK:0##LOOP:78##Residual:0.000739554
+##RANK:1##LOOP:78##Residual:0.000739554
+##RANK:0##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:79##Residual:0.000652054
+##RANK:1##LOOP:80##Residual:0.000758159
+##RANK:0##LOOP:80##Residual:0.000758159
+##RANK:1##LOOP:81##Residual:0.00134143
+##RANK:0##LOOP:81##Residual:0.00134143
+##RANK:1##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:82##Residual:5.21403e-05
+##RANK:0##LOOP:83##Residual:2.1931e-05
+##RANK:1##LOOP:83##Residual:2.1931e-05
+##RANK:0##LOOP:84##Residual:1.15359e-05
+##RANK:1##LOOP:84##Residual:1.15359e-05
+##RANK:0##LOOP:85##Residual:1.01838e-05
+##RANK:1##LOOP:85##Residual:1.01838e-05
+##RANK:0##LOOP:86##Residual:8.87852e-06
+##RANK:1##LOOP:86##Residual:8.87852e-06
+##RANK:0##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:87##Residual:6.22823e-06
+##RANK:1##LOOP:88##Residual:5.29766e-06
+##RANK:0##LOOP:88##Residual:5.29766e-06
+##RANK:1##LOOP:89##Residual:4.18895e-06
+##RANK:0##LOOP:89##Residual:4.18895e-06
+##RANK:1##LOOP:90##Residual:4.44835e-06
+##RANK:0##LOOP:90##Residual:4.44835e-06
+##RANK:1##LOOP:91##Residual:7.4377e-06
+##RANK:0##LOOP:91##Residual:7.4377e-06
+##RANK:1##LOOP:92##Residual:4.50301e-06
+##RANK:0##LOOP:92##Residual:4.50301e-06
+##RANK:1##LOOP:93##Residual:4.79995e-06
+##RANK:0##LOOP:93##Residual:4.79995e-06
+##RANK:1##LOOP:94##Residual:1.81373e-06
+##RANK:0##LOOP:94##Residual:1.81373e-06
+##RANK:1##LOOP:95##Residual:1.23193e-06
+##RANK:0##LOOP:95##Residual:1.23193e-06
+##RANK:1##LOOP:96##Residual:8.62702e-07
+##RANK:0##LOOP:96##Residual:8.62702e-07
+##RANK:1##LOOP:97##Residual:8.78434e-07
+##RANK:0##LOOP:97##Residual:8.78434e-07
+##RANK:1##LOOP:98##Residual:9.57044e-07
+##RANK:0##LOOP:98##Residual:9.57044e-07
+##RANK:1##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:99##Residual:8.53598e-07
+##RANK:0##LOOP:100##Residual:4.35333e-07
+##RANK:1##LOOP:100##Residual:4.35333e-07
+##RANK:0##LOOP:101##Residual:2.00916e-07
+##RANK:1##LOOP:101##Residual:2.00916e-07
+##RANK:0##LOOP:102##Residual:1.6075e-07
+##RANK:1##LOOP:102##Residual:1.6075e-07
+##RANK:0##LOOP:103##Residual:7.71354e-08
+##RANK:1##LOOP:103##Residual:7.71354e-08
+##RANK:0##LOOP:104##Residual:6.21512e-08
+##RANK:1##LOOP:104##Residual:6.21512e-08
+##RANK:0##LOOP:105##Residual:5.37471e-08
+##RANK:1##LOOP:105##Residual:5.37471e-08
+##RANK:0##LOOP:106##Residual:5.81075e-08
+##RANK:1##LOOP:106##Residual:5.81075e-08
+##RANK:0##LOOP:107##Residual:1.98783e-07
+##RANK:1##LOOP:107##Residual:1.98783e-07
+##RANK:0##LOOP:108##Residual:9.82445e-08
+##RANK:1##LOOP:108##Residual:9.82445e-08
+##RANK:0##LOOP:109##Residual:3.27161e-07
+##RANK:1##LOOP:109##Residual:3.27161e-07
+##RANK:0##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:110##Residual:6.53205e-09
+##RANK:1##LOOP:111##Residual:6.4145e-10
+##RANK:1##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.150411764 sec
+##RANK:0##LOOP:111##Residual:6.4145e-10
+##RANK:0##LOOP:111##Residual:6.4145e-10
+nccl wilson bistabcg total time: (without malloc free memcpy) :0.149908252 sec
+######TIME :267.969######
+##RANK     :1##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+######TIME :##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.51424e-10,-1.558e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+267.939######
+##RANK     :0##LOOP:999
+##tmp0     :2.71517e-10,-2.83198e-11
+##tmp1     :2.88487e-10,-7.87974e-30
+##rho_prev :-1.32174e-07,2.58835e-06
+##rho      :-1.32174e-07,2.58835e-06
+##alpha    :3.18839,2.40656
+##beta     :-0.0867352,-0.0536868
+##omega    :0.941174,-0.0981664
+##send_tmp :5.66645e-10,-2.13979e-29
+##norm2_tmp:6.21858e+06,7.22273e-14
+##diff_tmp :1.79795e-16,-8.03463e-36
+##lat_xyzt :32768
+###16
+###16
+###16
+###16
+rank 0 my x and x difference: , 1.0025878926307444e-06, takes 0.5687153820181265 sec, my_x_norm = 97602.71727740216
+qcu rank 0 takes 0.5687153820181265 sec
+rank 0 my x and x difference: , 1.0216259043177928e-06, takes 0.5621289440896362 sec, my_x_norm = 97552.55992501127
+qcu rank 0 takes 0.5621289440896362 sec
+============================
+============================
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 66 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =     6.671 secs
+                     init     =     6.671 secs ( 99.999%),	 with        2 calls at 3.336e+06 us per call
+        total accounted       =     6.671 secs ( 99.999%)
+        total missing         =     0.000 secs (  0.001%)
+
+          loadGaugeQuda Total time =     0.597 secs
+                 download     =     0.307 secs ( 51.369%),	 with        2 calls at 1.534e+05 us per call
+                   upload     =     0.104 secs ( 17.408%),	 with        1 calls at 1.040e+05 us per call
+                     init     =     0.010 secs (  1.656%),	 with        2 calls at 4.946e+03 us per call
+                  compute     =     0.177 secs ( 29.555%),	 with        2 calls at 8.828e+04 us per call
+                     free     =     0.000 secs (  0.003%),	 with        2 calls at 8.500e+00 us per call
+        total accounted       =     0.597 secs ( 99.991%)
+        total missing         =     0.000 secs (  0.009%)
+
+             invertQuda Total time =    21.399 secs
+                 download     =     0.015 secs (  0.071%),	 with       10 calls at 1.526e+03 us per call
+                   upload     =     0.012 secs (  0.054%),	 with       10 calls at 1.166e+03 us per call
+                     init     =     0.103 secs (  0.479%),	 with       10 calls at 1.026e+04 us per call
+                 preamble     =     4.394 secs ( 20.534%),	 with       20 calls at 2.197e+05 us per call
+                  compute     =    10.113 secs ( 47.260%),	 with       10 calls at 1.011e+06 us per call
+                 epilogue     =     0.097 secs (  0.455%),	 with       30 calls at 3.244e+03 us per call
+                     free     =     0.000 secs (  0.001%),	 with       20 calls at 1.010e+01 us per call
+        total accounted       =    14.734 secs ( 68.855%)
+        total missing         =     6.665 secs ( 31.145%)
+
+                endQuda Total time =     0.015 secs
+
+       initQuda-endQuda Total time =    64.608 secs
+
+                   QUDA Total time =    28.945 secs
+                 download     =     0.322 secs (  1.113%),	 with       12 calls at 2.684e+04 us per call
+                   upload     =     0.116 secs (  0.400%),	 with       11 calls at 1.051e+04 us per call
+                     init     =     6.784 secs ( 23.437%),	 with       14 calls at 4.846e+05 us per call
+                 preamble     =     4.394 secs ( 15.180%),	 with       20 calls at 2.197e+05 us per call
+                  compute     =    10.552 secs ( 36.455%),	 with       13 calls at 8.117e+05 us per call
+                 epilogue     =     0.097 secs (  0.336%),	 with       30 calls at 3.244e+03 us per call
+                     free     =     0.000 secs (  0.001%),	 with       22 calls at 9.864e+00 us per call
+        total accounted       =    22.265 secs ( 76.921%)
+        total missing         =     6.680 secs ( 23.079%)
+
+Device memory used = 123.0 MiB
+Pinned device memory used = 6.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 6.0 MiB
+Total host memory used >= 9.0 MiB
+
 ~/qcu
