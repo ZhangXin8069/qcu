@@ -11,8 +11,9 @@
 *.egg-info
 *__pycache__
 *.o
-*.out
-*.so
+# *.out
+# *.err
+# *.so
 *.nvvp
 *.nsys-rep
 *.profile
