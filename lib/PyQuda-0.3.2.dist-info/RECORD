@@ -29,6 +29,7 @@ pyquda/mpi.py,sha256=o6Y_jcwb59gB4VXy4TO6yT_TSisugC31t40t1qe11F8,3513
 pyquda/pointer.cpython-310-x86_64-linux-gnu.so,sha256=tzDsHXteoTy8k4-TVEZxPo5GJSG_f66KhXzh-xRuZk4,556440
 pyquda/pointer.pxd,sha256=eCM4Mcs3dez_gXTzprF5pfywQ3xUtWBxhacY4FaB5NQ,333
 pyquda/pointer.pyi,sha256=iz0lo9F83EY02pIGnxTM8ss-IQvY5XrGUClxby0sv20,317
+pyquda/pyqcu.cpython-310-x86_64-linux-gnu.so,sha256=EiUr6QvTkpQQkCOjlQCg0dR6ZiG4vAC_ZPOKj-6Bjc8,286840
 pyquda/pyqcu.pyi,sha256=83pMR--oRRc7tkZ3u081R9o52AdaBbz2MN3Jbwt3DOw,960
 pyquda/pyquda.cpython-310-x86_64-linux-gnu.so,sha256=YIY9AAH0BRQ1uoeysdCQfqai250r0k3r5WYLUyUiLm8,2995232
 pyquda/pyquda.pyi,sha256=GFGmgeSU58ivJezvLLEyf5kihqqWQ-I1E3YQURCMqlY,34375

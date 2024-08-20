@@ -3,4 +3,4 @@ pushd ./test
 rm log_*
 mpirun -n 4 python ./test.nccl.bistabcg.qcu-np4.py
 popd
-rm libqcu.so
+

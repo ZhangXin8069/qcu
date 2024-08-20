@@ -1,7 +1,5 @@
 *.cache
 *.metadata
-./lib/PyQuda*
-./lib/pyquda
 *build
 *draft
 *CMakeFiles
@@ -22,3 +20,4 @@
 *.sw*
 *RemoteSystemsTempFiles
 _*
+lib/*
