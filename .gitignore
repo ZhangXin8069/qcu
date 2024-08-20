@@ -11,7 +11,7 @@
 *.egg-info
 *__pycache__
 *.o
-*.out
+# *.out
 *.so
 *.nvvp
 *.nsys-rep
@@ -21,3 +21,4 @@
 *RemoteSystemsTempFiles
 _*
 lib/*
+*.ssub.sh
