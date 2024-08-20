@@ -40,8 +40,8 @@ HOME:/public/home/zhangxin/qcu
 [ 10%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
 [ 20%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
 [ 30%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
 [ 60%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
 [ 70%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
 [ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
