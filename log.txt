@@ -35,40 +35,43 @@
 -- Generating done
 -- Build files have been written to: /public/home/zhangxin/qcu
 [ 10%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
 [ 40%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
-[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
-[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
-[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 ~/qcu/test ~/qcu
 rm: cannot remove 'log_*': No such file or directory
-Traceback (most recent call last):
-  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 2, in <module>
-    from pyquda.utils import gauge_utils
-  File "/public/home/zhangxin/qcu/lib/pyquda/utils/gauge_utils.py", line 10, in <module>
-    from ..field import Nc, Nd, cb2, LatticeGauge
-  File "/public/home/zhangxin/qcu/lib/pyquda/field.py", line 8, in <module>
-    from .pointer import ndarrayDataPointer
-ModuleNotFoundError: No module named 'pyquda.pointer'
-Traceback (most recent call last):
-  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 2, in <module>
-    from pyquda.utils import gauge_utils
-  File "/public/home/zhangxin/qcu/lib/pyquda/utils/gauge_utils.py", line 10, in <module>
-    from ..field import Nc, Nd, cb2, LatticeGauge
-  File "/public/home/zhangxin/qcu/lib/pyquda/field.py", line 8, in <module>
-    from .pointer import ndarrayDataPointer
-ModuleNotFoundError: No module named 'pyquda.pointer'
---------------------------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code. Per user-direction, the job has been aborted.
---------------------------------------------------------------------------
---------------------------------------------------------------------------
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3, access rank = (  0)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3, access rank = (  0)
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-PCIE-40GB
+Found device 1: NVIDIA A100-PCIE-40GB
+Using device 0: NVIDIA A100-PCIE-40GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+single latt size = [32, 32, 32, 32]
+cublasCreated successfully
+single latt size = [32, 32, 32, 32]
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+================quda=================
+--------------------------
 mpirun detected that one or more processes exited with non-zero status, thus causing
 the job to be terminated. The first process to do so was:
 
