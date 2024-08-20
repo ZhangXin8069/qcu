@@ -7,20 +7,3 @@ Currently Loaded Modulefiles:
   6) pmix/4.2.3-gcc-10.3.0              12) python/3.9.10-gcc-10.3.0
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 rm: cannot remove 'log_*': No such file or directory
-Traceback (most recent call last):
-  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 1, in <module>
-    from pyquda.mpi import comm, rank, size, grid, coord, gpuid
-  File "/public/home/zhangxin/qcu/lib/pyquda/__init__.py", line 1, in <module>
-    from . import pyquda as quda
-ImportError: cannot import name 'pyquda' from partially initialized module 'pyquda' (most likely due to a circular import) (/public/home/zhangxin/qcu/lib/pyquda/__init__.py)
---------------------------------------------------------------------------
-Primary job  terminated normally, but 1 process returned
-a non-zero exit code. Per user-direction, the job has been aborted.
---------------------------------------------------------------------------
---------------------------------------------------------------------------
-mpirun detected that one or more processes exited with non-zero status, thus causing
-the job to be terminated. The first process to do so was:
-
-  Process name: [[38272,1],1]
-  Exit code:    1
---------------------------------------------------------------------------
