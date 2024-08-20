@@ -1,0 +1,78 @@
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[ 10%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+rm: cannot remove 'log_*': No such file or directory
+Traceback (most recent call last):
+  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 2, in <module>
+    from pyquda.utils import gauge_utils
+  File "/public/home/zhangxin/qcu/lib/pyquda/utils/gauge_utils.py", line 10, in <module>
+    from ..field import Nc, Nd, cb2, LatticeGauge
+  File "/public/home/zhangxin/qcu/lib/pyquda/field.py", line 8, in <module>
+    from .pointer import ndarrayDataPointer
+ModuleNotFoundError: No module named 'pyquda.pointer'
+Traceback (most recent call last):
+  File "/public/home/zhangxin/qcu/test/./test.nccl.bistabcg.qcu-np2.py", line 2, in <module>
+    from pyquda.utils import gauge_utils
+  File "/public/home/zhangxin/qcu/lib/pyquda/utils/gauge_utils.py", line 10, in <module>
+    from ..field import Nc, Nd, cb2, LatticeGauge
+  File "/public/home/zhangxin/qcu/lib/pyquda/field.py", line 8, in <module>
+    from .pointer import ndarrayDataPointer
+ModuleNotFoundError: No module named 'pyquda.pointer'
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+
+  Process name: [[45680,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------
+~/qcu
