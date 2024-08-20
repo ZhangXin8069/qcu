@@ -108,7 +108,7 @@ struct LatticeComplex {
     return sqrt(_data.x * _data.x + _data.y * _data.y);
   }
   friend std::ostream &operator<<(std::ostream &output, const LatticeComplex &_) {
-    output << "(" << _._data.x << "+" << _._data.y << "i"
+    output << "(" << _._data.x << "," << _._data.y << "i"
            << ")";
     return output;
   }
