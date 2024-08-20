@@ -1,9 +1,12 @@
+// clang-format off
 #include "../include/qcu.h"
 #include "define.h"
 #ifdef CLOVER_DSLASH
 // wait for rebuild
+// clang-format on
 __global__ void make_clover(void *device_U, void *device_clover,
                             void *device_lat_xyzt, int device_parity) {
+
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *lat_xyzt = static_cast<int *>(device_lat_xyzt);

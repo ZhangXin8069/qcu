@@ -11,14 +11,14 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [16, 16, 16, 32]
-latt_size = [16, 16, 16, 16]
+# latt_size = [16, 16, 16, 16]
 # latt_size = [8, 16, 16, 16]
-latt_size = [8, 4, 8, 64]
+# latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [16, 32, 32, 64]
 # latt_size = [4, 4, 4, 4]
-latt_size = [8, 8, 8, 8]
+latt_size = [8, 8, 8, 32]
 # latt_size = [8, 8, 8, 16]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
@@ -76,14 +76,14 @@ def compare(round):
     print("######", Mp.lexico().shape)
     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
     diff = np.sum(diff_x, axis=(-1, -2))
-    _ = np.where(diff > 1e-5)
+    _ = np.where(diff > 1e-12)
     print("######", diff.shape)
     print("######T:", _[0], ",\n", len(_[0]))
     print("######Z:", _[1], ",\n", len(_[1]))
     print("######Y:", _[2], ",\n", len(_[2]))
     print("######X:", _[3], ",\n", len(_[3]))
     print("######diff_x[0,0,0,0]:\n",
-          diff_x[0, 0, 0, 1])
+          diff_x[0, 0, 0, 0])
     print("######diff_x[0,0,0,1]:\n",
           diff_x[0, 0, 0, 1])
     print("######diff_x[0,0,1,1]:\n",
