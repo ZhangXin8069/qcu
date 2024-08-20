@@ -1,0 +1,74 @@
+CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeTestCXXCompiler.cmake:62 (message):
+  The C++ compiler
+
+    "/public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /public/home/zhangxin/qcu/CMakeFiles/CMakeTmp
+    
+    Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_57597/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_57597.dir/build.make CMakeFiles/cmTC_57597.dir/build
+    gmake[1]: Entering directory `/public/home/zhangxin/qcu/CMakeFiles/CMakeTmp'
+    Building CXX object CMakeFiles/cmTC_57597.dir/testCXXCompiler.cxx.o
+    /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++    -o CMakeFiles/cmTC_57597.dir/testCXXCompiler.cxx.o -c /public/home/zhangxin/qcu/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+    Assembler messages:
+    Fatal error: can't create CMakeFiles/cmTC_57597.dir/testCXXCompiler.cxx.o: No such file or directory
+    gmake[1]: *** [CMakeFiles/cmTC_57597.dir/testCXXCompiler.cxx.o] Error 1
+    gmake[1]: Leaving directory `/public/home/zhangxin/qcu/CMakeFiles/CMakeTmp'
+    gmake: *** [cmTC_57597/fast] Error 2
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:3 (project)
+
+
+CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeTestCXXCompiler.cmake:62 (message):
+  The C++ compiler
+
+    "/public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++"
+
+  is not able to compile a simple test program.
+
+  It fails with the following output:
+
+    Change Dir: /public/home/zhangxin/qcu/CMakeFiles/CMakeTmp
+    
+    Run Build Command(s):/usr/bin/gmake -f Makefile cmTC_4ec41/fast && /usr/bin/gmake  -f CMakeFiles/cmTC_4ec41.dir/build.make CMakeFiles/cmTC_4ec41.dir/build
+    gmake[1]: Entering directory `/public/home/zhangxin/qcu/CMakeFiles/CMakeTmp'
+    Building CXX object CMakeFiles/cmTC_4ec41.dir/testCXXCompiler.cxx.o
+    /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++    -o CMakeFiles/cmTC_4ec41.dir/testCXXCompiler.cxx.o -c /public/home/zhangxin/qcu/CMakeFiles/CMakeTmp/testCXXCompiler.cxx
+    cc1plus: fatal error: /public/home/zhangxin/qcu/CMakeFiles/CMakeTmp/testCXXCompiler.cxx: No such file or directory
+    compilation terminated.
+    gmake[1]: *** [CMakeFiles/cmTC_4ec41.dir/testCXXCompiler.cxx.o] Error 1
+    gmake[1]: Leaving directory `/public/home/zhangxin/qcu/CMakeFiles/CMakeTmp'
+    gmake: *** [cmTC_4ec41/fast] Error 2
+    
+    
+
+  
+
+  CMake will not be able to correctly generate this project.
+Call Stack (most recent call first):
+  CMakeLists.txt:3 (project)
+
+
+make: *** No targets specified and no makefile found.  Stop.
+make: *** No targets specified and no makefile found.  Stop.
+mv: cannot stat 'libqcu.so': No such file or directory
+mv: cannot stat 'libqcu.so': No such file or directory
+rm: cannot remove 'cmake_install.cmake': No such file or directory
+rm: cannot remove 'cmake_install.cmake': No such file or directory
+rm: cannot remove 'CMakeCache.txt': No such file or directory
+rm: cannot remove 'Makefile': No such file or directory
+rm: cannot remove 'Makefile': No such file or directory
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+rm: cannot remove 'log_*': No such file or directory
+rm: cannot remove 'log_*': No such file or directory
+slurmstepd: error: *** STEP 951271.0 ON gpu024 CANCELLED AT 2024-08-20T16:37:11 ***
