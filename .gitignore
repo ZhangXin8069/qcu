@@ -1,6 +1,5 @@
-.cache
-./test/.cache
-./test/.metadata
+*.cache
+*.metadata
 ./lib/PyQuda*
 ./lib/pyquda
 *build
@@ -21,6 +20,5 @@
 *.profile
 *.sqlite
 *.sw*
-*.metadata
 *RemoteSystemsTempFiles
 _*
