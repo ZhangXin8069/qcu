@@ -80,9 +80,9 @@ struct LatticeBistabcg {
           cudaMallocAsync(&ans_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
       give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(ans_e, 12138);
+                         set_ptr->stream>>>(ans_e, 12138);
       give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(ans_o, 83121);
+                         set_ptr->stream>>>(ans_o, 83121);
       checkCudaErrors(
           cudaMallocAsync(&b_e, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
@@ -106,7 +106,7 @@ struct LatticeBistabcg {
                                               device_vals);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(x_o, 23333);
+                         set_ptr->stream>>>(x_o, 23333);
       _dslash(r, x_o, gauge);
       bistabcg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->stream>>>(r, b__o, r_tilde, device_vals);
@@ -195,27 +195,17 @@ struct LatticeBistabcg {
     std::cout << "######TIME :" << set_ptr->get_time() << "######" << std::endl
               << "##RANK     :" << set_ptr->node_rank << "##LOOP:" << loop
               << std::endl
-              << "##tmp0     :" << host_vals[_tmp0_].real << ","
-              << host_vals[_tmp0_].imag << std::endl
-              << "##tmp1     :" << host_vals[_tmp1_].real << ","
-              << host_vals[_tmp1_].imag << std::endl
-              << "##rho_prev :" << host_vals[_rho_prev_].real << ","
-              << host_vals[_rho_prev_].imag << std::endl
-              << "##rho      :" << host_vals[_rho_].real << ","
-              << host_vals[_rho_].imag << std::endl
-              << "##alpha    :" << host_vals[_alpha_].real << ","
-              << host_vals[_alpha_].imag << std::endl
-              << "##beta     :" << host_vals[_beta_].real << ","
-              << host_vals[_beta_].imag << std::endl
-              << "##omega    :" << host_vals[_omega_].real << ","
-              << host_vals[_omega_].imag << std::endl
-              << "##send_tmp :" << host_vals[_send_tmp_].real << ","
-              << host_vals[_send_tmp_].imag << std::endl
-              << "##norm2_tmp:" << host_vals[_norm2_tmp_].real << ","
-              << host_vals[_norm2_tmp_].imag << std::endl
-              << "##diff_tmp :" << host_vals[_diff_tmp_].real << ","
-              << host_vals[_diff_tmp_].imag << std::endl
-              << "##lat_xyzt :" << host_vals[_lat_xyzt_].real << std::endl;
+              << "##tmp0     :" << host_vals[_tmp0_] << std::endl
+              << "##tmp1     :" << host_vals[_tmp1_] << std::endl
+              << "##rho_prev :" << host_vals[_rho_prev_] << std::endl
+              << "##rho      :" << host_vals[_rho_] << std::endl
+              << "##alpha    :" << host_vals[_alpha_] << std::endl
+              << "##beta     :" << host_vals[_beta_] << std::endl
+              << "##omega    :" << host_vals[_omega_] << std::endl
+              << "##send_tmp :" << host_vals[_send_tmp_] << std::endl
+              << "##norm2_tmp:" << host_vals[_norm2_tmp_] << std::endl
+              << "##diff_tmp :" << host_vals[_diff_tmp_] << std::endl
+              << "##lat_xyzt :" << host_vals[_lat_xyzt_] << std::endl;
     // exit(1);
   }
   void run_nccl() {
@@ -296,12 +286,13 @@ struct LatticeBistabcg {
       {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
         std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
-                  << "##Residual:" << host_vals[_norm2_tmp_].real << std::endl;
+                  << "##Residual:" << host_vals[_norm2_tmp_]._data.x
+                  << std::endl;
 #endif
-        if ((host_vals[_norm2_tmp_].real < _TOL_ || loop == _MAX_ITER_ - 1)) {
+        if ((host_vals[_norm2_tmp_]._data.x < _TOL_ ||
+             loop == _MAX_ITER_ - 1)) {
           std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
-                    << "##Residual:" << host_vals[_norm2_tmp_].real
-                    << std::endl;
+                    << "##Residual:" << host_vals[_norm2_tmp_] << std::endl;
           break;
         }
       }
@@ -408,12 +399,13 @@ struct LatticeBistabcg {
       {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
         std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
-                  << "##Residual:" << host_vals[_rho_prev_].real << std::endl;
+                  << "##Residual:" << host_vals[_rho_prev_]._data.x
+                  << std::endl;
 #endif
       }
-      if ((host_vals[_rho_prev_].real < _TOL_ || loop == _MAX_ITER_ - 1)) {
+      if ((host_vals[_rho_prev_]._data.x < _TOL_ || loop == _MAX_ITER_ - 1)) {
         std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
-                  << "##Residual:" << host_vals[_rho_prev_].real << std::endl;
+                  << "##Residual:" << host_vals[_rho_prev_] << std::endl;
         break;
       }
     }
