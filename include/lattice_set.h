@@ -51,7 +51,7 @@ struct LatticeSet {
     grid_1dim[_T_] = _grid_lat_size[_T_];
   }
   void give(int *_param_lat_size) {
-    lat_1dim[_X_] = _param_lat_size[_X_] >> 1; // even-odd
+    lat_1dim[_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
     lat_1dim[_Z_] = _param_lat_size[_Z_];
     lat_1dim[_T_] = _param_lat_size[_T_];

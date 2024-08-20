@@ -204,6 +204,12 @@
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
     U[8] = (U[0] * U[4] - U[1] * U[3]).conj();                                 \
   }
+// #define give_u(U, tmp_U, lat_tzyx)                                             \
+//   {                                                                            \
+//     for (int i = 0; i < _LAT_CC_; i++) {                                       \
+//       U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                       \
+//     }                                                                          \
+//   }
 #define give_src(src, origin_src, lat_tzyx)                                    \
   {                                                                            \
     for (int i = 0; i < _LAT_SC_; i++) {                                       \
