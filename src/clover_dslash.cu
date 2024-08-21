@@ -42,7 +42,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     parity = device_parity;
     give_vals(clover, zero, _LAT_SCSC_);
-    give_vals(origin_clover, zero, _LAT_SCSC_);
+    // give_vals(origin_clover, zero, _LAT_SCSC_);//BUG!!!!!!
     give_vals(tmp1, zero, _LAT_CC_);
     give_vals(tmp2, zero, _LAT_CC_);
   }
