@@ -120,41 +120,41 @@ __global__ void make_clover_all(
       (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_F_T_] == 1 - lat_t);
   // int if_f_z_f_t =
   //     (move_wards[_F_Z_] == 1 - lat_z) * (move_wards[_F_T_] == 1 - lat_t);
-  // {
-  //   // test
-  //   if_b_x = 0;
-  //   if_b_y = 0;
-  //   if_b_z = 0;
-  //   if_b_t = 0;
-  //   if_f_x = 0;
-  //   if_f_y = 0;
-  //   if_f_z = 0;
-  //   if_f_t = 0;
-  //   if_b_x_b_y = 0;
-  //   if_f_x_b_y = 0;
-  //   if_b_x_f_y = 0;
-  //   // if_f_x_f_y =0;
-  //   if_b_x_b_z = 0;
-  //   if_f_x_b_z = 0;
-  //   if_b_x_f_z = 0;
-  //   // if_f_x_f_z =0;
-  //   if_b_x_b_t = 0;
-  //   if_f_x_b_t = 0;
-  //   if_b_x_f_t = 0;
-  //   // if_f_x_f_t =0;
-  //   if_b_y_b_z = 0;
-  //   if_f_y_b_z = 0;
-  //   if_b_y_f_z = 0;
-  //   // if_f_y_f_z =0;
-  //   if_b_y_b_t = 0;
-  //   if_f_y_b_t = 0;
-  //   if_b_y_f_t = 0;
-  //   // if_f_y_f_t =0;
-  //   if_b_z_b_t = 0;
-  //   if_f_z_b_t = 0;
-  //   if_b_z_f_t = 0;
-  //   // if_f_z_f_t =0;
-  // }
+  {
+    // test
+    if_b_x = 0;
+    if_b_y = 0;
+    if_b_z = 0;
+    if_b_t = 0;
+    if_f_x = 0;
+    if_f_y = 0;
+    if_f_z = 0;
+    if_f_t = 0;
+    if_b_x_b_y = 0;
+    if_f_x_b_y = 0;
+    if_b_x_f_y = 0;
+    // if_f_x_f_y =0;
+    if_b_x_b_z = 0;
+    if_f_x_b_z = 0;
+    if_b_x_f_z = 0;
+    // if_f_x_f_z =0;
+    if_b_x_b_t = 0;
+    if_f_x_b_t = 0;
+    if_b_x_f_t = 0;
+    // if_f_x_f_t =0;
+    if_b_y_b_z = 0;
+    if_f_y_b_z = 0;
+    if_b_y_f_z = 0;
+    // if_f_y_f_z =0;
+    if_b_y_b_t = 0;
+    if_f_y_b_t = 0;
+    if_b_y_f_t = 0;
+    // if_f_y_f_t =0;
+    if_b_z_b_t = 0;
+    if_f_z_b_t = 0;
+    if_b_z_f_t = 0;
+    // if_f_z_f_t =0;
+  }
   // sigmaF
   {
     give_vals(clover, zero, _LAT_SCSC_);
@@ -1079,27 +1079,6 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  { // test
-    if (if_f_t) {
-      LatticeComplex _;
-      LatticeComplex tmp00[_LAT_CC_];
-      LatticeComplex tmp01[_LAT_CC_];
-      tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
-               (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-      give_u(tmp00, tmp_U, lat_tzyx);
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
-                x));
-      give_u(tmp01, tmp_U, lat_tzyx);
-      for (int i = 0; i < _LAT_CC_; i++) {
-        _ = tmp00[i] - tmp01[i];
-        _ = tmp01[i];
-        _ = tmp00[i];
-        printf("!!!%d@@@@@@@@@@@@@@%f,%f################\n", i, _._data.x,
-               _._data.y);
-      }
-    }
-  }
   {
     //// x,y,z,t;t;dag
     tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
@@ -1234,8 +1213,8 @@ __global__ void make_clover_all(
       for (int i = 0; i < _LAT_CC_; i++) {
         _ = tmp00[i] - tmp01[i];
         _ = tmp01[i];
-        _ = tmp00[i];
-        printf("!!!%d@@@@@@@@@@@@@@%f,%f################\n", i, _._data.x,
+        // _ = tmp00[i];
+        printf("!!!%d@@@@@@@@@@@@@@%.16f,%.16f################\n", i, _._data.x,
                _._data.y);
       }
     }
