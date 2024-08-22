@@ -7,7 +7,8 @@
 #include "./lattice_bistabcg.h"
 #include "./lattice_complex.h"
 #include "./lattice_cuda.h"
-#include "./lattice_dslash.h"
+#include "./lattice_wilson_dslash.h"
+#include "./lattice_clover_dslash.h"
 #include "./lattice_set.h"
 
 #ifdef __cplusplus

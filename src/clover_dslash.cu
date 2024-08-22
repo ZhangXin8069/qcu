@@ -852,7 +852,7 @@ __global__ void inverse_clover(void *device_clover, void *device_lat_xyzt) {
     LatticeComplex clover[_LAT_SCSC_];
     LatticeComplex augmented_clover[_LAT_SCSC_ * _BF_];
     get_clr(clover, origin_clover, lat_tzyx);
-    inverse(clover, clover, augmented_clover, pivot, factor, _LAT_SC_);
+    _inverse(clover, clover, augmented_clover, pivot, factor, _LAT_SC_);
     give_clr(origin_clover, clover, lat_tzyx);
   }
 }
