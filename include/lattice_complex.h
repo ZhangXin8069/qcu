@@ -1,6 +1,5 @@
 #ifndef _LATTICE_COMPLEX_H
 #define _LATTICE_COMPLEX_H
-
 #include "./include.h"
 using data_type = cuDoubleComplex;
 
@@ -113,5 +112,4 @@ struct LatticeComplex {
     return output;
   }
 };
-
 #endif

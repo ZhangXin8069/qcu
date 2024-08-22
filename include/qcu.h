@@ -1,6 +1,5 @@
 #ifndef _QCU_H
 #define _QCU_H
-
 #pragma once
 #include "./define.h"
 #include "./include.h"
@@ -10,7 +9,6 @@
 #include "./lattice_wilson_dslash.h"
 #include "./lattice_clover_dslash.h"
 #include "./lattice_set.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -29,9 +27,7 @@ void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid);
 void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid);
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param, QcuParam *grid);
-
 #ifdef __cplusplus
 }
 #endif
-
 #endif
