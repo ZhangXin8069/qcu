@@ -1,63 +1,37 @@
 // clang-format off
 #include "../include/qcu.h"
+#include <cstdio>
 #ifdef CLOVER_DSLASH
 // wait for rebuild
-// clang-format off
-__global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_x_send_vec,
-                            void *device_u_f_x_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = 1;
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  // int x = parity - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_1dim_send_vec
-  //// x
-  LatticeComplex *u_b_x_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_send_vec) + idx);
-  LatticeComplex *u_f_x_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_send_vec) + idx);
-  // b_x
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + y) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_send_vec[i * lat_tzyx / lat_x] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
-  }
-  // f_x
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + y) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_send_vec[i * lat_tzyx / lat_x] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
-  }
-}
-__global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_y_send_vec,
-                            void *device_u_f_y_send_vec) {
+// clang-format on
+__global__ void make_clover_all(
+    void *device_U, void *device_clover, void *device_lat_xyzt,
+    int device_parity, void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
+    void *device_u_b_y_recv_vec, void *device_u_f_y_recv_vec,
+    void *device_u_b_z_recv_vec, void *device_u_f_z_recv_vec,
+    void *device_u_b_t_recv_vec, void *device_u_f_t_recv_vec,
+    void *device_u_b_x_b_y_recv_vec, void *device_u_f_x_b_y_recv_vec,
+    void *device_u_b_x_f_y_recv_vec, void *device_u_f_x_f_y_recv_vec,
+    void *device_u_b_x_b_z_recv_vec, void *device_u_f_x_b_z_recv_vec,
+    void *device_u_b_x_f_z_recv_vec, void *device_u_f_x_f_z_recv_vec,
+    void *device_u_b_x_b_t_recv_vec, void *device_u_f_x_b_t_recv_vec,
+    void *device_u_b_x_f_t_recv_vec, void *device_u_f_x_f_t_recv_vec,
+    void *device_u_b_y_b_z_recv_vec, void *device_u_f_y_b_z_recv_vec,
+    void *device_u_b_y_f_z_recv_vec, void *device_u_f_y_f_z_recv_vec,
+    void *device_u_b_y_b_t_recv_vec, void *device_u_f_y_b_t_recv_vec,
+    void *device_u_b_y_f_t_recv_vec, void *device_u_f_y_f_t_recv_vec,
+    void *device_u_b_z_b_t_recv_vec, void *device_u_f_z_b_t_recv_vec,
+    void *device_u_b_z_f_t_recv_vec, void *device_u_f_z_f_t_recv_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
   int lat_x = lat_xyzt[_X_];
-  int lat_y = 1;
+  int lat_y = lat_xyzt[_Y_];
   int lat_z = lat_xyzt[_Z_];
-  // int lat_t = lat_xyzt[_T_];
+  int lat_t = lat_xyzt[_T_];
   int lat_tzyx = lat_xyzt[_XYZT_];
   int move0;
+  int move1;
   move0 = lat_x * lat_y * lat_z;
   int t = parity / move0;
   parity -= t * move0;
@@ -66,508 +40,1248 @@ __global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
   parity -= z * move0;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  lat_y = lat_xyzt[_Y_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
+  int eo = (y + z + t) & 0x01; // (y+z+t)%2
   parity = device_parity;
-  // u_1dim_send_vec
-  //// y
-  LatticeComplex *u_b_y_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_y_send_vec) + idx);
-  LatticeComplex *u_f_y_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_y_send_vec) + idx);
-  // b_y
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + 0) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_y_send_vec[i * lat_tzyx / lat_y] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
-  }
-  // f_y
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + lat_y - 1) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_y_send_vec[i * lat_tzyx / lat_y] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
-  }
-}
-__global__ void pick_up_u_z(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_z_send_vec,
-                            void *device_u_f_z_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = 1;
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  int x = parity - y * lat_x;
-  lat_z = lat_xyzt[_Z_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
+  int move_wards[_WARDS_];
+  move_backward_x(move_wards[_B_X_], x, lat_x, eo, parity);
+  move_backward(move_wards[_B_Y_], y, lat_y);
+  move_backward(move_wards[_B_Z_], z, lat_z);
+  move_backward(move_wards[_B_T_], t, lat_t);
+  move_forward_x(move_wards[_F_X_], x, lat_x, eo, parity);
+  move_forward(move_wards[_F_Y_], y, lat_y);
+  move_forward(move_wards[_F_Z_], z, lat_z);
+  move_forward(move_wards[_F_T_], t, lat_t);
+  LatticeComplex I(0.0, 1.0);
+  LatticeComplex zero(0.0, 0.0);
+  LatticeComplex tmp0(0.0, 0.0);
+  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
+  LatticeComplex *origin_clover =
+      ((static_cast<LatticeComplex *>(device_clover)) + idx);
   LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_1dim_send_vec
-  //// z
-  LatticeComplex *u_b_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_z_send_vec) + idx);
-  LatticeComplex *u_f_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_z_send_vec) + idx);
-  // b_z
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((t)*lat_z + 0) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_z_send_vec[i * lat_tzyx / lat_z] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  LatticeComplex tmp1[_LAT_CC_];
+  LatticeComplex tmp2[_LAT_CC_];
+  LatticeComplex tmp3[_LAT_CC_];
+  LatticeComplex U[_LAT_CC_];
+  LatticeComplex clover[_LAT_SCSC_];
+  // just all
+  int if_b_x = (move_wards[_B_X_] == lat_x - 1);
+  int if_b_y = (move_wards[_B_Y_] == lat_y - 1);
+  int if_b_z = (move_wards[_B_Z_] == lat_z - 1);
+  int if_b_t = (move_wards[_B_T_] == lat_t - 1);
+  int if_f_x = (move_wards[_F_X_] == 1 - lat_x);
+  int if_f_y = (move_wards[_F_Y_] == 1 - lat_y);
+  int if_f_z = (move_wards[_F_Z_] == 1 - lat_z);
+  int if_f_t = (move_wards[_F_T_] == 1 - lat_t);
+  int if_b_x_b_y =
+      (move_wards[_B_X_] == lat_x - 1) * (move_wards[_B_Y_] == lat_y - 1);
+  int if_f_x_b_y =
+      (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_B_Y_] == lat_y - 1);
+  int if_b_x_f_y =
+      (move_wards[_B_X_] == lat_x - 1) * (move_wards[_F_Y_] == 1 - lat_y);
+  // int if_f_x_f_y =
+  //     (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_F_Y_] == 1 - lat_y);
+  int if_b_x_b_z =
+      (move_wards[_B_X_] == lat_x - 1) * (move_wards[_B_Z_] == lat_z - 1);
+  int if_f_x_b_z =
+      (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_B_Z_] == lat_z - 1);
+  int if_b_x_f_z =
+      (move_wards[_B_X_] == lat_x - 1) * (move_wards[_F_Z_] == 1 - lat_z);
+  // int if_f_x_f_z =
+  //     (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_F_Z_] == 1 - lat_z);
+  int if_b_x_b_t =
+      (move_wards[_B_X_] == lat_x - 1) * (move_wards[_B_T_] == lat_t - 1);
+  int if_f_x_b_t =
+      (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_B_T_] == lat_t - 1);
+  int if_b_x_f_t =
+      (move_wards[_B_X_] == lat_x - 1) * (move_wards[_F_T_] == 1 - lat_t);
+  // int if_f_x_f_t =
+  //     (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_F_T_] == 1 - lat_t);
+  int if_b_y_b_z =
+      (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_B_Z_] == lat_z - 1);
+  int if_f_y_b_z =
+      (move_wards[_F_Y_] == 1 - lat_y) * (move_wards[_B_Z_] == lat_z - 1);
+  int if_b_y_f_z =
+      (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_F_Z_] == 1 - lat_z);
+  // int if_f_y_f_z =
+  //     (move_wards[_F_Y_] == 1 - lat_y) * (move_wards[_F_Z_] == 1 - lat_z);
+  int if_b_y_b_t =
+      (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_B_T_] == lat_t - 1);
+  int if_f_y_b_t =
+      (move_wards[_F_Y_] == 1 - lat_y) * (move_wards[_B_T_] == lat_t - 1);
+  int if_b_y_f_t =
+      (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_F_T_] == 1 - lat_t);
+  // int if_f_y_f_t =
+  //     (move_wards[_F_Y_] == 1 - lat_y) * (move_wards[_F_T_] == 1 - lat_t);
+  int if_b_z_b_t =
+      (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_B_T_] == lat_t - 1);
+  int if_f_z_b_t =
+      (move_wards[_F_Z_] == 1 - lat_z) * (move_wards[_B_T_] == lat_t - 1);
+  int if_b_z_f_t =
+      (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_F_T_] == 1 - lat_t);
+  // int if_f_z_f_t =
+  //     (move_wards[_F_Z_] == 1 - lat_z) * (move_wards[_F_T_] == 1 - lat_t);
+  // {
+  //   // test
+  //   if_b_x = 0;
+  //   if_b_y = 0;
+  //   if_b_z = 0;
+  //   if_b_t = 0;
+  //   if_f_x = 0;
+  //   if_f_y = 0;
+  //   if_f_z = 0;
+  //   if_f_t = 0;
+  //   if_b_x_b_y = 0;
+  //   if_f_x_b_y = 0;
+  //   if_b_x_f_y = 0;
+  //   // if_f_x_f_y =0;
+  //   if_b_x_b_z = 0;
+  //   if_f_x_b_z = 0;
+  //   if_b_x_f_z = 0;
+  //   // if_f_x_f_z =0;
+  //   if_b_x_b_t = 0;
+  //   if_f_x_b_t = 0;
+  //   if_b_x_f_t = 0;
+  //   // if_f_x_f_t =0;
+  //   if_b_y_b_z = 0;
+  //   if_f_y_b_z = 0;
+  //   if_b_y_f_z = 0;
+  //   // if_f_y_f_z =0;
+  //   if_b_y_b_t = 0;
+  //   if_f_y_b_t = 0;
+  //   if_b_y_f_t = 0;
+  //   // if_f_y_f_t =0;
+  //   if_b_z_b_t = 0;
+  //   if_f_z_b_t = 0;
+  //   if_b_z_f_t = 0;
+  //   // if_f_z_f_t =0;
+  // }
+  // sigmaF
+  {
+    give_vals(clover, zero, _LAT_SCSC_);
+    // give_vals(origin_clover, zero, _LAT_SCSC_);//BUG!!!!!!
+    give_vals(tmp1, zero, _LAT_CC_);
+    give_vals(tmp2, zero, _LAT_CC_);
   }
-  // f_z
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((t)*lat_z + lat_z - 1) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_z_send_vec[i * lat_tzyx / lat_z] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  // XY
+  give_vals(U, zero, _LAT_CC_);
+  {
+    //// x,y,z,t;x
+    tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x+1,y,z,t;y
+    move0 = move_wards[_F_X_];
+    tmp_U = (origin_U + move0 + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
-}
-__global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_t_send_vec,
-                            void *device_u_f_t_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  int x = parity - y * lat_x;
-  lat_t = lat_xyzt[_T_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_1dim_send_vec
-  //// t
-  LatticeComplex *u_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_t_send_vec) + idx);
-  LatticeComplex *u_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_t_send_vec) + idx);
-  // b_t
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((0) * lat_z + z) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_t_send_vec[i * lat_tzyx / lat_t] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y+1,z,t;x;dag
+    move0 = move_wards[_F_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  // f_t
-  tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((lat_t - 1) * lat_z + y) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_t_send_vec[i * lat_tzyx / lat_t] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y,z,t;y;dag
+    tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
-}
-__global__ void pick_up_u_xy(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_x_b_y_send_vec,
-                             void *device_u_f_x_b_y_send_vec,
-                             void *device_u_b_x_f_y_send_vec,
-                             void *device_u_f_x_f_y_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = 1;
-  int lat_y = 1;
-  int lat_z = lat_xyzt[_Z_];
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  // int y = parity / lat_x;
-  // int x = parity - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  lat_y = lat_xyzt[_Y_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_2dim_send_vec
-  //// xy
-  LatticeComplex *u_b_x_b_y_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_b_y_send_vec) + idx);
-  LatticeComplex *u_f_x_b_y_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_b_y_send_vec) + idx);
-  LatticeComplex *u_b_x_f_y_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_f_y_send_vec) + idx);
-  LatticeComplex *u_f_x_f_y_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_f_y_send_vec) + idx);
-  // b_x_b_y
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + 0) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_b_y_send_vec[i * lat_tzyx / lat_x / lat_y] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t;y
+    tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x-1,y+1,z,t;x;dag
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_F_Y_];
+    tmp_U = (origin_U + move0 + move1 * lat_x +
+             (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_f_y)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_f_y_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
-  // f_x_b_y
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + 0) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_b_y_send_vec[i * lat_tzyx / lat_x / lat_y] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x-1,y,z,t;y;dag
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  // b_x_f_y
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + lat_y - 1) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_f_y_send_vec[i * lat_tzyx / lat_x / lat_y] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x-1,y,z,t;x
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
-  // f_x_f_y
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + z) * lat_y + lat_y - 1) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_f_y_send_vec[i * lat_tzyx / lat_x / lat_y] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x-1,y,z,t;x;dag
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x-1,y-1,z,t;y;dag
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 + move1 * lat_x +
+             (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_b_y)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_y_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
-}
-__global__ void pick_up_u_xz(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_x_b_z_send_vec,
-                             void *device_u_f_x_b_z_send_vec,
-                             void *device_u_b_x_f_z_send_vec,
-                             void *device_u_f_x_f_z_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = 1;
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = 1;
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  // int x = parity - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  lat_z = lat_xyzt[_Z_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_2dim_send_vec
-  // xz
-  LatticeComplex *u_b_x_b_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_b_z_send_vec) + idx);
-  LatticeComplex *u_f_x_b_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_b_z_send_vec) + idx);
-  LatticeComplex *u_b_x_f_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_f_z_send_vec) + idx);
-  LatticeComplex *u_f_x_f_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_f_z_send_vec) + idx);
-  // b_x_b_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + 0) * lat_y + y) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_b_z_send_vec[i * lat_tzyx / lat_x / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x-1,y-1,z,t;x
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 + move1 * lat_x +
+             (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_b_y)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_y_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  // f_x_b_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + 0) * lat_y + y) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_b_z_send_vec[i * lat_tzyx / lat_x / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y-1,z,t;y
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
-  // b_x_f_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + lat_z - 1) * lat_y + y) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_f_z_send_vec[i * lat_tzyx / lat_x / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y-1,z,t;y;dag
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y-1,z,t;x
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
-  // f_x_f_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + lat_z - 1) * lat_y + y) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_f_z_send_vec[i * lat_tzyx / lat_x / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x+1,y-1,z,t;y
+    move0 = move_wards[_F_X_];
+    move1 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 + move1 * lat_x +
+             (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_f_x_b_y)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_x_b_y_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
-}
-__global__ void pick_up_u_xt(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_x_b_t_send_vec,
-                             void *device_u_f_x_b_t_send_vec,
-                             void *device_u_b_x_f_t_send_vec,
-                             void *device_u_f_x_f_t_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = 1;
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  // int x = parity - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  lat_t = lat_xyzt[_T_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_2dim_send_vec
-  // xt
-  LatticeComplex *u_b_x_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_b_t_send_vec) + idx);
-  LatticeComplex *u_f_x_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_b_t_send_vec) + idx);
-  LatticeComplex *u_b_x_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_x_f_t_send_vec) + idx);
-  LatticeComplex *u_f_x_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_x_f_t_send_vec) + idx);
-  // b_x_b_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((0) * lat_z + z) * lat_y + y) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_b_t_send_vec[i * lat_tzyx / lat_x / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y,z,t;x;dag
+    tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
-  // f_x_b_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((0) * lat_z + z) * lat_y + y) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_b_t_send_vec[i * lat_tzyx / lat_x / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    for (int c0 = 0; c0 < _LAT_C_; c0++) {
+      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+        clover[c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[39 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+        clover[78 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[117 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+      }
+    }
   }
-  // b_x_f_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((lat_t - 1) * lat_z + z) * lat_y + y) * lat_x + 0));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_x_f_t_send_vec[i * lat_tzyx / lat_x / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  // XZ
+  give_vals(U, zero, _LAT_CC_);
+  {
+    //// x,y,z,t;x
+    tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x+1,y,z,t;z
+    move0 = move_wards[_F_X_];
+    tmp_U = (origin_U + move0 + (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
-  // f_x_f_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((lat_t - 1) * lat_z + z) * lat_y + y) * lat_x + lat_x - 1));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_x_f_t_send_vec[i * lat_tzyx / lat_x / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y,z+1,t;x;dag
+    move0 = move_wards[_F_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
-}
-__global__ void pick_up_u_yz(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_y_b_z_send_vec,
-                             void *device_u_f_y_b_z_send_vec,
-                             void *device_u_b_y_f_z_send_vec,
-                             void *device_u_f_y_f_z_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = 1;
-  int lat_z = 1;
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  int x = parity - y * lat_x;
-  lat_y = lat_xyzt[_Y_];
-  lat_z = lat_xyzt[_Z_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_2dim_send_vec
-  // yz
-  LatticeComplex *u_b_y_b_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_y_b_z_send_vec) + idx);
-  LatticeComplex *u_f_y_b_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_y_b_z_send_vec) + idx);
-  LatticeComplex *u_b_y_f_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_y_f_z_send_vec) + idx);
-  LatticeComplex *u_f_y_f_z_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_y_f_z_send_vec) + idx);
-  // b_y_b_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + 0) * lat_y + 0) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_y_b_z_send_vec[i * lat_tzyx / lat_y / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y,z,t;z;dag
+    tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
-  // f_y_b_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + 0) * lat_y + lat_y - 1) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_y_b_z_send_vec[i * lat_tzyx / lat_y / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t;z
+    tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x-1,y,z+1,t;x;dag
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_F_Z_];
+    tmp_U = (origin_U + move0 + move1 * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_f_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_f_z_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
-  // b_y_f_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + lat_z - 1) * lat_y + 0) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_y_f_z_send_vec[i * lat_tzyx / lat_y / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x-1,y,z,t;z;dag
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  // f_y_f_z
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((t)*lat_z + lat_z - 1) * lat_y + lat_y - 1) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_y_f_z_send_vec[i * lat_tzyx / lat_y / lat_z] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x-1,y,z,t;x
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
-}
-__global__ void pick_up_u_yt(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_y_b_t_send_vec,
-                             void *device_u_f_y_b_t_send_vec,
-                             void *device_u_b_y_f_t_send_vec,
-                             void *device_u_f_y_f_t_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = 1;
-  int lat_z = lat_xyzt[_Z_];
-  int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  int x = parity - y * lat_x;
-  lat_y = lat_xyzt[_Y_];
-  lat_t = lat_xyzt[_T_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_2dim_send_vec
-  // yt
-  LatticeComplex *u_b_y_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_y_b_t_send_vec) + idx);
-  LatticeComplex *u_f_y_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_y_b_t_send_vec) + idx);
-  LatticeComplex *u_b_y_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_y_f_t_send_vec) + idx);
-  LatticeComplex *u_f_y_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_y_f_t_send_vec) + idx);
-  // b_y_b_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((0) * lat_z + z) * lat_y + 0) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_y_b_t_send_vec[i * lat_tzyx / lat_y / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x-1,y,z,t;x;dag
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x-1,y,z-1,t;z;dag
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 + move1 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_b_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
   }
-  // f_y_b_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((0) * lat_z + z) * lat_y + lat_y - 1) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_y_b_t_send_vec[i * lat_tzyx / lat_y / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x-1,y,z-1,t;x
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 + move1 * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_b_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_z_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  // b_y_f_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((lat_t - 1) * lat_z + z) * lat_y + 0) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_y_f_t_send_vec[i * lat_tzyx / lat_y / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y,z-1,t;z
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
   }
-  // f_y_f_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((lat_t - 1) * lat_z + z) * lat_y + lat_y - 1) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_y_f_t_send_vec[i * lat_tzyx / lat_y / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z-1,t;z;dag
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z-1,t;x
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
-}
-__global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_z_b_t_send_vec,
-                             void *device_u_f_z_b_t_send_vec,
-                             void *device_u_b_z_f_t_send_vec,
-                             void *device_u_f_z_f_t_send_vec) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = 1;
-  int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  int x = parity - y * lat_x;
-  lat_z = lat_xyzt[_Z_];
-  lat_t = lat_xyzt[_T_];
-  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
-  LatticeComplex *tmp_U;
-  parity = device_parity;
-  // u_2dim_send_vec
-  LatticeComplex *u_b_z_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_z_b_t_send_vec) + idx);
-  LatticeComplex *u_f_z_b_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_z_b_t_send_vec) + idx);
-  LatticeComplex *u_b_z_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_b_z_f_t_send_vec) + idx);
-  LatticeComplex *u_f_z_f_t_send_vec =
-      (static_cast<LatticeComplex *>(device_u_f_z_f_t_send_vec) + idx);
-  // b_z_b_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((0) * lat_z + 0) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_z_b_t_send_vec[i * lat_tzyx / lat_z / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x+1,y,z-1,t;z
+    move0 = move_wards[_F_X_];
+    move1 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 + move1 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_f_x_b_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_x_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
   }
-  // f_z_b_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((0) * lat_z + lat_z - 1) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_z_b_t_send_vec[i * lat_tzyx / lat_z / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  {
+    //// x,y,z,t;x;dag
+    tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
   }
-  // b_z_f_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((lat_t - 1) * lat_z + 0) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_b_z_f_t_send_vec[i * lat_tzyx / lat_z / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    for (int c0 = 0; c0 < _LAT_C_; c0++) {
+      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[36 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
+        clover[81 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[114 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
+      }
+    }
   }
-  // f_z_f_t
-  tmp_U = (origin_U + parity * lat_tzyx +
-           ((((lat_t - 1) * lat_z + lat_z - 1) * lat_y + y) * lat_x + x));
-  for (int i = 0; i < _LAT_DCC_; i++) {
-    u_f_z_f_t_send_vec[i * lat_tzyx / lat_z / lat_t] =
-        tmp_U[i * _EVEN_ODD_ * lat_tzyx];
+  // XT
+  give_vals(U, zero, _LAT_CC_);
+  {
+    //// x,y,z,t;x
+    tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x+1,y,z,t;t
+    move0 = move_wards[_F_X_];
+    tmp_U = (origin_U + move0 + (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
   }
+  {
+    //// x,y,z,t+1;x;dag
+    move0 = move_wards[_F_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;t;dag
+    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t;t
+    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x-1,y,z,t+1;x;dag
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_F_T_];
+    tmp_U = (origin_U + move0 + move1 * lat_z * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_f_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_f_t_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x-1,y,z,t;t;dag
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x-1,y,z,t;x
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x-1,y,z,t;x;dag
+    move0 = move_wards[_B_X_];
+    tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_x)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x-1,y,z,t-1;t;dag
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 + move1 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x-1,y,z,t-1;x
+    move0 = move_wards[_B_X_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 + move1 * lat_z * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_x_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_t_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t-1;t
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t-1;t;dag
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z,t-1;x
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x+1,y,z,t-1;t
+    move0 = move_wards[_F_X_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 + move1 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_f_x_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_x_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;x;dag
+    tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    for (int c0 = 0; c0 < _LAT_C_; c0++) {
+      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+        clover[36 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+        clover[81 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[114 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+      }
+    }
+  }
+  // YZ
+  give_vals(U, zero, _LAT_CC_);
+  {
+    //// x,y,z,t;y
+    tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y+1,z,t;z
+    move0 = move_wards[_F_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y,z+1,t;y;dag
+    move0 = move_wards[_F_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;z;dag
+    tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t;z
+    tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y-1,z+1,t;y;dag
+    move0 = move_wards[_B_Y_];
+    move1 = move_wards[_F_Z_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_y_f_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_f_z_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y-1,z,t;z;dag
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y-1,z,t;y
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y-1,z,t;y;dag
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y-1,z-1,t;z;dag
+    move0 = move_wards[_B_Y_];
+    move1 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_y_b_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y-1,z-1,t;y
+    move0 = move_wards[_B_Y_];
+    move1 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_y_b_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_z_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z-1,t;z
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z-1,t;z;dag
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z-1,t;y
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y+1,z-1,t;z
+    move0 = move_wards[_F_Y_];
+    move1 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_f_y_b_z)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_y_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;y;dag
+    tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    for (int c0 = 0; c0 < _LAT_C_; c0++) {
+      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[36 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[81 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[114 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+      }
+    }
+  }
+  // YT
+  give_vals(U, zero, _LAT_CC_);
+  {
+    //// x,y,z,t;y
+    tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y+1,z,t;t
+    move0 = move_wards[_F_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y,z,t+1;y;dag
+    move0 = move_wards[_F_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;t;dag
+    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t;t
+    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y-1,z,t+1;y;dag
+    move0 = move_wards[_B_Y_];
+    move1 = move_wards[_F_T_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_y_f_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_f_t_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y-1,z,t;t;dag
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y-1,z,t;y
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y-1,z,t;y;dag
+    move0 = move_wards[_B_Y_];
+    tmp_U = (origin_U + move0 * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_y)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y-1,z,t-1;t;dag
+    move0 = move_wards[_B_Y_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_y_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y-1,z,t-1;y
+    move0 = move_wards[_B_Y_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_y_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_t_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t-1;t
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t-1;t;dag
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z,t-1;y
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y+1,z,t-1;t
+    move0 = move_wards[_F_Y_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_f_y_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_y_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;y;dag
+    tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    for (int c0 = 0; c0 < _LAT_C_; c0++) {
+      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[36 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
+        clover[81 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
+        clover[114 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+      }
+    }
+  }
+  // ZT
+  give_vals(U, zero, _LAT_CC_);
+  {
+    //// x,y,z,t;z
+    tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z+1,t;t
+    move0 = move_wards[_F_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y,z,t+1;z;dag
+    move0 = move_wards[_F_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_f_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t;t;dag
+    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t;t
+    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z-1,t+1;z;dag
+    move0 = move_wards[_B_Z_];
+    move1 = move_wards[_F_T_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_z_f_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_z_f_t_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y,z-1,t;t;dag
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z-1,t;z
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z-1,t;z;dag
+    move0 = move_wards[_B_Z_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_z)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z-1,t-1;t;dag
+    move0 = move_wards[_B_Z_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_z_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_z_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_dag(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  {
+    //// x,y,z-1,t-1;z
+    move0 = move_wards[_B_Z_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_b_z_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_z_b_t_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  {
+    //// x,y,z,t-1;t
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    //// x,y,z,t-1;t;dag
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    //// x,y,z,t-1;z
+    move0 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+             (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+    if (if_b_t)
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+    give_u(tmp2, tmp_U, lat_tzyx);
+    mult_u_dag_none(tmp0, tmp1, tmp2, tmp3, zero);
+  }
+  // { // test
+  //   if (if_b_t) {
+  //     LatticeComplex _;
+  //     LatticeComplex tmp00[_LAT_CC_];
+  //     LatticeComplex tmp01[_LAT_CC_];
+  //     tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
+  //              (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+  //     give_u(tmp00, tmp_U, lat_tzyx);
+  //     tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+  //              ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) *
+  //              lat_x +
+  //               x));
+  //     give_u(tmp01, tmp_U, lat_tzyx);
+  //     for (int i = 0; i < _LAT_CC_; i++) {
+  //       _ = tmp00[i] - tmp01[i];
+  //       _ = tmp01[i];
+  //       _ = tmp00[i];
+  //       printf("!!!%d@@@@@@@@@@@@@@%f,%f################\n", i, _._data.x,
+  //              _._data.y);
+  //     }
+  //   }
+  // }
+  {
+    //// x,y,z+1,t-1;t
+    move0 = move_wards[_F_Z_];
+    move1 = move_wards[_B_T_];
+    tmp_U = (origin_U + move0 * lat_y * lat_x + move1 * lat_z * lat_y * lat_x +
+             (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    if (if_f_z_b_t)
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
+  }
+  // { // test
+  //   if (if_f_z_b_t) {
+  //     LatticeComplex _;
+  //     LatticeComplex tmp00[_LAT_CC_];
+  //     LatticeComplex tmp01[_LAT_CC_];
+  //     tmp_U =
+  //         (origin_U + move0 * lat_y * lat_x + move1 * lat_z * lat_y * lat_x +
+  //          (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+  //     give_u(tmp00, tmp_U, lat_tzyx);
+  //     tmp_U =
+  //         (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
+  //          ((((_T_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+  //     give_u(tmp01, tmp_U, lat_tzyx);
+  //     for (int i = 0; i < _LAT_CC_; i++) {
+  //       _ = tmp00[i] - tmp01[i];
+  //       printf("!!!%d@@@@@@@@@@@@@@%f,%f################\n", i, _._data.x,
+  //              _._data.y);
+  //     }
+  //   }
+  // }
+  {
+    //// x,y,z,t;z;dag
+    tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+    give_u(tmp1, tmp_U, lat_tzyx);
+    mult_u_none_dag(tmp0, tmp2, tmp1, tmp3, zero);
+  }
+  add_vals(U, tmp3, _LAT_CC_);
+  {
+    for (int c0 = 0; c0 < _LAT_C_; c0++) {
+      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+        clover[c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+        clover[39 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[78 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[117 + c0 * _LAT_SC_ + c1] +=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+      }
+    }
+  }
+  {
+    // A=1+T
+    LatticeComplex one(1.0, 0);
+    for (int i = 0; i < _LAT_SCSC_; i++) {
+      clover[i] *= -0.125; //-1/8
+    }
+    for (int i = 0; i < _LAT_SC_; i++) {
+      clover[i * 13] += one;
+    }
+  }
+  give_clr(origin_clover, clover, lat_tzyx);
 }
 #endif

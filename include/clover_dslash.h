@@ -5,8 +5,6 @@ __global__ void make_clover(void *device_U, void *device_clover,
 __global__ void inverse_clover(void *device_clover, void *device_lat_xyzt);
 __global__ void give_clover(void *device_clover, void *device_dest,
                             void *device_lat_xyzt);
-__global__ void make_clover_inside(void *device_U, void *device_clover,
-                                   void *device_lat_xyzt, int device_parity);
 __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
                             int device_parity, void *device_u_b_x_send_vec,
                             void *device_u_f_x_send_vec);
@@ -49,7 +47,7 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
                              void *device_u_f_z_b_t_send_vec,
                              void *device_u_b_z_f_t_send_vec,
                              void *device_u_f_z_f_t_send_vec);
-__global__ void make_clover_edge(
+__global__ void make_clover_all(
     void *device_U, void *device_clover, void *device_lat_xyzt,
     int device_parity, void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
     void *device_u_b_y_recv_vec, void *device_u_f_y_recv_vec,
