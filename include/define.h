@@ -1,7 +1,6 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #include "./lattice_complex.h"
-// #define _BLOCK_SIZE_ 256
 #define _BLOCK_SIZE_ 32
 #define _WARP_SIZE_ 32
 #define _a_ 0
@@ -89,6 +88,7 @@
 #define _B_ 0
 #define _F_ 1
 #define _BF_ 2
+#define _REAL_IMAG_ 2
 #define _OUTPUT_SIZE_ 10
 #define _BACKWARD_ -1
 #define _NOWARD_ 0
