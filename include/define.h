@@ -369,7 +369,7 @@
       }                                                                        \
     }                                                                          \
   }
-#define inverse(input_matrix, inverse_matrix, augmented_matrix, pivot, factor, \
+#define _inverse(input_matrix, inverse_matrix, augmented_matrix, pivot, factor, \
                 size)                                                          \
   {                                                                            \
     for (int i = 0; i < size; i++) {                                           \

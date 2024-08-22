@@ -1,8 +1,11 @@
+// clang-format off
 #include "../include/qcu.h"
 #include "define.h"
-__global__ void make_clover_inside(void *device_U, void *device_clover,
+#ifdef CLOVER_DSLASH
+// wait for rebuild
+// clang-format on
+__global__ void make_clover_edge(void *device_U, void *device_clover,
                                    void *device_lat_xyzt, int device_parity) {
-
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
@@ -851,38 +854,4 @@ __global__ void make_clover_inside(void *device_U, void *device_clover,
   }
   give_clr(origin_clover, clover, lat_tzyx);
 }
-
-__global__ void pick_up_1dim_b_x(void *device_U, void *device_lat_xyzt,
-                                 void *device_u_1dim_send_vec,
-                                 int device_parity) {
-  int idx = blockIdx.x * blockDim.x + threadIdx.x;
-  int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = 1; // to 3dim format
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
-  int move0;
-  int move1;
-  move0 = lat_x * lat_y * lat_z;
-  int t = parity / move0;
-  parity -= t * move0;
-  move0 = lat_x * lat_y;
-  int z = parity / move0;
-  parity -= z * move0;
-  int y = parity / lat_x;
-  int x = parity - y * lat_x;
-  parity = device_parity;
-  x = 0; // b_x
-  LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) +
-                              (((t)*lat_z + z) * lat_y + y) * lat_x + x +
-                              parity * lat_tzyx); // 4dim format
-  LatticeComplex *origin_u_1dim_send_vec =
-      ((static_cast<LatticeComplex *>(device_u_1dim_send_vec)) +
-       idx); // 3dim format
-  for (int i = 0; i < _LAT_CC_; i++) {
-    origin_u_1dim_send_vec[i * lat_tzyx / lat_xyzt[_X_]] =
-        origin_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];
-  }
-}
+#endif
