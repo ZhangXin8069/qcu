@@ -20,12 +20,6 @@ struct LatticeCloverDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-    // inside compute part
-    // make_clover<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-    //     gauge, clover, set_ptr->device_lat_xyzt, parity); // test
-    make_clover_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                         set_ptr->stream>>>(gauge, clover,
-                                            set_ptr->device_lat_xyzt, parity);
     // edge send part
     {
       pick_up_u_x<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
@@ -455,7 +449,12 @@ struct LatticeCloverDslash {
       }
     }
     // edge recv part
-    make_clover_edge<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
+    make_clover_all<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                        set_ptr->stream>>>(
         gauge, clover, set_ptr->device_lat_xyzt, parity,
         set_ptr->device_u_1dim_recv_vec[_B_X_],
