@@ -49,4 +49,22 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
                              void *device_u_f_z_b_t_send_vec,
                              void *device_u_b_z_f_t_send_vec,
                              void *device_u_f_z_f_t_send_vec);
+__global__ void make_clover_edge(
+    void *device_U, void *device_clover, void *device_lat_xyzt,
+    int device_parity, void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
+    void *device_u_b_y_recv_vec, void *device_u_f_y_recv_vec,
+    void *device_u_b_z_recv_vec, void *device_u_f_z_recv_vec,
+    void *device_u_b_t_recv_vec, void *device_u_f_t_recv_vec,
+    void *device_u_b_x_b_y_recv_vec, void *device_u_f_x_b_y_recv_vec,
+    void *device_u_b_x_f_y_recv_vec, void *device_u_f_x_f_y_recv_vec,
+    void *device_u_b_x_b_z_recv_vec, void *device_u_f_x_b_z_recv_vec,
+    void *device_u_b_x_f_z_recv_vec, void *device_u_f_x_f_z_recv_vec,
+    void *device_u_b_x_b_t_recv_vec, void *device_u_f_x_b_t_recv_vec,
+    void *device_u_b_x_f_t_recv_vec, void *device_u_f_x_f_t_recv_vec,
+    void *device_u_b_y_b_z_recv_vec, void *device_u_f_y_b_z_recv_vec,
+    void *device_u_b_y_f_z_recv_vec, void *device_u_f_y_f_z_recv_vec,
+    void *device_u_b_y_b_t_recv_vec, void *device_u_f_y_b_t_recv_vec,
+    void *device_u_b_y_f_t_recv_vec, void *device_u_f_y_f_t_recv_vec,
+    void *device_u_b_z_b_t_recv_vec, void *device_u_f_z_b_t_recv_vec,
+    void *device_u_b_z_f_t_recv_vec, void *device_u_f_z_f_t_recv_vec);
 #endif
