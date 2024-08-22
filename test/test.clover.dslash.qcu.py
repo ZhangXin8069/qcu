@@ -46,7 +46,7 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
-
+# np.set_printoptions(threshold=np.inf)
 
 def compare(round):
     print('===============round ', round, '======================')
