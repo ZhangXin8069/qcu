@@ -8,8 +8,8 @@ __global__ void give_random_vals(void *device_random_vals, unsigned long seed) {
   curand_init(seed, idx, 0, &state_real);
   curand_init(seed, idx, 1, &state_imag);
   for (int i = 0; i < _LAT_SC_; ++i) {
-    random_vals[idx * _LAT_SC_ + i].real = curand_uniform(&state_real);
-    random_vals[idx * _LAT_SC_ + i].imag = curand_uniform(&state_imag);
+    random_vals[idx * _LAT_SC_ + i]._data.x = curand_uniform(&state_real);
+    random_vals[idx * _LAT_SC_ + i]._data.y = curand_uniform(&state_imag);
   }
 }
 __global__ void give_custom_vals(void *device_custom_vals, double real,
@@ -18,8 +18,8 @@ __global__ void give_custom_vals(void *device_custom_vals, double real,
   LatticeComplex *custom_vals =
       static_cast<LatticeComplex *>(device_custom_vals);
   for (int i = 0; i < _LAT_SC_; ++i) {
-    custom_vals[idx * _LAT_SC_ + i].real = real;
-    custom_vals[idx * _LAT_SC_ + i].imag = imag;
+    custom_vals[idx * _LAT_SC_ + i]._data.x = real;
+    custom_vals[idx * _LAT_SC_ + i]._data.y = imag;
   }
 }
 __global__ void give_1zero(void *device_vals, const int vals_index) {

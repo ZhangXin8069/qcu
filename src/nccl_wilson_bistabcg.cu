@@ -3,7 +3,6 @@
 #include "lattice_complex.h"
 #include "lattice_set.h"
 #ifdef NCCL_WILSON_BISTABCG
-
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid) {
   // define for nccl_wilson_bistabcg

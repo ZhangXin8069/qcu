@@ -1,8 +1,8 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
 #include "./lattice_complex.h"
-// #define _BLOCK_SIZE_ 256
-#define _BLOCK_SIZE_ 32
+// #define _BLOCK_SIZE_ 128
+#define _BLOCK_SIZE_ 16 // for small grid test
 #define _WARP_SIZE_ 32
 #define _a_ 0
 #define _b_ 1
@@ -35,7 +35,39 @@
 #define _F_Z_ 5
 #define _B_T_ 6
 #define _F_T_ 7
+#define _B_X_B_Y_ 0
+#define _F_X_B_Y_ 1
+#define _B_X_F_Y_ 2
+#define _F_X_F_Y_ 3
+#define _B_X_B_Z_ 4
+#define _F_X_B_Z_ 5
+#define _B_X_F_Z_ 6
+#define _F_X_F_Z_ 7
+#define _B_X_B_T_ 8
+#define _F_X_B_T_ 9
+#define _B_X_F_T_ 10
+#define _F_X_F_T_ 11
+#define _B_Y_B_Z_ 12
+#define _F_Y_B_Z_ 13
+#define _B_Y_F_Z_ 14
+#define _F_Y_F_Z_ 15
+#define _B_Y_B_T_ 16
+#define _F_Y_B_T_ 17
+#define _B_Y_F_T_ 18
+#define _F_Y_F_T_ 19
+#define _B_Z_B_T_ 20
+#define _F_Z_B_T_ 21
+#define _B_Z_F_T_ 22
+#define _F_Z_F_T_ 23
 #define _WARDS_ 8
+#define _WARDS_2DIM_ 24
+#define _XY_ 0
+#define _XZ_ 1
+#define _XT_ 2
+#define _YZ_ 3
+#define _YT_ 4
+#define _ZT_ 5
+#define _2DIM_ 6
 #define _YZT_ 0
 #define _XZT_ 1
 #define _XYT_ 2
@@ -57,6 +89,7 @@
 #define _B_ 0
 #define _F_ 1
 #define _BF_ 2
+#define _REAL_IMAG_ 2
 #define _OUTPUT_SIZE_ 10
 #define _BACKWARD_ -1
 #define _NOWARD_ 0
@@ -197,8 +230,23 @@
   }
 #define give_u(U, tmp_U, lat_tzyx)                                             \
   {                                                                            \
-    for (int i = 0; i < 6; i++) {                                              \
+    for (int i = 0; i < _LAT_2C_; i++) {                                       \
       U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                       \
+    }                                                                          \
+    U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
+    U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
+    U[8] = (U[0] * U[4] - U[1] * U[3]).conj();                                 \
+  }
+// #define give_u(U, tmp_U, lat_tzyx)                                             \
+//   {                                                                            \
+//     for (int i = 0; i < _LAT_CC_; i++) {                                       \
+//       U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                       \
+//     }                                                                          \
+//   }
+#define _give_u_comm(U, tmp_U, _lat_tzyx)                                      \
+  {                                                                            \
+    for (int i = 0; i < _LAT_2C_; i++) {                                       \
+      U[i] = tmp_U[i * _LAT_D_ * _lat_tzyx];                                   \
     }                                                                          \
     U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
@@ -250,6 +298,12 @@
   {                                                                            \
     for (int i = 0; i < _LAT_SCSC_; i++) {                                     \
       origin_clr[i * lat_tzyx] = clr[i];                                       \
+    }                                                                          \
+  }
+#define add_clr(origin_clr, clr, lat_tzyx)                                     \
+  {                                                                            \
+    for (int i = 0; i < _LAT_SCSC_; i++) {                                     \
+      origin_clr[i * lat_tzyx] += clr[i];                                      \
     }                                                                          \
   }
 #define get_clr(clr, origin_clr, lat_tzyx)                                     \
@@ -331,8 +385,8 @@
       }                                                                        \
     }                                                                          \
   }
-#define inverse(input_matrix, inverse_matrix, augmented_matrix, pivot, factor, \
-                size)                                                          \
+#define _inverse(input_matrix, inverse_matrix, augmented_matrix, pivot,        \
+                 factor, size)                                                 \
   {                                                                            \
     for (int i = 0; i < size; i++) {                                           \
       for (int j = 0; j < size; j++) {                                         \

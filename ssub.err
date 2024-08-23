@@ -5,5 +5,57 @@ Currently Loaded Modulefiles:
   4) hwloc/2.9.1-gcc-10.3.0             10) ncurses/6.2-intel-2022.0.2
   5) libevent/2.1.12-gcc-10.3.0         11) intel-oneapi/compiler-rt/2024.0.0
   6) pmix/4.2.3-gcc-10.3.0              12) python/3.9.10-gcc-10.3.0
-fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
-rm: cannot remove 'log_*': No such file or directory
+CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:291 (file):
+  file write failed (Disk quota exceeded):
+
+    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+Call Stack (most recent call first):
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:302 (CMAKE_DETERMINE_COMPILER_ID_WRITE)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:6 (CMAKE_DETERMINE_COMPILER_ID_BUILD)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:59 (__determine_compiler_id_test)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake:120 (CMAKE_DETERMINE_COMPILER_ID)
+  CMakeLists.txt:3 (project)
+
+
+CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:291 (file):
+  file write failed (Disk quota exceeded):
+
+    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+Call Stack (most recent call first):
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:302 (CMAKE_DETERMINE_COMPILER_ID_WRITE)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:6 (CMAKE_DETERMINE_COMPILER_ID_BUILD)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:59 (__determine_compiler_id_test)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake:120 (CMAKE_DETERMINE_COMPILER_ID)
+  CMakeLists.txt:3 (project)
+
+
+CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:291 (file):
+  file write failed (Disk quota exceeded):
+
+    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+Call Stack (most recent call first):
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:302 (CMAKE_DETERMINE_COMPILER_ID_WRITE)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:6 (CMAKE_DETERMINE_COMPILER_ID_BUILD)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:59 (__determine_compiler_id_test)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake:120 (CMAKE_DETERMINE_COMPILER_ID)
+  CMakeLists.txt:3 (project)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+make: *** No targets specified and no makefile found.  Stop.
+mv: cannot stat 'libqcu.so': No such file or directory
+rm: cannot remove 'cmake_install.cmake'
+rm: 
