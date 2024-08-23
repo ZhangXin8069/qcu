@@ -455,7 +455,7 @@ struct LatticeCloverDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
     make_clover_all<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                       set_ptr->stream>>>(
+                      set_ptr->stream>>>(
         gauge, clover, set_ptr->device_lat_xyzt, parity,
         set_ptr->device_u_1dim_recv_vec[_B_X_],
         set_ptr->device_u_1dim_recv_vec[_F_X_],
@@ -494,6 +494,15 @@ struct LatticeCloverDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
+    // { // test
+    //   make_clover<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+    //       gauge, clover, set_ptr->device_lat_xyzt, parity);
+    //   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    //   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    //   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    //   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    //   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
+    // }
   }
   void make(void *gauge, int parity) {
     // make clover
