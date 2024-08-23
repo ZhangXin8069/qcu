@@ -2,7 +2,6 @@
 #define _LATTICE_COMPLEX_H
 #include "./include.h"
 using data_type = cuDoubleComplex;
-
 struct LatticeComplex {
   double2 _data;
   __host__ __device__ __inline__ LatticeComplex(const double &_real = 0.0,
