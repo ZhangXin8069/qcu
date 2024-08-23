@@ -8,37 +8,49 @@ Currently Loaded Modulefiles:
 CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:291 (file):
   file write failed (Disk quota exceeded):
 
-    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdC/CMakeCCompilerId.c
 Call Stack (most recent call first):
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:302 (CMAKE_DETERMINE_COMPILER_ID_WRITE)
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:6 (CMAKE_DETERMINE_COMPILER_ID_BUILD)
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:59 (__determine_compiler_id_test)
-  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake:120 (CMAKE_DETERMINE_COMPILER_ID)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)
   CMakeLists.txt:3 (project)
 
 
 CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:291 (file):
   file write failed (Disk quota exceeded):
 
-    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdC/CMakeCCompilerId.c
 Call Stack (most recent call first):
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:302 (CMAKE_DETERMINE_COMPILER_ID_WRITE)
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:6 (CMAKE_DETERMINE_COMPILER_ID_BUILD)
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:59 (__determine_compiler_id_test)
-  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake:120 (CMAKE_DETERMINE_COMPILER_ID)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)
   CMakeLists.txt:3 (project)
 
 
 CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:291 (file):
   file write failed (Disk quota exceeded):
 
-    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdCXX/CMakeCXXCompilerId.cpp
+    /public/home/zhangxin/qcu/CMakeFiles/3.22.2/CompilerIdC/CMakeCCompilerId.c
 Call Stack (most recent call first):
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:302 (CMAKE_DETERMINE_COMPILER_ID_WRITE)
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:6 (CMAKE_DETERMINE_COMPILER_ID_BUILD)
   /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCompilerId.cmake:59 (__determine_compiler_id_test)
-  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCXXCompiler.cmake:120 (CMAKE_DETERMINE_COMPILER_ID)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)
   CMakeLists.txt:3 (project)
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -57,5 +69,4 @@ Call Stack (most recent call first):
 
 make: *** No targets specified and no makefile found.  Stop.
 mv: cannot stat 'libqcu.so': No such file or directory
-rm: cannot remove 'cmake_install.cmake'
-rm: 
+rm: cannot remove 'log_*': No such file or directory

@@ -1,21 +1,7 @@
 ~/qcu ~/qcu
 HOME:/public/home/zhangxin/qcu
 ~/qcu
--- The C compiler identification is GNU 10.3.0
--- The CXX compiler identification is unknown
--- The CUDA compiler identification is unknown
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - failed
--- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc
--- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - broken
--- Configuring incomplete, errors occurred!
-See also "/public/home/zhangxin/qcu/CMakeFiles/CMakeOutput.log".
-See also "/public/home/zhangxin/qcu/CMakeFiles/CMakeError.log".
-~/qcu/test ~/qcu
-~/qcu
 ~/qcu ~/qcu
-HOME:/public/home/zhangxin/qcu
-~/qcu
 -- The C compiler identification is unknown
 -- The CXX compiler identification is unknown
 -- The CUDA compiler identification is unknown
@@ -26,5 +12,6 @@ HOME:/public/home/zhangxin/qcu
 -- Configuring incomplete, errors occurred!
 See also "/public/home/zhangxin/qcu/CMakeFiles/CMakeOutput.log".
 See also "/public/home/zhangxin/qcu/CMakeFiles/CMakeError.log".
-~/qcu/test ~/qcu
+~/qcu/test ~/qcu ~/qcu
+~/qcu ~/qcu
 ~/qcu
