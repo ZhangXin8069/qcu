@@ -30,3 +30,6 @@ def ncclDslashQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
 def ncclBistabCgQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
                     param: QcuParam,
                     grid: QcuParam) -> None: ...
+
+def ncclDslashCloverQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
+                  param: QcuParam, parity: int, grid: QcuParam) -> None: ...
