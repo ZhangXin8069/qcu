@@ -15,6 +15,7 @@ os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [16, 16, 16, 16]
 # latt_size = [8, 16, 16, 16]
 latt_size = [8, 4, 8, 64]
+latt_size = [8, 4, 16, 64]
 # latt_size = [4, 16, 16, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [16, 32, 32, 64]
