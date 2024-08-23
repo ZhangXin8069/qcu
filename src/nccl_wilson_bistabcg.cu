@@ -9,7 +9,7 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   LatticeSet _set;
   _set.give(param->lattice_size, grid->lattice_size);
   _set.init();
-  //  if(_set.node_rank == 0) _set._print(); // test
+  if(_set.node_rank == 0) _set._print();
   dptzyxcc2ccdptzyx(gauge, &_set);
   ptzyxsc2psctzyx(fermion_in, &_set);
   ptzyxsc2psctzyx(fermion_out, &_set);

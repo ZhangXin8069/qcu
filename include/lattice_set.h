@@ -1,6 +1,5 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
-#include <cstdio>
 #include <cstdlib>
 #pragma once
 // clang-format off
@@ -33,7 +32,6 @@ struct LatticeSet {
   int move[_BF_];
   int move_wards[_WARDS_ + _WARDS_2DIM_];
   int grid_1dim[_DIM_];
-  int grid_2dim[_2DIM_];
   int grid_3dim[_DIM_];
   int grid_index_1dim[_DIM_];
   MPI_Request send_request[_WARDS_];
@@ -87,18 +85,19 @@ struct LatticeSet {
       cudaEventSynchronize(start);
       checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, &node_rank));
       checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, &node_size));
+      if (node_rank == 0) {
+        checkNcclErrors(ncclGetUniqueId(&nccl_id));
+      }
+      checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
+                               MPI_COMM_WORLD));
+      checkNcclErrors(
+          ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
       grid_index_1dim[_X_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];
       grid_index_1dim[_Y_] =
           node_rank / grid_1dim[_T_] / grid_1dim[_Z_] % grid_1dim[_Y_];
       grid_index_1dim[_Z_] = node_rank / grid_1dim[_T_] % grid_1dim[_Z_];
       grid_index_1dim[_T_] = node_rank % grid_1dim[_T_];
-      grid_2dim[_XY_] = grid_1dim[_X_] * grid_1dim[_Y_];
-      grid_2dim[_XZ_] = grid_1dim[_X_] * grid_1dim[_Z_];
-      grid_2dim[_XT_] = grid_1dim[_X_] * grid_1dim[_T_];
-      grid_2dim[_YZ_] = grid_1dim[_Y_] * grid_1dim[_Z_];
-      grid_2dim[_YT_] = grid_1dim[_Y_] * grid_1dim[_T_];
-      grid_2dim[_ZT_] = grid_1dim[_Z_] * grid_1dim[_T_];
       grid_3dim[_YZT_] = grid_1dim[_Y_] * grid_1dim[_Z_] * grid_1dim[_T_];
       grid_3dim[_XZT_] = grid_1dim[_X_] * grid_1dim[_Z_] * grid_1dim[_T_];
       grid_3dim[_XYT_] = grid_1dim[_X_] * grid_1dim[_Y_] * grid_1dim[_T_];
@@ -137,100 +136,71 @@ struct LatticeSet {
       move_forward(move_wards[_F_Y_], grid_index_1dim[_Y_], grid_1dim[_Y_]);
       move_forward(move_wards[_F_Z_], grid_index_1dim[_Z_], grid_1dim[_Z_]);
       move_forward(move_wards[_F_T_], grid_index_1dim[_T_], grid_1dim[_T_]);
-      // {
-      //   // just for test
-      //   if (node_rank == 0)
-      //     _print();
-      //   // exit(1);
-      //   printf("@@@@@@@@@@@@@@@@@@@@@");
-      // }
-      move_wards[_B_X_] = node_rank + move_wards[_B_X_];
-      move_wards[_B_Y_] = node_rank + move_wards[_B_Y_] * grid_1dim[_X_];
-      move_wards[_B_Z_] = node_rank + move_wards[_B_Z_] * grid_2dim[_XY_];
-      move_wards[_B_T_] = node_rank + move_wards[_B_T_] * grid_3dim[_XYZ_];
-      move_wards[_F_X_] = node_rank + move_wards[_F_X_];
-      move_wards[_F_Y_] = node_rank + move_wards[_F_Y_] * grid_1dim[_X_];
-      move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_2dim[_XY_];
-      move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
-      // {
-      //   // just for test
-      //   if (node_rank == 0)
-      //     _print();
-      //   exit(1);
-      // }
+      move_wards[_B_X_] = node_rank + move_wards[_B_X_] * grid_3dim[_X_];
+      move_wards[_B_Y_] = node_rank + move_wards[_B_Y_] * grid_3dim[_Y_];
+      move_wards[_B_Z_] = node_rank + move_wards[_B_Z_] * grid_3dim[_Z_];
+      move_wards[_B_T_] = node_rank + move_wards[_B_T_] * grid_3dim[_T_];
+      move_wards[_F_X_] = node_rank + move_wards[_F_X_] * grid_3dim[_X_];
+      move_wards[_F_Y_] = node_rank + move_wards[_F_Y_] * grid_3dim[_Y_];
+      move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_3dim[_Z_];
+      move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_T_];
       int tmp;
       { // BB
         move_backward(tmp, grid_index_1dim[_Y_], grid_1dim[_Y_]);
-        move_wards[_BX_BY_] = move_wards[_B_X_] + tmp * grid_1dim[_X_];
+        move_wards[_B_X_B_Y_] = move_wards[_B_X_] + tmp * grid_3dim[_Y_];
         move_backward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_BX_BZ_] = move_wards[_B_X_] + tmp * grid_2dim[_XY_];
+        move_wards[_B_X_B_Z_] = move_wards[_B_X_] + tmp * grid_3dim[_Z_];
         move_backward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_BX_BT_] = move_wards[_B_X_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_B_X_B_T_] = move_wards[_B_X_] + tmp * grid_3dim[_T_];
         move_backward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_BY_BZ_] = move_wards[_B_Y_] + tmp * grid_2dim[_XY_];
+        move_wards[_B_Y_B_Z_] = move_wards[_B_Y_] + tmp * grid_3dim[_Z_];
         move_backward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_BY_BT_] = move_wards[_B_Y_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_B_Y_B_T_] = move_wards[_B_Y_] + tmp * grid_3dim[_T_];
         move_backward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_BZ_BT_] = move_wards[_B_Z_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_B_Z_B_T_] = move_wards[_B_Z_] + tmp * grid_3dim[_T_];
       }
       { // FB
         move_backward(tmp, grid_index_1dim[_Y_], grid_1dim[_Y_]);
-        move_wards[_FX_BY_] = move_wards[_F_X_] + tmp * grid_1dim[_X_];
+        move_wards[_F_X_B_Y_] = move_wards[_F_X_] + tmp * grid_3dim[_Y_];
         move_backward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_FX_BZ_] = move_wards[_F_X_] + tmp * grid_2dim[_XY_];
+        move_wards[_F_X_B_Z_] = move_wards[_F_X_] + tmp * grid_3dim[_Z_];
         move_backward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_FX_BT_] = move_wards[_F_X_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_F_X_B_T_] = move_wards[_F_X_] + tmp * grid_3dim[_T_];
         move_backward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_FY_BZ_] = move_wards[_F_Y_] + tmp * grid_2dim[_XY_];
+        move_wards[_F_Y_B_Z_] = move_wards[_F_Y_] + tmp * grid_3dim[_Z_];
         move_backward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_FY_BT_] = move_wards[_F_Y_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_F_Y_B_T_] = move_wards[_F_Y_] + tmp * grid_3dim[_T_];
         move_backward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_FZ_BT_] = move_wards[_F_Z_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_F_Z_B_T_] = move_wards[_F_Z_] + tmp * grid_3dim[_T_];
       }
       { // BF
         move_forward(tmp, grid_index_1dim[_Y_], grid_1dim[_Y_]);
-        move_wards[_BX_FY_] = move_wards[_B_X_] + tmp * grid_1dim[_X_];
+        move_wards[_B_X_F_Y_] = move_wards[_B_X_] + tmp * grid_3dim[_Y_];
         move_forward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_BX_FZ_] = move_wards[_B_X_] + tmp * grid_2dim[_XY_];
+        move_wards[_B_X_F_Z_] = move_wards[_B_X_] + tmp * grid_3dim[_Z_];
         move_forward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_BX_FT_] = move_wards[_B_X_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_B_X_F_T_] = move_wards[_B_X_] + tmp * grid_3dim[_T_];
         move_forward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_BY_FZ_] = move_wards[_B_Y_] + tmp * grid_2dim[_XY_];
+        move_wards[_B_Y_F_Z_] = move_wards[_B_Y_] + tmp * grid_3dim[_Z_];
         move_forward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_BY_FT_] = move_wards[_B_Y_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_B_Y_F_T_] = move_wards[_B_Y_] + tmp * grid_3dim[_T_];
         move_forward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_BZ_FT_] = move_wards[_B_Z_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_B_Z_F_T_] = move_wards[_B_Z_] + tmp * grid_3dim[_T_];
       }
       { // FF
         move_forward(tmp, grid_index_1dim[_Y_], grid_1dim[_Y_]);
-        move_wards[_FX_FY_] = move_wards[_F_X_] + tmp * grid_1dim[_X_];
+        move_wards[_F_X_F_Y_] = move_wards[_F_X_] + tmp * grid_3dim[_Y_];
         move_forward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_FX_FZ_] = move_wards[_F_X_] + tmp * grid_2dim[_XY_];
+        move_wards[_F_X_F_Z_] = move_wards[_F_X_] + tmp * grid_3dim[_Z_];
         move_forward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_FX_FT_] = move_wards[_F_X_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_F_X_F_T_] = move_wards[_F_X_] + tmp * grid_3dim[_T_];
         move_forward(tmp, grid_index_1dim[_Z_], grid_1dim[_Z_]);
-        move_wards[_FY_FZ_] = move_wards[_F_Y_] + tmp * grid_2dim[_XY_];
+        move_wards[_F_Y_F_Z_] = move_wards[_F_Y_] + tmp * grid_3dim[_Z_];
         move_forward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_FY_FT_] = move_wards[_F_Y_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_F_Y_F_T_] = move_wards[_F_Y_] + tmp * grid_3dim[_T_];
         move_forward(tmp, grid_index_1dim[_T_], grid_1dim[_T_]);
-        move_wards[_FZ_FT_] = move_wards[_F_Z_] + tmp * grid_3dim[_XYZ_];
+        move_wards[_F_Z_F_T_] = move_wards[_F_Z_] + tmp * grid_3dim[_T_];
       }
-    }
-    // {
-    //   // just for test
-    //   if (node_rank == 0)
-    //     _print();
-    //   exit(1);
-    // }
-    {
-      // nccl set
-      if (node_rank == 0) {
-        checkNcclErrors(ncclGetUniqueId(&nccl_id));
-      }
-      checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
-                               MPI_COMM_WORLD));
-      checkNcclErrors(
-          ncclCommInitRank(&nccl_comm, node_size, nccl_id, node_rank));
     }
     { // set stream and malloc vec
       CUBLAS_CHECK(cublasCreate(&cublasH));
@@ -394,35 +364,19 @@ struct LatticeSet {
     printf("lat_1dim[_Y_]            :%d\n", lat_1dim[_Y_]);
     printf("lat_1dim[_Z_]            :%d\n", lat_1dim[_Z_]);
     printf("lat_1dim[_T_]            :%d\n", lat_1dim[_T_]);
-    printf("lat_2dim[_XY_]           :%d\n", lat_2dim[_XY_]);
-    printf("lat_2dim[_XZ_]           :%d\n", lat_2dim[_XZ_]);
-    printf("lat_2dim[_XT_]           :%d\n", lat_2dim[_XT_]);
-    printf("lat_2dim[_YZ_]           :%d\n", lat_2dim[_YZ_]);
-    printf("lat_2dim[_YT_]           :%d\n", lat_2dim[_YT_]);
-    printf("lat_2dim[_ZT_]           :%d\n", lat_2dim[_ZT_]);
+    printf("grid_1dim[_X_]           :%d\n", grid_1dim[_X_]);
+    printf("grid_1dim[_Y_]           :%d\n", grid_1dim[_Y_]);
+    printf("grid_1dim[_Z_]           :%d\n", grid_1dim[_Z_]);
+    printf("grid_1dim[_T_]           :%d\n", grid_1dim[_T_]);
+    printf("grid_index_grid_1dim[_X_]:%d\n", grid_index_1dim[_X_]);
+    printf("grid_index_grid_1dim[_Y_]:%d\n", grid_index_1dim[_Y_]);
+    printf("grid_index_grid_1dim[_Z_]:%d\n", grid_index_1dim[_Z_]);
+    printf("grid_index_grid_1dim[_T_]:%d\n", grid_index_1dim[_T_]);
     printf("lat_3dim[_YZT_]          :%d\n", lat_3dim[_YZT_]);
     printf("lat_3dim[_XZT_]          :%d\n", lat_3dim[_XZT_]);
     printf("lat_3dim[_XYT_]          :%d\n", lat_3dim[_XYT_]);
     printf("lat_3dim[_XYZ_]          :%d\n", lat_3dim[_XYZ_]);
     printf("lat_4dim                 :%d\n", lat_4dim);
-    printf("grid_1dim[_X_]           :%d\n", grid_1dim[_X_]);
-    printf("grid_1dim[_Y_]           :%d\n", grid_1dim[_Y_]);
-    printf("grid_1dim[_Z_]           :%d\n", grid_1dim[_Z_]);
-    printf("grid_1dim[_T_]           :%d\n", grid_1dim[_T_]);
-    printf("grid_2dim[_XY_]          :%d\n", grid_2dim[_XY_]);
-    printf("grid_2dim[_XZ_]          :%d\n", grid_2dim[_XZ_]);
-    printf("grid_2dim[_XT_]          :%d\n", grid_2dim[_XT_]);
-    printf("grid_2dim[_YZ_]          :%d\n", grid_2dim[_YZ_]);
-    printf("grid_2dim[_YT_]          :%d\n", grid_2dim[_YT_]);
-    printf("grid_2dim[_ZT_]          :%d\n", grid_2dim[_ZT_]);
-    printf("grid_3dim[_YZT_]         :%d\n", grid_3dim[_YZT_]);
-    printf("grid_3dim[_XZT_]         :%d\n", grid_3dim[_XZT_]);
-    printf("grid_3dim[_XYT_]         :%d\n", grid_3dim[_XYT_]);
-    printf("grid_3dim[_XYZ_]         :%d\n", grid_3dim[_XYZ_]);
-    printf("grid_index_grid_1dim[_X_]:%d\n", grid_index_1dim[_X_]);
-    printf("grid_index_grid_1dim[_Y_]:%d\n", grid_index_1dim[_Y_]);
-    printf("grid_index_grid_1dim[_Z_]:%d\n", grid_index_1dim[_Z_]);
-    printf("grid_index_grid_1dim[_T_]:%d\n", grid_index_1dim[_T_]);
     printf("move_wards[_B_X_]        :%d\n", move_wards[_B_X_]);
     printf("move_wards[_B_Y_]        :%d\n", move_wards[_B_Y_]);
     printf("move_wards[_B_Z_]        :%d\n", move_wards[_B_Z_]);
@@ -431,30 +385,30 @@ struct LatticeSet {
     printf("move_wards[_F_Y_]        :%d\n", move_wards[_F_Y_]);
     printf("move_wards[_F_Z_]        :%d\n", move_wards[_F_Z_]);
     printf("move_wards[_F_T_]        :%d\n", move_wards[_F_T_]);
-    printf("move_wards[_BX_BY_]      :%d\n", move_wards[_BX_BY_]);
-    printf("move_wards[_BX_BZ_]      :%d\n", move_wards[_BX_BZ_]);
-    printf("move_wards[_BX_BT_]      :%d\n", move_wards[_BX_BT_]);
-    printf("move_wards[_BY_BZ_]      :%d\n", move_wards[_BY_BZ_]);
-    printf("move_wards[_BY_BT_]      :%d\n", move_wards[_BY_BT_]);
-    printf("move_wards[_BZ_BT_]      :%d\n", move_wards[_BZ_BT_]);
-    printf("move_wards[_FX_BY_]      :%d\n", move_wards[_FX_BY_]);
-    printf("move_wards[_FX_BZ_]      :%d\n", move_wards[_FX_BZ_]);
-    printf("move_wards[_FX_BT_]      :%d\n", move_wards[_FX_BT_]);
-    printf("move_wards[_FY_BZ_]      :%d\n", move_wards[_FY_BZ_]);
-    printf("move_wards[_FY_BT_]      :%d\n", move_wards[_FY_BT_]);
-    printf("move_wards[_FZ_BT_]      :%d\n", move_wards[_FZ_BT_]);
-    printf("move_wards[_BX_FY_]      :%d\n", move_wards[_BX_FY_]);
-    printf("move_wards[_BX_FZ_]      :%d\n", move_wards[_BX_FZ_]);
-    printf("move_wards[_BX_FT_]      :%d\n", move_wards[_BX_FT_]);
-    printf("move_wards[_BY_FZ_]      :%d\n", move_wards[_BY_FZ_]);
-    printf("move_wards[_BY_FT_]      :%d\n", move_wards[_BY_FT_]);
-    printf("move_wards[_BZ_FT_]      :%d\n", move_wards[_BZ_FT_]);
-    printf("move_wards[_FX_FY_]      :%d\n", move_wards[_FX_FY_]);
-    printf("move_wards[_FX_FZ_]      :%d\n", move_wards[_FX_FZ_]);
-    printf("move_wards[_FX_FT_]      :%d\n", move_wards[_FX_FT_]);
-    printf("move_wards[_FY_FZ_]      :%d\n", move_wards[_FY_FZ_]);
-    printf("move_wards[_FY_FT_]      :%d\n", move_wards[_FY_FT_]);
-    printf("move_wards[_FZ_FT_]      :%d\n", move_wards[_FZ_FT_]);
+    printf("move_wards[_B_X_B_Y_]    :%d\n", move_wards[_B_X_B_Y_]);
+    printf("move_wards[_B_X_B_Z_]    :%d\n", move_wards[_B_X_B_Z_]);
+    printf("move_wards[_B_X_B_T_]    :%d\n", move_wards[_B_X_B_T_]);
+    printf("move_wards[_B_Y_B_Z_]    :%d\n", move_wards[_B_Y_B_Z_]);
+    printf("move_wards[_B_Y_B_T_]    :%d\n", move_wards[_B_Y_B_T_]);
+    printf("move_wards[_B_Z_B_T_]    :%d\n", move_wards[_B_Z_B_T_]);
+    printf("move_wards[_F_X_B_Y_]    :%d\n", move_wards[_F_X_B_Y_]);
+    printf("move_wards[_F_X_B_Z_]    :%d\n", move_wards[_F_X_B_Z_]);
+    printf("move_wards[_F_X_B_T_]    :%d\n", move_wards[_F_X_B_T_]);
+    printf("move_wards[_F_Y_B_Z_]    :%d\n", move_wards[_F_Y_B_Z_]);
+    printf("move_wards[_F_Y_B_T_]    :%d\n", move_wards[_F_Y_B_T_]);
+    printf("move_wards[_F_Z_B_T_]    :%d\n", move_wards[_F_Z_B_T_]);
+    printf("move_wards[_B_X_F_Y_]    :%d\n", move_wards[_B_X_F_Y_]);
+    printf("move_wards[_B_X_F_Z_]    :%d\n", move_wards[_B_X_F_Z_]);
+    printf("move_wards[_B_X_F_T_]    :%d\n", move_wards[_B_X_F_T_]);
+    printf("move_wards[_B_Y_F_Z_]    :%d\n", move_wards[_B_Y_F_Z_]);
+    printf("move_wards[_B_Y_F_T_]    :%d\n", move_wards[_B_Y_F_T_]);
+    printf("move_wards[_B_Z_F_T_]    :%d\n", move_wards[_B_Z_F_T_]);
+    printf("move_wards[_F_X_F_Y_]    :%d\n", move_wards[_F_X_F_Y_]);
+    printf("move_wards[_F_X_F_Z_]    :%d\n", move_wards[_F_X_F_Z_]);
+    printf("move_wards[_F_X_F_T_]    :%d\n", move_wards[_F_X_F_T_]);
+    printf("move_wards[_F_Y_F_Z_]    :%d\n", move_wards[_F_Y_F_Z_]);
+    printf("move_wards[_F_Y_F_T_]    :%d\n", move_wards[_F_Y_F_T_]);
+    printf("move_wards[_F_Z_F_T_]    :%d\n", move_wards[_F_Z_F_T_]);
   }
 };
 #endif
