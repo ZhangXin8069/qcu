@@ -10,9 +10,10 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-latt_size = [32, 32, 32, 32]
+# latt_size = [32, 32, 32, 32]
 # latt_size = [32, 32, 32, 64]
 # latt_size = [16, 16, 16, 16]
+latt_size = [16, 16, 16, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
@@ -47,8 +48,6 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
-
-
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
@@ -64,38 +63,17 @@ def compare(round):
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
+    grid = pyqcu.QcuParam()
+    grid.lattice_size = grid_size
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.dslashCloverQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
-    pyqcu.dslashCloverQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
+    pyqcu.ncclDslashCloverQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
+    pyqcu.ncclDslashCloverQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
     print("######Mp1[0,0,0,1]:\n", Mp1.lexico()[0, 0, 0, 1])
     print(f'QCU dslash: {t2 - t1} sec')
     print(f'rank {0} my x and x difference: {cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data)}, takes {t2 - t1} sec, my_norm = {cp.linalg.norm(Mp1.data)}, norm = {cp.linalg.norm(Mp.data)}')
-#     print("######", Mp.lexico().shape)
-#     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
-#     diff = np.sum(diff_x, axis=(-1, -2))
-#     _ = np.where(diff > 1e-5)
-#     print("######", diff.shape)
-#     print("######T:", _[0], ",\n", len(_[0]))
-#     print("######Z:", _[1], ",\n", len(_[1]))
-#     print("######Y:", _[2], ",\n", len(_[2]))
-#     print("######X:", _[3], ",\n", len(_[3]))
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 1])
-#     print("######diff_x[0,0,0,1]:\n",
-#           diff_x[0, 0, 0, 1])
-#     print("######diff_x[0,0,1,1]:\n",
-#           diff_x[0, 0, 1, 1])
-#     print("######diff_x[2,2,2,2]:\n",
-#           diff_x[2, 2, 2, 2])
-#     print("######diff_x[-1,-1,-1,-1]:\n",
-#           diff_x[-1, -1, -1, -1])
-#     print("######diff_x[-2,-2,-2,-2]:\n",
-#           diff_x[-2, -2, -2, -2])
-
-
 for i in range(0, 5):
     compare(i)
