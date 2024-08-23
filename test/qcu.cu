@@ -1,74 +1,18 @@
-#include "checker_utils.h"
-#include "cublas_utils.h"
-#include "curand_utils.h"
-#include "timer_utils.h"
-#include <cstdio>
-#include <cstdlib>
-#include <cublas_v2.h>
-#include <cuda_runtime.h>
-#include <curand_kernel.h>
-#include <vector>
-using data_type = cuDoubleComplex;
-int main(int argc, char *argv[]) {
-  cublasHandle_t cublasH = NULL;
-  cudaStream_t stream = NULL;
-  /*
-   *   A = | 1.1 + 1.2j | 2.3 + 2.4j | 3.5 + 3.6j | 4.7 + 4.8j |
-   *   B = | 5.1 + 5.2j | 6.3 + 6.4j | 7.5 + 7.6j | 8.7 + 8.8j |
-   */
-  const std::vector<data_type> A = {
-      {1.1, 1.2}, {2.3, 2.4}, {3.5, 3.6}, {4.7, 4.8}};
-  std::vector<data_type> B = {{5.1, 5.2}, {6.3, 6.4}, {7.5, 7.6}, {8.7, 8.8}};
-  const data_type alpha = {2.1, 1};
-  const int incx = 1;
-  const int incy = 1;
-  data_type *d_A = nullptr;
-  data_type *d_B = nullptr;
-  printf("A\n");
-  print_vector(A.size(), A.data());
-  printf("=====\n");
-  printf("B\n");
-  print_vector(B.size(), B.data());
-  printf("=====\n");
-  /* step 1: create cublas handle, bind a stream */
-  CUBLAS_CHECK(cublasCreate(&cublasH));
-  CUDA_CHECK(cudaStreamCreateWithFlags(&stream, cudaStreamNonBlocking));
-  CUBLAS_CHECK(cublasSetStream(cublasH, stream));
-  /* step 2: copy data to device */
-  CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_A),
-                        sizeof(data_type) * A.size()));
-  CUDA_CHECK(cudaMalloc(reinterpret_cast<void **>(&d_B),
-                        sizeof(data_type) * B.size()));
-  CUDA_CHECK(cudaMemcpyAsync(d_A, A.data(), sizeof(data_type) * A.size(),
-                             cudaMemcpyHostToDevice, stream));
-  CUDA_CHECK(cudaMemcpyAsync(d_B, B.data(), sizeof(data_type) * B.size(),
-                             cudaMemcpyHostToDevice, stream));
-  /* step 3: compute */
-  CUBLAS_CHECK(cublasAxpyEx(cublasH, A.size(), &alpha,
-                            traits<data_type>::cuda_data_type, d_A,
-                            traits<data_type>::cuda_data_type, incx, d_B,
-                            traits<data_type>::cuda_data_type, incy,
-                            traits<data_type>::cuda_data_type));
-  /* step 4: copy data to host */
-  CUDA_CHECK(cudaMemcpyAsync(B.data(), d_B, sizeof(data_type) * B.size(),
-                             cudaMemcpyDeviceToHost, stream));
-  CUDA_CHECK(cudaStreamSynchronize(stream));
-  /*
-   *   B = | 7.10 10.20 13.30 16.40 |
-   */
-  printf("B\n");
-  print_vector(B.size(), B.data());
-  printf("=====\n");
-  /* free resources */
-  CUDA_CHECK(cudaFree(d_A));
-  CUDA_CHECK(cudaFree(d_B));
-  CUBLAS_CHECK(cublasDestroy(cublasH));
-  CUDA_CHECK(cudaStreamDestroy(stream));
-  CUDA_CHECK(cudaDeviceReset());
-  // {
-  //   int N = 8388608;
-  //   use_host_api(N);
-  //   use_device_api(N);
-  // }
-  return EXIT_SUCCESS;
+#include "./include/qcu.h"
+#include <nccl.h>
+int main() {
+  MPI_Init(NULL, NULL);
+  int param_lattice_size[_DIM_];
+  int grid_lattice_size[_DIM_];
+  for (int i = 0; i < _DIM_; i++) {
+    param_lattice_size[i] = _LAT_EXAMPLE_;
+    grid_lattice_size[i] = _GRID_EXAMPLE_ * 2;
+  }
+  grid_lattice_size[_T_] = 1;
+  LatticeSet _set;
+  _set.give(param_lattice_size, grid_lattice_size);
+  _set.init();
+  _set.end();
+  MPI_Finalize();
+  return 0;
 }
