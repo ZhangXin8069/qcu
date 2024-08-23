@@ -17,7 +17,7 @@ struct LatticeCloverDslash {
         set_ptr->stream));
   }
   void _make(void *gauge, int parity) {
-    set_ptr->_print();                                       // test
+    // set_ptr->_print();                                       // test
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
@@ -191,13 +191,9 @@ struct LatticeCloverDslash {
                  set_ptr->stream_dims[_T_]);
         ncclGroupEnd();
       }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
       {
         // u_2dim_comm
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_d_]));
         {
           // xy edge part comm
           ncclGroupStart();
@@ -249,11 +245,6 @@ struct LatticeCloverDslash {
                    set_ptr->nccl_comm, set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_d_]));
         {
           // xz edge part comm
           ncclGroupStart();
@@ -305,11 +296,6 @@ struct LatticeCloverDslash {
                    set_ptr->nccl_comm, set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_d_]));
         {
           // xt edge part comm
           ncclGroupStart();
@@ -361,11 +347,6 @@ struct LatticeCloverDslash {
                    set_ptr->nccl_comm, set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_d_]));
         {
           // yz edge part comm
           ncclGroupStart();
@@ -417,11 +398,6 @@ struct LatticeCloverDslash {
                    set_ptr->nccl_comm, set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_d_]));
         {
           // yt edge part comm
           ncclGroupStart();
@@ -473,11 +449,6 @@ struct LatticeCloverDslash {
                    set_ptr->nccl_comm, set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_d_]));
         {
           // zt edge part comm
           ncclGroupStart();
