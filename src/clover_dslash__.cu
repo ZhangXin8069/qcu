@@ -125,7 +125,7 @@ __global__ void make_clover_all(
     // if_b_x = 0;
     // if_b_y = 0;
     // if_b_z = 0;
-    if_b_t = 0;// BUG!!!
+    // if_b_t = 0;// BUG!!!
     // if_f_x = 0;
     // if_f_y = 0;
     // if_f_z = 0;
