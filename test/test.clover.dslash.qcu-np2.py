@@ -48,6 +48,7 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
+np.set_printoptions(threshold=np.inf)
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
@@ -75,5 +76,26 @@ def compare(round):
     print("######Mp1[0,0,0,1]:\n", Mp1.lexico()[0, 0, 0, 1])
     print(f'QCU dslash: {t2 - t1} sec')
     print(f'rank {0} my x and x difference: {cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data)}, takes {t2 - t1} sec, my_norm = {cp.linalg.norm(Mp1.data)}, norm = {cp.linalg.norm(Mp.data)}')
+    print("######", Mp.lexico().shape)
+    diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
+    diff = np.sum(diff_x, axis=(-1, -2))
+    _ = np.where(diff > 1e-5)
+    print("######", diff.shape)
+    print("######T:", _[0], ",\n", len(_[0]))
+    print("######Z:", _[1], ",\n", len(_[1]))
+    print("######Y:", _[2], ",\n", len(_[2]))
+    print("######X:", _[3], ",\n", len(_[3]))
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 1])
+    print("######diff_x[0,0,0,1]:\n",
+          diff_x[0, 0, 0, 1])
+    print("######diff_x[0,0,1,1]:\n",
+          diff_x[0, 0, 1, 1])
+    print("######diff_x[2,2,2,2]:\n",
+          diff_x[2, 2, 2, 2])
+    print("######diff_x[-1,-1,-1,-1]:\n",
+          diff_x[-1, -1, -1, -1])
+    print("######diff_x[-2,-2,-2,-2]:\n",
+          diff_x[-2, -2, -2, -2])
 for i in range(0, 5):
     compare(i)
