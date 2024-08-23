@@ -1,17 +1,195 @@
 ~/qcu ~/qcu
 HOME:/public/home/zhangxin/qcu
 ~/qcu
-~/qcu ~/qcu
--- The C compiler identification is unknown
--- The CXX compiler identification is unknown
--- The CUDA compiler identification is unknown
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
 -- Detecting C compiler ABI info
--- Detecting C compiler ABI info - failed
--- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc
--- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - broken
--- Configuring incomplete, errors occurred!
-See also "/public/home/zhangxin/qcu/CMakeFiles/CMakeOutput.log".
-See also "/public/home/zhangxin/qcu/CMakeFiles/CMakeError.log".
-~/qcu/test ~/qcu ~/qcu
-~/qcu ~/qcu
-~/qcu
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[  7%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 23%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 23%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 38%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 46%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash___copy.cu.o
+[ 53%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 61%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 69%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 76%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 92%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+~/qcu/test ~/qcu
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-PCIE-40GB
+Found device 1: NVIDIA A100-PCIE-40GB
+Using device 0: NVIDIA A100-PCIE-40GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+===============round  0 ======================
+===============round  0 ======================
+######p[0,0,0,1]:
+######p[0,0,0,1]:
+ [[-2.01122157-0.06719771j -1.24024505+0.26854172j  0.08890818-0.32601797j]
+ [-1.22886338+0.3503518j  -0.63496998+1.34878832j -1.28690196+0.82201022j]
+ [ 1.48051989-0.40191749j  0.55117044-1.49734981j  0.44753924-0.49871659j]
+ [ 0.49102997-0.22024789j -0.50913712+0.13317139j  0.03873334-1.23169548j]]
+ [[ 1.95353708+0.29218249j -0.03808601-0.19985962j -0.34448292+0.32242073j]
+ [-0.11174743+0.56628993j  0.17882342+0.50997348j -0.13041098+1.35593924j]
+ [ 0.50044207+1.36387083j  1.01857634+0.35335859j -0.61500926+1.51873051j]
+ [ 0.60146706+0.18106272j -0.61679741+1.72980958j -1.9901907 -1.03109759j]]
+Quda dslash: 0.0012922510504722595 sec
+Quda dslash: 0.0014856099151074886 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.000146136 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :128
+blockDim.x               :16
+lat_1dim[_X_]            :4
+lat_1dim[_Y_]            :8
+lat_1dim[_Z_]            :8
+lat_1dim[_T_]            :8
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+lat_3dim[_YZT_]          :512
+lat_3dim[_XZT_]          :256
+lat_3dim[_XYT_]          :256
+lat_3dim[_XYZ_]          :256
+lat_4dim                 :2048
+nccl wilson dslash total time: (without malloc free memcpy) :0.000146131 sec
+node_rank                :1
+node_size                :2
+gridDim.x                :128
+blockDim.x               :16
+lat_1dim[_X_]            :4
+lat_1dim[_Y_]            :8
+lat_1dim[_Z_]            :8
+lat_1dim[_T_]            :8
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :1
+grid_index_grid_1dim[_X_]:1
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+lat_3dim[_YZT_]          :512
+lat_3dim[_XZT_]          :256
+lat_3dim[_XYT_]          :256
+lat_3dim[_XYZ_]          :256
+lat_4dim                 :2048
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :0
+move_wards[_F_X_]        :2
+move_wards[_F_Y_]        :2
+move_wards[_F_Z_]        :2
+move_wards[_F_T_]        :2
+move_wards[_B_X_B_Y_]    :0
+move_wards[_B_X_B_Z_]    :0
+move_wards[_B_X_B_T_]    :0
+move_wards[_B_Y_B_Z_]    :1
+move_wards[_B_Y_B_T_]    :1
+move_wards[_B_Z_B_T_]    :0
+move_wards[_F_X_B_Y_]    :2
+move_wards[_F_X_B_Z_]    :2
+move_wards[_F_X_B_T_]    :2
+move_wards[_F_Y_B_Z_]    :1
+move_wards[_F_Y_B_T_]    :1
+move_wards[_F_Z_B_T_]    :2
+move_wards[_B_X_F_Y_]    :0
+move_wards[_B_X_F_Z_]    :0
+move_wards[_B_X_F_T_]    :0
+move_wards[_B_Y_F_Z_]    :0
+move_wards[_B_Y_F_T_]    :0
+move_wards[_B_Z_F_T_]    :0
+move_wards[_F_X_F_Y_]    :2
+move_wards[_F_X_F_Z_]    :2
+move_wards[_F_X_F_T_]    :2
+move_wards[_F_Y_F_Z_]    :2
+move_wards[_F_Y_F_T_]    :2
+move_wards[_F_Z_F_T_]    :2
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :0
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :0
+move_wards[_B_X_B_Y_]    :0
+move_wards[_B_X_B_Z_]    :0
+move_wards[_B_X_B_T_]    :0
+move_wards[_B_Y_B_Z_]    :0
+move_wards[_B_Y_B_T_]    :0
+move_wards[_B_Z_B_T_]    :0
+move_wards[_F_X_B_Y_]    :0
+move_wards[_F_X_B_Z_]    :0
+move_wards[_F_X_B_T_]    :0
+move_wards[_F_Y_B_Z_]    :0
+move_wards[_F_Y_B_T_]    :0
+move_wards[_F_Z_B_T_]    :0
+move_wards[_B_X_F_Y_]    :0
+move_wards[_B_X_F_Z_]    :0
+move_wards[_B_X_F_T_]    :0
+move_wards[_B_Y_F_Z_]    :0
+move_wards[_B_Y_F_T_]    :0
+move_wards[_B_Z_F_T_]    :0
+move_wards[_F_X_F_Y_]    :0
+move_wards[_F_X_F_Z_]    :0
+move_wards[_F_X_F_T_]    :0
+move_wards[_F_Y_F_Z_]    :0
+move_wards[_F_Y_F_T_]    :0
+move_wards[_F_Z_F_T_]    :0
+make clover total time: (without malloc free memcpy) :0.006050576 sec
+ inverse clover total time: (without malloc free memcpy) :0.003350745 sec
+ give clover total time: (without malloc free memcpy) :0.000022574 sec
+ 
