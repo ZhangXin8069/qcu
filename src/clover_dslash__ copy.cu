@@ -4,7 +4,7 @@
 #ifdef CLOVER_DSLASH
 // waitforrebuild
 // clang-formaton
-__global__ void make_clover_all(
+__global__ void _make_clover_all(
     void *device_U, void *device_clover, void *device_lat_xyzt,
     int device_parity, void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
     void *device_u_b_y_recv_vec, void *device_u_f_y_recv_vec,
@@ -78,7 +78,7 @@ __global__ void make_clover_all(
       (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_B_Y_] == lat_y - 1);
   int if_b_x_f_y =
       (move_wards[_B_X_] == lat_x - 1) * (move_wards[_F_Y_] == 1 - lat_y);
-  // // int if_f_x_f_y=
+  // int if_f_x_f_y=
   //(move_wards[_F_X_]==1-lat_x)*(move_wards[_F_Y_]==1-lat_y);
   int if_b_x_b_z =
       (move_wards[_B_X_] == lat_x - 1) * (move_wards[_B_Z_] == lat_z - 1);
@@ -86,7 +86,7 @@ __global__ void make_clover_all(
       (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_B_Z_] == lat_z - 1);
   int if_b_x_f_z =
       (move_wards[_B_X_] == lat_x - 1) * (move_wards[_F_Z_] == 1 - lat_z);
-  // // int if_f_x_f_z=
+  // int if_f_x_f_z=
   //(move_wards[_F_X_]==1-lat_x)*(move_wards[_F_Z_]==1-lat_z);
   int if_b_x_b_t =
       (move_wards[_B_X_] == lat_x - 1) * (move_wards[_B_T_] == lat_t - 1);
@@ -94,7 +94,7 @@ __global__ void make_clover_all(
       (move_wards[_F_X_] == 1 - lat_x) * (move_wards[_B_T_] == lat_t - 1);
   int if_b_x_f_t =
       (move_wards[_B_X_] == lat_x - 1) * (move_wards[_F_T_] == 1 - lat_t);
-  // // int if_f_x_f_t=
+  // int if_f_x_f_t=
   //(move_wards[_F_X_]==1-lat_x)*(move_wards[_F_T_]==1-lat_t);
   int if_b_y_b_z =
       (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_B_Z_] == lat_z - 1);
@@ -102,7 +102,7 @@ __global__ void make_clover_all(
       (move_wards[_F_Y_] == 1 - lat_y) * (move_wards[_B_Z_] == lat_z - 1);
   int if_b_y_f_z =
       (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_F_Z_] == 1 - lat_z);
-  // // int if_f_y_f_z=
+  // int if_f_y_f_z=
   //(move_wards[_F_Y_]==1-lat_y)*(move_wards[_F_Z_]==1-lat_z);
   int if_b_y_b_t =
       (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_B_T_] == lat_t - 1);
@@ -110,7 +110,7 @@ __global__ void make_clover_all(
       (move_wards[_F_Y_] == 1 - lat_y) * (move_wards[_B_T_] == lat_t - 1);
   int if_b_y_f_t =
       (move_wards[_B_Y_] == lat_y - 1) * (move_wards[_F_T_] == 1 - lat_t);
-  // // int if_f_y_f_t=
+  // int if_f_y_f_t=
   //(move_wards[_F_Y_]==1-lat_y)*(move_wards[_F_T_]==1-lat_t);
   int if_b_z_b_t =
       (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_B_T_] == lat_t - 1);
@@ -118,7 +118,7 @@ __global__ void make_clover_all(
       (move_wards[_F_Z_] == 1 - lat_z) * (move_wards[_B_T_] == lat_t - 1);
   int if_b_z_f_t =
       (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_F_T_] == 1 - lat_t);
-  // // int if_f_z_f_t=
+  // int if_f_z_f_t=
   //(move_wards[_F_Z_]==1-lat_z)*(move_wards[_F_T_]==1-lat_t);
   {
     // test
@@ -133,27 +133,27 @@ __global__ void make_clover_all(
     if_b_x_b_y = 0;
     if_f_x_b_y = 0;
     if_b_x_f_y = 0;
-    // // if_f_x_f_y=0;
+    // if_f_x_f_y=0;
     if_b_x_b_z = 0;
     if_f_x_b_z = 0;
     if_b_x_f_z = 0;
-    // // if_f_x_f_z=0;
+    // if_f_x_f_z=0;
     if_b_x_b_t = 0;
     if_f_x_b_t = 0;
     if_b_x_f_t = 0;
-    // // if_f_x_f_t=0;
+    // if_f_x_f_t=0;
     if_b_y_b_z = 0;
     if_f_y_b_z = 0;
     if_b_y_f_z = 0;
-    // // if_f_y_f_z=0;
+    // if_f_y_f_z=0;
     if_b_y_b_t = 0;
     if_f_y_b_t = 0;
     if_b_y_f_t = 0;
-    // // if_f_y_f_t=0;
+    // if_f_y_f_t=0;
     if_b_z_b_t = 0;
     if_f_z_b_t = 0;
     if_b_z_f_t = 0;
-    // // if_f_z_f_t=0;
+    // if_f_z_f_t=0;
   }
   // sigmaF
   {
