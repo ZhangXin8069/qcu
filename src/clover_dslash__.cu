@@ -63,7 +63,7 @@ __global__ void make_clover_all(
   LatticeComplex tmp3[_LAT_CC_];
   LatticeComplex U[_LAT_CC_];
   LatticeComplex clover[_LAT_SCSC_];
-  // justall
+  // just all
   int if_b_x = (move_wards[_B_X_] == lat_x - 1);
   int if_b_y = (move_wards[_B_Y_] == lat_y - 1);
   int if_b_z = (move_wards[_B_Z_] == lat_z - 1);
@@ -120,41 +120,41 @@ __global__ void make_clover_all(
       (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_F_T_] == 1 - lat_t);
   // int if_f_z_f_t=
   //(move_wards[_F_Z_]==1-lat_z)*(move_wards[_F_T_]==1-lat_t);
-  {
-    // test
-    if_b_x = 0;
-    if_b_y = 0;
-    if_b_z = 0;
-    if_b_t = 0;
-    if_f_x = 0;
-    if_f_y = 0;
-    if_f_z = 0;
-    if_f_t = 0;
-    if_b_x_b_y = 0;
-    if_f_x_b_y = 0;
-    if_b_x_f_y = 0;
-    // if_f_x_f_y=0;
-    if_b_x_b_z = 0;
-    if_f_x_b_z = 0;
-    if_b_x_f_z = 0;
-    // if_f_x_f_z=0;
-    if_b_x_b_t = 0;
-    if_f_x_b_t = 0;
-    if_b_x_f_t = 0;
-    // if_f_x_f_t=0;
-    if_b_y_b_z = 0;
-    if_f_y_b_z = 0;
-    if_b_y_f_z = 0;
-    // if_f_y_f_z=0;
-    if_b_y_b_t = 0;
-    if_f_y_b_t = 0;
-    if_b_y_f_t = 0;
-    // if_f_y_f_t=0;
-    if_b_z_b_t = 0;
-    if_f_z_b_t = 0;
-    if_b_z_f_t = 0;
-    // if_f_z_f_t=0;
-  }
+  // {
+  //   // test
+  //   if_b_x = 0;
+  //   if_b_y = 0;
+  //   if_b_z = 0;
+  //   if_b_t = 0;
+  //   if_f_x = 0;
+  //   if_f_y = 0;
+  //   if_f_z = 0;
+  //   if_f_t = 0;
+  //   if_b_x_b_y = 0;
+  //   if_f_x_b_y = 0;
+  //   if_b_x_f_y = 0;
+  //   // if_f_x_f_y=0;
+  //   if_b_x_b_z = 0;
+  //   if_f_x_b_z = 0;
+  //   if_b_x_f_z = 0;
+  //   // if_f_x_f_z=0;
+  //   if_b_x_b_t = 0;
+  //   if_f_x_b_t = 0;
+  //   if_b_x_f_t = 0;
+  //   // if_f_x_f_t=0;
+  //   if_b_y_b_z = 0;
+  //   if_f_y_b_z = 0;
+  //   if_b_y_f_z = 0;
+  //   // if_f_y_f_z=0;
+  //   if_b_y_b_t = 0;
+  //   if_f_y_b_t = 0;
+  //   if_b_y_f_t = 0;
+  //   // if_f_y_f_t=0;
+  //   if_b_z_b_t = 0;
+  //   if_f_z_b_t = 0;
+  //   if_b_z_f_t = 0;
+  //   // if_f_z_f_t=0;
+  // }
   // sigmaF
   {
     give_vals(clover, zero, _LAT_SCSC_);
