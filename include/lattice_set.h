@@ -411,5 +411,4 @@ struct LatticeSet {
     printf("move_wards[_F_Z_F_T_]    :%d\n", move_wards[_F_Z_F_T_]);
   }
 };
-
 #endif
