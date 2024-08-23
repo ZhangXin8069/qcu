@@ -863,7 +863,6 @@ __global__ void inverse_clover(void *device_clover, void *device_lat_xyzt) {
     give_clr(origin_clover, clover, lat_tzyx);
   }
 }
-
 __global__ void give_clover(void *device_clover, void *device_dest,
                             void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
