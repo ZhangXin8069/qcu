@@ -2,7 +2,7 @@
 #include "../include/qcu.h"
 #ifdef CLOVER_DSLASH
 // wait for rebuild
-// clang-format off
+// clang-format on
 __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
                             int device_parity, void *device_u_b_x_send_vec,
                             void *device_u_f_x_send_vec) {
@@ -170,7 +170,7 @@ __global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
   }
   // f_t
   tmp_U = (origin_U + (1 - parity) * lat_tzyx +
-           ((((lat_t - 1) * lat_z + y) * lat_y + y) * lat_x + x));
+           ((((lat_t - 1) * lat_z + z) * lat_y + y) * lat_x + x));
   for (int i = 0; i < _LAT_DCC_; i++) {
     u_f_t_send_vec[i * lat_tzyx / lat_t] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
   }
