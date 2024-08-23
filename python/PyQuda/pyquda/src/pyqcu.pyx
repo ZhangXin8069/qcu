@@ -32,3 +32,6 @@ def ncclDslashQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuPar
 
 def ncclBistabCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
     qcu.ncclBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
+
+def ncclDslashCloverQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, int parity, QcuParam grid):
+    qcu.ncclDslashCloverQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, parity, &grid.param)
