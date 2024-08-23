@@ -4,11 +4,11 @@
 #include "./define.h"
 #include "./include.h"
 #include "./lattice_bistabcg.h"
+#include "./lattice_clover_dslash.h"
 #include "./lattice_complex.h"
 #include "./lattice_cuda.h"
-#include "./lattice_wilson_dslash.h"
-#include "./lattice_clover_dslash.h"
 #include "./lattice_set.h"
+#include "./lattice_wilson_dslash.h"
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -24,7 +24,10 @@ void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid);
 void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid);
-void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge, QcuParam *param, QcuParam *grid);
+void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
+                     QcuParam *param, QcuParam *grid);
+void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
+                         QcuParam *param, int parity, QcuParam *grid);
 #ifdef __cplusplus
 }
 #endif

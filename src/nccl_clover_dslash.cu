@@ -1,10 +1,10 @@
 #include "../include/qcu.h"
 #ifdef NCCL_CLOVER_DSLASH
-void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
-                     QcuParam *param, int parity) {
+void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
+                         QcuParam *param, int parity, QcuParam *grid) {
   // define for nccl_clover_dslash
   LatticeSet _set;
-  _set.give(param->lattice_size);
+  _set.give(param->lattice_size, grid->lattice_size);
   _set.init();
   dptzyxcc2ccdptzyx(gauge, &_set);
   tzyxsc2sctzyx(fermion_in, &_set);
