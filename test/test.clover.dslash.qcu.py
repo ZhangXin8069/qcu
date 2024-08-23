@@ -10,7 +10,8 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-latt_size = [16, 16, 16, 32]
+# latt_size = [32, 16, 16, 32]
+# latt_size = [16, 16, 16, 32]
 # latt_size = [16, 16, 16, 16]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
@@ -20,6 +21,7 @@ latt_size = [16, 16, 16, 32]
 # latt_size = [4, 4, 4, 4]
 # latt_size = [8, 8, 8, 32]
 # latt_size = [8, 8, 8, 16]
+latt_size = [8, 8, 8, 8]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
@@ -46,7 +48,7 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
-# np.set_printoptions(threshold=np.inf)
+np.set_printoptions(threshold=np.inf)
 
 def compare(round):
     print('===============round ', round, '======================')
