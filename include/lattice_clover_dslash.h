@@ -40,7 +40,7 @@ struct LatticeCloverDslash {
                     set_ptr->stream_dims[_Z_]>>>(
           gauge, set_ptr->device_lat_xyzt, parity,
           set_ptr->device_u_1dim_send_vec[_B_Z_],
-          set_ptr->device_u_1dim_send_vec[_F_Z_]);
+          set_ptr->device_u_1dim_send_vec[_F_Z_]);//test
       pick_up_u_t<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                     set_ptr->stream_dims[_T_]>>>(
           gauge, set_ptr->device_lat_xyzt, parity,
@@ -191,7 +191,11 @@ struct LatticeCloverDslash {
                  set_ptr->stream_dims[_T_]);
         ncclGroupEnd();
       }
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       {
         // u_2dim_comm
         {
@@ -245,6 +249,11 @@ struct LatticeCloverDslash {
                    set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
+            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         {
           // xz edge part comm
           ncclGroupStart();
@@ -296,6 +305,11 @@ struct LatticeCloverDslash {
                    set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
+            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         {
           // xt edge part comm
           ncclGroupStart();
@@ -347,6 +361,11 @@ struct LatticeCloverDslash {
                    set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
+            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         {
           // yz edge part comm
           ncclGroupStart();
@@ -398,6 +417,11 @@ struct LatticeCloverDslash {
                    set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
+            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         {
           // yt edge part comm
           ncclGroupStart();
@@ -449,6 +473,11 @@ struct LatticeCloverDslash {
                    set_ptr->stream_dims[_d_]);
           ncclGroupEnd();
         }
+            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         {
           // zt edge part comm
           ncclGroupStart();
