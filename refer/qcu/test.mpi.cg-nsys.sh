@@ -1,3 +1,4 @@
+#!/bin/bash
 bash ./make.sh
 pushd ./test
 rm log_*

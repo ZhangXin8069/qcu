@@ -1,3 +1,4 @@
+#!/bin/bash
 bash ./make.sh
 
 # mpirun -n 2 python mpi_dslash.py
