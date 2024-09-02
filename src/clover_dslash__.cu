@@ -1345,6 +1345,10 @@ __global__ void make_clover_all(
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
                ((((_T_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
       _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
+      printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
+             tmp_U[7]._data.x); // test
+      printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
+             tmp_U[7]._data.y); // test
     } else {
       move0 = move_wards[_F_Z_];
       move1 = move_wards[_B_T_];
