@@ -2,10 +2,9 @@
 #define _LATTICE_CUDA_H
 #include "./include.h"
 #include "./lattice_set.h"
-__global__ void give_random_vals(void *device_random_vals,
-                                  unsigned long seed);
+__global__ void give_random_vals(void *device_random_vals, unsigned long seed);
 __global__ void give_custom_vals(void *device_custom_vals, double real,
-                                  double imag);
+                                 double imag);
 __global__ void give_1zero(void *device_vals, const int vals_index);
 __global__ void give_1one(void *device_vals, const int vals_index);
 __global__ void give_1custom(void *device_vals, const int vals_index,
@@ -326,4 +325,6 @@ __global__ void _psctzyx2ptzyxsc(void *device_fermi, void *device___fermi,
                                  int lat_4dim);
 void ptzyxsc2psctzyx(void *fermion, LatticeSet *set_ptr);
 void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr);
+__global__ void give_debug_u(void *device_U, void *device_lat_xyzt,
+                             int device_parity, int node_rank);
 #endif
