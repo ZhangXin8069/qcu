@@ -1,4 +1,5 @@
 #include "../include/qcu.h"
+#include "define.h"
 #ifdef LATTICE_CUDA
 __global__ void give_random_vals(void *device_random_vals, unsigned long seed) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -208,5 +209,37 @@ void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr) {
                            (double *)_fermion, 1, (double *)fermion, 1));
   checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+}
+__global__ void give_debug_u(void *device_U, void *device_lat_xyzt,
+                             int device_parity, int node_rank) {
+  int idx = blockIdx.x * blockDim.x + threadIdx.x;
+  int parity = idx;
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_t = lat_xyzt[_T_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
+  int move0;
+  move0 = lat_x * lat_y * lat_z;
+  int t = parity / move0;
+  parity -= t * move0;
+  move0 = lat_x * lat_y;
+  int z = parity / move0;
+  parity -= z * move0;
+  int y = parity / lat_x;
+  int x = parity - y * lat_x;
+  LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
+  LatticeComplex *tmp_U;
+  parity = device_parity;
+  tmp_U = (origin_U +
+           ((((parity * lat_t + t) * lat_z + z) * lat_y + y) * lat_x + x));
+  for (int i = 0; i < _LAT_DCC_; i++) {
+    tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.x = double(
+        (((((i * _EVEN_ODD_ + parity) * lat_t + t) * lat_z + z) * lat_y + y) *
+             lat_x +
+         x));
+    tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(node_rank);
+  }
 }
 #endif

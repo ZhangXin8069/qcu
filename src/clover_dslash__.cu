@@ -1,9 +1,8 @@
-// clang-formatoff
+// clang-format off
 #include "../include/qcu.h"
-#include <cstdio>
 #ifdef CLOVER_DSLASH
-// waitforrebuild
-// clang-formaton
+// wait for rebuild
+// clang-format on
 __global__ void make_clover_all(
     void *device_U, void *device_clover, void *device_lat_xyzt,
     int device_parity, void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
@@ -121,41 +120,40 @@ __global__ void make_clover_all(
   // // int if_f_z_f_t=
   //(move_wards[_F_Z_]==1-lat_z)*(move_wards[_F_T_]==1-lat_t);
   {
-    // test
-    // if_b_x = 0;
-    // if_b_y = 0;
-    // if_b_z = 0;
-    // if_b_t = 0;// BUG!!!
-    // if_f_x = 0;
-    // if_f_y = 0;
-    // if_f_z = 0;
-    // if_f_t = 0;
-    // if_b_x_b_y = 0;
-    // if_f_x_b_y = 0;
-    // if_b_x_f_y = 0;
-    // // // if_f_x_f_y=0;
-    // if_b_x_b_z = 0;
-    // if_f_x_b_z = 0;
-    // if_b_x_f_z = 0;
-    // // // if_f_x_f_z=0;
-    // if_b_x_b_t = 0;
-    // if_f_x_b_t = 0;
-    // if_b_x_f_t = 0;
-    // // // if_f_x_f_t=0;
-    // if_b_y_b_z = 0;
-    // if_f_y_b_z = 0;
-    // if_b_y_f_z = 0;
-    // // // if_f_y_f_z=0;
-    // if_b_y_b_t = 0;
-    // if_f_y_b_t = 0;
-    // if_b_y_f_t = 0;
-    // // // if_f_y_f_t=0;
-    // if_b_z_b_t = 0;
-    // if_f_z_b_t = 0;
-    // if_b_z_f_t = 0;
-    // // // if_f_z_f_t=0;
-  }
-  // sigmaF
+      // test
+      // if_b_x = 0;
+      // if_b_y = 0;
+      // if_b_z = 0;
+      // if_b_t = 0;// BUG!!!
+      // if_f_x = 0;
+      // if_f_y = 0;
+      // if_f_z = 0;
+      // if_f_t = 0;
+      // if_b_x_b_y = 0;
+      // if_f_x_b_y = 0;
+      // if_b_x_f_y = 0;
+      // // // if_f_x_f_y=0;
+      // if_b_x_b_z = 0;
+      // if_f_x_b_z = 0;
+      // if_b_x_f_z = 0;
+      // // // if_f_x_f_z=0;
+      // if_b_x_b_t = 0;
+      // if_f_x_b_t = 0;
+      // if_b_x_f_t = 0;
+      // // // if_f_x_f_t=0;
+      // if_b_y_b_z = 0;
+      // if_f_y_b_z = 0;
+      // if_b_y_f_z = 0;
+      // // // if_f_y_f_z=0;
+      // if_b_y_b_t = 0;
+      // if_f_y_b_t = 0;
+      // if_b_y_f_t = 0;
+      // // // if_f_y_f_t=0;
+      // if_b_z_b_t = 0;
+      // if_f_z_b_t = 0;
+      // if_b_z_f_t = 0;
+      // // // if_f_z_f_t=0;
+  } // sigmaF
   {
     give_vals(clover, zero, _LAT_SCSC_);
     // give_vals(origin_clover,zero,_LAT_SCSC_);//BUG!!!!!!
@@ -1347,6 +1345,10 @@ __global__ void make_clover_all(
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
                ((((_T_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
       _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
+      printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
+             tmp_U[7]._data.x); // test
+      printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
+             tmp_U[7]._data.y); // test
     } else {
       move0 = move_wards[_F_Z_];
       move1 = move_wards[_B_T_];
