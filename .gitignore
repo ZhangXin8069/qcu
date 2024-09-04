@@ -14,6 +14,7 @@
 *a.out
 *b.out
 *c.out
+test
 *.so
 *.nvvp
 *.nsys-rep
@@ -24,3 +25,4 @@
 _*
 lib/*
 .ssub.sh
+log.txt
