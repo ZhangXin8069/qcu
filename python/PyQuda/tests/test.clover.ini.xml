@@ -1,11 +1,11 @@
 <?xml version="1.0"?>
 <chroma>
   <annotation>
-    ; $Id: prec_clover.ini.xml,v 3.2 2006-06-11 06:30:36 edwards Exp $
-    ;
-    ; Test input file for chroma main program
-    ;
-  </annotation>
+; $Id: prec_clover.ini.xml,v 3.2 2006-06-11 06:30:36 edwards Exp $
+;
+; Test input file for chroma main program
+;
+</annotation>
   <Param>
     <InlineMeasurements>
 
@@ -86,9 +86,9 @@
             <AutotuneDslash>true</AutotuneDslash>
           </InvertParam> -->
           <InvertParam>
-            <invType>BICGSTAB_INVERTER</invType>
-            <RsdBiCGStab>1.0e-12</RsdBiCGStab>
-            <MaxBiCGStab>1000</MaxBiCGStab>
+            <invType>CG_INVERTER</invType>
+            <RsdCG>1.0e-9</RsdCG>
+            <MaxCG>1000</MaxCG>
           </InvertParam>
         </Param>
         <NamedObject>
@@ -99,7 +99,7 @@
       </elem>
 
       <elem>
-        <Name>QIO_WRITE_NAMED_OBJECT</Name>
+        <Name>SZIN_WRITE_NAMED_OBJECT</Name>
         <Frequency>1</Frequency>
         <NamedObject>
           <object_id>pt_prop_0</object_id>

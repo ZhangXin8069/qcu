@@ -1,226 +1,178 @@
-from abc import ABC
-from typing import List, Union
+from typing import List
 
-from . import getCUDABackend
-from .pointer import Pointers
+import numpy
+
+from .pointer import Pointers, ndarrayDataPointer
 from .pyquda import (
-    setVerbosityQuda,
-    gaussGaugeQuda,
-    gaussMomQuda,
+    QudaGaugeParam,
+    QudaInvertParam,
+    QudaMultigridParam,
+    loadCloverQuda,
+    freeCloverQuda,
     loadGaugeQuda,
     saveGaugeQuda,
-    momResidentQuda,
-    momActionQuda,
-    plaqQuda,
     updateGaugeFieldQuda,
+    invertQuda,
+    projectSU3Quda,
+    momResidentQuda,
+    gaussMomQuda,
+    momActionQuda,
+    computeCloverForceQuda,
+    computeGaugeForceQuda,
+    computeGaugeLoopTraceQuda,
 )
-from .enum_quda import QudaTboundary, QudaVerbosity
-from .field import Nc, Ns, LatticeInfo, LatticeGauge, LatticeMom, LatticeFermion
-from .dirac.wilson import Wilson
-from .action import FermionAction, GaugeAction
+from .field import Ns, Nc
+from .enum_quda import QudaMatPCType, QudaSolutionType, QudaVerbosity, QudaTboundary, QudaReconstructType
+from .core import LatticeGauge, LatticeFermion, getDslash
 
 nullptr = Pointers("void", 0)
 
 
-class Integrator(ABC):
-    @classmethod
-    def integrate(cls, hmc: "HMC", t: float, n_steps: int):
-        raise NotImplementedError
-
-
-class O2Nf1Ng0V(Integrator):
-    R"""https://doi.org/10.1016/S0010-4655(02)00754-3
-    BAB: Eq.(23), \xi=0"""
-
-    @classmethod
-    def integrate(cls, hmc: "HMC", t: float, n_steps: int):
-        dt = t / n_steps
-        for _ in range(n_steps):
-            hmc.updateMom(dt / 2)
-            hmc.updateGauge(dt)
-            hmc.updateMom(dt / 2)
-
-
-class O2Nf1Ng0P(Integrator):
-    R"""https://doi.org/10.1016/S0010-4655(02)00754-3
-    ABA: Eq.(24), \xi=0"""
-
-    @classmethod
-    def integrate(cls, hmc: "HMC", t: float, n_steps: int):
-        dt = t / n_steps
-        for _ in range(n_steps):
-            hmc.updateGauge(dt / 2)
-            hmc.updateMom(dt)
-            hmc.updateGauge(dt / 2)
-
-
-class O4Nf5Ng0V(Integrator):
-    R"""https://doi.org/10.1016/S0010-4655(02)00754-3
-    BABABABABAB: Eq.(63), Eq.(71)"""
-
-    rho_ = 0.2539785108410595
-    theta_ = -0.03230286765269967
-    vartheta_ = 0.08398315262876693
-    lambda_ = 0.6822365335719091
-
-    @classmethod
-    def integrate(cls, hmc: "HMC", t: float, n_steps: int):
-        dt = t / n_steps
-        for _ in range(n_steps):
-            hmc.updateMom(cls.vartheta_ * dt)
-            hmc.updateGauge(cls.rho_ * dt)
-            hmc.updateMom(cls.lambda_ * dt)
-            hmc.updateGauge(cls.theta_ * dt)
-            hmc.updateMom((1 - 2 * (cls.lambda_ + cls.vartheta_)) * dt / 2)
-            hmc.updateGauge((1 - 2 * (cls.theta_ + cls.rho_)) * dt)
-            hmc.updateMom((1 - 2 * (cls.lambda_ + cls.vartheta_)) * dt / 2)
-            hmc.updateGauge(cls.theta_ * dt)
-            hmc.updateMom(cls.lambda_ * dt)
-            hmc.updateGauge(cls.rho_ * dt)
-            hmc.updateMom(cls.vartheta_ * dt)
-
-
-class O4Nf5Ng0P(Integrator):
-    R"""https://doi.org/10.1016/S0010-4655(02)00754-3
-    ABABABABABA: Eq.(72), Eq.(80)"""
-
-    rho_ = 0.2750081212332419
-    theta_ = -0.1347950099106792
-    vartheta_ = -0.08442961950707149
-    lambda_ = 0.3549000571574260
-
-    @classmethod
-    def integrate(cls, hmc: "HMC", t: float, n_steps: int):
-        dt = t / n_steps
-        for _ in range(n_steps):
-            hmc.updateGauge(cls.rho_ * dt)
-            hmc.updateMom(cls.vartheta_ * dt)
-            hmc.updateGauge(cls.theta_ * dt)
-            hmc.updateMom(cls.lambda_ * dt)
-            hmc.updateGauge((1 - 2 * (cls.theta_ + cls.rho_)) * dt / 2)
-            hmc.updateMom((1 - 2 * (cls.lambda_ + cls.vartheta_)) * dt)
-            hmc.updateGauge((1 - 2 * (cls.theta_ + cls.rho_)) * dt / 2)
-            hmc.updateMom(cls.lambda_ * dt)
-            hmc.updateGauge(cls.theta_ * dt)
-            hmc.updateMom(cls.vartheta_ * dt)
-            hmc.updateGauge(cls.rho_ * dt)
-
-
 class HMC:
     def __init__(
-        self, latt_info: LatticeInfo, monomials: List[Union[GaugeAction, FermionAction]], integrator: Integrator
+        self,
+        latt_size: List[int],
+        mass: float,
+        tol: float,
+        maxiter: int,
+        clover_coeff: float = 0.0,
+        anti_periodic_t=True,
     ) -> None:
-        self.latt_info = latt_info
-        self._monomials = monomials
-        self._integrator = integrator
-        self._wilson = Wilson(latt_info, 0, 0.125, 0, 0)
-        self.gauge_param = self._wilson.gauge_param
+        self.dslash = getDslash(
+            latt_size, mass, tol, maxiter, clover_coeff_t=clover_coeff, anti_periodic_t=anti_periodic_t
+        )
+        Lx, Ly, Lz, Lt = latt_size
+        self.volume = Lx * Ly * Lz * Lt
+        self.gauge_param: QudaGaugeParam = self.dslash.gauge_param
+        self.invert_param: QudaInvertParam = self.dslash.invert_param
 
-    def setVerbosity(self, verbosity: QudaVerbosity):
-        setVerbosityQuda(verbosity, b"\0")
+        self.gauge_param.overwrite_gauge = 0
+        self.gauge_param.overwrite_mom = 0
+        self.gauge_param.use_resident_gauge = 1
+        self.gauge_param.use_resident_mom = 1
+        self.gauge_param.make_resident_gauge = 1
+        self.gauge_param.make_resident_mom = 1
+        self.gauge_param.return_result_gauge = 0
+        self.gauge_param.return_result_mom = 0
 
-    def initialize(self, gauge: Union[LatticeGauge, int, None] = None):
-        if isinstance(gauge, LatticeGauge):
-            self.loadGauge(gauge)
-        else:
-            unit = LatticeGauge(self.latt_info)
-            self.loadGauge(unit)
-            if gauge is not None:
-                self.gaussGauge(gauge)
-        mom = LatticeMom(self.latt_info)
-        self.loadMom(mom)
-
-    def actionGauge(self) -> float:
-        action = 0
-        for monomial in self._monomials:
-            if isinstance(monomial, FermionAction):
-                action += monomial.action(True)
-            elif isinstance(monomial, GaugeAction):
-                action += monomial.action()
-        return action
-
-    def actionMom(self) -> float:
-        return momActionQuda(nullptr, self.gauge_param)
-
-    def updateGauge(self, dt: float):
-        updateGaugeFieldQuda(nullptr, nullptr, dt, False, True, self.gauge_param)
-        loadGaugeQuda(nullptr, self.gauge_param)
-
-    def updateMom(self, dt: float):
-        for monomial in self._monomials:
-            if isinstance(monomial, FermionAction):
-                monomial.force(dt, True)
-            elif isinstance(monomial, GaugeAction):
-                monomial.force(dt)
-
-    def integrate(self, t: float, n_steps: int):
-        self._integrator.integrate(self, t, n_steps)
-
-    def samplePhi(self, seed: int):
-        def _seed(seed: int):
-            backend = getCUDABackend()
-            if backend == "numpy":
-                import numpy
-
-                numpy.random.seed(seed)
-                return numpy, numpy.random.random, numpy.float64
-            elif backend == "cupy":
-                import cupy
-
-                cupy.random.seed(seed)
-                return cupy, cupy.random.random, cupy.float64
-            elif backend == "torch":
-                import torch
-
-                torch.random.manual_seed(seed)
-                return torch, torch.rand, torch.float64
-
-        def _noise(backend, random, float64):
-            phi = 2 * backend.pi * random((self.latt_info.volume, Ns, Nc), dtype=float64)
-            r = random((self.latt_info.volume, Ns, Nc), dtype=float64)
-            noise_raw = backend.sqrt(-backend.log(r)) * (backend.cos(phi) + 1j * backend.sin(phi))
-            return noise_raw
-
-        backend, random, float64 = _seed(seed)
-        for monomial in self._monomials:
-            if isinstance(monomial, FermionAction):
-                monomial.sample(LatticeFermion(self.latt_info, _noise(backend, random, float64)), True)
+        self.invert_param.matpc_type = QudaMatPCType.QUDA_MATPC_EVEN_EVEN_ASYMMETRIC
+        self.invert_param.solution_type = QudaSolutionType.QUDA_MATPCDAG_MATPC_SOLUTION
+        self.invert_param.verbosity = QudaVerbosity.QUDA_SILENT
+        self.invert_param.compute_action = 1
+        self.invert_param.compute_clover_trlog = 1
 
     def loadGauge(self, gauge: LatticeGauge):
-        gauge_in = gauge.copy()
+        use_resident_gauge = self.gauge_param.use_resident_gauge
+
+        gauge_data_bak = gauge.backup()
         if self.gauge_param.t_boundary == QudaTboundary.QUDA_ANTI_PERIODIC_T:
-            gauge_in.setAntiPeriodicT()
+            gauge.setAntiPeroidicT()
         self.gauge_param.use_resident_gauge = 0
-        loadGaugeQuda(gauge_in.data_ptrs, self.gauge_param)
-        self.gauge_param.use_resident_gauge = 1
+        loadGaugeQuda(gauge.data_ptrs, self.gauge_param)
+        self.gauge_param.use_resident_gauge = use_resident_gauge
+        gauge.data = gauge_data_bak
 
     def saveGauge(self, gauge: LatticeGauge):
         saveGaugeQuda(gauge.data_ptrs, self.gauge_param)
-        if self.gauge_param.t_boundary == QudaTboundary.QUDA_ANTI_PERIODIC_T:
-            gauge.setAntiPeriodicT()
 
-    def gaussGauge(self, seed: int):
-        gaussGaugeQuda(seed, 1.0)
+    def updateGaugeField(self, dt: float):
+        updateGaugeFieldQuda(nullptr, nullptr, dt, False, False, self.gauge_param)
 
-    def loadMom(self, mom: LatticeMom):
-        momResidentQuda(mom.data_ptrs, self.gauge_param)
+    def computeCloverForce(self, dt, x: LatticeFermion, kappa2, ck):
+        self.updateClover()
+        invertQuda(x.even_ptr, x.odd_ptr, self.invert_param)
+        computeCloverForceQuda(
+            nullptr,
+            dt,
+            ndarrayDataPointer(x.even.reshape(1, -1), True),
+            nullptr,
+            ndarrayDataPointer(numpy.array([1.0], "<f8")),
+            kappa2,
+            ck,
+            1,
+            2,
+            nullptr,
+            self.gauge_param,
+            self.invert_param,
+        )
 
-    def saveMom(self, mom: LatticeMom):
-        self.gauge_param.make_resident_mom = 0
-        self.gauge_param.return_result_mom = 1
-        momResidentQuda(mom.data_ptrs, self.gauge_param)
+    def computeGaugeForce(self, dt, force, lengths, coeffs, num_paths, max_length):
+        computeGaugeForceQuda(
+            nullptr,
+            nullptr,
+            ndarrayDataPointer(force),
+            ndarrayDataPointer(lengths),
+            ndarrayDataPointer(coeffs),
+            num_paths,
+            max_length,
+            dt,
+            self.gauge_param,
+        )
+
+    def reunitGaugeField(self, ref: LatticeGauge, tol: float):
+        gauge = LatticeGauge(self.gauge_param.X, None, ref.t_boundary)
+        t_boundary = self.gauge_param.t_boundary
+        anisotropy = self.gauge_param.anisotropy
+        reconstruct = self.gauge_param.reconstruct
+        use_resident_gauge = self.gauge_param.use_resident_gauge
+
+        saveGaugeQuda(gauge.data_ptrs, self.gauge_param)
+        if t_boundary == QudaTboundary.QUDA_ANTI_PERIODIC_T:
+            gauge.setAntiPeroidicT()
+        if anisotropy != 1.0:
+            gauge.setAnisotropy(1 / anisotropy)
+
+        self.gauge_param.t_boundary = QudaTboundary.QUDA_PERIODIC_T
+        self.gauge_param.anisotropy = 1.0
+        self.gauge_param.reconstruct = QudaReconstructType.QUDA_RECONSTRUCT_NO
+        self.gauge_param.use_resident_gauge = 0
+        loadGaugeQuda(gauge.data_ptrs, self.gauge_param)
+        self.gauge_param.use_resident_gauge = use_resident_gauge
+        projectSU3Quda(nullptr, tol, self.gauge_param)
+        saveGaugeQuda(gauge.data_ptrs, self.gauge_param)
+        self.gauge_param.t_boundary = t_boundary
+        self.gauge_param.anisotropy = anisotropy
+        self.gauge_param.reconstruct = reconstruct
+
+        if t_boundary == QudaTboundary.QUDA_ANTI_PERIODIC_T:
+            gauge.setAntiPeroidicT()
+        if anisotropy != 1.0:
+            gauge.setAnisotropy(anisotropy)
+        self.gauge_param.use_resident_gauge = 0
+        loadGaugeQuda(gauge.data_ptrs, self.gauge_param)
+        self.gauge_param.use_resident_gauge = use_resident_gauge
+
+    def loadMom(self, mom: LatticeGauge):
+        make_resident_mom = self.gauge_param.make_resident_mom
+        return_result_mom = self.gauge_param.return_result_mom
         self.gauge_param.make_resident_mom = 1
         self.gauge_param.return_result_mom = 0
-        momResidentQuda(mom.data_ptrs, self.gauge_param)  # keep momResident
+        momResidentQuda(mom.data_ptrs, self.gauge_param)
+        self.gauge_param.make_resident_mom = make_resident_mom
+        self.gauge_param.return_result_mom = return_result_mom
 
     def gaussMom(self, seed: int):
         gaussMomQuda(seed, 1.0)
 
-    def reunitGauge(self, tol: float):
-        gauge = LatticeGauge(self.latt_info)
-        self.saveGauge(gauge)
-        gauge.projectSU3(tol)
-        self.loadGauge(gauge)
+    def actionMom(self) -> float:
+        return momActionQuda(nullptr, self.gauge_param)
 
-    def plaquette(self):
-        return plaqQuda()[0]
+    def actionGauge(self, path, lengths, coeffs, num_paths, max_length) -> float:
+        traces = numpy.zeros((num_paths), "<c16")
+        computeGaugeLoopTraceQuda(
+            ndarrayDataPointer(traces),
+            ndarrayDataPointer(path),
+            ndarrayDataPointer(lengths),
+            ndarrayDataPointer(coeffs),
+            num_paths,
+            max_length,
+            1,
+        )
+        return traces.real.sum()
+
+    def actionFermion(self) -> float:
+        return self.invert_param.action[0] - self.volume / 2 * Ns * Nc - 2 * self.invert_param.trlogA[1]
+
+    def updateClover(self):
+        freeCloverQuda()
+        loadCloverQuda(nullptr, nullptr, self.invert_param)

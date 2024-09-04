@@ -551,6 +551,17 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
   // f_z_b_t
   tmp_U = (origin_U + parity * lat_tzyx +
            ((((0) * lat_z + lat_z - 1) * lat_y + y) * lat_x + x));
+  // if (x == 5 && y == 9) {
+  //   int index = (parity * lat_tzyx +
+  //                ((((0) * lat_z + lat_z - 1) * lat_y + y) * lat_x + x));
+  //   printf("@@@ptr:%p\n", tmp_U);
+  //   printf("@@@ptr:%p\n", origin_U + index);
+  //   printf("###index:%d\n", index);
+  //   printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
+  //          tmp_U[0]._data.x); // test
+  //   printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
+  //          tmp_U[0]._data.y); // test
+  // }
   for (int i = 0; i < _LAT_DCC_; i++) {
     u_f_z_b_t_send_vec[i * lat_tzyx / lat_z / lat_t] =
         tmp_U[i * _EVEN_ODD_ * lat_tzyx];
@@ -558,6 +569,17 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
   // b_z_f_t
   tmp_U = (origin_U + parity * lat_tzyx +
            ((((lat_t - 1) * lat_z + 0) * lat_y + y) * lat_x + x));
+  if (x == 5 && y == 9) {
+    // int index = (parity * lat_tzyx +
+    //              ((((lat_t - 1) * lat_z + 0) * lat_y + y) * lat_x + x));
+    // printf("@@@ptr:%p\n", tmp_U);
+    // printf("@@@ptr:%p\n", origin_U + index);
+    // printf("###index:%d\n", index);
+    printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
+           tmp_U[_T_ * _EVEN_ODD_ * lat_tzyx]._data.x); // test
+    printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
+           tmp_U[_T_ * _EVEN_ODD_ * lat_tzyx]._data.y); // test
+  }
   for (int i = 0; i < _LAT_DCC_; i++) {
     u_b_z_f_t_send_vec[i * lat_tzyx / lat_z / lat_t] =
         tmp_U[i * _EVEN_ODD_ * lat_tzyx];
