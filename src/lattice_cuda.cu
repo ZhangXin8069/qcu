@@ -241,10 +241,10 @@ __global__ void give_debug_u(void *device_U, void *device_lat_xyzt,
          x));
     tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(node_rank);
   }
-  printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
-         tmp_U[0]._data.x); // test
-  printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
-         tmp_U[0]._data.y); // test
+  // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
+  //        tmp_U[0]._data.x); // test
+  // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
+  //        tmp_U[0]._data.y); // test
   // if (x == 5 && y == 9 && z == 0 && t == 31) {
   //   printf("@@@ptr:%p\n", tmp_U);
   //   printf("###index:%d\n",
