@@ -28,16 +28,16 @@
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/kfutfd/qcu
-[  8%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 16%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
 [ 16%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
 [ 25%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 41%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
-[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 58%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 41%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 58%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
 [ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
 [ 83%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
-[ 83%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
 [ 91%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
@@ -61,8 +61,8 @@ WARNING: Using pinned memory pool allocator
 cublasCreated successfully
 ===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.0035813309950754046 sec
-Quda dslash: 0.0035725659981835634 sec
+Quda dslash: 0.0036288609844632447 sec
+Quda dslash: 0.0035690520307980478 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -132,22 +132,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.038821439 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.086622642 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.988492
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.030659
-#x:5#y:9#z:0#t:0#parity:0#real:0.989421
-#x:5#y:9#z:0#t:0#parity:0#imag:0.056763
-#x:5#y:9#z:15#t:0#parity:0#real:0.989421
-#x:5#y:9#z:15#t:0#parity:0#imag:0.056763
-make clover total time: (without malloc free memcpy) :0.031349832 sec
-#x:5#y:9#z:15#t:0#parity:0#real:0.988492
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.030659
- make clover total time: (without malloc free memcpy) :0.032961754 sec
- inverse clover total time: (without malloc free memcpy) :0.052241242 sec
- give clover total time: (without malloc free memcpy) :0.000419374 sec
- inverse clover total time: (without malloc free memcpy) :0.054519254 sec
- give clover total time: (without malloc free memcpy) :0.000358600 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.059572184 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.066675672 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.993896
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.982424
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.019795
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.060134
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.993896
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.019795
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.982424
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.060134
+make clover total time: (without malloc free memcpy) :0.025263304 sec
+ make clover total time: (without malloc free memcpy) :0.025652396 sec
+ inverse clover total time: (without malloc free memcpy) :0.051414817 sec
+ give clover total time: (without malloc free memcpy) :0.000340776 sec
+ inverse clover total time: (without malloc free memcpy) :0.054003291 sec
+ give clover total time: (without malloc free memcpy) :0.000391332 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -217,31 +217,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.056150173 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.054494340 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.978140
-#x:5#y:9#z:0#t:0#parity:1#real:0.991865
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.032389
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.186740
-#x:5#y:9#z:15#t:0#parity:1#real:0.991865
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.032389
-make clover total time: (without malloc free memcpy) :0.008343366 sec
- #x:5#y:9#z:15#t:0#parity:1#real:0.978140
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.186740
-make clover total time: (without malloc free memcpy) :0.009283154 sec
- inverse clover total time: (without malloc free memcpy) :0.015854313 sec
- give clover total time: (without malloc free memcpy) :0.000362360 sec
- inverse clover total time: (without malloc free memcpy) :0.019682558 sec
- give clover total time: (without malloc free memcpy) :0.000368312 sec
- QCU dslash: 1.3345758499926887 sec
-QCU dslash: 1.3353043719835114 sec
-quda difference:  0.35922455732496744
+nccl wilson dslash total time: (without malloc free memcpy) :0.034372836 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.032655131 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.971819
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.209623
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.996884
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.012701
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.971819
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.209623
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.996884
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.012701
+make clover total time: (without malloc free memcpy) :0.018121113 sec
+ make clover total time: (without malloc free memcpy) :0.020569819 sec
+ inverse clover total time: (without malloc free memcpy) :0.015843621 sec
+ inverse clover total time: (without malloc free memcpy) :0.015823227 sec
+give clover total time: (without malloc free memcpy) :0.000413972 sec
+  give clover total time: (without malloc free memcpy) :0.000382107 sec
+ QCU dslash: 1.3130100650014356 sec
+QCU dslash: 1.3130130659556016 sec
+quda difference:  0.3585790928913504
 ===============round  1 ======================
-quda difference:  0.3593741285070584
+quda difference:  0.35891935850781603
 ===============round  1 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.0037048429949209094 sec
-Quda dslash: 0.003686734999064356 sec
+Quda dslash: 0.006830419995822012 sec
+Quda dslash: 0.00653439702000469 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -311,23 +311,23 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.038195679 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.036661979 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.984948
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.045940
-#x:5#y:9#z:0#t:0#parity:0#real:0.967860
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.010867
-#x:5#y:9#z:15#t:0#parity:0#real:0.967860
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.010867
-make clover total time: (without malloc free memcpy) :0.008974454 sec
- #x:5#y:9#z:15#t:0#parity:0#real:0.984948
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.045940
-make clover total time: (without malloc free memcpy) :0.012801312 sec
- inverse clover total time: (without malloc free memcpy) :0.015930015 sec
- give clover total time: (without malloc free memcpy) :0.000409787 sec
- inverse clover total time: (without malloc free memcpy) :0.021827589 sec
- give clover total time: (without malloc free memcpy) :0.000411384 sec
- node_rank                :0
+nccl wilson dslash total time: (without malloc free memcpy) :0.065678128 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.066404445 sec
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.983016
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.077958
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.982555
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.162136
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.983016
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.077958
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.982555
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.162136
+make clover total time: (without malloc free memcpy) :0.008913167 sec
+ make clover total time: (without malloc free memcpy) :0.009657715 sec
+ inverse clover total time: (without malloc free memcpy) :0.019007600 sec
+inverse clover total time: (without malloc free memcpy) :0.019323326 sec
+  give clover total time: (without malloc free memcpy) :0.000372311 sec
+give clover total time: (without malloc free memcpy) :0.000392595 sec
+  node_rank                :0
 node_size                :2
 gridDim.x                :2048
 blockDim.x               :16
@@ -396,31 +396,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.037187663 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.035651200 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.967517
-#x:5#y:9#z:0#t:0#parity:1#real:0.983892
-#x:5#y:9#z:0#t:0#parity:1#imag:0.042897
-#x:5#y:9#z:0#t:0#parity:1#imag:0.168178
-#x:5#y:9#z:15#t:0#parity:1#real:0.967517
-#x:5#y:9#z:15#t:0#parity:1#imag:0.168178
-#x:5#y:9#z:15#t:0#parity:1#real:0.983892
-#x:5#y:9#z:15#t:0#parity:1#imag:0.042897
-make clover total time: (without malloc free memcpy) :0.008148855 sec
- make clover total time: (without malloc free memcpy) :0.008302192 sec
- inverse clover total time: (without malloc free memcpy) :0.015792949 sec
- give clover total time: (without malloc free memcpy) :0.000357314 sec
- inverse clover total time: (without malloc free memcpy) :0.025943108 sec
- give clover total time: (without malloc free memcpy) :0.000388586 sec
- QCU dslash: 1.053116166003747 sec
-quda difference:  0.3574823095374555
+nccl wilson dslash total time: (without malloc free memcpy) :0.071997284 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.073183614 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.951676
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.986404
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.302016
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.009056
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.986404
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.009056
+make clover total time: (without malloc free memcpy) :0.015464666 sec
+ @0-#x:2#y:7#z:3#t:0#parity:1#real:0.951676
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.302016
+make clover total time: (without malloc free memcpy) :0.018041833 sec
+ inverse clover total time: (without malloc free memcpy) :0.015907552 sec
+ give clover total time: (without malloc free memcpy) :0.000380474 sec
+ inverse clover total time: (without malloc free memcpy) :0.017411147 sec
+ give clover total time: (without malloc free memcpy) :0.000383883 sec
+ QCU dslash: 1.0607456659781747 sec
+QCU dslash: 1.0607237939839251 sec
+quda difference:  0.35821810197204
+quda difference:  0.35900118850151536
 ===============round  2 ======================
-QCU dslash: 1.0590044050186407 sec
-quda difference:  0.3575442273743436
 ===============round  2 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.003566374012734741 sec
-Quda dslash: 0.0035476979974191636 sec
+Quda dslash: 0.0036240649642422795 sec
+Quda dslash: 0.0035950959427282214 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -490,22 +490,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.036177368 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.034610128 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.991161
-#x:5#y:9#z:0#t:0#parity:0#imag:0.077164
-#x:5#y:9#z:0#t:0#parity:0#real:0.987949
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.030013
-#x:5#y:9#z:15#t:0#parity:0#real:0.987949
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.030013
-#x:5#y:9#z:15#t:0#parity:0#real:0.991161
-#x:5#y:9#z:15#t:0#parity:0#imag:0.077164
-make clover total time: (without malloc free memcpy) :0.009036503 sec
- make clover total time: (without malloc free memcpy) :0.009243967 sec
- inverse clover total time: (without malloc free memcpy) :0.015808899 sec
- give clover total time: (without malloc free memcpy) :0.000374026 sec
- inverse clover total time: (without malloc free memcpy) :0.016678440 sec
- give clover total time: (without malloc free memcpy) :0.000377108 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.077014623 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.080945712 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.985275
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.983715
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.029340
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.117598
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.985275
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.029340
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.983715
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.117598
+make clover total time: (without malloc free memcpy) :0.008182064 sec
+ make clover total time: (without malloc free memcpy) :0.008422907 sec
+ inverse clover total time: (without malloc free memcpy) :0.015801827 sec
+ give clover total time: (without malloc free memcpy) :0.000357473 sec
+ inverse clover total time: (without malloc free memcpy) :0.021096510 sec
+ give clover total time: (without malloc free memcpy) :0.000420994 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -575,31 +575,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.062575631 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.058322228 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.976641
-#x:5#y:9#z:0#t:0#parity:1#real:0.997904
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.012704
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.041023
-#x:5#y:9#z:15#t:0#parity:1#real:0.997904
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.012704
-make clover total time: (without malloc free memcpy) :0.009960112 sec
- #x:5#y:9#z:15#t:0#parity:1#real:0.976641
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.041023
-make clover total time: (without malloc free memcpy) :0.013080310 sec
- inverse clover total time: (without malloc free memcpy) :0.015802285 sec
- give clover total time: (without malloc free memcpy) :0.000322774 sec
- inverse clover total time: (without malloc free memcpy) :0.023996798 sec
- give clover total time: (without malloc free memcpy) :0.000694090 sec
- QCU dslash: 1.0563264960073866 sec
-QCU dslash: 1.0567228649742901 sec
-quda difference:  0.3596087599893075
+nccl wilson dslash total time: (without malloc free memcpy) :0.074477833 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.071573233 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.985220
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.983360
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.049977
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.148061
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.983360
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.148061
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.985220
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.049977
+make clover total time: (without malloc free memcpy) :0.008648394 sec
+ make clover total time: (without malloc free memcpy) :0.008822676 sec
+ inverse clover total time: (without malloc free memcpy) :0.015867325 sec
+ give clover total time: (without malloc free memcpy) :0.000425646 sec
+ inverse clover total time: (without malloc free memcpy) :0.017525261 sec
+ give clover total time: (without malloc free memcpy) :0.000406476 sec
+ QCU dslash: 1.0563733620219864 sec
+QCU dslash: 1.056518508004956 sec
+quda difference:  0.3592137576715621
+quda difference:  0.35828217564367554
 ===============round  3 ======================
-quda difference:  0.3579925038782093
 ===============round  3 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.0037399599968921393 sec
-Quda dslash: 0.003617915994254872 sec
+Quda dslash: 0.004063989035785198 sec
+Quda dslash: 0.00380218296777457 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -669,23 +669,23 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.056033788 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.056135388 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.994649
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.032199
-#x:5#y:9#z:0#t:0#parity:0#real:0.983970
-#x:5#y:9#z:0#t:0#parity:0#imag:0.053495
-#x:5#y:9#z:15#t:0#parity:0#real:0.983970
-#x:5#y:9#z:15#t:0#parity:0#imag:0.053495
-make clover total time: (without malloc free memcpy) :0.012430916 sec
- #x:5#y:9#z:15#t:0#parity:0#real:0.994649
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.032199
-make clover total time: (without malloc free memcpy) :0.016619592 sec
- inverse clover total time: (without malloc free memcpy) :0.018503422 sec
- give clover total time: (without malloc free memcpy) :0.000342270 sec
- inverse clover total time: (without malloc free memcpy) :0.019389093 sec
- give clover total time: (without malloc free memcpy) :0.000367703 sec
- node_rank                :0
+nccl wilson dslash total time: (without malloc free memcpy) :0.063857789 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.058173424 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.984364
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.980627
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.021620
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.130288
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.984364
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.021620
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.980627
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.130288
+make clover total time: (without malloc free memcpy) :0.009093019 sec
+make clover total time: (without malloc free memcpy) :0.009248406 sec
+  inverse clover total time: (without malloc free memcpy) :0.018992250 sec
+inverse clover total time: (without malloc free memcpy) :0.019258032 sec
+  give clover total time: (without malloc free memcpy) :0.000462720 sec
+give clover total time: (without malloc free memcpy) :0.000470363 sec
+  node_rank                :0
 node_size                :2
 gridDim.x                :2048
 blockDim.x               :16
@@ -754,31 +754,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.062866749 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.062790036 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.986066
-#x:5#y:9#z:0#t:0#parity:1#imag:0.083719
-#x:5#y:9#z:0#t:0#parity:1#real:0.996733
-#x:5#y:9#z:0#t:0#parity:1#imag:0.053244
-#x:5#y:9#z:15#t:0#parity:1#real:0.996733
-#x:5#y:9#z:15#t:0#parity:1#imag:0.053244
-#x:5#y:9#z:15#t:0#parity:1#real:0.986066
-#x:5#y:9#z:15#t:0#parity:1#imag:0.083719
-make clover total time: (without malloc free memcpy) :0.008380026 sec
- make clover total time: (without malloc free memcpy) :0.008851145 sec
- inverse clover total time: (without malloc free memcpy) :0.018522154 sec
- give clover total time: (without malloc free memcpy) :0.000360401 sec
- inverse clover total time: (without malloc free memcpy) :0.021527785 sec
- give clover total time: (without malloc free memcpy) :0.000380431 sec
- QCU dslash: 1.0596745749935508 sec
-QCU dslash: 1.0596464120026212 sec
-quda difference:  0.3598531624981612
-quda difference:  0.3594327003958721
+nccl wilson dslash total time: (without malloc free memcpy) :0.058332825 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.056562756 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.995618
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.975352
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.025652
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.012128
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.995618
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.025652
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.975352
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.012128
+make clover total time: (without malloc free memcpy) :0.009959481 sec
+ make clover total time: (without malloc free memcpy) :0.010305432 sec
+ inverse clover total time: (without malloc free memcpy) :0.017519396 sec
+ give clover total time: (without malloc free memcpy) :0.000428244 sec
+ inverse clover total time: (without malloc free memcpy) :0.018907083 sec
+ give clover total time: (without malloc free memcpy) :0.000411249 sec
+ QCU dslash: 1.0576204860117286 sec
+quda difference:  0.3596273597560278
 ===============round  4 ======================
+QCU dslash: 1.0629398350138217 sec
+quda difference:  0.36000601478866306
 ===============round  4 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.0036201639741193503 sec
-Quda dslash: 0.0036251359852030873 sec
+Quda dslash: 0.018817425007000566 sec
+Quda dslash: 0.015800024033524096 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -848,22 +848,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.057749338 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.059267723 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.987943
-#x:5#y:9#z:0#t:0#parity:0#imag:0.135854
-#x:5#y:9#z:0#t:0#parity:0#real:0.994288
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.042938
-#x:5#y:9#z:15#t:0#parity:0#real:0.994288
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.042938
-#x:5#y:9#z:15#t:0#parity:0#real:0.987943
-#x:5#y:9#z:15#t:0#parity:0#imag:0.135854
-make clover total time: (without malloc free memcpy) :0.008503883 sec
- make clover total time: (without malloc free memcpy) :0.008947121 sec
- inverse clover total time: (without malloc free memcpy) :0.018678521 sec
- give clover total time: (without malloc free memcpy) :0.000358700 sec
- inverse clover total time: (without malloc free memcpy) :0.022127106 sec
- give clover total time: (without malloc free memcpy) :0.000397342 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.094097712 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.092461808 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.985348
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.976871
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.037452
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.148531
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.985348
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.037452
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.976871
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.148531
+make clover total time: (without malloc free memcpy) :0.010617921 sec
+make clover total time: (without malloc free memcpy) :0.010817415 sec
+  inverse clover total time: (without malloc free memcpy) :0.018951165 sec
+ give clover total time: (without malloc free memcpy) :0.000376628 sec
+ inverse clover total time: (without malloc free memcpy) :0.021027236 sec
+ give clover total time: (without malloc free memcpy) :0.000376670 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -933,31 +933,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.030976280 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.032559991 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.983087
-#x:5#y:9#z:0#t:0#parity:1#imag:0.127395
-#x:5#y:9#z:0#t:0#parity:1#real:0.985222
-#x:5#y:9#z:0#t:0#parity:1#imag:0.017189
-#x:5#y:9#z:15#t:0#parity:1#real:0.985222
-#x:5#y:9#z:15#t:0#parity:1#imag:0.017189
-#x:5#y:9#z:15#t:0#parity:1#real:0.983087
-#x:5#y:9#z:15#t:0#parity:1#imag:0.127395
-make clover total time: (without malloc free memcpy) :0.008532081 sec
- make clover total time: (without malloc free memcpy) :0.008914485 sec
- inverse clover total time: (without malloc free memcpy) :0.018679327 sec
- give clover total time: (without malloc free memcpy) :0.000362110 sec
- inverse clover total time: (without malloc free memcpy) :0.021567962 sec
- give clover total time: (without malloc free memcpy) :0.000429242 sec
- QCU dslash: 1.0595971249858849 sec
-QCU dslash: 1.0596045940183103 sec
-quda difference:  0.358457358175289
-quda difference:  0.35938508633620886
+nccl wilson dslash total time: (without malloc free memcpy) :0.070752679 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.068808915 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.998035
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.993514
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.002418
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.079353
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.993514
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.079353
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.998035
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.002418
+make clover total time: (without malloc free memcpy) :0.009569083 sec
+ make clover total time: (without malloc free memcpy) :0.009508026 sec
+ inverse clover total time: (without malloc free memcpy) :0.018971398 sec
+ give clover total time: (without malloc free memcpy) :0.000414579 sec
+ inverse clover total time: (without malloc free memcpy) :0.021776914 sec
+ give clover total time: (without malloc free memcpy) :0.000407306 sec
+ QCU dslash: 1.0569445139844902 sec
+QCU dslash: 1.0569232529960573 sec
+quda difference:  0.35842219048662677
+quda difference:  0.3593721819462298
 ===============round  5 ======================
 ===============round  5 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.004717600008007139 sec
-Quda dslash: 0.004303034016629681 sec
+Quda dslash: 0.0034968740073964 sec
+Quda dslash: 0.0033749910071492195 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1027,22 +1027,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.054716844 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.055003858 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.988423
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.095357
-#x:5#y:9#z:0#t:0#parity:0#real:0.991461
-#x:5#y:9#z:0#t:0#parity:0#imag:0.003358
-#x:5#y:9#z:15#t:0#parity:0#real:0.991461
-#x:5#y:9#z:15#t:0#parity:0#imag:0.003358
-#x:5#y:9#z:15#t:0#parity:0#real:0.988423
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.095357
-make clover total time: (without malloc free memcpy) :0.010484560 sec
- make clover total time: (without malloc free memcpy) :0.011019302 sec
- inverse clover total time: (without malloc free memcpy) :0.016561860 sec
- give clover total time: (without malloc free memcpy) :0.000408924 sec
- inverse clover total time: (without malloc free memcpy) :0.018504703 sec
- give clover total time: (without malloc free memcpy) :0.000345649 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.094318459 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.100673304 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.975734
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.146693
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.969817
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.000330
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.969817
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.000330
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.975734
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.146693
+make clover total time: (without malloc free memcpy) :0.011386672 sec
+make clover total time: (without malloc free memcpy) :0.011267334 sec
+  inverse clover total time: (without malloc free memcpy) :0.019081905 sec
+ give clover total time: (without malloc free memcpy) :0.000382011 sec
+ inverse clover total time: (without malloc free memcpy) :0.022933100 sec
+ give clover total time: (without malloc free memcpy) :0.000455537 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1112,31 +1112,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.053705136 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.053857102 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.984585
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.131444
-#x:5#y:9#z:0#t:0#parity:1#real:0.985835
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.129555
-#x:5#y:9#z:15#t:0#parity:1#real:0.985835
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.129555
-#x:5#y:9#z:15#t:0#parity:1#real:0.984585
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.131444
-make clover total time: (without malloc free memcpy) :0.010181335 sec
- make clover total time: (without malloc free memcpy) :0.010446961 sec
- inverse clover total time: (without malloc free memcpy) :0.020080903 sec
-inverse clover total time: (without malloc free memcpy) :0.020559669 sec
-  give clover total time: (without malloc free memcpy) :0.000356861 sec
-give clover total time: (without malloc free memcpy) :0.000340968 sec
-  QCU dslash: 1.0565720559970941 sec
-QCU dslash: 1.0565022549999412 sec
-quda difference:  0.3573270555014926
-quda difference:  0.3594713360745093
+nccl wilson dslash total time: (without malloc free memcpy) :0.062503590 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.060648009 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.977925
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.978972
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.066987
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.167401
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.978972
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.167401
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.977925
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.066987
+make clover total time: (without malloc free memcpy) :0.009593666 sec
+make clover total time: (without malloc free memcpy) :0.009648008 sec
+  inverse clover total time: (without malloc free memcpy) :0.020092781 sec
+ give clover total time: (without malloc free memcpy) :0.000424028 sec
+ inverse clover total time: (without malloc free memcpy) :0.023929780 sec
+ give clover total time: (without malloc free memcpy) :0.000411202 sec
+ QCU dslash: 1.0590841139783151 sec
+QCU dslash: 1.059065371984616 sec
+quda difference:  0.3581830254262886
+quda difference:  0.35990392534324606
 ===============round  6 ======================
 ===============round  6 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.00391636899439618 sec
-Quda dslash: 0.0036540990113280714 sec
+Quda dslash: 0.0038383970386348665 sec
+Quda dslash: 0.003860751981846988 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1206,22 +1206,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.031995107 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.033898304 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.994679
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.006550
-#x:5#y:9#z:0#t:0#parity:0#real:0.987110
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.101810
-#x:5#y:9#z:15#t:0#parity:0#real:0.987110
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.101810
-make clover total time: (without malloc free memcpy) :0.010660062 sec
- #x:5#y:9#z:15#t:0#parity:0#real:0.994679
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.006550
-make clover total time: (without malloc free memcpy) :0.011730670 sec
- inverse clover total time: (without malloc free memcpy) :0.015887936 sec
- give clover total time: (without malloc free memcpy) :0.000359414 sec
- inverse clover total time: (without malloc free memcpy) :0.021091351 sec
- give clover total time: (without malloc free memcpy) :0.000406447 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.073060794 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.072094869 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.990432
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.981074
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.008897
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.095378
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.990432
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.008897
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.981074
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.095378
+make clover total time: (without malloc free memcpy) :0.009718566 sec
+make clover total time: (without malloc free memcpy) :0.009881445 sec
+  inverse clover total time: (without malloc free memcpy) :0.021006012 sec
+ give clover total time: (without malloc free memcpy) :0.000423118 sec
+ inverse clover total time: (without malloc free memcpy) :0.023931735 sec
+ give clover total time: (without malloc free memcpy) :0.000415606 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1291,31 +1291,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.050686640 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.052187863 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.995415
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.012221
-#x:5#y:9#z:0#t:0#parity:1#real:0.964349
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.171501
-#x:5#y:9#z:15#t:0#parity:1#real:0.964349
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.171501
-#x:5#y:9#z:15#t:0#parity:1#real:0.995415
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.012221
-make clover total time: (without malloc free memcpy) :0.009157407 sec
- make clover total time: (without malloc free memcpy) :0.009698892 sec
- inverse clover total time: (without malloc free memcpy) :0.020338472 sec
- give clover total time: (without malloc free memcpy) :0.000401603 sec
- inverse clover total time: (without malloc free memcpy) :0.025841063 sec
- give clover total time: (without malloc free memcpy) :0.000358631 sec
- QCU dslash: 1.0580569710000418 sec
-QCU dslash: 1.058061699004611 sec
-quda difference:  0.3589831114582134
-quda difference:  0.3589102144352505
+nccl wilson dslash total time: (without malloc free memcpy) :0.034874162 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.033246777 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.992271
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.989564
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.085942
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.050000
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.992271
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.085942
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.989564
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.050000
+make clover total time: (without malloc free memcpy) :0.020022109 sec
+ make clover total time: (without malloc free memcpy) :0.022523051 sec
+ inverse clover total time: (without malloc free memcpy) :0.020099509 sec
+ give clover total time: (without malloc free memcpy) :0.000371422 sec
+ inverse clover total time: (without malloc free memcpy) :0.023693651 sec
+ give clover total time: (without malloc free memcpy) :0.000393375 sec
+ QCU dslash: 1.0585917599964887 sec
+QCU dslash: 1.0586387920193374 sec
+quda difference:  0.358784922073851
+quda difference:  0.3589263696864415
 ===============round  7 ======================
 ===============round  7 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.00490831900970079 sec
-Quda dslash: 0.004207169986329973 sec
+Quda dslash: 0.0036730699939653277 sec
+Quda dslash: 0.0036947709741070867 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1385,22 +1385,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.054829189 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.057043231 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.985181
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.058408
-#x:5#y:9#z:0#t:0#parity:0#real:0.994628
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.021390
-#x:5#y:9#z:15#t:0#parity:0#real:0.994628
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.021390
-#x:5#y:9#z:15#t:0#parity:0#real:0.985181
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.058408
-make clover total time: (without malloc free memcpy) :0.008840405 sec
- make clover total time: (without malloc free memcpy) :0.009409974 sec
- inverse clover total time: (without malloc free memcpy) :0.020129928 sec
- give clover total time: (without malloc free memcpy) :0.000405374 sec
- inverse clover total time: (without malloc free memcpy) :0.026466215 sec
- give clover total time: (without malloc free memcpy) :0.000405028 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.052678320 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.041904534 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.993657
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.984686
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.058936
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.035910
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.993657
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.035910
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.984686
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.058936
+make clover total time: (without malloc free memcpy) :0.009730184 sec
+make clover total time: (without malloc free memcpy) :0.009730298 sec
+  inverse clover total time: (without malloc free memcpy) :0.020110486 sec
+ give clover total time: (without malloc free memcpy) :0.000417428 sec
+ inverse clover total time: (without malloc free memcpy) :0.022981907 sec
+ give clover total time: (without malloc free memcpy) :0.000448266 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1470,31 +1470,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.032267757 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.035885294 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.993423
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.106184
-#x:5#y:9#z:0#t:0#parity:1#real:0.988121
-#x:5#y:9#z:0#t:0#parity:1#imag:0.034210
-#x:5#y:9#z:15#t:0#parity:1#real:0.988121
-#x:5#y:9#z:15#t:0#parity:1#imag:0.034210
-#x:5#y:9#z:15#t:0#parity:1#real:0.993423
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.106184
-make clover total time: (without malloc free memcpy) :0.012445918 sec
- make clover total time: (without malloc free memcpy) :0.014174535 sec
- inverse clover total time: (without malloc free memcpy) :0.015927988 sec
- give clover total time: (without malloc free memcpy) :0.000327310 sec
- inverse clover total time: (without malloc free memcpy) :0.020224803 sec
- give clover total time: (without malloc free memcpy) :0.000409817 sec
- QCU dslash: 1.0590017139911652 sec
-QCU dslash: 1.0590162700100336 sec
-quda difference:  0.3584349560713449
-quda difference:  0.35988132372613774
+nccl wilson dslash total time: (without malloc free memcpy) :0.031801189 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.029957731 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.986831
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.012806
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.981086
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.032328
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.986831
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.012806
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.981086
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.032328
+make clover total time: (without malloc free memcpy) :0.010768753 sec
+ make clover total time: (without malloc free memcpy) :0.011424919 sec
+ inverse clover total time: (without malloc free memcpy) :0.020762679 sec
+inverse clover total time: (without malloc free memcpy) :0.020163622 sec
+ give clover total time: (without malloc free memcpy) :0.000463605 sec
+  give clover total time: (without malloc free memcpy) :0.000613311 sec
+ QCU dslash: 1.064274597039912 sec
+QCU dslash: 1.064427386969328 sec
+quda difference:  0.3588960096334758
+quda difference:  0.3602937239685207
 ===============round  8 ======================
 ===============round  8 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.0041635830129962415 sec
-Quda dslash: 0.0038478490023408085 sec
+Quda dslash: 0.0037736149970442057 sec
+Quda dslash: 0.0035523249534890056 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1564,22 +1564,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.031594314 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.033786359 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.990804
-#x:5#y:9#z:0#t:0#parity:0#imag:0.113902
-#x:5#y:9#z:0#t:0#parity:0#real:0.994663
-#x:5#y:9#z:0#t:0#parity:0#imag:0.022013
-#x:5#y:9#z:15#t:0#parity:0#real:0.994663
-#x:5#y:9#z:15#t:0#parity:0#imag:0.022013
-make clover total time: (without malloc free memcpy) :0.009418853 sec
- #x:5#y:9#z:15#t:0#parity:0#real:0.990804
-#x:5#y:9#z:15#t:0#parity:0#imag:0.113902
-make clover total time: (without malloc free memcpy) :0.010323323 sec
- inverse clover total time: (without malloc free memcpy) :0.020530535 sec
- give clover total time: (without malloc free memcpy) :0.000377987 sec
- inverse clover total time: (without malloc free memcpy) :0.022211585 sec
- give clover total time: (without malloc free memcpy) :0.000374675 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.061759625 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.060138195 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.976984
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.095913
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.984907
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.105636
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.976984
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.095913
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.984907
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.105636
+make clover total time: (without malloc free memcpy) :0.009883556 sec
+ make clover total time: (without malloc free memcpy) :0.010244942 sec
+ inverse clover total time: (without malloc free memcpy) :0.020666766 sec
+ give clover total time: (without malloc free memcpy) :0.000427005 sec
+ inverse clover total time: (without malloc free memcpy) :0.022225384 sec
+ give clover total time: (without malloc free memcpy) :0.000411986 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1649,31 +1649,31 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.034662118 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.035629278 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.985073
-#x:5#y:9#z:0#t:0#parity:1#imag:0.049933
-#x:5#y:9#z:0#t:0#parity:1#real:0.987360
-#x:5#y:9#z:0#t:0#parity:1#imag:0.050992
-#x:5#y:9#z:15#t:0#parity:1#real:0.985073
-#x:5#y:9#z:15#t:0#parity:1#imag:0.049933
-make clover total time: (without malloc free memcpy) :0.013667015 sec
- #x:5#y:9#z:15#t:0#parity:1#real:0.987360
-#x:5#y:9#z:15#t:0#parity:1#imag:0.050992
-make clover total time: (without malloc free memcpy) :0.015985799 sec
- inverse clover total time: (without malloc free memcpy) :0.016747837 sec
- give clover total time: (without malloc free memcpy) :0.000353447 sec
- inverse clover total time: (without malloc free memcpy) :0.022220173 sec
- give clover total time: (without malloc free memcpy) :0.000420129 sec
- QCU dslash: 1.05637102201581 sec
-QCU dslash: 1.0564754270017147 sec
-quda difference:  0.3589661553161048
-quda difference:  0.35858143855461194
+nccl wilson dslash total time: (without malloc free memcpy) :0.030212819 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.031003421 sec
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.987075
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.001428
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.985809
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.004672
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.985809
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.004672
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.987075
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.001428
+make clover total time: (without malloc free memcpy) :0.010207742 sec
+make clover total time: (without malloc free memcpy) :0.010132047 sec
+  inverse clover total time: (without malloc free memcpy) :0.022365348 sec
+ inverse clover total time: (without malloc free memcpy) :0.022844585 sec
+ give clover total time: (without malloc free memcpy) :0.000474900 sec
+ give clover total time: (without malloc free memcpy) :0.000435948 sec
+ QCU dslash: 1.0581796639598906 sec
+QCU dslash: 1.0582624590024352 sec
+quda difference:  0.3584658653356207
+quda difference:  0.3580535962551945
 ===============round  9 ======================
 ===============round  9 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-Quda dslash: 0.0036219179746694863 sec
-Quda dslash: 0.0034030099923256785 sec
+Quda dslash: 0.015305255015846342 sec
+Quda dslash: 0.01542786305071786 sec
 node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1743,22 +1743,22 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.053239448 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.055928360 sec
-#x:5#y:9#z:0#t:0#parity:0#real:0.986311
-#x:5#y:9#z:0#t:0#parity:0#imag:-0.101932
-#x:5#y:9#z:0#t:0#parity:0#real:0.986461
-#x:5#y:9#z:0#t:0#parity:0#imag:0.079709
-#x:5#y:9#z:15#t:0#parity:0#real:0.986461
-#x:5#y:9#z:15#t:0#parity:0#imag:0.079709
-make clover total time: (without malloc free memcpy) :0.009590456 sec
-#x:5#y:9#z:15#t:0#parity:0#real:0.986311
-#x:5#y:9#z:15#t:0#parity:0#imag:-0.101932
- make clover total time: (without malloc free memcpy) :0.010921149 sec
- inverse clover total time: (without malloc free memcpy) :0.022115172 sec
- give clover total time: (without malloc free memcpy) :0.000405312 sec
- inverse clover total time: (without malloc free memcpy) :0.022306512 sec
- give clover total time: (without malloc free memcpy) :0.000384488 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.054237446 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.049986858 sec
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.971615
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.983082
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:0.004726
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:-0.070093
+@0-#x:2#y:7#z:3#t:0#parity:0#real:0.971615
+@0-#x:2#y:7#z:3#t:0#parity:0#imag:-0.070093
+@1-#x:2#y:7#z:3#t:0#parity:0#real:0.983082
+@1-#x:2#y:7#z:3#t:0#parity:0#imag:0.004726
+make clover total time: (without malloc free memcpy) :0.010542119 sec
+make clover total time: (without malloc free memcpy) :0.010501190 sec
+  inverse clover total time: (without malloc free memcpy) :0.022358031 sec
+ give clover total time: (without malloc free memcpy) :0.000398875 sec
+ inverse clover total time: (without malloc free memcpy) :0.026930883 sec
+ give clover total time: (without malloc free memcpy) :0.000393062 sec
  node_rank                :0
 node_size                :2
 gridDim.x                :2048
@@ -1828,62 +1828,62 @@ move_wards[_FX_FT_]      :1
 move_wards[_FY_FZ_]      :0
 move_wards[_FY_FT_]      :1
 move_wards[_FZ_FT_]      :1
-nccl wilson dslash total time: (without malloc free memcpy) :0.061774565 sec
-nccl wilson dslash total time: (without malloc free memcpy) :0.060948280 sec
-#x:5#y:9#z:0#t:0#parity:1#real:0.978882
-#x:5#y:9#z:0#t:0#parity:1#imag:0.083518
-#x:5#y:9#z:0#t:0#parity:1#real:0.995493
-#x:5#y:9#z:0#t:0#parity:1#imag:-0.041762
-#x:5#y:9#z:15#t:0#parity:1#real:0.995493
-#x:5#y:9#z:15#t:0#parity:1#imag:-0.041762
-make clover total time: (without malloc free memcpy) :0.009184730 sec
- #x:5#y:9#z:15#t:0#parity:1#real:0.978882
-#x:5#y:9#z:15#t:0#parity:1#imag:0.083518
-make clover total time: (without malloc free memcpy) :0.010083701 sec
- inverse clover total time: (without malloc free memcpy) :0.022246458 sec
- give clover total time: (without malloc free memcpy) :0.000369941 sec
- inverse clover total time: (without malloc free memcpy) :0.025757592 sec
- give clover total time: (without malloc free memcpy) :0.000335823 sec
- QCU dslash: 1.061049046984408 sec
-QCU dslash: 1.0610355190001428 sec
-quda difference:  0.3590502350143568
-quda difference:  0.35863438287582555
+nccl wilson dslash total time: (without malloc free memcpy) :0.067912605 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.062976779 sec
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.980797
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:0.013033
+@0-#x:2#y:7#z:3#t:0#parity:1#real:0.982583
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:-0.120254
+@1-#x:2#y:7#z:3#t:0#parity:1#real:0.982583
+@1-#x:2#y:7#z:3#t:0#parity:1#imag:-0.120254
+make clover total time: (without malloc free memcpy) :0.012158243 sec
+ @0-#x:2#y:7#z:3#t:0#parity:1#real:0.980797
+@0-#x:2#y:7#z:3#t:0#parity:1#imag:0.013033
+make clover total time: (without malloc free memcpy) :0.013048151 sec
+ inverse clover total time: (without malloc free memcpy) :0.022407669 sec
+ give clover total time: (without malloc free memcpy) :0.000420530 sec
+inverse clover total time: (without malloc free memcpy) :0.022148118 sec
+  give clover total time: (without malloc free memcpy) :0.000432076 sec
+ QCU dslash: 1.0590931529877707 sec
+QCU dslash: 1.059080721985083 sec
+quda difference:  0.35921337567768663
+quda difference:  0.3586705605243797
 
-               initQuda Total time =     0.748 secs
-                     init     =     0.748 secs ( 99.994%),	 with        2 calls at 3.741e+05 us per call
-        total accounted       =     0.748 secs ( 99.994%)
-        total missing         =     0.000 secs (  0.006%)
+               initQuda Total time =     0.726 secs
+                     init     =     0.726 secs ( 99.998%),	 with        2 calls at 3.629e+05 us per call
+        total accounted       =     0.726 secs ( 99.998%)
+        total missing         =     0.000 secs (  0.002%)
 
-          loadGaugeQuda Total time =     0.103 secs
-                 download     =     0.059 secs ( 57.162%),	 with       20 calls at 2.953e+03 us per call
-                   upload     =     0.007 secs (  6.670%),	 with       10 calls at 6.891e+02 us per call
-                     init     =     0.018 secs ( 16.953%),	 with       20 calls at 8.758e+02 us per call
-                  compute     =     0.019 secs ( 18.826%),	 with       20 calls at 9.725e+02 us per call
-                     free     =     0.000 secs (  0.119%),	 with       20 calls at 6.150e+00 us per call
-        total accounted       =     0.103 secs ( 99.730%)
-        total missing         =     0.000 secs (  0.270%)
+          loadGaugeQuda Total time =     0.096 secs
+                 download     =     0.058 secs ( 60.985%),	 with       20 calls at 2.912e+03 us per call
+                   upload     =     0.007 secs (  7.426%),	 with       10 calls at 7.092e+02 us per call
+                     init     =     0.011 secs ( 11.744%),	 with       20 calls at 5.608e+02 us per call
+                  compute     =     0.019 secs ( 19.405%),	 with       20 calls at 9.266e+02 us per call
+                     free     =     0.000 secs (  0.134%),	 with       20 calls at 6.400e+00 us per call
+        total accounted       =     0.095 secs ( 99.693%)
+        total missing         =     0.000 secs (  0.307%)
 
-             dslashQuda Total time =     0.021 secs
-                 download     =     0.000 secs (  2.269%),	 with       20 calls at 2.430e+01 us per call
-                   upload     =     0.000 secs (  0.990%),	 with       20 calls at 1.060e+01 us per call
-                     init     =     0.000 secs (  2.092%),	 with       20 calls at 2.240e+01 us per call
-                  compute     =     0.020 secs ( 94.252%),	 with       20 calls at 1.009e+03 us per call
-                     free     =     0.000 secs (  0.196%),	 with       20 calls at 2.100e+00 us per call
-        total accounted       =     0.021 secs ( 99.799%)
-        total missing         =     0.000 secs (  0.201%)
+             dslashQuda Total time =     0.035 secs
+                 download     =     0.001 secs (  1.869%),	 with       20 calls at 3.310e+01 us per call
+                   upload     =     0.000 secs (  0.596%),	 with       20 calls at 1.055e+01 us per call
+                     init     =     0.000 secs (  1.321%),	 with       20 calls at 2.340e+01 us per call
+                  compute     =     0.034 secs ( 95.943%),	 with       20 calls at 1.699e+03 us per call
+                     free     =     0.000 secs (  0.127%),	 with       20 calls at 2.250e+00 us per call
+        total accounted       =     0.035 secs ( 99.856%)
+        total missing         =     0.000 secs (  0.144%)
 
                 endQuda Total time =     0.007 secs
 
-       initQuda-endQuda Total time =    12.031 secs
+       initQuda-endQuda Total time =    12.009 secs
 
-                   QUDA Total time =     0.958 secs
-                 download     =     0.060 secs (  6.217%),	 with       40 calls at 1.489e+03 us per call
-                   upload     =     0.007 secs (  0.742%),	 with       30 calls at 2.370e+02 us per call
-                     init     =     0.766 secs ( 79.984%),	 with       42 calls at 1.824e+04 us per call
-                  compute     =     0.118 secs ( 12.324%),	 with       50 calls at 2.361e+03 us per call
-                     free     =     0.000 secs (  0.016%),	 with       40 calls at 3.925e+00 us per call
-        total accounted       =     0.951 secs ( 99.284%)
-        total missing         =     0.007 secs (  0.716%)
+                   QUDA Total time =     0.950 secs
+                 download     =     0.059 secs (  6.203%),	 with       40 calls at 1.473e+03 us per call
+                   upload     =     0.007 secs (  0.769%),	 with       30 calls at 2.435e+02 us per call
+                     init     =     0.738 secs ( 77.639%),	 with       42 calls at 1.756e+04 us per call
+                  compute     =     0.139 secs ( 14.640%),	 with       50 calls at 2.781e+03 us per call
+                     free     =     0.000 secs (  0.018%),	 with       40 calls at 4.200e+00 us per call
+        total accounted       =     0.943 secs ( 99.268%)
+        total missing         =     0.007 secs (  0.732%)
 
 Device memory used = 94.5 MiB
 Pinned device memory used = 0.0 MiB
