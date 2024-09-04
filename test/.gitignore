@@ -1,1 +1,3 @@
-../.gitignore
+test
+*.out
+log.txt
