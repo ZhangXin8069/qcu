@@ -14,7 +14,6 @@
 *a.out
 *b.out
 *c.out
-test
 *.so
 *.nvvp
 *.nsys-rep
