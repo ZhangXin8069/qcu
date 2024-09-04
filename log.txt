@@ -1,81 +1,1895 @@
--- The C compiler identification is GNU 10.3.0
--- The CXX compiler identification is GNU 10.3.0
--- The CUDA compiler identification is NVIDIA 11.4.152
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- The CUDA compiler identification is NVIDIA 12.4.131
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Detecting CUDA compiler ABI info
 -- Detecting CUDA compiler ABI info - done
--- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
 -- Detecting CUDA compile features
 -- Detecting CUDA compile features - done
--- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
--- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_C: /home/kfutfd/external-libraries/openmpi-4.1.5/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /home/kfutfd/external-libraries/openmpi-4.1.5/lib/libmpi.so (found version "3.1") 
 -- Found MPI: TRUE (found version "3.1")  
 -- Looking for pthread.h
 -- Looking for pthread.h - found
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
--- Looking for pthread_create in pthreads
--- Looking for pthread_create in pthreads - not found
--- Looking for pthread_create in pthread
--- Looking for pthread_create in pthread - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
 -- Found Threads: TRUE  
--- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
--- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
--- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Found CUDA: /usr/local/cuda (found version "12.4") 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /public/home/zhangxin/qcu
-[ 10%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
-[ 20%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
-[ 30%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+-- Build files have been written to: /home/kfutfd/qcu
+[  8%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 16%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 41%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
 [ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
-[ 70%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
-[ 90%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 58%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 83%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 83%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 91%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
 [100%] Linking CUDA shared library libqcu.so
 [100%] Built target qcu
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
 ~/qcu/test ~/qcu
 rm: cannot remove 'log_*': No such file or directory
 Disabling GPU-Direct RDMA access
-Enabling peer-to-peer copy engine and direct load/store access
-Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3, access rank = (  0)
-Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3, access rank = (  0)
-Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3, access rank = (  0)
-Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3, access rank = (  0)
-QUDA 1.1.0 (git 1.1.0--sm_80)
-CUDA Driver version = 11040
-CUDA Runtime version = 11040
-Found device 0: NVIDIA A100-PCIE-40GB
-Found device 1: NVIDIA A100-PCIE-40GB
-Using device 0: NVIDIA A100-PCIE-40GB
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_60)
+CUDA Driver version = 12020
+CUDA Runtime version = 12040
+Found device 0: Tesla P100-PCIE-16GB
+Found device 1: Tesla P100-PCIE-16GB
+Using device 0: Tesla P100-PCIE-16GB
 WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
-WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
-WARNING: Cache file not found.  All kernels will be re-tuned (if tuning is enabled).
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
 WARNING: Using device memory pool allocator
 WARNING: Using pinned memory pool allocator
-single latt size = [32, 32, 32, 32]
+===============round  0 ======================
 cublasCreated successfully
-single latt size = [32, 32, 32, 32]
+===============round  0 ======================
 Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
-================quda=================
-================quda=================
---------------------------
-mpirun detected that one or more processes exited with non-zero status, thus causing
-the job to be terminated. The first process to do so was:
+Quda dslash: 0.0035813309950754046 sec
+Quda dslash: 0.0035725659981835634 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.038821439 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.086622642 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.988492
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.030659
+#x:5#y:9#z:0#t:0#parity:0#real:0.989421
+#x:5#y:9#z:0#t:0#parity:0#imag:0.056763
+#x:5#y:9#z:15#t:0#parity:0#real:0.989421
+#x:5#y:9#z:15#t:0#parity:0#imag:0.056763
+make clover total time: (without malloc free memcpy) :0.031349832 sec
+#x:5#y:9#z:15#t:0#parity:0#real:0.988492
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.030659
+ make clover total time: (without malloc free memcpy) :0.032961754 sec
+ inverse clover total time: (without malloc free memcpy) :0.052241242 sec
+ give clover total time: (without malloc free memcpy) :0.000419374 sec
+ inverse clover total time: (without malloc free memcpy) :0.054519254 sec
+ give clover total time: (without malloc free memcpy) :0.000358600 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.056150173 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.054494340 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.978140
+#x:5#y:9#z:0#t:0#parity:1#real:0.991865
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.032389
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.186740
+#x:5#y:9#z:15#t:0#parity:1#real:0.991865
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.032389
+make clover total time: (without malloc free memcpy) :0.008343366 sec
+ #x:5#y:9#z:15#t:0#parity:1#real:0.978140
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.186740
+make clover total time: (without malloc free memcpy) :0.009283154 sec
+ inverse clover total time: (without malloc free memcpy) :0.015854313 sec
+ give clover total time: (without malloc free memcpy) :0.000362360 sec
+ inverse clover total time: (without malloc free memcpy) :0.019682558 sec
+ give clover total time: (without malloc free memcpy) :0.000368312 sec
+ QCU dslash: 1.3345758499926887 sec
+QCU dslash: 1.3353043719835114 sec
+quda difference:  0.35922455732496744
+===============round  1 ======================
+quda difference:  0.3593741285070584
+===============round  1 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0037048429949209094 sec
+Quda dslash: 0.003686734999064356 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.038195679 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.036661979 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.984948
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.045940
+#x:5#y:9#z:0#t:0#parity:0#real:0.967860
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.010867
+#x:5#y:9#z:15#t:0#parity:0#real:0.967860
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.010867
+make clover total time: (without malloc free memcpy) :0.008974454 sec
+ #x:5#y:9#z:15#t:0#parity:0#real:0.984948
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.045940
+make clover total time: (without malloc free memcpy) :0.012801312 sec
+ inverse clover total time: (without malloc free memcpy) :0.015930015 sec
+ give clover total time: (without malloc free memcpy) :0.000409787 sec
+ inverse clover total time: (without malloc free memcpy) :0.021827589 sec
+ give clover total time: (without malloc free memcpy) :0.000411384 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.037187663 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.035651200 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.967517
+#x:5#y:9#z:0#t:0#parity:1#real:0.983892
+#x:5#y:9#z:0#t:0#parity:1#imag:0.042897
+#x:5#y:9#z:0#t:0#parity:1#imag:0.168178
+#x:5#y:9#z:15#t:0#parity:1#real:0.967517
+#x:5#y:9#z:15#t:0#parity:1#imag:0.168178
+#x:5#y:9#z:15#t:0#parity:1#real:0.983892
+#x:5#y:9#z:15#t:0#parity:1#imag:0.042897
+make clover total time: (without malloc free memcpy) :0.008148855 sec
+ make clover total time: (without malloc free memcpy) :0.008302192 sec
+ inverse clover total time: (without malloc free memcpy) :0.015792949 sec
+ give clover total time: (without malloc free memcpy) :0.000357314 sec
+ inverse clover total time: (without malloc free memcpy) :0.025943108 sec
+ give clover total time: (without malloc free memcpy) :0.000388586 sec
+ QCU dslash: 1.053116166003747 sec
+quda difference:  0.3574823095374555
+===============round  2 ======================
+QCU dslash: 1.0590044050186407 sec
+quda difference:  0.3575442273743436
+===============round  2 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.003566374012734741 sec
+Quda dslash: 0.0035476979974191636 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.036177368 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.034610128 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.991161
+#x:5#y:9#z:0#t:0#parity:0#imag:0.077164
+#x:5#y:9#z:0#t:0#parity:0#real:0.987949
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.030013
+#x:5#y:9#z:15#t:0#parity:0#real:0.987949
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.030013
+#x:5#y:9#z:15#t:0#parity:0#real:0.991161
+#x:5#y:9#z:15#t:0#parity:0#imag:0.077164
+make clover total time: (without malloc free memcpy) :0.009036503 sec
+ make clover total time: (without malloc free memcpy) :0.009243967 sec
+ inverse clover total time: (without malloc free memcpy) :0.015808899 sec
+ give clover total time: (without malloc free memcpy) :0.000374026 sec
+ inverse clover total time: (without malloc free memcpy) :0.016678440 sec
+ give clover total time: (without malloc free memcpy) :0.000377108 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.062575631 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.058322228 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.976641
+#x:5#y:9#z:0#t:0#parity:1#real:0.997904
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.012704
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.041023
+#x:5#y:9#z:15#t:0#parity:1#real:0.997904
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.012704
+make clover total time: (without malloc free memcpy) :0.009960112 sec
+ #x:5#y:9#z:15#t:0#parity:1#real:0.976641
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.041023
+make clover total time: (without malloc free memcpy) :0.013080310 sec
+ inverse clover total time: (without malloc free memcpy) :0.015802285 sec
+ give clover total time: (without malloc free memcpy) :0.000322774 sec
+ inverse clover total time: (without malloc free memcpy) :0.023996798 sec
+ give clover total time: (without malloc free memcpy) :0.000694090 sec
+ QCU dslash: 1.0563264960073866 sec
+QCU dslash: 1.0567228649742901 sec
+quda difference:  0.3596087599893075
+===============round  3 ======================
+quda difference:  0.3579925038782093
+===============round  3 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0037399599968921393 sec
+Quda dslash: 0.003617915994254872 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.056033788 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.056135388 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.994649
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.032199
+#x:5#y:9#z:0#t:0#parity:0#real:0.983970
+#x:5#y:9#z:0#t:0#parity:0#imag:0.053495
+#x:5#y:9#z:15#t:0#parity:0#real:0.983970
+#x:5#y:9#z:15#t:0#parity:0#imag:0.053495
+make clover total time: (without malloc free memcpy) :0.012430916 sec
+ #x:5#y:9#z:15#t:0#parity:0#real:0.994649
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.032199
+make clover total time: (without malloc free memcpy) :0.016619592 sec
+ inverse clover total time: (without malloc free memcpy) :0.018503422 sec
+ give clover total time: (without malloc free memcpy) :0.000342270 sec
+ inverse clover total time: (without malloc free memcpy) :0.019389093 sec
+ give clover total time: (without malloc free memcpy) :0.000367703 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.062866749 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.062790036 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.986066
+#x:5#y:9#z:0#t:0#parity:1#imag:0.083719
+#x:5#y:9#z:0#t:0#parity:1#real:0.996733
+#x:5#y:9#z:0#t:0#parity:1#imag:0.053244
+#x:5#y:9#z:15#t:0#parity:1#real:0.996733
+#x:5#y:9#z:15#t:0#parity:1#imag:0.053244
+#x:5#y:9#z:15#t:0#parity:1#real:0.986066
+#x:5#y:9#z:15#t:0#parity:1#imag:0.083719
+make clover total time: (without malloc free memcpy) :0.008380026 sec
+ make clover total time: (without malloc free memcpy) :0.008851145 sec
+ inverse clover total time: (without malloc free memcpy) :0.018522154 sec
+ give clover total time: (without malloc free memcpy) :0.000360401 sec
+ inverse clover total time: (without malloc free memcpy) :0.021527785 sec
+ give clover total time: (without malloc free memcpy) :0.000380431 sec
+ QCU dslash: 1.0596745749935508 sec
+QCU dslash: 1.0596464120026212 sec
+quda difference:  0.3598531624981612
+quda difference:  0.3594327003958721
+===============round  4 ======================
+===============round  4 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0036201639741193503 sec
+Quda dslash: 0.0036251359852030873 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.057749338 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.059267723 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.987943
+#x:5#y:9#z:0#t:0#parity:0#imag:0.135854
+#x:5#y:9#z:0#t:0#parity:0#real:0.994288
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.042938
+#x:5#y:9#z:15#t:0#parity:0#real:0.994288
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.042938
+#x:5#y:9#z:15#t:0#parity:0#real:0.987943
+#x:5#y:9#z:15#t:0#parity:0#imag:0.135854
+make clover total time: (without malloc free memcpy) :0.008503883 sec
+ make clover total time: (without malloc free memcpy) :0.008947121 sec
+ inverse clover total time: (without malloc free memcpy) :0.018678521 sec
+ give clover total time: (without malloc free memcpy) :0.000358700 sec
+ inverse clover total time: (without malloc free memcpy) :0.022127106 sec
+ give clover total time: (without malloc free memcpy) :0.000397342 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.030976280 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.032559991 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.983087
+#x:5#y:9#z:0#t:0#parity:1#imag:0.127395
+#x:5#y:9#z:0#t:0#parity:1#real:0.985222
+#x:5#y:9#z:0#t:0#parity:1#imag:0.017189
+#x:5#y:9#z:15#t:0#parity:1#real:0.985222
+#x:5#y:9#z:15#t:0#parity:1#imag:0.017189
+#x:5#y:9#z:15#t:0#parity:1#real:0.983087
+#x:5#y:9#z:15#t:0#parity:1#imag:0.127395
+make clover total time: (without malloc free memcpy) :0.008532081 sec
+ make clover total time: (without malloc free memcpy) :0.008914485 sec
+ inverse clover total time: (without malloc free memcpy) :0.018679327 sec
+ give clover total time: (without malloc free memcpy) :0.000362110 sec
+ inverse clover total time: (without malloc free memcpy) :0.021567962 sec
+ give clover total time: (without malloc free memcpy) :0.000429242 sec
+ QCU dslash: 1.0595971249858849 sec
+QCU dslash: 1.0596045940183103 sec
+quda difference:  0.358457358175289
+quda difference:  0.35938508633620886
+===============round  5 ======================
+===============round  5 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.004717600008007139 sec
+Quda dslash: 0.004303034016629681 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.054716844 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.055003858 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.988423
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.095357
+#x:5#y:9#z:0#t:0#parity:0#real:0.991461
+#x:5#y:9#z:0#t:0#parity:0#imag:0.003358
+#x:5#y:9#z:15#t:0#parity:0#real:0.991461
+#x:5#y:9#z:15#t:0#parity:0#imag:0.003358
+#x:5#y:9#z:15#t:0#parity:0#real:0.988423
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.095357
+make clover total time: (without malloc free memcpy) :0.010484560 sec
+ make clover total time: (without malloc free memcpy) :0.011019302 sec
+ inverse clover total time: (without malloc free memcpy) :0.016561860 sec
+ give clover total time: (without malloc free memcpy) :0.000408924 sec
+ inverse clover total time: (without malloc free memcpy) :0.018504703 sec
+ give clover total time: (without malloc free memcpy) :0.000345649 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.053705136 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.053857102 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.984585
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.131444
+#x:5#y:9#z:0#t:0#parity:1#real:0.985835
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.129555
+#x:5#y:9#z:15#t:0#parity:1#real:0.985835
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.129555
+#x:5#y:9#z:15#t:0#parity:1#real:0.984585
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.131444
+make clover total time: (without malloc free memcpy) :0.010181335 sec
+ make clover total time: (without malloc free memcpy) :0.010446961 sec
+ inverse clover total time: (without malloc free memcpy) :0.020080903 sec
+inverse clover total time: (without malloc free memcpy) :0.020559669 sec
+  give clover total time: (without malloc free memcpy) :0.000356861 sec
+give clover total time: (without malloc free memcpy) :0.000340968 sec
+  QCU dslash: 1.0565720559970941 sec
+QCU dslash: 1.0565022549999412 sec
+quda difference:  0.3573270555014926
+quda difference:  0.3594713360745093
+===============round  6 ======================
+===============round  6 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.00391636899439618 sec
+Quda dslash: 0.0036540990113280714 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.031995107 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.033898304 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.994679
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.006550
+#x:5#y:9#z:0#t:0#parity:0#real:0.987110
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.101810
+#x:5#y:9#z:15#t:0#parity:0#real:0.987110
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.101810
+make clover total time: (without malloc free memcpy) :0.010660062 sec
+ #x:5#y:9#z:15#t:0#parity:0#real:0.994679
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.006550
+make clover total time: (without malloc free memcpy) :0.011730670 sec
+ inverse clover total time: (without malloc free memcpy) :0.015887936 sec
+ give clover total time: (without malloc free memcpy) :0.000359414 sec
+ inverse clover total time: (without malloc free memcpy) :0.021091351 sec
+ give clover total time: (without malloc free memcpy) :0.000406447 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.050686640 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.052187863 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.995415
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.012221
+#x:5#y:9#z:0#t:0#parity:1#real:0.964349
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.171501
+#x:5#y:9#z:15#t:0#parity:1#real:0.964349
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.171501
+#x:5#y:9#z:15#t:0#parity:1#real:0.995415
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.012221
+make clover total time: (without malloc free memcpy) :0.009157407 sec
+ make clover total time: (without malloc free memcpy) :0.009698892 sec
+ inverse clover total time: (without malloc free memcpy) :0.020338472 sec
+ give clover total time: (without malloc free memcpy) :0.000401603 sec
+ inverse clover total time: (without malloc free memcpy) :0.025841063 sec
+ give clover total time: (without malloc free memcpy) :0.000358631 sec
+ QCU dslash: 1.0580569710000418 sec
+QCU dslash: 1.058061699004611 sec
+quda difference:  0.3589831114582134
+quda difference:  0.3589102144352505
+===============round  7 ======================
+===============round  7 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.00490831900970079 sec
+Quda dslash: 0.004207169986329973 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.054829189 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.057043231 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.985181
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.058408
+#x:5#y:9#z:0#t:0#parity:0#real:0.994628
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.021390
+#x:5#y:9#z:15#t:0#parity:0#real:0.994628
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.021390
+#x:5#y:9#z:15#t:0#parity:0#real:0.985181
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.058408
+make clover total time: (without malloc free memcpy) :0.008840405 sec
+ make clover total time: (without malloc free memcpy) :0.009409974 sec
+ inverse clover total time: (without malloc free memcpy) :0.020129928 sec
+ give clover total time: (without malloc free memcpy) :0.000405374 sec
+ inverse clover total time: (without malloc free memcpy) :0.026466215 sec
+ give clover total time: (without malloc free memcpy) :0.000405028 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.032267757 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.035885294 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.993423
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.106184
+#x:5#y:9#z:0#t:0#parity:1#real:0.988121
+#x:5#y:9#z:0#t:0#parity:1#imag:0.034210
+#x:5#y:9#z:15#t:0#parity:1#real:0.988121
+#x:5#y:9#z:15#t:0#parity:1#imag:0.034210
+#x:5#y:9#z:15#t:0#parity:1#real:0.993423
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.106184
+make clover total time: (without malloc free memcpy) :0.012445918 sec
+ make clover total time: (without malloc free memcpy) :0.014174535 sec
+ inverse clover total time: (without malloc free memcpy) :0.015927988 sec
+ give clover total time: (without malloc free memcpy) :0.000327310 sec
+ inverse clover total time: (without malloc free memcpy) :0.020224803 sec
+ give clover total time: (without malloc free memcpy) :0.000409817 sec
+ QCU dslash: 1.0590017139911652 sec
+QCU dslash: 1.0590162700100336 sec
+quda difference:  0.3584349560713449
+quda difference:  0.35988132372613774
+===============round  8 ======================
+===============round  8 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0041635830129962415 sec
+Quda dslash: 0.0038478490023408085 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.031594314 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.033786359 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.990804
+#x:5#y:9#z:0#t:0#parity:0#imag:0.113902
+#x:5#y:9#z:0#t:0#parity:0#real:0.994663
+#x:5#y:9#z:0#t:0#parity:0#imag:0.022013
+#x:5#y:9#z:15#t:0#parity:0#real:0.994663
+#x:5#y:9#z:15#t:0#parity:0#imag:0.022013
+make clover total time: (without malloc free memcpy) :0.009418853 sec
+ #x:5#y:9#z:15#t:0#parity:0#real:0.990804
+#x:5#y:9#z:15#t:0#parity:0#imag:0.113902
+make clover total time: (without malloc free memcpy) :0.010323323 sec
+ inverse clover total time: (without malloc free memcpy) :0.020530535 sec
+ give clover total time: (without malloc free memcpy) :0.000377987 sec
+ inverse clover total time: (without malloc free memcpy) :0.022211585 sec
+ give clover total time: (without malloc free memcpy) :0.000374675 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.034662118 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.035629278 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.985073
+#x:5#y:9#z:0#t:0#parity:1#imag:0.049933
+#x:5#y:9#z:0#t:0#parity:1#real:0.987360
+#x:5#y:9#z:0#t:0#parity:1#imag:0.050992
+#x:5#y:9#z:15#t:0#parity:1#real:0.985073
+#x:5#y:9#z:15#t:0#parity:1#imag:0.049933
+make clover total time: (without malloc free memcpy) :0.013667015 sec
+ #x:5#y:9#z:15#t:0#parity:1#real:0.987360
+#x:5#y:9#z:15#t:0#parity:1#imag:0.050992
+make clover total time: (without malloc free memcpy) :0.015985799 sec
+ inverse clover total time: (without malloc free memcpy) :0.016747837 sec
+ give clover total time: (without malloc free memcpy) :0.000353447 sec
+ inverse clover total time: (without malloc free memcpy) :0.022220173 sec
+ give clover total time: (without malloc free memcpy) :0.000420129 sec
+ QCU dslash: 1.05637102201581 sec
+QCU dslash: 1.0564754270017147 sec
+quda difference:  0.3589661553161048
+quda difference:  0.35858143855461194
+===============round  9 ======================
+===============round  9 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.0036219179746694863 sec
+Quda dslash: 0.0034030099923256785 sec
+node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.053239448 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.055928360 sec
+#x:5#y:9#z:0#t:0#parity:0#real:0.986311
+#x:5#y:9#z:0#t:0#parity:0#imag:-0.101932
+#x:5#y:9#z:0#t:0#parity:0#real:0.986461
+#x:5#y:9#z:0#t:0#parity:0#imag:0.079709
+#x:5#y:9#z:15#t:0#parity:0#real:0.986461
+#x:5#y:9#z:15#t:0#parity:0#imag:0.079709
+make clover total time: (without malloc free memcpy) :0.009590456 sec
+#x:5#y:9#z:15#t:0#parity:0#real:0.986311
+#x:5#y:9#z:15#t:0#parity:0#imag:-0.101932
+ make clover total time: (without malloc free memcpy) :0.010921149 sec
+ inverse clover total time: (without malloc free memcpy) :0.022115172 sec
+ give clover total time: (without malloc free memcpy) :0.000405312 sec
+ inverse clover total time: (without malloc free memcpy) :0.022306512 sec
+ give clover total time: (without malloc free memcpy) :0.000384488 sec
+ node_rank                :0
+node_size                :2
+gridDim.x                :2048
+blockDim.x               :16
+lat_1dim[_X_]            :8
+lat_1dim[_Y_]            :16
+lat_1dim[_Z_]            :16
+lat_1dim[_T_]            :16
+lat_2dim[_XY_]           :128
+lat_2dim[_XZ_]           :128
+lat_2dim[_XT_]           :128
+lat_2dim[_YZ_]           :256
+lat_2dim[_YT_]           :256
+lat_2dim[_ZT_]           :256
+lat_3dim[_YZT_]          :4096
+lat_3dim[_XZT_]          :2048
+lat_3dim[_XYT_]          :2048
+lat_3dim[_XYZ_]          :2048
+lat_4dim                 :32768
+grid_1dim[_X_]           :1
+grid_1dim[_Y_]           :1
+grid_1dim[_Z_]           :1
+grid_1dim[_T_]           :2
+grid_2dim[_XY_]          :1
+grid_2dim[_XZ_]          :1
+grid_2dim[_XT_]          :2
+grid_2dim[_YZ_]          :1
+grid_2dim[_YT_]          :2
+grid_2dim[_ZT_]          :2
+grid_3dim[_YZT_]         :2
+grid_3dim[_XZT_]         :2
+grid_3dim[_XYT_]         :2
+grid_3dim[_XYZ_]         :1
+grid_index_grid_1dim[_X_]:0
+grid_index_grid_1dim[_Y_]:0
+grid_index_grid_1dim[_Z_]:0
+grid_index_grid_1dim[_T_]:0
+move_wards[_B_X_]        :0
+move_wards[_B_Y_]        :0
+move_wards[_B_Z_]        :0
+move_wards[_B_T_]        :1
+move_wards[_F_X_]        :0
+move_wards[_F_Y_]        :0
+move_wards[_F_Z_]        :0
+move_wards[_F_T_]        :1
+move_wards[_BX_BY_]      :0
+move_wards[_BX_BZ_]      :0
+move_wards[_BX_BT_]      :1
+move_wards[_BY_BZ_]      :0
+move_wards[_BY_BT_]      :1
+move_wards[_BZ_BT_]      :1
+move_wards[_FX_BY_]      :0
+move_wards[_FX_BZ_]      :0
+move_wards[_FX_BT_]      :1
+move_wards[_FY_BZ_]      :0
+move_wards[_FY_BT_]      :1
+move_wards[_FZ_BT_]      :1
+move_wards[_BX_FY_]      :0
+move_wards[_BX_FZ_]      :0
+move_wards[_BX_FT_]      :1
+move_wards[_BY_FZ_]      :0
+move_wards[_BY_FT_]      :1
+move_wards[_BZ_FT_]      :1
+move_wards[_FX_FY_]      :0
+move_wards[_FX_FZ_]      :0
+move_wards[_FX_FT_]      :1
+move_wards[_FY_FZ_]      :0
+move_wards[_FY_FT_]      :1
+move_wards[_FZ_FT_]      :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.061774565 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.060948280 sec
+#x:5#y:9#z:0#t:0#parity:1#real:0.978882
+#x:5#y:9#z:0#t:0#parity:1#imag:0.083518
+#x:5#y:9#z:0#t:0#parity:1#real:0.995493
+#x:5#y:9#z:0#t:0#parity:1#imag:-0.041762
+#x:5#y:9#z:15#t:0#parity:1#real:0.995493
+#x:5#y:9#z:15#t:0#parity:1#imag:-0.041762
+make clover total time: (without malloc free memcpy) :0.009184730 sec
+ #x:5#y:9#z:15#t:0#parity:1#real:0.978882
+#x:5#y:9#z:15#t:0#parity:1#imag:0.083518
+make clover total time: (without malloc free memcpy) :0.010083701 sec
+ inverse clover total time: (without malloc free memcpy) :0.022246458 sec
+ give clover total time: (without malloc free memcpy) :0.000369941 sec
+ inverse clover total time: (without malloc free memcpy) :0.025757592 sec
+ give clover total time: (without malloc free memcpy) :0.000335823 sec
+ QCU dslash: 1.061049046984408 sec
+QCU dslash: 1.0610355190001428 sec
+quda difference:  0.3590502350143568
+quda difference:  0.35863438287582555
 
-  Process name: [[45680,1],0]
-  Exit code:    1
---------------------------------------------------------------------------
+               initQuda Total time =     0.748 secs
+                     init     =     0.748 secs ( 99.994%),	 with        2 calls at 3.741e+05 us per call
+        total accounted       =     0.748 secs ( 99.994%)
+        total missing         =     0.000 secs (  0.006%)
+
+          loadGaugeQuda Total time =     0.103 secs
+                 download     =     0.059 secs ( 57.162%),	 with       20 calls at 2.953e+03 us per call
+                   upload     =     0.007 secs (  6.670%),	 with       10 calls at 6.891e+02 us per call
+                     init     =     0.018 secs ( 16.953%),	 with       20 calls at 8.758e+02 us per call
+                  compute     =     0.019 secs ( 18.826%),	 with       20 calls at 9.725e+02 us per call
+                     free     =     0.000 secs (  0.119%),	 with       20 calls at 6.150e+00 us per call
+        total accounted       =     0.103 secs ( 99.730%)
+        total missing         =     0.000 secs (  0.270%)
+
+             dslashQuda Total time =     0.021 secs
+                 download     =     0.000 secs (  2.269%),	 with       20 calls at 2.430e+01 us per call
+                   upload     =     0.000 secs (  0.990%),	 with       20 calls at 1.060e+01 us per call
+                     init     =     0.000 secs (  2.092%),	 with       20 calls at 2.240e+01 us per call
+                  compute     =     0.020 secs ( 94.252%),	 with       20 calls at 1.009e+03 us per call
+                     free     =     0.000 secs (  0.196%),	 with       20 calls at 2.100e+00 us per call
+        total accounted       =     0.021 secs ( 99.799%)
+        total missing         =     0.000 secs (  0.201%)
+
+                endQuda Total time =     0.007 secs
+
+       initQuda-endQuda Total time =    12.031 secs
+
+                   QUDA Total time =     0.958 secs
+                 download     =     0.060 secs (  6.217%),	 with       40 calls at 1.489e+03 us per call
+                   upload     =     0.007 secs (  0.742%),	 with       30 calls at 2.370e+02 us per call
+                     init     =     0.766 secs ( 79.984%),	 with       42 calls at 1.824e+04 us per call
+                  compute     =     0.118 secs ( 12.324%),	 with       50 calls at 2.361e+03 us per call
+                     free     =     0.000 secs (  0.016%),	 with       40 calls at 3.925e+00 us per call
+        total accounted       =     0.951 secs ( 99.284%)
+        total missing         =     0.007 secs (  0.716%)
+
+Device memory used = 94.5 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 6.0 MiB
+Total host memory used >= 8.3 MiB
+
 ~/qcu
