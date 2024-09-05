@@ -1,0 +1,58 @@
+Currently Loaded Modulefiles:
+  1) gcc/10.3.0-gcc-4.8.5                7) ucx/1.14.0-gcc-10.3.0
+  2) cuda/11.4.4-gcc-10.3.0              8) openmpi/4.1.5-gcc-10.3.0
+  3) git/2.40.0-gcc-10.3.0               9) cmake/3.22.2-gcc-10.3.0
+  4) hwloc/2.9.1-gcc-10.3.0             10) ncurses/6.2-intel-2022.0.2
+  5) libevent/2.1.12-gcc-10.3.0         11) intel-oneapi/compiler-rt/2024.0.0
+  6) pmix/4.2.3-gcc-10.3.0              12) python/3.9.10-gcc-10.3.0
+CMake Error in /public/home/zhangxin/qcu/test/CMakeFiles/CMakeTmp/CMakeLists.txt:
+  Imported target "MPI::MPI_C" includes non-existent path
+
+    "/usr/lib/x86_64-linux-gnu/openmpi/include"
+
+  in its INTERFACE_INCLUDE_DIRECTORIES.  Possible reasons include:
+
+  * The path was deleted, renamed, or moved to another location.
+
+  * An install or uninstall procedure did not complete successfully.
+
+  * The installation package was faulty and references files it does not
+  provide.
+
+
+
+CMake Error in /public/home/zhangxin/qcu/test/CMakeFiles/CMakeTmp/CMakeLists.txt:
+  Imported target "MPI::MPI_C" includes non-existent path
+
+    "/usr/lib/x86_64-linux-gnu/openmpi/include"
+
+  in its INTERFACE_INCLUDE_DIRECTORIES.  Possible reasons include:
+
+  * The path was deleted, renamed, or moved to another location.
+
+  * An install or uninstall procedure did not complete successfully.
+
+  * The installation package was faulty and references files it does not
+  provide.
+
+
+
+CMake Error at /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/FindMPI.cmake:1264 (try_compile):
+  Failed to generate test project build system.
+Call Stack (most recent call first):
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/FindMPI.cmake:1315 (_MPI_try_staged_settings)
+  /public/soft/linux-centos7-x86_64/gcc-10.3.0/cmake-3.22.2-lfaoe2iesrumw7ukmdw7y73tlps2sinl/share/cmake-3.22/Modules/FindMPI.cmake:1638 (_MPI_check_lang_works)
+  CMakeLists.txt:16 (find_package)
+
+
+make: *** No targets specified and no makefile found.  Stop.
+mv: cannot stat 'libqcu.so': No such file or directory
+rm: cannot remove 'cmake_install.cmake': No such file or directory
+rm: cannot remove 'Makefile': No such file or directory
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+rm: cannot remove 'log_*': No such file or directory
+./test: error while loading shared libraries: libnccl.so.2: cannot open shared object file: No such file or directory
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------

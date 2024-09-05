@@ -89,17 +89,65 @@ def compare(round):
     print("######Y:", _[2], ",\n", len(_[2]))
     print("######X:", _[3], ",\n", len(_[3]))
     print("######diff_x[0,0,0,0]:\n",
-          diff_x[0, 0, 0, 1])
+          diff_x[0, 0, 0, 0])
     print("######diff_x[0,0,0,1]:\n",
           diff_x[0, 0, 0, 1])
     print("######diff_x[0,0,1,1]:\n",
           diff_x[0, 0, 1, 1])
-    print("######diff_x[2,2,2,2]:\n",
-          diff_x[2, 2, 2, 2])
+    print("######diff_x[0,1,1,1]:\n",
+          diff_x[0, 1, 1, 1])
+    print("######diff_x[1,1,1,1]:\n",
+          diff_x[1, 1, 1, 1])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,-1]:\n",
+          diff_x[0, 0, 0, -1])
+    print("######diff_x[0,0,-1,-1]:\n",
+          diff_x[0, 0, -1, -1])
+    print("######diff_x[0,-1,-1,-1]:\n",
+          diff_x[0, -1, -1, -1])
     print("######diff_x[-1,-1,-1,-1]:\n",
           diff_x[-1, -1, -1, -1])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,2]:\n",
+          diff_x[0, 0, 0, 2])
+    print("######diff_x[0,0,2,2]:\n",
+          diff_x[0, 0, 2, 2])
+    print("######diff_x[0,2,2,2]:\n",
+          diff_x[0, 2, 2, 2])
+    print("######diff_x[2,2,2,2]:\n",
+          diff_x[2, 2, 2, 2])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,-2]:\n",
+          diff_x[0, 0, 0, -2])
+    print("######diff_x[0,0,-2,-2]:\n",
+          diff_x[0, 0, -2, -2])
+    print("######diff_x[0,-2,-2,-2]:\n",
+          diff_x[0, -2, -2, -2])
     print("######diff_x[-2,-2,-2,-2]:\n",
           diff_x[-2, -2, -2, -2])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,3]:\n",
+          diff_x[0, 0, 0, 3])
+    print("######diff_x[0,0,3,3]:\n",
+          diff_x[0, 0, 3, 3])
+    print("######diff_x[0,3,3,3]:\n",
+          diff_x[0, 3, 3, 3])
+    print("######diff_x[3,3,3,3]:\n",
+          diff_x[3, 3, 3, 3])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,-3]:\n",
+          diff_x[0, 0, 0, -3])
+    print("######diff_x[0,0,-3,-3]:\n",
+          diff_x[0, 0, -3, -3])
+    print("######diff_x[0,-3,-3,-3]:\n",
+          diff_x[0, -3, -3, -3])
+    print("######diff_x[-3,-3,-3,-3]:\n",
+          diff_x[-3, -3, -3, -3])
 
 
 for i in range(0, 5):
