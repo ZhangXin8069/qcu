@@ -8,7 +8,7 @@ int main() {
     param_lattice_size[i] = _LAT_EXAMPLE_;
     grid_lattice_size[i] = _GRID_EXAMPLE_;
   }
-  // grid_lattice_size[_T_] = 2;
+  grid_lattice_size[_T_] = 2;
   LatticeSet _set;
   _set.give(param_lattice_size, grid_lattice_size);
   _set.init();
