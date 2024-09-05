@@ -1,6 +1,5 @@
 #include "./include/qcu.h"
 #include "define.h"
-#include <nccl.h>
 int main() {
   MPI_Init(NULL, NULL);
   int param_lattice_size[_DIM_];

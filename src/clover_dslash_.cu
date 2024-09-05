@@ -4,7 +4,8 @@
 // wait for rebuild
 // clang-format on
 __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_x_send_vec,
+                            int device_parity, int node_rank, int device_flag,
+                            void *device_u_b_x_send_vec,
                             void *device_u_f_x_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
@@ -47,7 +48,8 @@ __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_y_send_vec,
+                            int device_parity, int node_rank, int device_flag,
+                            void *device_u_b_y_send_vec,
                             void *device_u_f_y_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
@@ -90,7 +92,8 @@ __global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_z(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_z_send_vec,
+                            int device_parity, int node_rank, int device_flag,
+                            void *device_u_b_z_send_vec,
                             void *device_u_f_z_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
@@ -133,7 +136,8 @@ __global__ void pick_up_u_z(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
-                            int device_parity, void *device_u_b_t_send_vec,
+                            int device_parity, int node_rank, int device_flag,
+                            void *device_u_b_t_send_vec,
                             void *device_u_f_t_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
@@ -176,7 +180,8 @@ __global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_xy(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_x_b_y_send_vec,
+                             int device_parity, int node_rank, int device_flag,
+                             void *device_u_b_x_b_y_send_vec,
                              void *device_u_f_x_b_y_send_vec,
                              void *device_u_b_x_f_y_send_vec,
                              void *device_u_f_x_f_y_send_vec) {
@@ -242,7 +247,8 @@ __global__ void pick_up_u_xy(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_xz(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_x_b_z_send_vec,
+                             int device_parity, int node_rank, int device_flag,
+                             void *device_u_b_x_b_z_send_vec,
                              void *device_u_f_x_b_z_send_vec,
                              void *device_u_b_x_f_z_send_vec,
                              void *device_u_f_x_f_z_send_vec) {
@@ -308,7 +314,8 @@ __global__ void pick_up_u_xz(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_xt(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_x_b_t_send_vec,
+                             int device_parity, int node_rank, int device_flag,
+                             void *device_u_b_x_b_t_send_vec,
                              void *device_u_f_x_b_t_send_vec,
                              void *device_u_b_x_f_t_send_vec,
                              void *device_u_f_x_f_t_send_vec) {
@@ -374,7 +381,8 @@ __global__ void pick_up_u_xt(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_yz(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_y_b_z_send_vec,
+                             int device_parity, int node_rank, int device_flag,
+                             void *device_u_b_y_b_z_send_vec,
                              void *device_u_f_y_b_z_send_vec,
                              void *device_u_b_y_f_z_send_vec,
                              void *device_u_f_y_f_z_send_vec) {
@@ -440,7 +448,8 @@ __global__ void pick_up_u_yz(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_yt(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_y_b_t_send_vec,
+                             int device_parity, int node_rank, int device_flag,
+                             void *device_u_b_y_b_t_send_vec,
                              void *device_u_f_y_b_t_send_vec,
                              void *device_u_b_y_f_t_send_vec,
                              void *device_u_f_y_f_t_send_vec) {
@@ -506,7 +515,8 @@ __global__ void pick_up_u_yt(void *device_U, void *device_lat_xyzt,
   }
 }
 __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
-                             int device_parity, void *device_u_b_z_b_t_send_vec,
+                             int device_parity, int node_rank, int device_flag,
+                             void *device_u_b_z_b_t_send_vec,
                              void *device_u_f_z_b_t_send_vec,
                              void *device_u_b_z_f_t_send_vec,
                              void *device_u_f_z_f_t_send_vec) {
@@ -571,3 +581,16 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
   }
 }
 #endif
+// debug code
+/*
+if (x == 2 && y == 7 && z == 3) {
+  // printf("@@@ptr:%p\n", tmp_U);
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y, z, t,
+         parity,
+         tmp_U[_Z_ * _EVEN_ODD_ * lat_tzyx]._data.x); // test
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y, z, t,
+         parity,
+         tmp_U[_Z_ * _EVEN_ODD_ * lat_tzyx]._data.y); // test
+}
+
+*/
