@@ -175,15 +175,6 @@ __global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
   // f_t
   tmp_U = (origin_U + (1 - parity) * lat_tzyx +
            ((((lat_t - 1) * lat_z + z) * lat_y + y) * lat_x + x));
-  if (x == 2 && y == 7 && z == 3) {
-    // printf("@@@ptr:%p\n", tmp_U);
-    printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y, z,
-           t, parity,
-           tmp_U[_T_ * _EVEN_ODD_ * lat_tzyx]._data.x); // test
-    printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y, z,
-           t, parity,
-           tmp_U[_T_ * _EVEN_ODD_ * lat_tzyx]._data.y); // test
-  }
   for (int i = 0; i < _LAT_DCC_; i++) {
     u_f_t_send_vec[i * lat_tzyx / lat_t] = tmp_U[i * _EVEN_ODD_ * lat_tzyx];
   }
@@ -590,3 +581,16 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
   }
 }
 #endif
+// debug code
+/*
+if (x == 2 && y == 7 && z == 3) {
+  // printf("@@@ptr:%p\n", tmp_U);
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y, z, t,
+         parity,
+         tmp_U[_Z_ * _EVEN_ODD_ * lat_tzyx]._data.x); // test
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y, z, t,
+         parity,
+         tmp_U[_Z_ * _EVEN_ODD_ * lat_tzyx]._data.y); // test
+}
+
+*/

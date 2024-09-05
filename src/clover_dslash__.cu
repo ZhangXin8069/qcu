@@ -120,41 +120,7 @@ __global__ void make_clover_all(
       (move_wards[_B_Z_] == lat_z - 1) * (move_wards[_F_T_] == 1 - lat_t);
   // // int if_f_z_f_t=
   //(move_wards[_F_Z_]==1-lat_z)*(move_wards[_F_T_]==1-lat_t);
-  {
-    // test
-    // if_b_x = 0;
-    // if_b_y = 0;
-    // if_b_z = 0;
-    // if_b_t = 0;// BUG!!!
-    // if_f_x = 0;
-    // if_f_y = 0;
-    // if_f_z = 0;
-    // if_f_t = 0;
-    // if_b_x_b_y = 0;
-    // if_f_x_b_y = 0;
-    // if_b_x_f_y = 0;
-    // // // if_f_x_f_y=0;
-    // if_b_x_b_z = 0;
-    // if_f_x_b_z = 0;
-    // if_b_x_f_z = 0;
-    // // // if_f_x_f_z=0;
-    // if_b_x_b_t = 0;
-    // if_f_x_b_t = 0;
-    // if_b_x_f_t = 0;
-    // // // if_f_x_f_t=0;
-    // if_b_y_b_z = 0;
-    // if_f_y_b_z = 0;
-    // if_b_y_f_z = 0;
-    // // // if_f_y_f_z=0;
-    // if_b_y_b_t = 0;
-    // if_f_y_b_t = 0;
-    // if_b_y_f_t = 0;
-    // // // if_f_y_f_t=0;
-    // if_b_z_b_t = 0;
-    // if_f_z_b_t = 0;
-    // if_b_z_f_t = 0;
-    // // // if_f_z_f_t=0;
-  } // sigmaF
+  // sigmaF
   {
     give_vals(clover, zero, _LAT_SCSC_);
     // give_vals(origin_clover,zero,_LAT_SCSC_);//BUG!!!!!!
@@ -1305,15 +1271,6 @@ __global__ void make_clover_all(
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
                ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      if (x == 2 && y == 7 && z == 3) {
-        // printf("@@@ptr:%p\n", tmp_U);
-        printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y,
-               z, t, parity,
-               tmp_U[0]._data.x); // test
-        printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y,
-               z, t, parity,
-               tmp_U[0]._data.y); // test
-      }
       _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
@@ -1399,3 +1356,51 @@ __global__ void make_clover_all(
   give_clr(origin_clover, clover, lat_tzyx);
 }
 #endif
+// debug code
+/*
+{
+  // test
+  // if_b_x = 0;
+  // if_b_y = 0;
+  // if_b_z = 0;
+  // if_b_t = 0;// BUG!!!
+  // if_f_x = 0;
+  // if_f_y = 0;
+  // if_f_z = 0;
+  // if_f_t = 0;
+  // if_b_x_b_y = 0;
+  // if_f_x_b_y = 0;
+  // if_b_x_f_y = 0;
+  // // // if_f_x_f_y=0;
+  // if_b_x_b_z = 0;
+  // if_f_x_b_z = 0;
+  // if_b_x_f_z = 0;
+  // // // if_f_x_f_z=0;
+  // if_b_x_b_t = 0;
+  // if_f_x_b_t = 0;
+  // if_b_x_f_t = 0;
+  // // // if_f_x_f_t=0;
+  // if_b_y_b_z = 0;
+  // if_f_y_b_z = 0;
+  // if_b_y_f_z = 0;
+  // // // if_f_y_f_z=0;
+  // if_b_y_b_t = 0;
+  // if_f_y_b_t = 0;
+  // if_b_y_f_t = 0;
+  // // // if_f_y_f_t=0;
+  // if_b_z_b_t = 0;
+  // if_f_z_b_t = 0;
+  // if_b_z_f_t = 0;
+  // // // if_f_z_f_t=0;
+}
+if (x == 2 && y == 7 && z == 3) {
+  // printf("@@@ptr:%p\n", tmp_U);
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y,
+         z, t, parity,
+         tmp_U[0]._data.x); // test
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y,
+         z, t, parity,
+         tmp_U[0]._data.y); // test
+}
+
+*/
