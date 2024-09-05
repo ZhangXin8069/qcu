@@ -43,14 +43,14 @@
 #define _FX_BZ_ 13
 #define _BX_FZ_ 14
 #define _FX_FZ_ 15
-#define _BX_BT_ 16 
-#define _FX_BT_ 17 
-#define _BX_FT_ 18 
-#define _FX_FT_ 19 
-#define _BY_BZ_ 20 
-#define _FY_BZ_ 21 
-#define _BY_FZ_ 22 
-#define _FY_FZ_ 23 
+#define _BX_BT_ 16
+#define _FX_BT_ 17
+#define _BX_FT_ 18
+#define _FX_FT_ 19
+#define _BY_BZ_ 20
+#define _FY_BZ_ 21
+#define _BY_FZ_ 22
+#define _FY_FZ_ 23
 #define _BY_BT_ 24
 #define _FY_BT_ 25
 #define _BY_FT_ 26
@@ -267,7 +267,7 @@
 //       U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                       \
 //     }                                                                          \
 //   }
-#define _give_u_comm(U, tmp_U, _lat_tzyx)                                      \
+#define __give_u_comm(U, tmp_U, _lat_tzyx)                                     \
   {                                                                            \
     for (int i = 0; i < _LAT_2C_; i++) {                                       \
       U[i] = tmp_U[i * _LAT_D_ * _lat_tzyx];                                   \
@@ -275,6 +275,12 @@
     U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
     U[8] = (U[0] * U[4] - U[1] * U[3]).conj();                                 \
+  }
+#define _give_u_comm(U, tmp_U, _lat_tzyx)                                      \
+  {                                                                            \
+    for (int i = 0; i < _LAT_CC_; i++) {                                       \
+      U[i] = tmp_U[i * _LAT_D_ * _lat_tzyx];                                   \
+    }                                                                          \
   }
 #define give_src(src, origin_src, lat_tzyx)                                    \
   {                                                                            \

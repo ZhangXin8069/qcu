@@ -12,8 +12,8 @@ sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [32, 32, 32, 32]
 # latt_size = [16, 16, 16, 32]
-latt_size = [16, 16, 16, 16]
-# latt_size = [16, 16, 16, 32]
+# latt_size = [16, 16, 16, 16]
+latt_size = [16, 16, 16, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
@@ -48,18 +48,20 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
+
+
 def compare(round):
-#     print('===============round ', round, '======================')
-#     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
-#     cp.cuda.runtime.deviceSynchronize()
-#     t1 = perf_counter()
-#     quda.dslashQuda(Mp.even_ptr, p.odd_ptr, dslash.invert_param,
-#                     QudaParity.QUDA_EVEN_PARITY)
-#     quda.dslashQuda(Mp.odd_ptr, p.even_ptr, dslash.invert_param,
-#                     QudaParity.QUDA_ODD_PARITY)
-#     cp.cuda.runtime.deviceSynchronize()
-#     t2 = perf_counter()
-#     print(f'Quda dslash: {t2 - t1} sec')
+    print('===============round ', round, '======================')
+    print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
+    cp.cuda.runtime.deviceSynchronize()
+    t1 = perf_counter()
+    quda.dslashQuda(Mp.even_ptr, p.odd_ptr, dslash.invert_param,
+                    QudaParity.QUDA_EVEN_PARITY)
+    quda.dslashQuda(Mp.odd_ptr, p.even_ptr, dslash.invert_param,
+                    QudaParity.QUDA_ODD_PARITY)
+    cp.cuda.runtime.deviceSynchronize()
+    t2 = perf_counter()
+    print(f'Quda dslash: {t2 - t1} sec')
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
@@ -67,8 +69,10 @@ def compare(round):
     grid.lattice_size = grid_size
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.ncclDslashCloverQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
-    pyqcu.ncclDslashCloverQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1, grid)
+    pyqcu.ncclDslashCloverQcu(Mp1.even_ptr, p.odd_ptr,
+                              U.data_ptr, param, 0, grid)
+    pyqcu.ncclDslashCloverQcu(Mp1.odd_ptr, p.even_ptr,
+                              U.data_ptr, param, 1, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
@@ -96,5 +100,7 @@ def compare(round):
           diff_x[-1, -1, -1, -1])
     print("######diff_x[-2,-2,-2,-2]:\n",
           diff_x[-2, -2, -2, -2])
+
+
 for i in range(0, 5):
     compare(i)
