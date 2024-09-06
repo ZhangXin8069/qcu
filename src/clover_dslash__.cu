@@ -1312,6 +1312,15 @@ __global__ void make_clover_all(
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
                ((((_T_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
       _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
+if (x == 2 && y == 7) {
+  // printf("@@@ptr:%p\n", tmp_U);
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y,
+         z, t, parity,
+         tmp1[0]._data.x); // test
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y,
+         z, t, parity,
+         tmp1[0]._data.y); // test
+}
     } else {
       move0 = move_wards[_F_Z_];
       move1 = move_wards[_B_T_];
