@@ -1316,10 +1316,10 @@ if (x == 2 && y == 7) {
   // printf("@@@ptr:%p\n", tmp_U);
   printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y,
          z, t, parity,
-         tmp1[0]._data.x); // test
+         tmp1[2]._data.x); // test
   printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y,
          z, t, parity,
-         tmp1[0]._data.y); // test
+         tmp1[2]._data.y); // test
 }
     } else {
       move0 = move_wards[_F_Z_];

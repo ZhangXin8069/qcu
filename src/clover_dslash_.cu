@@ -575,10 +575,10 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
   if (x == 2 && y == 7) {
   printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y, z, t,
          parity,
-         u_b_z_f_t_send_vec[_T_ * lat_tzyx / lat_z / lat_t]._data.x); // test
+         u_b_z_f_t_send_vec[(2*_LAT_D_ + _T_) * lat_tzyx / lat_z / lat_t]._data.x); // test
   printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y, z, t,
          parity,
-         u_b_z_f_t_send_vec[_T_ * lat_tzyx / lat_z / lat_t]._data.y); // test
+         u_b_z_f_t_send_vec[(2*_LAT_D_ + _T_) * lat_tzyx / lat_z / lat_t]._data.y); // test
 }
   // f_z_f_t
   tmp_U = (origin_U + parity * lat_tzyx +
