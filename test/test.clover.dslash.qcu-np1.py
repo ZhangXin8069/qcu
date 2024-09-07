@@ -49,6 +49,7 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
 
+
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
