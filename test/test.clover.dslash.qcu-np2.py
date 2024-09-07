@@ -13,7 +13,8 @@ os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [32, 32, 32, 32]
 # latt_size = [16, 16, 16, 32]
 # latt_size = [16, 16, 16, 16]
-latt_size = [16, 16, 16, 32]
+# latt_size = [16, 16, 16, 32]
+latt_size = [8, 8, 8, 8]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
@@ -48,7 +49,7 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
-
+np.set_printoptions(threshold=np.inf)
 
 def compare(round):
     print('===============round ', round, '======================')
