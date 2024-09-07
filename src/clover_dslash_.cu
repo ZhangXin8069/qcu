@@ -573,13 +573,18 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
         tmp_U[i * _EVEN_ODD_ * lat_tzyx];
   }
   if (x == 2 && y == 7) {
-  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y, z, t,
-         parity,
-         u_b_z_f_t_send_vec[(2*_LAT_D_ + _T_) * lat_tzyx / lat_z / lat_t]._data.x); // test
-  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y, z, t,
-         parity,
-         u_b_z_f_t_send_vec[(2*_LAT_D_ + _T_) * lat_tzyx / lat_z / lat_t]._data.y); // test
-}
+    // printf("@@@ptr:%p\n", tmp_U);
+    for (int cc = 0; cc < _LAT_CC_; cc++) {
+      printf("SEND_VEC[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", cc,
+             node_rank, x, y, z, t, parity,
+             u_b_z_f_t_send_vec[(cc * _LAT_D_ + _T_) * lat_tzyx / lat_z / lat_t]
+                 ._data.x); // test
+      printf("SEND_VEC[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", cc,
+             node_rank, x, y, z, t, parity,
+             u_b_z_f_t_send_vec[(cc * _LAT_D_ + _T_) * lat_tzyx / lat_z / lat_t]
+                 ._data.y); // test
+    }
+  }
   // f_z_f_t
   tmp_U = (origin_U + parity * lat_tzyx +
            ((((lat_t - 1) * lat_z + lat_z - 1) * lat_y + y) * lat_x + x));
