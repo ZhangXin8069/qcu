@@ -11,10 +11,10 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [32, 32, 32, 32]
-# latt_size = [16, 16, 16, 32]
+latt_size = [16, 16, 16, 32]
 # latt_size = [16, 16, 16, 16]
 # latt_size = [16, 16, 16, 32]
-latt_size = [8, 8, 8, 8]
+# latt_size = [8, 8, 8, 8]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
