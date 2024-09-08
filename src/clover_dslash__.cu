@@ -1336,12 +1336,12 @@ __global__ void make_clover_all(
       if (x == 2 && y == 7) {
         // printf("@@@ptr:%p\n", tmp_U);
         for (int cc = 0; cc < _LAT_CC_; cc++) {
-          printf("TMP2[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", cc,
+          printf("TMP3[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", cc,
                  node_rank, x, y, z, t, parity,
-                 tmp2[cc]._data.x); // test
-          printf("TMP2[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", cc,
+                 tmp3[cc]._data.x); // test
+          printf("TMP3[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", cc,
                  node_rank, x, y, z, t, parity,
-                 tmp2[cc]._data.y); // test
+                 tmp3[cc]._data.y); // test
         }
       }
     }
