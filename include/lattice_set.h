@@ -137,13 +137,6 @@ struct LatticeSet {
       move_forward(move_wards[_F_Y_], grid_index_1dim[_Y_], grid_1dim[_Y_]);
       move_forward(move_wards[_F_Z_], grid_index_1dim[_Z_], grid_1dim[_Z_]);
       move_forward(move_wards[_F_T_], grid_index_1dim[_T_], grid_1dim[_T_]);
-      // {
-      //   // just for test
-      //   if (node_rank == 0)
-      //     _print();
-      //   // exit(1);
-      //   printf("@@@@@@@@@@@@@@@@@@@@@");
-      // }
       move_wards[_B_X_] = node_rank + move_wards[_B_X_];
       move_wards[_B_Y_] = node_rank + move_wards[_B_Y_] * grid_1dim[_X_];
       move_wards[_B_Z_] = node_rank + move_wards[_B_Z_] * grid_2dim[_XY_];
@@ -152,12 +145,6 @@ struct LatticeSet {
       move_wards[_F_Y_] = node_rank + move_wards[_F_Y_] * grid_1dim[_X_];
       move_wards[_F_Z_] = node_rank + move_wards[_F_Z_] * grid_2dim[_XY_];
       move_wards[_F_T_] = node_rank + move_wards[_F_T_] * grid_3dim[_XYZ_];
-      // {
-      //   // just for test
-      //   if (node_rank == 0)
-      //     _print();
-      //   exit(1);
-      // }
       int tmp;
       { // BB
         move_backward(tmp, grid_index_1dim[_Y_], grid_1dim[_Y_]);
@@ -216,12 +203,6 @@ struct LatticeSet {
         move_wards[_FZ_FT_] = move_wards[_F_Z_] + tmp * grid_3dim[_XYZ_];
       }
     }
-    // {
-    //   // just for test
-    //   if (node_rank == 0)
-    //     _print();
-    //   exit(1);
-    // }
     {
       // nccl set
       if (node_rank == 0) {
@@ -261,16 +242,16 @@ struct LatticeSet {
             lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_1dim_send_vec[i * _BF_],
-            lat_3dim[i] * _LAT_DCC_ * sizeof(LatticeComplex), stream));
+            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_1dim_send_vec[i * _BF_ + 1],
-            lat_3dim[i] * _LAT_DCC_ * sizeof(LatticeComplex), stream));
+            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_1dim_recv_vec[i * _BF_],
-            lat_3dim[i] * _LAT_DCC_ * sizeof(LatticeComplex), stream));
+            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_1dim_recv_vec[i * _BF_ + 1],
-            lat_3dim[i] * _LAT_DCC_ * sizeof(LatticeComplex), stream));
+            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
         host_send_vec[i * _BF_] =
             (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
         host_send_vec[i * _BF_ + 1] =
@@ -283,35 +264,35 @@ struct LatticeSet {
       for (int i = 0; i < _2DIM_; i++) {
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
         checkCudaErrors(cudaMallocAsync(
             &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
-            lat_2dim[_2DIM_ - 1 - i] * _LAT_DCC_ * sizeof(LatticeComplex),
+            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
             stream));
       }
     }
