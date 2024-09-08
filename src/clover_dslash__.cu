@@ -136,8 +136,9 @@ __global__ void make_clover_all(
     ////x+1,y,z,t;y
     if (if_f_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_F_X_];
       tmp_U = (origin_U + move0 + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -149,8 +150,9 @@ __global__ void make_clover_all(
     ////x,y+1,z,t;x;dag
     if (if_f_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_F_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -172,9 +174,20 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     ////x-1,y+1,z,t;x;dag
     if (if_b_x_f_y) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_f_y_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x / lat_y);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_f_y_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x / lat_y);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x);
+    } else if (if_f_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_F_Y_];
@@ -188,8 +201,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;y;dag
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -201,8 +215,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;x
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -215,8 +230,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;x;dag
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -224,9 +240,20 @@ __global__ void make_clover_all(
     }
     ////x-1,y-1,z,t;y;dag
     if (if_b_x_b_y) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x / lat_y);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_y_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x / lat_y);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_B_Y_];
@@ -239,9 +266,20 @@ __global__ void make_clover_all(
   {
     ////x-1,y-1,z,t;x
     if (if_b_x_b_y) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_b_y_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x / lat_y);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_y_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x / lat_y);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_B_Y_];
@@ -255,8 +293,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;y
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -270,8 +309,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;y;dag
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -281,8 +321,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;x
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -294,9 +335,20 @@ __global__ void make_clover_all(
   {
     ////x+1,y-1,z,t;y
     if (if_f_x_b_y) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x / lat_y);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_x_b_y_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * 1 + 0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x / lat_y);
+    } else if (if_f_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_F_X_];
       move1 = move_wards[_B_Y_];
@@ -336,8 +388,9 @@ __global__ void make_clover_all(
     ////x+1,y,z,t;z
     if (if_f_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
-               ((((_Z_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_F_X_];
       tmp_U = (origin_U + move0 + (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -349,8 +402,9 @@ __global__ void make_clover_all(
     ////x,y,z+1,t;x;dag
     if (if_f_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
-               ((((_X_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_F_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -372,9 +426,20 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     ////x-1,y,z+1,t;x;dag
     if (if_b_x_f_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_f_z_recv_vec) +
-               ((((_X_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_f_z_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x / lat_z);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x);
+    } else if (if_f_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_F_Z_];
@@ -388,8 +453,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;z;dag
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_Z_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -401,8 +467,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;x
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -415,8 +482,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;x;dag
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -424,9 +492,20 @@ __global__ void make_clover_all(
     }
     ////x-1,y,z-1,t;z;dag
     if (if_b_x_b_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x / lat_z);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_B_Z_];
@@ -439,9 +518,20 @@ __global__ void make_clover_all(
   {
     ////x-1,y,z-1,t;x
     if (if_b_x_b_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_b_z_recv_vec) +
-               ((((_X_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_z_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x / lat_z);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_B_Z_];
@@ -455,8 +545,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;z
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -470,8 +561,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;z;dag
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -481,8 +573,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;x
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_X_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_z);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -494,9 +587,20 @@ __global__ void make_clover_all(
   {
     ////x+1,y,z-1,t;z
     if (if_f_x_b_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_x_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x / lat_z);
+    } else if (if_f_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_F_X_];
       move1 = move_wards[_B_Z_];
@@ -536,8 +640,9 @@ __global__ void make_clover_all(
     ////x+1,y,z,t;t
     if (if_f_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
-               ((((_T_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x);
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_F_X_];
       tmp_U = (origin_U + move0 + (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -549,8 +654,9 @@ __global__ void make_clover_all(
     ////x,y,z,t+1;x;dag
     if (if_f_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
-               ((((_X_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_F_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -572,9 +678,20 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     ////x-1,y,z,t+1;x;dag
     if (if_b_x_f_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_f_t_recv_vec) +
-               ((((_X_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_f_t_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x / lat_t);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x);
+    } else if (if_f_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_F_T_];
@@ -588,8 +705,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;t;dag
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_T_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -601,8 +719,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;x
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -615,8 +734,9 @@ __global__ void make_clover_all(
     ////x-1,y,z,t;x;dag
     if (if_b_x) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
-               ((((_X_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x);
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_x);
     } else {
       move0 = move_wards[_B_X_];
       tmp_U = (origin_U + move0 + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
@@ -624,9 +744,20 @@ __global__ void make_clover_all(
     }
     ////x-1,y,z,t-1;t;dag
     if (if_b_x_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_x / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x / lat_t);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_B_T_];
@@ -639,9 +770,20 @@ __global__ void make_clover_all(
   {
     ////x-1,y,z,t-1;x
     if (if_b_x_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_b_t_recv_vec) +
-               ((((_X_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_x_b_t_recv_vec) +
+           ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x / lat_t);
+    } else if (if_b_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_x_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_X_];
       move1 = move_wards[_B_T_];
@@ -655,8 +797,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;t
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -670,8 +813,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;t;dag
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -681,8 +825,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;x
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_X_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_t);
+               ((((_X_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -694,9 +839,20 @@ __global__ void make_clover_all(
   {
     ////x+1,y,z,t-1;t
     if (if_f_x_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_x / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_x_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * 1 + 0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x / lat_t);
+    } else if (if_f_x) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_x_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * lat_y + y) * 1 +
+                0));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_x);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_F_X_];
       move1 = move_wards[_B_T_];
@@ -736,8 +892,9 @@ __global__ void make_clover_all(
     ////x,y+1,z,t;z
     if (if_f_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
-               ((((_Z_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_F_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -750,8 +907,9 @@ __global__ void make_clover_all(
     ////x,y,z+1,t;y;dag
     if (if_f_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
-               ((((_Y_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_F_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -773,9 +931,20 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     ////x,y-1,z+1,t;y;dag
     if (if_b_y_f_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_f_z_recv_vec) +
-               ((((_Y_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_f_z_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y / lat_z);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y);
+    } else if (if_f_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Y_];
       move1 = move_wards[_F_Z_];
@@ -789,8 +958,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;z;dag
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Z_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -803,8 +973,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;y
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -818,8 +989,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;y;dag
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -828,9 +1000,20 @@ __global__ void make_clover_all(
     }
     ////x,y-1,z-1,t;z;dag
     if (if_b_y_b_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y / lat_z);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Y_];
       move1 = move_wards[_B_Z_];
@@ -843,9 +1026,20 @@ __global__ void make_clover_all(
   {
     ////x,y-1,z-1,t;y
     if (if_b_y_b_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_b_z_recv_vec) +
-               ((((_Y_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_z_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y / lat_z);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Y_];
       move1 = move_wards[_B_Z_];
@@ -859,8 +1053,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;z
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -874,8 +1069,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;z;dag
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -885,8 +1081,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;y
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Y_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_z);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -898,9 +1095,20 @@ __global__ void make_clover_all(
   {
     ////x,y+1,z-1,t;z
     if (if_f_y_b_z) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y / lat_z);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_y_b_z_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y / lat_z);
+    } else if (if_f_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_F_Y_];
       move1 = move_wards[_B_Z_];
@@ -940,8 +1148,9 @@ __global__ void make_clover_all(
     ////x,y+1,z,t;t
     if (if_f_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
-               ((((_T_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y);
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_F_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -954,8 +1163,9 @@ __global__ void make_clover_all(
     ////x,y,z,t+1;y;dag
     if (if_f_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
-               ((((_Y_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_F_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -977,9 +1187,20 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     ////x,y-1,z,t+1;y;dag
     if (if_b_y_f_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_f_t_recv_vec) +
-               ((((_Y_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_f_t_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y / lat_t);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y);
+    } else if (if_f_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_Y_];
       move1 = move_wards[_F_T_];
@@ -993,8 +1214,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;t;dag
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_T_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -1007,8 +1229,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;y
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -1022,8 +1245,9 @@ __global__ void make_clover_all(
     ////x,y-1,z,t;y;dag
     if (if_b_y) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
-               ((((_Y_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y);
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_y);
     } else {
       move0 = move_wards[_B_Y_];
       tmp_U = (origin_U + move0 * lat_x +
@@ -1032,9 +1256,20 @@ __global__ void make_clover_all(
     }
     ////x,y-1,z,t-1;t;dag
     if (if_b_y_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_y / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y / lat_t);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_y);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_Y_];
       move1 = move_wards[_B_T_];
@@ -1047,9 +1282,20 @@ __global__ void make_clover_all(
   {
     ////x,y-1,z,t-1;y
     if (if_b_y_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_b_t_recv_vec) +
-               ((((_Y_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_y_b_t_recv_vec) +
+           ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y / lat_t);
+    } else if (if_b_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_y_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_Y_];
       move1 = move_wards[_B_T_];
@@ -1063,8 +1309,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;t
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1078,8 +1325,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;t;dag
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1089,8 +1337,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;y
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_Y_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_t);
+               ((((_Y_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1102,9 +1351,20 @@ __global__ void make_clover_all(
   {
     ////x,y+1,z,t-1;t
     if (if_f_y_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_y / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_y_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * 1 + 0) * lat_x + x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y / lat_t);
+    } else if (if_f_y) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_y_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * lat_z + z) * 1 + 0) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_y);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_F_Y_];
       move1 = move_wards[_B_T_];
@@ -1144,8 +1404,9 @@ __global__ void make_clover_all(
     ////x,y,z+1,t;t
     if (if_f_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
-               ((((_T_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_z);
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_F_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -1158,8 +1419,9 @@ __global__ void make_clover_all(
     ////x,y,z,t+1;z;dag
     if (if_f_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
-               ((((_Z_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_F_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1181,9 +1443,20 @@ __global__ void make_clover_all(
     give_u(tmp1, tmp_U, lat_tzyx);
     ////x,y,z-1,t+1;z;dag
     if (if_b_z_f_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_f_t_recv_vec) +
-               ((((_Z_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_z / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_z_f_t_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z / lat_t);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z);
+    } else if (if_f_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_t_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_Z_];
       move1 = move_wards[_F_T_];
@@ -1198,8 +1471,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;t;dag
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_T_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -1212,8 +1486,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;z
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -1227,8 +1502,9 @@ __global__ void make_clover_all(
     ////x,y,z-1,t;z;dag
     if (if_b_z) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
-               ((((_Z_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z);
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_z);
     } else {
       move0 = move_wards[_B_Z_];
       tmp_U = (origin_U + move0 * lat_y * lat_x +
@@ -1237,9 +1513,20 @@ __global__ void make_clover_all(
     }
     ////x,y,z-1,t-1;t;dag
     if (if_b_z_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_z / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_z_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z / lat_t);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_z);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_Z_];
       move1 = move_wards[_B_T_];
@@ -1253,9 +1540,20 @@ __global__ void make_clover_all(
   {
     ////x,y,z-1,t-1;z
     if (if_b_z_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_b_t_recv_vec) +
-               ((((_Z_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_b_z_b_t_recv_vec) +
+           ((((_Z_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
+    } else if (if_b_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_z_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_Z_];
       move1 = move_wards[_B_T_];
@@ -1270,8 +1568,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;t
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1285,8 +1584,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;t;dag
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_t);
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1296,8 +1596,9 @@ __global__ void make_clover_all(
     ////x,y,z,t-1;z
     if (if_b_t) {
       tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
-               ((((_Z_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp2, tmp_U, lat_tzyx / lat_t);
+               ((((_Z_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(1 - parity, tmp2, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_B_T_];
       tmp_U = (origin_U + move0 * lat_z * lat_y * lat_x +
@@ -1309,20 +1610,20 @@ __global__ void make_clover_all(
   {
     ////x,y,z+1,t-1;t
     if (if_f_z_b_t) {
-      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
-               ((((_T_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
-      _give_u_comm(tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
-      if (x == 2 && y == 7) {
-        // printf("@@@ptr:%p\n", tmp_U);
-        for (int cc = 0; cc < _LAT_CC_; cc++) {
-          printf("TMP1[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", cc,
-                 node_rank, x, y, z, t, parity,
-                 tmp1[cc]._data.x); // test
-          printf("TMP1[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", cc,
-                 node_rank, x, y, z, t, parity,
-                 tmp1[cc]._data.y); // test
-        }
-      }
+      tmp_U =
+          (static_cast<LatticeComplex *>(device_u_f_z_b_t_recv_vec) +
+           ((((_T_ * _EVEN_ODD_ * 1 + 0) * 1 + 0) * lat_y + y) * lat_x + x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z / lat_t);
+    } else if (if_f_z) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_f_z_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * lat_t + t) * 1 + 0) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_z);
+    } else if (if_b_t) {
+      tmp_U = (static_cast<LatticeComplex *>(device_u_b_t_recv_vec) +
+               ((((_T_ * _EVEN_ODD_ * 1 + 0) * lat_z + z) * lat_y + y) * lat_x +
+                x));
+      _give_u_comm(parity, tmp1, tmp_U, lat_tzyx / lat_t);
     } else {
       move0 = move_wards[_F_Z_];
       move1 = move_wards[_B_T_];
@@ -1332,19 +1633,6 @@ __global__ void make_clover_all(
       give_u(tmp1, tmp_U, lat_tzyx);
     }
     mult_u_none_none(tmp0, tmp3, tmp1, tmp2, zero);
-    if (if_f_z_b_t) {
-      if (x == 2 && y == 7) {
-        // printf("@@@ptr:%p\n", tmp_U);
-        for (int cc = 0; cc < _LAT_CC_; cc++) {
-          printf("TMP3[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", cc,
-                 node_rank, x, y, z, t, parity,
-                 tmp3[cc]._data.x); // test
-          printf("TMP3[%d]:@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", cc,
-                 node_rank, x, y, z, t, parity,
-                 tmp3[cc]._data.y); // test
-        }
-      }
-    }
   }
   {
     ////x,y,z,t;z;dag

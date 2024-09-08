@@ -28,22 +28,22 @@ struct LatticeCloverDslash {
       // u_1dim_send
       pick_up_u_x<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                     set_ptr->stream_dims[_X_]>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_1dim_send_vec[_B_X_],
           set_ptr->device_u_1dim_send_vec[_F_X_]);
       pick_up_u_y<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                     set_ptr->stream_dims[_Y_]>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_1dim_send_vec[_B_Y_],
           set_ptr->device_u_1dim_send_vec[_F_Y_]);
       pick_up_u_z<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                     set_ptr->stream_dims[_Z_]>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_1dim_send_vec[_B_Z_],
           set_ptr->device_u_1dim_send_vec[_F_Z_]);
       pick_up_u_t<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                     set_ptr->stream_dims[_T_]>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_1dim_send_vec[_B_T_],
           set_ptr->device_u_1dim_send_vec[_F_T_]);
     }
@@ -51,42 +51,42 @@ struct LatticeCloverDslash {
       // u_2dim_send
       pick_up_u_xy<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XY_],
                      set_ptr->blockDim, 0, set_ptr->stream>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_2dim_send_vec[_B_X_B_Y_],
           set_ptr->device_u_2dim_send_vec[_F_X_B_Y_],
           set_ptr->device_u_2dim_send_vec[_B_X_F_Y_],
           set_ptr->device_u_2dim_send_vec[_F_X_F_Y_]);
       pick_up_u_xz<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XZ_],
                      set_ptr->blockDim, 0, set_ptr->stream>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_2dim_send_vec[_B_X_B_Z_],
           set_ptr->device_u_2dim_send_vec[_F_X_B_Z_],
           set_ptr->device_u_2dim_send_vec[_B_X_F_Z_],
           set_ptr->device_u_2dim_send_vec[_F_X_F_Z_]);
       pick_up_u_xt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XT_],
                      set_ptr->blockDim, 0, set_ptr->stream>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_2dim_send_vec[_B_X_B_T_],
           set_ptr->device_u_2dim_send_vec[_F_X_B_T_],
           set_ptr->device_u_2dim_send_vec[_B_X_F_T_],
           set_ptr->device_u_2dim_send_vec[_F_X_F_T_]);
       pick_up_u_yz<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YZ_],
                      set_ptr->blockDim, 0, set_ptr->stream>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_2dim_send_vec[_B_Y_B_Z_],
           set_ptr->device_u_2dim_send_vec[_F_Y_B_Z_],
           set_ptr->device_u_2dim_send_vec[_B_Y_F_Z_],
           set_ptr->device_u_2dim_send_vec[_F_Y_F_Z_]);
       pick_up_u_yt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YT_],
                      set_ptr->blockDim, 0, set_ptr->stream>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_2dim_send_vec[_B_Y_B_T_],
           set_ptr->device_u_2dim_send_vec[_F_Y_B_T_],
           set_ptr->device_u_2dim_send_vec[_B_Y_F_T_],
           set_ptr->device_u_2dim_send_vec[_F_Y_F_T_]);
       pick_up_u_zt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _ZT_],
                      set_ptr->blockDim, 0, set_ptr->stream>>>(
-          gauge, set_ptr->device_lat_xyzt, parity, set_ptr->node_rank, 0,
+          gauge, set_ptr->device_lat_xyzt, set_ptr->node_rank, 0,
           set_ptr->device_u_2dim_send_vec[_B_Z_B_T_],
           set_ptr->device_u_2dim_send_vec[_F_Z_B_T_],
           set_ptr->device_u_2dim_send_vec[_B_Z_F_T_],
@@ -100,21 +100,21 @@ struct LatticeCloverDslash {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_B_X_],
-                 set_ptr->lat_3dim[_X_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_X_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_X_],
-                 set_ptr->lat_3dim[_X_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_X_]);
         ncclGroupEnd();
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_F_X_],
-                 set_ptr->lat_3dim[_X_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_X_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_X_],
-                 set_ptr->lat_3dim[_X_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_X_]);
         ncclGroupEnd();
@@ -124,21 +124,21 @@ struct LatticeCloverDslash {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_B_Y_],
-                 set_ptr->lat_3dim[_Y_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_Y_],
-                 set_ptr->lat_3dim[_Y_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
         ncclGroupEnd();
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_F_Y_],
-                 set_ptr->lat_3dim[_Y_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_Y_],
-                 set_ptr->lat_3dim[_Y_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Y_]);
         ncclGroupEnd();
@@ -148,21 +148,21 @@ struct LatticeCloverDslash {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_B_Z_],
-                 set_ptr->lat_3dim[_Z_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Z_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_Z_],
-                 set_ptr->lat_3dim[_Z_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Z_]);
         ncclGroupEnd();
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_F_Z_],
-                 set_ptr->lat_3dim[_Z_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Z_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_Z_],
-                 set_ptr->lat_3dim[_Z_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_Z_]);
         ncclGroupEnd();
@@ -172,21 +172,21 @@ struct LatticeCloverDslash {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_B_T_],
-                 set_ptr->lat_3dim[_T_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_T_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_T_],
-                 set_ptr->lat_3dim[_T_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_T_]);
         ncclGroupEnd();
         ncclGroupStart();
         ncclSend(set_ptr->device_u_1dim_send_vec[_F_T_],
-                 set_ptr->lat_3dim[_T_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_T_]);
         ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_T_],
-                 set_ptr->lat_3dim[_T_] * _LAT_DCC_ * _REAL_IMAG_, ncclDouble,
+                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
                  set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                  set_ptr->stream_dims[_T_]);
         ncclGroupEnd();
@@ -198,48 +198,48 @@ struct LatticeCloverDslash {
           // xy edge part comm
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_B_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_BY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_F_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_FY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_B_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_BY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_F_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_FY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_F_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_FY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_B_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_BY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_F_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_FY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_B_Y_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_BY_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
@@ -249,48 +249,48 @@ struct LatticeCloverDslash {
           // xz edge part comm
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
@@ -300,48 +300,48 @@ struct LatticeCloverDslash {
           // xt edge part comm
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FX_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BX_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
@@ -351,48 +351,48 @@ struct LatticeCloverDslash {
           // yz edge part comm
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_F_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_FZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_B_Z_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_BZ_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
@@ -402,48 +402,48 @@ struct LatticeCloverDslash {
           // yt edge part comm
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FY_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BY_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
@@ -453,48 +453,48 @@ struct LatticeCloverDslash {
           // zt edge part comm
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_Z_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BZ_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Z_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FZ_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_a_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_Z_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FZ_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Z_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BZ_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_b_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_B_Z_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BZ_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Z_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FZ_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_c_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_u_2dim_send_vec[_F_Z_F_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_FZ_FT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
           ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Z_B_T_],
-                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_DCC_ *
+                   set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                        _REAL_IMAG_,
                    ncclDouble, set_ptr->move_wards[_BZ_BT_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_d_]);
