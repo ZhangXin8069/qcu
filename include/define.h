@@ -110,6 +110,7 @@
 #define _LAT_SCSC_ 144
 #define _LAT_D_ 4
 #define _LAT_DCC_ 36
+#define _LAT_PDCC_ 72
 #define _B_ 0
 #define _F_ 1
 #define _BF_ 2
@@ -261,26 +262,14 @@
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
     U[8] = (U[0] * U[4] - U[1] * U[3]).conj();                                 \
   }
-// #define give_u(U, tmp_U, lat_tzyx)                                             \
-//   {                                                                            \
-//     for (int i = 0; i < _LAT_CC_; i++) {                                       \
-//       U[i] = tmp_U[i * _LAT_D_ * _EVEN_ODD_ * lat_tzyx];                       \
-//     }                                                                          \
-//   }
-#define __give_u_comm(U, tmp_U, _lat_tzyx)                                     \
+#define _give_u_comm(parity, U, tmp_U, _lat_tzyx)                              \
   {                                                                            \
     for (int i = 0; i < _LAT_2C_; i++) {                                       \
-      U[i] = tmp_U[i * _LAT_D_ * _lat_tzyx];                                   \
+      U[i] = tmp_U[(i * _LAT_D_ * _EVEN_ODD_ + parity) * _lat_tzyx];           \
     }                                                                          \
     U[6] = (U[1] * U[5] - U[2] * U[4]).conj();                                 \
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                                 \
     U[8] = (U[0] * U[4] - U[1] * U[3]).conj();                                 \
-  }
-#define _give_u_comm(U, tmp_U, _lat_tzyx)                                      \
-  {                                                                            \
-    for (int i = 0; i < _LAT_CC_; i++) {                                       \
-      U[i] = tmp_U[i * _LAT_D_ * _lat_tzyx];                                   \
-    }                                                                          \
   }
 #define give_src(src, origin_src, lat_tzyx)                                    \
   {                                                                            \
