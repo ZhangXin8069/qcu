@@ -35,8 +35,6 @@ int main() {
     // LatticeSet _set;
     // _set.give(param_lattice_size, grid_lattice_size);
     // _set.init();
-    if (_set.node_rank == 0)
-      _set._print(); // test
     dptzyxcc2ccdptzyx(gauge, &_set);
     tzyxsc2sctzyx(fermion_in, &_set);
     tzyxsc2sctzyx(fermion_out, &_set);
