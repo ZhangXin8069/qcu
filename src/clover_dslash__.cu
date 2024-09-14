@@ -1,7 +1,6 @@
 // clang-format off
 #include "../include/qcu.h"
 #ifdef CLOVER_DSLASH
-// wait for rebuild
 // clang-format on
 __global__ void make_clover_all(
     void *device_U, void *device_clover, void *device_lat_xyzt,
@@ -1750,5 +1749,4 @@ if (x == 2 && y == 7 && z == 3) {
          z, t, parity,
          tmp_U[0]._data.y); // test
 }
-
 */

@@ -235,10 +235,12 @@ __global__ void give_debug_u(void *device_U, void *device_lat_xyzt,
   tmp_U = (origin_U +
            ((((parity * lat_t + t) * lat_z + z) * lat_y + y) * lat_x + x));
   for (int i = 0; i < _LAT_DCC_; i++) {
-    tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.x = double(
-        (((((i * _EVEN_ODD_ + parity) * lat_t + t) * lat_z + z) * lat_y + y) *
-             lat_x +
-         x));
+    tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.x =
+        double((((((i * _EVEN_ODD_ + parity) * lat_t + t) * lat_z + z) * lat_y +
+                 y) *
+                    lat_x +
+                x)) /
+        lat_tzyx;
     tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(node_rank);
   }
   // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,

@@ -2,7 +2,6 @@
 #include "../include/qcu.h"
 #include "define.h"
 #ifdef CLOVER_DSLASH
-// wait for rebuild
 // clang-format on
 __global__ void make_clover(void *device_U, void *device_clover,
                             void *device_lat_xyzt, int device_parity) {
