@@ -1,0 +1,357 @@
+~/qcu ~/qcu
+HOME:/public/home/zhangxin/qcu
+~/qcu
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[  8%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 16%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 41%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 58%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 58%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 91%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 91%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+~/qcu/test ~/qcu
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-PCIE-40GB
+Found device 1: NVIDIA A100-PCIE-40GB
+Using device 0: NVIDIA A100-PCIE-40GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+single latt size = [32, 32, 32, 64]
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.360762384952977 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.360762384952977 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.568411077 sec
+######TIME :1890.47######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.465948654105887 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.465948654105887 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.313161190832034 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.313161190832034 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.571066418 sec
+######TIME :1737.1######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0427012918516994 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0427012918516994 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.330086870118976 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.330086870118976 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.571009342 sec
+######TIME :1710.5######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0417836629785597 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0417836629785597 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.346848739078268 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.346848739078268 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.569930532 sec
+######TIME :1709.16######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0457844010088593 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0457844010088593 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.353135643992573 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.353135643992573 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.571630063 sec
+######TIME :1737.45######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0426261217799038 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0426261217799038 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.37018933496438 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.37018933496438 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.572127866 sec
+######TIME :1720.09######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0405291439965367 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0405291439965367 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.375690476037562 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.375690476037562 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.572135208 sec
+######TIME :1712.18######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0467196661047637 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0467196661047637 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.399595496011898 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.399595496011898 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.572599137 sec
+######TIME :1707.94######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0424159120302647 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0424159120302647 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.406497749965638 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.406497749965638 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.573032439 sec
+######TIME :1713.79######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.0483591351658106 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.0483591351658106 sec
+============================
+================quda=================
+WARNING: Exceeded maximum iterations 1000
+BiCGstab: Convergence at 1000 iterations, L2 relative residual: iterated = 1.930714e-09, true = 1.958367e-09 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 9.918043987822079e-09, takes 5.418258555000648 sec, norm_quda_x = 552078.3346683207
+quda rank 0 takes 5.418258555000648 sec
+===============qcu==================
+##RANK:0##LOOP:122##Residual:(9.6844e-10,1.20879e-29i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :1.573017943 sec
+######TIME :1750.39######
+##RANK     :0##LOOP:999
+##tmp0     :(1.76522e-10,4.85355e-11i)
+##tmp1     :(1.82201e-10,3.04892e-31i)
+##rho_prev :(5.31488e-06,-4.42547e-06i)
+##rho      :(5.31488e-06,-4.42547e-06i)
+##alpha    :(0.110317,-3.33769i)
+##beta     :(-1.07693,2.45416i)
+##omega    :(0.968832,0.266385i)
+##send_tmp :(8.54279e-10,0i)
+##norm2_tmp:(9.94969e+07,-1.24786e-12i)
+##diff_tmp :(8.58598e-18,1.07682e-37i)
+##lat_xyzt :(1.04858e+06,0i)
+rank 0 my x and x difference: , 1.412636829318316e-08, takes 2.054255220107734 sec, my_x_norm = 552078.3346668577
+qcu rank 0 takes 2.054255220107734 sec
+============================
+
+               initQuda Total time =     6.695 secs
+                     init     =     6.695 secs ( 99.999%),	 with        2 calls at 3.347e+06 us per call
+        total accounted       =     6.695 secs ( 99.999%)
+        total missing         =     0.000 secs (  0.001%)
+
+          loadGaugeQuda Total time =     0.042 secs
+                 download     =     0.027 secs ( 65.460%),	 with        2 calls at 1.370e+04 us per call
+                   upload     =     0.007 secs ( 15.829%),	 with        1 calls at 6.628e+03 us per call
+                     init     =     0.004 secs (  8.760%),	 with        2 calls at 1.834e+03 us per call
+                  compute     =     0.004 secs (  9.818%),	 with        2 calls at 2.056e+03 us per call
+                     free     =     0.000 secs (  0.038%),	 with        2 calls at 8.000e+00 us per call
+        total accounted       =     0.042 secs ( 99.904%)
+        total missing         =     0.000 secs (  0.096%)
+
+             invertQuda Total time =    53.656 secs
+                 download     =     0.004 secs (  0.007%),	 with       10 calls at 3.514e+02 us per call
+                   upload     =     0.000 secs (  0.000%),	 with       10 calls at 1.110e+01 us per call
+                 preamble     =     0.044 secs (  0.082%),	 with       20 calls at 2.198e+03 us per call
+                  compute     =    53.498 secs ( 99.705%),	 with       10 calls at 5.350e+06 us per call
+                 epilogue     =     0.072 secs (  0.134%),	 with       30 calls at 2.401e+03 us per call
+                     free     =     0.000 secs (  0.000%),	 with       30 calls at 6.967e+00 us per call
+        total accounted       =    53.618 secs ( 99.929%)
+        total missing         =     0.038 secs (  0.071%)
+
+                endQuda Total time =     0.016 secs
+
+       initQuda-endQuda Total time =    83.871 secs
+
+                   QUDA Total time =    60.455 secs
+                 download     =     0.031 secs (  0.051%),	 with       12 calls at 2.577e+03 us per call
+                   upload     =     0.007 secs (  0.011%),	 with       11 calls at 6.125e+02 us per call
+                     init     =     6.698 secs ( 11.080%),	 with        4 calls at 1.675e+06 us per call
+                 preamble     =     0.044 secs (  0.073%),	 with       20 calls at 2.198e+03 us per call
+                  compute     =    53.548 secs ( 88.575%),	 with       13 calls at 4.119e+06 us per call
+                 epilogue     =     0.072 secs (  0.119%),	 with       30 calls at 2.401e+03 us per call
+                     free     =     0.000 secs (  0.000%),	 with       32 calls at 7.062e+00 us per call
+        total accounted       =    60.400 secs ( 99.909%)
+        total missing         =     0.055 secs (  0.091%)
+
+Device memory used = 4036.0 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 84.0 MiB
+Total host memory used >= 115.5 MiB
+
+~/qcu
