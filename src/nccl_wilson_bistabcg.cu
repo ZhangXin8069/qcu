@@ -22,7 +22,5 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   psctzyx2ptzyxsc(fermion_in, &_set);
   psctzyx2ptzyxsc(fermion_out, &_set);
   _set.end();
-  printf("###%d\n",int(sizeof(double2)));
-  printf("###%d\n",int(sizeof(LatticeComplex)));
 }
 #endif
