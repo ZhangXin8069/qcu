@@ -5,3 +5,5 @@ Currently Loaded Modulefiles:
   4) hwloc/2.9.1-gcc-10.3.0             10) ncurses/6.2-intel-2022.0.2
   5) libevent/2.1.12-gcc-10.3.0         11) intel-oneapi/compiler-rt/2024.0.0
   6) pmix/4.2.3-gcc-10.3.0              12) python/3.9.10-gcc-10.3.0
+致命错误：路径规格 '"clangd.format.tabSize": 4' 未匹配任何文件
+rm: 无法删除"log_*": 没有那个文件或目录
