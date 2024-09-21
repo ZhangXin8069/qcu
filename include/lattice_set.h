@@ -1,5 +1,6 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
+#include "lattice_cuda.h"
 #include <cstdio>
 #include <cstdlib>
 #pragma once
@@ -29,7 +30,7 @@ struct LatticeSet {
   float time;
   cudaEvent_t start, stop;
   cudaError_t err;
-  int node_rank, node_size;
+  node_size;
   int move[_BF_];
   int move_wards[_WARDS_ + _WARDS_2DIM_];
   int grid_1dim[_DIM_];
@@ -40,14 +41,14 @@ struct LatticeSet {
   MPI_Request recv_request[_WARDS_];
   void *host_send_vec[_WARDS_];
   void *host_recv_vec[_WARDS_];
-  int host_lat_xyzt[_VALS_SIZE_];
+  int host_params[_VALS_SIZE_];
   void *device_send_vec[_WARDS_];
   void *device_recv_vec[_WARDS_];
   void *device_u_1dim_send_vec[_WARDS_];
   void *device_u_1dim_recv_vec[_WARDS_];
   void *device_u_2dim_send_vec[_2DIM_ * _BF_ * _BF_];
   void *device_u_2dim_recv_vec[_2DIM_ * _BF_ * _BF_];
-  void *device_lat_xyzt;
+  void *device_params;
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
@@ -298,18 +299,31 @@ struct LatticeSet {
     }
     {
       checkCudaErrors(
-          cudaMallocAsync(&device_lat_xyzt, _VALS_SIZE_ * sizeof(int), stream));
-      host_lat_xyzt[_X_] = lat_1dim[_X_];
-      host_lat_xyzt[_Y_] = lat_1dim[_Y_];
-      host_lat_xyzt[_Z_] = lat_1dim[_Z_];
-      host_lat_xyzt[_T_] = lat_1dim[_T_];
-      host_lat_xyzt[_XYZT_] =
+          cudaMallocAsync(&device_params, _VALS_SIZE_ * sizeof(int), stream));
+      host_params[_X_] = lat_1dim[_X_];
+      host_params[_Y_] = lat_1dim[_Y_];
+      host_params[_Z_] = lat_1dim[_Z_];
+      host_params[_T_] = lat_1dim[_T_];
+      host_params[_XYZT_] =
           lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_] * lat_1dim[_T_];
-      checkCudaErrors(cudaMemcpyAsync(device_lat_xyzt, host_lat_xyzt,
+      host_params[_NODE_RANK_] = node_rank;
+      checkCudaErrors(cudaMemcpyAsync(device_params, host_params,
                                       _VALS_SIZE_ * sizeof(int),
                                       cudaMemcpyHostToDevice, stream));
     }
     checkCudaErrors(cudaStreamSynchronize(stream));
+  }
+  void use_even() {
+    give_param<<<1, 1, 0, stream>>>(device_params, _PARITY_, _EVEN_);
+  }
+  void use_odd() {
+    give_param<<<1, 1, 0, stream>>>(device_params, _PARITY_, _ODD_);
+  }
+  void use_dagger() {
+    give_param<<<1, 1, 0, stream>>>(device_params, _DAGGER_, _USE_);
+  }
+  void no_use_dagger() {
+    give_param<<<1, 1, 0, stream>>>(device_params, _DAGGER_, _NO_USE_);
   }
   float get_time() {
     cudaEventRecord(stop, 0);
@@ -321,7 +335,7 @@ struct LatticeSet {
     checkCudaErrors(cudaStreamSynchronize(stream));
     cudaEventDestroy(start);
     cudaEventDestroy(stop);
-    checkCudaErrors(cudaFreeAsync(device_lat_xyzt, stream));
+    checkCudaErrors(cudaFreeAsync(device_params, stream));
     for (int i = 0; i < _DIM_; i++) {
       checkCudaErrors(cudaStreamSynchronize(streams[i]));
       checkCudaErrors(cudaStreamSynchronize(stream_dims[i]));

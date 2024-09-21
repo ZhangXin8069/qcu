@@ -11,7 +11,7 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   tzyxsc2sctzyx(fermion_out, &_set);
   auto start = std::chrono::high_resolution_clock::now();
   wilson_dslash<<<_set.gridDim, _set.blockDim>>>(gauge, fermion_in, fermion_out,
-                                                 _set.device_lat_xyzt, parity);
+                                                 _set.device_params, parity);
   auto end = std::chrono::high_resolution_clock::now();
   auto duration =
       std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();
@@ -53,7 +53,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     auto start = std::chrono::high_resolution_clock::now();
     make_clover<<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
-        gauge, clover, _set.device_lat_xyzt, parity);
+        gauge, clover, _set.device_params, parity);
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -69,7 +69,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     auto start = std::chrono::high_resolution_clock::now();
     inverse_clover<<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
-        clover, _set.device_lat_xyzt);
+        clover, _set.device_params);
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -86,7 +86,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     auto start = std::chrono::high_resolution_clock::now();
     give_clover<<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
-        clover, fermion_out, _set.device_lat_xyzt);
+        clover, fermion_out, _set.device_params);
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
