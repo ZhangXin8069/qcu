@@ -106,5 +106,5 @@ def compare(round):
     print('============================')
 
 
-for i in range(0, 1):
+for i in range(0, 10):
     compare(i)
