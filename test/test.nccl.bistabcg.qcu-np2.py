@@ -11,7 +11,7 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
-latt_size = [16, 16, 16, 32]
+latt_size = [32, 32, 32, 64]
 grid_size = [1, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Gx, Gy, Gz, Gt = grid_size
@@ -75,5 +75,5 @@ def compare(round):
     print('============================')
 
 
-for i in range(0, 10):
+for i in range(0, 1):
     compare(i)
