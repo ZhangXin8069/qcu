@@ -120,5 +120,5 @@ def compare(round):
           diff_x[-2, -2, -2, -2])
 
 
-for i in range(0, 1):
+for i in range(0, 10):
     compare(i)

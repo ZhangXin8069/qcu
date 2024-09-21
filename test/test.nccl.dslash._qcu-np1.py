@@ -85,5 +85,5 @@ def compare(round):
         Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
 
 
-for i in range(0, 1):
+for i in range(0, 10):
     compare(i)
