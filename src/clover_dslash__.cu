@@ -23,12 +23,12 @@ __global__ void make_clover_all(
     void *device_u_b_z_f_t_recv_vec, void *device_u_f_z_f_t_recv_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
-  int *flags = static_cast<int *>(device_lat_xyzt);
-  int lat_x = flags[_X_];
-  int lat_y = flags[_Y_];
-  int lat_z = flags[_Z_];
-  int lat_t = flags[_T_];
-  int lat_tzyx = flags[_XYZT_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_t = lat_xyzt[_T_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move0;
   int move1;
   move0 = lat_x * lat_y * lat_z;

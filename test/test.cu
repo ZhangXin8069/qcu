@@ -1,6 +1,5 @@
 #include "./include/qcu.h"
 #include "define.h"
-#include <cstdio>
 // #define __CLOVER_DSLASH__
 int main() {
   MPI_Init(NULL, NULL);
@@ -73,13 +72,6 @@ int main() {
   cudaFree(fermion_in);
   cudaFree(fermion_out);
   _set.end();
-  int flag = give_flag(_FLAGS_SIZE_,32, 16, 67, 98, 17, 15, 46);
-  int flags[_FLAGS_SIZE_];
-  printf("###%d\n", flag);
-  get_flags(flag, flags);
-  for (int i = 0; i < _FLAGS_SIZE_; ++i) {
-    printf("###%d\n", flags[i]);
-  }
   MPI_Finalize();
   return 0;
 }
