@@ -24,10 +24,6 @@
 #define _Y_ 1
 #define _Z_ 2
 #define _T_ 3
-#define _PARITY_ 4
-#define _DAGGER_ 5
-#define _NODE_RANK_ 6
-#define _FLAGS_SIZE_ 7
 #define _XYZT_ 4
 #define _VALS_SIZE_ 5
 #define _DIM_ 4
@@ -132,7 +128,6 @@
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 #define DRAFT
-#define LATTICE_SET
 #define LATTICE_CUDA
 #define BISTABCG
 #define MULTGRID

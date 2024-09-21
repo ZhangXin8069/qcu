@@ -6,8 +6,6 @@
 // clang-format off
 #include "./define.h"
 // clang-format on
-int give_flag(int count, ...) ;
-void get_flags(int _flag, int *flags);
 struct LatticeSet {
   int lat_1dim[_DIM_];
   int lat_2dim[_2DIM_];
@@ -50,7 +48,6 @@ struct LatticeSet {
   void *device_u_2dim_send_vec[_2DIM_ * _BF_ * _BF_];
   void *device_u_2dim_recv_vec[_2DIM_ * _BF_ * _BF_];
   void *device_lat_xyzt;
-  int flag;
   void give(int *_param_lat_size, int *_grid_lat_size) {
     lat_1dim[_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
     lat_1dim[_Y_] = _param_lat_size[_Y_];
