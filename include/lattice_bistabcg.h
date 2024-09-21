@@ -60,7 +60,7 @@ struct LatticeBistabcg {
       give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _norm2_tmp_);
       give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _diff_tmp_);
       give_1custom<<<1, 1, 0, set_ptr->stream>>>(
-          device_vals, _lat_xyzt_, double(set_ptr->lat_4dim), 0.0);
+          device_vals, _params_, double(set_ptr->lat_4dim), 0.0);
     }
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -202,7 +202,7 @@ struct LatticeBistabcg {
               << "##send_tmp :" << host_vals[_send_tmp_] << std::endl
               << "##norm2_tmp:" << host_vals[_norm2_tmp_] << std::endl
               << "##diff_tmp :" << host_vals[_diff_tmp_] << std::endl
-              << "##lat_xyzt :" << host_vals[_lat_xyzt_] << std::endl;
+              << "##params :" << host_vals[_params_] << std::endl;
     // exit(1);
   }
   void run_nccl() {

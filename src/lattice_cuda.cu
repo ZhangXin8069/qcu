@@ -39,6 +39,10 @@ __global__ void give_1custom(void *device_vals, const int vals_index,
   LatticeComplex _(real, imag);
   origin_vals[vals_index] = _;
 }
+__global__ void give_param(void *device_param, const int vals_index, int val) {
+  int *param = static_cast<int *>(device_param);
+  param[vals_index] = val;
+}
 __global__ void _tzyxsc2sctzyx(void *device_fermi, void *device__fermi,
                                int lat_4dim) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -210,16 +214,16 @@ void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr) {
   checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
 }
-__global__ void give_debug_u(void *device_U, void *device_lat_xyzt,
-                             int device_parity, int node_rank) {
+__global__ void give_debug_u(void *device_U, void *device_params,
+                              int node_rank) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
+  int lat_y = params[_Y_];
+  int lat_z = params[_Z_];
+  int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int move0;
   move0 = lat_x * lat_y * lat_z;
   int t = parity / move0;

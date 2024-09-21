@@ -2,18 +2,17 @@
 #include "../include/qcu.h"
 #ifdef CLOVER_DSLASH
 // clang-format on
-__global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
-                            int node_rank, int device_flag,
+__global__ void pick_up_u_x(void *device_U, void *device_params,
                             void *device_u_b_x_send_vec,
                             void *device_u_f_x_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int *params = static_cast<int *>(device_params);
   int lat_x = 1;
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_y = params[_Y_];
+  int lat_z = params[_Z_];
+  // int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -23,7 +22,7 @@ __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   // int x = tmp0 - y * lat_x;
-  lat_x = lat_xyzt[_X_];
+  lat_x = params[_X_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_1dim_send_vec
@@ -43,18 +42,17 @@ __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
     u_f_x_send_vec[i * lat_tzyx / lat_x] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
-                            int node_rank, int device_flag,
+__global__ void pick_up_u_y(void *device_U, void *device_params,
                             void *device_u_b_y_send_vec,
                             void *device_u_f_y_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
   int lat_y = 1;
-  int lat_z = lat_xyzt[_Z_];
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_z = params[_Z_];
+  // int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -64,7 +62,7 @@ __global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   int x = tmp0 - y * lat_x;
-  lat_y = lat_xyzt[_Y_];
+  lat_y = params[_Y_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_1dim_send_vec
@@ -84,18 +82,17 @@ __global__ void pick_up_u_y(void *device_U, void *device_lat_xyzt,
     u_f_y_send_vec[i * lat_tzyx / lat_y] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_z(void *device_U, void *device_lat_xyzt,
-                            int node_rank, int device_flag,
+__global__ void pick_up_u_z(void *device_U, void *device_params,
                             void *device_u_b_z_send_vec,
                             void *device_u_f_z_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
+  int lat_y = params[_Y_];
   int lat_z = 1;
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  // int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -105,7 +102,7 @@ __global__ void pick_up_u_z(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   int x = tmp0 - y * lat_x;
-  lat_z = lat_xyzt[_Z_];
+  lat_z = params[_Z_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_1dim_send_vec
@@ -125,18 +122,17 @@ __global__ void pick_up_u_z(void *device_U, void *device_lat_xyzt,
     u_f_z_send_vec[i * lat_tzyx / lat_z] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
-                            int node_rank, int device_flag,
+__global__ void pick_up_u_t(void *device_U, void *device_params,
                             void *device_u_b_t_send_vec,
                             void *device_u_f_t_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
+  int lat_y = params[_Y_];
+  int lat_z = params[_Z_];
   int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -146,7 +142,7 @@ __global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   int x = tmp0 - y * lat_x;
-  lat_t = lat_xyzt[_T_];
+  lat_t = params[_T_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_1dim_send_vec
@@ -166,20 +162,20 @@ __global__ void pick_up_u_t(void *device_U, void *device_lat_xyzt,
     u_f_t_send_vec[i * lat_tzyx / lat_t] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_xy(void *device_U, void *device_lat_xyzt,
-                             int node_rank, int device_flag,
+__global__ void pick_up_u_xy(void *device_U, void *device_params,
+ 
                              void *device_u_b_x_b_y_send_vec,
                              void *device_u_f_x_b_y_send_vec,
                              void *device_u_b_x_f_y_send_vec,
                              void *device_u_f_x_f_y_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int *params = static_cast<int *>(device_params);
   int lat_x = 1;
   int lat_y = 1;
-  int lat_z = lat_xyzt[_Z_];
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_z = params[_Z_];
+  // int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -189,8 +185,8 @@ __global__ void pick_up_u_xy(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   // int y = tmp0 / lat_x;
   // int x = tmp0 - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  lat_y = lat_xyzt[_Y_];
+  lat_x = params[_X_];
+  lat_y = params[_Y_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_2dim_send_vec
@@ -225,20 +221,20 @@ __global__ void pick_up_u_xy(void *device_U, void *device_lat_xyzt,
     u_f_x_f_y_send_vec[i * lat_tzyx / lat_x / lat_y] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_xz(void *device_U, void *device_lat_xyzt,
-                             int node_rank, int device_flag,
+__global__ void pick_up_u_xz(void *device_U, void *device_params,
+ 
                              void *device_u_b_x_b_z_send_vec,
                              void *device_u_f_x_b_z_send_vec,
                              void *device_u_b_x_f_z_send_vec,
                              void *device_u_f_x_f_z_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int *params = static_cast<int *>(device_params);
   int lat_x = 1;
-  int lat_y = lat_xyzt[_Y_];
+  int lat_y = params[_Y_];
   int lat_z = 1;
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  // int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -248,8 +244,8 @@ __global__ void pick_up_u_xz(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   // int x = tmp0 - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  lat_z = lat_xyzt[_Z_];
+  lat_x = params[_X_];
+  lat_z = params[_Z_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_2dim_send_vec
@@ -284,20 +280,20 @@ __global__ void pick_up_u_xz(void *device_U, void *device_lat_xyzt,
     u_f_x_f_z_send_vec[i * lat_tzyx / lat_x / lat_z] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_xt(void *device_U, void *device_lat_xyzt,
-                             int node_rank, int device_flag,
+__global__ void pick_up_u_xt(void *device_U, void *device_params,
+ 
                              void *device_u_b_x_b_t_send_vec,
                              void *device_u_f_x_b_t_send_vec,
                              void *device_u_b_x_f_t_send_vec,
                              void *device_u_f_x_f_t_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int *params = static_cast<int *>(device_params);
   int lat_x = 1;
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
+  int lat_y = params[_Y_];
+  int lat_z = params[_Z_];
   int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -307,8 +303,8 @@ __global__ void pick_up_u_xt(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   // int x = tmp0 - y * lat_x;
-  lat_x = lat_xyzt[_X_];
-  lat_t = lat_xyzt[_T_];
+  lat_x = params[_X_];
+  lat_t = params[_T_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_2dim_send_vec
@@ -343,20 +339,20 @@ __global__ void pick_up_u_xt(void *device_U, void *device_lat_xyzt,
     u_f_x_f_t_send_vec[i * lat_tzyx / lat_x / lat_t] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_yz(void *device_U, void *device_lat_xyzt,
-                             int node_rank, int device_flag,
+__global__ void pick_up_u_yz(void *device_U, void *device_params,
+ 
                              void *device_u_b_y_b_z_send_vec,
                              void *device_u_f_y_b_z_send_vec,
                              void *device_u_b_y_f_z_send_vec,
                              void *device_u_f_y_f_z_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
   int lat_y = 1;
   int lat_z = 1;
-  // int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  // int lat_t = params[_T_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -366,8 +362,8 @@ __global__ void pick_up_u_yz(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   int x = tmp0 - y * lat_x;
-  lat_y = lat_xyzt[_Y_];
-  lat_z = lat_xyzt[_Z_];
+  lat_y = params[_Y_];
+  lat_z = params[_Z_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_2dim_send_vec
@@ -402,20 +398,20 @@ __global__ void pick_up_u_yz(void *device_U, void *device_lat_xyzt,
     u_f_y_f_z_send_vec[i * lat_tzyx / lat_y / lat_z] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_yt(void *device_U, void *device_lat_xyzt,
-                             int node_rank, int device_flag,
+__global__ void pick_up_u_yt(void *device_U, void *device_params,
+ 
                              void *device_u_b_y_b_t_send_vec,
                              void *device_u_f_y_b_t_send_vec,
                              void *device_u_b_y_f_t_send_vec,
                              void *device_u_f_y_f_t_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
   int lat_y = 1;
-  int lat_z = lat_xyzt[_Z_];
+  int lat_z = params[_Z_];
   int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -425,8 +421,8 @@ __global__ void pick_up_u_yt(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   int x = tmp0 - y * lat_x;
-  lat_y = lat_xyzt[_Y_];
-  lat_t = lat_xyzt[_T_];
+  lat_y = params[_Y_];
+  lat_t = params[_T_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_2dim_send_vec
@@ -461,20 +457,20 @@ __global__ void pick_up_u_yt(void *device_U, void *device_lat_xyzt,
     u_f_y_f_t_send_vec[i * lat_tzyx / lat_y / lat_t] = tmp_U[i * lat_tzyx];
   }
 }
-__global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
-                             int node_rank, int device_flag,
+__global__ void pick_up_u_zt(void *device_U, void *device_params,
+ 
                              void *device_u_b_z_b_t_send_vec,
                              void *device_u_f_z_b_t_send_vec,
                              void *device_u_b_z_f_t_send_vec,
                              void *device_u_f_z_f_t_send_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int tmp0 = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_X_];
+  int lat_y = params[_Y_];
   int lat_z = 1;
   int lat_t = 1;
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int lat_tzyx = params[_XYZT_];
   int tmp1;
   tmp1 = lat_x * lat_y * lat_z;
   int t = tmp0 / tmp1;
@@ -484,8 +480,8 @@ __global__ void pick_up_u_zt(void *device_U, void *device_lat_xyzt,
   tmp0 -= z * tmp1;
   int y = tmp0 / lat_x;
   int x = tmp0 - y * lat_x;
-  lat_z = lat_xyzt[_Z_];
-  lat_t = lat_xyzt[_T_];
+  lat_z = params[_Z_];
+  lat_t = params[_T_];
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
   // u_2dim_send_vec

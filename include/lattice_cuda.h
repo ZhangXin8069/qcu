@@ -9,6 +9,7 @@ __global__ void give_1zero(void *device_vals, const int vals_index);
 __global__ void give_1one(void *device_vals, const int vals_index);
 __global__ void give_1custom(void *device_vals, const int vals_index,
                              double real, double imag);
+__global__ void give_param(void *device_param, const int vals_index, int val);
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
 // device memory pitch alignment
@@ -325,6 +326,6 @@ __global__ void _psctzyx2ptzyxsc(void *device_fermi, void *device___fermi,
                                  int lat_4dim);
 void ptzyxsc2psctzyx(void *fermion, LatticeSet *set_ptr);
 void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr);
-__global__ void give_debug_u(void *device_U, void *device_lat_xyzt,
-                             int device_parity, int node_rank);
+__global__ void give_debug_u(void *device_U, void *device_params,
+                              int node_rank);
 #endif
