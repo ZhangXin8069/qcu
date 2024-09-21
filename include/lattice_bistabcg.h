@@ -202,7 +202,7 @@ struct LatticeBistabcg {
               << "##send_tmp :" << host_vals[_send_tmp_] << std::endl
               << "##norm2_tmp:" << host_vals[_norm2_tmp_] << std::endl
               << "##diff_tmp :" << host_vals[_diff_tmp_] << std::endl
-              << "##lat_xyzt :" << host_vals[_lat_xyzt_] << std::endl;
+              << "##flags :" << host_vals[_lat_xyzt_] << std::endl;
     // exit(1);
   }
   void run_nccl() {
