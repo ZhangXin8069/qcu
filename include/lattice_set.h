@@ -6,7 +6,7 @@
 // clang-format off
 #include "./define.h"
 // clang-format on
-void give_flag(int flag, ...);
+int give_flag(int count, ...) ;
 void get_flags(int _flag, int *flags);
 struct LatticeSet {
   int lat_1dim[_DIM_];
