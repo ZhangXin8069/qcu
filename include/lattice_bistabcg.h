@@ -5,7 +5,7 @@
 #include "./lattice_cuda.h"
 #include "./lattice_wilson_dslash.h"
 // clang-format on
-#define PRINT_NCCL_WILSON_BISTABCG
+// #define PRINT_NCCL_WILSON_BISTABCG
 struct LatticeBistabcg {
   LatticeSet *set_ptr;
   cudaError_t err;

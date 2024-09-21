@@ -1,7 +1,6 @@
 // clang-format off
 #include "../include/qcu.h"
 #ifdef CLOVER_DSLASH
-// wait for rebuild
 // clang-format on
 __global__ void pick_up_u_x(void *device_U, void *device_lat_xyzt,
                             int node_rank, int device_flag,
