@@ -845,7 +845,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
 }
 __global__ void inverse_clover(void *device_clover, void *device_params) {
   LatticeComplex *origin_clover;
-  int lat_tzyx = static_cast<int *>(device_params)[_XYZT_];
+  int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
@@ -864,7 +864,7 @@ __global__ void give_clover(void *device_clover, void *device_dest,
                             void *device_params) {
   LatticeComplex *origin_clover;
   LatticeComplex *origin_dest;
-  int lat_tzyx = static_cast<int *>(device_params)[_XYZT_];
+  int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);

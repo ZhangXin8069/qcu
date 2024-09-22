@@ -210,7 +210,7 @@ void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr) {
   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
 }
 __global__ void give_debug_u(void *device_U, void *device_params,
-                             int node_rank) {
+                             int host_params[_NODE_RANK_]) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *params = static_cast<int *>(device_params);
@@ -240,7 +240,7 @@ __global__ void give_debug_u(void *device_U, void *device_params,
                     lat_x +
                 x)) /
         lat_tzyx;
-    tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(node_rank);
+    tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(host_params[_NODE_RANK_]);
   }
 }
 #endif

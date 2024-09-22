@@ -1741,10 +1741,10 @@ __global__ void make_clover_all(
 }
 if (x == 2 && y == 7 && z == 3) {
   // printf("@@@ptr:%p\n", tmp_U);
-  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y,
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", host_params[_NODE_RANK_], x, y,
          z, t, parity,
          tmp_U[0]._data.x); // test
-  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y,
+  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", host_params[_NODE_RANK_], x, y,
          z, t, parity,
          tmp_U[0]._data.y); // test
 }

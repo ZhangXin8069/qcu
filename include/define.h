@@ -19,14 +19,13 @@
 #define _norm2_tmp_ 8
 #define _diff_tmp_ 9
 #define _lat_4dim_ 10
+#define _vals_size_ 11
 #define _NO_USE_ 0
 #define _USE_ 1
-#define _vals_size_ 11
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
 #define _T_ 3
-#define _XYZT_ 4
 #define _LAT_X_ 0
 #define _LAT_Y_ 1
 #define _LAT_Z_ 2
@@ -38,13 +37,13 @@
 #define _GRID_T_ 8
 #define _PARITY_ 9
 #define _NODE_RANK_ 10
-#define _DAGGER_ 11
-#define _VALS_SIZE_ 12
+#define _NODE_SIZE_ 11
+#define _DAGGER_ 12
+#define _VALS_SIZE_ 13
 #define _DIM_ 4
 #define _1DIM_ 4
 #define _2DIM_ 6
 #define _3DIM_ 4
-#define _4DIM_ 1
 #define _B_X_ 0
 #define _F_X_ 1
 #define _B_Y_ 2
@@ -208,18 +207,6 @@
   { move = (-1 + (x == 0) * lat_x) * (eo == parity); }
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
-#define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
-  {                                                                            \
-    int index_;                                                                \
-    if (index < 0) {                                                           \
-      index_ = size + index;                                                   \
-    } else {                                                                   \
-      index_ = index;                                                          \
-    }                                                                          \
-    cudaMemcpy(host_vec, device_vec, size * sizeof(LatticeComplex),            \
-               cudaMemcpyDeviceToHost);                                        \
-    print_ptr(host_vec, index_, node_rank, tag);                               \
-  }
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (_CHECK_ERROR_) {                                                       \
