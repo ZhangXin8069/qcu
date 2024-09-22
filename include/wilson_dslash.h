@@ -1,11 +1,9 @@
 #ifndef _WILSON_DSLASH_H
 #define _WILSON_DSLASH_H
 __global__ void wilson_dslash(void *device_U, void *device_src,
-                              void *device_dest, void *device_params,
-                              const int device_parity);
+                              void *device_dest, void *device_params);
 __global__ void wilson_dslash_inside(void *device_U, void *device_src,
-                                     void *device_dest, void *device_params,
-                                     const int device_parity);
+                                     void *device_dest, void *device_params);
 __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
                                      void *device_params,
                                      void *device_b_x_send_vec,

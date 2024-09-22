@@ -1,18 +1,17 @@
 // clang-format off
 #include "../include/qcu.h"
-#include "define.h"
 #ifdef CLOVER_DSLASH
 // clang-format on
 __global__ void make_clover(void *device_U, void *device_clover,
-                            void *device_params, int device_parity) {
+                            void *device_params) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *params = static_cast<int *>(device_params);
-  int lat_x = params[_X_];
-  int lat_y = params[_Y_];
-  int lat_z = params[_Z_];
-  int lat_t = params[_T_];
-  int lat_tzyx = params[_XYZT_];
+  int lat_x = params[_LAT_X_];
+  int lat_y = params[_LAT_Y_];
+  int lat_z = params[_LAT_Z_];
+  int lat_t = params[_LAT_T_];
+  int lat_tzyx = params[_LAT_XYZT_];
   int move0;
   int move1;
   move0 = lat_x * lat_y * lat_z;
@@ -24,7 +23,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  parity = device_parity;
+  parity = params[_PARITY_];
   int move_wards[_WARDS_];
   move_backward_x(move_wards[_B_X_], x, lat_x, eo, parity);
   move_backward(move_wards[_B_Y_], y, lat_y);

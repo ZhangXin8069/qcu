@@ -9,7 +9,6 @@ __global__ void give_1zero(void *device_vals, const int vals_index);
 __global__ void give_1one(void *device_vals, const int vals_index);
 __global__ void give_1custom(void *device_vals, const int vals_index,
                              double real, double imag);
-__global__ void give_param(void *device_param, const int vals_index, int val);
 // memory alignment
 #define ALIGN_TO(A, B) (((A + B - 1) / B) * B)
 // device memory pitch alignment
