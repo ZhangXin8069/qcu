@@ -1,17 +1,18 @@
 // clang-format off
 #include "../include/qcu.h"
+#include "define.h"
 #ifdef CLOVER_DSLASH
 // clang-format on
 __global__ void make_clover(void *device_U, void *device_clover,
-                            void *device_params) {
+                            void *device_lat_xyzt, int device_parity) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
-  int lat_y = params[_LAT_Y_];
-  int lat_z = params[_LAT_Z_];
-  int lat_t = params[_LAT_T_];
-  int lat_tzyx = params[_LAT_XYZT_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_t = lat_xyzt[_T_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move0;
   int move1;
   move0 = lat_x * lat_y * lat_z;
@@ -23,7 +24,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  parity = params[_PARITY_];
+  parity = device_parity;
   int move_wards[_WARDS_];
   move_backward_x(move_wards[_B_X_], x, lat_x, eo, parity);
   move_backward(move_wards[_B_Y_], y, lat_y);
@@ -843,9 +844,9 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   give_clr(origin_clover, clover, lat_tzyx);
 }
-__global__ void inverse_clover(void *device_clover, void *device_params) {
+__global__ void inverse_clover(void *device_clover, void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
-  int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
+  int lat_tzyx = static_cast<int *>(device_lat_xyzt)[_XYZT_];
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
@@ -861,10 +862,10 @@ __global__ void inverse_clover(void *device_clover, void *device_params) {
   }
 }
 __global__ void give_clover(void *device_clover, void *device_dest,
-                            void *device_params) {
+                            void *device_lat_xyzt) {
   LatticeComplex *origin_clover;
   LatticeComplex *origin_dest;
-  int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
+  int lat_tzyx = static_cast<int *>(device_lat_xyzt)[_XYZT_];
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);

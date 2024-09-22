@@ -18,32 +18,15 @@
 #define _send_tmp_ 7
 #define _norm2_tmp_ 8
 #define _diff_tmp_ 9
-#define _lat_4dim_ 10
+#define _lat_xyzt_ 10
 #define _vals_size_ 11
-#define _NO_USE_ 0
-#define _USE_ 1
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
 #define _T_ 3
-#define _LAT_X_ 0
-#define _LAT_Y_ 1
-#define _LAT_Z_ 2
-#define _LAT_T_ 3
-#define _LAT_XYZT_ 4
-#define _GRID_X_ 5
-#define _GRID_Y_ 6
-#define _GRID_Z_ 7
-#define _GRID_T_ 8
-#define _PARITY_ 9
-#define _NODE_RANK_ 10
-#define _NODE_SIZE_ 11
-#define _DAGGER_ 12
-#define _VALS_SIZE_ 13
+#define _XYZT_ 4
+#define _VALS_SIZE_ 5
 #define _DIM_ 4
-#define _1DIM_ 4
-#define _2DIM_ 6
-#define _3DIM_ 4
 #define _B_X_ 0
 #define _F_X_ 1
 #define _B_Y_ 2
@@ -108,6 +91,7 @@
 #define _YZ_ 3
 #define _YT_ 4
 #define _ZT_ 5
+#define _2DIM_ 6
 #define _YZT_ 0
 #define _XZT_ 1
 #define _XYT_ 2
@@ -144,7 +128,6 @@
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 #define DRAFT
-#define LATTICE_SET
 #define LATTICE_CUDA
 #define BISTABCG
 #define MULTGRID
@@ -207,6 +190,18 @@
   { move = (-1 + (x == 0) * lat_x) * (eo == parity); }
 #define move_forward_x(move, x, lat_x, eo, parity)                             \
   { move = (1 - (x == lat_x - 1) * lat_x) * (eo != parity); }
+#define device_print(device_vec, host_vec, index, size, node_rank, tag)        \
+  {                                                                            \
+    int index_;                                                                \
+    if (index < 0) {                                                           \
+      index_ = size + index;                                                   \
+    } else {                                                                   \
+      index_ = index;                                                          \
+    }                                                                          \
+    cudaMemcpy(host_vec, device_vec, size * sizeof(LatticeComplex),            \
+               cudaMemcpyDeviceToHost);                                        \
+    print_ptr(host_vec, index_, node_rank, tag);                               \
+  }
 #define checkCudaErrors(err)                                                   \
   {                                                                            \
     if (_CHECK_ERROR_) {                                                       \
@@ -440,6 +435,32 @@
             augmented_matrix[i * 2 * size + size + j];                         \
       }                                                                        \
     }                                                                          \
+  }
+#define give_dims(param, lat_1dim, lat_3dim, lat_4dim)                         \
+  {                                                                            \
+    lat_1dim[_X_] = param->lattice_size[_X_] >> 1;                             \
+    lat_1dim[_Y_] = param->lattice_size[_Y_];                                  \
+    lat_1dim[_Z_] = param->lattice_size[_Z_];                                  \
+    lat_1dim[_T_] = param->lattice_size[_T_];                                  \
+    lat_3dim[_YZT_] = lat_1dim[_Y_] * lat_1dim[_Z_] * lat_1dim[_T_];           \
+    lat_3dim[_XZT_] = lat_1dim[_X_] * lat_1dim[_Z_] * lat_1dim[_T_];           \
+    lat_3dim[_XYT_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_T_];           \
+    lat_3dim[_XYZ_] = lat_1dim[_X_] * lat_1dim[_Y_] * lat_1dim[_Z_];           \
+    lat_4dim = lat_3dim[_XYZ_] * lat_1dim[_T_];                                \
+  }
+#define give_grid(grid, node_rank, grid_1dim, grid_index_1dim)                 \
+  {                                                                            \
+    MPI_Comm_rank(MPI_COMM_WORLD, &node_rank);                                 \
+    grid_1dim[_X_] = grid->lattice_size[_X_];                                  \
+    grid_1dim[_Y_] = grid->lattice_size[_Y_];                                  \
+    grid_1dim[_Z_] = grid->lattice_size[_Z_];                                  \
+    grid_1dim[_T_] = grid->lattice_size[_T_];                                  \
+    grid_index_1dim[_X_] =                                                     \
+        node_rank / grid_1dim[_T_] / grid_1dim[_Z_] / grid_1dim[_Y_];          \
+    grid_index_1dim[_Y_] =                                                     \
+        node_rank / grid_1dim[_T_] / grid_1dim[_Z_] % grid_1dim[_Y_];          \
+    grid_index_1dim[_Z_] = node_rank / grid_1dim[_T_] % grid_1dim[_Z_];        \
+    grid_index_1dim[_T_] = node_rank % grid_1dim[_T_];                         \
   }
 #define malloc_vec(lat_3dim_Half_SC, device_send_vec, device_recv_vec,         \
                    host_send_vec, host_recv_vec)                               \
