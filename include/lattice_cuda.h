@@ -326,5 +326,5 @@ __global__ void _psctzyx2ptzyxsc(void *device_fermi, void *device___fermi,
 void ptzyxsc2psctzyx(void *fermion, LatticeSet *set_ptr);
 void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr);
 __global__ void give_debug_u(void *device_U, void *device_params,
-                              int node_rank);
+                              int host_params[_NODE_RANK_]);
 #endif
