@@ -3,8 +3,7 @@
 #ifdef CLOVER_DSLASH
 // clang-format on
 __global__ void make_clover_all(
-    void *device_U, void *device_clover, void *device_lat_xyzt,
-    int device_parity, int node_rank, int device_flag,
+    void *device_U, void *device_clover, void *device_params,
     void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
     void *device_u_b_y_recv_vec, void *device_u_f_y_recv_vec,
     void *device_u_b_z_recv_vec, void *device_u_f_z_recv_vec,
@@ -23,12 +22,12 @@ __global__ void make_clover_all(
     void *device_u_b_z_f_t_recv_vec, void *device_u_f_z_f_t_recv_vec) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
-  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
-  int lat_x = lat_xyzt[_X_];
-  int lat_y = lat_xyzt[_Y_];
-  int lat_z = lat_xyzt[_Z_];
-  int lat_t = lat_xyzt[_T_];
-  int lat_tzyx = lat_xyzt[_XYZT_];
+  int *params = static_cast<int *>(device_params);
+  int lat_x = params[_LAT_X_];
+  int lat_y = params[_LAT_Y_];
+  int lat_z = params[_LAT_Z_];
+  int lat_t = params[_LAT_T_];
+  int lat_tzyx = params[_LAT_XYZT_];
   int move0;
   int move1;
   move0 = lat_x * lat_y * lat_z;
@@ -40,7 +39,7 @@ __global__ void make_clover_all(
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   int eo = (y + z + t) & 0x01; //(y+z+t)%2
-  parity = device_parity;
+  parity = params[_PARITY_];
   int move_wards[_WARDS_];
   move_backward_x(move_wards[_B_X_], x, lat_x, eo, parity);
   move_backward(move_wards[_B_Y_], y, lat_y);
@@ -1703,50 +1702,3 @@ __global__ void make_clover_all(
   give_clr(origin_clover, clover, lat_tzyx);
 }
 #endif
-// debug code
-/*
-{
-  // test
-  // if_b_x = 0;
-  // if_b_y = 0;
-  // if_b_z = 0;
-  // if_b_t = 0;// BUG!!!
-  // if_f_x = 0;
-  // if_f_y = 0;
-  // if_f_z = 0;
-  // if_f_t = 0;
-  // if_b_x_b_y = 0;
-  // if_f_x_b_y = 0;
-  // if_b_x_f_y = 0;
-  // // // if_f_x_f_y=0;
-  // if_b_x_b_z = 0;
-  // if_f_x_b_z = 0;
-  // if_b_x_f_z = 0;
-  // // // if_f_x_f_z=0;
-  // if_b_x_b_t = 0;
-  // if_f_x_b_t = 0;
-  // if_b_x_f_t = 0;
-  // // // if_f_x_f_t=0;
-  // if_b_y_b_z = 0;
-  // if_f_y_b_z = 0;
-  // if_b_y_f_z = 0;
-  // // // if_f_y_f_z=0;
-  // if_b_y_b_t = 0;
-  // if_f_y_b_t = 0;
-  // if_b_y_f_t = 0;
-  // // // if_f_y_f_t=0;
-  // if_b_z_b_t = 0;
-  // if_f_z_b_t = 0;
-  // if_b_z_f_t = 0;
-  // // // if_f_z_f_t=0;
-}
-if (x == 2 && y == 7 && z == 3) {
-  // printf("@@@ptr:%p\n", tmp_U);
-  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", node_rank, x, y,
-         z, t, parity,
-         tmp_U[0]._data.x); // test
-  printf("@%d-#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", node_rank, x, y,
-         z, t, parity,
-         tmp_U[0]._data.y); // test
-}
-*/
