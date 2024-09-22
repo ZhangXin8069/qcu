@@ -1,19 +1,22 @@
 #include "../include/qcu.h"
+#include "define.h"
+#include "wilson_dslash.h"
 #ifdef WILSON_DSLASH
 #define __X__
 #define __Y__
 #define __Z__
 #define __T__
 __global__ void wilson_dslash(void *device_U, void *device_src,
-                              void *device_dest, void *device_params) {
+                              void *device_dest, void *device_lat_xyzt,
+                              const int device_parity) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
-  int *params = static_cast<int *>(device_params);
-  const int lat_x = params[_LAT_X_];
-  const int lat_y = params[_LAT_Y_];
-  const int lat_z = params[_LAT_Z_];
-  const int lat_t = params[_LAT_T_];
-  const int lat_tzyx = params[_LAT_XYZT_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  const int lat_x = lat_xyzt[_X_];
+  const int lat_y = lat_xyzt[_Y_];
+  const int lat_z = lat_xyzt[_Z_];
+  const int lat_t = lat_xyzt[_T_];
+  const int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   const int t = parity / move;
@@ -23,7 +26,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   parity -= z * move;
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
@@ -93,8 +96,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
 { // y part
  {// y-1
   move_backward(move, y, lat_y);
-tmp_U =
-    (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+tmp_U = (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
 give_u(U, tmp_U, lat_tzyx);
 tmp_src = (origin_src + move * lat_x);
 give_src(src, tmp_src, lat_tzyx);
@@ -242,15 +244,16 @@ give_src(src, tmp_src, lat_tzyx);
 give_dest(origin_dest, dest, lat_tzyx);
 }
 __global__ void wilson_dslash_inside(void *device_U, void *device_src,
-                                     void *device_dest, void *device_params) {
+                                     void *device_dest, void *device_lat_xyzt,
+                                     int device_parity) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
-  int lat_y = params[_LAT_Y_];
-  int lat_z = params[_LAT_Z_];
-  int lat_t = params[_LAT_T_];
-  int lat_tzyx = params[_LAT_XYZT_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_t = lat_xyzt[_T_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -260,7 +263,7 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
@@ -330,8 +333,7 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
 { // y part
  {// y-1
   move_backward(move, y, lat_y);
-tmp_U =
-    (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+tmp_U = (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
 give_u(U, tmp_U, lat_tzyx);
 tmp_src = (origin_src + move * lat_x);
 give_src(src, tmp_src, lat_tzyx);
@@ -480,17 +482,17 @@ give_src(src, tmp_src, lat_tzyx);
 give_dest(origin_dest, dest, lat_tzyx);
 }
 __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_x_send_vec,
                                      void *device_f_x_send_vec) {
 #ifdef __X__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  // int lat_x = params[_LAT_X_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  // int lat_x = lat_xyzt[_X_];
   int lat_x = 1; // so let x=0 first, then x = lat_x -1
-  int lat_y = params[_LAT_Y_];
-  int lat_z = params[_LAT_Z_];
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -500,7 +502,7 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
@@ -517,8 +519,8 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   LatticeComplex *origin_b_x_send_vec;
   LatticeComplex *origin_f_x_send_vec;
   {
-    lat_x = params[_LAT_X_]; // give lat_size back
-    x = 0;               // b_x
+    lat_x = lat_xyzt[_X_]; // give lat_size back
+    x = 0;                 // b_x
     origin_src = ((static_cast<LatticeComplex *>(device_src)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_x_send_vec =
@@ -578,17 +580,17 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
 #endif
 }
 __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_x_recv_vec,
                                      void *device_f_x_recv_vec) {
 #ifdef __X__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  // int lat_x = params[_LAT_X_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  // int lat_x = lat_xyzt[_X_];
   int lat_x = 1; // so let x=0 first, then x = lat_x -1
-  int lat_y = params[_LAT_Y_];
-  int lat_z = params[_LAT_Z_];
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -598,7 +600,7 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
@@ -614,8 +616,8 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   LatticeComplex *origin_b_x_recv_vec;
   LatticeComplex *origin_f_x_recv_vec;
   {
-    lat_x = params[_LAT_X_]; // give lat_size back
-    x = 0;               // b_x
+    lat_x = lat_xyzt[_X_]; // give lat_size back
+    x = 0;                 // b_x
     origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
                    (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_x_recv_vec =
@@ -672,17 +674,17 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
 #endif
 }
 __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_y_send_vec,
                                      void *device_f_y_send_vec) {
 #ifdef __Y__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
   // int lat_y = yyztsc[_y_];
   int lat_y = 1; // so let y=0 first, then y = lat_y -1
-  int lat_z = params[_LAT_Z_];
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -692,7 +694,7 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -708,8 +710,8 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   LatticeComplex *origin_b_y_send_vec;
   LatticeComplex *origin_f_y_send_vec;
   {
-    lat_y = params[_LAT_Y_]; // give lat_size back
-    y = 0;               // b_y
+    lat_y = lat_xyzt[_Y_]; // give lat_size back
+    y = 0;                 // b_y
     origin_src = ((static_cast<LatticeComplex *>(device_src)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_y_send_vec =
@@ -763,17 +765,17 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
 #endif
 }
 __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_y_recv_vec,
                                      void *device_f_y_recv_vec) {
 #ifdef __Y__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
   // int lat_y = yyztsc[_y_];
   int lat_y = 1; // so let y=0 first, then y = lat_y -1
-  int lat_z = params[_LAT_Z_];
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_z = lat_xyzt[_Z_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -783,7 +785,7 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -798,8 +800,8 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   LatticeComplex *origin_b_y_recv_vec;
   LatticeComplex *origin_f_y_recv_vec;
   {
-    lat_y = params[_LAT_Y_]; // give lat_size back
-    y = 0;               // b_y
+    lat_y = lat_xyzt[_Y_]; // give lat_size back
+    y = 0;                 // b_y
     origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
                    (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_y_recv_vec =
@@ -857,17 +859,17 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
 #endif
 }
 __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_z_send_vec,
                                      void *device_f_z_send_vec) {
 #ifdef __Z__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
-  int lat_y = params[_LAT_Y_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
   // int lat_z = zzztsc[_z_];
   int lat_z = 1; // so let z=0 first, then z = lat_z -1
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -877,7 +879,7 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -893,8 +895,8 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   LatticeComplex *origin_b_z_send_vec;
   LatticeComplex *origin_f_z_send_vec;
   {
-    lat_z = params[_LAT_Z_]; // give lat_size back
-    z = 0;               // b_z
+    lat_z = lat_xyzt[_Z_]; // give lat_size back
+    z = 0;                 // b_z
     origin_src = ((static_cast<LatticeComplex *>(device_src)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_z_send_vec =
@@ -950,17 +952,17 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
 #endif
 }
 __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_z_recv_vec,
                                      void *device_f_z_recv_vec) {
 #ifdef __Z__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
-  int lat_y = params[_LAT_Y_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
   // int lat_z = zzztsc[_z_];
   int lat_z = 1; // so let z=0 first, then z = lat_z -1
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -970,7 +972,7 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -985,8 +987,8 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   LatticeComplex *origin_b_z_recv_vec;
   LatticeComplex *origin_f_z_recv_vec;
   {
-    lat_z = params[_LAT_Z_]; // give lat_size back
-    z = 0;               // b_z
+    lat_z = lat_xyzt[_Z_]; // give lat_size back
+    z = 0;                 // b_z
     origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
                    (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_z_recv_vec =
@@ -1044,18 +1046,18 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
 #endif
 }
 __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_t_send_vec,
                                      void *device_f_t_send_vec) {
 #ifdef __T__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
-  int lat_y = params[_LAT_Y_];
-  int lat_z = params[_LAT_Z_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
   // int lat_t = ttttsc[_t_];
   int lat_t = 1; // so let t=0 first, then t = lat_t -1
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -1065,7 +1067,7 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -1081,8 +1083,8 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   LatticeComplex *origin_b_t_send_vec;
   LatticeComplex *origin_f_t_send_vec;
   {
-    lat_t = params[_LAT_T_]; // give lat_size back
-    t = 0;               // b_t
+    lat_t = lat_xyzt[_T_]; // give lat_size back
+    t = 0;                 // b_t
     origin_src = ((static_cast<LatticeComplex *>(device_src)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_t_send_vec =
@@ -1136,18 +1138,18 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
 #endif
 }
 __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
-                                     void *device_params,
+                                     void *device_lat_xyzt, int device_parity,
                                      void *device_b_t_recv_vec,
                                      void *device_f_t_recv_vec) {
 #ifdef __T__
   int parity = blockIdx.x * blockDim.x + threadIdx.x;
-  int *params = static_cast<int *>(device_params);
-  int lat_x = params[_LAT_X_];
-  int lat_y = params[_LAT_Y_];
-  int lat_z = params[_LAT_Z_];
+  int *lat_xyzt = static_cast<int *>(device_lat_xyzt);
+  int lat_x = lat_xyzt[_X_];
+  int lat_y = lat_xyzt[_Y_];
+  int lat_z = lat_xyzt[_Z_];
   // int lat_t = ttttsc[_t_];
   int lat_t = 1; // so let t=0 first, then t = lat_t -1
-  int lat_tzyx = params[_LAT_XYZT_];
+  int lat_tzyx = lat_xyzt[_XYZT_];
   int move;
   move = lat_x * lat_y * lat_z;
   int t = parity / move;
@@ -1157,7 +1159,7 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   parity -= z * move;
   int y = parity / lat_x;
   int x = parity - y * lat_x;
-  parity = params[_PARITY_];
+  parity = device_parity;
   LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -1172,8 +1174,8 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   LatticeComplex *origin_b_t_recv_vec;
   LatticeComplex *origin_f_t_recv_vec;
   {
-    lat_t = params[_LAT_T_]; // give lat_size back
-    t = 0;               // b_t
+    lat_t = lat_xyzt[_T_]; // give lat_size back
+    t = 0;                 // b_t
     origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
                    (((t * lat_z + z) * lat_y + y) * lat_x + x));
     origin_b_t_recv_vec =

@@ -4,8 +4,9 @@ void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity, QcuParam *grid) {
   // define for nccl_clover_dslash
   LatticeSet _set;
-  _set.give(param->lattice_size, grid->lattice_size, parity);
+  _set.give(param->lattice_size, grid->lattice_size);
   _set.init();
+  // if(_set.node_rank == 0) _set._print(); // test
   dptzyxcc2ccdptzyx(gauge, &_set);
   tzyxsc2sctzyx(fermion_in, &_set);
   tzyxsc2sctzyx(fermion_out, &_set);
@@ -16,11 +17,11 @@ void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
   _clover_dslash.init();
   {
     // wilson dslash
-    _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
+    _wilson_dslash.run_test(fermion_out, fermion_in, gauge, parity);
   }
   {
     // make clover
-    _clover_dslash.make(gauge);
+    _clover_dslash.make(gauge, parity);
   }
   {
     // inverse clover

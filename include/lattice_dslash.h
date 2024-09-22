@@ -1,9 +1,10 @@
-#ifndef _LATTICE_WILSON_DSLASH_H
-#define _LATTICE_WILSON_DSLASH_H
+#ifndef _LATTICE_DSLASH_H
+#define _LATTICE_DSLASH_H
+#include "./dslash.h"
 #include "./lattice_set.h"
 #include "define.h"
 #include "wilson_dslash.h"
-struct LatticeWilsonDslash {
+struct LatticeDslash {
   LatticeSet *set_ptr;
   cudaError_t err;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
@@ -34,8 +35,8 @@ struct LatticeWilsonDslash {
     { // inside compute part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
       wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                             set_ptr->stream>>>(
-          gauge, fermion_in, fermion_out, set_ptr->device_lat_xyzt, parity);
+                             set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                set_ptr->device_lat_xyzt, parity);
     }
     {
       // x edge part
@@ -261,8 +262,8 @@ struct LatticeWilsonDslash {
     { // inside compute part ans wait
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
       wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                             set_ptr->stream>>>(
-          gauge, fermion_in, fermion_out, set_ptr->device_lat_xyzt, parity);
+                             set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                set_ptr->device_lat_xyzt, parity);
     }
     {
       // x edge part
