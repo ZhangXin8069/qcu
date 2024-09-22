@@ -7,7 +7,7 @@ struct LatticeWilsonDslash {
   LatticeSet *set_ptr;
   cudaError_t err;
   void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
-  void run_nccl(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+  void run_nccl(void *fermion_out, void *fermion_in, void *gauge) {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
@@ -16,36 +16,36 @@ struct LatticeWilsonDslash {
     { // edge send part
       wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_X_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_X_], set_ptr->device_send_vec[_F_X_]);
       wilson_dslash_y_send<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_Y_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_Y_], set_ptr->device_send_vec[_F_Y_]);
       wilson_dslash_z_send<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_Z_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_Z_], set_ptr->device_send_vec[_F_Z_]);
       wilson_dslash_t_send<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_T_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_T_], set_ptr->device_send_vec[_F_T_]);
     }
     { // inside compute part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
       wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                             set_ptr->stream>>>(
-          gauge, fermion_in, fermion_out, set_ptr->device_params, parity);
+                             set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                set_ptr->device_params);
     }
     {
       // x edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
-      if (set_ptr->grid_1dim[_X_] == 1) {
+      if (set_ptr->host_params[_GRID_X_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_X_], set_ptr->device_send_vec[_B_X_]);
       } else {
         // comm
@@ -70,12 +70,12 @@ struct LatticeWilsonDslash {
     {
       // y edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
-      if (set_ptr->grid_1dim[_Y_] == 1) {
+      if (set_ptr->host_params[_GRID_Y_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_Y_], set_ptr->device_send_vec[_B_Y_]);
       } else {
         // comm
@@ -100,12 +100,12 @@ struct LatticeWilsonDslash {
     {
       // z edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
-      if (set_ptr->grid_1dim[_Z_] == 1) {
+      if (set_ptr->host_params[_GRID_Z_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_Z_], set_ptr->device_send_vec[_B_Z_]);
       } else {
         // comm
@@ -130,12 +130,12 @@ struct LatticeWilsonDslash {
     {
       // t edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-      if (set_ptr->grid_1dim[_T_] == 1) {
+      if (set_ptr->host_params[_GRID_T_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_T_], set_ptr->device_send_vec[_B_T_]);
       } else {
         // comm
@@ -159,32 +159,32 @@ struct LatticeWilsonDslash {
     }
     {
       // edge recv part
-      if (set_ptr->grid_1dim[_X_] != 1) { // x part recv
+      if (set_ptr->host_params[_GRID_X_] != 1) { // x part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
         wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_X_], set_ptr->device_recv_vec[_F_X_]);
       }
-      if (set_ptr->grid_1dim[_Y_] != 1) { // y part recv
+      if (set_ptr->host_params[_GRID_Y_] != 1) { // y part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
         wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_Y_], set_ptr->device_recv_vec[_F_Y_]);
       }
-      if (set_ptr->grid_1dim[_Z_] != 1) { // z part recv
+      if (set_ptr->host_params[_GRID_Z_] != 1) { // z part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
         wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_Z_], set_ptr->device_recv_vec[_F_Z_]);
       }
-      if (set_ptr->grid_1dim[_T_] != 1) { // t part recv
+      if (set_ptr->host_params[_GRID_T_] != 1) { // t part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_T_], set_ptr->device_recv_vec[_F_T_]);
       }
     }
@@ -194,7 +194,7 @@ struct LatticeWilsonDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
   }
-  void run_mpi(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+  void run_mpi(void *fermion_out, void *fermion_in, void *gauge) {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
@@ -203,9 +203,9 @@ struct LatticeWilsonDslash {
     { // edge send part
       wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_X_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_X_], set_ptr->device_send_vec[_F_X_]);
-      if (set_ptr->grid_1dim[_X_] != 1) { // x part d2h
+      if (set_ptr->host_params[_GRID_X_] != 1) { // x part d2h
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->host_send_vec[_B_X_], set_ptr->device_send_vec[_B_X_],
             sizeof(double) * set_ptr->lat_3dim_SC[_X_], cudaMemcpyDeviceToHost,
@@ -217,9 +217,9 @@ struct LatticeWilsonDslash {
       }
       wilson_dslash_y_send<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_Y_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_Y_], set_ptr->device_send_vec[_F_Y_]);
-      if (set_ptr->grid_1dim[_Y_] != 1) { // y part d2h
+      if (set_ptr->host_params[_GRID_Y_] != 1) { // y part d2h
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->host_send_vec[_B_Y_], set_ptr->device_send_vec[_B_Y_],
             sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
@@ -231,9 +231,9 @@ struct LatticeWilsonDslash {
       }
       wilson_dslash_z_send<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_Z_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_Z_], set_ptr->device_send_vec[_F_Z_]);
-      if (set_ptr->grid_1dim[_Z_] != 1) { // z part d2h
+      if (set_ptr->host_params[_GRID_Z_] != 1) { // z part d2h
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->host_send_vec[_B_Z_], set_ptr->device_send_vec[_B_Z_],
             sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
@@ -245,9 +245,9 @@ struct LatticeWilsonDslash {
       }
       wilson_dslash_t_send<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                              set_ptr->stream_dims[_T_]>>>(
-          gauge, fermion_in, set_ptr->device_params, parity,
+          gauge, fermion_in, set_ptr->device_params,
           set_ptr->device_send_vec[_B_T_], set_ptr->device_send_vec[_F_T_]);
-      if (set_ptr->grid_1dim[_T_] != 1) { // t part d2h
+      if (set_ptr->host_params[_GRID_T_] != 1) { // t part d2h
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->host_send_vec[_B_T_], set_ptr->device_send_vec[_B_T_],
             sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
@@ -261,18 +261,18 @@ struct LatticeWilsonDslash {
     { // inside compute part ans wait
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
       wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                             set_ptr->stream>>>(
-          gauge, fermion_in, fermion_out, set_ptr->device_params, parity);
+                             set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                set_ptr->device_params);
     }
     {
       // x edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
-      if (set_ptr->grid_1dim[_X_] == 1) {
+      if (set_ptr->host_params[_GRID_X_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_X_], set_ptr->device_send_vec[_B_X_]);
       } else {
         // comm
@@ -293,12 +293,12 @@ struct LatticeWilsonDslash {
     {
       // y edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
-      if (set_ptr->grid_1dim[_Y_] == 1) {
+      if (set_ptr->host_params[_GRID_Y_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_Y_], set_ptr->device_send_vec[_B_Y_]);
       } else {
         // comm
@@ -319,12 +319,12 @@ struct LatticeWilsonDslash {
     {
       // z edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
-      if (set_ptr->grid_1dim[_Z_] == 1) {
+      if (set_ptr->host_params[_GRID_Z_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_Z_], set_ptr->device_send_vec[_B_Z_]);
       } else {
         // comm
@@ -345,12 +345,12 @@ struct LatticeWilsonDslash {
     {
       // t edge part
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-      if (set_ptr->grid_1dim[_T_] == 1) {
+      if (set_ptr->host_params[_GRID_T_] == 1) {
         // no comm
         // edge recv part
         wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_send_vec[_F_T_], set_ptr->device_send_vec[_B_T_]);
       } else {
         // comm
@@ -368,7 +368,7 @@ struct LatticeWilsonDslash {
                   &set_ptr->recv_request[_F_T_]);
       }
     }
-    if (set_ptr->grid_1dim[_X_] != 1) { // x part h2d
+    if (set_ptr->host_params[_GRID_X_] != 1) { // x part h2d
       MPI_Wait(&set_ptr->recv_request[_B_X_], MPI_STATUS_IGNORE);
       checkCudaErrors(cudaMemcpyAsync(
           set_ptr->device_recv_vec[_F_X_], set_ptr->host_recv_vec[_F_X_],
@@ -380,7 +380,7 @@ struct LatticeWilsonDslash {
           sizeof(double) * set_ptr->lat_3dim_SC[_X_], cudaMemcpyHostToDevice,
           set_ptr->stream_dims[_X_]));
     }
-    if (set_ptr->grid_1dim[_Y_] != 1) { // y part h2d
+    if (set_ptr->host_params[_GRID_Y_] != 1) { // y part h2d
       MPI_Wait(&set_ptr->recv_request[_B_Y_], MPI_STATUS_IGNORE);
       checkCudaErrors(cudaMemcpyAsync(
           set_ptr->device_recv_vec[_F_Y_], set_ptr->host_recv_vec[_F_Y_],
@@ -392,7 +392,7 @@ struct LatticeWilsonDslash {
           sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
           set_ptr->stream_dims[_Y_]));
     }
-    if (set_ptr->grid_1dim[_Z_] != 1) { // z part h2d
+    if (set_ptr->host_params[_GRID_Z_] != 1) { // z part h2d
       MPI_Wait(&set_ptr->recv_request[_B_Z_], MPI_STATUS_IGNORE);
       checkCudaErrors(cudaMemcpyAsync(
           set_ptr->device_recv_vec[_F_Z_], set_ptr->host_recv_vec[_F_Z_],
@@ -404,7 +404,7 @@ struct LatticeWilsonDslash {
           sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
           set_ptr->stream_dims[_Z_]));
     }
-    if (set_ptr->grid_1dim[_T_] != 1) { // t part h2d
+    if (set_ptr->host_params[_GRID_T_] != 1) { // t part h2d
       MPI_Wait(&set_ptr->recv_request[_B_T_], MPI_STATUS_IGNORE);
       checkCudaErrors(cudaMemcpyAsync(
           set_ptr->device_recv_vec[_F_T_], set_ptr->host_recv_vec[_F_T_],
@@ -418,32 +418,32 @@ struct LatticeWilsonDslash {
     }
     {
       // edge recv part
-      if (set_ptr->grid_1dim[_X_] != 1) { // x part recv
+      if (set_ptr->host_params[_GRID_X_] != 1) { // x part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
         wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_X_], set_ptr->device_recv_vec[_F_X_]);
       }
-      if (set_ptr->grid_1dim[_Y_] != 1) { // y part recv
+      if (set_ptr->host_params[_GRID_Y_] != 1) { // y part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
         wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_Y_], set_ptr->device_recv_vec[_F_Y_]);
       }
-      if (set_ptr->grid_1dim[_Z_] != 1) { // z part recv
+      if (set_ptr->host_params[_GRID_Z_] != 1) { // z part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
         wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_Z_], set_ptr->device_recv_vec[_F_Z_]);
       }
-      if (set_ptr->grid_1dim[_T_] != 1) { // t part recv
+      if (set_ptr->host_params[_GRID_T_] != 1) { // t part recv
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                                set_ptr->stream>>>(
-            gauge, fermion_out, set_ptr->device_params, parity,
+            gauge, fermion_out, set_ptr->device_params,
             set_ptr->device_recv_vec[_B_T_], set_ptr->device_recv_vec[_F_T_]);
       }
     }
@@ -453,22 +453,28 @@ struct LatticeWilsonDslash {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
   }
-  void run(void *fermion_out, void *fermion_in, void *gauge, int parity) {
-    // run_mpi(fermion_out, fermion_in, gauge, parity);
-    run_nccl(fermion_out, fermion_in, gauge, parity);
+  void run(void *fermion_out, void *fermion_in, void *gauge) {
+    // run_mpi(fermion_out, fermion_in, gauge);
+    run_nccl(fermion_out, fermion_in, gauge);
   }
   void run_eo(void *fermion_out, void *fermion_in, void *gauge) {
-    run(fermion_out, fermion_in, gauge, _EVEN_);
+    int parity = set_ptr->host_params[_PARITY_];
+    set_ptr->use_even();
+    run(fermion_out, fermion_in, gauge);
+    set_ptr->use_parity(parity);
   }
   void run_oe(void *fermion_out, void *fermion_in, void *gauge) {
-    run(fermion_out, fermion_in, gauge, _ODD_);
+    int parity = set_ptr->host_params[_PARITY_];
+    set_ptr->use_odd();
+    run(fermion_out, fermion_in, gauge);
+    set_ptr->use_parity(parity);
   }
-  void run_test(void *fermion_out, void *fermion_in, void *gauge, int parity) {
+  void run_test(void *fermion_out, void *fermion_in, void *gauge) {
 #ifdef PRINT_NCCL_WILSON_DSLASH
     set_ptr->_print();
 #endif
     auto start = std::chrono::high_resolution_clock::now();
-    run(fermion_out, fermion_in, gauge, parity);
+    run(fermion_out, fermion_in, gauge);
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)

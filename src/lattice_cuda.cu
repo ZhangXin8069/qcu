@@ -1,5 +1,4 @@
 #include "../include/qcu.h"
-#include "define.h"
 #ifdef LATTICE_CUDA
 __global__ void give_random_vals(void *device_random_vals, unsigned long seed) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -38,10 +37,6 @@ __global__ void give_1custom(void *device_vals, const int vals_index,
   LatticeComplex *origin_vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex _(real, imag);
   origin_vals[vals_index] = _;
-}
-__global__ void give_param(void *device_param, const int vals_index, int val) {
-  int *param = static_cast<int *>(device_param);
-  param[vals_index] = val;
 }
 __global__ void _tzyxsc2sctzyx(void *device_fermi, void *device__fermi,
                                int lat_4dim) {
@@ -215,15 +210,15 @@ void psctzyx2ptzyxsc(void *fermion, LatticeSet *set_ptr) {
   checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
 }
 __global__ void give_debug_u(void *device_U, void *device_params,
-                              int node_rank) {
+                             int node_rank) {
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *params = static_cast<int *>(device_params);
-  int lat_x = params[_X_];
-  int lat_y = params[_Y_];
-  int lat_z = params[_Z_];
-  int lat_t = params[_T_];
-  int lat_tzyx = params[_XYZT_];
+  int lat_x = params[_LAT_X_];
+  int lat_y = params[_LAT_Y_];
+  int lat_z = params[_LAT_Z_];
+  int lat_t = params[_LAT_T_];
+  int lat_tzyx = params[_LAT_XYZT_];
   int move0;
   move0 = lat_x * lat_y * lat_z;
   int t = parity / move0;
@@ -235,7 +230,7 @@ __global__ void give_debug_u(void *device_U, void *device_params,
   int x = parity - y * lat_x;
   LatticeComplex *origin_U = static_cast<LatticeComplex *>(device_U);
   LatticeComplex *tmp_U;
-  parity = device_parity;
+  parity = params[_PARITY_];
   tmp_U = (origin_U +
            ((((parity * lat_t + t) * lat_z + z) * lat_y + y) * lat_x + x));
   for (int i = 0; i < _LAT_DCC_; i++) {
@@ -247,25 +242,5 @@ __global__ void give_debug_u(void *device_U, void *device_params,
         lat_tzyx;
     tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(node_rank);
   }
-  // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
-  //        tmp_U[0]._data.x); // test
-  // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
-  //        tmp_U[0]._data.y); // test
-  // if (x == 5 && y == 9 && z == 0 && t == 31) {
-  //   printf("@@@ptr:%p\n", tmp_U);
-  //   printf("###index:%d\n",
-  //          ((((parity * lat_t + t) * lat_z + z) * lat_y + y) * lat_x + x));
-  //   printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
-  //          tmp_U[0]._data.x); // test
-  //   printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
-  //          tmp_U[0]._data.y); // test
-  // }
-  // // tmp_U =
-  // //     (origin_U + ((((1 * lat_t + 31) * lat_z + 0) * lat_y + 9) * lat_x +
-  // 5)); printf("@@@ptr:%p\n", tmp_U);
-  // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#real:%f\n", x, y, z, t, parity,
-  //        tmp_U[0]._data.x); // test
-  // printf("#x:%d#y:%d#z:%d#t:%d#parity:%d#imag:%f\n", x, y, z, t, parity,
-  //        tmp_U[0]._data.y); // test
 }
 #endif
