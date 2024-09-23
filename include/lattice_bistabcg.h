@@ -60,7 +60,7 @@ struct LatticeBistabcg {
       give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _norm2_tmp_);
       give_1zero<<<1, 1, 0, set_ptr->stream>>>(device_vals, _diff_tmp_);
       give_1custom<<<1, 1, 0, set_ptr->stream>>>(
-          device_vals, _lat_xyzt_, double(set_ptr->lat_4dim), 0.0);
+          device_vals, _lat_4dim_, double(set_ptr->lat_4dim), 0.0);
     }
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -189,20 +189,20 @@ struct LatticeBistabcg {
                         _vals_size_ * sizeof(LatticeComplex),
                         cudaMemcpyDeviceToHost, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-    std::cout << "######TIME :" << set_ptr->get_time() << "######" << std::endl
-              << "##RANK     :" << set_ptr->node_rank << "##LOOP:" << loop
-              << std::endl
-              << "##tmp0     :" << host_vals[_tmp0_] << std::endl
-              << "##tmp1     :" << host_vals[_tmp1_] << std::endl
-              << "##rho_prev :" << host_vals[_rho_prev_] << std::endl
-              << "##rho      :" << host_vals[_rho_] << std::endl
-              << "##alpha    :" << host_vals[_alpha_] << std::endl
-              << "##beta     :" << host_vals[_beta_] << std::endl
-              << "##omega    :" << host_vals[_omega_] << std::endl
-              << "##send_tmp :" << host_vals[_send_tmp_] << std::endl
-              << "##norm2_tmp:" << host_vals[_norm2_tmp_] << std::endl
-              << "##diff_tmp :" << host_vals[_diff_tmp_] << std::endl
-              << "##lat_xyzt :" << host_vals[_lat_xyzt_] << std::endl;
+    std::cout << "######TIME  :" << set_ptr->get_time() << "######" << std::endl
+              << "##RANK      :" << set_ptr->host_params[_NODE_RANK_] << std::endl
+              << "##LOOP      :" << loop << std::endl
+              << "##tmp0      :" << host_vals[_tmp0_] << std::endl
+              << "##tmp1      :" << host_vals[_tmp1_] << std::endl
+              << "##rho_prev  :" << host_vals[_rho_prev_] << std::endl
+              << "##rho       :" << host_vals[_rho_] << std::endl
+              << "##alpha     :" << host_vals[_alpha_] << std::endl
+              << "##beta      :" << host_vals[_beta_] << std::endl
+              << "##omega     :" << host_vals[_omega_] << std::endl
+              << "##send_tmp  :" << host_vals[_send_tmp_] << std::endl
+              << "##norm2_tmp :" << host_vals[_norm2_tmp_] << std::endl
+              << "##diff_tmp  :" << host_vals[_diff_tmp_] << std::endl
+              << "##lat_4dim  :" << host_vals[_lat_4dim_] << std::endl;
     // exit(1);
   }
   void run_nccl() {
@@ -282,13 +282,13 @@ struct LatticeBistabcg {
       }
       {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
-        std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
+        std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                   << "##Residual:" << host_vals[_norm2_tmp_]._data.x
                   << std::endl;
 #endif
         if ((host_vals[_norm2_tmp_]._data.x < _TOL_ ||
              loop == _MAX_ITER_ - 1)) {
-          std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
+          std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                     << "##Residual:" << host_vals[_norm2_tmp_] << std::endl;
           break;
         }
@@ -395,13 +395,13 @@ struct LatticeBistabcg {
       }
       {
 #ifdef PRINT_NCCL_WILSON_BISTABCG
-        std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
+        std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                   << "##Residual:" << host_vals[_rho_prev_]._data.x
                   << std::endl;
 #endif
       }
       if ((host_vals[_rho_prev_]._data.x < _TOL_ || loop == _MAX_ITER_ - 1)) {
-        std::cout << "##RANK:" << set_ptr->node_rank << "##LOOP:" << loop
+        std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                   << "##Residual:" << host_vals[_rho_prev_] << std::endl;
         break;
       }
