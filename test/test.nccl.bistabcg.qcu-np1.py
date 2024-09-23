@@ -49,7 +49,7 @@ dslash = core.getDslash(
     anti_periodic_t=False,
 )
 # dslash.invert_param.inv_type = 0  # QUDA_CG_INVERTER
-dslash.invert_param.inv_type = 1  # QUDA_BICGSTAB_INVERTER
+# dslash.invert_param.inv_type = 1  # QUDA_BICGSTAB_INVERTER
 U = gauge_utils.gaussGauge(latt_size, 0)
 dslash.loadGauge(U)
 
