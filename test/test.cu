@@ -1,5 +1,5 @@
 #include "./include/qcu.h"
-// #define __CLOVER_DSLASH__
+#define __CLOVER_DSLASH__
 int main() {
   MPI_Init(NULL, NULL);
   int param_lattice_size[_DIM_];
@@ -49,7 +49,7 @@ int main() {
 #ifdef __CLOVER_DSLASH__
     {
       // make clover
-      _clover_dslash.make(gauge, parity);
+      _clover_dslash.make(gauge);
     }
     {
       // inverse clover
