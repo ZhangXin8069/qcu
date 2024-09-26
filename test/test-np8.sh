@@ -1,3 +1,3 @@
 bash ./make.sh 
 rm log_*
-mpirun -np 8 ./test
+ncu --set all -f -o ./log_%h_%p mpirun -np 8 ./test

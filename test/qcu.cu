@@ -1,6 +1,5 @@
 #include "./include/qcu.h"
 #include "define.h"
-// #define __CLOVER_DSLASH__
 int main() {
   MPI_Init(NULL, NULL);
   int param_lattice_size[_DIM_];
@@ -9,7 +8,7 @@ int main() {
     param_lattice_size[i] = _LAT_EXAMPLE_;
     grid_lattice_size[i] = _GRID_EXAMPLE_;
   }
-  // grid_lattice_size[_T_] = 2;
+  grid_lattice_size[_T_] = 2;
   LatticeSet _set;
   _set.give(param_lattice_size, grid_lattice_size);
   _set.init();
@@ -32,22 +31,22 @@ int main() {
                                                _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
                                                sizeof(LatticeComplex)));
   {
-    // define for dslash
+    // define for nccl_clover_dslash
+    // LatticeSet _set;
+    // _set.give(param_lattice_size, grid_lattice_size);
+    // _set.init();
     dptzyxcc2ccdptzyx(gauge, &_set);
     tzyxsc2sctzyx(fermion_in, &_set);
     tzyxsc2sctzyx(fermion_out, &_set);
     LatticeWilsonDslash _wilson_dslash;
-    _wilson_dslash.give(&_set);
-#ifdef __CLOVER_DSLASH__
     LatticeCloverDslash _clover_dslash;
+    _wilson_dslash.give(&_set);
     _clover_dslash.give(&_set);
     _clover_dslash.init();
-#endif
     {
       // wilson dslash
       _wilson_dslash.run_test(fermion_out, fermion_in, gauge, parity);
     }
-#ifdef __CLOVER_DSLASH__
     {
       // make clover
       _clover_dslash.make(gauge, parity);
@@ -60,13 +59,11 @@ int main() {
       // give clover
       _clover_dslash.give(fermion_out);
     }
-#endif
     ccdptzyx2dptzyxcc(gauge, &_set);
     sctzyx2tzyxsc(fermion_in, &_set);
     sctzyx2tzyxsc(fermion_out, &_set);
-#ifdef __CLOVER_DSLASH__
     _clover_dslash.end();
-#endif
+    // _set.end();
   }
   cudaFree(gauge);
   cudaFree(fermion_in);

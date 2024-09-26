@@ -18,7 +18,6 @@ void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     // wilson dslash
     _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
   }
-  _set._print();
   {
     // make clover
     _clover_dslash.make(gauge);
