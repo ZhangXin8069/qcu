@@ -12,7 +12,8 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
-latt_size = [32, 32, 32, 32]
+latt_size = [32, 32, 32, 64]
+# latt_size = [32, 32, 32, 32]
 # latt_size = [16, 16, 16, 32]
 # latt_size = [8, 8, 8, 8]
 # latt_size = [24, 24, 24, 72]
@@ -49,7 +50,6 @@ dslash = core.getDslash(
 )
 # dslash.invert_param.inv_type = 0  # QUDA_CG_INVERTER
 # dslash.invert_param.inv_type = 1  # QUDA_BICGSTAB_INVERTER
-# dslash.invert_param.inv_type = 13  # QUDA_BICGSTABL_INVERTER
 U = gauge_utils.gaussGauge(latt_size, 0)
 dslash.loadGauge(U)
 
