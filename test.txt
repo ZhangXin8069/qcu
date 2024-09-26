@@ -1,3 +1,18 @@
   printf("#rank:%d#x:%d#y:%d#z:%d#t:%d#parity:%d#dagger:%d#ptr:%p#data:%f\n",
          params[_NODE_RANK_], x, y, z, t, params[_PARITY_], params[_DAGGER_],
          u_f_z_b_t_send_vec, u_f_z_b_t_send_vec[0]._data.x);
+
+clqcd-imp-t6ad:6995:7014 [0] NCCL INFO P2P Chunksize set to 131072
+clqcd-imp-t6ad:6995:7014 [0] NCCL INFO Connected all rings
+clqcd-imp-t6ad:6995:7014 [0] NCCL INFO Connected all trees
+clqcd-imp-t6ad:6995:7014 [0] NCCL INFO 32 coll channels, 0 nvls channels, 32 p2p channels, 32 p2p channels per peer
+clqcd-imp-t6ad:6995:7014 [0] NCCL INFO comm 0x575e82f194a0 rank 0 nranks 1 cudaDev 0 nvmlDev 0 busId 1000 commId 0xfda9f2807f2ab559 - Init COMPLETE
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw #wrong     time   algbw   busbw #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)            (us)  (GB/s)  (GB/s)       
+
+clqcd-imp-t6ad:6995:6995 [0] misc/strongstream.cc:60 NCCL WARN Cuda failure 'CUDA driver is a stub library'
+clqcd-imp-t6ad:6995:6995 [0] NCCL INFO enqueue.cc:1548 -> 1
+clqcd-imp-t6ad:6995:6995 [0] NCCL INFO enqueue.cc:1589 -> 1
+clqcd-imp-t6ad: Test NCCL failure sendrecv.cu:55 'unhandled cuda error (run with NCCL_DEBUG=INFO for details) / '
