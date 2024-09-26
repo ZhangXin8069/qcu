@@ -1,0 +1,3 @@
+  printf("#rank:%d#x:%d#y:%d#z:%d#t:%d#parity:%d#dagger:%d#ptr:%p#data:%f\n",
+         params[_NODE_RANK_], x, y, z, t, params[_PARITY_], params[_DAGGER_],
+         u_f_z_b_t_send_vec, u_f_z_b_t_send_vec[0]._data.x);
