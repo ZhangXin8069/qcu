@@ -16,3 +16,36 @@ clqcd-imp-t6ad:6995:6995 [0] misc/strongstream.cc:60 NCCL WARN Cuda failure 'CUD
 clqcd-imp-t6ad:6995:6995 [0] NCCL INFO enqueue.cc:1548 -> 1
 clqcd-imp-t6ad:6995:6995 [0] NCCL INFO enqueue.cc:1589 -> 1
 clqcd-imp-t6ad: Test NCCL failure sendrecv.cu:55 'unhandled cuda error (run with NCCL_DEBUG=INFO for details) / '
+
+===============round  5 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.02663935799864703 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008159182 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008168870 sec
+QCU dslash: 1.0189102419972187 sec
+quda difference:  2.803430248681096e-16
+
+================quda=================
+CG: Convergence at 169 iterations, L2 relative residual: iterated = 8.514918e-10, true = 8.514918e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 3.300239780076329e-10, takes 1.5097329599993827 sec, norm_quda_x = 390317.3697037845
+quda rank 0 takes 1.5097329599993827 sec
+===============qcu==================
+##RANK:0##LOOP:118##Residual:(5.4276e-10,1.61691e-31i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :6.582377444 sec
+######TIME  :6698.33######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(3.27466e-11,-3.80263e-12i)
+##tmp1      :(3.20439e-11,-3.86543e-32i)
+##rho_prev  :(-3.44269e-07,-2.02187e-06i)
+##rho       :(-3.44269e-07,-2.02187e-06i)
+##alpha     :(2.33208,0.826236i)
+##beta      :(-0.0017088,-0.0215378i)
+##omega     :(1.02193,-0.11867i)
+##send_tmp  :(1.84696e-10,0i)
+##norm2_tmp :(4.97484e+07,-4.30355e-13i)
+##diff_tmp  :(3.7126e-18,3.21163e-38i)
+##lat_4dim  :(524288,0i)
+rank 0 my x and x difference: , 1.481008723310088e-07, takes 7.01346147699951 sec, my_x_norm = 390317.3697042845
+qcu rank 0 takes 7.01346147699951 sec
+============================
