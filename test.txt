@@ -108,3 +108,9 @@ Launched from thread: 12686
 Latency: ←280.695 μs
 Correlation ID: 83114
 Stream: Stream 49
+
+Python 3.11.10 (main, Sep 24 2024, 17:57:55) [GCC 13.2.0] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> 11.498/0.750796
+15.31441296970149
+>>> 
