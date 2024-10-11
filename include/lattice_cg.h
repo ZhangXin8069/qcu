@@ -130,6 +130,7 @@ struct LatticeCg {
     gauge = _gauge;
     __init();
   }
+void _dot(void *vec0, void *vec1, const int vals_index,
             const int stream_index) {
     // dest(val) = _dot(A,B)
     CUBLAS_CHECK(cublasDotcEx(
@@ -151,11 +152,11 @@ struct LatticeCg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     _dot(ans, ans, _norm2_tmp_, _a_);
-    cg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    bistabcg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->streams[_a_]>>>(x, ans, device_vec0,
                                                   device_vals);
     _dot(device_vec0, device_vec0, _diff_tmp_, _a_);
-    cg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
+    bistabcg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
     print_vals(999);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
