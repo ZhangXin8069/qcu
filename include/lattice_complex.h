@@ -110,7 +110,7 @@ struct LatticeComplex {
                                                         bool if_i) const {
     // pm = ture , give -
     // dag = ture , give -
-    int _ = 1 - 2 * (pm ^ dag);
+    int _ = 1 - (pm ^ dag) * 2;
     if (if_i) {
       return LatticeComplex(-_data.y * _, _data.x * _);
     } else {
