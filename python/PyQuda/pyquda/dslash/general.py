@@ -80,12 +80,21 @@ nullptr = Pointer("void")
 
 cpu_prec = QudaPrecision.QUDA_DOUBLE_PRECISION
 cuda_prec = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec_sloppy = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec_precondition = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec_eigensolver = QudaPrecision.QUDA_DOUBLE_PRECISION
+link_recon = QudaReconstructType.QUDA_RECONSTRUCT_12
+link_recon_sloppy = QudaReconstructType.QUDA_RECONSTRUCT_12
+"""
+# changed by zx
+cpu_prec = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec = QudaPrecision.QUDA_DOUBLE_PRECISION
 cuda_prec_sloppy = QudaPrecision.QUDA_HALF_PRECISION
 cuda_prec_precondition = QudaPrecision.QUDA_HALF_PRECISION
 cuda_prec_eigensolver = QudaPrecision.QUDA_SINGLE_PRECISION
 link_recon = QudaReconstructType.QUDA_RECONSTRUCT_12
 link_recon_sloppy = QudaReconstructType.QUDA_RECONSTRUCT_12
-
+"""
 
 def newQudaGaugeParam(X: List[int], anisotropy: float, t_boundary: int):
     gauge_param = QudaGaugeParam()
