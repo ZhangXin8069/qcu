@@ -102,12 +102,15 @@ struct LatticeComplex {
   __host__ __device__ __inline__ LatticeComplex conj() const {
     return LatticeComplex(_data.x, -_data.y);
   }
+  __host__ __device__ __inline__ LatticeComplex mult_i() const {
+    return LatticeComplex(-_data.y, _data.x);
+  }
   __host__ __device__ __inline__ double norm2() const {
     return sqrt(_data.x * _data.x + _data.y * _data.y);
   }
-  friend std::ostream &operator<<(std::ostream &output, const LatticeComplex &_) {
-    output << "(" << _._data.x << "," << _._data.y << "i"
-           << ")";
+  friend std::ostream &operator<<(std::ostream &output,
+                                  const LatticeComplex &_) {
+    output << "(" << _._data.x << "," << _._data.y << "i" << ")";
     return output;
   }
 };

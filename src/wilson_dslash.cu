@@ -25,7 +25,6 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   const int x = parity - y * lat_x;
   parity = params[_PARITY_];
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
   LatticeComplex *origin_src =
@@ -54,14 +53,14 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_3C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_] * I) *
+      tmp0 += (src[c1] + src[c1 + _LAT_3C_].mult_i()) * U[c1 * _LAT_C_ + c0].conj();
+      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp1 * I;
-    dest[c0 + _LAT_3C_] -= tmp0 * I;
+    dest[c0 + _LAT_2C_] -= tmp1.mult_i();
+    dest[c0 + _LAT_3C_] -= tmp0.mult_i();
   }
 }
 {
@@ -77,14 +76,14 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+      tmp0 += (src[c1] - src[c1 + _LAT_3C_].mult_i()) * U[c0 * _LAT_C_ + c1];
       tmp1 +=
-          (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+          (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].mult_i()) * U[c0 * _LAT_C_ + c1];
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp1 * I;
-    dest[c0 + _LAT_3C_] += tmp0 * I;
+    dest[c0 + _LAT_2C_] += tmp1.mult_i();
+    dest[c0 + _LAT_3C_] += tmp0.mult_i();
   }
 }
 }
@@ -153,14 +152,14 @@ give_src(src, tmp_src, lat_tzyx);
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
+      tmp0 += (src[c1] + src[c1 + _LAT_2C_].mult_i()) * U[c1 * _LAT_C_ + c0].conj();
+      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp0 * I;
-    dest[c0 + _LAT_3C_] += tmp1 * I;
+    dest[c0 + _LAT_2C_] -= tmp0.mult_i();
+    dest[c0 + _LAT_3C_] += tmp1.mult_i();
   }
 }
 {
@@ -176,14 +175,14 @@ give_src(src, tmp_src, lat_tzyx);
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+      tmp0 += (src[c1] - src[c1 + _LAT_2C_].mult_i()) * U[c0 * _LAT_C_ + c1];
       tmp1 +=
-          (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+          (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].mult_i()) * U[c0 * _LAT_C_ + c1];
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp0 * I;
-    dest[c0 + _LAT_3C_] -= tmp1 * I;
+    dest[c0 + _LAT_2C_] += tmp0.mult_i();
+    dest[c0 + _LAT_3C_] -= tmp1.mult_i();
   }
 }
 }
@@ -262,7 +261,6 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
   LatticeComplex *origin_src =
@@ -291,14 +289,14 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_3C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_] * I) *
+      tmp0 += (src[c1] + src[c1 + _LAT_3C_].mult_i()) * U[c1 * _LAT_C_ + c0].conj();
+      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp1 * I;
-    dest[c0 + _LAT_3C_] -= tmp0 * I;
+    dest[c0 + _LAT_2C_] -= tmp1.mult_i();
+    dest[c0 + _LAT_3C_] -= tmp0.mult_i();
   }
 }
 {
@@ -314,14 +312,14 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+      tmp0 += (src[c1] - src[c1 + _LAT_3C_].mult_i()) * U[c0 * _LAT_C_ + c1];
       tmp1 +=
-          (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+          (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].mult_i()) * U[c0 * _LAT_C_ + c1];
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp1 * I;
-    dest[c0 + _LAT_3C_] += tmp0 * I;
+    dest[c0 + _LAT_2C_] += tmp1.mult_i();
+    dest[c0 + _LAT_3C_] += tmp0.mult_i();
   }
 }
 }
@@ -390,14 +388,14 @@ give_src(src, tmp_src, lat_tzyx);
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
+      tmp0 += (src[c1] + src[c1 + _LAT_2C_].mult_i()) * U[c1 * _LAT_C_ + c0].conj();
+      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp0 * I;
-    dest[c0 + _LAT_3C_] += tmp1 * I;
+    dest[c0 + _LAT_2C_] -= tmp0.mult_i();
+    dest[c0 + _LAT_3C_] += tmp1.mult_i();
   }
 }
 {
@@ -413,14 +411,14 @@ give_src(src, tmp_src, lat_tzyx);
     tmp0 = zero;
     tmp1 = zero;
     for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+      tmp0 += (src[c1] - src[c1 + _LAT_2C_].mult_i()) * U[c0 * _LAT_C_ + c1];
       tmp1 +=
-          (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+          (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].mult_i()) * U[c0 * _LAT_C_ + c1];
     }
     dest[c0] += tmp0;
     dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp0 * I;
-    dest[c0 + _LAT_3C_] -= tmp1 * I;
+    dest[c0 + _LAT_2C_] += tmp0.mult_i();
+    dest[c0 + _LAT_3C_] -= tmp1.mult_i();
   }
 }
 }
@@ -502,7 +500,6 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -532,9 +529,9 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_x_send_vec[c1] = src[c1] - src[c1 + _LAT_3C_] * I;
+        b_x_send_vec[c1] = src[c1] - src[c1 + _LAT_3C_].mult_i();
         b_x_send_vec[c1 + _LAT_1C_] =
-            src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I;
+            src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].mult_i();
       }
       give_send_x(origin_b_x_send_vec, b_x_send_vec, lat_tzyx / lat_x,
                   (move == 0));
@@ -564,8 +561,8 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
           tmp0 +=
-              (src[c1] + src[c1 + _LAT_3C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_] * I) *
+              (src[c1] + src[c1 + _LAT_3C_].mult_i()) * U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         f_x_send_vec[c0] = tmp0;
@@ -600,7 +597,6 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -629,8 +625,8 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       dest[c0] += b_x_recv_vec[c0];
       dest[c0 + _LAT_1C_] += b_x_recv_vec[c0 + _LAT_1C_];
-      dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_] * I;
-      dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0] * I;
+      dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_].mult_i();
+      dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0].mult_i();
     }
   }                                                             // just add
   add_dest_x(origin_dest, dest, lat_tzyx, (move == lat_x - 1)); // even-odd
@@ -663,8 +659,8 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
-        dest[c0 + _LAT_2C_] += tmp1 * I;
-        dest[c0 + _LAT_3C_] += tmp0 * I;
+        dest[c0 + _LAT_2C_] += tmp1.mult_i();
+        dest[c0 + _LAT_3C_] += tmp0.mult_i();
       }
     }
   }                                                             // just add
@@ -693,7 +689,6 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -784,7 +779,6 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -878,7 +872,6 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -907,9 +900,9 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_z_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_] * I;
+        b_z_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_].mult_i();
         b_z_send_vec[c1 + _LAT_1C_] =
-            src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I;
+            src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].mult_i();
       }
       give_send(origin_b_z_send_vec, b_z_send_vec, lat_tzyx / lat_z);
     }
@@ -937,8 +930,8 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
           tmp0 +=
-              (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
+              (src[c1] + src[c1 + _LAT_2C_].mult_i()) * U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         f_z_send_vec[c0] = tmp0;
@@ -971,7 +964,6 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -1000,8 +992,8 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       dest[c0] += b_z_recv_vec[c0];
       dest[c0 + _LAT_1C_] += b_z_recv_vec[c0 + _LAT_1C_];
-      dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0] * I;
-      dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_] * I;
+      dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0].mult_i();
+      dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_].mult_i();
     }
   }
   // just add
@@ -1035,8 +1027,8 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
-        dest[c0 + _LAT_2C_] += tmp0 * I;
-        dest[c0 + _LAT_3C_] -= tmp1 * I;
+        dest[c0 + _LAT_2C_] += tmp0.mult_i();
+        dest[c0 + _LAT_3C_] -= tmp1.mult_i();
       }
     }
   } // just add
@@ -1066,7 +1058,6 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -1158,7 +1149,6 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
