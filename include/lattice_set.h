@@ -101,8 +101,6 @@ struct LatticeSet {
       cudaEventSynchronize(start);
       checkMpiErrors(MPI_Comm_rank(MPI_COMM_WORLD, host_params + _NODE_RANK_));
       checkMpiErrors(MPI_Comm_size(MPI_COMM_WORLD, host_params + _NODE_SIZE_));
-      host_params[_PARITY_] = _EVEN_;
-      host_params[_DAGGER_] = _NO_USE_;
       grid_index_1dim[_X_] = host_params[_NODE_RANK_] / host_params[_GRID_T_] /
                              host_params[_GRID_Z_] / host_params[_GRID_Y_];
       grid_index_1dim[_Y_] = host_params[_NODE_RANK_] / host_params[_GRID_T_] /
