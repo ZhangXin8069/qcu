@@ -21,8 +21,6 @@
 #define _vals_size_ 11
 #define _NO_USE_ 0
 #define _USE_ 1
-#define _positive_ 0
-#define _negative_ 1
 #define _X_ 0
 #define _Y_ 1
 #define _Z_ 2
@@ -147,7 +145,6 @@
 #define DRAFT
 #define LATTICE_SET
 #define LATTICE_CUDA
-#define CG
 #define BISTABCG
 #define MULTGRID
 #define WILSON_DSLASH

@@ -87,18 +87,18 @@ struct LatticeBistabcg {
           cudaMallocAsync(&b_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
       wilson_dslash.run_eo(device_vec0, ans_o, gauge);
-      cg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(b_e, ans_e, device_vec0, _KAPPA_,
                                              device_vals);
       wilson_dslash.run_oe(device_vec1, ans_e, gauge);
-      cg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                           set_ptr->stream>>>(b_o, ans_o, device_vec1, _KAPPA_,
                                              device_vals);
     }
     { // give b__0, x_o, rr
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       wilson_dslash.run_oe(device_vec0, b_e, gauge);
-      cg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+      bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                            set_ptr->stream>>>(b__o, b_o, device_vec0, _KAPPA_,
                                               device_vals);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
@@ -123,7 +123,7 @@ struct LatticeBistabcg {
     // src_o-_KAPPA_**2*dslash_oe(dslash_eo(src_o))
     wilson_dslash.run_eo(device_vec0, fermion_in, gauge);
     wilson_dslash.run_oe(device_vec1, device_vec0, gauge);
-    cg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    bistabcg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                            set_ptr->stream>>>(
         fermion_out, fermion_in, device_vec1, _KAPPA_, device_vals);
   }
@@ -165,11 +165,11 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     _dot(ans, ans, _norm2_tmp_, _a_);
-    cg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    bistabcg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->streams[_a_]>>>(x, ans, device_vec0,
                                                   device_vals);
     _dot(device_vec0, device_vec0, _diff_tmp_, _a_);
-    cg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
+    bistabcg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
     print_vals(999);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
@@ -324,6 +324,117 @@ struct LatticeBistabcg {
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       }
+    }
+  }
+  void run_nccl_just_cg() {
+    // D dag wait to do......
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
+    // p[i] = r[i]
+    CUBLAS_CHECK(
+        cublasDcopy(set_ptr->cublasH,
+                    set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                    (double *)r, 1, (double *)p, 1));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    for (int loop = 0; loop < _MAX_ITER_; loop++) {
+      {
+        // rho = <r, r>;
+        _dot(r, r, _rho_, _a_);
+      }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+      {
+        // v = A * p;
+        _wilson_dslash(v, p, gauge);
+      }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      // tmp0 = <p ,Ap> = <p, v>;
+      _dot(p, v, _tmp0_, _b_);
+      {
+        // alpha = <r, r>/<p ,Ap> = rho/tmp0;
+        cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
+      }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+      {
+        // x_o[i] = x_o[i] + v * alpha;
+        cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                      set_ptr->streams[_c_]>>>(x_o, p, device_vals);
+      }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
+      {
+        // r_tilde[i] = r[i] - v * alpha;
+        // r[i] = r_tilde[i]
+        cg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                     set_ptr->streams[_d_]>>>(r, r_tilde, v, device_vals);
+      }
+      {
+        // rho_prev = <r_tilde, r_tilde>;
+        _dot(r_tilde, r_tilde, _rho_prev_, _d_);
+      }
+      {
+        // break;
+        checkCudaErrors(cudaMemcpyAsync(
+            ((static_cast<LatticeComplex *>(host_vals)) + _rho_prev_),
+            ((static_cast<LatticeComplex *>(device_vals)) + _rho_prev_),
+            sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+            set_ptr->streams[_d_]));
+      }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
+      {
+        // beta = <r_tilde, r_tilde>/<r, r> = rho_prev/rho;
+        cg_give_1beta<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
+      }
+      {
+        // p[i] = r_tilde[i] + p[i] * beta
+        cg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                    set_ptr->streams[_b_]>>>(p, r_tilde, device_vals);
+      }
+      {
+#ifdef PRINT_NCCL_WILSON_BISTABCG
+        std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
+                  << "##Residual:" << host_vals[_rho_prev_]._data.x
+                  << std::endl;
+#endif
+      }
+      if ((host_vals[_rho_prev_]._data.x < _TOL_ || loop == _MAX_ITER_ - 1)) {
+        std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
+                  << "##Residual:" << host_vals[_rho_prev_] << std::endl;
+        break;
+      }
+    }
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
+    if (if_input) {
+      // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
+      CUBLAS_CHECK(
+          cublasDcopy(set_ptr->cublasH,
+                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                      (double *)b_e, 1, (double *)device_vec0, 1));
+      wilson_dslash.run_eo(device_vec1, x_o, gauge);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      LatticeComplex _(_KAPPA_, 0.0);
+      // dest(B) = B + alpha*A
+      CUBLAS_CHECK(cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
+                                traits<data_type>::cuda_data_type, device_vec1,
+                                traits<data_type>::cuda_data_type, 1,
+                                device_vec0, traits<data_type>::cuda_data_type,
+                                1, traits<data_type>::cuda_data_type));
+      CUBLAS_CHECK(
+          cublasDcopy(set_ptr->cublasH,
+                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                      (double *)device_vec0, 1, (double *)x_e, 1));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     }
   }
   void _run() {
