@@ -5,7 +5,7 @@
 #include "./lattice_cuda.h"
 #include "./lattice_wilson_dslash.h"
 // clang-format on
-// #define PRINT_NCCL_WILSON_CG
+#define PRINT_NCCL_WILSON_CG
 struct LatticeCg {
   LatticeSet *set_ptr;
   cudaError_t err;
@@ -173,8 +173,7 @@ struct LatticeCg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     _dot(ans, ans, _norm2_tmp_, _a_);
     cg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                         set_ptr->streams[_a_]>>>(x, ans, device_vec0,
-                                                  device_vals);
+                   set_ptr->streams[_a_]>>>(x, ans, device_vec0, device_vals);
     _dot(device_vec0, device_vec0, _diff_tmp_, _a_);
     cg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
     print_vals(999);
@@ -212,7 +211,6 @@ struct LatticeCg {
     // exit(1);
   }
   void run_nccl() {
-    // D dag wait to do......
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
@@ -279,7 +277,8 @@ struct LatticeCg {
                     set_ptr->streams[_b_]>>>(p, r_tilde, device_vals);
       }
       {
-#ifdef PRINT_NCCL_WILSON_BISTABCG
+#ifdef PRINT_NCCL_WILSON_CG
+        print_vals(loop);
         std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_]
                   << "##LOOP:" << loop
                   << "##Residual:" << host_vals[_rho_prev_]._data.x
@@ -327,7 +326,6 @@ struct LatticeCg {
   void _run() {
     auto start = std::chrono::high_resolution_clock::now();
     run_nccl();
-    // run_nccl_just_cg();
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
@@ -340,7 +338,7 @@ struct LatticeCg {
            double(duration) / 1e9);
   }
   void run() {
-#ifdef PRINT_NCCL_WILSON_Cg
+#ifdef PRINT_NCCL_WILSON_CG
     set_ptr->_print();
 #endif
     _run();
@@ -351,6 +349,9 @@ struct LatticeCg {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       _diff(device_vec1, b__o);
     }
+#ifdef PRINT_NCCL_WILSON_CG
+    print_vals();
+#endif
   }
   void end() {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
