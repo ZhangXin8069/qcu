@@ -17,7 +17,7 @@ struct LatticeCg {
   LatticeComplex beta;
   LatticeComplex omega;
   void *gauge, *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p,
-      *v, *device_vec0, *device_vec1, *device_vals;
+      *v, *device_vec0, *device_vec1, *device_vec2, *device_vals;
   LatticeComplex host_vals[_vals_size_];
   int if_input, if_test;
   void _init() {
@@ -40,6 +40,9 @@ struct LatticeCg {
           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &device_vec1, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vec2, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
           set_ptr->stream));
     }
     {
@@ -95,9 +98,8 @@ struct LatticeCg {
       CUBLAS_CHECK(
           cublasDcopy(set_ptr->cublasH,
                       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                      (double *)b__o, 1, (double *)r, 1));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      _wilson_dslash_dag(b__o, r, gauge); // use r as tmp vec
+                      (double *)b__o, 1, (double *)device_vec2, 1));
+      _wilson_dslash_dag(b__o, device_vec2, gauge);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->stream>>>(x_o, 23333);
@@ -131,7 +133,12 @@ struct LatticeCg {
         fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
   }
   void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge) {
-    _wilson_dslash(fermion_out, fermion_in, gauge);
+    // _wilson_dslash(fermion_out, fermion_in, gauge);
+    // CUBLAS_CHECK(cublasDcopy(
+    //     set_ptr->cublasH,
+    //     set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+    //     (double *)fermion_out, 1, (double *)device_vec2, 1)); // Not converging???
+    // _wilson_dslash_dag(fermion_out, device_vec2, gauge);
     _wilson_dslash_dag(fermion_out, fermion_in, gauge);
   }
   void init(void *_x, void *_b, void *_gauge) {
@@ -371,6 +378,7 @@ struct LatticeCg {
     checkCudaErrors(cudaFreeAsync(v, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vec0, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vec1, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(device_vec2, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vals, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
