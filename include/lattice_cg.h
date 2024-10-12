@@ -94,7 +94,7 @@ struct LatticeCg {
       wilson_dslash.run_oe(device_vec0, b_e, gauge);
       cg_give_b__o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
           b__o, b_o, device_vec0, set_ptr->kappa(), device_vals);
-      //// b__0 -> Dslash^dag b__o
+      //// b__o -> Dslash^dag b__o
       CUBLAS_CHECK(
           cublasDcopy(set_ptr->cublasH,
                       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
@@ -133,13 +133,13 @@ struct LatticeCg {
         fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
   }
   void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge) {
-    // _wilson_dslash(fermion_out, fermion_in, gauge);
-    // CUBLAS_CHECK(cublasDcopy(
-    //     set_ptr->cublasH,
-    //     set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-    //     (double *)fermion_out, 1, (double *)device_vec2, 1)); // Not converging???
-    // _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-    _wilson_dslash_dag(fermion_out, fermion_in, gauge);
+    _wilson_dslash(fermion_out, fermion_in, gauge);
+    CUBLAS_CHECK(cublasDcopy(
+        set_ptr->cublasH,
+        set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+        (double *)fermion_out, 1, (double *)device_vec2, 1)); // Not converging???
+    _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+    // _wilson_dslash_dag(fermion_out, fermion_in, gauge);
   }
   void init(void *_x, void *_b, void *_gauge) {
     _init();
