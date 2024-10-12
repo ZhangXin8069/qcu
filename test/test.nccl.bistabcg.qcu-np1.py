@@ -23,6 +23,7 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 xi_0, nu = 1, 1
+# mass = -2.5
 mass = 0
 # coeff_r, coeff_t = 1,1
 coeff_r, coeff_t = 0, 0

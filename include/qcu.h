@@ -4,6 +4,7 @@
 #include "./define.h"
 #include "./include.h"
 #include "./lattice_bistabcg.h"
+#include "./lattice_cg.h"
 #include "./lattice_clover_dslash.h"
 #include "./lattice_complex.h"
 #include "./lattice_cuda.h"
@@ -26,6 +27,8 @@ void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid);
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid);
+void ncclCgQcu(void *fermion_out, void *fermion_in, void *gauge,
+               QcuParam *param, QcuParam *grid);
 void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity, QcuParam *grid);
 #ifdef __cplusplus

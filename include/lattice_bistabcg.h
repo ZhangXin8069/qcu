@@ -87,19 +87,19 @@ struct LatticeBistabcg {
           cudaMallocAsync(&b_o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
                           set_ptr->stream));
       wilson_dslash.run_eo(device_vec0, ans_o, gauge);
-      bistabcg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(b_e, ans_e, device_vec0, _KAPPA_,
+      cg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                          set_ptr->stream>>>(b_e, ans_e, device_vec0, set_ptr->kappa(),
                                              device_vals);
       wilson_dslash.run_oe(device_vec1, ans_e, gauge);
-      bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                          set_ptr->stream>>>(b_o, ans_o, device_vec1, _KAPPA_,
+      cg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                          set_ptr->stream>>>(b_o, ans_o, device_vec1, set_ptr->kappa(),
                                              device_vals);
     }
-    { // give b__0, x_o, rr
+    { // give b__o, x_o, rr
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       wilson_dslash.run_oe(device_vec0, b_e, gauge);
-      bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                           set_ptr->stream>>>(b__o, b_o, device_vec0, _KAPPA_,
+      cg_give_b__o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                           set_ptr->stream>>>(b__o, b_o, device_vec0, set_ptr->kappa(),
                                               device_vals);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
@@ -120,12 +120,12 @@ struct LatticeBistabcg {
     wilson_dslash.give(set_ptr);
   }
   void _wilson_dslash(void *fermion_out, void *fermion_in, void *gauge) {
-    // src_o-_KAPPA_**2*dslash_oe(dslash_eo(src_o))
+    // src_o-set_ptr->kappa()**2*dslash_oe(dslash_eo(src_o))
     wilson_dslash.run_eo(device_vec0, fermion_in, gauge);
     wilson_dslash.run_oe(device_vec1, device_vec0, gauge);
-    bistabcg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    cg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                            set_ptr->stream>>>(
-        fermion_out, fermion_in, device_vec1, _KAPPA_, device_vals);
+        fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
   }
   void init(void *_x, void *_b, void *_gauge) {
     _init();
@@ -165,11 +165,11 @@ struct LatticeBistabcg {
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
     _dot(ans, ans, _norm2_tmp_, _a_);
-    bistabcg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+    cg_give_diff<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->streams[_a_]>>>(x, ans, device_vec0,
                                                   device_vals);
     _dot(device_vec0, device_vec0, _diff_tmp_, _a_);
-    bistabcg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
+    cg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
     print_vals(999);
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
@@ -306,7 +306,7 @@ struct LatticeBistabcg {
                                  (double *)b_e, 1, (double *)device_vec0, 1));
         wilson_dslash.run_eo(device_vec1, x_o, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        LatticeComplex _(_KAPPA_, 0.0);
+        LatticeComplex _(set_ptr->kappa(), 0.0);
         // dest(B) = B + alpha*A
         CUBLAS_CHECK(
             cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
@@ -419,7 +419,7 @@ struct LatticeBistabcg {
                       (double *)b_e, 1, (double *)device_vec0, 1));
       wilson_dslash.run_eo(device_vec1, x_o, gauge);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      LatticeComplex _(_KAPPA_, 0.0);
+      LatticeComplex _(set_ptr->kappa(), 0.0);
       // dest(B) = B + alpha*A
       CUBLAS_CHECK(cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
                                 traits<data_type>::cuda_data_type, device_vec1,
