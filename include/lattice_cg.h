@@ -17,7 +17,7 @@ struct LatticeCg {
   LatticeComplex beta;
   LatticeComplex omega;
   void *gauge, *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p,
-      *device_vec0, *device_vec1, *device_vals;
+      *v, *device_vec0, *device_vec1, *device_vals;
   LatticeComplex host_vals[_vals_size_];
   int if_input, if_test;
   void _init() {
@@ -33,6 +33,8 @@ struct LatticeCg {
           set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &p, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &v, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
       checkCudaErrors(cudaMallocAsync(
           &device_vec0, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
           set_ptr->stream));
@@ -79,20 +81,27 @@ struct LatticeCg {
                           set_ptr->stream));
       wilson_dslash.run_eo(device_vec0, ans_o, gauge);
       cg_give_b_e<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-          b_e, ans_e, device_vec0, _KAPPA_, device_vals);
+          b_e, ans_e, device_vec0, set_ptr->kappa(), device_vals);
       wilson_dslash.run_oe(device_vec1, ans_e, gauge);
       cg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-          b_o, ans_o, device_vec1, _KAPPA_, device_vals);
+          b_o, ans_o, device_vec1, set_ptr->kappa(), device_vals);
     }
-    { // give b__0, x_o, rr
+    { // give b__o, x_o, rr
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       wilson_dslash.run_oe(device_vec0, b_e, gauge);
-      cg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-          b__o, b_o, device_vec0, _KAPPA_, device_vals);
+      cg_give_b__o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+          b__o, b_o, device_vec0, set_ptr->kappa(), device_vals);
+      //// b__0 -> Dslash^dag b__o
+      CUBLAS_CHECK(
+          cublasDcopy(set_ptr->cublasH,
+                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+                      (double *)b__o, 1, (double *)r, 1));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      _wilson_dslash_dag(b__o, r, gauge); // use r as tmp vec
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                          set_ptr->stream>>>(x_o, 23333);
-      _wilson_dslash(r, x_o, gauge);
+      _wilson_dslash_all(r, x_o, gauge);
       cg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
           r, b__o, r_tilde, device_vals);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
@@ -108,11 +117,22 @@ struct LatticeCg {
     wilson_dslash.give(set_ptr);
   }
   void _wilson_dslash(void *fermion_out, void *fermion_in, void *gauge) {
-    // src_o-_KAPPA_**2*dslash_oe(dslash_eo(src_o))
+    // src_o-set_ptr->kappa()**2*dslash_oe(dslash_eo(src_o))
     wilson_dslash.run_eo(device_vec0, fermion_in, gauge);
     wilson_dslash.run_oe(device_vec1, device_vec0, gauge);
     cg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-        fermion_out, fermion_in, device_vec1, _KAPPA_, device_vals);
+        fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
+  }
+  void _wilson_dslash_dag(void *fermion_out, void *fermion_in, void *gauge) {
+    // src_o-set_ptr->kappa()**2*dslash_oe(dslash_eo(src_o))
+    wilson_dslash.run_oe_dag(device_vec0, fermion_in, gauge);
+    wilson_dslash.run_eo_dag(device_vec1, device_vec0, gauge);
+    cg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+        fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
+  }
+  void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge) {
+    _wilson_dslash(fermion_out, fermion_in, gauge);
+    _wilson_dslash_dag(fermion_out, fermion_in, gauge);
   }
   void init(void *_x, void *_b, void *_gauge) {
     _init();
@@ -130,6 +150,7 @@ struct LatticeCg {
     gauge = _gauge;
     __init();
   }
+  void _dot(void *vec0, void *vec1, const int vals_index,
             const int stream_index) {
     // dest(val) = _dot(A,B)
     CUBLAS_CHECK(cublasDotcEx(
@@ -211,7 +232,7 @@ struct LatticeCg {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       {
         // v = A * p;
-        _wilson_dslash(v, p, gauge);
+        _wilson_dslash_all(v, p, gauge);
       }
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
@@ -285,7 +306,7 @@ struct LatticeCg {
                       (double *)b_e, 1, (double *)device_vec0, 1));
       wilson_dslash.run_eo(device_vec1, x_o, gauge);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      LatticeComplex _(_KAPPA_, 0.0);
+      LatticeComplex _(set_ptr->kappa(), 0.0);
       // dest(B) = B + alpha*A
       CUBLAS_CHECK(cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
                                 traits<data_type>::cuda_data_type, device_vec1,
@@ -313,7 +334,8 @@ struct LatticeCg {
             .count();
     set_ptr->err = cudaGetLastError();
     checkCudaErrors(set_ptr->err);
-    printf("nccl wilson Cg total time: (without malloc free memcpy) :%.9lf "
+    printf("nccl wilson Cg total time: (without malloc free memcpy) "
+           ":%.9lf "
            "sec\n",
            double(duration) / 1e9);
   }
@@ -325,7 +347,7 @@ struct LatticeCg {
     if (if_input == 0) {
       _diff(x_o, ans_o);
     } else {
-      _wilson_dslash(device_vec1, x_o, gauge);
+      _wilson_dslash_all(device_vec1, x_o, gauge);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       _diff(device_vec1, b__o);
     }
@@ -345,6 +367,7 @@ struct LatticeCg {
     checkCudaErrors(cudaFreeAsync(r, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(r_tilde, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(p, set_ptr->stream));
+    checkCudaErrors(cudaFreeAsync(v, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vec0, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vec1, set_ptr->stream));
     checkCudaErrors(cudaFreeAsync(device_vals, set_ptr->stream));

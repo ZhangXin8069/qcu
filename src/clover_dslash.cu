@@ -834,7 +834,7 @@ __global__ void make_clover(void *device_U, void *device_clover,
     // A=1+T
     LatticeComplex one(1.0, 0);
     for (int i = 0; i < _LAT_SCSC_; i++) {
-      clover[i] *= -0.125; //-1/8
+      clover[i] *= -0.125; //-1/8 // waitting for add mass param
     }
     for (int i = 0; i < _LAT_SC_; i++) {
       clover[i * 13] += one;
