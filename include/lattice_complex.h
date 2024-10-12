@@ -104,7 +104,7 @@ struct LatticeComplex {
   __host__ __device__ __inline__ LatticeComplex conj() const {
     return LatticeComplex(_data.x, -_data.y);
   }
-  __host__ __device__ __inline__ LatticeComplex flag(bool flag) const {
+  __host__ __device__ __inline__ LatticeComplex flag(int flag) const {
     int _ = 1 - 2 * flag;
     return LatticeComplex(_data.x * _, _data.y * _);
   }

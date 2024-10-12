@@ -24,6 +24,7 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
@@ -53,10 +54,11 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_3C_].mult_i()) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].mult_i()) *
-                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -77,10 +79,11 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 +=
-              (src[c1] - src[c1 + _LAT_3C_].mult_i()) * U[c0 * _LAT_C_ + c1];
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].mult_i()) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
                   U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -105,8 +108,9 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
@@ -128,9 +132,10 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-          tmp1 +=
-              (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -155,10 +160,11 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_].mult_i()) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].mult_i()) *
-                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -179,10 +185,11 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 +=
-              (src[c1] - src[c1 + _LAT_2C_].mult_i()) * U[c0 * _LAT_C_ + c1];
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].mult_i()) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
                   U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -208,8 +215,9 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
@@ -231,9 +239,10 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
-          tmp1 +=
-              (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -265,6 +274,7 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
@@ -295,10 +305,11 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_3C_].mult_i()) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].mult_i()) *
-                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -320,10 +331,11 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 +=
-              (src[c1] - src[c1 + _LAT_3C_].mult_i()) * U[c0 * _LAT_C_ + c1];
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].mult_i()) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
                   U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -348,8 +360,9 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
@@ -371,9 +384,10 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-          tmp1 +=
-              (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -398,10 +412,11 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_].mult_i()) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].mult_i()) *
-                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -422,10 +437,11 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 +=
-              (src[c1] - src[c1 + _LAT_2C_].mult_i()) * U[c0 * _LAT_C_ + c1];
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].mult_i()) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
                   U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -452,8 +468,9 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         dest[c0] += tmp0;
@@ -475,9 +492,10 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
-          tmp1 +=
-              (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
@@ -511,6 +529,7 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -541,9 +560,9 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_x_send_vec[c1] = src[c1] - src[c1 + _LAT_3C_].mult_i();
+        b_x_send_vec[c1] = src[c1] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i();
         b_x_send_vec[c1 + _LAT_1C_] =
-            src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].mult_i();
+            src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i();
       }
       give_send_x(origin_b_x_send_vec, b_x_send_vec, lat_tzyx / lat_x,
                   (move == 0));
@@ -572,10 +591,11 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_3C_].mult_i()) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].mult_i()) *
-                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         f_x_send_vec[c0] = tmp0;
         f_x_send_vec[c0 + _LAT_1C_] = tmp1;
@@ -608,6 +628,7 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  // int dagger = params[_DAGGER_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
@@ -701,6 +722,7 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -729,8 +751,9 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_y_send_vec[c1] = src[c1] + src[c1 + _LAT_3C_];
-        b_y_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_];
+        b_y_send_vec[c1] = src[c1] + (src[c1 + _LAT_3C_].flag(dagger));
+        b_y_send_vec[c1 + _LAT_1C_] =
+            src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger));
       }
       give_send(origin_b_y_send_vec, b_y_send_vec, lat_tzyx / lat_y);
     }
@@ -757,8 +780,9 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         f_y_send_vec[c0] = tmp0;
@@ -791,6 +815,7 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  // int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -884,6 +909,7 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -912,9 +938,9 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_z_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_].mult_i();
+        b_z_send_vec[c1] = src[c1] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i();
         b_z_send_vec[c1 + _LAT_1C_] =
-            src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].mult_i();
+            src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i();
       }
       give_send(origin_b_z_send_vec, b_z_send_vec, lat_tzyx / lat_z);
     }
@@ -941,10 +967,11 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_].mult_i()) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].mult_i()) *
-                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         f_z_send_vec[c0] = tmp0;
         f_z_send_vec[c0 + _LAT_1C_] = tmp1;
@@ -976,6 +1003,7 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  // int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -1070,6 +1098,7 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -1098,8 +1127,9 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_t_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_];
-        b_t_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_];
+        b_t_send_vec[c1] = src[c1] - (src[c1 + _LAT_2C_].flag(dagger));
+        b_t_send_vec[c1 + _LAT_1C_] =
+            src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger));
       }
       give_send(origin_b_t_send_vec, b_t_send_vec, lat_tzyx / lat_t);
     }
@@ -1126,8 +1156,9 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         f_t_send_vec[c0] = tmp0;
@@ -1161,6 +1192,7 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  // int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
