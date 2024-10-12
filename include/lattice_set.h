@@ -345,8 +345,6 @@ struct LatticeSet {
                                       _VALS_SIZE_ * sizeof(int), stream));
       checkCudaErrors(cudaMallocAsync(&device_params_odd_dag,
                                       _VALS_SIZE_ * sizeof(int), stream));
-      host_params[_PARITY_] = 0;
-      host_params[_DAGGER_] = 0;
       checkCudaErrors(cudaMemcpyAsync(device_params, host_params,
                                       _VALS_SIZE_ * sizeof(int),
                                       cudaMemcpyHostToDevice, stream));
