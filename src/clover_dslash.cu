@@ -3,7 +3,8 @@
 #ifdef CLOVER_DSLASH
 // clang-format on
 __global__ void make_clover(void *device_U, void *device_clover,
-                            void *device_params) {
+                            void *device_params)
+{
   int idx = blockIdx.x * blockDim.x + threadIdx.x;
   int parity = idx;
   int *params = static_cast<int *>(device_params);
@@ -165,8 +166,10 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   add_vals(U, tmp3, _LAT_CC_);
   {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+    for (int c0 = 0; c0 < _LAT_C_; c0++)
+    {
+      for (int c1 = 0; c1 < _LAT_C_; c1++)
+      {
         clover[c0 * _LAT_SC_ + c1] -=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[39 + c0 * _LAT_SC_ + c1] +=
@@ -293,8 +296,10 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   add_vals(U, tmp3, _LAT_CC_);
   {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+    for (int c0 = 0; c0 < _LAT_C_; c0++)
+    {
+      for (int c1 = 0; c1 < _LAT_C_; c1++)
+      {
         clover[_LAT_C_ + c0 * _LAT_SC_ + c1] -=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
         clover[36 + c0 * _LAT_SC_ + c1] +=
@@ -421,8 +426,10 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   add_vals(U, tmp3, _LAT_CC_);
   {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+    for (int c0 = 0; c0 < _LAT_C_; c0++)
+    {
+      for (int c1 = 0; c1 < _LAT_C_; c1++)
+      {
         clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[36 + c0 * _LAT_SC_ + c1] +=
@@ -553,8 +560,10 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   add_vals(U, tmp3, _LAT_CC_);
   {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+    for (int c0 = 0; c0 < _LAT_C_; c0++)
+    {
+      for (int c1 = 0; c1 < _LAT_C_; c1++)
+      {
         clover[_LAT_C_ + c0 * _LAT_SC_ + c1] -=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[36 + c0 * _LAT_SC_ + c1] -=
@@ -685,8 +694,10 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   add_vals(U, tmp3, _LAT_CC_);
   {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+    for (int c0 = 0; c0 < _LAT_C_; c0++)
+    {
+      for (int c1 = 0; c1 < _LAT_C_; c1++)
+      {
         clover[_LAT_C_ + c0 * _LAT_SC_ + c1] -=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
         clover[36 + c0 * _LAT_SC_ + c1] +=
@@ -817,8 +828,10 @@ __global__ void make_clover(void *device_U, void *device_clover,
   }
   add_vals(U, tmp3, _LAT_CC_);
   {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
+    for (int c0 = 0; c0 < _LAT_C_; c0++)
+    {
+      for (int c1 = 0; c1 < _LAT_C_; c1++)
+      {
         clover[c0 * _LAT_SC_ + c1] +=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[39 + c0 * _LAT_SC_ + c1] -=
@@ -833,16 +846,19 @@ __global__ void make_clover(void *device_U, void *device_clover,
   {
     // A=1+T
     LatticeComplex one(1.0, 0);
-    for (int i = 0; i < _LAT_SCSC_; i++) {
+    for (int i = 0; i < _LAT_SCSC_; i++)
+    {
       clover[i] *= -0.125; //-1/8 // waitting for add mass param
     }
-    for (int i = 0; i < _LAT_SC_; i++) {
+    for (int i = 0; i < _LAT_SC_; i++)
+    {
       clover[i * 13] += one;
     }
   }
   give_clr(origin_clover, clover, lat_tzyx);
 }
-__global__ void inverse_clover(void *device_clover, void *device_params) {
+__global__ void inverse_clover(void *device_clover, void *device_params)
+{
   LatticeComplex *origin_clover;
   int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
   {
@@ -860,7 +876,8 @@ __global__ void inverse_clover(void *device_clover, void *device_params) {
   }
 }
 __global__ void give_clover(void *device_clover, void *device_dest,
-                            void *device_params) {
+                            void *device_params)
+{
   LatticeComplex *origin_clover;
   LatticeComplex *origin_dest;
   int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
@@ -877,8 +894,10 @@ __global__ void give_clover(void *device_clover, void *device_dest,
     give_vals(tmp_dest, zero, _LAT_SC_);
     give_src(dest, origin_dest, lat_tzyx);
     get_clr(clover, origin_clover, lat_tzyx);
-    for (int sc0 = 0; sc0 < _LAT_SC_; sc0++) {
-      for (int sc1 = 0; sc1 < _LAT_SC_; sc1++) {
+    for (int sc0 = 0; sc0 < _LAT_SC_; sc0++)
+    {
+      for (int sc1 = 0; sc1 < _LAT_SC_; sc1++)
+      {
         tmp_dest[sc0] += clover[sc0 * _LAT_SC_ + sc1] * dest[sc1];
       }
     }
