@@ -95,7 +95,7 @@ struct LatticeSet {
   }
   void init() {
     {
-      blockDim = _BLOCK_SIZE_;
+      blockDim = _QCU_BLOCK_SIZE_;
       cudaEventCreate(&start);
       cudaEventCreate(&stop);
       cudaEventRecord(start, 0);
@@ -129,12 +129,12 @@ struct LatticeSet {
       lat_2dim[_QCU_YZ_] = host_params[_QCU_LAT_Y_] * host_params[_QCU_LAT_Z_];
       lat_2dim[_QCU_YT_] = host_params[_QCU_LAT_Y_] * host_params[_QCU_LAT_T_];
       lat_2dim[_QCU_ZT_] = host_params[_QCU_LAT_Z_] * host_params[_QCU_LAT_T_];
-      gridDim_2dim[_QCU_XY_] = lat_2dim[_QCU_XY_] / _BLOCK_SIZE_;
-      gridDim_2dim[_QCU_XZ_] = lat_2dim[_QCU_XZ_] / _BLOCK_SIZE_;
-      gridDim_2dim[_QCU_XT_] = lat_2dim[_QCU_XT_] / _BLOCK_SIZE_;
-      gridDim_2dim[_QCU_YZ_] = lat_2dim[_QCU_YZ_] / _BLOCK_SIZE_;
-      gridDim_2dim[_QCU_YT_] = lat_2dim[_QCU_YT_] / _BLOCK_SIZE_;
-      gridDim_2dim[_QCU_ZT_] = lat_2dim[_QCU_ZT_] / _BLOCK_SIZE_;
+      gridDim_2dim[_QCU_XY_] = lat_2dim[_QCU_XY_] / _QCU_BLOCK_SIZE_;
+      gridDim_2dim[_QCU_XZ_] = lat_2dim[_QCU_XZ_] / _QCU_BLOCK_SIZE_;
+      gridDim_2dim[_QCU_XT_] = lat_2dim[_QCU_XT_] / _QCU_BLOCK_SIZE_;
+      gridDim_2dim[_QCU_YZ_] = lat_2dim[_QCU_YZ_] / _QCU_BLOCK_SIZE_;
+      gridDim_2dim[_QCU_YT_] = lat_2dim[_QCU_YT_] / _QCU_BLOCK_SIZE_;
+      gridDim_2dim[_QCU_ZT_] = lat_2dim[_QCU_ZT_] / _QCU_BLOCK_SIZE_;
       lat_3dim[_QCU_YZT_] =
           host_params[_QCU_LAT_Y_] * host_params[_QCU_LAT_Z_] * host_params[_QCU_LAT_T_];
       lat_3dim[_QCU_XZT_] =
@@ -143,15 +143,15 @@ struct LatticeSet {
           host_params[_QCU_LAT_X_] * host_params[_QCU_LAT_Y_] * host_params[_QCU_LAT_T_];
       lat_3dim[_QCU_XYZ_] =
           host_params[_QCU_LAT_X_] * host_params[_QCU_LAT_Y_] * host_params[_QCU_LAT_Z_];
-      gridDim_3dim[_QCU_YZT_] = lat_3dim[_QCU_YZT_] / _BLOCK_SIZE_;
-      gridDim_3dim[_QCU_XZT_] = lat_3dim[_QCU_XZT_] / _BLOCK_SIZE_;
-      gridDim_3dim[_QCU_XYT_] = lat_3dim[_QCU_XYT_] / _BLOCK_SIZE_;
-      gridDim_3dim[_QCU_XYZ_] = lat_3dim[_QCU_XYZ_] / _BLOCK_SIZE_;
+      gridDim_3dim[_QCU_YZT_] = lat_3dim[_QCU_YZT_] / _QCU_BLOCK_SIZE_;
+      gridDim_3dim[_QCU_XZT_] = lat_3dim[_QCU_XZT_] / _QCU_BLOCK_SIZE_;
+      gridDim_3dim[_QCU_XYT_] = lat_3dim[_QCU_XYT_] / _QCU_BLOCK_SIZE_;
+      gridDim_3dim[_QCU_XYZ_] = lat_3dim[_QCU_XYZ_] / _QCU_BLOCK_SIZE_;
       lat_4dim = lat_3dim[_QCU_XYZ_] * host_params[_QCU_LAT_T_];
       host_params[_QCU_LAT_XYZT_] = lat_4dim;
       lat_4dim_SC = lat_4dim * _QCU_LAT_SC_;
       lat_4dim_DCC = lat_4dim * _QCU_LAT_DCC_;
-      gridDim = lat_4dim / _BLOCK_SIZE_;
+      gridDim = lat_4dim / _QCU_BLOCK_SIZE_;
     }
     {
       move_backward(move_wards[_QCU_B_X_], grid_index_1dim[_QCU_X_],
