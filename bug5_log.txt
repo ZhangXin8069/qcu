@@ -1,0 +1,130 @@
+-- The C compiler identification is GNU 11.4.0
+-- The CXX compiler identification is GNU 11.4.0
+-- The CUDA compiler identification is NVIDIA 12.4.131
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /usr/bin/cc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi_cxx.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Found CUDA: /usr/local/cuda (found version "12.4") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/qcu
+[  6%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/hello_world.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 56%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 62%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 12070
+CUDA Runtime version = 12040
+Found device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: ** Running on a device with compute capability 8.9 but QUDA was compiled for 8.0. **
+ -- This might result in a lower performance. Please consider adjusting QUDA_GPU_ARCH when running cmake.
+
+Using device 0: NVIDIA GeForce RTX 4060 Laptop GPU
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+single latt size = [32, 32, 32, 32]
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+CG: Convergence at 169 iterations, L2 relative residual: iterated = 8.513773e-10, true = 8.513773e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 3.3007881397269214e-10, takes 9.468579567001143 sec, norm_quda_x = 390317.3697042438
+quda rank 0 takes 9.468579567001143 sec
+===============qcu==================
+##RANK:0##SRC_NORM:(0,0i)
+##RANK:0##LOOP:127##Residual:(3.2449e-10,1.72445e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.145427844 sec
+######TIME  :7491.82######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(5.10639e-12,-1.98777e-13i)
+##tmp1      :(5.42249e-12,1.39689e-32i)
+##rho_prev  :(0.000545365,0.000384001i)
+##rho       :(0.000545365,0.000384001i)
+##alpha     :(1.21707,-0.0481383i)
+##beta      :(-0.749083,-0.127689i)
+##omega     :(0.941707,-0.0366579i)
+##send_tmp  :(2.07413e-11,0i)
+##norm2_tmp :(3.0081e+11,3.73473e-09i)
+##diff_tmp  :(6.89516e-23,-8.56076e-43i)
+##lat_4dim  :(524288,0i)
+##RANK:0##DEST_NORM:(3.0081e+11,3.73473e-09i)
+double free or corruption (!prev)
+[2017b6063842:98241] *** Process received signal ***
+[2017b6063842:98241] Signal: Aborted (6)
+[2017b6063842:98241] Signal code:  (-6)
+[2017b6063842:98241] [ 0] /lib/x86_64-linux-gnu/libopen-pal.so.40(+0x6ab79)[0x7f100ef8bb79]
+[2017b6063842:98241] [ 1] /opt/nvidia/nsight-systems/2023.4.4/target-linux-x64/libToolsInjection64.so(+0x4e7d56)[0x7f1015cc1d56]
+[2017b6063842:98241] [ 2] /lib/x86_64-linux-gnu/libc.so.6(+0x42520)[0x7f10154b6520]
+[2017b6063842:98241] [ 3] /lib/x86_64-linux-gnu/libc.so.6(+0x969fc)[0x7f101550a9fc]
+[2017b6063842:98241] [ 4] /lib/x86_64-linux-gnu/libc.so.6(raise+0x16)[0x7f10154b6476]
+[2017b6063842:98241] [ 5] /lib/x86_64-linux-gnu/libc.so.6(abort+0xd3)[0x7f101549c7f3]
+[2017b6063842:98241] [ 6] /lib/x86_64-linux-gnu/libc.so.6(+0x89676)[0x7f10154fd676]
+[2017b6063842:98241] [ 7] /lib/x86_64-linux-gnu/libc.so.6(+0xa0cfc)[0x7f1015514cfc]
+[2017b6063842:98241] [ 8] /lib/x86_64-linux-gnu/libc.so.6(+0xa2e7c)[0x7f1015516e7c]
+[2017b6063842:98241] [ 9] /lib/x86_64-linux-gnu/libc.so.6(free+0x73)[0x7f1015519453]
+[2017b6063842:98241] [10] /root/qcu/lib/libquda.so(+0x59de585)[0x7f0fca065585]
+[2017b6063842:98241] [11] /root/qcu/lib/libquda.so(_ZN4quda10host_free_EPKcS1_iPv+0xfd)[0x7f0fca06878d]
+[2017b6063842:98241] [12] /root/qcu/lib/libquda.so(_ZN4quda16ColorSpinorField7destroyEv+0x155)[0x7f0fc9fbbe75]
+[2017b6063842:98241] [13] /root/qcu/lib/libquda.so(_ZN4quda16ColorSpinorFieldD1Ev+0x1b)[0x7f0fc9fbc07b]
+[2017b6063842:98241] [14] /root/qcu/lib/libquda.so(+0x59377cc)[0x7f0fc9fbe7cc]
+[2017b6063842:98241] [15] /root/qcu/lib/libquda.so(+0x59378da)[0x7f0fc9fbe8da]
+[2017b6063842:98241] [16] /lib/x86_64-linux-gnu/libc.so.6(+0x45495)[0x7f10154b9495]
+[2017b6063842:98241] [17] /lib/x86_64-linux-gnu/libc.so.6(on_exit+0x0)[0x7f10154b9610]
+[2017b6063842:98241] [18] /root/qcu/lib/libqcu.so(_ZN15LatticeBistabcg3runEv+0x4f)[0x7f0f8c9a875f]
+[2017b6063842:98241] [19] /root/qcu/lib/libqcu.so(+0x1bfb5)[0x7f0f8c9a3fb5]
+[2017b6063842:98241] [20] /root/qcu/lib/pyquda/pyqcu.cpython-310-x86_64-linux-gnu.so(+0xc25f)[0x7f100cd0725f]
+[2017b6063842:98241] [21] python(_PyEval_EvalFrameDefault+0x613a)[0x55c593cbc34a]
+[2017b6063842:98241] [22] python(_PyFunction_Vectorcall+0x7c)[0x55c593cce42c]
+[2017b6063842:98241] [23] python(_PyEval_EvalFrameDefault+0x6bc)[0x55c593cb68cc]
+[2017b6063842:98241] [24] python(+0x142016)[0x55c593cb3016]
+[2017b6063842:98241] [25] python(PyEval_EvalCode+0x86)[0x55c593da88b6]
+[2017b6063842:98241] [26] python(+0x262918)[0x55c593dd3918]
+[2017b6063842:98241] [27] python(+0x25c1db)[0x55c593dcd1db]
+[2017b6063842:98241] [28] python(+0x262665)[0x55c593dd3665]
+[2017b6063842:98241] [29] python(_PyRun_SimpleFileObject+0x1a8)[0x55c593dd2b48]
+[2017b6063842:98241] *** End of error message ***
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+~/qcu

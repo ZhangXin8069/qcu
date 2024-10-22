@@ -465,6 +465,14 @@ struct LatticeBistabcg
               << "##SRC_NORM:" << host_vals[_qcu_norm2_tmp_] << std::endl;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_qcu_a_]));
   }
+  void dest_norm()
+  {
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_qcu_a_]));
+    _dot(x_e, x_e, _qcu_norm2_tmp_, _qcu_a_);
+    std::cout << "##RANK:" << set_ptr->host_params[_QCU_NODE_RANK_]
+              << "##DEST_NORM:" << host_vals[_qcu_norm2_tmp_] << std::endl;
+    checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_qcu_a_]));
+  }
   void _run()
   {
     auto start = std::chrono::high_resolution_clock::now();
@@ -484,7 +492,6 @@ struct LatticeBistabcg
   void run()
   {
     src_norm();
-    exit();
 #ifdef PRINT_NCCL_WILSON_BISTABCG
     set_ptr->_print();
 #endif
@@ -499,6 +506,8 @@ struct LatticeBistabcg
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       _diff(device_vec1, b__o);
     }
+    dest_norm();
+    exit(1);
   }
   void end()
   {
