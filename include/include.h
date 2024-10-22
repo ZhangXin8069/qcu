@@ -18,7 +18,6 @@
 #include <functional>
 #include <iostream>
 #include <library_types.h>
-#include <type_traits>
 #include <memory>
 #include <mpi.h>
 #include <nccl.h>

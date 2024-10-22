@@ -1,41 +1,41 @@
 #include "../include/qcu.h"
-#ifdef _QCU_BISTABCG_
+#ifdef BISTABCG
 __global__ void bistabcg_give_1beta(void *device_vals) {
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex rho_prev;
-  rho_prev = vals[_qcu_rho_prev_];
+  rho_prev = vals[_rho_prev_];
   LatticeComplex rho;
-  rho = vals[_qcu_rho_];
+  rho = vals[_rho_];
   LatticeComplex alpha;
-  alpha = vals[_qcu_alpha_];
+  alpha = vals[_alpha_];
   LatticeComplex beta;
-  beta = vals[_qcu_beta_];
+  beta = vals[_beta_];
   LatticeComplex omega;
-  omega = vals[_qcu_omega_];
+  omega = vals[_omega_];
   beta = (rho / rho_prev) * (alpha / omega);
-  vals[_qcu_beta_] = beta;
+  vals[_beta_] = beta;
 }
 __global__ void bistabcg_give_1rho_prev(void *device_vals) {
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex rho;
-  rho = vals[_qcu_rho_];
-  vals[_qcu_rho_prev_] = rho;
+  rho = vals[_rho_];
+  vals[_rho_prev_] = rho;
 }
 __global__ void bistabcg_give_1alpha(void *device_vals) {
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex rho;
-  rho = vals[_qcu_rho_];
+  rho = vals[_rho_];
   LatticeComplex tmp0;
-  tmp0 = vals[_qcu_tmp0_];
-  vals[_qcu_alpha_] = rho / tmp0;
+  tmp0 = vals[_tmp0_];
+  vals[_alpha_] = rho / tmp0;
 }
 __global__ void bistabcg_give_1omega(void *device_vals) {
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex tmp0;
-  tmp0 = vals[_qcu_tmp0_];
+  tmp0 = vals[_tmp0_];
   LatticeComplex tmp1;
-  tmp1 = vals[_qcu_tmp1_];
-  vals[_qcu_omega_] = tmp0 / tmp1;
+  tmp1 = vals[_tmp1_];
+  vals[_omega_] = tmp0 / tmp1;
 }
 __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
                                  void *device_r_tilde, void *device_vals) {
@@ -44,8 +44,8 @@ __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
   LatticeComplex *b__o = (static_cast<LatticeComplex *>(device_b__o) + idx);
   LatticeComplex *r_tilde =
       (static_cast<LatticeComplex *>(device_r_tilde) + idx);
-  int _ = int(((LatticeComplex *)device_vals)[_qcu_lat_4dim_]._data.x);
-  for (int i = 0; i < _QCU_LAT_SC_ * _; i += _) {
+  int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+  for (int i = 0; i < _LAT_SC_ * _; i += _) {
     r[i] = b__o[i] - r[i];
     r_tilde[i] = r[i];
   }
@@ -58,11 +58,11 @@ __global__ void bistabcg_give_p(void *device_p, void *device_r, void *device_v,
   LatticeComplex *v = (static_cast<LatticeComplex *>(device_v) + idx);
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex beta;
-  beta = vals[_qcu_beta_];
+  beta = vals[_beta_];
   LatticeComplex omega;
-  omega = vals[_qcu_omega_];
-  int _ = int(((LatticeComplex *)device_vals)[_qcu_lat_4dim_]._data.x);
-  for (int i = 0; i < _QCU_LAT_SC_ * _; i += _) {
+  omega = vals[_omega_];
+  int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+  for (int i = 0; i < _LAT_SC_ * _; i += _) {
     p[i] = r[i] + (p[i] - v[i] * omega) * beta;
   }
 }
@@ -74,9 +74,9 @@ __global__ void bistabcg_give_s(void *device_s, void *device_r, void *device_v,
   LatticeComplex *v = (static_cast<LatticeComplex *>(device_v) + idx);
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex alpha;
-  alpha = vals[_qcu_alpha_];
-  int _ = int(((LatticeComplex *)device_vals)[_qcu_lat_4dim_]._data.x);
-  for (int i = 0; i < _QCU_LAT_SC_ * _; i += _) {
+  alpha = vals[_alpha_];
+  int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+  for (int i = 0; i < _LAT_SC_ * _; i += _) {
     s[i] = r[i] - v[i] * alpha;
   }
 }
@@ -88,11 +88,11 @@ __global__ void bistabcg_give_x_o(void *device_x_o, void *device_p,
   LatticeComplex *s = (static_cast<LatticeComplex *>(device_s) + idx);
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex alpha;
-  alpha = vals[_qcu_alpha_];
+  alpha = vals[_alpha_];
   LatticeComplex omega;
-  omega = vals[_qcu_omega_];
-  int _ = int(((LatticeComplex *)device_vals)[_qcu_lat_4dim_]._data.x);
-  for (int i = 0; i < _QCU_LAT_SC_ * _; i += _) {
+  omega = vals[_omega_];
+  int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+  for (int i = 0; i < _LAT_SC_ * _; i += _) {
     x_o[i] = x_o[i] + p[i] * alpha + s[i] * omega;
   }
 }
@@ -104,9 +104,9 @@ __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
   LatticeComplex *t = (static_cast<LatticeComplex *>(device_tt) + idx);
   LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
   LatticeComplex omega;
-  omega = vals[_qcu_omega_];
-  int _ = int(((LatticeComplex *)device_vals)[_qcu_lat_4dim_]._data.x);
-  for (int i = 0; i < _QCU_LAT_SC_ * _; i += _) {
+  omega = vals[_omega_];
+  int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+  for (int i = 0; i < _LAT_SC_ * _; i += _) {
     r[i] = s[i] - t[i] * omega;
   }
 }
