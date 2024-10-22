@@ -1,1 +1,1 @@
-./computer-env.sh
+./bml-env.sh
