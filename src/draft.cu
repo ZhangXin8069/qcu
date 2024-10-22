@@ -1,5 +1,5 @@
 #include "../include/qcu.h"
-#ifdef _QCU_DRAFT_
+#ifdef DRAFT
 void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity) {
   // define for wilson_dslash
@@ -41,7 +41,7 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
   _wilson_dslash.give(&_set);
   void *clover;
   checkCudaErrors(cudaMallocAsync(
-      &clover, (_set.lat_4dim * _QCU_LAT_SCSC_) * sizeof(LatticeComplex),
+      &clover, (_set.lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex),
       _set.stream));
   cudaError_t err;
   {
