@@ -3,1802 +3,1789 @@
 -- The CUDA compiler identification is NVIDIA 12.4.131
 -- Detecting C compiler ABI info
 -- Detecting C compiler ABI info - done
--- Check for working C compiler: /home/zhangxin/miniconda3/envs/qcu/bin/x86_64-conda-linux-gnu-cc - skipped
+-- Check for working C compiler: /usr/bin/cc - skipped
 -- Detecting C compile features
 -- Detecting C compile features - done
 -- Detecting CXX compiler ABI info
 -- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /home/zhangxin/miniconda3/envs/qcu/bin/x86_64-conda-linux-gnu-c++ - skipped
+-- Check for working CXX compiler: /usr/bin/c++ - skipped
 -- Detecting CXX compile features
 -- Detecting CXX compile features - done
 -- Detecting CUDA compiler ABI info
 -- Detecting CUDA compiler ABI info - done
--- Check for working CUDA compiler: /home/zhangxin/miniconda3/envs/qcu/bin/nvcc - skipped
+-- Check for working CUDA compiler: /usr/local/cuda/bin/nvcc - skipped
 -- Detecting CUDA compile features
 -- Detecting CUDA compile features - done
--- Found MPI_C: /home/zhangxin/miniconda3/envs/qcu/lib/libmpi.so (found version "3.1") 
--- Found MPI_CXX: /home/zhangxin/miniconda3/envs/qcu/lib/libmpi.so (found version "3.1") 
+-- Found MPI_C: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /usr/lib/x86_64-linux-gnu/openmpi/lib/libmpi_cxx.so (found version "3.1") 
 -- Found MPI: TRUE (found version "3.1")  
-CMake Warning (dev) at CMakeLists.txt:17 (find_package):
-  Policy CMP0146 is not set: The FindCUDA module is removed.  Run "cmake
-  --help-policy CMP0146" for policy details.  Use the cmake_policy command to
-  set the policy and suppress this warning.
-
-This warning is for project developers.  Use -Wno-dev to suppress it.
-
+-- Looking for pthread.h
+-- Looking for pthread.h - found
 -- Performing Test CMAKE_HAVE_LIBC_PTHREAD
--- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
--- Looking for pthread_create in pthreads
--- Looking for pthread_create in pthreads - not found
--- Looking for pthread_create in pthread
--- Looking for pthread_create in pthread - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
 -- Found Threads: TRUE  
--- Found CUDA: /home/zhangxin/miniconda3/envs/qcu/targets/x86_64-linux (found version "12.4") 
--- Configuring done (2.5s)
--- Generating done (0.0s)
--- Build files have been written to: /home/zhangxin/qcu
-[  6%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
-[ 13%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+-- Found CUDA: /usr/local/cuda (found version "12.4") 
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /root/qcu
+[  6%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[ 13%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 26%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
 [ 26%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
-[ 26%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
-[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
-[ 46%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
-[ 46%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
-[ 53%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
-[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
-[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
-[ 73%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 33%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 40%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 46%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 53%] Building CUDA object CMakeFiles/qcu.dir/src/multgrid.cu.o
+[ 60%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 66%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
 [ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
-[ 86%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
-[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+[ 80%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 86%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/cg.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:92: CMakeFiles/qcu.dir/src/cg.cu.o] Error 2
+33 errors detected in the compilation of "/root/qcu/src/lattice_cuda.cu".
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+  typedef _Atomic _Bool atomic_bool;
+          ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
+  typedef _Atomic _Bool atomic_bool;
+                        ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
+  typedef _Atomic char atomic_char;
+                  ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
+  typedef _Atomic signed char atomic_schar;
+                         ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
+  typedef _Atomic unsigned char atomic_uchar;
+                           ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
+  typedef _Atomic int atomic_int;
+                  ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
+  typedef _Atomic unsigned int atomic_uint;
+                           ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
+  typedef _Atomic short unsigned int atomic_char16_t;
+                                 ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
+  typedef _Atomic unsigned int atomic_char32_t;
+                           ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
+  typedef _Atomic int atomic_wchar_t;
+                  ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
+  typedef _Atomic signed char atomic_int_least8_t;
+                         ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
+  typedef _Atomic unsigned char atomic_uint_least8_t;
+                           ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
+  typedef _Atomic short int atomic_int_least16_t;
+                        ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
+  typedef _Atomic short unsigned int atomic_uint_least16_t;
+                                 ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
+  typedef _Atomic int atomic_int_least32_t;
+                  ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
+  typedef _Atomic unsigned int atomic_uint_least32_t;
+                           ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_int_least64_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_uint_least64_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
+  typedef _Atomic signed char atomic_int_fast8_t;
+                         ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
+  typedef _Atomic unsigned char atomic_uint_fast8_t;
+                           ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_int_fast16_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_uint_fast16_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_int_fast32_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_uint_fast32_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_int_fast64_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_uint_fast64_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_intptr_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_uintptr_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_size_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_ptrdiff_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
+  typedef _Atomic long int atomic_intmax_t;
+                       ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
+  typedef _Atomic long unsigned int atomic_uintmax_t;
+                                ^
+
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
+  typedef _Atomic struct
+                  ^
+
+make[2]: *** [CMakeFiles/qcu.dir/build.make:160: CMakeFiles/qcu.dir/src/lattice_cuda.cu.o] Error 2
 make[2]: *** Waiting for unfinished jobs....
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+33 errors detected in the compilation of "/root/qcu/src/clover_dslash.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:104: CMakeFiles/qcu.dir/src/clover_dslash.cu.o] Error 2
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/lattice_cuda.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:167: CMakeFiles/qcu.dir/src/lattice_cuda.cu.o] Error 2
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+33 errors detected in the compilation of "/root/qcu/src/wilson_dslash.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:258: CMakeFiles/qcu.dir/src/wilson_dslash.cu.o] Error 2
+33 errors detected in the compilation of "/root/qcu/src/lattice_set.cu".
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/nccl_wilson_dslash.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:257: CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/clover_dslash__.cu".
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+make[2]: *** [CMakeFiles/qcu.dir/build.make:174: CMakeFiles/qcu.dir/src/lattice_set.cu.o] Error 2
+33 errors detected in the compilation of "/root/qcu/src/nccl_wilson_cg.cu".
+33 errors detected in the compilation of "/root/qcu/src/nccl_wilson_dslash.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:230: CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o] Error 2
+make[2]: *** [CMakeFiles/qcu.dir/build.make:244: CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o] Error 2
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-make[2]: *** [CMakeFiles/qcu.dir/build.make:137: CMakeFiles/qcu.dir/src/clover_dslash__.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/nccl_clover_dslash.cu".
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-make[2]: *** [CMakeFiles/qcu.dir/build.make:212: CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/nccl_wilson_bistabcg.cu".
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+33 errors detected in the compilation of "/root/qcu/src/nccl_clover_dslash.cu".
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+make[2]: *** [CMakeFiles/qcu.dir/build.make:202: CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o] Error 2
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-make[2]: *** [CMakeFiles/qcu.dir/build.make:227: CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/wilson_dslash.cu".
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+33 errors detected in the compilation of "/root/qcu/src/clover_dslash_.cu".
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-make[2]: *** [CMakeFiles/qcu.dir/build.make:272: CMakeFiles/qcu.dir/src/wilson_dslash.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/lattice_set.cu".
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
+33 errors detected in the compilation of "/root/qcu/src/cg.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:118: CMakeFiles/qcu.dir/src/clover_dslash_.cu.o] Error 2
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
   typedef _Atomic _Bool atomic_bool;
           ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(40): error: expected a ";"
   typedef _Atomic _Bool atomic_bool;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(41): error: expected a ";"
   typedef _Atomic char atomic_char;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(42): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_schar;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(43): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uchar;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(46): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(47): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(52): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_char16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(53): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_char32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(54): error: invalid combination of type specifiers
   typedef _Atomic int atomic_wchar_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(55): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_least8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(56): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_least8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(57): error: invalid combination of type specifiers
   typedef _Atomic short int atomic_int_least16_t;
                         ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(58): error: invalid combination of type specifiers
   typedef _Atomic short unsigned int atomic_uint_least16_t;
                                  ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(59): error: invalid combination of type specifiers
   typedef _Atomic int atomic_int_least32_t;
                   ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(60): error: invalid combination of type specifiers
   typedef _Atomic unsigned int atomic_uint_least32_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(61): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_least64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(62): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_least64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(63): error: invalid combination of type specifiers
   typedef _Atomic signed char atomic_int_fast8_t;
                          ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(64): error: invalid combination of type specifiers
   typedef _Atomic unsigned char atomic_uint_fast8_t;
                            ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(65): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast16_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(66): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast16_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(67): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast32_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(68): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast32_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(69): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_int_fast64_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(70): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uint_fast64_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(71): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intptr_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(72): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintptr_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(73): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_size_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(74): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_ptrdiff_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(75): error: invalid combination of type specifiers
   typedef _Atomic long int atomic_intmax_t;
                        ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(76): error: invalid combination of type specifiers
   typedef _Atomic long unsigned int atomic_uintmax_t;
                                 ^
 
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
+/usr/lib/gcc/x86_64-linux-gnu/11/include/stdatomic.h(218): error: invalid combination of type specifiers
   typedef _Atomic struct
                   ^
 
-make[2]: *** [CMakeFiles/qcu.dir/build.make:182: CMakeFiles/qcu.dir/src/lattice_set.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/clover_dslash.cu".
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/nccl_wilson_cg.cu".
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: identifier "_Atomic" is undefined
-  typedef _Atomic _Bool atomic_bool;
-          ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(40): error: expected a ";"
-  typedef _Atomic _Bool atomic_bool;
-                        ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(41): error: expected a ";"
-  typedef _Atomic char atomic_char;
-                  ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(42): error: invalid combination of type specifiers
-  typedef _Atomic signed char atomic_schar;
-                         ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(43): error: invalid combination of type specifiers
-  typedef _Atomic unsigned char atomic_uchar;
-                           ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(46): error: invalid combination of type specifiers
-  typedef _Atomic int atomic_int;
-                  ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(47): error: invalid combination of type specifiers
-  typedef _Atomic unsigned int atomic_uint;
-                           ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(52): error: invalid combination of type specifiers
-  typedef _Atomic short unsigned int atomic_char16_t;
-                                 ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(53): error: invalid combination of type specifiers
-  typedef _Atomic unsigned int atomic_char32_t;
-                           ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(54): error: invalid combination of type specifiers
-  typedef _Atomic int atomic_wchar_t;
-                  ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(55): error: invalid combination of type specifiers
-  typedef _Atomic signed char atomic_int_least8_t;
-                         ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(56): error: invalid combination of type specifiers
-  typedef _Atomic unsigned char atomic_uint_least8_t;
-                           ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(57): error: invalid combination of type specifiers
-  typedef _Atomic short int atomic_int_least16_t;
-                        ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(58): error: invalid combination of type specifiers
-  typedef _Atomic short unsigned int atomic_uint_least16_t;
-                                 ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(59): error: invalid combination of type specifiers
-  typedef _Atomic int atomic_int_least32_t;
-                  ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(60): error: invalid combination of type specifiers
-  typedef _Atomic unsigned int atomic_uint_least32_t;
-                           ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(61): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_int_least64_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(62): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_uint_least64_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(63): error: invalid combination of type specifiers
-  typedef _Atomic signed char atomic_int_fast8_t;
-                         ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(64): error: invalid combination of type specifiers
-  typedef _Atomic unsigned char atomic_uint_fast8_t;
-                           ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(65): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_int_fast16_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(66): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_uint_fast16_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(67): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_int_fast32_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(68): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_uint_fast32_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(69): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_int_fast64_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(70): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_uint_fast64_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(71): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_intptr_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(72): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_uintptr_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(73): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_size_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(74): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_ptrdiff_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(75): error: invalid combination of type specifiers
-  typedef _Atomic long int atomic_intmax_t;
-                       ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(76): error: invalid combination of type specifiers
-  typedef _Atomic long unsigned int atomic_uintmax_t;
-                                ^
-
-/home/zhangxin/miniconda3/envs/qcu/lib/gcc/x86_64-conda-linux-gnu/11.4.0/include/stdatomic.h(218): error: invalid combination of type specifiers
-  typedef _Atomic struct
-                  ^
-
-make[2]: *** [CMakeFiles/qcu.dir/build.make:107: CMakeFiles/qcu.dir/src/clover_dslash.cu.o] Error 2
-make[2]: *** [CMakeFiles/qcu.dir/build.make:242: CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/draft.cu".
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/bistabcg.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:152: CMakeFiles/qcu.dir/src/draft.cu.o] Error 2
-make[2]: *** [CMakeFiles/qcu.dir/build.make:77: CMakeFiles/qcu.dir/src/bistabcg.cu.o] Error 2
-33 errors detected in the compilation of "/home/zhangxin/qcu/src/clover_dslash_.cu".
-make[2]: *** [CMakeFiles/qcu.dir/build.make:122: CMakeFiles/qcu.dir/src/clover_dslash_.cu.o] Error 2
+make[2]: *** [CMakeFiles/qcu.dir/build.make:90: CMakeFiles/qcu.dir/src/cg.cu.o] Error 2
+33 errors detected in the compilation of "/root/qcu/src/draft.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:146: CMakeFiles/qcu.dir/src/draft.cu.o] Error 2
+33 errors detected in the compilation of "/root/qcu/src/bistabcg.cu".
+33 errors detected in the compilation of "/root/qcu/src/nccl_wilson_bistabcg.cu".
+33 errors detected in the compilation of "/root/qcu/src/clover_dslash__.cu".
+make[2]: *** [CMakeFiles/qcu.dir/build.make:76: CMakeFiles/qcu.dir/src/bistabcg.cu.o] Error 2
+make[2]: *** [CMakeFiles/qcu.dir/build.make:216: CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o] Error 2
+make[2]: *** [CMakeFiles/qcu.dir/build.make:132: CMakeFiles/qcu.dir/src/clover_dslash__.cu.o] Error 2
 make[1]: *** [CMakeFiles/Makefile2:83: CMakeFiles/qcu.dir/all] Error 2
 make: *** [Makefile:91: all] Error 2
 mv: cannot stat 'libqcu.so': No such file or directory
 fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
-~/qcu/test ~/qcu
-rm: cannot remove 'log_*': No such file or directory
-test.clover.dslash.qcu-np1.sh: line 4: nsys: command not found
-~/qcu
