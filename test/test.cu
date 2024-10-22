@@ -1,13 +1,15 @@
 #include "./include/qcu.h"
 #include "define.h"
 // #define __CLOVER_DSLASH__
-int main() {
+int main()
+{
   MPI_Init(NULL, NULL);
-  int param_lattice_size[_DIM_];
-  int grid_lattice_size[_DIM_];
-  for (int i = 0; i < _DIM_; i++) {
-    param_lattice_size[i] = _LAT_EXAMPLE_;
-    grid_lattice_size[i] = _GRID_EXAMPLE_;
+  int param_lattice_size[_QCU_DIM_];
+  int grid_lattice_size[_QCU_DIM_];
+  for (int i = 0; i < _QCU_DIM_; i++)
+  {
+    param_lattice_size[i] = _QCU_LAT_EXAMPLE_;
+    grid_lattice_size[i] = _QCU_GRID_EXAMPLE_;
   }
   // grid_lattice_size[_T_] = 2;
   LatticeSet _set;
@@ -18,18 +20,18 @@ int main() {
   void *fermion_in;
   void *fermion_out;
   checkCudaErrors(cudaMalloc(
-      &gauge, _LAT_DCC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                  _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex)));
+      &gauge, _QCU_LAT_DCC_ * _QCU_EVEN_ODD_ * _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ *
+                  _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ * sizeof(LatticeComplex)));
   checkCudaErrors(cudaStreamSynchronize(_set.stream));
   give_debug_u<<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
-      gauge, _set.device_lat_xyzt, parity, _set.node_rank);
+      gauge, _set.device_params);
   checkCudaErrors(cudaStreamSynchronize(_set.stream));
   checkCudaErrors(cudaMalloc(
-      &fermion_in, _LAT_SC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                       _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex)));
-  checkCudaErrors(cudaMalloc(&fermion_out, _LAT_SC_ * _EVEN_ODD_ *
-                                               _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                                               _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
+      &fermion_in, _QCU_LAT_SC_ * _QCU_EVEN_ODD_ * _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ *
+                       _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ * sizeof(LatticeComplex)));
+  checkCudaErrors(cudaMalloc(&fermion_out, _QCU_LAT_SC_ * _QCU_EVEN_ODD_ *
+                                               _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ *
+                                               _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ *
                                                sizeof(LatticeComplex)));
   {
     // define for dslash
@@ -45,7 +47,7 @@ int main() {
 #endif
     {
       // wilson dslash
-      _wilson_dslash.run_test(fermion_out, fermion_in, gauge, parity);
+      _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
     }
 #ifdef __CLOVER_DSLASH__
     {
