@@ -13,12 +13,12 @@ int main()
   }
   // grid_lattice_size[_T_] = 2;
   LatticeSet _set;
-  _set.give(param_lattice_size, grid_lattice_size);
-  _set.init();
   int parity = 1;
   void *gauge;
   void *fermion_in;
   void *fermion_out;
+  _set.give(param_lattice_size, grid_lattice_size, parity);
+  _set.init();
   checkCudaErrors(cudaMalloc(
       &gauge, _QCU_LAT_DCC_ * _QCU_EVEN_ODD_ * _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ *
                   _QCU_LAT_EXAMPLE_ * _QCU_LAT_EXAMPLE_ * sizeof(LatticeComplex)));
@@ -46,13 +46,18 @@ int main()
     _clover_dslash.init();
 #endif
     {
-      // wilson dslash
-      _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
+      // // wilson dslash
+      // _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
+      LatticeBistabcg _bistabcg;
+      _bistabcg.give(&_set);
+      _bistabcg.init(fermion_out, fermion_in, gauge);
+      _bistabcg.run();
+      _bistabcg.end();
     }
 #ifdef __CLOVER_DSLASH__
     {
       // make clover
-      _clover_dslash.make(gauge, parity);
+      _clover_dslash.make(gauge);
     }
     {
       // inverse clover
