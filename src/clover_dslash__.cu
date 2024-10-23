@@ -49,7 +49,7 @@ __global__ void make_clover_all(
   move_forward(move_wards[_F_Y_], y, lat_y);
   move_forward(move_wards[_F_Z_], z, lat_z);
   move_forward(move_wards[_F_T_], t, lat_t);
-  LatticeComplex I(0.0, 1.0);
+
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex tmp0(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
@@ -370,14 +370,14 @@ __global__ void make_clover_all(
   {
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        clover[c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[39 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
-        clover[78 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[78 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[117 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
       }
     }
   }
@@ -626,12 +626,12 @@ __global__ void make_clover_all(
   {
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) ;
         clover[36 + c0 * _LAT_SC_ + c1] +=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
-        clover[81 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[81 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) ;
         clover[114 + c0 * _LAT_SC_ + c1] +=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
       }
@@ -883,13 +883,13 @@ __global__ void make_clover_all(
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
         clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[36 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
-        clover[81 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
-        clover[114 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[81 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[114 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
       }
     }
   }
@@ -1146,14 +1146,14 @@ __global__ void make_clover_all(
   {
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
-        clover[36 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
-        clover[81 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
-        clover[114 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[36 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[81 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[114 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
       }
     }
   }
@@ -1410,14 +1410,14 @@ __global__ void make_clover_all(
   {
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[_LAT_C_ + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) ;
         clover[36 + c0 * _LAT_SC_ + c1] +=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
         clover[81 + c0 * _LAT_SC_ + c1] +=
             (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj());
-        clover[114 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-1);
+        clover[114 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) ;
       }
     }
   }
@@ -1679,13 +1679,13 @@ __global__ void make_clover_all(
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
         clover[c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
-        clover[39 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
-        clover[78 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * (-I);
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[39 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
+        clover[78 + c0 * _LAT_SC_ + c1] -=
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
         clover[117 + c0 * _LAT_SC_ + c1] +=
-            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()) * I;
+            (U[c0 * _LAT_C_ + c1] - U[c1 * _LAT_C_ + c0].conj()).mult_i();
       }
     }
   }

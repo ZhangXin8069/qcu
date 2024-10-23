@@ -24,8 +24,8 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   const int y = parity / lat_x;
   const int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
   LatticeComplex *origin_src =
@@ -41,205 +41,218 @@ __global__ void wilson_dslash(void *device_U, void *device_src,
   LatticeComplex dest[_LAT_SC_];
   // just wilson(Sum part)
 #ifdef __X__
-  { // x part
-   {// x-1
-    move_backward_x(move, x, lat_x, eo, parity);
-  tmp_U = (origin_U + move + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_; c0++) {
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_3C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_] * I) *
+  {   // x part
+    { // x-1
+      move_backward_x(move, x, lat_x, eo, parity);
+      tmp_U = (origin_U + move + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp1.mult_i();
+        dest[c0 + _LAT_3C_] -= tmp0.mult_i();
+      }
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp1 * I;
-    dest[c0 + _LAT_3C_] -= tmp0 * I;
-  }
-}
-{
-  // x+1
-  move_forward_x(move, x, lat_x, eo, parity);
-  tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_; c0++) {
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
-      tmp1 +=
-          (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+    {
+      // x+1
+      move_forward_x(move, x, lat_x, eo, parity);
+      tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move);
+      give_src(src, tmp_src, lat_tzyx);
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp1 * I;
-    dest[c0 + _LAT_3C_] += tmp0 * I;
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp1.mult_i();
+        dest[c0 + _LAT_3C_] += tmp0.mult_i();
+      }
+    }
   }
-}
-}
 #endif
 #ifdef __Y__
-{ // y part
- {// y-1
-  move_backward(move, y, lat_y);
-tmp_U =
-    (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-give_u(U, tmp_U, lat_tzyx);
-tmp_src = (origin_src + move * lat_x);
-give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_; c0++) {
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
-              U[c1 * _LAT_C_ + c0].conj();
+  {   // y part
+    { // y-1
+      move_backward(move, y, lat_y);
+      tmp_U = (origin_U + move * lat_x +
+               (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp1;
-    dest[c0 + _LAT_3C_] -= tmp0;
-  }
-}
-{
-  // y+1
-  move_forward(move, y, lat_y);
-  tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move * lat_x);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_; c0++) {
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp1;
+        dest[c0 + _LAT_3C_] -= tmp0;
+      }
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp1;
-    dest[c0 + _LAT_3C_] += tmp0;
+    {
+      // y+1
+      move_forward(move, y, lat_y);
+      tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp1;
+        dest[c0 + _LAT_3C_] += tmp0;
+      }
+    }
   }
-}
-}
 #endif
 #ifdef __Z__
-{ // z part
- {// z-1
-  move_backward(move, z, lat_z);
-tmp_U = (origin_U + move * lat_y * lat_x +
-         (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-give_u(U, tmp_U, lat_tzyx);
-tmp_src = (origin_src + move * lat_y * lat_x);
-give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_; c0++) {
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
+  {   // z part
+    { // z-1
+      move_backward(move, z, lat_z);
+      tmp_U = (origin_U + move * lat_y * lat_x +
+               (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp0.mult_i();
+        dest[c0 + _LAT_3C_] += tmp1.mult_i();
+      }
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp0 * I;
-    dest[c0 + _LAT_3C_] += tmp1 * I;
-  }
-}
-{
-  // z+1
-  move_forward(move, z, lat_z);
-  tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move * lat_y * lat_x);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_; c0++) {
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
-      tmp1 +=
-          (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+    {
+      // z+1
+      move_forward(move, z, lat_z);
+      tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp0 * I;
-    dest[c0 + _LAT_3C_] -= tmp1 * I;
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp0.mult_i();
+        dest[c0 + _LAT_3C_] -= tmp1.mult_i();
+      }
+    }
   }
-}
-}
 #endif
 #ifdef __T__
-{ // t part
-  {
-    // t-1
-    move_backward(move, t, lat_t);
-    tmp_U = (origin_U + move * lat_z * lat_y * lat_x +
-             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-    give_u(U, tmp_U, lat_tzyx);
-    tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-    give_src(src, tmp_src, lat_tzyx);
-  }
-  {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-        tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
-                U[c1 * _LAT_C_ + c0].conj();
+  { // t part
+    {
+      // t-1
+      move_backward(move, t, lat_t);
+      tmp_U = (origin_U + move * lat_z * lat_y * lat_x +
+               (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp0;
+        dest[c0 + _LAT_3C_] += tmp1;
       }
-      dest[c0] += tmp0;
-      dest[c0 + _LAT_1C_] += tmp1;
-      dest[c0 + _LAT_2C_] += tmp0;
-      dest[c0 + _LAT_3C_] += tmp1;
+    }
+    {
+      // t+1
+      move_forward(move, t, lat_t);
+      tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_; c0++) {
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp0;
+        dest[c0 + _LAT_3C_] -= tmp1;
+      }
     }
   }
-  {
-    // t+1
-    move_forward(move, t, lat_t);
-    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
-    give_u(U, tmp_U, lat_tzyx);
-    tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-    give_src(src, tmp_src, lat_tzyx);
-  }
-  {
-    for (int c0 = 0; c0 < _LAT_C_; c0++) {
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
-        tmp1 +=
-            (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-      }
-      dest[c0] += tmp0;
-      dest[c0 + _LAT_1C_] += tmp1;
-      dest[c0 + _LAT_2C_] -= tmp0;
-      dest[c0 + _LAT_3C_] -= tmp1;
-    }
-  }
-}
 #endif
-give_dest(origin_dest, dest, lat_tzyx);
+  give_dest(origin_dest, dest, lat_tzyx);
 }
 __global__ void wilson_dslash_inside(void *device_U, void *device_src,
                                      void *device_dest, void *device_params) {
@@ -261,8 +274,8 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
   LatticeComplex *origin_src =
@@ -278,206 +291,221 @@ __global__ void wilson_dslash_inside(void *device_U, void *device_src,
   LatticeComplex dest[_LAT_SC_];
   // just wilson(Sum part)
 #ifdef __X__
-  { // x part
-   {// x-1
-    move_backward_x(move, x, lat_x, eo, parity);
-  tmp_U = (origin_U + move + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_ * (move != lat_x - 1); c0++) { // just inside
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_3C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_] * I) *
+  {   // x part
+    { // x-1
+      move_backward_x(move, x, lat_x, eo, parity);
+      tmp_U = (origin_U + move + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move != lat_x - 1);
+           c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp1.mult_i();
+        dest[c0 + _LAT_3C_] -= tmp0.mult_i();
+      }
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp1 * I;
-    dest[c0 + _LAT_3C_] -= tmp0 * I;
-  }
-}
-{
-  // x+1
-  move_forward_x(move, x, lat_x, eo, parity);
-  tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_ * (move != 1 - lat_x); c0++) { // just inside
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
-      tmp1 +=
-          (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
+    {
+      // x+1
+      move_forward_x(move, x, lat_x, eo, parity);
+      tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move);
+      give_src(src, tmp_src, lat_tzyx);
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp1 * I;
-    dest[c0 + _LAT_3C_] += tmp0 * I;
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move != 1 - lat_x);
+           c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp1.mult_i();
+        dest[c0 + _LAT_3C_] += tmp0.mult_i();
+      }
+    }
   }
-}
-}
 #endif
 #ifdef __Y__
-{ // y part
- {// y-1
-  move_backward(move, y, lat_y);
-tmp_U =
-    (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-give_u(U, tmp_U, lat_tzyx);
-tmp_src = (origin_src + move * lat_x);
-give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++) { // just inside
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
-              U[c1 * _LAT_C_ + c0].conj();
+  {   // y part
+    { // y-1
+      move_backward(move, y, lat_y);
+      tmp_U = (origin_U + move * lat_x +
+               (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp1;
-    dest[c0 + _LAT_3C_] -= tmp0;
-  }
-}
-{
-  // y+1
-  move_forward(move, y, lat_y);
-  tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move * lat_x);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++) { // just inside
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp1;
+        dest[c0 + _LAT_3C_] -= tmp0;
+      }
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp1;
-    dest[c0 + _LAT_3C_] += tmp0;
+    {
+      // y+1
+      move_forward(move, y, lat_y);
+      tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp1;
+        dest[c0 + _LAT_3C_] += tmp0;
+      }
+    }
   }
-}
-}
 #endif
 #ifdef __Z__
-{ // z part
- {// z-1
-  move_backward(move, z, lat_z);
-tmp_U = (origin_U + move * lat_y * lat_x +
-         (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-give_u(U, tmp_U, lat_tzyx);
-tmp_src = (origin_src + move * lat_y * lat_x);
-give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++) { // just inside
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-      tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
+  {   // z part
+    { // z-1
+      move_backward(move, z, lat_z);
+      tmp_U = (origin_U + move * lat_y * lat_x +
+               (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
               U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp0.mult_i();
+        dest[c0 + _LAT_3C_] += tmp1.mult_i();
+      }
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] -= tmp0 * I;
-    dest[c0 + _LAT_3C_] += tmp1 * I;
-  }
-}
-{
-  // z+1
-  move_forward(move, z, lat_z);
-  tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
-  give_u(U, tmp_U, lat_tzyx);
-  tmp_src = (origin_src + move * lat_y * lat_x);
-  give_src(src, tmp_src, lat_tzyx);
-}
-{
-  for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++) { // just inside
-    tmp0 = zero;
-    tmp1 = zero;
-    for (int c1 = 0; c1 < _LAT_C_; c1++) {
-      tmp0 += (src[c1] - src[c1 + _LAT_2C_] * I) * U[c0 * _LAT_C_ + c1];
-      tmp1 +=
-          (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I) * U[c0 * _LAT_C_ + c1];
+    {
+      // z+1
+      move_forward(move, z, lat_z);
+      tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
     }
-    dest[c0] += tmp0;
-    dest[c0 + _LAT_1C_] += tmp1;
-    dest[c0 + _LAT_2C_] += tmp0 * I;
-    dest[c0 + _LAT_3C_] -= tmp1 * I;
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp0.mult_i();
+        dest[c0 + _LAT_3C_] -= tmp1.mult_i();
+      }
+    }
   }
-}
-}
 #endif
 #ifdef __T__
-{
-  // t part
   {
-    // t-1
-    move_backward(move, t, lat_t);
-    tmp_U = (origin_U + move * lat_z * lat_y * lat_x +
-             (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
-    give_u(U, tmp_U, lat_tzyx);
-    tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-    give_src(src, tmp_src, lat_tzyx);
-  }
-  {
-    for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++) { // just inside
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-        tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
-                U[c1 * _LAT_C_ + c0].conj();
+    // t part
+    {
+      // t-1
+      move_backward(move, t, lat_t);
+      tmp_U = (origin_U + move * lat_z * lat_y * lat_x +
+               (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] += tmp0;
+        dest[c0 + _LAT_3C_] += tmp1;
       }
-      dest[c0] += tmp0;
-      dest[c0 + _LAT_1C_] += tmp1;
-      dest[c0 + _LAT_2C_] += tmp0;
-      dest[c0 + _LAT_3C_] += tmp1;
+    }
+    {
+      // t+1
+      move_forward(move, t, lat_t);
+      tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
+      give_u(U, tmp_U, lat_tzyx);
+      tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
+      give_src(src, tmp_src, lat_tzyx);
+    }
+    {
+      for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++) { // just inside
+        tmp0 = zero;
+        tmp1 = zero;
+        for (int c1 = 0; c1 < _LAT_C_; c1++) {
+          tmp0 += (src[c1] - (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+          tmp1 += (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c0 * _LAT_C_ + c1];
+        }
+        dest[c0] += tmp0;
+        dest[c0 + _LAT_1C_] += tmp1;
+        dest[c0 + _LAT_2C_] -= tmp0;
+        dest[c0 + _LAT_3C_] -= tmp1;
+      }
     }
   }
-  {
-    // t+1
-    move_forward(move, t, lat_t);
-    tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
-    give_u(U, tmp_U, lat_tzyx);
-    tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-    give_src(src, tmp_src, lat_tzyx);
-  }
-  {
-    for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++) { // just inside
-      tmp0 = zero;
-      tmp1 = zero;
-      for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
-        tmp1 +=
-            (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-      }
-      dest[c0] += tmp0;
-      dest[c0 + _LAT_1C_] += tmp1;
-      dest[c0 + _LAT_2C_] -= tmp0;
-      dest[c0 + _LAT_3C_] -= tmp1;
-    }
-  }
-}
 #endif
-give_dest(origin_dest, dest, lat_tzyx);
+  give_dest(origin_dest, dest, lat_tzyx);
 }
 __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
                                      void *device_params,
@@ -501,8 +529,8 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  int dagger = params[_DAGGER_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -532,9 +560,9 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_x_send_vec[c1] = src[c1] - src[c1 + _LAT_3C_] * I;
+        b_x_send_vec[c1] = src[c1] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i();
         b_x_send_vec[c1 + _LAT_1C_] =
-            src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_] * I;
+            src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i();
       }
       give_send_x(origin_b_x_send_vec, b_x_send_vec, lat_tzyx / lat_x,
                   (move == 0));
@@ -563,10 +591,11 @@ __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 +=
-              (src[c1] + src[c1 + _LAT_3C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_] * I) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         f_x_send_vec[c0] = tmp0;
         f_x_send_vec[c0 + _LAT_1C_] = tmp1;
@@ -599,8 +628,8 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
+  // int dagger = params[_DAGGER_];
   int eo = (y + z + t) & 0x01; // (y+z+t)%2
-  LatticeComplex I(0.0, 1.0);
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -629,10 +658,10 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       dest[c0] += b_x_recv_vec[c0];
       dest[c0 + _LAT_1C_] += b_x_recv_vec[c0 + _LAT_1C_];
-      dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_] * I;
-      dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0] * I;
+      dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_].mult_i();
+      dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0].mult_i();
     }
-  }                                                             // just add
+  } // just add
   add_dest_x(origin_dest, dest, lat_tzyx, (move == lat_x - 1)); // even-odd
   for (int i = 0; i < _LAT_SC_; i++) {
     dest[i] = zero;
@@ -663,11 +692,11 @@ __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
-        dest[c0 + _LAT_2C_] += tmp1 * I;
-        dest[c0 + _LAT_3C_] += tmp0 * I;
+        dest[c0 + _LAT_2C_] += tmp1.mult_i();
+        dest[c0 + _LAT_3C_] += tmp0.mult_i();
       }
     }
-  }                                                             // just add
+  } // just add
   add_dest_x(origin_dest, dest, lat_tzyx, (move == 1 - lat_x)); // even-odd
 #endif
 }
@@ -693,7 +722,7 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
+  int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -722,8 +751,9 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_y_send_vec[c1] = src[c1] + src[c1 + _LAT_3C_];
-        b_y_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_];
+        b_y_send_vec[c1] = src[c1] + (src[c1 + _LAT_3C_].flag(dagger));
+        b_y_send_vec[c1 + _LAT_1C_] =
+            src[c1 + _LAT_1C_] - (src[c1 + _LAT_2C_].flag(dagger));
       }
       give_send(origin_b_y_send_vec, b_y_send_vec, lat_tzyx / lat_y);
     }
@@ -750,8 +780,9 @@ __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+          tmp0 += (src[c1] - (src[c1 + _LAT_3C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_2C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         f_y_send_vec[c0] = tmp0;
@@ -784,7 +815,7 @@ __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
+  // int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -878,7 +909,7 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
+  int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -907,9 +938,9 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_z_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_] * I;
+        b_z_send_vec[c1] = src[c1] - (src[c1 + _LAT_2C_].flag(dagger)).mult_i();
         b_z_send_vec[c1 + _LAT_1C_] =
-            src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_] * I;
+            src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger)).mult_i();
       }
       give_send(origin_b_z_send_vec, b_z_send_vec, lat_tzyx / lat_z);
     }
@@ -936,10 +967,11 @@ __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 +=
-              (src[c1] + src[c1 + _LAT_2C_] * I) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_] * I) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger)).mult_i()) *
                   U[c1 * _LAT_C_ + c0].conj();
+          tmp1 +=
+              (src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger)).mult_i()) *
+              U[c1 * _LAT_C_ + c0].conj();
         }
         f_z_send_vec[c0] = tmp0;
         f_z_send_vec[c0 + _LAT_1C_] = tmp1;
@@ -971,7 +1003,7 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
+  // int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -1000,8 +1032,8 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
     for (int c0 = 0; c0 < _LAT_C_; c0++) {
       dest[c0] += b_z_recv_vec[c0];
       dest[c0 + _LAT_1C_] += b_z_recv_vec[c0 + _LAT_1C_];
-      dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0] * I;
-      dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_] * I;
+      dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0].mult_i();
+      dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_].mult_i();
     }
   }
   // just add
@@ -1035,8 +1067,8 @@ __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
         }
         dest[c0] += tmp0;
         dest[c0 + _LAT_1C_] += tmp1;
-        dest[c0 + _LAT_2C_] += tmp0 * I;
-        dest[c0 + _LAT_3C_] -= tmp1 * I;
+        dest[c0 + _LAT_2C_] += tmp0.mult_i();
+        dest[c0 + _LAT_3C_] -= tmp1.mult_i();
       }
     }
   } // just add
@@ -1066,7 +1098,7 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
+  int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
@@ -1095,8 +1127,9 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
     give_src(src, origin_src, lat_tzyx);
     { // sigma src
       for (int c1 = 0; c1 < _LAT_C_; c1++) {
-        b_t_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_];
-        b_t_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_];
+        b_t_send_vec[c1] = src[c1] - (src[c1 + _LAT_2C_].flag(dagger));
+        b_t_send_vec[c1 + _LAT_1C_] =
+            src[c1 + _LAT_1C_] - (src[c1 + _LAT_3C_].flag(dagger));
       }
       give_send(origin_b_t_send_vec, b_t_send_vec, lat_tzyx / lat_t);
     }
@@ -1123,8 +1156,9 @@ __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
         tmp0 = zero;
         tmp1 = zero;
         for (int c1 = 0; c1 < _LAT_C_; c1++) {
-          tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-          tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+          tmp0 += (src[c1] + (src[c1 + _LAT_2C_].flag(dagger))) *
+                  U[c1 * _LAT_C_ + c0].conj();
+          tmp1 += (src[c1 + _LAT_1C_] + (src[c1 + _LAT_3C_].flag(dagger))) *
                   U[c1 * _LAT_C_ + c0].conj();
         }
         f_t_send_vec[c0] = tmp0;
@@ -1158,7 +1192,7 @@ __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
   int y = parity / lat_x;
   int x = parity - y * lat_x;
   parity = params[_PARITY_];
-  LatticeComplex I(0.0, 1.0);
+  // int dagger = params[_DAGGER_];
   LatticeComplex zero(0.0, 0.0);
   LatticeComplex *tmp_U;
   LatticeComplex tmp0(0.0, 0.0);
