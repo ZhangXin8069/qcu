@@ -1,8 +1,6 @@
 #ifndef _LATTICE_COMPLEX_H
 #define _LATTICE_COMPLEX_H
 #include "./include.h"
-#include <stdatomic.h>
-#include <type_traits>
 using data_type = cuDoubleComplex;
 struct LatticeComplex {
   double2 _data;
@@ -104,19 +102,12 @@ struct LatticeComplex {
   __host__ __device__ __inline__ LatticeComplex conj() const {
     return LatticeComplex(_data.x, -_data.y);
   }
-  __host__ __device__ __inline__ LatticeComplex flag(int flag) const {
-    int _ = 1 - 2 * flag;
-    return LatticeComplex(_data.x * _, _data.y * _);
-  }
-  __host__ __device__ __inline__ LatticeComplex mult_i() const {
-    return LatticeComplex(-_data.y, _data.x);
-  }
   __host__ __device__ __inline__ double norm2() const {
     return sqrt(_data.x * _data.x + _data.y * _data.y);
   }
-  friend std::ostream &operator<<(std::ostream &output,
-                                  const LatticeComplex &_) {
-    output << "(" << _._data.x << "," << _._data.y << "i" << ")";
+  friend std::ostream &operator<<(std::ostream &output, const LatticeComplex &_) {
+    output << "(" << _._data.x << "," << _._data.y << "i"
+           << ")";
     return output;
   }
 };

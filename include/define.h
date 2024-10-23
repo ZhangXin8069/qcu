@@ -139,12 +139,12 @@
 #define _GRID_EXAMPLE_ 1
 #define _MAX_ITER_ 1e3
 #define _TOL_ 1e-9
+#define _KAPPA_ 0.125
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 #define DRAFT
 #define LATTICE_SET
 #define LATTICE_CUDA
-#define CG
 #define BISTABCG
 #define MULTGRID
 #define WILSON_DSLASH
@@ -153,11 +153,9 @@
 #define NCCL_WILSON_DSLASH
 #define NCCL_CLOVER_DSLASH
 // #define NCCL_OVERLAP_DSLASH
-#define WILSON_CG
 #define WILSON_BISTABCG
 // #define CLOVER_BISTABCG
 // #define OVERLAP_BISTABCG
-#define NCCL_WILSON_CG
 #define NCCL_WILSON_BISTABCG
 // #define NCCL_CLOVER_BISTABCG
 // #define NCCL_OVERLAP_BISTABCG

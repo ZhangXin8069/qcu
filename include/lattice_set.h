@@ -26,7 +26,6 @@ struct LatticeSet {
   cudaStream_t streams[_DIM_];
   cudaStream_t stream_dims[_DIM_];
   float time;
-  double mass;
   cudaEvent_t start, stop;
   cudaError_t err;
   int move[_BF_];
@@ -376,18 +375,6 @@ struct LatticeSet {
     }
     checkCudaErrors(cudaStreamSynchronize(stream));
   }
-  double kappa() {
-    /*
-    a=1(always\ ignore)
-    r=1(in\ code\ written\ as\ coeff\_r)
-    C_{SW}=1(in\ code\ written\ as\ coeff\_t)
-    \kappa=\frac{1}{2m_q a+8r}
-    or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
-    */
-    // mass = -2.5;
-    mass = 0.0;
-    return 1 / (2 * mass + 8);
-  }
   float get_time() {
     cudaEventRecord(stop, 0);
     cudaEventSynchronize(stop);
@@ -446,6 +433,7 @@ struct LatticeSet {
     checkNcclErrors(ncclCommDestroy(nccl_comm));
     // CUDA_CHECK(cudaDeviceReset());// don't use this !
   }
+  // clang-format off
   void _print() {
     printf("gridDim.x               :%d\n", gridDim.x);
     printf("blockDim.x              :%d\n", blockDim.x);
