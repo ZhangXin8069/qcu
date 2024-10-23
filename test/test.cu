@@ -47,12 +47,12 @@ int main()
 #endif
     {
       // // wilson dslash
-      _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
-      // LatticeBistabcg _bistabcg;
-      // _bistabcg.give(&_set);
-      // _bistabcg.init(fermion_out, fermion_in, gauge);
-      // _bistabcg.run();
-      // _bistabcg.end();
+      // _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
+      LatticeBistabcg _bistabcg;
+      _bistabcg.give(&_set);
+      _bistabcg.init(fermion_out, fermion_in, gauge);
+      _bistabcg.run();
+      _bistabcg.end();
     }
 #ifdef __CLOVER_DSLASH__
     {
