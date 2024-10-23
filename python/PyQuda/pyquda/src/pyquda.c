@@ -16,14 +16,14 @@
         ],
         "include_dirs": [
             "pyquda/include/quda",
-            "/usr/local/lib/python3.10/dist-packages/numpy/_core/include"
+            "/home/clqcd-imp/.local/lib/python3.11/site-packages/numpy/_core/include"
         ],
         "language": "c",
         "libraries": [
             "quda"
         ],
         "library_dirs": [
-            "/root/qcu/lib"
+            "/home/clqcd-imp/slib"
         ],
         "name": "pyquda.pyquda",
         "sources": [
