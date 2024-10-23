@@ -1,5 +1,5 @@
 #include "../include/qcu.h"
-#ifdef _QCU_NCCL_CLOVER_DSLASH_
+#ifdef NCCL_CLOVER_DSLASH
 void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity, QcuParam *grid) {
   // define for nccl_clover_dslash
