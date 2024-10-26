@@ -2,7 +2,6 @@
 #define _LATTICE_SET_H
 #include "./lattice_cuda.h"
 #pragma once
-
 #include "./define.h"
 namespace qcu
 {

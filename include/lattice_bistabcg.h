@@ -5,7 +5,6 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-  
   // #define PRINT_NCCL_WILSON_BISTABCG
   struct LatticeBistabcg
   {
@@ -343,126 +342,10 @@ namespace qcu
         }
       }
     }
-    void run_nccl_just_cg()
-    {
-      // D dag wait to do......
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-      // p[i] = r[i]
-      CUBLAS_CHECK(
-          cublasDcopy(set_ptr->cublasH,
-                      set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                      (double *)r, 1, (double *)p, 1));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      for (int loop = 0; loop < _MAX_ITER_; loop++)
-      {
-        {
-          // rho = <r, r>;
-          _dot(r, r, _rho_, _a_);
-        }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-        {
-          // v = A * p;
-          _wilson_dslash(v, p, gauge);
-        }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-        // tmp0 = <p ,Ap> = <p, v>;
-        _dot(p, v, _tmp0_, _b_);
-        {
-          // alpha = <r, r>/<p ,Ap> = rho/tmp0;
-          cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
-        }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-        {
-          // x_o[i] = x_o[i] + v * alpha;
-          cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->streams[_c_]>>>(x_o, p, device_vals);
-        }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-        {
-          // r_tilde[i] = r[i] - v * alpha;
-          // r[i] = r_tilde[i]
-          cg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                       set_ptr->streams[_d_]>>>(r, r_tilde, v, device_vals);
-        }
-        {
-          // rho_prev = <r_tilde, r_tilde>;
-          _dot(r_tilde, r_tilde, _rho_prev_, _d_);
-        }
-        {
-          // break;
-          checkCudaErrors(cudaMemcpyAsync(
-              ((static_cast<LatticeComplex *>(host_vals)) + _rho_prev_),
-              ((static_cast<LatticeComplex *>(device_vals)) + _rho_prev_),
-              sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
-              set_ptr->streams[_d_]));
-        }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-        {
-          // beta = <r_tilde, r_tilde>/<r, r> = rho_prev/rho;
-          cg_give_1beta<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
-        }
-        {
-          // p[i] = r_tilde[i] + p[i] * beta
-          cg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                      set_ptr->streams[_b_]>>>(p, r_tilde, device_vals);
-        }
-        {
-#ifdef PRINT_NCCL_WILSON_BISTABCG
-          std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
-                    << "##Residual:" << host_vals[_rho_prev_]._data.x
-                    << std::endl;
-#endif
-        }
-        if ((host_vals[_rho_prev_]._data.x < _TOL_ || loop == _MAX_ITER_ - 1))
-        {
-          std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
-                    << "##Residual:" << host_vals[_rho_prev_] << std::endl;
-          break;
-        }
-      }
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-      if (if_input)
-      {
-        // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
-        CUBLAS_CHECK(
-            cublasDcopy(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                        (double *)b_e, 1, (double *)device_vec0, 1));
-        wilson_dslash.run_eo(device_vec1, x_o, gauge);
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        LatticeComplex _(_KAPPA_, 0.0);
-        // dest(B) = B + alpha*A
-        CUBLAS_CHECK(cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
-                                  traits<data_type>::cuda_data_type, device_vec1,
-                                  traits<data_type>::cuda_data_type, 1,
-                                  device_vec0, traits<data_type>::cuda_data_type,
-                                  1, traits<data_type>::cuda_data_type));
-        CUBLAS_CHECK(
-            cublasDcopy(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                        (double *)device_vec0, 1, (double *)x_e, 1));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-      }
-    }
     void _run()
     {
       auto start = std::chrono::high_resolution_clock::now();
       run_nccl();
-      // run_nccl_just_cg();
       auto end = std::chrono::high_resolution_clock::now();
       auto duration =
           std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
