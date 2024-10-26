@@ -2,11 +2,11 @@
 #define _LATTICE_SET_H
 #include "./lattice_cuda.h"
 #pragma once
-// clang-format off
+
 #include "./define.h"
 namespace qcu
 {
-    // clang-format on
+    
     __global__ void give_param(void *device_param, int vals_index, int val);
     struct LatticeSet
     {
@@ -448,7 +448,7 @@ namespace qcu
             checkNcclErrors(ncclCommDestroy(nccl_comm));
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
-        // clang-format off
+        
   void _print() {
     printf("gridDim.x               :%d\n", gridDim.x);
     printf("blockDim.x              :%d\n", blockDim.x);

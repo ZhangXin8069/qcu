@@ -1,12 +1,11 @@
 #ifndef _LATTICE_BISTABCG_H
 #define _LATTICE_BISTABCG_H
-// clang-format off
 #include "./bistabcg.h"
 #include "./lattice_cuda.h"
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-  // clang-format on
+  
   // #define PRINT_NCCL_WILSON_BISTABCG
   struct LatticeBistabcg
   {

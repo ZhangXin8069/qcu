@@ -1,9 +1,9 @@
-// clang-format off
+
 #include "../include/qcu.h"
 namespace qcu
 {
 #ifdef CLOVER_DSLASH
-  // clang-format on
+  
   __global__ void pick_up_u_x(void *device_U, void *device_params,
                               void *device_u_b_x_send_vec,
                               void *device_u_f_x_send_vec)
