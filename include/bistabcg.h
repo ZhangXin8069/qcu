@@ -32,13 +32,5 @@ namespace qcu
                                     void *device_vals);
     __global__ void bistabcg_give_diff(void *device_x, void *device_ans,
                                        void *device_vec, void *device_vals);
-    __global__ void cg_give_1beta(void *device_vals);
-    __global__ void cg_give_1alpha(void *device_vals);
-    __global__ void cg_give_p(void *device_p, void *device_r_tilde,
-                              void *device_vals);
-    __global__ void cg_give_x_o(void *device_x_o, void *device_p,
-                                void *device_vals);
-    __global__ void cg_give_rr(void *device_r, void *device_r_tilde, void *device_v,
-                               void *device_vals);
 }
 #endif

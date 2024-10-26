@@ -6,7 +6,7 @@
 namespace qcu
 {
   // #define PRINT_NCCL_WILSON_BISTABCG
-  struct LatticeBistabcg
+  struct LatticeBistabCg
   {
     LatticeSet *set_ptr;
     cudaError_t err;
