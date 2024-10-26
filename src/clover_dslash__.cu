@@ -1,4 +1,3 @@
-
 #include "../include/qcu.h"
 namespace qcu
 {

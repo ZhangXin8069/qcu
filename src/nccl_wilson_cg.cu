@@ -1,4 +1,3 @@
-
 #include "../include/qcu.h"
 using namespace qcu;
 #ifdef _QCU_NCCL_WILSON_CG_

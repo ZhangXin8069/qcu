@@ -1,4 +1,3 @@
-
 #include "../include/qcu.h"
 using namespace qcu;
 #ifdef NCCL_WILSON_BISTABCG

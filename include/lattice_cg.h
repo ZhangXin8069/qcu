@@ -1,6 +1,5 @@
 #ifndef _LATTICE_cg_H
 #define _LATTICE_cg_H
-
 #include "./cg.h"
 #include "./lattice_cuda.h"
 #include "./lattice_wilson_dslash.h"
