@@ -5,7 +5,6 @@
 #include "./define.h"
 namespace qcu
 {
-    
     __global__ void give_param(void *device_param, int vals_index, int val);
     struct LatticeSet
     {
@@ -447,80 +446,81 @@ namespace qcu
             checkNcclErrors(ncclCommDestroy(nccl_comm));
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
-        
-  void _print() {
-    printf("gridDim.x               :%d\n", gridDim.x);
-    printf("blockDim.x              :%d\n", blockDim.x);
-    printf("host_params[_LAT_X_]    :%d\n", host_params[_LAT_X_]);
-    printf("host_params[_LAT_Y_]    :%d\n", host_params[_LAT_Y_]);
-    printf("host_params[_LAT_Z_]    :%d\n", host_params[_LAT_Z_]);
-    printf("host_params[_LAT_T_]    :%d\n", host_params[_LAT_T_]);
-    printf("host_params[_LAT_XYZT_] :%d\n", host_params[_LAT_XYZT_]);
-    printf("host_params[_GRID_X_]   :%d\n", host_params[_GRID_X_]);
-    printf("host_params[_GRID_Y_]   :%d\n", host_params[_GRID_Y_]);
-    printf("host_params[_GRID_Z_]   :%d\n", host_params[_GRID_Z_]);
-    printf("host_params[_GRID_T_]   :%d\n", host_params[_GRID_T_]);
-    printf("host_params[_PARITY_]   :%d\n", host_params[_PARITY_]);
-    printf("host_params[_NODE_RANK_]:%d\n", host_params[_NODE_RANK_]);
-    printf("host_params[_NODE_SIZE_]:%d\n", host_params[_NODE_SIZE_]);
-    printf("lat_2dim[_XY_]          :%d\n", lat_2dim[_XY_]);
-    printf("lat_2dim[_XZ_]          :%d\n", lat_2dim[_XZ_]);
-    printf("lat_2dim[_XT_]          :%d\n", lat_2dim[_XT_]);
-    printf("lat_2dim[_YZ_]          :%d\n", lat_2dim[_YZ_]);
-    printf("lat_2dim[_YT_]          :%d\n", lat_2dim[_YT_]);
-    printf("lat_2dim[_ZT_]          :%d\n", lat_2dim[_ZT_]);
-    printf("lat_3dim[_YZT_]         :%d\n", lat_3dim[_YZT_]);
-    printf("lat_3dim[_XZT_]         :%d\n", lat_3dim[_XZT_]);
-    printf("lat_3dim[_XYT_]         :%d\n", lat_3dim[_XYT_]);
-    printf("lat_3dim[_XYZ_]         :%d\n", lat_3dim[_XYZ_]);
-    printf("lat_4dim                :%d\n", lat_4dim);
-    printf("grid_2dim[_XY_]         :%d\n", grid_2dim[_XY_]);
-    printf("grid_2dim[_XZ_]         :%d\n", grid_2dim[_XZ_]);
-    printf("grid_2dim[_XT_]         :%d\n", grid_2dim[_XT_]);
-    printf("grid_2dim[_YZ_]         :%d\n", grid_2dim[_YZ_]);
-    printf("grid_2dim[_YT_]         :%d\n", grid_2dim[_YT_]);
-    printf("grid_2dim[_ZT_]         :%d\n", grid_2dim[_ZT_]);
-    printf("grid_3dim[_YZT_]        :%d\n", grid_3dim[_YZT_]);
-    printf("grid_3dim[_XZT_]        :%d\n", grid_3dim[_XZT_]);
-    printf("grid_3dim[_XYT_]        :%d\n", grid_3dim[_XYT_]);
-    printf("grid_3dim[_XYZ_]        :%d\n", grid_3dim[_XYZ_]);
-    printf("grid_index_1dim[_X_]    :%d\n", grid_index_1dim[_X_]);
-    printf("grid_index_1dim[_Y_]    :%d\n", grid_index_1dim[_Y_]);
-    printf("grid_index_1dim[_Z_]    :%d\n", grid_index_1dim[_Z_]);
-    printf("grid_index_1dim[_T_]    :%d\n", grid_index_1dim[_T_]);
-    printf("move_wards[_B_X_]       :%d\n", move_wards[_B_X_]);
-    printf("move_wards[_B_Y_]       :%d\n", move_wards[_B_Y_]);
-    printf("move_wards[_B_Z_]       :%d\n", move_wards[_B_Z_]);
-    printf("move_wards[_B_T_]       :%d\n", move_wards[_B_T_]);
-    printf("move_wards[_F_X_]       :%d\n", move_wards[_F_X_]);
-    printf("move_wards[_F_Y_]       :%d\n", move_wards[_F_Y_]);
-    printf("move_wards[_F_Z_]       :%d\n", move_wards[_F_Z_]);
-    printf("move_wards[_F_T_]       :%d\n", move_wards[_F_T_]);
-    printf("move_wards[_BX_BY_]     :%d\n", move_wards[_BX_BY_]);
-    printf("move_wards[_BX_BZ_]     :%d\n", move_wards[_BX_BZ_]);
-    printf("move_wards[_BX_BT_]     :%d\n", move_wards[_BX_BT_]);
-    printf("move_wards[_BY_BZ_]     :%d\n", move_wards[_BY_BZ_]);
-    printf("move_wards[_BY_BT_]     :%d\n", move_wards[_BY_BT_]);
-    printf("move_wards[_BZ_BT_]     :%d\n", move_wards[_BZ_BT_]);
-    printf("move_wards[_FX_BY_]     :%d\n", move_wards[_FX_BY_]);
-    printf("move_wards[_FX_BZ_]     :%d\n", move_wards[_FX_BZ_]);
-    printf("move_wards[_FX_BT_]     :%d\n", move_wards[_FX_BT_]);
-    printf("move_wards[_FY_BZ_]     :%d\n", move_wards[_FY_BZ_]);
-    printf("move_wards[_FY_BT_]     :%d\n", move_wards[_FY_BT_]);
-    printf("move_wards[_FZ_BT_]     :%d\n", move_wards[_FZ_BT_]);
-    printf("move_wards[_BX_FY_]     :%d\n", move_wards[_BX_FY_]);
-    printf("move_wards[_BX_FZ_]     :%d\n", move_wards[_BX_FZ_]);
-    printf("move_wards[_BX_FT_]     :%d\n", move_wards[_BX_FT_]);
-    printf("move_wards[_BY_FZ_]     :%d\n", move_wards[_BY_FZ_]);
-    printf("move_wards[_BY_FT_]     :%d\n", move_wards[_BY_FT_]);
-    printf("move_wards[_BZ_FT_]     :%d\n", move_wards[_BZ_FT_]);
-    printf("move_wards[_FX_FY_]     :%d\n", move_wards[_FX_FY_]);
-    printf("move_wards[_FX_FZ_]     :%d\n", move_wards[_FX_FZ_]);
-    printf("move_wards[_FX_FT_]     :%d\n", move_wards[_FX_FT_]);
-    printf("move_wards[_FY_FZ_]     :%d\n", move_wards[_FY_FZ_]);
-    printf("move_wards[_FY_FT_]     :%d\n", move_wards[_FY_FT_]);
-    printf("move_wards[_FZ_FT_]     :%d\n", move_wards[_FZ_FT_]);
-  }
-};
+
+        void _print()
+        {
+            printf("gridDim.x               :%d\n", gridDim.x);
+            printf("blockDim.x              :%d\n", blockDim.x);
+            printf("host_params[_LAT_X_]    :%d\n", host_params[_LAT_X_]);
+            printf("host_params[_LAT_Y_]    :%d\n", host_params[_LAT_Y_]);
+            printf("host_params[_LAT_Z_]    :%d\n", host_params[_LAT_Z_]);
+            printf("host_params[_LAT_T_]    :%d\n", host_params[_LAT_T_]);
+            printf("host_params[_LAT_XYZT_] :%d\n", host_params[_LAT_XYZT_]);
+            printf("host_params[_GRID_X_]   :%d\n", host_params[_GRID_X_]);
+            printf("host_params[_GRID_Y_]   :%d\n", host_params[_GRID_Y_]);
+            printf("host_params[_GRID_Z_]   :%d\n", host_params[_GRID_Z_]);
+            printf("host_params[_GRID_T_]   :%d\n", host_params[_GRID_T_]);
+            printf("host_params[_PARITY_]   :%d\n", host_params[_PARITY_]);
+            printf("host_params[_NODE_RANK_]:%d\n", host_params[_NODE_RANK_]);
+            printf("host_params[_NODE_SIZE_]:%d\n", host_params[_NODE_SIZE_]);
+            printf("lat_2dim[_XY_]          :%d\n", lat_2dim[_XY_]);
+            printf("lat_2dim[_XZ_]          :%d\n", lat_2dim[_XZ_]);
+            printf("lat_2dim[_XT_]          :%d\n", lat_2dim[_XT_]);
+            printf("lat_2dim[_YZ_]          :%d\n", lat_2dim[_YZ_]);
+            printf("lat_2dim[_YT_]          :%d\n", lat_2dim[_YT_]);
+            printf("lat_2dim[_ZT_]          :%d\n", lat_2dim[_ZT_]);
+            printf("lat_3dim[_YZT_]         :%d\n", lat_3dim[_YZT_]);
+            printf("lat_3dim[_XZT_]         :%d\n", lat_3dim[_XZT_]);
+            printf("lat_3dim[_XYT_]         :%d\n", lat_3dim[_XYT_]);
+            printf("lat_3dim[_XYZ_]         :%d\n", lat_3dim[_XYZ_]);
+            printf("lat_4dim                :%d\n", lat_4dim);
+            printf("grid_2dim[_XY_]         :%d\n", grid_2dim[_XY_]);
+            printf("grid_2dim[_XZ_]         :%d\n", grid_2dim[_XZ_]);
+            printf("grid_2dim[_XT_]         :%d\n", grid_2dim[_XT_]);
+            printf("grid_2dim[_YZ_]         :%d\n", grid_2dim[_YZ_]);
+            printf("grid_2dim[_YT_]         :%d\n", grid_2dim[_YT_]);
+            printf("grid_2dim[_ZT_]         :%d\n", grid_2dim[_ZT_]);
+            printf("grid_3dim[_YZT_]        :%d\n", grid_3dim[_YZT_]);
+            printf("grid_3dim[_XZT_]        :%d\n", grid_3dim[_XZT_]);
+            printf("grid_3dim[_XYT_]        :%d\n", grid_3dim[_XYT_]);
+            printf("grid_3dim[_XYZ_]        :%d\n", grid_3dim[_XYZ_]);
+            printf("grid_index_1dim[_X_]    :%d\n", grid_index_1dim[_X_]);
+            printf("grid_index_1dim[_Y_]    :%d\n", grid_index_1dim[_Y_]);
+            printf("grid_index_1dim[_Z_]    :%d\n", grid_index_1dim[_Z_]);
+            printf("grid_index_1dim[_T_]    :%d\n", grid_index_1dim[_T_]);
+            printf("move_wards[_B_X_]       :%d\n", move_wards[_B_X_]);
+            printf("move_wards[_B_Y_]       :%d\n", move_wards[_B_Y_]);
+            printf("move_wards[_B_Z_]       :%d\n", move_wards[_B_Z_]);
+            printf("move_wards[_B_T_]       :%d\n", move_wards[_B_T_]);
+            printf("move_wards[_F_X_]       :%d\n", move_wards[_F_X_]);
+            printf("move_wards[_F_Y_]       :%d\n", move_wards[_F_Y_]);
+            printf("move_wards[_F_Z_]       :%d\n", move_wards[_F_Z_]);
+            printf("move_wards[_F_T_]       :%d\n", move_wards[_F_T_]);
+            printf("move_wards[_BX_BY_]     :%d\n", move_wards[_BX_BY_]);
+            printf("move_wards[_BX_BZ_]     :%d\n", move_wards[_BX_BZ_]);
+            printf("move_wards[_BX_BT_]     :%d\n", move_wards[_BX_BT_]);
+            printf("move_wards[_BY_BZ_]     :%d\n", move_wards[_BY_BZ_]);
+            printf("move_wards[_BY_BT_]     :%d\n", move_wards[_BY_BT_]);
+            printf("move_wards[_BZ_BT_]     :%d\n", move_wards[_BZ_BT_]);
+            printf("move_wards[_FX_BY_]     :%d\n", move_wards[_FX_BY_]);
+            printf("move_wards[_FX_BZ_]     :%d\n", move_wards[_FX_BZ_]);
+            printf("move_wards[_FX_BT_]     :%d\n", move_wards[_FX_BT_]);
+            printf("move_wards[_FY_BZ_]     :%d\n", move_wards[_FY_BZ_]);
+            printf("move_wards[_FY_BT_]     :%d\n", move_wards[_FY_BT_]);
+            printf("move_wards[_FZ_BT_]     :%d\n", move_wards[_FZ_BT_]);
+            printf("move_wards[_BX_FY_]     :%d\n", move_wards[_BX_FY_]);
+            printf("move_wards[_BX_FZ_]     :%d\n", move_wards[_BX_FZ_]);
+            printf("move_wards[_BX_FT_]     :%d\n", move_wards[_BX_FT_]);
+            printf("move_wards[_BY_FZ_]     :%d\n", move_wards[_BY_FZ_]);
+            printf("move_wards[_BY_FT_]     :%d\n", move_wards[_BY_FT_]);
+            printf("move_wards[_BZ_FT_]     :%d\n", move_wards[_BZ_FT_]);
+            printf("move_wards[_FX_FY_]     :%d\n", move_wards[_FX_FY_]);
+            printf("move_wards[_FX_FZ_]     :%d\n", move_wards[_FX_FZ_]);
+            printf("move_wards[_FX_FT_]     :%d\n", move_wards[_FX_FT_]);
+            printf("move_wards[_FY_FZ_]     :%d\n", move_wards[_FY_FZ_]);
+            printf("move_wards[_FY_FT_]     :%d\n", move_wards[_FY_FT_]);
+            printf("move_wards[_FZ_FT_]     :%d\n", move_wards[_FZ_FT_]);
+        }
+    };
 }
 #endif
