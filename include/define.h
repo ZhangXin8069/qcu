@@ -148,6 +148,7 @@ namespace qcu
 #define LATTICE_SET
 #define LATTICE_CUDA
 #define BISTABCG
+#define CG
 #define MULTGRID
 #define WILSON_DSLASH
 #define CLOVER_DSLASH
@@ -159,6 +160,7 @@ namespace qcu
 // #define CLOVER_BISTABCG
 // #define OVERLAP_BISTABCG
 #define NCCL_WILSON_BISTABCG
+#define NCCL_WILSON_CG
 // #define NCCL_CLOVER_BISTABCG
 // #define NCCL_OVERLAP_BISTABCG
 // #define WILSON_MULTGRID

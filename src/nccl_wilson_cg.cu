@@ -1,6 +1,6 @@
 #include "../include/qcu.h"
 using namespace qcu;
-#ifdef _QCU_NCCL_WILSON_CG_
+#ifdef NCCL_WILSON_CG
 void ncclCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid) {
   // define for nccl_wilson_cg
@@ -10,7 +10,9 @@ void ncclCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   dptzyxcc2ccdptzyx(gauge, &_set);
   ptzyxsc2psctzyx(fermion_in, &_set);
   ptzyxsc2psctzyx(fermion_out, &_set);
-  LatticeCg _cg;
+  LatticeBistabCg _cg;
+  printf("this version just is for test, in fact used bistabcg function, not cg function.\n");
+  // LatticeCg _cg;
   _cg.give(&_set);
   _cg.init(fermion_out, fermion_in, gauge);
   _cg.run();

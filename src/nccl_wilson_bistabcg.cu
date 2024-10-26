@@ -10,7 +10,7 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   dptzyxcc2ccdptzyx(gauge, &_set);
   ptzyxsc2psctzyx(fermion_in, &_set);
   ptzyxsc2psctzyx(fermion_out, &_set);
-  LatticeBistabcg _bistabcg;
+  LatticeBistabCg _bistabcg;
   _bistabcg.give(&_set);
   _bistabcg.init(fermion_out, fermion_in, gauge);
   _bistabcg.run();
