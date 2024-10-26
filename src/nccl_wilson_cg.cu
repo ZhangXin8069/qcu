@@ -1,5 +1,6 @@
 // clang-format off
 #include "../include/qcu.h"
+using namespace qcu;
 #ifdef _QCU_NCCL_WILSON_CG_
 void ncclCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid) {

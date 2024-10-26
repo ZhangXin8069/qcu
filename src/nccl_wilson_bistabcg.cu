@@ -1,5 +1,6 @@
 // clang-format off
 #include "../include/qcu.h"
+using namespace qcu;
 #ifdef NCCL_WILSON_BISTABCG
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid) {
