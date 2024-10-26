@@ -1,9 +1,9 @@
-// clang-format off
+
 #include "../include/qcu.h"
 namespace qcu
 {
 #ifdef CLOVER_DSLASH
-  // clang-format on
+  
   __global__ void make_clover(void *device_U, void *device_clover,
                               void *device_params)
   {

@@ -1,12 +1,12 @@
 #ifndef _LATTICE_cg_H
 #define _LATTICE_cg_H
-// clang-format off
+
 #include "./cg.h"
 #include "./lattice_cuda.h"
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-  // clang-format on
+  
   // #define PRINT_NCCL_WILSON_CG
   struct LatticeCg
   {
