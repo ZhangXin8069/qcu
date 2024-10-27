@@ -1,1 +1,1 @@
-./computer-env.sh
+./usb-env.sh
