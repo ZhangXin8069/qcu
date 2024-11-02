@@ -1,1 +1,1 @@
-./bml-env.sh
+bml-env.sh
