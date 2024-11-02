@@ -23,7 +23,6 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 xi_0, nu = 1, 1
-# mass = -2.5
 mass = 0
 # coeff_r, coeff_t = 1,1
 coeff_r, coeff_t = 0, 0
@@ -81,9 +80,9 @@ def compare(round):
     if rank == 0:
         print("===============qcu==================")
     t1 = perf_counter()
-    # qcu.ncclCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
-    qcu.ncclBistabCgQcu(qcu_x.data_ptr,
-                        quda_x.data_ptr, U.data_ptr, param, grid)
+    qcu.ncclBistabCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
+    # qcu.ncclBistabCgQcu(qcu_x.data_ptr,
+    #                     quda_x.data_ptr, U.data_ptr, param, grid)
     # D*x=p, to get qcu_x
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
