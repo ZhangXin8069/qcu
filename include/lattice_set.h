@@ -384,6 +384,10 @@ namespace qcu
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
         }
+        double kappa()
+        {
+            return _KAPPA_;
+        }
         float get_time()
         {
             cudaEventRecord(stop, 0);
@@ -446,7 +450,6 @@ namespace qcu
             checkNcclErrors(ncclCommDestroy(nccl_comm));
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
-
         void _print()
         {
             printf("gridDim.x               :%d\n", gridDim.x);

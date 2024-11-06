@@ -99,10 +99,10 @@ namespace qcu
                             set_ptr->stream>>>(b_o, ans_o, device_vec1, _KAPPA_,
                                                device_vals);
       }
-      { // give b__0, x_o, rr
+      { // give b_o, x_o, rr
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         wilson_dslash.run_oe(device_vec0, b_e, gauge);
-        bistabcg_give_b__0<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+        bistabcg_give_b_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                              set_ptr->stream>>>(b__o, b_o, device_vec0, _KAPPA_,
                                                 device_vals);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
