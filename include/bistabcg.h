@@ -14,7 +14,7 @@ namespace qcu
     __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
                                       void *device_vec1, double kappa,
                                       void *device_vals);
-    __global__ void bistabcg_give_b_o(void *device_b__o, void *device_b_o,
+    __global__ void bistabcg_give_b__o(void *device_b__o, void *device_b_o,
                                        void *device_vec0, double kappa,
                                        void *device_vals);
     __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
