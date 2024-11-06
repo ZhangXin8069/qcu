@@ -144,13 +144,15 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      _wilson_dslash(fermion_out, fermion_in, gauge);
-      CUBLAS_CHECK(cublasDcopy(
-          set_ptr->cublasH,
-          set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-          (double *)fermion_out, 1, (double *)device_vec2, 1)); // Not converging???
-      _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      // _wilson_dslash_dag(fermion_out, fermion_in, gauge);
+      // {
+      //   _wilson_dslash(fermion_out, fermion_in, gauge);
+      //   CUBLAS_CHECK(cublasDcopy(
+      //       set_ptr->cublasH,
+      //       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
+      //       (double *)fermion_out, 1, (double *)device_vec2, 1)); // Not converging???
+      //   _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+      // }
+      _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
     {
@@ -246,6 +248,7 @@ namespace qcu
                       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
                       (double *)r, 1, (double *)p, 1));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      print_vals(-1);
       for (int loop = 0; loop < _MAX_ITER_; loop++)
       {
         {
