@@ -3,6 +3,7 @@
 #pragma once
 #include "./define.h"
 #include "./include.h"
+#include "./lattice_cg.h"
 #include "./lattice_bistabcg.h"
 #include "./lattice_clover_dslash.h"
 #include "./lattice_complex.h"

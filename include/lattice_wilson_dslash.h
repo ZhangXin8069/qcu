@@ -513,6 +513,15 @@ namespace qcu
     {
       run_nccl(fermion_out, fermion_in, gauge, set_ptr->device_params_odd_no_dag);
     }
+    void run_eo_dag(void *fermion_out, void *fermion_in, void *gauge)
+    {
+      run_nccl(fermion_out, fermion_in, gauge, set_ptr->device_params_even_dag);
+    }
+    void run_oe_dag(void *fermion_out, void *fermion_in, void *gauge)
+    {
+      run_nccl(fermion_out, fermion_in, gauge, set_ptr->device_params_odd_dag);
+    }
+
     void run_test(void *fermion_out, void *fermion_in, void *gauge)
     {
 #ifdef PRINT_NCCL_WILSON_DSLASH
