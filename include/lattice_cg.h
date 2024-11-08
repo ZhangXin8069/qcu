@@ -380,9 +380,6 @@ namespace qcu
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         _diff(device_vec1, b__o);
       }
-#ifdef PRINT_NCCL_WILSON_CG
-      print_vals();
-#endif
     }
     void end()
     {
