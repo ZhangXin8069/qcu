@@ -359,9 +359,6 @@ namespace qcu
     }
     void run()
     {
-#ifdef PRINT_NCCL_WILSON_BISTABCG
-      set_ptr->_print();
-#endif
       _run();
       if (if_input == 0)
       {
