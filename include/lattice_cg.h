@@ -107,8 +107,8 @@ namespace qcu
                         (double *)b__o, 1, (double *)device_vec0, 1));
         _wilson_dslash_dag(b__o, device_vec0, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                           set_ptr->stream>>>(x_o, 23333);
+        // give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+        //                    set_ptr->stream>>>(x_o, 23333);
         _wilson_dslash_all(device_vec1, x_o, gauge);
         cg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
             r, b__o, device_vec1, device_vals);
@@ -144,12 +144,12 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      // {
-      //   _wilson_dslash(device_vec2, fermion_in, gauge);
-      //   _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      // }
+      {
+        _wilson_dslash(device_vec2, fermion_in, gauge);
+        _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+      }
       // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
-      _wilson_dslash(fermion_out, fermion_in, gauge); // test
+      // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
     {
