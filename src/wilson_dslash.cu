@@ -283,6 +283,7 @@ namespace qcu
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
     double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    // printf("dagger_val:%f\n", dagger_val);
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);

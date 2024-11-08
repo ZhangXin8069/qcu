@@ -6,8 +6,8 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-// clang-format on
-#define PRINT_NCCL_WILSON_CG
+  // clang-format on
+  #define PRINT_NCCL_WILSON_CG
   struct LatticeCg
   {
     LatticeSet *set_ptr;
@@ -104,14 +104,14 @@ namespace qcu
         CUBLAS_CHECK(
             cublasDcopy(set_ptr->cublasH,
                         set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                        (double *)b__o, 1, (double *)device_vec0, 1));
-        _wilson_dslash_dag(b__o, device_vec0, gauge);
+                        (double *)b__o, 1, (double *)device_vec2, 1));
+        _wilson_dslash_dag(b__o, device_vec2, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                            set_ptr->stream>>>(x_o, 23333);
-        _wilson_dslash_all(device_vec1, x_o, gauge);
+        _wilson_dslash_all(r, x_o, gauge);
         cg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-            r, b__o, device_vec1, device_vals);
+            r, b__o, r, device_vals);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       }
       if (if_input == 0)
@@ -144,11 +144,11 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      // {
-      //   _wilson_dslash(device_vec2, fermion_in, gauge);
-      //   _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      // }
-      _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
+      {
+        _wilson_dslash(device_vec2, fermion_in, gauge);
+        _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+      }
+      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test-
       // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
@@ -231,6 +231,12 @@ namespace qcu
                 << "##diff_tmp  :" << host_vals[_diff_tmp_] << std::endl
                 << "##lat_4dim  :" << host_vals[_lat_4dim_] << std::endl;
       // exit(1);
+    }
+    void print_norm2(void *void_ptr)
+    {
+      _dot(void_ptr, void_ptr, _norm2_tmp_, _a_);
+      print_vals(-1);
+      exit(1);
     }
     void run_nccl()
     {
