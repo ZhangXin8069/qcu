@@ -386,8 +386,16 @@ namespace qcu
         }
         double kappa()
         {
-            return _KAPPA_;
+            /*
+            a=1(always\ ignore)
+            r=1(in\ code\ written\ as\ coeff\_r)
+            C_{SW}=1(in\ code\ written\ as\ coeff\_t)
+            \kappa=\frac{1}{2m_q a+8r}
+            or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
+            */
+            return 1 / (2 * _MASS_ + 8);
         }
+
         float get_time()
         {
             cudaEventRecord(stop, 0);
