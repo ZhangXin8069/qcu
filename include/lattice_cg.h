@@ -144,11 +144,11 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      {
-        _wilson_dslash(device_vec2, fermion_in, gauge);
-        _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      }
-      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
+      // {
+      //   _wilson_dslash(device_vec2, fermion_in, gauge);
+      //   _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+      // }
+      _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
       // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
