@@ -104,14 +104,14 @@ namespace qcu
         CUBLAS_CHECK(
             cublasDcopy(set_ptr->cublasH,
                         set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-                        (double *)b__o, 1, (double *)device_vec2, 1));
-        _wilson_dslash_dag(b__o, device_vec2, gauge);
+                        (double *)b__o, 1, (double *)device_vec0, 1));
+        _wilson_dslash_dag(b__o, device_vec0, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                            set_ptr->stream>>>(x_o, 23333);
-        _wilson_dslash_all(r, x_o, gauge);
-        cg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-            r, b__o, r_tilde, device_vals);
+        _wilson_dslash_all(device_vec1, x_o, gauge);
+        cg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+            r, b__o, device_vec1);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       }
       if (if_input == 0)
@@ -144,15 +144,10 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      // {
-      //   _wilson_dslash(fermion_out, fermion_in, gauge);
-      //   CUBLAS_CHECK(cublasDcopy(
-      //       set_ptr->cublasH,
-      //       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
-      //       (double *)fermion_out, 1, (double *)device_vec2, 1)); // Not converging???
-      //   _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      // }
-      _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
+      _wilson_dslash(device_vec2, fermion_in, gauge);
+      _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
+      // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
     {
@@ -200,7 +195,7 @@ namespace qcu
                      set_ptr->streams[_a_]>>>(x, ans, device_vec0, device_vals);
       _dot(device_vec0, device_vec0, _diff_tmp_, _a_);
       cg_give_1diff<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
-      print_vals(999);
+      print_vals(-2);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
@@ -271,7 +266,7 @@ namespace qcu
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
         {
-          // x_o[i] = x_o[i] + v * alpha;
+          // x_o[i] = x_o[i] + p * alpha;
           cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
                         set_ptr->streams[_c_]>>>(x_o, p, device_vals);
         }
