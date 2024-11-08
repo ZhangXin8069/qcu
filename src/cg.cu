@@ -44,14 +44,14 @@ namespace qcu
       b__o[i] = b_o[i] + vec0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
     }
   }
-  __global__ void cg_give_r(void *device_r, void *device_b__o, void *device_vec1)
+  __global__ void cg_give_r(void *device_r, void *device_b__o, void *device_vec1,
+                            void *device_vals)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     LatticeComplex *r = (static_cast<LatticeComplex *>(device_r) + idx);
     LatticeComplex *b__o =
         (static_cast<LatticeComplex *>(device_b__o) + idx);
     LatticeComplex *vec1 = (static_cast<LatticeComplex *>(device_vec1) + idx);
-    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
     int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
     for (int i = 0; i < _LAT_SC_ * _; i += _)
     {
@@ -103,7 +103,7 @@ namespace qcu
     tmp0 = vals[_tmp0_];
     vals[_alpha_] = rho / tmp0;
   }
-    __global__ void cg_give_1beta(void *device_vals)
+  __global__ void cg_give_1beta(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
     LatticeComplex rho_prev;
