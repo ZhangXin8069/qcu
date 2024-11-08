@@ -44,6 +44,20 @@ namespace qcu
       b__o[i] = b_o[i] + vec0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
     }
   }
+  __global__ void cg_give_r(void *device_r, void *device_b__o, void *device_vec1)
+  {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    LatticeComplex *r = (static_cast<LatticeComplex *>(device_r) + idx);
+    LatticeComplex *b__o =
+        (static_cast<LatticeComplex *>(device_b__o) + idx);
+    LatticeComplex *vec1 = (static_cast<LatticeComplex *>(device_vec1) + idx);
+    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
+    int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+    for (int i = 0; i < _LAT_SC_ * _; i += _)
+    {
+      r[i] = b__o[i] - vec1[i];
+    }
+  }
   __global__ void cg_give_dest_o(void *device_dest_o, void *device_src_o,
                                  void *device_vec1, double kappa,
                                  void *device_vals)
@@ -80,18 +94,6 @@ namespace qcu
       vec[i] = x[i] - ans[i];
     }
   }
-  __global__ void cg_give_1beta(void *device_vals)
-  {
-    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex rho_prev;
-    rho_prev = vals[_rho_prev_];
-    LatticeComplex rho;
-    rho = vals[_rho_];
-    LatticeComplex beta;
-    beta = vals[_beta_];
-    beta = rho_prev / rho;
-    vals[_beta_] = beta;
-  }
   __global__ void cg_give_1alpha(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
@@ -100,6 +102,17 @@ namespace qcu
     LatticeComplex tmp0;
     tmp0 = vals[_tmp0_];
     vals[_alpha_] = rho / tmp0;
+  }
+    __global__ void cg_give_1beta(void *device_vals)
+  {
+    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
+    LatticeComplex rho_prev;
+    rho_prev = vals[_rho_prev_];
+    LatticeComplex rho;
+    rho = vals[_rho_];
+    LatticeComplex beta;
+    beta = rho_prev / rho;
+    vals[_beta_] = beta;
   }
   __global__ void cg_give_p(void *device_p, void *device_r_tilde,
                             void *device_vals)
