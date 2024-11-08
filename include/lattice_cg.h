@@ -107,8 +107,8 @@ namespace qcu
                         (double *)b__o, 1, (double *)device_vec0, 1));
         _wilson_dslash_dag(b__o, device_vec0, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        // give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-        //                    set_ptr->stream>>>(x_o, 23333);
+        give_random_vals<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                           set_ptr->stream>>>(x_o, 23333);
         _wilson_dslash_all(device_vec1, x_o, gauge);
         cg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
             r, b__o, device_vec1, device_vals);
@@ -366,9 +366,6 @@ namespace qcu
     }
     void run()
     {
-#ifdef PRINT_NCCL_WILSON_CG
-      set_ptr->_print();
-#endif
       _run();
       if (if_input == 0)
       {
