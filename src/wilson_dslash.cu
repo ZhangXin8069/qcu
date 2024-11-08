@@ -66,8 +66,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp0.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_i(dagger_val);
         }
       }
       {
@@ -91,8 +91,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1.multi_i();
-          dest[c0 + _LAT_3C_] += tmp0.multi_i();
+          dest[c0 + _LAT_2C_] += tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_i(dagger_val);
         }
       }
     }
@@ -120,8 +120,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1;
-          dest[c0 + _LAT_3C_] -= tmp0;
+          dest[c0 + _LAT_2C_] += tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_none(dagger_val);
         }
       }
       {
@@ -144,8 +144,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+          dest[c0 + _LAT_2C_] -= tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_none(dagger_val);
         }
       }
     }
@@ -173,8 +173,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0.multi_i();
-          dest[c0 + _LAT_3C_] += tmp1.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_i(dagger_val);
         }
       }
       {
@@ -198,8 +198,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp1.multi_i();
+          dest[c0 + _LAT_2C_] += tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_i(dagger_val);
         }
       }
     }
@@ -228,8 +228,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0;
-          dest[c0 + _LAT_3C_] += tmp1;
+          dest[c0 + _LAT_2C_] += tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_none(dagger_val);
         }
       }
       {
@@ -253,8 +253,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0;
-          dest[c0 + _LAT_3C_] -= tmp1;
+          dest[c0 + _LAT_2C_] -= tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_none(dagger_val);
         }
       }
     }
@@ -321,8 +321,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp0.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_i(dagger_val);
         }
       }
       {
@@ -346,8 +346,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1.multi_i();
-          dest[c0 + _LAT_3C_] += tmp0.multi_i();
+          dest[c0 + _LAT_2C_] += tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_i(dagger_val);
         }
       }
     }
@@ -375,8 +375,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1;
-          dest[c0 + _LAT_3C_] -= tmp0;
+          dest[c0 + _LAT_2C_] += tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_none(dagger_val);
         }
       }
       {
@@ -399,8 +399,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+          dest[c0 + _LAT_2C_] -= tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_none(dagger_val);
         }
       }
     }
@@ -428,8 +428,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0.multi_i();
-          dest[c0 + _LAT_3C_] += tmp1.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_i(dagger_val);
         }
       }
       {
@@ -453,8 +453,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp1.multi_i();
+          dest[c0 + _LAT_2C_] += tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_i(dagger_val);
         }
       }
     }
@@ -484,8 +484,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0;
-          dest[c0 + _LAT_3C_] += tmp1;
+          dest[c0 + _LAT_2C_] += tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_none(dagger_val);
         }
       }
       {
@@ -509,8 +509,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0;
-          dest[c0 + _LAT_3C_] -= tmp1;
+          dest[c0 + _LAT_2C_] -= tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_none(dagger_val);
         }
       }
     }
@@ -643,7 +643,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    // double dagger_val = 2.0*(params[_DAGGER_] == 0)-1.0;
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
@@ -675,8 +675,8 @@ namespace qcu
       {
         dest[c0] += b_x_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_x_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_].multi_i();
-        dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0].multi_i();
+        dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_].multi_i(dagger_val);
+        dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0].multi_i(dagger_val);
       }
     } // just add
     add_dest_x(origin_dest, dest, lat_tzyx, (move == lat_x - 1)); // even-odd
@@ -712,8 +712,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1.multi_i();
-          dest[c0 + _LAT_3C_] += tmp0.multi_i();
+          dest[c0 + _LAT_2C_] += tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_i(dagger_val);
         }
       }
     } // just add
@@ -839,7 +839,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    // double dagger_val = 2.0*(params[_DAGGER_] == 0)-1.0;
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -870,8 +870,8 @@ namespace qcu
       {
         dest[c0] += b_y_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_y_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] += b_y_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_3C_] -= b_y_recv_vec[c0];
+        dest[c0 + _LAT_2C_] += b_y_recv_vec[c0 + _LAT_1C_].multi_none(dagger_val);
+        dest[c0 + _LAT_3C_] -= b_y_recv_vec[c0].multi_none(dagger_val);
       }
     }
     // just add
@@ -908,8 +908,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+          dest[c0 + _LAT_2C_] -= tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_none(dagger_val);
         }
       }
     } // just add
@@ -1037,7 +1037,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    // double dagger_val = 2.0*(params[_DAGGER_] == 0)-1.0;
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -1068,8 +1068,8 @@ namespace qcu
       {
         dest[c0] += b_z_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_z_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0].multi_i();
-        dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_].multi_i();
+        dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0].multi_i(dagger_val);
+        dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_].multi_i(dagger_val);
       }
     }
     // just add
@@ -1106,8 +1106,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp1.multi_i();
+          dest[c0 + _LAT_2C_] += tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_i(dagger_val);
         }
       }
     } // just add
@@ -1235,7 +1235,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    // double dagger_val = 2.0*(params[_DAGGER_] == 0)-1.0;
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -1266,8 +1266,8 @@ namespace qcu
       {
         dest[c0] += b_t_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_t_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] += b_t_recv_vec[c0];
-        dest[c0 + _LAT_3C_] += b_t_recv_vec[c0 + _LAT_1C_];
+        dest[c0 + _LAT_2C_] += b_t_recv_vec[c0].multi_none(dagger_val);
+        dest[c0 + _LAT_3C_] += b_t_recv_vec[c0 + _LAT_1C_].multi_none(dagger_val);
       }
     }
     // just add
@@ -1304,8 +1304,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0;
-          dest[c0 + _LAT_3C_] -= tmp1;
+          dest[c0 + _LAT_2C_] -= tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_none(dagger_val);
         }
       }
     } // just add
