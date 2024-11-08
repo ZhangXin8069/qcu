@@ -10,7 +10,8 @@ namespace qcu
     __global__ void cg_give_b__o(void *device_b__o, void *device_b_o,
                                  void *device_vec0, double kappa,
                                  void *device_vals);
-    __global__ void cg_give_r(void *device_r, void *device_b__o, void *device_vec1);
+    __global__ void cg_give_r(void *device_r, void *device_b__o, void *device_vec1,
+                              void *device_vals);
     __global__ void cg_give_dest_o(void *device_dest_o, void *device_src_o,
                                    void *device_vec1, double kappa,
                                    void *device_vals);

@@ -111,7 +111,7 @@ namespace qcu
                            set_ptr->stream>>>(x_o, 23333);
         _wilson_dslash_all(device_vec1, x_o, gauge);
         cg_give_r<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-            r, b__o, device_vec1);
+            r, b__o, device_vec1, device_vals);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       }
       if (if_input == 0)
@@ -144,9 +144,11 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      _wilson_dslash(device_vec2, fermion_in, gauge);
-      _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
+      {
+        _wilson_dslash(device_vec2, fermion_in, gauge);
+        _wilson_dslash_dag(fermion_out, device_vec2, gauge);
+      }
+      _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
       // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
@@ -243,7 +245,6 @@ namespace qcu
                       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
                       (double *)r, 1, (double *)p, 1));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-      print_vals(-1);
       for (int loop = 0; loop < _MAX_ITER_; loop++)
       {
         {
