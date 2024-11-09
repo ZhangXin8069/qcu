@@ -6,8 +6,8 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-// clang-format on
-#define PRINT_NCCL_WILSON_CG
+  // clang-format on
+  // #define PRINT_NCCL_WILSON_CG
   struct LatticeCg
   {
     LatticeSet *set_ptr;
