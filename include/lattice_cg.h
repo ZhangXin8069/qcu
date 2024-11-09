@@ -6,8 +6,8 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-  // clang-format on
-  // #define PRINT_NCCL_WILSON_CG
+// clang-format on
+// #define PRINT_NCCL_WILSON_CG
   struct LatticeCg
   {
     LatticeSet *set_ptr;
@@ -19,7 +19,7 @@ namespace qcu
     LatticeComplex alpha;
     LatticeComplex beta;
     LatticeComplex omega;
-    void *gauge, *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *r_tilde, *p,
+    void *gauge, *ans_e, *ans_o, *x_e, *x_o, *b_e, *b_o, *b__o, *r, *p,
         *v, *device_vec0, *device_vec1, *device_vec2, *device_vals;
     LatticeComplex host_vals[_vals_size_];
     int if_input, if_test;
@@ -32,9 +32,6 @@ namespace qcu
                             set_ptr->stream));
         checkCudaErrors(cudaMallocAsync(
             &r, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &r_tilde, set_ptr->lat_4dim_SC * sizeof(LatticeComplex),
-            set_ptr->stream));
         checkCudaErrors(cudaMallocAsync(
             &p, set_ptr->lat_4dim_SC * sizeof(LatticeComplex), set_ptr->stream));
         checkCudaErrors(cudaMallocAsync(
@@ -144,10 +141,8 @@ namespace qcu
     }
     void _wilson_dslash_all(void *fermion_out, void *fermion_in, void *gauge)
     {
-      {
-        _wilson_dslash(device_vec2, fermion_in, gauge);
-        _wilson_dslash_dag(fermion_out, device_vec2, gauge);
-      }
+      _wilson_dslash(device_vec2, fermion_in, gauge);
+      _wilson_dslash_dag(fermion_out, device_vec2, gauge);
     }
     void init(void *_x, void *_b, void *_gauge)
     {
@@ -269,35 +264,36 @@ namespace qcu
           // tmp0 = <p ,Ap> = <p, v>;
           _dot(p, v, _tmp0_, _b_);
         }
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         {
-          // alpha = <r, r>/<p ,Ap> = rho/tmp0;
+          // alpha = <r, r>/<p ,Ap> = rho_prev/tmp0;
           cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
         }
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
         {
-          // x_o[i] = x_o[i] + p * alpha;
-          cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->streams[_c_]>>>(x_o, p, device_vals);
-        }
-        {
           // r_tilde[i] = r[i] - v * alpha;
           // r => r_tilde
           cg_give_r_tilde<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                            set_ptr->streams[_d_]>>>(r, v, device_vals);
+                            set_ptr->streams[_c_]>>>(r, v, device_vals);
+        }
+        {
+          // x_o[i] = x_o[i] + p * alpha;
+          cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                        set_ptr->streams[_d_]>>>(x_o, p, device_vals);
         }
         {
           // rho = <r_tilde, r_tilde>;
-          _dot(r, r, _rho_, _d_);
+          _dot(r, r, _rho_, _c_);
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         {
           // break;
           checkCudaErrors(cudaMemcpyAsync(
               ((static_cast<LatticeComplex *>(host_vals)) + _rho_prev_),
               ((static_cast<LatticeComplex *>(device_vals)) + _rho_prev_),
               sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
-              set_ptr->streams[_c_]));
+              set_ptr->streams[_d_]));
         }
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
         {
           // beta = <r_tilde, r_tilde>/<r, r> = rho/rho_prev;
           cg_give_1beta<<<1, 1, 0, set_ptr->streams[_d_]>>>(device_vals);
@@ -305,9 +301,8 @@ namespace qcu
         {
           // p[i] = r_tilde[i] + p[i] * beta
           cg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                      set_ptr->streams[_d_]>>>(p, r_tilde, device_vals);
+                      set_ptr->streams[_d_]>>>(p, r, device_vals);
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
         {
 #ifdef PRINT_NCCL_WILSON_CG
@@ -400,7 +395,6 @@ namespace qcu
       }
       checkCudaErrors(cudaFreeAsync(b__o, set_ptr->stream));
       checkCudaErrors(cudaFreeAsync(r, set_ptr->stream));
-      checkCudaErrors(cudaFreeAsync(r_tilde, set_ptr->stream));
       checkCudaErrors(cudaFreeAsync(p, set_ptr->stream));
       checkCudaErrors(cudaFreeAsync(v, set_ptr->stream));
       checkCudaErrors(cudaFreeAsync(device_vec0, set_ptr->stream));
