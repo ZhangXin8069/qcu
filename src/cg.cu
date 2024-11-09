@@ -75,44 +75,22 @@ namespace qcu
   __global__ void cg_give_1diff(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex norm2_tmp;
-    norm2_tmp = vals[_norm2_tmp_];
-    LatticeComplex diff_tmp;
-    diff_tmp = vals[_diff_tmp_];
-    vals[_diff_tmp_] = diff_tmp / norm2_tmp;
-  }
-  __global__ void cg_give_diff(void *device_x, void *device_ans, void *device_vec,
-                               void *device_vals)
-  {
-    int idx = blockIdx.x * blockDim.x + threadIdx.x;
-    LatticeComplex *x = (static_cast<LatticeComplex *>(device_x) + idx);
-    LatticeComplex *ans = (static_cast<LatticeComplex *>(device_ans) + idx);
-    LatticeComplex *vec = (static_cast<LatticeComplex *>(device_vec) + idx);
-    int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
-    for (int i = 0; i < _LAT_SC_ * _; i += _)
-    {
-      vec[i] = x[i] - ans[i];
-    }
-  }
-  __global__ void cg_give_1alpha(void *device_vals)
-  {
-    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex rho;
-    rho = vals[_rho_];
-    LatticeComplex tmp0;
-    tmp0 = vals[_tmp0_];
-    vals[_alpha_] = rho / tmp0;
+    vals[_diff_tmp_] = vals[_diff_tmp_] / vals[_norm2_tmp_];
   }
   __global__ void cg_give_1beta(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex rho_prev;
-    rho_prev = vals[_rho_prev_];
-    LatticeComplex rho;
-    rho = vals[_rho_];
-    LatticeComplex beta;
-    beta = rho_prev / rho;
-    vals[_beta_] = beta;
+    vals[_beta_] = vals[_rho_] / vals[_rho_prev_];
+  }
+  __global__ void cg_give_1rho_prev(void *device_vals)
+  {
+    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
+    vals[_rho_prev_] = vals[_rho_];
+  }
+  __global__ void cg_give_1alpha(void *device_vals)
+  {
+    LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
+    vals[_alpha_] = vals[_rho_prev_] / vals[_tmp0_];
   }
   __global__ void cg_give_p(void *device_p, void *device_r_tilde,
                             void *device_vals)
@@ -145,13 +123,11 @@ namespace qcu
       x_o[i] = x_o[i] + p[i] * alpha;
     }
   }
-  __global__ void cg_give_rr(void *device_r, void *device_r_tilde, void *device_v,
-                             void *device_vals)
+  __global__ void cg_give_r_tilde(void *device_r, void *device_v,
+                                  void *device_vals)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     LatticeComplex *r = (static_cast<LatticeComplex *>(device_r) + idx);
-    LatticeComplex *r_tilde =
-        (static_cast<LatticeComplex *>(device_r_tilde) + idx);
     LatticeComplex *v = (static_cast<LatticeComplex *>(device_v) + idx);
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
     LatticeComplex alpha;
@@ -159,8 +135,20 @@ namespace qcu
     int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
     for (int i = 0; i < _LAT_SC_ * _; i += _)
     {
-      r_tilde[i] = r[i] - v[i] * alpha;
-      r[i] = r_tilde[i];
+      r[i] = r[i] - v[i] * alpha;
+    }
+  }
+  __global__ void cg_give_diff(void *device_x, void *device_ans, void *device_vec,
+                               void *device_vals)
+  {
+    int idx = blockIdx.x * blockDim.x + threadIdx.x;
+    LatticeComplex *x = (static_cast<LatticeComplex *>(device_x) + idx);
+    LatticeComplex *ans = (static_cast<LatticeComplex *>(device_ans) + idx);
+    LatticeComplex *vec = (static_cast<LatticeComplex *>(device_vec) + idx);
+    int _ = int(((LatticeComplex *)device_vals)[_lat_4dim_]._data.x);
+    for (int i = 0; i < _LAT_SC_ * _; i += _)
+    {
+      vec[i] = x[i] - ans[i];
     }
   }
 #endif
