@@ -11,16 +11,16 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [32, 32, 32, 32]
-# latt_size = [32, 32, 32, 64]
+latt_size = [16, 16, 16, 32]
 # latt_size = [16, 16, 16, 16]
-# latt_size = [32, 32, 32, 64]
+# latt_size = [16, 16, 16, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [16, 32, 32, 64]
 # latt_size = [4, 4, 4, 4]
-latt_size = [8, 8, 8, 8]
+# latt_size = [8, 8, 8, 8]
 # latt_size = [8, 8, 8, 16]
 grid_size = [1, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
@@ -49,7 +49,6 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
 np.set_printoptions(threshold=np.inf)
-
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
@@ -73,6 +72,10 @@ def compare(round):
                               U.data_ptr, param, 0, grid)
     pyqcu.ncclDslashCloverQcu(Mp1.odd_ptr, p.even_ptr,
                               U.data_ptr, param, 1, grid)
+    # pyqcu.dslashCloverQcu(Mp1.even_ptr, p.odd_ptr,
+    #                           U.data_ptr, param, 0)
+    # pyqcu.dslashCloverQcu(Mp1.odd_ptr, p.even_ptr,
+    #                           U.data_ptr, param, 1)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
@@ -148,7 +151,5 @@ def compare(round):
           diff_x[0, -3, -3, -3])
     print("######diff_x[-3,-3,-3,-3]:\n",
           diff_x[-3, -3, -3, -3])
-
-
 for i in range(0, 5):
     compare(i)

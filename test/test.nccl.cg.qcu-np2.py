@@ -62,7 +62,7 @@ def compare(round):
     if rank == 0:
         print('===============qcu==================')
     t1 = perf_counter()
-    qcu.ncclBistabCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
+    qcu.ncclCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
     # qcu.ncclBistabCgQcu(qcu_x.data_ptr,
     #                     quda_x.data_ptr, U.data_ptr, param, grid)
     # D*x=p, to get qcu_x

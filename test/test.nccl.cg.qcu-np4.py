@@ -12,7 +12,7 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
 latt_size = [16, 16, 16, 32]
-grid_size = [1, 1, 1, 2]
+grid_size = [2, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Gx, Gy, Gz, Gt = grid_size
 latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
@@ -62,7 +62,7 @@ def compare(round):
     if rank == 0:
         print('===============qcu==================')
     t1 = perf_counter()
-    qcu.ncclBistabCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
+    qcu.ncclCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
     # qcu.ncclBistabCgQcu(qcu_x.data_ptr,
     #                     quda_x.data_ptr, U.data_ptr, param, grid)
     # D*x=p, to get qcu_x
