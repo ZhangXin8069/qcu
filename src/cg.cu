@@ -90,7 +90,7 @@ namespace qcu
   __global__ void cg_give_1alpha(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    vals[_alpha_] = vals[_rho_] / vals[_tmp0_];
+    vals[_alpha_] = vals[_rho_prev_] / vals[_tmp0_];
   }
   __global__ void cg_give_p(void *device_p, void *device_r_tilde,
                             void *device_vals)
