@@ -6,8 +6,8 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-  // clang-format on
-  #define PRINT_NCCL_WILSON_CG
+// clang-format on
+#define PRINT_NCCL_WILSON_CG
   struct LatticeCg
   {
     LatticeSet *set_ptr;
@@ -137,8 +137,8 @@ namespace qcu
     void _wilson_dslash_dag(void *fermion_out, void *fermion_in, void *gauge)
     {
       // src_o-set_ptr->kappa()**2*dslash_oe(dslash_eo(src_o))
-      wilson_dslash.run_oe_dag(device_vec0, fermion_in, gauge);
-      wilson_dslash.run_eo_dag(device_vec1, device_vec0, gauge);
+        wilson_dslash.run_eo_dag(device_vec0, fermion_in, gauge);
+        wilson_dslash.run_oe_dag(device_vec1, device_vec0, gauge);
       cg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
           fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
     }
@@ -148,7 +148,7 @@ namespace qcu
         _wilson_dslash(device_vec2, fermion_in, gauge);
         _wilson_dslash_dag(fermion_out, device_vec2, gauge);
       }
-      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test-
+      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
       // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
@@ -242,9 +242,6 @@ namespace qcu
     {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       // p[i] = r[i]
       CUBLAS_CHECK(
           cublasDcopy(set_ptr->cublasH,
@@ -257,36 +254,31 @@ namespace qcu
           // rho = <r, r>;
           _dot(r, r, _rho_, _a_);
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
         {
           // v = A * p;
           _wilson_dslash_all(v, p, gauge);
         }
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         // tmp0 = <p ,Ap> = <p, v>;
-        _dot(p, v, _tmp0_, _b_);
+        _dot(p, v, _tmp0_, _a_);
         {
           // alpha = <r, r>/<p ,Ap> = rho/tmp0;
-          cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
+          cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
         {
           // x_o[i] = x_o[i] + p * alpha;
           cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->streams[_c_]>>>(x_o, p, device_vals);
+                        set_ptr->streams[_a_]>>>(x_o, p, device_vals);
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
         {
           // r_tilde[i] = r[i] - v * alpha;
           // r[i] = r_tilde[i]
           cg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                       set_ptr->streams[_d_]>>>(r, r_tilde, v, device_vals);
+                       set_ptr->streams[_a_]>>>(r, r_tilde, v, device_vals);
         }
         {
           // rho_prev = <r_tilde, r_tilde>;
-          _dot(r_tilde, r_tilde, _rho_prev_, _d_);
+          _dot(r_tilde, r_tilde, _rho_prev_, _a_);
         }
         {
           // break;
@@ -294,17 +286,16 @@ namespace qcu
               ((static_cast<LatticeComplex *>(host_vals)) + _rho_prev_),
               ((static_cast<LatticeComplex *>(device_vals)) + _rho_prev_),
               sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
-              set_ptr->streams[_d_]));
+              set_ptr->streams[_a_]));
         }
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
         {
           // beta = <r_tilde, r_tilde>/<r, r> = rho_prev/rho;
-          cg_give_1beta<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
+          cg_give_1beta<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
         }
         {
           // p[i] = r_tilde[i] + p[i] * beta
           cg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                      set_ptr->streams[_b_]>>>(p, r_tilde, device_vals);
+                      set_ptr->streams[_a_]>>>(p, r_tilde, device_vals);
         }
         {
 #ifdef PRINT_NCCL_WILSON_CG
@@ -325,9 +316,6 @@ namespace qcu
       }
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       if (if_input)
       {
         // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
@@ -337,6 +325,7 @@ namespace qcu
                         (double *)b_e, 1, (double *)device_vec0, 1));
         wilson_dslash.run_eo(device_vec1, x_o, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         LatticeComplex _(set_ptr->kappa(), 0.0);
         // dest(B) = B + alpha*A
         CUBLAS_CHECK(cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
@@ -350,9 +339,6 @@ namespace qcu
                         (double *)device_vec0, 1, (double *)x_e, 1));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       }
     }
     void _run()
