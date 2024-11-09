@@ -137,8 +137,8 @@ namespace qcu
     void _wilson_dslash_dag(void *fermion_out, void *fermion_in, void *gauge)
     {
       // src_o-set_ptr->kappa()**2*dslash_oe(dslash_eo(src_o))
-        wilson_dslash.run_eo_dag(device_vec0, fermion_in, gauge);
-        wilson_dslash.run_oe_dag(device_vec1, device_vec0, gauge);
+      wilson_dslash.run_eo_dag(device_vec0, fermion_in, gauge);
+      wilson_dslash.run_oe_dag(device_vec1, device_vec0, gauge);
       cg_give_dest_o<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
           fermion_out, fermion_in, device_vec1, set_ptr->kappa(), device_vals);
     }
@@ -148,8 +148,6 @@ namespace qcu
         _wilson_dslash(device_vec2, fermion_in, gauge);
         _wilson_dslash_dag(fermion_out, device_vec2, gauge);
       }
-      // _wilson_dslash_dag(fermion_out, fermion_in, gauge); // test
-      // _wilson_dslash(fermion_out, fermion_in, gauge); // test
     }
     void init(void *_x, void *_b, void *_gauge)
     {
