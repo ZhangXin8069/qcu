@@ -395,7 +395,6 @@ namespace qcu
             */
             return 1 / (2 * _MASS_ + 8);
         }
-
         float get_time()
         {
             cudaEventRecord(stop, 0);
