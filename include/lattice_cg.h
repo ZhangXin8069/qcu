@@ -240,61 +240,75 @@ namespace qcu
     {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       // p[i] = r[i]
       CUBLAS_CHECK(
           cublasDcopy(set_ptr->cublasH,
                       set_ptr->lat_4dim_SC * sizeof(data_type) / sizeof(double),
                       (double *)r, 1, (double *)p, 1));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      {
+        // rho = <r, r>;
+        _dot(r, r, _rho_, _a_);
+      }
       for (int loop = 0; loop < _MAX_ITER_; loop++)
       {
-        {
-          // rho = <r, r>;
-          _dot(r, r, _rho_, _a_);
-        }
         {
           // v = A * p;
           _wilson_dslash_all(v, p, gauge);
         }
+        {
+          // rho_prev = rho = <r, r>;
+          cg_give_1rho_prev<<<1, 1, 0, set_ptr->streams[_a_]>>>(
+              device_vals);
+        }
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        // tmp0 = <p ,Ap> = <p, v>;
-        _dot(p, v, _tmp0_, _a_);
+        {
+          // tmp0 = <p ,Ap> = <p, v>;
+          _dot(p, v, _tmp0_, _b_);
+        }
         {
           // alpha = <r, r>/<p ,Ap> = rho/tmp0;
-          cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
+          cg_give_1alpha<<<1, 1, 0, set_ptr->streams[_b_]>>>(device_vals);
         }
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
         {
           // x_o[i] = x_o[i] + p * alpha;
           cg_give_x_o<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                        set_ptr->streams[_a_]>>>(x_o, p, device_vals);
+                        set_ptr->streams[_c_]>>>(x_o, p, device_vals);
         }
         {
           // r_tilde[i] = r[i] - v * alpha;
-          // r[i] = r_tilde[i]
-          cg_give_rr<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                       set_ptr->streams[_a_]>>>(r, r_tilde, v, device_vals);
+          // r => r_tilde
+          cg_give_r_tilde<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                            set_ptr->streams[_d_]>>>(r, v, device_vals);
         }
         {
-          // rho_prev = <r_tilde, r_tilde>;
-          _dot(r_tilde, r_tilde, _rho_prev_, _a_);
+          // rho = <r_tilde, r_tilde>;
+          _dot(r, r, _rho_, _d_);
         }
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         {
           // break;
           checkCudaErrors(cudaMemcpyAsync(
               ((static_cast<LatticeComplex *>(host_vals)) + _rho_prev_),
               ((static_cast<LatticeComplex *>(device_vals)) + _rho_prev_),
               sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
-              set_ptr->streams[_a_]));
+              set_ptr->streams[_c_]));
         }
         {
-          // beta = <r_tilde, r_tilde>/<r, r> = rho_prev/rho;
-          cg_give_1beta<<<1, 1, 0, set_ptr->streams[_a_]>>>(device_vals);
+          // beta = <r_tilde, r_tilde>/<r, r> = rho/rho_prev;
+          cg_give_1beta<<<1, 1, 0, set_ptr->streams[_d_]>>>(device_vals);
         }
         {
           // p[i] = r_tilde[i] + p[i] * beta
           cg_give_p<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                      set_ptr->streams[_a_]>>>(p, r_tilde, device_vals);
+                      set_ptr->streams[_d_]>>>(p, r_tilde, device_vals);
         }
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+        checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
         {
 #ifdef PRINT_NCCL_WILSON_CG
           print_vals(loop);
@@ -314,6 +328,9 @@ namespace qcu
       }
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       if (if_input)
       {
         // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
