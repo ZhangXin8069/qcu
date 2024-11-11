@@ -344,6 +344,7 @@ namespace qcu
                 }
             }
             {
+                host_params[_DAGGER_] = _NO_USE_; // needed!!!
                 checkCudaErrors(
                     cudaMallocAsync(&device_params, _VALS_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMallocAsync(&device_params_even_no_dag,
@@ -473,6 +474,7 @@ namespace qcu
             printf("host_params[_PARITY_]   :%d\n", host_params[_PARITY_]);
             printf("host_params[_NODE_RANK_]:%d\n", host_params[_NODE_RANK_]);
             printf("host_params[_NODE_SIZE_]:%d\n", host_params[_NODE_SIZE_]);
+            printf("host_params[_DAGGER_]   :%d\n", host_params[_DAGGER_]);
             printf("lat_2dim[_XY_]          :%d\n", lat_2dim[_XY_]);
             printf("lat_2dim[_XZ_]          :%d\n", lat_2dim[_XZ_]);
             printf("lat_2dim[_XT_]          :%d\n", lat_2dim[_XT_]);
