@@ -27,6 +27,7 @@ namespace qcu
     const int y = parity / lat_x;
     const int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     const int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                        //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
@@ -59,14 +60,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_3C_].multi_i()) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_i()) *
+            tmp0 += (src[c1] + src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_i(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp0.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_i(dagger_val);
         }
       }
       {
@@ -84,14 +85,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
             tmp1 +=
-                (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+                (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1.multi_i();
-          dest[c0 + _LAT_3C_] += tmp0.multi_i();
+          dest[c0 + _LAT_2C_] += tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_i(dagger_val);
         }
       }
     }
@@ -113,14 +114,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_none(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1;
-          dest[c0 + _LAT_3C_] -= tmp0;
+          dest[c0 + _LAT_2C_] += tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_none(dagger_val);
         }
       }
       {
@@ -138,13 +139,13 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] + src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
+            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+          dest[c0 + _LAT_2C_] -= tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_none(dagger_val);
         }
       }
     }
@@ -166,14 +167,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_i()) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_i()) *
+            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_i(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0.multi_i();
-          dest[c0 + _LAT_3C_] += tmp1.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_i(dagger_val);
         }
       }
       {
@@ -191,14 +192,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_2C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
             tmp1 +=
-                (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+                (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp1.multi_i();
+          dest[c0 + _LAT_2C_] += tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_i(dagger_val);
         }
       }
     }
@@ -221,14 +222,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_none(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0;
-          dest[c0 + _LAT_3C_] += tmp1;
+          dest[c0 + _LAT_2C_] += tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_none(dagger_val);
         }
       }
       {
@@ -246,14 +247,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
             tmp1 +=
-                (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
+                (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0;
-          dest[c0 + _LAT_3C_] -= tmp1;
+          dest[c0 + _LAT_2C_] -= tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_none(dagger_val);
         }
       }
     }
@@ -281,6 +282,8 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    // printf("dagger_val:%f\n", dagger_val);
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
@@ -313,14 +316,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_3C_].multi_i()) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_i()) *
+            tmp0 += (src[c1] + src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_i(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp0.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_i(dagger_val);
         }
       }
       {
@@ -338,14 +341,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
             tmp1 +=
-                (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+                (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1.multi_i();
-          dest[c0 + _LAT_3C_] += tmp0.multi_i();
+          dest[c0 + _LAT_2C_] += tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_i(dagger_val);
         }
       }
     }
@@ -367,14 +370,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_none(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1;
-          dest[c0 + _LAT_3C_] -= tmp0;
+          dest[c0 + _LAT_2C_] += tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp0.multi_none(dagger_val);
         }
       }
       {
@@ -392,13 +395,13 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
-            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] + src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
+            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+          dest[c0 + _LAT_2C_] -= tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_none(dagger_val);
         }
       }
     }
@@ -420,14 +423,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_i()) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_i()) *
+            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_i(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0.multi_i();
-          dest[c0 + _LAT_3C_] += tmp1.multi_i();
+          dest[c0 + _LAT_2C_] -= tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_i(dagger_val);
         }
       }
       {
@@ -445,14 +448,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_2C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
             tmp1 +=
-                (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_i()) * U[c0 * _LAT_C_ + c1];
+                (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp1.multi_i();
+          dest[c0 + _LAT_2C_] += tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_i(dagger_val);
         }
       }
     }
@@ -476,14 +479,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_none(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0;
-          dest[c0 + _LAT_3C_] += tmp1;
+          dest[c0 + _LAT_2C_] += tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp1.multi_none(dagger_val);
         }
       }
       {
@@ -501,14 +504,14 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_2C_]) * U[c0 * _LAT_C_ + c1];
+            tmp0 += (src[c1] - src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
             tmp1 +=
-                (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_]) * U[c0 * _LAT_C_ + c1];
+                (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c0 * _LAT_C_ + c1];
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0;
-          dest[c0 + _LAT_3C_] -= tmp1;
+          dest[c0 + _LAT_2C_] -= tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_none(dagger_val);
         }
       }
     }
@@ -538,6 +541,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
@@ -570,9 +574,9 @@ namespace qcu
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
-          b_x_send_vec[c1] = src[c1] - src[c1 + _LAT_3C_].multi_i();
+          b_x_send_vec[c1] = src[c1] - src[c1 + _LAT_3C_].multi_i(dagger_val);
           b_x_send_vec[c1 + _LAT_1C_] =
-              src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i();
+              src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i(dagger_val);
         }
         give_send_x(origin_b_x_send_vec, b_x_send_vec, lat_tzyx / lat_x,
                     (move == 0));
@@ -604,8 +608,8 @@ namespace qcu
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
             tmp0 +=
-                (src[c1] + src[c1 + _LAT_3C_].multi_i()) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_i()) *
+                (src[c1] + src[c1 + _LAT_3C_].multi_i(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_i(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           f_x_send_vec[c0] = tmp0;
@@ -640,6 +644,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
@@ -671,8 +676,8 @@ namespace qcu
       {
         dest[c0] += b_x_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_x_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_].multi_i();
-        dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0].multi_i();
+        dest[c0 + _LAT_2C_] -= b_x_recv_vec[c0 + _LAT_1C_].multi_i(dagger_val);
+        dest[c0 + _LAT_3C_] -= b_x_recv_vec[c0].multi_i(dagger_val);
       }
     } // just add
     add_dest_x(origin_dest, dest, lat_tzyx, (move == lat_x - 1)); // even-odd
@@ -708,8 +713,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp1.multi_i();
-          dest[c0 + _LAT_3C_] += tmp0.multi_i();
+          dest[c0 + _LAT_2C_] += tmp1.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_i(dagger_val);
         }
       }
     } // just add
@@ -739,6 +744,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -769,8 +775,8 @@ namespace qcu
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
-          b_y_send_vec[c1] = src[c1] + src[c1 + _LAT_3C_];
-          b_y_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_];
+          b_y_send_vec[c1] = src[c1] + src[c1 + _LAT_3C_].multi_none(dagger_val);
+          b_y_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_none(dagger_val);
         }
         give_send(origin_b_y_send_vec, b_y_send_vec, lat_tzyx / lat_y);
       }
@@ -799,8 +805,8 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] - src[c1 + _LAT_3C_]) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_]) *
+            tmp0 += (src[c1] - src[c1 + _LAT_3C_].multi_none(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_2C_].multi_none(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           f_y_send_vec[c0] = tmp0;
@@ -834,6 +840,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -864,8 +871,8 @@ namespace qcu
       {
         dest[c0] += b_y_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_y_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] += b_y_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_3C_] -= b_y_recv_vec[c0];
+        dest[c0 + _LAT_2C_] += b_y_recv_vec[c0 + _LAT_1C_].multi_none(dagger_val);
+        dest[c0 + _LAT_3C_] -= b_y_recv_vec[c0].multi_none(dagger_val);
       }
     }
     // just add
@@ -902,8 +909,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp1;
-          dest[c0 + _LAT_3C_] += tmp0;
+          dest[c0 + _LAT_2C_] -= tmp1.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] += tmp0.multi_none(dagger_val);
         }
       }
     } // just add
@@ -933,6 +940,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -963,9 +971,9 @@ namespace qcu
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
-          b_z_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_].multi_i();
+          b_z_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_].multi_i(dagger_val);
           b_z_send_vec[c1 + _LAT_1C_] =
-              src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_i();
+              src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_i(dagger_val);
         }
         give_send(origin_b_z_send_vec, b_z_send_vec, lat_tzyx / lat_z);
       }
@@ -995,8 +1003,8 @@ namespace qcu
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
             tmp0 +=
-                (src[c1] + src[c1 + _LAT_2C_].multi_i()) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_i()) *
+                (src[c1] + src[c1 + _LAT_2C_].multi_i(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_i(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           f_z_send_vec[c0] = tmp0;
@@ -1030,6 +1038,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -1060,8 +1069,8 @@ namespace qcu
       {
         dest[c0] += b_z_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_z_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0].multi_i();
-        dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_].multi_i();
+        dest[c0 + _LAT_2C_] -= b_z_recv_vec[c0].multi_i(dagger_val);
+        dest[c0 + _LAT_3C_] += b_z_recv_vec[c0 + _LAT_1C_].multi_i(dagger_val);
       }
     }
     // just add
@@ -1098,8 +1107,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] += tmp0.multi_i();
-          dest[c0 + _LAT_3C_] -= tmp1.multi_i();
+          dest[c0 + _LAT_2C_] += tmp0.multi_i(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_i(dagger_val);
         }
       }
     } // just add
@@ -1130,6 +1139,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -1160,8 +1170,8 @@ namespace qcu
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
-          b_t_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_];
-          b_t_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_];
+          b_t_send_vec[c1] = src[c1] - src[c1 + _LAT_2C_].multi_none(dagger_val);
+          b_t_send_vec[c1 + _LAT_1C_] = src[c1 + _LAT_1C_] - src[c1 + _LAT_3C_].multi_none(dagger_val);
         }
         give_send(origin_b_t_send_vec, b_t_send_vec, lat_tzyx / lat_t);
       }
@@ -1190,8 +1200,8 @@ namespace qcu
           tmp1 = zero;
           for (int c1 = 0; c1 < _LAT_C_; c1++)
           {
-            tmp0 += (src[c1] + src[c1 + _LAT_2C_]) * U[c1 * _LAT_C_ + c0].conj();
-            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_]) *
+            tmp0 += (src[c1] + src[c1 + _LAT_2C_].multi_none(dagger_val)) * U[c1 * _LAT_C_ + c0].conj();
+            tmp1 += (src[c1 + _LAT_1C_] + src[c1 + _LAT_3C_].multi_none(dagger_val)) *
                     U[c1 * _LAT_C_ + c0].conj();
           }
           f_t_send_vec[c0] = tmp0;
@@ -1226,6 +1236,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
+    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex I(0.0, 1.0);
     LatticeComplex zero(0.0, 0.0);
     LatticeComplex *tmp_U;
@@ -1256,8 +1267,8 @@ namespace qcu
       {
         dest[c0] += b_t_recv_vec[c0];
         dest[c0 + _LAT_1C_] += b_t_recv_vec[c0 + _LAT_1C_];
-        dest[c0 + _LAT_2C_] += b_t_recv_vec[c0];
-        dest[c0 + _LAT_3C_] += b_t_recv_vec[c0 + _LAT_1C_];
+        dest[c0 + _LAT_2C_] += b_t_recv_vec[c0].multi_none(dagger_val);
+        dest[c0 + _LAT_3C_] += b_t_recv_vec[c0 + _LAT_1C_].multi_none(dagger_val);
       }
     }
     // just add
@@ -1294,8 +1305,8 @@ namespace qcu
           }
           dest[c0] += tmp0;
           dest[c0 + _LAT_1C_] += tmp1;
-          dest[c0 + _LAT_2C_] -= tmp0;
-          dest[c0 + _LAT_3C_] -= tmp1;
+          dest[c0 + _LAT_2C_] -= tmp0.multi_none(dagger_val);
+          dest[c0 + _LAT_3C_] -= tmp1.multi_none(dagger_val);
         }
       }
     } // just add

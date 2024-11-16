@@ -344,6 +344,7 @@ namespace qcu
                 }
             }
             {
+                host_params[_DAGGER_] = _NO_USE_; // needed!!!
                 checkCudaErrors(
                     cudaMallocAsync(&device_params, _VALS_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMallocAsync(&device_params_even_no_dag,
@@ -383,6 +384,17 @@ namespace qcu
                 give_param<<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
+        }
+        double kappa()
+        {
+            /*
+            a=1(always\ ignore)
+            r=1(in\ code\ written\ as\ coeff\_r)
+            C_{SW}=1(in\ code\ written\ as\ coeff\_t)
+            \kappa=\frac{1}{2m_q a+8r}
+            or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
+            */
+            return 1 / (2 * _MASS_ + 8);
         }
         float get_time()
         {
@@ -446,7 +458,6 @@ namespace qcu
             checkNcclErrors(ncclCommDestroy(nccl_comm));
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
-
         void _print()
         {
             printf("gridDim.x               :%d\n", gridDim.x);
@@ -463,6 +474,7 @@ namespace qcu
             printf("host_params[_PARITY_]   :%d\n", host_params[_PARITY_]);
             printf("host_params[_NODE_RANK_]:%d\n", host_params[_NODE_RANK_]);
             printf("host_params[_NODE_SIZE_]:%d\n", host_params[_NODE_SIZE_]);
+            printf("host_params[_DAGGER_]   :%d\n", host_params[_DAGGER_]);
             printf("lat_2dim[_XY_]          :%d\n", lat_2dim[_XY_]);
             printf("lat_2dim[_XZ_]          :%d\n", lat_2dim[_XZ_]);
             printf("lat_2dim[_XT_]          :%d\n", lat_2dim[_XT_]);

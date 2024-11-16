@@ -5,52 +5,27 @@ namespace qcu
   __global__ void bistabcg_give_1beta(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex rho_prev;
-    rho_prev = vals[_rho_prev_];
-    LatticeComplex rho;
-    rho = vals[_rho_];
-    LatticeComplex alpha;
-    alpha = vals[_alpha_];
-    LatticeComplex beta;
-    beta = vals[_beta_];
-    LatticeComplex omega;
-    omega = vals[_omega_];
-    beta = (rho / rho_prev) * (alpha / omega);
-    vals[_beta_] = beta;
+    vals[_beta_] = (vals[_rho_] / vals[_rho_prev_]) * (vals[_alpha_] / vals[_omega_]);
   }
   __global__ void bistabcg_give_1rho_prev(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex rho;
-    rho = vals[_rho_];
-    vals[_rho_prev_] = rho;
+    vals[_rho_prev_] = vals[_rho_];
   }
   __global__ void bistabcg_give_1alpha(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex rho;
-    rho = vals[_rho_];
-    LatticeComplex tmp0;
-    tmp0 = vals[_tmp0_];
-    vals[_alpha_] = rho / tmp0;
+    vals[_alpha_] = vals[_rho_] / vals[_tmp0_];
   }
   __global__ void bistabcg_give_1omega(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex tmp0;
-    tmp0 = vals[_tmp0_];
-    LatticeComplex tmp1;
-    tmp1 = vals[_tmp1_];
-    vals[_omega_] = tmp0 / tmp1;
+    vals[_omega_] = vals[_tmp0_] / vals[_tmp1_];
   }
   __global__ void bistabcg_give_1diff(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
-    LatticeComplex norm2_tmp;
-    norm2_tmp = vals[_norm2_tmp_];
-    LatticeComplex diff_tmp;
-    diff_tmp = vals[_diff_tmp_];
-    vals[_diff_tmp_] = diff_tmp / norm2_tmp;
+    vals[_diff_tmp_] = vals[_diff_tmp_] / vals[_norm2_tmp_];
   }
   __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                     void *device_vec0, double kappa,
@@ -80,7 +55,7 @@ namespace qcu
       b_o[i] = ans_o[i] - vec1[i] * kappa; // b_o=ans_o-kappa*D_oe(ans_e)
     }
   }
-  __global__ void bistabcg_give_b__0(void *device_b__o, void *device_b_o,
+  __global__ void bistabcg_give_b__o(void *device_b__o, void *device_b_o,
                                      void *device_vec0, double kappa,
                                      void *device_vals)
   {

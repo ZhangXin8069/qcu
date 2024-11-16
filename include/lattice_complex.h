@@ -132,6 +132,18 @@ namespace qcu
     {
       return LatticeComplex(-_data.y, _data.x);
     }
+    __host__ __device__ __inline__ LatticeComplex multi_i(double val) const
+    {
+      return LatticeComplex(-_data.y * val, _data.x * val);
+    }
+    __host__ __device__ __inline__ LatticeComplex multi_none() const
+    {
+      return LatticeComplex(_data.x, _data.y);
+    }
+    __host__ __device__ __inline__ LatticeComplex multi_none(double val) const
+    {
+      return LatticeComplex(_data.x * val, _data.y * val);
+    }
     __host__ __device__ __inline__ LatticeComplex multi_minus_i() const
     {
       return LatticeComplex(_data.y, -_data.x);
