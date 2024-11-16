@@ -1,1 +1,1 @@
-pip install --upgrade . -t ./lib
+python -m pip install --upgrade . -t ./lib
