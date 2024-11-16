@@ -502,8 +502,8 @@ namespace qcu
     }
     void run(void *fermion_out, void *fermion_in, void *gauge)
     {
-      // run_mpi(fermion_out, fermion_in, gauge);
-      run_nccl(fermion_out, fermion_in, gauge, set_ptr->device_params);
+      run_mpi(fermion_out, fermion_in, gauge, set_ptr->device_params);
+      // run_nccl(fermion_out, fermion_in, gauge, set_ptr->device_params);
     }
     void run_eo(void *fermion_out, void *fermion_in, void *gauge)
     {

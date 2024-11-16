@@ -26,6 +26,7 @@ namespace qcu
         cublasHandle_t cublasHs[_DIM_];
         cudaStream_t streams[_DIM_];
         cudaStream_t stream_dims[_DIM_];
+        cudaStream_t stream_memcpy[_WARDS_];
         float time;
         cudaEvent_t start, stop;
         cudaError_t err;
@@ -268,10 +269,10 @@ namespace qcu
                     CUBLAS_CHECK(cublasCreate(&cublasHs[i]));
                     checkCudaErrors(
                         cudaStreamCreateWithFlags(&streams[i], cudaStreamNonBlocking));
+                    CUBLAS_CHECK(cublasSetStream(cublasHs[i], streams[i]));
                     // checkCudaErrors(cudaStreamCreate(&streams[i]));
                     checkCudaErrors(
                         cudaStreamCreateWithFlags(&stream_dims[i], cudaStreamNonBlocking));
-                    CUBLAS_CHECK(cublasSetStream(cublasHs[i], streams[i]));
                     lat_3dim_Half_SC[i] = lat_3dim[i] * _LAT_HALF_SC_;
                     lat_3dim_SC[i] = lat_3dim_Half_SC[i] * 2;
                     checkCudaErrors(cudaMallocAsync(
@@ -298,14 +299,18 @@ namespace qcu
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_1dim_recv_vec[i * _BF_ + 1],
                         lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
-                    host_send_vec[i * _BF_] =
-                        (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
-                    host_send_vec[i * _BF_ + 1] =
-                        (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
-                    host_recv_vec[i * _BF_] =
-                        (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
-                    host_recv_vec[i * _BF_ + 1] =
-                        (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex));
+                    checkCudaErrors(cudaMallocHost(
+                        &host_send_vec[i * _BF_],
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                    checkCudaErrors(cudaMallocHost(
+                        &host_send_vec[i * _BF_ + 1],
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                    checkCudaErrors(cudaMallocHost(
+                        &host_recv_vec[i * _BF_],
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                    checkCudaErrors(cudaMallocHost(
+                        &host_recv_vec[i * _BF_ + 1],
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
                 }
                 for (int i = 0; i < _2DIM_; i++)
                 {
@@ -341,6 +346,11 @@ namespace qcu
                         &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
                         lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                         stream));
+                }
+                for (int i = 0; i < _WARDS_; i++)
+                {
+                    checkCudaErrors(
+                        cudaStreamCreateWithFlags(&stream_memcpy[i], cudaStreamNonBlocking));
                 }
             }
             {
@@ -430,8 +440,10 @@ namespace qcu
                 checkCudaErrors(cudaFreeAsync(device_u_1dim_recv_vec[i * _BF_], stream));
                 checkCudaErrors(
                     cudaFreeAsync(device_u_1dim_recv_vec[i * _BF_ + 1], stream));
-                free(host_send_vec[i * _BF_]);
-                free(host_recv_vec[i * _BF_ + 1]);
+                cudaFreeHost(host_send_vec[i * _BF_]);
+                cudaFreeHost(host_send_vec[i * _BF_ + 1]);
+                cudaFreeHost(host_recv_vec[i * _BF_]);
+                cudaFreeHost(host_recv_vec[i * _BF_ + 1]);
             }
             for (int i = 0; i < _2DIM_; i++)
             {
@@ -451,6 +463,10 @@ namespace qcu
                     cudaFreeAsync(device_u_2dim_send_vec[i * _BF_ * _BF_ + 3], stream));
                 checkCudaErrors(
                     cudaFreeAsync(device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3], stream));
+            }
+            for (int i = 0; i < _WARDS_; i++)
+            {
+                checkCudaErrors(cudaStreamDestroy(stream_memcpy[i]));
             }
             CUBLAS_CHECK(cublasDestroy(cublasH));
             checkCudaErrors(cudaStreamSynchronize(stream));
