@@ -1,6 +1,5 @@
 #ifndef _DEFINE_H
 #define _DEFINE_H
-// clang-format off
 #include "./lattice_complex.h"
 namespace qcu
 {
@@ -327,13 +326,12 @@ namespace qcu
       origin_send[i * lat_3dim] = send[i];     \
     }                                          \
   }
-// fake edge
-#define give_send_x(origin_send, send, lat_3dim, _)     \
-  {                                                     \
-    for (int i = 0; i < _LAT_HALF_SC_ * _; i++)         \
-    {                                                   \
-      origin_send[i * lat_3dim / _EVEN_ODD_] = send[i]; \
-    }                                                   \
+#define give_send_x(origin_send, send, lat_3dim, _) \
+  {                                                 \
+    for (int i = 0; i < _LAT_HALF_SC_ * _; i++)     \
+    {                                               \
+      origin_send[i * lat_3dim] = send[i];          \
+    }                                               \
   }
 #define add_dest(origin_dest, dest, lat_tzyx) \
   {                                           \
@@ -342,12 +340,12 @@ namespace qcu
       origin_dest[i * lat_tzyx] += dest[i];   \
     }                                         \
   }
-#define add_dest_x(origin_dest, dest, lat_tzyx, _)\
-  {                                               \
-    for (int i = 0; i < _LAT_SC_ * _; i++)        \
-    {                                             \
-      origin_dest[i * lat_tzyx] += dest[i];       \
-    }                                             \
+#define add_dest_x(origin_dest, dest, lat_tzyx, _) \
+  {                                                \
+    for (int i = 0; i < _LAT_SC_ * _; i++)         \
+    {                                              \
+      origin_dest[i * lat_tzyx] += dest[i];        \
+    }                                              \
   }
 #define get_recv(recv, origin_recv, lat_3dim) \
   {                                           \
@@ -355,14 +353,6 @@ namespace qcu
     {                                         \
       recv[i] = origin_recv[i * lat_3dim];    \
     }                                         \
-  }
-// fake edge
-#define get_recv_x(recv, origin_recv, lat_3dim)        \
-  {                                                    \
-    for (int i = 0; i < _LAT_HALF_SC_; i++)            \
-    {                                                  \
-      recv[i] = origin_recv[i * lat_3dim / _EVEN_ODD_];\
-    }                                                  \
   }
 #define give_clr(origin_clr, clr, lat_tzyx) \
   {                                         \

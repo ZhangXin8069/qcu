@@ -578,8 +578,8 @@ namespace qcu
           b_x_send_vec[c1 + _LAT_1C_] =
               src[c1 + _LAT_1C_] - src[c1 + _LAT_2C_].multi_i(dagger_val);
         }
-        give_send_x(origin_b_x_send_vec, b_x_send_vec, lat_tzyx / lat_x,
-                    (move == 0));
+        give_send_x(origin_b_x_send_vec, b_x_send_vec, lat_tzyx / lat_x / _EVEN_ODD_,
+                    (move == 0)); // fake edge
       }
     }
     {
@@ -615,8 +615,8 @@ namespace qcu
           f_x_send_vec[c0] = tmp0;
           f_x_send_vec[c0 + _LAT_1C_] = tmp1;
         }
-        give_send_x(origin_f_x_send_vec, f_x_send_vec, lat_tzyx / lat_x,
-                    (move == 0));
+        give_send_x(origin_f_x_send_vec, f_x_send_vec, lat_tzyx / lat_x / _EVEN_ODD_,
+                    (move == 0)); // fake edge
       }
     }
 #endif
@@ -671,7 +671,7 @@ namespace qcu
     { // x-1
       move_backward_x(move, x, lat_x, eo, parity);
       // recv in x-1 way
-      get_recv_x(b_x_recv_vec, origin_b_x_recv_vec, lat_tzyx / lat_x);
+      get_recv(b_x_recv_vec, origin_b_x_recv_vec, lat_tzyx / lat_x / _EVEN_ODD_); // fake edge
       for (int c0 = 0; c0 < _LAT_C_; c0++)
       {
         dest[c0] += b_x_recv_vec[c0];
@@ -698,7 +698,7 @@ namespace qcu
     { // x+1
       move_forward_x(move, x, lat_x, eo, parity);
       // recv in x+1 way
-      get_recv_x(f_x_recv_vec, origin_f_x_recv_vec, lat_tzyx / lat_x);
+      get_recv(f_x_recv_vec, origin_f_x_recv_vec, lat_tzyx / lat_x / _EVEN_ODD_); // fake edge
       tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
       give_u(U, tmp_U, lat_tzyx);
       {
