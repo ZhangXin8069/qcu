@@ -1,4 +1,5 @@
 #include "../include/qcu.h"
+#pragma optimize(5)
 using namespace qcu;
 #ifdef NCCL_WILSON_BISTABCG
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
