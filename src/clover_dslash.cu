@@ -894,7 +894,7 @@ namespace qcu
       LatticeComplex tmp_dest[_LAT_SC_];
       LatticeComplex zero(0.0, 0.0);
       give_vals(tmp_dest, zero, _LAT_SC_);
-      give_src(dest, origin_dest, lat_tzyx);
+      get_src(dest, origin_dest, lat_tzyx);
       get_clr(clover, origin_clover, lat_tzyx);
       for (int sc0 = 0; sc0 < _LAT_SC_; sc0++)
       {
