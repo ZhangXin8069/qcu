@@ -631,22 +631,22 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_send_vec[i * _BF_],
                             set_ptr->device_u_1dim_send_vec[i * _BF_],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_send_vec[i * _BF_ + 1],
                             set_ptr->device_u_1dim_send_vec[i * _BF_ + 1],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_recv_vec[i * _BF_],
                             set_ptr->device_u_1dim_recv_vec[i * _BF_],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_recv_vec[i * _BF_ + 1],
                             set_ptr->device_u_1dim_recv_vec[i * _BF_ + 1],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                     }
                     for (int i = 0; i < _2DIM_; i++)
@@ -654,49 +654,49 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                     }
@@ -991,22 +991,22 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_send_vec[i * _BF_],
                             set_ptr->host_u_1dim_send_vec[i * _BF_],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_send_vec[i * _BF_ + 1],
                             set_ptr->host_u_1dim_send_vec[i * _BF_ + 1],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_recv_vec[i * _BF_],
                             set_ptr->host_u_1dim_recv_vec[i * _BF_],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_recv_vec[i * _BF_ + 1],
                             set_ptr->host_u_1dim_recv_vec[i * _BF_ + 1],
-                            lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                     }
                     for (int i = 0; i < _2DIM_; i++)
@@ -1014,49 +1014,49 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
-                            lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                     }
@@ -1100,10 +1100,6 @@ namespace qcu
                 set_ptr->device_u_2dim_recv_vec[_B_Z_F_T_],
                 set_ptr->device_u_2dim_recv_vec[_F_Z_F_T_]);
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
-            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
-            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
-            checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         }
         void make(void *gauge)
         {
