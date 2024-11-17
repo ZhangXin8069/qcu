@@ -564,7 +564,7 @@ namespace qcu
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_x_send_vec =
           ((static_cast<LatticeComplex *>(device_b_x_send_vec)) +
-           (((t * lat_z + z) * lat_y + y)));
+           (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x-1
       move_backward_x(move, x, lat_x, eo, parity);
@@ -590,7 +590,7 @@ namespace qcu
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_x_send_vec =
           ((static_cast<LatticeComplex *>(device_f_x_send_vec)) +
-           (((t * lat_z + z) * lat_y + y)));
+           (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x+1
       move_forward_x(move, x, lat_x, eo, parity);
@@ -666,12 +666,12 @@ namespace qcu
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_x_recv_vec =
           ((static_cast<LatticeComplex *>(device_b_x_recv_vec)) +
-           (((t * lat_z + z) * lat_y + y)));
+           (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x-1
       move_backward_x(move, x, lat_x, eo, parity);
       // recv in x-1 way
-      get_recv(b_x_recv_vec, origin_b_x_recv_vec, lat_tzyx / lat_x);
+      get_recv_x(b_x_recv_vec, origin_b_x_recv_vec, lat_tzyx / lat_x);
       for (int c0 = 0; c0 < _LAT_C_; c0++)
       {
         dest[c0] += b_x_recv_vec[c0];
@@ -693,12 +693,12 @@ namespace qcu
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_x_recv_vec =
           ((static_cast<LatticeComplex *>(device_f_x_recv_vec)) +
-           (((t * lat_z + z) * lat_y + y)));
+           (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x+1
       move_forward_x(move, x, lat_x, eo, parity);
       // recv in x+1 way
-      get_recv(f_x_recv_vec, origin_f_x_recv_vec, lat_tzyx / lat_x);
+      get_recv_x(f_x_recv_vec, origin_f_x_recv_vec, lat_tzyx / lat_x);
       tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
       give_u(U, tmp_U, lat_tzyx);
       {
