@@ -51,7 +51,7 @@ namespace qcu
         tmp_U = (origin_U + move + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -76,7 +76,7 @@ namespace qcu
         tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -105,7 +105,7 @@ namespace qcu
             (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -130,7 +130,7 @@ namespace qcu
         tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -158,7 +158,7 @@ namespace qcu
                  (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -183,7 +183,7 @@ namespace qcu
         tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -213,7 +213,7 @@ namespace qcu
                  (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -238,7 +238,7 @@ namespace qcu
         tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_; c0++)
@@ -307,7 +307,7 @@ namespace qcu
         tmp_U = (origin_U + move + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move != lat_x - 1); c0++)
@@ -332,7 +332,7 @@ namespace qcu
         tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move != 1 - lat_x); c0++)
@@ -361,7 +361,7 @@ namespace qcu
             (origin_U + move * lat_x + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++)
@@ -386,7 +386,7 @@ namespace qcu
         tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++)
@@ -414,7 +414,7 @@ namespace qcu
                  (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++)
@@ -439,7 +439,7 @@ namespace qcu
         tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++)
@@ -470,7 +470,7 @@ namespace qcu
                  (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move == -1); c0++)
@@ -495,7 +495,7 @@ namespace qcu
         tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
         give_u(U, tmp_U, lat_tzyx);
         tmp_src = (origin_src + move * lat_z * lat_y * lat_x);
-        give_src(src, tmp_src, lat_tzyx);
+        get_src(src, tmp_src, lat_tzyx);
       }
       {
         for (int c0 = 0; c0 < _LAT_C_ * (move == 1); c0++)
@@ -570,7 +570,7 @@ namespace qcu
       move_backward_x(move, x, lat_x, eo, parity);
       // even-odd
       // send in x+1 way
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
@@ -599,7 +599,7 @@ namespace qcu
       tmp_U =
           (origin_U + (_X_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx); // even-odd
       give_u(U, tmp_U, lat_tzyx);
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // just tmp
         for (int c0 = 0; c0 < _LAT_C_; c0++)
         {
@@ -671,7 +671,7 @@ namespace qcu
     { // x-1
       move_backward_x(move, x, lat_x, eo, parity);
       // recv in x-1 way
-      give_recv(b_x_recv_vec, origin_b_x_recv_vec, lat_tzyx / lat_x);
+      get_recv(b_x_recv_vec, origin_b_x_recv_vec, lat_tzyx / lat_x);
       for (int c0 = 0; c0 < _LAT_C_; c0++)
       {
         dest[c0] += b_x_recv_vec[c0];
@@ -698,7 +698,7 @@ namespace qcu
     { // x+1
       move_forward_x(move, x, lat_x, eo, parity);
       // recv in x+1 way
-      give_recv(f_x_recv_vec, origin_f_x_recv_vec, lat_tzyx / lat_x);
+      get_recv(f_x_recv_vec, origin_f_x_recv_vec, lat_tzyx / lat_x);
       tmp_U = (origin_U + (_X_ * _EVEN_ODD_ + parity) * lat_tzyx);
       give_u(U, tmp_U, lat_tzyx);
       {
@@ -771,7 +771,7 @@ namespace qcu
     { // y-1
       // move_backward(move, y, lat_y);
       // send in y+1 way
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
@@ -797,7 +797,7 @@ namespace qcu
       tmp_U =
           (origin_U + (_Y_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx); // even-odd
       give_u(U, tmp_U, lat_tzyx);
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // just tmp
         for (int c0 = 0; c0 < _LAT_C_; c0++)
         {
@@ -866,7 +866,7 @@ namespace qcu
     { // y-1
       move_backward(move, y, lat_y);
       // recv in y-1 way
-      give_recv(b_y_recv_vec, origin_b_y_recv_vec, lat_tzyx / lat_y);
+      get_recv(b_y_recv_vec, origin_b_y_recv_vec, lat_tzyx / lat_y);
       for (int c0 = 0; c0 < _LAT_C_; c0++)
       {
         dest[c0] += b_y_recv_vec[c0];
@@ -894,7 +894,7 @@ namespace qcu
     { // y+1
       // move_forward(move, y, lat_y);
       // recv in y+1 way
-      give_recv(f_y_recv_vec, origin_f_y_recv_vec, lat_tzyx / lat_y);
+      get_recv(f_y_recv_vec, origin_f_y_recv_vec, lat_tzyx / lat_y);
       tmp_U = (origin_U + (_Y_ * _EVEN_ODD_ + parity) * lat_tzyx);
       give_u(U, tmp_U, lat_tzyx);
       {
@@ -967,7 +967,7 @@ namespace qcu
     { // z-1
       // move_backward(move, z, lat_z);
       // send in z+1 way
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
@@ -994,7 +994,7 @@ namespace qcu
       tmp_U =
           (origin_U + (_Z_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx); // even-odd
       give_u(U, tmp_U, lat_tzyx);
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // just tmp
         for (int c0 = 0; c0 < _LAT_C_; c0++)
         {
@@ -1064,7 +1064,7 @@ namespace qcu
     { // z-1
       // move_backward(move, z, lat_z);
       // recv in z-1 way
-      give_recv(b_z_recv_vec, origin_b_z_recv_vec, lat_tzyx / lat_z);
+      get_recv(b_z_recv_vec, origin_b_z_recv_vec, lat_tzyx / lat_z);
       for (int c0 = 0; c0 < _LAT_C_; c0++)
       {
         dest[c0] += b_z_recv_vec[c0];
@@ -1092,7 +1092,7 @@ namespace qcu
     { // z+1
       // move_forward(move, z, lat_z);
       // recv in z+1 way
-      give_recv(f_z_recv_vec, origin_f_z_recv_vec, lat_tzyx / lat_z);
+      get_recv(f_z_recv_vec, origin_f_z_recv_vec, lat_tzyx / lat_z);
       tmp_U = (origin_U + (_Z_ * _EVEN_ODD_ + parity) * lat_tzyx);
       give_u(U, tmp_U, lat_tzyx);
       {
@@ -1166,7 +1166,7 @@ namespace qcu
     { // t-1
       // move_backward(move, t, lat_t);
       // send in t+1 way
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // sigma src
         for (int c1 = 0; c1 < _LAT_C_; c1++)
         {
@@ -1192,7 +1192,7 @@ namespace qcu
       tmp_U =
           (origin_U + (_T_ * _EVEN_ODD_ + (1 - parity)) * lat_tzyx); // even-odd
       give_u(U, tmp_U, lat_tzyx);
-      give_src(src, origin_src, lat_tzyx);
+      get_src(src, origin_src, lat_tzyx);
       { // just tmp
         for (int c0 = 0; c0 < _LAT_C_; c0++)
         {
@@ -1262,7 +1262,7 @@ namespace qcu
     { // t-1
       // move_backward(move, t, lat_t);
       // recv in t-1 way
-      give_recv(b_t_recv_vec, origin_b_t_recv_vec, lat_tzyx / lat_t);
+      get_recv(b_t_recv_vec, origin_b_t_recv_vec, lat_tzyx / lat_t);
       for (int c0 = 0; c0 < _LAT_C_; c0++)
       {
         dest[c0] += b_t_recv_vec[c0];
@@ -1290,7 +1290,7 @@ namespace qcu
     { // t+1
       // move_forward(move, t, lat_t);
       // recv in t+1 way
-      give_recv(f_t_recv_vec, origin_f_t_recv_vec, lat_tzyx / lat_t);
+      get_recv(f_t_recv_vec, origin_f_t_recv_vec, lat_tzyx / lat_t);
       tmp_U = (origin_U + (_T_ * _EVEN_ODD_ + parity) * lat_tzyx);
       give_u(U, tmp_U, lat_tzyx);
       {

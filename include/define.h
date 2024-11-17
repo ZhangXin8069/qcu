@@ -305,39 +305,18 @@ namespace qcu
     U[7] = (U[2] * U[3] - U[0] * U[5]).conj();                       \
     U[8] = (U[0] * U[4] - U[1] * U[3]).conj();                       \
   }
-#define give_src(src, origin_src, lat_tzyx) \
-  {                                         \
-    for (int i = 0; i < _LAT_SC_; i++)      \
-    {                                       \
-      src[i] = origin_src[i * lat_tzyx];    \
-    }                                       \
+#define get_src(src, origin_src, lat_tzyx) \
+  {                                        \
+    for (int i = 0; i < _LAT_SC_; i++)     \
+    {                                      \
+      src[i] = origin_src[i * lat_tzyx];   \
+    }                                      \
   }
 #define give_dest(origin_dest, dest, lat_tzyx) \
   {                                            \
     for (int i = 0; i < _LAT_SC_; i++)         \
     {                                          \
       origin_dest[i * lat_tzyx] = dest[i];     \
-    }                                          \
-  }
-#define add_dest(origin_dest, dest, lat_tzyx) \
-  {                                           \
-    for (int i = 0; i < _LAT_SC_; i++)        \
-    {                                         \
-      origin_dest[i * lat_tzyx] += dest[i];   \
-    }                                         \
-  }
-#define add_dest_x(origin_dest, dest, lat_tzyx, _) \
-  {                                                \
-    for (int i = 0; i < _LAT_SC_ * _; i++)         \
-    {                                              \
-      origin_dest[i * lat_tzyx] += dest[i];        \
-    }                                              \
-  }
-#define give_recv(recv, origin_recv, lat_3dim) \
-  {                                            \
-    for (int i = 0; i < _LAT_HALF_SC_; i++)    \
-    {                                          \
-      recv[i] = origin_recv[i * lat_3dim];     \
     }                                          \
   }
 #define give_send(origin_send, send, lat_3dim) \
@@ -354,6 +333,29 @@ namespace qcu
       origin_send[i * lat_3dim] = send[i];          \
     }                                               \
   }
+#define add_dest(origin_dest, dest, lat_tzyx) \
+  {                                           \
+    for (int i = 0; i < _LAT_SC_; i++)        \
+    {                                         \
+      origin_dest[i * lat_tzyx] += dest[i];   \
+    }                                         \
+  }
+#define add_dest_x(origin_dest, dest, lat_tzyx, _) \
+  {                                                \
+    for (int i = 0; i < _LAT_SC_ * _; i++)         \
+    {                                              \
+      origin_dest[i * lat_tzyx] += dest[i];        \
+    }                                              \
+  }
+
+#define get_recv(recv, origin_recv, lat_3dim) \
+  {                                           \
+    for (int i = 0; i < _LAT_HALF_SC_; i++)   \
+    {                                         \
+      recv[i] = origin_recv[i * lat_3dim];    \
+    }                                         \
+  }
+
 #define give_clr(origin_clr, clr, lat_tzyx) \
   {                                         \
     for (int i = 0; i < _LAT_SCSC_; i++)    \
