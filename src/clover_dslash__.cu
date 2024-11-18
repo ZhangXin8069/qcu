@@ -1,4 +1,5 @@
 #include "../include/qcu.h"
+#pragma optimize(5)
 namespace qcu
 {
 #ifdef CLOVER_DSLASH
