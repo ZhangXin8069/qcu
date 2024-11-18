@@ -24,7 +24,7 @@ latt_size = [32, 32, 32, 64]
 # latt_size = [4, 4, 4, 4]
 # latt_size = [8, 8, 8, 8]
 # latt_size = [8, 8, 8, 16]
-grid_size = [1, 1, 2, 1]
+grid_size = [2, 1, 1, 1]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
@@ -46,10 +46,10 @@ U = gauge_utils.gaussGauge(latt_size, 0)
 # Set parameters in Dslash and use m=-3.5 to make kappa=1
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 # Generate gauge and then load it
-dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
-                        coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
+# dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
+#                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
-dslash.loadGauge(U)
+# dslash.loadGauge(U)
 np.set_printoptions(threshold=np.inf)
 
 def compare(round):
