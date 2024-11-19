@@ -255,17 +255,6 @@ namespace qcu
                     move_wards[_FZ_FT_] = move_wards[_F_Z_] + tmp * grid_3dim[_XYZ_];
                 }
             }
-            {
-                // nccl set
-                if (host_params[_NODE_RANK_] == 0)
-                {
-                    checkNcclErrors(ncclGetUniqueId(&nccl_id));
-                }
-                checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
-                                         MPI_COMM_WORLD));
-                checkNcclErrors(ncclCommInitRank(&nccl_comm, host_params[_NODE_SIZE_],
-                                                 nccl_id, host_params[_NODE_RANK_]));
-            }
             { // set stream and malloc vec
                 CUBLAS_CHECK(cublasCreate(&cublasH));
                 checkCudaErrors(
@@ -425,6 +414,19 @@ namespace qcu
                 give_param<<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
+            _print();
+            exit(1);
+            {
+                // nccl set
+                if (host_params[_NODE_RANK_] == 0)
+                {
+                    checkNcclErrors(ncclGetUniqueId(&nccl_id));
+                }
+                checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
+                                         MPI_COMM_WORLD));
+                checkNcclErrors(ncclCommInitRank(&nccl_comm, host_params[_NODE_SIZE_],
+                                                 nccl_id, host_params[_NODE_RANK_]));
+            }
         }
         double kappa()
         {
