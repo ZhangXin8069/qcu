@@ -1,0 +1,1984 @@
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[  6%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/hello_world.cu.o
+[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/multigrid.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 87%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+rm: cannot remove ‘log_*’: No such file or directory
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-SXM-80GB
+Found device 1: NVIDIA A100-SXM-80GB
+Found device 2: NVIDIA A100-SXM-80GB
+Found device 3: NVIDIA A100-SXM-80GB
+Found device 4: NVIDIA A100-SXM-80GB
+Found device 5: NVIDIA A100-SXM-80GB
+Found device 6: NVIDIA A100-SXM-80GB
+Found device 7: NVIDIA A100-SXM-80GB
+Using device 0: NVIDIA A100-SXM-80GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+single latt size = [4, 32, 32, 64]
+single latt size = [4, 32, 32, 64]
+single latt size = [4, 32, 32, 64]
+single latt size = [4, 32, 32, 64]
+single latt size = [4, 32, 32, 64]
+single latt size = [4, 32, 32, 64]
+cublasCreated successfully
+single latt size = [4, 32, 32, 64]
+single latt size = [4, 32, 32, 64]
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+================quda=================
+================quda=================
+================quda=================
+================quda=================
+================quda=================
+================quda=================
+================quda=================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.126953165978193 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.126953165978193 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.125651311012916 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.125651311012916 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.12625393201597 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.12625393201597 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.125601512030698 sec, norm_quda_x = 195186.70069220001
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.126719209947623 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 10.126719209947623 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.126517808996141 sec, norm_quda_x = 195194.401699295
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.126253983005881 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 10.126253983005881 sec
+quda rank 0 takes 10.126517808996141 sec
+===============qcu==================
+===============qcu==================
+quda rank 0 takes 10.125601512030698 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.126162450062111 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 10.126162450062111 sec
+===============qcu==================
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.346818689 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.344752290 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.344926086 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.344260659 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.346678079 sec
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.344348636 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.344930915 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.345711202 sec
+######TIME  :######TIME  :######TIME  :######TIME  :######TIME  :14795.8######
+##RANK      :0
+######TIME  :14672.1######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+######TIME  :14770######
+##RANK      :7
+14712.2######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57614e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63854e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##lat_4dim  :(131072,0i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61665e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##lat_4dim  :(131072,0i)
+14710.9######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43244e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##lat_4dim  :(131072,0i)
+##lat_4dim  :(131072,0i)
+######TIME  :14776.2######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52824e-11,0i)
+14744.3######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50845e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##lat_4dim  :(131072,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51265e-11,0i)
+14776.2######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##lat_4dim  :(131072,0i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54205e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84985e-18,-4.62417e-39i)
+##lat_4dim  :(131072,0i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 16.11400213406887 sec, my_x_norm = 195188.5259296925
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 16.071672046091408 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 16.071672046091408 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 16.114804262062535 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 16.114804262062535 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 16.124493148061447 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 16.124493148061447 sec
+============================
+================quda=================
+qcu rank 0 takes 16.11400213406887 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 16.08577533205971 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 16.08577533205971 sec
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 16.12088316201698 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 16.12088316201698 sec
+============================
+============================
+================quda=================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 16.122546356986277 sec, my_x_norm = 195187.30588733795
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 16.127191296895035 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 16.122546356986277 sec
+============================
+qcu rank 0 takes 16.127191296895035 sec
+============================
+================quda=================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 9.938379594008438 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 9.938379594008438 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 9.938499363022856 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 9.938499363022856 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 9.938378733000718 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 9.938378733000718 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 9.938542408053763 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 9.938542408053763 sec
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 9.938717567943968 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 9.938717567943968 sec
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 9.938720464007929 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 9.938720464007929 sec
+===============qcu==================
+===============qcu==================
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 9.938514914014377 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 9.938514914014377 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 9.938728348934092 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 9.938728348934092 sec
+===============qcu==================
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.935698739 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.935290355 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.934909656 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.950298682 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.935012762 sec
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.934905769 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.948458584 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.950046008 sec
+######TIME  :12879.3######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+######TIME  :12877.9######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+######TIME  :######TIME  :12879.1######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+######TIME  :12879.3######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+######TIME  :12878.4######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63811e-11,0i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51117e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43196e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :12879.2######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57614e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61634e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50843e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+12879.1######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54111e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :12879.2######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52824e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 13.626650384976529 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 13.626650384976529 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 13.622270875028335 sec, my_x_norm = 195188.5259296925
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 13.61847080104053 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 13.61847080104053 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 13.577964518917724 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 13.577964518917724 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 13.575826648040675 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 13.575826648040675 sec
+============================
+================quda=================
+qcu rank 0 takes 13.622270875028335 sec
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 13.627283176989295 sec, my_x_norm = 195188.00026511715
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 13.633488225052133 sec, my_x_norm = 195187.30588733795
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 13.627423455938697 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 13.627423455938697 sec
+============================
+================quda=================
+============================
+================quda=================
+qcu rank 0 takes 13.627283176989295 sec
+============================
+================quda=================
+qcu rank 0 takes 13.633488225052133 sec
+============================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 9.909481542999856 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 9.909481542999856 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 9.905365478014573 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 9.905365478014573 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 9.909247366013005 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 9.909247366013005 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 9.909528797026724 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 9.909528797026724 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 9.909220713074319 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 9.909220713074319 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 9.909512575017288 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 9.909512575017288 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 9.909469068981707 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 9.909469068981707 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 9.909221564070322 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 9.909221564070322 sec
+===============qcu==================
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.524077347 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.527166955 sec
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.522454783 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.523214888 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.523565757 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.523204136 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.522401376 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.526564244 sec
+######TIME  :######TIME  :13878.9######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50814e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13879.8######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43242e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+######TIME  :13879.9######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57564e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13879.8######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63834e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13879.1######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51201e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13879.8######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61557e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13879.7######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52824e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+##lat_4dim  :(131072,0i)
+13879.8######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54087e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62353e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 14.697364192921668 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 14.697364192921668 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 14.648123700986616 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 14.648123700986616 sec
+============================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 14.652179605094716 sec, my_x_norm = 195185.13153209895
+================quda=================
+qcu rank 0 takes 14.652179605094716 sec
+============================
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 14.649655294022523 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 14.649655294022523 sec
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 14.67999380803667 sec, my_x_norm = 195184.28198964387
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 14.645711691933684 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 14.645711691933684 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 14.704147554002702 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 14.704147554002702 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 14.703293872997165 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 14.703293872997165 sec
+============================
+================quda=================
+qcu rank 0 takes 14.67999380803667 sec
+============================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.20190933602862 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 10.20190933602862 sec
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.201407855958678 sec, norm_quda_x = 195188.52592771145
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.201796781970188 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 10.201796781970188 sec
+===============qcu==================
+===============qcu==================
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.202139404020272 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.202139404020272 sec
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.200333673972636 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 10.200333673972636 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.201973092975095 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.201973092975095 sec
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.200213104952127 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 10.200213104952127 sec
+===============qcu==================
+===============qcu==================
+===============qcu==================
+quda rank 0 takes 10.201407855958678 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.201856389991008 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.201856389991008 sec
+===============qcu==================
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.887957175 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.876261412 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.875833910 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.900231061 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.875832206 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.876139328 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.886463377 sec
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :7.877216155 sec
+######TIME  :13618.1######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+######TIME  :13618######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57614e-11,0i)
+######TIME  :13618######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54065e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13618######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43211e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+######TIME  :######TIME  :13618######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52814e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13616.8######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63795e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51187e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+13618######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.6164e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+13617.9######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50825e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84949e-18,-4.62357e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 14.102284768014215 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 14.102284768014215 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 14.24173113994766 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 14.24173113994766 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 14.244667051010765 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 14.244667051010765 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 14.243668301030993 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 14.243668301030993 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 14.105223284917884 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 14.105223284917884 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 14.247184129082598 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 14.247184129082598 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 14.244643845944665 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 14.244643845944665 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 14.247719236067496 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 14.247719236067496 sec
+============================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.07917912490666 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.07917912490666 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.079363613040186 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.079363613040186 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.079664362012409 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 10.079664362012409 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.079197080922313 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 10.079197080922313 sec
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.055731436936185 sec, norm_quda_x = 195184.28199182107
+===============qcu==================
+quda rank 0 takes 10.055731436936185 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.079617889947258 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 10.079617889947258 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.079744521994144 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 10.079744521994144 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.079325867001899 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.079325867001899 sec
+===============qcu==================
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.913141168 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.907250083 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.902943517 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.911877799 sec
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.905705634 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.902670623 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.915096687 sec
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.914512722 sec
+######TIME  :14549.9######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+######TIME  :14550.3######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51224e-11,0i)
+######TIME  :14550.8######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50779e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+######TIME  :14551.1######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+######TIME  :14551.1######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57585e-11,0i)
+######TIME  :14551.1######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43118e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+##send_tmp  :(3.54193e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14551.1######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52756e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63809e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14551.2######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61665e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84946e-18,-4.62354e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 15.081419580965303 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 15.081419580965303 sec
+============================
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 15.083800117019564 sec, my_x_norm = 195186.70069289726
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 15.173381441971287 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 15.173381441971287 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 15.17154137394391 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 15.17154137394391 sec
+============================
+================quda=================
+qcu rank 0 takes 15.083800117019564 sec
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 15.172772106947377 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 15.172772106947377 sec
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 15.172676355927251 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 15.172676355927251 sec
+============================
+============================
+============================
+================quda=================
+================quda=================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 15.171361304004677 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 15.171361304004677 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 15.173342894995585 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 15.173342894995585 sec
+============================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.264382016961463 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 10.264382016961463 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.267353471019305 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 10.267353471019305 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.267268200987019 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.267268200987019 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.267157760914415 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.267157760914415 sec
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.26740225800313 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.26740225800313 sec
+===============qcu==================
+===============qcu==================
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.267123923986219 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 10.267123923986219 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.265841868007556 sec, norm_quda_x = 195187.3058866315
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.26716563606169 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 10.265841868007556 sec
+===============qcu==================
+quda rank 0 takes 10.26716563606169 sec
+===============qcu==================
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.151315091 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.152296388 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.150299196 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.150191682 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.152328592 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.151658646 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.149988988 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.152056139 sec
+######TIME  :13164.4######
+##RANK      :7
+##LOOP      :999
+######TIME  :13164.7######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+######TIME  :13164.7######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+######TIME  :13163.9######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+######TIME  :13164.6######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+######TIME  :##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51264e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61668e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##lat_4dim  :(131072,0i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43239e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57606e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+######TIME  :13163.8######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52823e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+13164.7######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.53978e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##lat_4dim  :(131072,0i)
+##lat_4dim  :(131072,0i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##lat_4dim  :(131072,0i)
+##lat_4dim  :(131072,0i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50826e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##lat_4dim  :(131072,0i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13164.8######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63812e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62368e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 13.776462642941624 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 13.776462642941624 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 13.64910774701275 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 13.64910774701275 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 13.776674065040424 sec, my_x_norm = 195188.5259296925
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 13.644746824051253 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 13.644746824051253 sec
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 13.778389143990353 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 13.778389143990353 sec
+============================
+qcu rank 0 takes 13.776674065040424 sec
+============================
+================quda=================
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 13.777376695070416 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 13.777376695070416 sec
+============================
+================quda=================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 13.77898640499916 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 13.77898640499916 sec
+============================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 13.776500409003347 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 13.776500409003347 sec
+============================
+================quda=================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.18331129301805 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 10.18331129301805 sec
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.184002420981415 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.184002420981415 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.181437538005412 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 10.181437538005412 sec
+===============qcu==================
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.184224933967926 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.184224933967926 sec
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.184179494041018 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.184179494041018 sec
+===============qcu==================
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.184073421987705 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 10.184073421987705 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.181635280954652 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 10.181635280954652 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.184062450076453 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 10.184062450076453 sec
+===============qcu==================
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.309210592 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.306819506 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.306846881 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.310556355 sec
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.304288019 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.303967180 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.310736143 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.306420251 sec
+######TIME  :13652.5######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+######TIME  :13653.5######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+######TIME  :13653.4######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61618e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+######TIME  :13653.4######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43198e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13652.8######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57614e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13653.3######
+##RANK      :5
+######TIME  :##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51253e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+##send_tmp  :(3.52795e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+13653.5######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54158e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13653.3######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63807e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50844e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84962e-18,-4.62379e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 14.149192925076932 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 14.149192925076932 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 14.28219142893795 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 14.28219142893795 sec
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 14.283316793036647 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 14.283316793036647 sec
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 14.146626829053275 sec, my_x_norm = 195186.70069289726
+============================
+================quda=================
+============================
+================quda=================
+qcu rank 0 takes 14.146626829053275 sec
+============================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 14.286416382994503 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 14.286416382994503 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 14.284906252054498 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 14.284906252054498 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 14.28438740700949 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 14.28438740700949 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 14.284591724979691 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 14.284591724979691 sec
+============================
+================quda=================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 9.919343085028231 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 9.919343085028231 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 9.919166643056087 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 9.919166643056087 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 9.919463535072282 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 9.919463535072282 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 9.919236252084374 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 9.919236252084374 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 9.919519496965222 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 9.919519496965222 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 9.919481129967608 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 9.919481129967608 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 9.91919094196055 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 9.91919094196055 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 9.919148707063869 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 9.919148707063869 sec
+===============qcu==================
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.996562851 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.987181607 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.984253048 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.994096574 sec
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.988476409 sec
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.995689559 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.984306575 sec
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.994131734 sec
+######TIME  :14224.8######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63836e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+######TIME  :14224######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50831e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14224.8######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54205e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :######TIME  :14224.8######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52788e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14224.7######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.43146e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14224.8######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.512e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14224.1######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61637e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+14224.7######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57568e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.84955e-18,-4.62367e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 14.847042417968623 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 14.847042417968623 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 14.848881344078109 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 14.848881344078109 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 14.723314896924421 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 14.723314896924421 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 14.846491369069554 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 14.846491369069554 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 14.72165024804417 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 14.72165024804417 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 14.846029488020577 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 14.846029488020577 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 14.846618431969546 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 14.846618431969546 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 14.851936916005798 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 14.851936916005798 sec
+============================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.201302618952468 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 10.201302618952468 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.201340785017237 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.201340785017237 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.201329723000526 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.201329723000526 sec
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.200916829984635 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 10.200916829984635 sec
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.201200494891964 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.201200494891964 sec
+===============qcu==================
+===============qcu==================
+===============qcu==================
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.180974651011638 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 10.180974651011638 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.201093572075479 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 10.201093572075479 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.200813804054633 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 10.200813804054633 sec
+===============qcu==================
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.509777277 sec
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.542352694 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.533367771 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.529497324 sec
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.530071279 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.509776766 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.540594088 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.536613542 sec
+######TIME  :14066.6######
+##RANK      :2
+##LOOP      :999
+######TIME  :14066######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+######TIME  :14066.7######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+######TIME  :14065.8######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+######TIME  :14066.7######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.57612e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+##send_tmp  :(3.54127e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14066.6######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61711e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.52819e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51217e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63837e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14066.6######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.5084e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :14066.8######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.432e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8497e-18,-4.62392e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 14.560507574002258 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 14.560507574002258 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 14.67554702598136 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 14.67554702598136 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 14.564666223945096 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 14.564666223945096 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 14.674638233962469 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 14.674638233962469 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 14.677510681096464 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 14.677510681096464 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 14.675883987918496 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 14.675883987918496 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 14.677333998959512 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 14.677333998959512 sec
+============================
+================quda=================
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 14.68098506599199 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 14.68098506599199 sec
+============================
+================quda=================
+CG: Convergence at 220 iterations, L2 relative residual: iterated = 9.770727e-10, true = 9.770727e-10 (requested = 1.000000e-09)
+rank 0 quda x and x difference: , 4.3378830385381636e-10, takes 10.252486831974238 sec, norm_quda_x = 195186.70069220001
+quda rank 0 takes 10.252486831974238 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3240403365577697e-10, takes 10.252010492025875 sec, norm_quda_x = 195188.52592771145
+quda rank 0 takes 10.252010492025875 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.306417895803445e-10, takes 10.25219672289677 sec, norm_quda_x = 195187.3058866315
+quda rank 0 takes 10.25219672289677 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2503228964699276e-10, takes 10.25228601100389 sec, norm_quda_x = 195185.13153320822
+quda rank 0 takes 10.25228601100389 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2290691960776607e-10, takes 10.252405229024589 sec, norm_quda_x = 195184.28199182107
+quda rank 0 takes 10.252405229024589 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.328653406189098e-10, takes 10.251661636983044 sec, norm_quda_x = 195188.00026309173
+quda rank 0 takes 10.251661636983044 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.2603495054641354e-10, takes 10.25222345709335 sec, norm_quda_x = 195198.9883151918
+quda rank 0 takes 10.25222345709335 sec
+===============qcu==================
+rank 0 quda x and x difference: , 4.3095085755385586e-10, takes 10.25217229500413 sec, norm_quda_x = 195194.401699295
+quda rank 0 takes 10.25217229500413 sec
+===============qcu==================
+##RANK:7##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.635115341 sec
+##RANK:5##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.637175799 sec
+##RANK:6##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.635657402 sec
+##RANK:3##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.636035135 sec
+##RANK:0##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.634281800 sec
+##RANK:2##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.633953275 sec
+##RANK:4##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.639487537 sec
+##RANK:1##LOOP:125##Residual:(4.86309e-10,2.34488e-30i)
+nccl wilson bistabcg total time: (without malloc free memcpy) :8.646434618 sec
+######TIME  :13788.1######
+##RANK      :4
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+######TIME  :13787.7######
+##RANK      :3
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.54184e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+######TIME  :13788######
+##RANK      :0
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.63854e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13787.9######
+##RANK      :2
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.5281e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13788######
+##RANK      :6
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.4322e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+######TIME  :13788######
+##RANK      :7
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.51196e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :13788######
+##RANK      :5
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.50819e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+##lat_4dim  :(131072,0i)
+######TIME  :##lat_4dim  :(131072,0i)
+##lat_4dim  :(131072,0i)
+##send_tmp  :(3.57571e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+##lat_4dim  :(131072,0i)
+13788######
+##RANK      :1
+##LOOP      :999
+##tmp0      :(1.28257e-11,2.33326e-12i)
+##tmp1      :(4.75103e-12,-2.64418e-32i)
+##rho_prev  :(1.07706e-05,-1.26372e-07i)
+##rho       :(1.07706e-05,-1.26372e-07i)
+##alpha     :(1.42603,-0.468017i)
+##beta      :(-2.88203,0.958668i)
+##omega     :(2.69956,0.491107i)
+##send_tmp  :(3.61516e-11,0i)
+##norm2_tmp :(9.94969e+07,1.61444e-13i)
+##diff_tmp  :(2.8495e-18,-4.6236e-39i)
+##lat_4dim  :(131072,0i)
+rank 0 my x and x difference: , 2.0488161854868842e-08, takes 14.376088725985028 sec, my_x_norm = 195194.40169844404
+qcu rank 0 takes 14.376088725985028 sec
+============================
+rank 0 my x and x difference: , 2.0550018503400536e-08, takes 14.26443200407084 sec, my_x_norm = 195186.70069289726
+qcu rank 0 takes 14.26443200407084 sec
+============================
+rank 0 my x and x difference: , 2.0292980539545084e-08, takes 14.375933946925215 sec, my_x_norm = 195198.98831319783
+qcu rank 0 takes 14.375933946925215 sec
+============================
+rank 0 my x and x difference: , 2.0303860048040588e-08, takes 14.261443656985648 sec, my_x_norm = 195185.13153209895
+qcu rank 0 takes 14.261443656985648 sec
+============================
+rank 0 my x and x difference: , 2.0857664070744965e-08, takes 14.377049189992249 sec, my_x_norm = 195188.00026511715
+qcu rank 0 takes 14.377049189992249 sec
+============================
+rank 0 my x and x difference: , 2.0800091564175486e-08, takes 14.376472079893574 sec, my_x_norm = 195187.30588733795
+qcu rank 0 takes 14.376472079893574 sec
+============================
+rank 0 my x and x difference: , 2.0982337815947934e-08, takes 14.377049671020359 sec, my_x_norm = 195188.5259296925
+qcu rank 0 takes 14.377049671020359 sec
+============================
+rank 0 my x and x difference: , 2.0239056390862028e-08, takes 14.377147746970877 sec, my_x_norm = 195184.28198964387
+qcu rank 0 takes 14.377147746970877 sec
+============================
+
+               initQuda Total time =     5.086 secs
+                     init     =     5.086 secs (100.000%),	 with        2 calls at 2.543e+06 us per call
+        total accounted       =     5.086 secs (100.000%)
+        total missing         =     0.000 secs (  0.000%)
+
+          loadGaugeQuda Total time =     0.111 secs
+                 download     =     0.088 secs ( 78.825%),	 with        2 calls at 4.376e+04 us per call
+                   upload     =     0.000 secs (  0.352%),	 with        1 calls at 3.910e+02 us per call
+                     init     =     0.023 secs ( 20.790%),	 with        2 calls at 1.154e+04 us per call
+                  compute     =     0.000 secs (  0.002%),	 with        2 calls at 1.000e+00 us per call
+                     free     =     0.000 secs (  0.007%),	 with        2 calls at 4.000e+00 us per call
+        total accounted       =     0.111 secs ( 99.977%)
+        total missing         =     0.000 secs (  0.023%)
+
+             invertQuda Total time =   101.060 secs
+                 download     =     0.006 secs (  0.006%),	 with       10 calls at 5.661e+02 us per call
+                   upload     =     0.000 secs (  0.000%),	 with       10 calls at 1.950e+01 us per call
+                     init     =     0.019 secs (  0.018%),	 with       10 calls at 1.867e+03 us per call
+                 preamble     =     0.172 secs (  0.170%),	 with       20 calls at 8.577e+03 us per call
+                  compute     =   100.032 secs ( 98.982%),	 with       10 calls at 1.000e+07 us per call
+                 epilogue     =     0.537 secs (  0.532%),	 with       30 calls at 1.791e+04 us per call
+                     free     =     0.008 secs (  0.008%),	 with       20 calls at 4.111e+02 us per call
+        total accounted       =   100.773 secs ( 99.716%)
+        total missing         =     0.287 secs (  0.284%)
+
+                endQuda Total time =     0.072 secs
+
+       initQuda-endQuda Total time =   254.539 secs
+
+                   QUDA Total time =   106.341 secs
+                 download     =     0.093 secs (  0.088%),	 with       12 calls at 7.765e+03 us per call
+                   upload     =     0.001 secs (  0.001%),	 with       11 calls at 5.355e+01 us per call
+                     init     =     5.128 secs (  4.822%),	 with       14 calls at 3.663e+05 us per call
+                 preamble     =     0.172 secs (  0.161%),	 with       20 calls at 8.577e+03 us per call
+                  compute     =   100.044 secs ( 94.078%),	 with       13 calls at 7.696e+06 us per call
+                 epilogue     =     0.537 secs (  0.505%),	 with       30 calls at 1.791e+04 us per call
+                     free     =     0.008 secs (  0.008%),	 with       22 calls at 3.740e+02 us per call
+        total accounted       =   105.983 secs ( 99.663%)
+        total missing         =     0.359 secs (  0.337%)
+
+Device memory used = 480.0 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 48.0 MiB
+Total host memory used >= 48.1 MiB
+
+~/qcu
