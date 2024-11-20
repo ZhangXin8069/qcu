@@ -337,7 +337,7 @@ namespace qcu
                     move_forward(tmp, grid_index_1dim[_X_], host_params[_GRID_X_]);
                     move_wards[_FX_FZ_] = move_wards[_F_Z_] + tmp * grid_3dim[_YZT_];
                     move_forward(tmp, grid_index_1dim[_X_], host_params[_GRID_X_]);
-                    move_wards[_FX_FT_] = move_wards[_F_Y_] + tmp * grid_3dim[_YZT_];
+                    move_wards[_FX_FY_] = move_wards[_F_Y_] + tmp * grid_3dim[_YZT_];
                 }
             }
             {

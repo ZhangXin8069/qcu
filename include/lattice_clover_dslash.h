@@ -1103,10 +1103,11 @@ namespace qcu
         }
         void make(void *gauge)
         {
+            set_ptr->_print();
             // make clover
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto start = std::chrono::high_resolution_clock::now();
-            // _make_nccl(gauge);
+            _make_nccl(gauge);
             _make_mpi(gauge);
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto end = std::chrono::high_resolution_clock::now();
