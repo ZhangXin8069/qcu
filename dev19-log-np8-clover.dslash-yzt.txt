@@ -1,0 +1,4038 @@
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[  6%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 31%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/hello_world.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 56%] Building CUDA object CMakeFiles/qcu.dir/src/multigrid.cu.o
+[ 62%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 87%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+rm: cannot remove ‘log_*’: No such file or directory
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-SXM-80GB
+Found device 1: NVIDIA A100-SXM-80GB
+Found device 2: NVIDIA A100-SXM-80GB
+Found device 3: NVIDIA A100-SXM-80GB
+Found device 4: NVIDIA A100-SXM-80GB
+Found device 5: NVIDIA A100-SXM-80GB
+Found device 6: NVIDIA A100-SXM-80GB
+Found device 7: NVIDIA A100-SXM-80GB
+Using device 0: NVIDIA A100-SXM-80GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+######p[0,0,0,1]:
+ [[ 1.15530604-1.37070631j -1.85498975-0.62357567j -1.25587389+0.09962544j]
+ [-0.3701442 +0.2582003j  -0.66001316-0.19623021j  0.16552556-0.1773606j ]
+ [-0.77895381-0.47288067j -0.18679263+2.3094258j   0.40644029+0.75965477j]
+ [-2.41970381-0.64685221j  1.70862651+0.11441768j  0.76805276-1.2367084j ]]
+######p[0,0,0,1]:
+ [[-0.09932564-0.17464746j -1.82273745+1.08146215j -0.87987222-0.06774638j]
+ [ 1.15958908+1.47877091j  1.3925712 -0.68847329j  0.6879543 -0.81306909j]
+ [ 0.44867205+0.76742291j -1.03040793-0.94038955j -0.12807766-1.69377533j]
+ [-0.08406422-0.97836576j -0.91750337-0.124801j    0.04118042-1.44422859j]]
+######p[0,0,0,1]:
+ [[-0.81877994-1.79294172j -1.26072657+0.06556992j -0.45275781+0.65317246j]
+ [ 1.80517704+0.2796349j  -0.7578009 -0.95650283j -1.1418782 -0.81760965j]
+ [-0.00237877+0.39115283j  0.3149888 -0.72499772j  1.01995912+0.95685652j]
+ [ 0.23800474+2.13197766j  1.77450184+0.33773698j  2.1559944 +0.83491799j]]
+######p[0,0,0,1]:
+ [[ 1.1259853 -0.71834259j -0.42558436-1.12936976j -1.47109064-0.21779824j]
+ [ 2.6014487 +0.15494j     0.12140348-0.61739214j -0.24192139+2.02162818j]
+ [-0.53241816+1.60410401j  1.53030585-0.80381153j -0.15619346-2.08132427j]
+ [ 0.3263399 -0.4341909j  -0.27810258+0.65732228j  0.74969729+0.80183276j]]
+######p[0,0,0,1]:
+ [[-0.19613724+0.43754758j  0.42674613-0.26855424j  1.11780297-0.14216282j]
+ [ 0.62357639+0.10955895j -0.89661033-0.49303187j -0.68095869+0.56939549j]
+ [-0.82043678+0.53826082j -1.55772764+0.7849899j   0.53538924+1.19072607j]
+ [-1.27043482-1.21092947j -0.1988917 +0.38794268j -0.48438171+2.62224708j]]
+######p[0,0,0,1]:
+ [[-0.36926188+0.39711754j  0.01256696-0.70137016j -1.27311117-0.11846332j]
+ [-0.05501322-1.25944476j  0.62598097-0.95849728j  0.40443678-0.54797157j]
+ [-0.19564866+0.44659861j -1.43251328-0.78711295j  0.67762687+0.56018139j]
+ [-1.75244367-1.74995197j  0.1501647 +0.27618194j -0.61718256-2.17580501j]]
+######p[0,0,0,1]:
+ [[-1.40245554-1.10013297j  0.23819507-0.35270642j -0.14049109+0.88372753j]
+ [-0.83602106-0.59854631j -0.90091273+0.3634705j  -1.3569326 -0.73273532j]
+ [ 0.5210373 +1.91740629j -0.65697429-0.36784412j -0.98347478-1.42074289j]
+ [-1.59015997-0.06674985j  0.511279  +0.35584616j -0.16111819-1.69863102j]]
+######p[0,0,0,1]:
+ [[-1.18374719-0.40150514j  0.128995  -0.68923345j -2.10598194-0.50969185j]
+ [ 0.29843795+1.51167785j -1.08046799-0.66125074j  0.48398143+1.27150865j]
+ [-1.14316593-1.40462869j  0.48686087-0.74401816j -0.79269422+1.03755608j]
+ [ 1.48473112-1.32772973j -0.91960159-0.76833229j -0.5605117 -0.35818936j]]
+Quda dslash: 0.06628267897758633 sec
+Quda dslash: 0.06746753095649183 sec
+Quda dslash: 0.03030728199519217 sec
+Quda dslash: 0.05966690497007221 sec
+Quda dslash: 0.05501051398459822 sec
+Quda dslash: 0.060921235010027885 sec
+Quda dslash: 0.055750059080310166 sec
+Quda dslash: 0.009209524025209248 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011416583 sec
+gridDim.x               :1024
+nccl wilson dslash total time: (without malloc free memcpy) :0.013298583 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:1
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+nccl wilson dslash total time: (without malloc free memcpy) :0.034101393 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:0
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+nccl wilson dslash total time: (without malloc free memcpy) :0.009885662 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:5
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+nccl wilson dslash total time: (without malloc free memcpy) :0.010954923 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:4
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :4
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+nccl wilson dslash total time: (without malloc free memcpy) :0.009758879 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:6
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :6
+move_wards[_B_Y_]       :2
+move_wards[_B_Z_]       :4
+move_wards[_B_T_]       :7
+move_wards[_F_X_]       :6
+move_wards[_F_Y_]       :2
+move_wards[_F_Z_]       :4
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :1
+move_wards[_B_Y_]       :5
+move_wards[_B_Z_]       :3
+move_wards[_B_T_]       :0
+move_wards[_F_X_]       :1
+move_wards[_F_Y_]       :5
+move_wards[_F_Z_]       :3
+move_wards[_F_T_]       :0
+move_wards[_BX_BY_]     :5
+move_wards[_BX_BZ_]     :3
+move_wards[_BX_BT_]     :0
+move_wards[_BY_BZ_]     :7
+move_wards[_BY_BT_]     :4
+move_wards[_BZ_BT_]     :2
+move_wards[_FX_BY_]     :5
+move_wards[_FX_BZ_]     :3
+move_wards[_FX_BT_]     :0
+move_wards[_FY_BZ_]     :7
+move_wards[_FY_BT_]     :4
+move_wards[_FZ_BT_]     :2
+move_wards[_BX_FY_]     :5
+move_wards[_BX_FZ_]     :3
+move_wards[_BX_FT_]     :0
+move_wards[_BY_FZ_]     :7
+move_wards[_BY_FT_]     :4
+move_wards[_BZ_FT_]     :2
+move_wards[_FX_FY_]     :5
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :5
+move_wards[_B_Y_]       :1
+move_wards[_B_Z_]       :7
+move_wards[_B_T_]       :4
+move_wards[_F_X_]       :5
+move_wards[_F_Y_]       :1
+move_wards[_F_Z_]       :7
+move_wards[_F_T_]       :4
+move_wards[_BX_BY_]     :1
+move_wards[_BX_BZ_]     :7
+move_wards[_BX_BT_]     :4
+move_wards[_BY_BZ_]     :3
+move_wards[_BY_BT_]     :0
+move_wards[_BZ_BT_]     :6
+move_wards[_FX_BY_]     :1
+move_wards[_FX_BZ_]     :7
+move_wards[_FX_BT_]     :4
+move_wards[_FY_BZ_]     :3
+move_wards[_FY_BT_]     :0
+move_wards[_FZ_BT_]     :6
+move_wards[_BX_FY_]     :1
+move_wards[_BX_FZ_]     :7
+move_wards[_BX_FT_]     :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :0
+move_wards[_B_Y_]       :4
+move_wards[_B_Z_]       :2
+move_wards[_B_T_]       :1
+move_wards[_F_X_]       :0
+move_wards[_F_Y_]       :4
+move_wards[_F_Z_]       :2
+move_wards[_F_T_]       :1
+move_wards[_BX_BY_]     :4
+move_wards[_BX_BZ_]     :2
+move_wards[_BX_BT_]     :1
+move_wards[_BY_BZ_]     :6
+move_wards[_BY_BT_]     :5
+move_wards[_BZ_BT_]     :3
+move_wards[_FX_BY_]     :4
+move_wards[_FX_BZ_]     :2
+move_wards[_FX_BT_]     :1
+move_wards[_FY_BZ_]     :6
+move_wards[_FY_BT_]     :5
+move_wards[_FZ_BT_]     :3
+move_wards[_BX_FY_]     :4
+move_wards[_BX_FZ_]     :2
+move_wards[_BX_FT_]     :1
+move_wards[_BY_FZ_]     :6
+move_wards[_BY_FT_]     :5
+move_wards[_BZ_FT_]     :3
+move_wards[_FX_FY_]     :4
+move_wards[_FX_FZ_]     :2
+move_wards[_FX_FT_]     :1
+move_wards[_FY_FZ_]     :6
+move_wards[_FY_FT_]     :5
+move_wards[_FZ_FT_]     :3
+move_wards[_B_Y_]       :0
+move_wards[_B_Z_]       :6
+move_wards[_B_T_]       :5
+move_wards[_F_X_]       :4
+move_wards[_F_Y_]       :0
+move_wards[_F_Z_]       :6
+move_wards[_F_T_]       :5
+move_wards[_BX_BY_]     :0
+move_wards[_BX_BZ_]     :6
+move_wards[_BX_BT_]     :5
+move_wards[_BY_BZ_]     :2
+move_wards[_BY_BT_]     :1
+move_wards[_BZ_BT_]     :7
+move_wards[_FX_BY_]     :0
+move_wards[_FX_BZ_]     :6
+move_wards[_FX_BT_]     :5
+move_wards[_FY_BZ_]     :2
+move_wards[_FY_BT_]     :1
+move_wards[_FZ_BT_]     :7
+move_wards[_BX_FY_]     :0
+move_wards[_BX_FZ_]     :6
+move_wards[_BX_FT_]     :5
+move_wards[_BY_FZ_]     :2
+move_wards[_BY_FT_]     :1
+move_wards[_BZ_FT_]     :7
+move_wards[_FX_FY_]     :0
+move_wards[_FX_FZ_]     :6
+move_wards[_FX_FT_]     :5
+move_wards[_FY_FZ_]     :2
+move_wards[_FY_FT_]     :1
+move_wards[_FZ_FT_]     :7
+move_wards[_F_T_]       :7
+move_wards[_BX_BY_]     :2
+move_wards[_BX_BZ_]     :4
+move_wards[_BX_BT_]     :7
+move_wards[_BY_BZ_]     :0
+move_wards[_BY_BT_]     :3
+move_wards[_BZ_BT_]     :5
+move_wards[_FX_BY_]     :2
+move_wards[_FX_BZ_]     :4
+move_wards[_FX_BT_]     :7
+move_wards[_FY_BZ_]     :0
+move_wards[_FY_BT_]     :3
+move_wards[_FZ_BT_]     :5
+move_wards[_BX_FY_]     :2
+move_wards[_BX_FZ_]     :4
+move_wards[_BX_FT_]     :7
+move_wards[_BY_FZ_]     :0
+move_wards[_BY_FT_]     :3
+move_wards[_BZ_FT_]     :5
+move_wards[_FX_FY_]     :2
+move_wards[_FX_FZ_]     :4
+move_wards[_FX_FT_]     :7
+move_wards[_FY_FZ_]     :0
+move_wards[_FY_FT_]     :3
+move_wards[_FZ_FT_]     :5
+move_wards[_BY_FZ_]     :3
+move_wards[_BY_FT_]     :0
+move_wards[_BZ_FT_]     :6
+move_wards[_FX_FY_]     :1
+move_wards[_FX_FZ_]     :7
+move_wards[_FX_FT_]     :4
+move_wards[_FY_FZ_]     :3
+move_wards[_FY_FT_]     :0
+move_wards[_FZ_FT_]     :6
+move_wards[_FX_FZ_]     :3
+move_wards[_FX_FT_]     :0
+move_wards[_FY_FZ_]     :7
+move_wards[_FY_FT_]     :4
+move_wards[_FZ_FT_]     :2
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:7
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :7
+move_wards[_B_Y_]       :3
+move_wards[_B_Z_]       :5
+move_wards[_B_T_]       :6
+move_wards[_F_X_]       :7
+move_wards[_F_Y_]       :3
+move_wards[_F_Z_]       :5
+move_wards[_F_T_]       :6
+move_wards[_BX_BY_]     :3
+move_wards[_BX_BZ_]     :5
+move_wards[_BX_BT_]     :6
+move_wards[_BY_BZ_]     :1
+move_wards[_BY_BT_]     :2
+move_wards[_BZ_BT_]     :4
+move_wards[_FX_BY_]     :3
+move_wards[_FX_BZ_]     :5
+move_wards[_FX_BT_]     :6
+move_wards[_FY_BZ_]     :1
+move_wards[_FY_BT_]     :2
+move_wards[_FZ_BT_]     :4
+move_wards[_BX_FY_]     :3
+move_wards[_BX_FZ_]     :5
+move_wards[_BX_FT_]     :6
+move_wards[_BY_FZ_]     :1
+move_wards[_BY_FT_]     :2
+move_wards[_BZ_FT_]     :4
+move_wards[_FX_FY_]     :3
+move_wards[_FX_FZ_]     :5
+move_wards[_FX_FT_]     :6
+move_wards[_FY_FZ_]     :1
+move_wards[_FY_FT_]     :2
+move_wards[_FZ_FT_]     :4
+nccl wilson dslash total time: (without malloc free memcpy) :0.007590207 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+nccl wilson dslash total time: (without malloc free memcpy) :0.010414626 sec
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:2
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+host_params[_NODE_RANK_]:3
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :2
+move_wards[_B_Y_]       :6
+move_wards[_B_Z_]       :0
+move_wards[_B_T_]       :3
+move_wards[_F_X_]       :2
+move_wards[_F_Y_]       :6
+move_wards[_F_Z_]       :0
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+move_wards[_F_T_]       :3
+move_wards[_BX_BY_]     :6
+move_wards[_BX_BZ_]     :0
+move_wards[_BX_BT_]     :3
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :3
+move_wards[_B_Y_]       :7
+move_wards[_B_Z_]       :1
+move_wards[_B_T_]       :2
+move_wards[_F_X_]       :3
+move_wards[_F_Y_]       :7
+move_wards[_F_Z_]       :1
+move_wards[_F_T_]       :2
+move_wards[_BX_BY_]     :7
+move_wards[_BY_BZ_]     :4
+move_wards[_BY_BT_]     :7
+move_wards[_BZ_BT_]     :1
+move_wards[_FX_BY_]     :6
+move_wards[_FX_BZ_]     :0
+move_wards[_FX_BT_]     :3
+move_wards[_FY_BZ_]     :4
+move_wards[_FY_BT_]     :7
+move_wards[_FZ_BT_]     :1
+move_wards[_BX_FY_]     :6
+move_wards[_BX_FZ_]     :0
+move_wards[_BX_BZ_]     :1
+move_wards[_BX_BT_]     :2
+move_wards[_BY_BZ_]     :5
+move_wards[_BY_BT_]     :6
+move_wards[_BZ_BT_]     :0
+move_wards[_FX_BY_]     :7
+move_wards[_FX_BZ_]     :1
+move_wards[_FX_BT_]     :2
+move_wards[_FY_BZ_]     :5
+move_wards[_FY_BT_]     :6
+move_wards[_FZ_BT_]     :0
+move_wards[_BX_FY_]     :7
+move_wards[_BX_FZ_]     :1
+move_wards[_BX_FT_]     :2
+move_wards[_BY_FZ_]     :5
+move_wards[_BY_FT_]     :6
+move_wards[_BZ_FT_]     :0
+move_wards[_FX_FY_]     :7
+move_wards[_FX_FZ_]     :1
+move_wards[_BX_FT_]     :3
+move_wards[_BY_FZ_]     :4
+move_wards[_BY_FT_]     :7
+move_wards[_BZ_FT_]     :1
+move_wards[_FX_FY_]     :6
+move_wards[_FX_FZ_]     :0
+move_wards[_FX_FT_]     :3
+move_wards[_FY_FZ_]     :4
+move_wards[_FY_FT_]     :7
+move_wards[_FZ_FT_]     :1
+move_wards[_FX_FT_]     :2
+move_wards[_FY_FZ_]     :5
+move_wards[_FY_FT_]     :6
+move_wards[_FZ_FT_]     :0
+make clover total time: (without malloc free memcpy) :13.209413494 sec
+ make clover total time: (without malloc free memcpy) :13.210082697 sec
+ make clover total time: (without malloc free memcpy) :13.207928985 sec
+ make clover total time: (without malloc free memcpy) :13.209505257 sec
+ make clover total time: (without malloc free memcpy) :13.211762115 sec
+ make clover total time: (without malloc free memcpy) :13.213171363 sec
+ make clover total time: (without malloc free memcpy) :13.217841150 sec
+ make clover total time: (without malloc free memcpy) :13.216746067 sec
+ inverse clover total time: (without malloc free memcpy) :0.022714188 sec
+ give clover total time: (without malloc free memcpy) :0.000227503 sec
+ inverse clover total time: (without malloc free memcpy) :0.025525993 sec
+ give clover total time: (without malloc free memcpy) :0.000223505 sec
+ inverse clover total time: (without malloc free memcpy) :0.025990999 sec
+ give clover total time: (without malloc free memcpy) :0.000221893 sec
+ inverse clover total time: (without malloc free memcpy) :0.025673737 sec
+ give clover total time: (without malloc free memcpy) :0.000222954 sec
+ inverse clover total time: (without malloc free memcpy) :0.024965115 sec
+ give clover total time: (without malloc free memcpy) :0.000226742 sec
+ inverse clover total time: (without malloc free memcpy) :0.024537663 sec
+ give clover total time: (without malloc free memcpy) :0.000231161 sec
+ inverse clover total time: (without malloc free memcpy) :0.022190866 sec
+ inverse clover total time: (without malloc free memcpy) :0.021340140 sec
+ give clover total time: (without malloc free memcpy) :0.000220790 sec
+ give clover total time: (without malloc free memcpy) :0.000225549 sec
+ nccl wilson dslash total time: (without malloc free memcpy) :0.006643550 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:6
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+nccl wilson dslash total time: (without malloc free memcpy) :0.017547872 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:7
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :7
+move_wards[_B_Y_]       :3
+move_wards[_B_Z_]       :5
+move_wards[_B_T_]       :6
+move_wards[_F_X_]       :7
+move_wards[_F_Y_]       :3
+move_wards[_F_Z_]       :5
+move_wards[_F_T_]       :6
+move_wards[_BX_BY_]     :3
+move_wards[_BX_BZ_]     :5
+move_wards[_BX_BT_]     :6
+move_wards[_BY_BZ_]     :1
+move_wards[_BY_BT_]     :2
+move_wards[_BZ_BT_]     :4
+move_wards[_FX_BY_]     :3
+move_wards[_FX_BZ_]     :5
+move_wards[_FX_BT_]     :6
+move_wards[_FY_BZ_]     :1
+move_wards[_FY_BT_]     :2
+move_wards[_FZ_BT_]     :4
+move_wards[_BX_FY_]     :3
+move_wards[_BX_FZ_]     :5
+move_wards[_BX_FT_]     :6
+move_wards[_BY_FZ_]     :1
+move_wards[_BY_FT_]     :2
+move_wards[_BZ_FT_]     :4
+move_wards[_FX_FY_]     :3
+move_wards[_FX_FZ_]     :5
+move_wards[_FX_FT_]     :6
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :6
+move_wards[_B_Y_]       :2
+move_wards[_B_Z_]       :4
+move_wards[_B_T_]       :7
+move_wards[_FY_FZ_]     :1
+move_wards[_FY_FT_]     :2
+move_wards[_FZ_FT_]     :4
+move_wards[_F_X_]       :6
+move_wards[_F_Y_]       :2
+move_wards[_F_Z_]       :4
+move_wards[_F_T_]       :7
+move_wards[_BX_BY_]     :2
+move_wards[_BX_BZ_]     :4
+move_wards[_BX_BT_]     :7
+move_wards[_BY_BZ_]     :0
+move_wards[_BY_BT_]     :3
+move_wards[_BZ_BT_]     :5
+move_wards[_FX_BY_]     :2
+move_wards[_FX_BZ_]     :4
+move_wards[_FX_BT_]     :7
+move_wards[_FY_BZ_]     :0
+move_wards[_FY_BT_]     :3
+move_wards[_FZ_BT_]     :5
+move_wards[_BX_FY_]     :2
+move_wards[_BX_FZ_]     :4
+move_wards[_BX_FT_]     :7
+move_wards[_BY_FZ_]     :0
+move_wards[_BY_FT_]     :3
+move_wards[_BZ_FT_]     :5
+move_wards[_FX_FY_]     :2
+move_wards[_FX_FZ_]     :4
+move_wards[_FX_FT_]     :7
+move_wards[_FY_FZ_]     :0
+move_wards[_FY_FT_]     :3
+move_wards[_FZ_FT_]     :5
+nccl wilson dslash total time: (without malloc free memcpy) :0.018864426 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:4
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+nccl wilson dslash total time: (without malloc free memcpy) :0.011009041 sec
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :4
+move_wards[_B_Y_]       :0
+move_wards[_B_Z_]       :6
+move_wards[_B_T_]       :5
+move_wards[_F_X_]       :4
+move_wards[_F_Y_]       :0
+move_wards[_F_Z_]       :6
+move_wards[_F_T_]       :5
+move_wards[_BX_BY_]     :0
+move_wards[_BX_BZ_]     :6
+move_wards[_BX_BT_]     :5
+move_wards[_BY_BZ_]     :2
+move_wards[_BY_BT_]     :1
+move_wards[_BZ_BT_]     :7
+move_wards[_FX_BY_]     :0
+move_wards[_FX_BZ_]     :6
+move_wards[_FX_BT_]     :5
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:5
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+move_wards[_FY_BZ_]     :2
+move_wards[_FY_BT_]     :1
+move_wards[_FZ_BT_]     :7
+move_wards[_BX_FY_]     :0
+move_wards[_BX_FZ_]     :6
+move_wards[_BX_FT_]     :5
+move_wards[_BY_FZ_]     :2
+move_wards[_BY_FT_]     :1
+move_wards[_BZ_FT_]     :7
+move_wards[_FX_FY_]     :0
+move_wards[_FX_FZ_]     :6
+move_wards[_FX_FT_]     :5
+move_wards[_FY_FZ_]     :2
+move_wards[_FY_FT_]     :1
+move_wards[_FZ_FT_]     :7
+nccl wilson dslash total time: (without malloc free memcpy) :0.009088383 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:0
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :0
+move_wards[_B_Y_]       :4
+move_wards[_B_Z_]       :2
+move_wards[_B_T_]       :1
+move_wards[_F_X_]       :0
+move_wards[_F_Y_]       :4
+move_wards[_F_Z_]       :2
+move_wards[_F_T_]       :1
+move_wards[_BX_BY_]     :4
+move_wards[_BX_BZ_]     :2
+move_wards[_BX_BT_]     :1
+move_wards[_BY_BZ_]     :6
+move_wards[_BY_BT_]     :5
+move_wards[_BZ_BT_]     :3
+move_wards[_FX_BY_]     :4
+move_wards[_FX_BZ_]     :2
+move_wards[_FX_BT_]     :1
+move_wards[_FY_BZ_]     :6
+move_wards[_FY_BT_]     :5
+move_wards[_FZ_BT_]     :3
+move_wards[_BX_FY_]     :4
+move_wards[_BX_FZ_]     :2
+move_wards[_BX_FT_]     :1
+move_wards[_BY_FZ_]     :6
+move_wards[_BY_FT_]     :5
+move_wards[_BZ_FT_]     :3
+move_wards[_FX_FY_]     :4
+move_wards[_FX_FZ_]     :2
+move_wards[_FX_FT_]     :1
+move_wards[_FY_FZ_]     :6
+move_wards[_FY_FT_]     :5
+move_wards[_FZ_FT_]     :3
+nccl wilson dslash total time: (without malloc free memcpy) :0.010401530 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:1
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :5
+move_wards[_B_Y_]       :1
+move_wards[_B_Z_]       :7
+move_wards[_B_T_]       :4
+move_wards[_F_X_]       :5
+move_wards[_F_Y_]       :1
+move_wards[_F_Z_]       :7
+move_wards[_F_T_]       :4
+move_wards[_BX_BY_]     :1
+move_wards[_BX_BZ_]     :7
+move_wards[_BX_BT_]     :4
+move_wards[_BY_BZ_]     :3
+move_wards[_BY_BT_]     :0
+move_wards[_BZ_BT_]     :6
+move_wards[_FX_BY_]     :1
+move_wards[_FX_BZ_]     :7
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.021356774 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+move_wards[_FX_BT_]     :4
+move_wards[_FY_BZ_]     :3
+move_wards[_FY_BT_]     :0
+move_wards[_FZ_BT_]     :6
+move_wards[_BX_FY_]     :1
+move_wards[_BX_FZ_]     :7
+move_wards[_BX_FT_]     :4
+move_wards[_BY_FZ_]     :3
+move_wards[_BY_FT_]     :0
+move_wards[_BZ_FT_]     :6
+move_wards[_FX_FY_]     :1
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:3
+move_wards[_B_Y_]       :5
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+nccl wilson dslash total time: (without malloc free memcpy) :0.006619031 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+move_wards[_B_Z_]       :3
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:2
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :3
+move_wards[_FX_FZ_]     :7
+move_wards[_FX_FT_]     :4
+move_wards[_FY_FZ_]     :3
+move_wards[_FY_FT_]     :0
+move_wards[_FZ_FT_]     :6
+move_wards[_B_Y_]       :7
+move_wards[_B_Z_]       :1
+move_wards[_B_T_]       :2
+move_wards[_F_X_]       :3
+move_wards[_F_Y_]       :7
+move_wards[_F_Z_]       :1
+move_wards[_F_T_]       :2
+move_wards[_BX_BY_]     :7
+move_wards[_BX_BZ_]     :1
+move_wards[_BX_BT_]     :2
+move_wards[_BY_BZ_]     :5
+move_wards[_BY_BT_]     :6
+move_wards[_BZ_BT_]     :0
+move_wards[_FX_BY_]     :7
+move_wards[_FX_BZ_]     :1
+move_wards[_FX_BT_]     :2
+move_wards[_FY_BZ_]     :5
+move_wards[_FY_BT_]     :6
+move_wards[_B_T_]       :0
+move_wards[_FZ_BT_]     :0
+move_wards[_BX_FY_]     :7
+move_wards[_BX_FZ_]     :1
+move_wards[_BX_FT_]     :2
+move_wards[_BY_FZ_]     :5
+move_wards[_BY_FT_]     :6
+move_wards[_BZ_FT_]     :0
+move_wards[_FX_FY_]     :7
+move_wards[_FX_FZ_]     :1
+move_wards[_FX_FT_]     :2
+move_wards[_FY_FZ_]     :5
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :2
+move_wards[_B_Y_]       :6
+move_wards[_B_Z_]       :0
+move_wards[_B_T_]       :3
+move_wards[_F_X_]       :2
+move_wards[_F_Y_]       :6
+move_wards[_FY_FT_]     :6
+move_wards[_FZ_FT_]     :0
+move_wards[_F_X_]       :1
+move_wards[_F_Y_]       :5
+move_wards[_F_Z_]       :0
+move_wards[_F_T_]       :3
+move_wards[_BX_BY_]     :6
+move_wards[_BX_BZ_]     :0
+move_wards[_BX_BT_]     :3
+move_wards[_BY_BZ_]     :4
+move_wards[_BY_BT_]     :7
+move_wards[_BZ_BT_]     :1
+move_wards[_FX_BY_]     :6
+move_wards[_F_Z_]       :3
+move_wards[_F_T_]       :0
+move_wards[_BX_BY_]     :5
+move_wards[_FX_BZ_]     :0
+move_wards[_FX_BT_]     :3
+move_wards[_FY_BZ_]     :4
+move_wards[_FY_BT_]     :7
+move_wards[_FZ_BT_]     :1
+move_wards[_BX_FY_]     :6
+move_wards[_BX_FZ_]     :0
+move_wards[_BX_FT_]     :3
+move_wards[_BY_FZ_]     :4
+move_wards[_BY_FT_]     :7
+move_wards[_BZ_FT_]     :1
+move_wards[_FX_FY_]     :6
+move_wards[_FX_FZ_]     :0
+move_wards[_FX_FT_]     :3
+move_wards[_FY_FZ_]     :4
+move_wards[_FY_FT_]     :7
+move_wards[_FZ_FT_]     :1
+move_wards[_BX_BZ_]     :3
+move_wards[_BX_BT_]     :0
+move_wards[_BY_BZ_]     :7
+move_wards[_BY_BT_]     :4
+move_wards[_BZ_BT_]     :2
+move_wards[_FX_BY_]     :5
+move_wards[_FX_BZ_]     :3
+move_wards[_FX_BT_]     :0
+move_wards[_FY_BZ_]     :7
+move_wards[_FY_BT_]     :4
+move_wards[_FZ_BT_]     :2
+move_wards[_BX_FY_]     :5
+move_wards[_BX_FZ_]     :3
+move_wards[_BX_FT_]     :0
+move_wards[_BY_FZ_]     :7
+move_wards[_BY_FT_]     :4
+move_wards[_BZ_FT_]     :2
+move_wards[_FX_FY_]     :5
+move_wards[_FX_FZ_]     :3
+move_wards[_FX_FT_]     :0
+move_wards[_FY_FZ_]     :7
+move_wards[_FY_FT_]     :4
+move_wards[_FZ_FT_]     :2
+make clover total time: (without malloc free memcpy) :11.929390078 sec
+ make clover total time: (without malloc free memcpy) :11.929540127 sec
+ make clover total time: (without malloc free memcpy) :11.930570962 sec
+ make clover total time: (without malloc free memcpy) :11.932704404 sec
+ inverse clover total time: (without malloc free memcpy) :0.013131834 sec
+ inverse clover total time: (without malloc free memcpy) :0.013102967 sec
+ inverse clover total time: (without malloc free memcpy) :0.013148318 sec
+ inverse clover total time: (without malloc free memcpy) :0.013117666 sec
+ give clover total time: (without malloc free memcpy) :0.000225279 sec
+ give clover total time: (without malloc free memcpy) :0.000224497 sec
+ give clover total time: (without malloc free memcpy) :0.000223766 sec
+ give clover total time: (without malloc free memcpy) :0.000227915 sec
+ make clover total time: (without malloc free memcpy) :11.947483603 sec
+ make clover total time: (without malloc free memcpy) :11.947508462 sec
+ make clover total time: (without malloc free memcpy) :11.950015429 sec
+ make clover total time: (without malloc free memcpy) :11.947492892 sec
+ inverse clover total time: (without malloc free memcpy) :0.013110121 sec
+ give clover total time: (without malloc free memcpy) :0.000220570 sec
+ inverse clover total time: (without malloc free memcpy) :0.013148358 sec
+ inverse clover total time: (without malloc free memcpy) :0.013131985 sec
+ inverse clover total time: (without malloc free memcpy) :0.013086985 sec
+ give clover total time: (without malloc free memcpy) :0.000222704 sec
+ give clover total time: (without malloc free memcpy) :0.000222774 sec
+ give clover total time: (without malloc free memcpy) :0.000220249 sec
+ ######Mp[0,0,0,1]:
+ [[ 3.66224414+2.92198877j  5.05644723+7.66661912j -2.42264554+3.29880316j]
+ [-5.86102818-1.84118442j -5.82030908+2.15103611j -7.50594912+8.8644919j ]
+ [-0.46256331-4.45742555j -3.54510283-3.04189694j -4.93336568-1.54670342j]
+ [-3.24492276+3.23349773j  0.53227369-1.84758362j -0.84143227-0.31907869j]]
+######Mp[0,0,0,1]:
+ [[-3.77883087 +2.27028257j -2.5686118  +2.50880235j
+  -2.81078621+10.2806568j ]
+ [ 0.86019899 +2.66796392j  6.48911042 -8.0678115j
+  -2.9054965  +0.70394556j]
+ [-6.86280484 +4.95909448j -1.41811716 +9.08011869j
+   1.40425311 -7.62752109j]
+ [ 1.29249615 +1.56508891j  3.03680529 -4.47772045j
+   8.06130901-10.58145683j]]
+######Mp1[0,0,0,1]:
+ [[ 3.66224414+2.92198877j  5.05644723+7.66661912j -2.42264554+3.29880316j]
+ [-5.86102818-1.84118442j -5.82030908+2.15103611j -7.50594912+8.8644919j ]
+ [-0.46256331-4.45742555j -3.54510283-3.04189694j -4.93336568-1.54670342j]
+ [-3.24492276+3.23349773j  0.53227369-1.84758362j -0.84143227-0.31907869j]]
+QCU dslash: 44.35046400502324 sec
+######Mp1[0,0,0,1]:
+ [[-3.77883087 +2.27028257j -2.5686118  +2.50880235j
+  -2.81078621+10.2806568j ]
+ [ 0.86019899 +2.66796392j  6.48911042 -8.0678115j
+  -2.9054965  +0.70394556j]
+ [-6.86280484 +4.95909448j -1.41811716 +9.08011869j
+   1.40425311 -7.62752109j]
+ [ 1.29249615 +1.56508891j  3.03680529 -4.47772045j
+   8.06130901-10.58145683j]]
+QCU dslash: 44.39539386006072 sec
+######Mp[0,0,0,1]:
+ [[ 3.91309735-7.29085486j  0.40211436-3.68071661j -4.96697713-5.55277535j]
+ [-0.07546949-6.05998145j  7.54899044-1.92620095j -3.08682377-2.3010471j ]
+ [ 4.35469939-1.98985333j -5.24550523-1.46449037j  1.43784747-9.63607577j]
+ [14.18527887-1.34160082j  2.45149892+7.15244196j  8.37032999+2.05379346j]]
+######Mp[0,0,0,1]:
+######Mp[0,0,0,1]:
+ [[-12.49711544+0.47791747j  -5.08383653+8.61224451j
+    5.0537302 -0.86273852j]
+ [ -1.5141534 -4.23555833j   0.99645316-9.70516627j
+   -0.0351795 +2.54641131j]
+ [ -5.11836442-4.72711061j  -4.80671535+3.21560628j
+   -4.21997174+3.49110589j]
+ [  8.61546591-3.41354791j  -1.18843196-7.47849788j
+    2.71568669-4.19654973j]]
+ [[ 6.61878054 +5.94799557j -2.86100762 -0.45335433j
+  -4.59844788 -3.81392304j]
+ [-5.12350427 -3.23176762j  1.30297746 +2.77951525j
+  -3.34844905 -4.17149932j]
+ [-2.92026637-10.51005717j -0.95602674 +0.3803276j
+  -2.76547626 +2.02768033j]
+ [ 0.36305412 -1.95248187j  0.12625562 +0.79641123j
+  -0.89743488 +3.07714229j]]
+######Mp1[0,0,0,1]:
+ [[ 3.91309735-7.29085486j  0.40211436-3.68071661j -4.96697713-5.55277535j]
+ [-0.07546949-6.05998145j  7.54899044-1.92620095j -3.08682377-2.3010471j ]
+ [ 4.35469939-1.98985333j -5.24550523-1.46449037j  1.43784747-9.63607577j]
+ [14.18527887-1.34160082j  2.45149892+7.15244196j  8.37032999+2.05379346j]]
+QCU dslash: 44.49603938893415 sec
+######Mp[0,0,0,1]:
+ [[  6.98976608 -1.3439462j    3.86975858 +0.24311914j
+   -3.276169   -4.72733445j]
+ [ -2.86204643 +8.25037474j  -7.12317927 +8.60871479j
+    7.83652632 +2.1306996j ]
+ [ -4.37606872 +5.74239263j -11.54461921-10.54168899j
+   10.6995494 +13.13485763j]
+ [  5.95086181 +0.09933121j   6.92827854 +4.00760712j
+    0.06192203 +8.3608995j ]]
+######Mp[0,0,0,1]:
+######Mp1[0,0,0,1]:
+ [[ 6.61878054 +5.94799557j -2.86100762 -0.45335433j
+  -4.59844788 -3.81392304j]
+ [-5.12350427 -3.23176762j  1.30297746 +2.77951525j
+  -3.34844905 -4.17149932j]
+ [-2.92026637-10.51005717j -0.95602674 +0.3803276j
+  -2.76547626 +2.02768033j]
+ [ 0.36305412 -1.95248187j  0.12625562 +0.79641123j
+  -0.89743488 +3.07714229j]]
+QCU dslash: 44.501706033945084 sec
+ [[-1.9064318  +0.32426054j  7.28356925 -7.38162937j
+   2.99104956+10.12538858j]
+ [-0.15700181 -0.16154897j  1.32001756 +2.50550858j
+   8.54607449 +3.65622962j]
+ [-4.6368647  -1.43071856j -0.31886642 -0.8360791j
+   3.59832124 +0.48384051j]
+ [-0.87545733 -0.71240848j  1.72072704 -3.46534111j
+  -0.31292139 +9.05688507j]]
+######Mp1[0,0,0,1]:
+ [[-12.49711544+0.47791747j  -5.08383653+8.61224451j
+    5.0537302 -0.86273852j]
+ [ -1.5141534 -4.23555833j   0.99645316-9.70516627j
+   -0.0351795 +2.54641131j]
+ [ -5.11836442-4.72711061j  -4.80671535+3.21560628j
+   -4.21997174+3.49110589j]
+ [  8.61546591-3.41354791j  -1.18843196-7.47849788j
+    2.71568669-4.19654973j]]
+QCU dslash: 44.494510100921616 sec
+######Mp[0,0,0,1]:
+ [[ 4.89523052-3.59546894j  4.89766037+5.91860424j  5.36132002+5.66420572j]
+ [ 5.94955944+0.92184233j  7.58671359+0.68242946j  1.49071236+3.87822241j]
+ [-1.830194  +3.00429806j -2.2698689 -6.32656761j -4.93804771+1.3758183j ]
+ [-1.86304114-2.64297326j  5.80643774+2.84175523j  4.15448516-2.89335751j]]
+######Mp1[0,0,0,1]:
+ [[  6.98976608 -1.3439462j    3.86975858 +0.24311914j
+   -3.276169   -4.72733445j]
+ [ -2.86204643 +8.25037474j  -7.12317927 +8.60871479j
+    7.83652632 +2.1306996j ]
+ [ -4.37606872 +5.74239263j -11.54461921-10.54168899j
+   10.6995494 +13.13485763j]
+ [  5.95086181 +0.09933121j   6.92827854 +4.00760712j
+    0.06192203 +8.3608995j ]]
+QCU dslash: 44.54335880710278 sec
+######Mp1[0,0,0,1]:
+ [[-1.9064318  +0.32426054j  7.28356925 -7.38162937j
+   2.99104956+10.12538858j]
+ [-0.15700181 -0.16154897j  1.32001756 +2.50550858j
+   8.54607449 +3.65622962j]
+ [-4.6368647  -1.43071856j -0.31886642 -0.8360791j
+   3.59832124 +0.48384051j]
+ [-0.87545733 -0.71240848j  1.72072704 -3.46534111j
+  -0.31292139 +9.05688507j]]
+QCU dslash: 44.54648296395317 sec
+rank 0 my x and x difference: 4.1311227502489996e-16, takes 44.39539386006072 sec, my_norm = 11492.68648358525, norm = 11492.68648358525
+######Mp1[0,0,0,1]:
+ [[ 4.89523052-3.59546894j  4.89766037+5.91860424j  5.36132002+5.66420572j]
+ [ 5.94955944+0.92184233j  7.58671359+0.68242946j  1.49071236+3.87822241j]
+ [-1.830194  +3.00429806j -2.2698689 -6.32656761j -4.93804771+1.3758183j ]
+ [-1.86304114-2.64297326j  5.80643774+2.84175523j  4.15448516-2.89335751j]]
+QCU dslash: 44.546194680035114 sec
+rank 0 my x and x difference: 4.136161471224367e-16, takes 44.35046400502324 sec, my_norm = 11491.657502111702, norm = 11491.657502111702
+###### (32, 16, 16, 32, 4, 3)
+###### (32, 16, 16, 32, 4, 3)
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[3.33066907e-16 4.44089210e-16 8.88178420e-16]
+ [1.55431223e-15 4.44089210e-16 1.33226763e-15]
+ [1.33226763e-15 2.66453526e-15 8.88178420e-16]
+ [1.55431223e-15 5.55111512e-16 0.00000000e+00]]
+######diff_x[0,0,0,1]:
+ [[2.22044605e-15 3.55271368e-15 1.33226763e-15]
+ [6.66133815e-16 1.77635684e-15 4.44089210e-16]
+ [8.88178420e-16 1.99840144e-15 6.66133815e-16]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,1,1]:
+ [[8.88178420e-16 8.88178420e-16 3.33066907e-16]
+ [4.44089210e-16 0.00000000e+00 1.33226763e-15]
+ [2.22044605e-15 1.11022302e-15 8.88178420e-16]
+ [6.66133815e-16 8.88178420e-16 1.33226763e-15]]
+######diff_x[0,1,1,1]:
+ [[0.00000000e+00 2.27595720e-15 0.00000000e+00]
+ [3.55271368e-15 2.22044605e-16 2.66453526e-15]
+ [4.44089210e-16 1.33226763e-15 3.55271368e-15]
+ [1.77635684e-15 3.77475828e-15 1.77635684e-15]]
+######diff_x[1,1,1,1]:
+ [[3.10862447e-15 0.00000000e+00 8.88178420e-16]
+ [3.55271368e-15 8.88178420e-16 8.88178420e-16]
+ [1.77635684e-15 1.33226763e-15 3.33066907e-16]
+ [4.44089210e-16 4.44089210e-16 4.44089210e-16]]
+######diff_x[0,0,0,0]:
+ [[3.33066907e-16 4.44089210e-16 8.88178420e-16]
+ [1.55431223e-15 4.44089210e-16 1.33226763e-15]
+ [1.33226763e-15 2.66453526e-15 8.88178420e-16]
+ [1.55431223e-15 5.55111512e-16 0.00000000e+00]]
+######diff_x[0,0,0,-1]:
+ [[1.77635684e-15 3.46944695e-16 2.66453526e-15]
+ [8.88178420e-16 5.32907052e-15 1.77635684e-15]
+ [4.44089210e-16 8.88178420e-16 4.44089210e-16]
+ [7.49400542e-16 3.55271368e-15 2.66453526e-15]]
+######diff_x[0,0,-1,-1]:
+ [[4.44089210e-16 2.66453526e-15 1.11022302e-16]
+ [2.66453526e-15 1.99840144e-15 8.88178420e-16]
+ [3.55271368e-15 1.77635684e-15 2.08166817e-15]
+ [2.22044605e-15 8.88178420e-16 6.66133815e-16]]
+######diff_x[0,-1,-1,-1]:
+ [[4.44089210e-16 4.44089210e-16 0.00000000e+00]
+ [1.33226763e-15 4.44089210e-16 4.44089210e-15]
+ [1.77635684e-15 0.00000000e+00 0.00000000e+00]
+ [4.44089210e-15 5.32907052e-15 1.33226763e-15]]
+######diff_x[-1,-1,-1,-1]:
+ [[2.33146835e-15 6.66133815e-16 1.77635684e-15]
+ [1.77635684e-15 5.32907052e-15 2.66453526e-15]
+ [8.88178420e-16 8.88178420e-16 2.74780199e-15]
+ [8.88178420e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[3.33066907e-16 4.44089210e-16 8.88178420e-16]
+ [1.55431223e-15 4.44089210e-16 1.33226763e-15]
+ [1.33226763e-15 2.66453526e-15 8.88178420e-16]
+ [1.55431223e-15 5.55111512e-16 0.00000000e+00]]
+######diff_x[0,0,0,2]:
+ [[0.00000000e+00 1.77635684e-15 1.49880108e-15]
+ [0.00000000e+00 1.38777878e-16 3.55271368e-15]
+ [0.00000000e+00 6.66133815e-16 1.77635684e-15]
+ [2.22044605e-16 3.55271368e-15 2.10942375e-15]]
+######diff_x[0,0,2,2]:
+ [[4.44089210e-15 8.91647867e-16 3.55271368e-15]
+ [1.88737914e-15 7.49400542e-16 8.88178420e-16]
+ [1.11022302e-15 1.55431223e-15 2.44249065e-15]
+ [6.66133815e-16 0.00000000e+00 3.10862447e-15]]
+######diff_x[0,2,2,2]:
+ [[8.88178420e-16 4.44089210e-16 6.66133815e-16]
+ [1.77635684e-15 1.77635684e-15 1.77635684e-15]
+ [4.44089210e-16 8.88178420e-16 2.66453526e-15]
+ [1.33226763e-15 1.77635684e-15 0.00000000e+00]]
+######diff_x[2,2,2,2]:
+ [[3.55271368e-15 1.77635684e-15 8.88178420e-16]
+ [4.44089210e-16 2.66453526e-15 1.33226763e-15]
+ [3.33066907e-16 4.44089210e-16 0.00000000e+00]
+ [4.44089210e-16 1.33226763e-15 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[3.33066907e-16 4.44089210e-16 8.88178420e-16]
+ [1.55431223e-15 4.44089210e-16 1.33226763e-15]
+ [1.33226763e-15 2.66453526e-15 8.88178420e-16]
+ [1.55431223e-15 5.55111512e-16 0.00000000e+00]]
+######diff_x[0,0,0,-2]:
+ [[8.88178420e-16 4.44089210e-16 4.44089210e-16]
+ [3.55271368e-15 1.99840144e-15 4.44089210e-16]
+ [2.66453526e-15 0.00000000e+00 2.66453526e-15]
+ [1.99840144e-15 5.32907052e-15 4.44089210e-16]]
+######diff_x[0,0,-2,-2]:
+ [[1.77635684e-15 1.77635684e-15 2.22044605e-15]
+ [2.22044605e-16 2.33146835e-15 8.88178420e-16]
+ [8.88178420e-16 0.00000000e+00 1.11022302e-15]
+ [0.00000000e+00 1.55431223e-15 8.88178420e-16]]
+######diff_x[0,-2,-2,-2]:
+ [[2.66453526e-15 8.88178420e-16 1.11022302e-15]
+ [8.88178420e-16 4.44089210e-16 8.88178420e-16]
+ [2.22044605e-16 8.88178420e-16 1.77635684e-15]
+ [1.77635684e-15 1.11022302e-16 3.33066907e-16]]
+######diff_x[-2,-2,-2,-2]:
+ [[4.44089210e-16 3.10862447e-15 8.88178420e-16]
+ [6.66133815e-16 1.66533454e-15 4.44089210e-16]
+ [1.77635684e-15 1.27675648e-15 8.88178420e-16]
+ [8.88178420e-16 1.77635684e-15 4.44089210e-16]]
+######diff_x[0,0,0,0]:
+ [[3.33066907e-16 4.44089210e-16 8.88178420e-16]
+ [1.55431223e-15 4.44089210e-16 1.33226763e-15]
+ [1.33226763e-15 2.66453526e-15 8.88178420e-16]
+ [1.55431223e-15 5.55111512e-16 0.00000000e+00]]
+######diff_x[0,0,0,3]:
+ [[1.11022302e-15 1.05471187e-15 1.33226763e-15]
+ [0.00000000e+00 1.33226763e-15 1.77635684e-15]
+ [4.44089210e-16 4.44089210e-16 3.55271368e-15]
+ [1.55431223e-15 8.88178420e-16 4.44089210e-16]]
+######diff_x[0,0,3,3]:
+ [[4.44089210e-16 1.77635684e-15 6.66133815e-16]
+ [1.77635684e-15 2.22044605e-16 4.44089210e-16]
+ [1.11022302e-15 1.33226763e-15 8.88178420e-16]
+ [4.44089210e-16 8.88178420e-16 4.44089210e-15]]
+######diff_x[0,3,3,3]:
+ [[8.88178420e-16 2.66453526e-15 8.88178420e-16]
+ [2.44249065e-15 1.77635684e-15 8.88178420e-16]
+ [2.66453526e-15 6.66133815e-16 2.22044605e-15]
+ [2.66453526e-15 4.44089210e-15 4.44089210e-16]]
+######diff_x[3,3,3,3]:
+ [[2.22044605e-16 1.66533454e-16 6.29704622e-16]
+ [2.22044605e-16 5.55111512e-17 8.88178420e-16]
+ [9.99200722e-16 8.88178420e-16 5.32907052e-15]
+ [4.44089210e-16 5.55111512e-16 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[3.33066907e-16 4.44089210e-16 8.88178420e-16]
+ [1.55431223e-15 4.44089210e-16 1.33226763e-15]
+ [1.33226763e-15 2.66453526e-15 8.88178420e-16]
+ [1.55431223e-15 5.55111512e-16 0.00000000e+00]]
+######diff_x[0,0,0,-3]:
+ [[2.66453526e-15 1.55431223e-15 0.00000000e+00]
+ [1.31838984e-16 3.10862447e-15 1.11022302e-15]
+ [2.66453526e-15 1.11022302e-16 1.77635684e-15]
+ [1.77635684e-15 8.88178420e-16 3.55271368e-15]]
+######diff_x[0,0,-3,-3]:
+ [[1.33226763e-15 0.00000000e+00 4.44089210e-16]
+ [3.33066907e-16 6.66133815e-16 8.88178420e-16]
+ [2.22044605e-15 1.77635684e-15 2.66453526e-15]
+ [7.77156117e-16 1.33226763e-15 5.32907052e-15]]
+######diff_x[0,-3,-3,-3]:
+ [[1.77635684e-15 3.10862447e-15 8.88178420e-16]
+ [2.66453526e-15 1.77635684e-15 6.66133815e-16]
+ [1.16226473e-16 4.44089210e-16 3.55271368e-15]
+ [1.77635684e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[-3,-3,-3,-3]:
+ [[0.00000000e+00 1.77635684e-15 8.88178420e-16]
+ [8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [1.11022302e-16 2.22044605e-15 4.44089210e-16]
+ [3.88578059e-16 1.42941214e-15 0.00000000e+00]]
+===============round  1 ======================
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[2.22044605e-16 1.99840144e-15 1.11022302e-15]
+ [8.88178420e-16 1.27675648e-15 0.00000000e+00]
+ [1.33226763e-15 1.77635684e-15 1.99840144e-15]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,1]:
+ [[3.10862447e-15 1.77635684e-15 0.00000000e+00]
+ [4.44089210e-15 3.55271368e-15 1.77635684e-15]
+ [6.10622664e-16 3.10862447e-15 8.88178420e-16]
+ [8.88178420e-16 1.11022302e-16 1.55431223e-15]]
+######diff_x[0,0,1,1]:
+ [[8.88178420e-16 1.99840144e-15 8.88178420e-16]
+ [2.66453526e-15 9.43689571e-16 1.11022302e-15]
+ [3.55271368e-15 8.88178420e-16 3.55271368e-15]
+ [8.88178420e-16 3.55271368e-15 3.55271368e-15]]
+######diff_x[0,1,1,1]:
+ [[1.77635684e-15 1.55431223e-15 2.70616862e-16]
+ [1.11022302e-15 1.38777878e-15 5.32907052e-15]
+ [4.44089210e-16 1.11022302e-15 1.33226763e-15]
+ [7.77156117e-16 1.33226763e-15 1.11022302e-16]]
+######diff_x[1,1,1,1]:
+ [[3.55271368e-15 1.77635684e-15 1.11022302e-16]
+ [3.33066907e-16 0.00000000e+00 1.55431223e-15]
+ [3.55271368e-15 2.66453526e-15 1.77635684e-15]
+ [6.66133815e-16 0.00000000e+00 1.16573418e-15]]
+######diff_x[0,0,0,0]:
+ [[2.22044605e-16 1.99840144e-15 1.11022302e-15]
+ [8.88178420e-16 1.27675648e-15 0.00000000e+00]
+ [1.33226763e-15 1.77635684e-15 1.99840144e-15]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,-1]:
+ [[1.33226763e-15 1.77635684e-15 2.55351296e-15]
+ [0.00000000e+00 1.77635684e-15 8.88178420e-16]
+ [3.55271368e-15 1.99840144e-15 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 2.22044605e-16]]
+######diff_x[0,0,-1,-1]:
+ [[4.44089210e-15 2.22044605e-16 1.77635684e-15]
+ [1.33226763e-15 1.77635684e-15 2.22044605e-16]
+ [2.66453526e-15 3.55271368e-15 8.88178420e-16]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]]
+######diff_x[0,-1,-1,-1]:
+ [[4.44089210e-16 0.00000000e+00 8.88178420e-16]
+ [6.66133815e-16 8.88178420e-16 8.88178420e-16]
+ [1.77635684e-15 4.44089210e-16 3.33066907e-16]
+ [1.02695630e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[-1,-1,-1,-1]:
+ [[8.88178420e-16 8.88178420e-16 4.44089210e-15]
+ [8.88178420e-16 1.22124533e-15 1.77635684e-15]
+ [8.88178420e-16 2.22044605e-15 1.11022302e-15]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00]]
+######diff_x[0,0,0,0]:
+ [[2.22044605e-16 1.99840144e-15 1.11022302e-15]
+ [8.88178420e-16 1.27675648e-15 0.00000000e+00]
+ [1.33226763e-15 1.77635684e-15 1.99840144e-15]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,2]:
+ [[1.33226763e-15 8.88178420e-16 1.44328993e-15]
+ [1.11022302e-15 0.00000000e+00 2.66453526e-15]
+ [4.44089210e-16 6.66133815e-16 8.88178420e-16]
+ [3.60822483e-16 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,2,2]:
+ [[1.48492330e-15 2.66453526e-15 8.88178420e-16]
+ [1.77635684e-15 5.55111512e-17 8.88178420e-16]
+ [1.55431223e-15 3.74700271e-16 1.11022302e-16]
+ [2.66453526e-15 0.00000000e+00 0.00000000e+00]]
+######diff_x[0,2,2,2]:
+ [[1.33226763e-15 1.77635684e-15 2.66453526e-15]
+ [5.32907052e-15 9.99200722e-16 0.00000000e+00]
+ [8.88178420e-16 9.15933995e-16 4.44089210e-16]
+ [1.11022302e-15 4.44089210e-16 1.33226763e-15]]
+######diff_x[2,2,2,2]:
+ [[1.77635684e-15 4.44089210e-16 8.88178420e-16]
+ [3.55271368e-15 9.99200722e-16 3.55271368e-15]
+ [4.44089210e-16 0.00000000e+00 8.88178420e-16]
+ [2.22044605e-15 4.44089210e-16 1.44328993e-15]]
+######diff_x[0,0,0,0]:
+######p[0,0,0,1]:
+ [[2.22044605e-16 1.99840144e-15 1.11022302e-15]
+ [8.88178420e-16 1.27675648e-15 0.00000000e+00]
+ [1.33226763e-15 1.77635684e-15 1.99840144e-15]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,-2]:
+ [[0.00000000e+00 8.88178420e-16 4.44089210e-16]
+ [2.22044605e-15 2.22044605e-15 0.00000000e+00]
+ [4.44089210e-16 9.43689571e-16 1.33226763e-15]
+ [0.00000000e+00 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,-2,-2]:
+ [[-0.81877994-1.79294172j -1.26072657+0.06556992j -0.45275781+0.65317246j]
+ [ 1.80517704+0.2796349j  -0.7578009 -0.95650283j -1.1418782 -0.81760965j]
+ [-0.00237877+0.39115283j  0.3149888 -0.72499772j  1.01995912+0.95685652j]
+ [ 0.23800474+2.13197766j  1.77450184+0.33773698j  2.1559944 +0.83491799j]]
+ [[1.77635684e-15 8.88178420e-16 1.33226763e-15]
+ [9.99200722e-16 2.66453526e-15 1.77635684e-15]
+ [1.77635684e-15 0.00000000e+00 8.88178420e-16]
+ [1.77635684e-15 8.88178420e-16 3.99680289e-15]]
+######diff_x[0,-2,-2,-2]:
+ [[4.44089210e-16 0.00000000e+00 2.22044605e-15]
+ [2.22044605e-16 1.55431223e-15 8.88178420e-16]
+ [8.88178420e-16 3.55271368e-15 0.00000000e+00]
+ [4.44089210e-16 2.66453526e-15 8.88178420e-16]]
+######diff_x[-2,-2,-2,-2]:
+ [[8.88178420e-16 6.66133815e-16 5.13478149e-16]
+ [1.11022302e-15 0.00000000e+00 8.88178420e-16]
+ [1.33226763e-15 1.33226763e-15 6.37510877e-16]
+ [8.88178420e-16 3.55271368e-15 7.77156117e-16]]
+######diff_x[0,0,0,0]:
+ [[2.22044605e-16 1.99840144e-15 1.11022302e-15]
+ [8.88178420e-16 1.27675648e-15 0.00000000e+00]
+ [1.33226763e-15 1.77635684e-15 1.99840144e-15]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,3]:
+ [[0.00000000e+00 1.33226763e-15 0.00000000e+00]
+ [8.88178420e-16 1.33226763e-15 6.66133815e-16]
+ [1.77635684e-15 4.99600361e-16 6.66133815e-16]
+ [1.11022302e-15 0.00000000e+00 6.66133815e-16]]
+######diff_x[0,0,3,3]:
+ [[0.00000000e+00 8.88178420e-16 6.66133815e-16]
+ [1.77635684e-15 8.88178420e-16 6.66133815e-16]
+ [8.88178420e-16 2.66453526e-15 9.99200722e-16]
+ [4.44089210e-16 3.55271368e-15 0.00000000e+00]]
+######diff_x[0,3,3,3]:
+ [[7.77156117e-16 3.55271368e-15 3.55271368e-15]
+ [1.77635684e-15 1.33226763e-15 1.11022302e-15]
+ [5.32907052e-15 2.66453526e-15 3.55271368e-15]
+ [3.55271368e-15 4.44089210e-16 6.66133815e-16]]
+######diff_x[3,3,3,3]:
+ [[1.77635684e-15 8.88178420e-16 1.77635684e-15]
+ [1.77635684e-15 0.00000000e+00 1.77635684e-15]
+ [1.77635684e-15 4.44089210e-16 6.66133815e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[2.22044605e-16 1.99840144e-15 1.11022302e-15]
+ [8.88178420e-16 1.27675648e-15 0.00000000e+00]
+ [1.33226763e-15 1.77635684e-15 1.99840144e-15]
+ [4.44089210e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,-3]:
+ [[3.33066907e-15 3.55271368e-15 2.22044605e-15]
+ [1.77635684e-15 8.88178420e-16 8.88178420e-16]
+ [2.66453526e-15 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 1.02695630e-15 0.00000000e+00]]
+######diff_x[0,0,-3,-3]:
+ [[1.11022302e-15 2.66453526e-15 4.44089210e-16]
+ [2.33146835e-15 3.55271368e-15 1.33226763e-15]
+ [1.33226763e-15 7.21644966e-16 2.22044605e-15]
+ [0.00000000e+00 4.44089210e-16 4.44089210e-16]]
+######diff_x[0,-3,-3,-3]:
+ [[6.66133815e-16 1.11022302e-16 8.88178420e-16]
+ [8.88178420e-16 8.88178420e-16 0.00000000e+00]
+ [1.33226763e-15 8.88178420e-16 0.00000000e+00]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]]
+######diff_x[-3,-3,-3,-3]:
+ [[5.41233725e-16 1.33226763e-15 8.88178420e-16]
+ [1.33226763e-15 0.00000000e+00 4.44089210e-16]
+ [0.00000000e+00 6.66133815e-16 1.66533454e-16]
+ [1.11022302e-15 8.88178420e-16 8.88178420e-16]]
+===============round  1 ======================
+rank 0 my x and x difference: 4.1325549368417913e-16, takes 44.49603938893415 sec, my_norm = 11486.210706777507, norm = 11486.210706777505
+######p[0,0,0,1]:
+ [[-0.19613724+0.43754758j  0.42674613-0.26855424j  1.11780297-0.14216282j]
+ [ 0.62357639+0.10955895j -0.89661033-0.49303187j -0.68095869+0.56939549j]
+ [-0.82043678+0.53826082j -1.55772764+0.7849899j   0.53538924+1.19072607j]
+ [-1.27043482-1.21092947j -0.1988917 +0.38794268j -0.48438171+2.62224708j]]
+rank 0 my x and x difference: 4.132753772549974e-16, takes 44.501706033945084 sec, my_norm = 11488.248780492904, norm = 11488.248780492902
+rank 0 my x and x difference: 4.1320184300168073e-16, takes 44.494510100921616 sec, my_norm = 11492.27773747987, norm = 11492.277737479868
+###### (32, 16, 16, 32, 4, 3)
+rank 0 my x and x difference: 4.133179099055992e-16, takes 44.54648296395317 sec, my_norm = 11488.334598320236, norm = 11488.334598320234
+rank 0 my x and x difference: 4.134052921948554e-16, takes 44.54335880710278 sec, my_norm = 11484.828880996474, norm = 11484.82888099647
+###### (32, 16, 16, 32, 4, 3)
+rank 0 my x and x difference: 4.133927622157829e-16, takes 44.546194680035114 sec, my_norm = 11477.604089101731, norm = 11477.60408910173
+###### (32, 16, 16, 32, 4, 3)
+###### (32, 16, 16, 32, 4, 3)
+###### (32, 16, 16, 32, 4, 3)
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[5.32907052e-15 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 3.33066907e-16 4.44089210e-16]
+ [7.10542736e-15 1.77635684e-15 4.44089210e-16]
+ [1.33226763e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,0,1]:
+ [[4.44089210e-16 3.88578059e-16 1.77635684e-15]
+ [1.05471187e-15 8.88178420e-16 8.88178420e-16]
+ [1.77635684e-15 8.88178420e-16 2.44249065e-15]
+ [5.32907052e-15 1.33226763e-15 1.77635684e-15]]
+######diff_x[0,0,1,1]:
+ [[2.22044605e-16 1.11022302e-16 2.22044605e-15]
+ [2.99760217e-15 4.44089210e-16 4.44089210e-16]
+ [1.77635684e-15 1.77635684e-15 2.22044605e-16]
+ [1.77635684e-15 0.00000000e+00 8.88178420e-16]]
+######diff_x[0,1,1,1]:
+ [[7.77156117e-16 8.88178420e-16 2.22044605e-16]
+ [2.66453526e-15 2.44249065e-15 8.88178420e-16]
+ [1.60982339e-15 3.55271368e-15 4.44089210e-16]
+ [8.88178420e-16 6.66133815e-16 1.33226763e-15]]
+######diff_x[1,1,1,1]:
+ [[0.00000000e+00 1.44328993e-15 2.22044605e-16]
+ [2.66453526e-15 8.32667268e-16 0.00000000e+00]
+ [1.77635684e-15 4.44089210e-15 8.88178420e-16]
+ [1.99840144e-15 1.77635684e-15 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[5.32907052e-15 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 3.33066907e-16 4.44089210e-16]
+ [7.10542736e-15 1.77635684e-15 4.44089210e-16]
+ [1.33226763e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,0,-1]:
+ [[1.05471187e-15 1.77635684e-15 1.33226763e-15]
+ [1.33226763e-15 1.77635684e-15 1.11022302e-15]
+ [9.99200722e-16 8.88178420e-16 0.00000000e+00]
+ [5.55111512e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,-1,-1]:
+ [[1.11022302e-15 0.00000000e+00 8.88178420e-16]
+ [4.44089210e-16 1.77635684e-15 1.77635684e-15]
+ [3.55271368e-15 2.88657986e-15 1.22124533e-15]
+ [7.21644966e-16 2.22044605e-15 3.10862447e-15]]
+######diff_x[0,-1,-1,-1]:
+ [[1.77635684e-15 1.55431223e-15 2.22044605e-15]
+ [2.22044605e-16 4.44089210e-16 4.44089210e-16]
+ [8.88178420e-16 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 2.22044605e-15 8.88178420e-16]]
+######diff_x[-1,-1,-1,-1]:
+ [[2.66453526e-15 2.66453526e-15 2.22044605e-16]
+ [1.11022302e-15 1.77635684e-15 0.00000000e+00]
+ [2.66453526e-15 8.88178420e-16 0.00000000e+00]
+ [8.88178420e-16 1.77635684e-15 2.22044605e-16]]
+######diff_x[0,0,0,0]:
+ [[5.32907052e-15 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 3.33066907e-16 4.44089210e-16]
+ [7.10542736e-15 1.77635684e-15 4.44089210e-16]
+ [1.33226763e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,0,2]:
+ [[1.77635684e-15 6.66133815e-16 4.44089210e-16]
+ [0.00000000e+00 8.32667268e-16 8.88178420e-16]
+ [8.88178420e-16 0.00000000e+00 8.88178420e-16]
+ [2.22044605e-16 2.22044605e-16 0.00000000e+00]]
+######diff_x[0,0,2,2]:
+ [[8.88178420e-16 8.88178420e-16 2.66453526e-15]
+ [3.55271368e-15 4.44089210e-16 0.00000000e+00]
+ [0.00000000e+00 1.11022302e-16 7.77156117e-16]
+ [8.88178420e-16 8.88178420e-16 2.22044605e-15]]
+######diff_x[0,2,2,2]:
+ [[0.00000000e+00 0.00000000e+00 1.77635684e-15]
+ [0.00000000e+00 2.22044605e-15 0.00000000e+00]
+ [8.88178420e-16 8.88178420e-16 4.44089210e-15]
+ [8.88178420e-16 0.00000000e+00 2.66453526e-15]]
+######diff_x[2,2,2,2]:
+ [[4.44089210e-16 2.05391260e-15 1.33226763e-15]
+ [2.22044605e-15 4.44089210e-16 4.44089210e-15]
+ [4.44089210e-16 1.11022302e-16 2.66453526e-15]
+ [1.77635684e-15 3.55271368e-15 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[5.32907052e-15 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 3.33066907e-16 4.44089210e-16]
+ [7.10542736e-15 1.77635684e-15 4.44089210e-16]
+ [1.33226763e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,0,-2]:
+ [[1.77635684e-15 5.55111512e-16 1.13797860e-15]
+ [1.55431223e-15 0.00000000e+00 0.00000000e+00]
+ [3.55271368e-15 6.66133815e-16 4.44089210e-16]
+ [1.99840144e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,-2,-2]:
+ [[8.88178420e-16 3.33066907e-16 0.00000000e+00]
+ [1.77635684e-15 8.88178420e-16 4.44089210e-16]
+ [4.44089210e-16 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 1.77635684e-15 6.10622664e-16]]
+######diff_x[0,-2,-2,-2]:
+ [[1.77635684e-15 5.32907052e-15 6.66133815e-16]
+ [1.77635684e-15 5.32907052e-15 2.22044605e-15]
+ [4.44089210e-15 6.66133815e-16 3.55271368e-15]
+ [1.77635684e-15 2.66453526e-15 4.44089210e-16]]
+######diff_x[-2,-2,-2,-2]:
+ [[2.66453526e-15 2.22044605e-16 8.88178420e-16]
+ [2.22044605e-15 1.77635684e-15 4.44089210e-16]
+ [2.66453526e-15 2.22044605e-15 8.88178420e-16]
+ [5.96744876e-16 2.66453526e-15 3.55271368e-15]]
+######diff_x[0,0,0,0]:
+ [[5.32907052e-15 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 3.33066907e-16 4.44089210e-16]
+ [7.10542736e-15 1.77635684e-15 4.44089210e-16]
+ [1.33226763e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,0,3]:
+ [[0.00000000e+00 1.77635684e-15 8.88178420e-16]
+ [4.44089210e-16 3.55271368e-15 1.77635684e-15]
+ [4.44089210e-16 4.44089210e-15 1.94635974e-15]
+ [1.77635684e-15 1.33226763e-15 1.33226763e-15]]
+######diff_x[0,0,3,3]:
+ [[1.77635684e-15 6.66133815e-16 1.77635684e-15]
+ [1.77635684e-15 2.22044605e-16 0.00000000e+00]
+ [1.77635684e-15 2.22044605e-15 8.88178420e-16]
+ [4.44089210e-15 0.00000000e+00 7.10542736e-15]]
+######diff_x[0,3,3,3]:
+ [[2.22044605e-15 1.77635684e-15 0.00000000e+00]
+ [2.66453526e-15 3.99680289e-15 0.00000000e+00]
+ [3.55271368e-15 2.22044605e-15 4.44089210e-16]
+ [1.77635684e-15 1.77635684e-15 3.10862447e-15]]
+######diff_x[3,3,3,3]:
+ [[4.44089210e-15 8.88178420e-16 2.22044605e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [8.88178420e-16 0.00000000e+00 1.77635684e-15]
+ [7.77156117e-16 2.80331314e-15 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[5.32907052e-15 5.32907052e-15 0.00000000e+00]
+ [8.88178420e-16 3.33066907e-16 4.44089210e-16]
+ [7.10542736e-15 1.77635684e-15 4.44089210e-16]
+ [1.33226763e-15 1.66533454e-15 2.66453526e-15]]
+######diff_x[0,0,0,-3]:
+ [[1.55431223e-15 2.22044605e-15 6.66133815e-16]
+ [1.44328993e-15 0.00000000e+00 4.44089210e-16]
+ [0.00000000e+00 3.33066907e-16 2.66453526e-15]
+ [9.99200722e-16 5.32907052e-15 1.11022302e-15]]
+######diff_x[0,0,-3,-3]:
+ [[4.44089210e-16 8.88178420e-16 3.55271368e-15]
+ [1.77635684e-15 4.44089210e-16 5.55111512e-17]
+ [3.55271368e-15 2.22044605e-15 4.44089210e-16]
+ [8.88178420e-16 1.77635684e-15 0.00000000e+00]]
+######diff_x[0,-3,-3,-3]:
+ [[2.66453526e-15 2.22044605e-15 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 1.38777878e-16]
+ [1.77635684e-15 8.88178420e-16 3.33066907e-16]
+ [0.00000000e+00 4.44089210e-16 1.77635684e-15]]
+######diff_x[-3,-3,-3,-3]:
+ [[9.02056208e-16 0.00000000e+00 0.00000000e+00]
+ [4.44089210e-16 1.77635684e-15 9.99200722e-16]
+ [1.77635684e-15 3.55271368e-15 0.00000000e+00]
+ [1.66533454e-16 8.88178420e-16 1.77635684e-15]]
+===============round  1 ======================
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 2.66453526e-15 5.32907052e-15]]
+######diff_x[0,0,0,1]:
+ [[3.55271368e-15 1.77635684e-15 8.88178420e-16]
+ [2.22044605e-16 6.66133815e-16 3.60822483e-16]
+ [0.00000000e+00 1.77635684e-15 8.88178420e-16]
+ [1.77635684e-15 1.55431223e-15 8.88178420e-16]]
+######diff_x[0,0,1,1]:
+ [[8.88178420e-16 4.44089210e-16 1.77635684e-15]
+ [2.22044605e-16 0.00000000e+00 1.77635684e-15]
+ [8.88178420e-16 1.55431223e-15 0.00000000e+00]
+ [1.22124533e-15 9.99200722e-16 8.88178420e-16]]
+######diff_x[0,1,1,1]:
+ [[1.33226763e-15 8.88178420e-16 1.77635684e-15]
+ [3.55271368e-15 2.22044605e-16 0.00000000e+00]
+ [0.00000000e+00 1.77635684e-15 2.22044605e-16]
+ [8.88178420e-16 2.22044605e-16 1.33226763e-15]]
+######diff_x[1,1,1,1]:
+ [[4.44089210e-16 4.44089210e-16 0.00000000e+00]
+ [1.55431223e-15 8.88178420e-16 8.88178420e-16]
+ [3.55271368e-15 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 4.44089210e-16 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 2.66453526e-15 5.32907052e-15]]
+######diff_x[0,0,0,-1]:
+ [[1.11022302e-16 2.22044605e-16 6.66133815e-16]
+ [1.33226763e-15 6.66133815e-16 2.66453526e-15]
+ [4.44089210e-15 2.66453526e-15 1.77635684e-15]
+ [1.77635684e-15 1.55431223e-15 2.22044605e-16]]
+######diff_x[0,0,-1,-1]:
+ [[1.33226763e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 1.77635684e-15 8.88178420e-16]
+ [1.33226763e-15 5.32907052e-15 1.33226763e-15]
+ [2.66453526e-15 1.44328993e-15 0.00000000e+00]]
+######diff_x[0,-1,-1,-1]:
+ [[3.33066907e-16 4.44089210e-15 2.66453526e-15]
+ [1.41553436e-15 9.99200722e-16 3.55271368e-15]
+ [5.55111512e-17 1.66533454e-16 1.11022302e-15]
+ [9.99200722e-16 2.22044605e-15 4.44089210e-16]]
+######diff_x[-1,-1,-1,-1]:
+ [[6.66133815e-16 3.55271368e-15 2.66453526e-15]
+ [0.00000000e+00 8.88178420e-16 9.99200722e-16]
+ [0.00000000e+00 1.77635684e-15 2.66453526e-15]
+ [2.66453526e-15 3.55271368e-15 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 2.66453526e-15 5.32907052e-15]]
+######diff_x[0,0,0,2]:
+ [[8.88178420e-16 2.22044605e-16 1.11022302e-16]
+ [8.88178420e-16 6.66133815e-16 1.77635684e-15]
+ [0.00000000e+00 4.44089210e-16 3.99680289e-15]
+ [1.77635684e-15 4.44089210e-16 2.77555756e-15]]
+######diff_x[0,0,2,2]:
+ [[6.21724894e-15 8.88178420e-16 4.44089210e-16]
+ [1.77635684e-15 0.00000000e+00 0.00000000e+00]
+ [8.88178420e-16 1.77635684e-15 8.88178420e-16]
+ [2.22044605e-15 0.00000000e+00 8.88178420e-16]]
+######diff_x[0,2,2,2]:
+ [[8.88178420e-16 4.44089210e-16 3.55271368e-15]
+ [2.22044605e-16 1.55431223e-15 3.55271368e-15]
+ [5.32907052e-15 4.44089210e-16 0.00000000e+00]
+ [8.88178420e-16 1.66533454e-15 1.99840144e-15]]
+######diff_x[2,2,2,2]:
+ [[4.44089210e-16 8.88178420e-16 2.22044605e-15]
+ [6.66133815e-16 2.05391260e-15 2.22044605e-16]
+ [3.10862447e-15 2.22044605e-16 8.88178420e-16]
+ [1.33226763e-15 4.44089210e-16 2.22044605e-15]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 2.66453526e-15 5.32907052e-15]]
+######diff_x[0,0,0,-2]:
+###### (32, 16, 16, 32, 4, 3)
+ [[8.88178420e-16 1.22124533e-15 1.11022302e-16]
+ [4.44089210e-16 6.66133815e-16 1.11022302e-15]
+ [3.88578059e-16 0.00000000e+00 1.33226763e-15]
+ [3.33066907e-16 2.66453526e-15 2.22044605e-15]]
+######diff_x[0,0,-2,-2]:
+ [[8.88178420e-16 1.77635684e-15 4.44089210e-16]
+ [0.00000000e+00 6.66133815e-16 4.44089210e-16]
+ [0.00000000e+00 1.99840144e-15 4.44089210e-16]
+ [4.44089210e-16 8.88178420e-16 0.00000000e+00]]
+######diff_x[0,-2,-2,-2]:
+ [[8.88178420e-16 4.44089210e-16 5.27355937e-16]
+ [1.77635684e-15 1.77635684e-15 0.00000000e+00]
+ [3.55271368e-15 1.77635684e-15 0.00000000e+00]
+ [7.10542736e-15 1.33226763e-15 3.55271368e-15]]
+######diff_x[-2,-2,-2,-2]:
+ [[1.55431223e-15 1.33226763e-15 4.71844785e-16]
+ [0.00000000e+00 8.88178420e-16 6.66133815e-16]
+ [2.66453526e-15 1.77635684e-15 1.77635684e-15]
+ [8.88178420e-16 7.77156117e-16 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 2.66453526e-15 5.32907052e-15]]
+######diff_x[0,0,0,3]:
+ [[3.55271368e-15 2.66453526e-15 0.00000000e+00]
+ [2.66453526e-15 1.77635684e-15 0.00000000e+00]
+ [9.99200722e-16 1.77635684e-15 8.88178420e-16]
+ [1.33226763e-15 2.22044605e-16 1.11022302e-16]]
+######diff_x[0,0,3,3]:
+ [[3.55271368e-15 1.77635684e-15 1.33226763e-15]
+ [7.77156117e-16 8.88178420e-16 4.44089210e-16]
+ [1.16573418e-15 0.00000000e+00 4.44089210e-16]
+ [4.44089210e-16 0.00000000e+00 1.77635684e-15]]
+######diff_x[0,3,3,3]:
+ [[4.44089210e-16 6.66133815e-16 0.00000000e+00]
+ [5.55111512e-17 4.44089210e-16 1.77635684e-15]
+ [4.44089210e-16 1.77635684e-15 1.11022302e-16]
+ [4.44089210e-16 1.33226763e-15 8.88178420e-16]]
+######diff_x[3,3,3,3]:
+ [[8.32667268e-16 8.88178420e-16 2.66453526e-15]
+ [9.99200722e-16 2.22044605e-16 2.66453526e-15]
+ [0.00000000e+00 4.44089210e-16 0.00000000e+00]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [4.44089210e-16 2.66453526e-15 5.32907052e-15]]
+######diff_x[0,0,0,-3]:
+ [[2.66453526e-15 0.00000000e+00 1.77635684e-15]
+ [0.00000000e+00 2.22044605e-16 1.33226763e-15]
+ [8.88178420e-16 3.10862447e-15 0.00000000e+00]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]]
+######diff_x[0,0,-3,-3]:
+ [[3.55271368e-15 0.00000000e+00 2.66453526e-15]
+ [1.27675648e-15 8.88178420e-16 0.00000000e+00]
+ [0.00000000e+00 5.32907052e-15 1.77635684e-15]
+ [8.88178420e-16 0.00000000e+00 1.77635684e-15]]
+######diff_x[0,-3,-3,-3]:
+ [[2.22044605e-15 8.88178420e-15 1.77635684e-15]
+ [8.88178420e-16 2.22044605e-16 2.22044605e-15]
+ [1.33226763e-15 2.88657986e-15 1.88737914e-15]
+ [7.10542736e-15 4.44089210e-16 8.88178420e-16]]
+######diff_x[-3,-3,-3,-3]:
+ [[0.00000000e+00 2.66453526e-15 8.88178420e-16]
+ [3.55271368e-15 1.77635684e-15 1.77635684e-15]
+ [5.32907052e-15 9.99200722e-16 0.00000000e+00]
+ [0.00000000e+00 3.55271368e-15 4.44089210e-16]]
+===============round  1 ======================
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[0.00000000e+00 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 4.44089210e-16 1.11022302e-16]
+ [2.33146835e-15 0.00000000e+00 1.77635684e-15]
+ [4.44089210e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,0,1]:
+ [[3.55271368e-15 1.77635684e-15 8.88178420e-16]
+ [8.88178420e-16 3.55271368e-15 4.44089210e-16]
+ [3.99680289e-15 2.22044605e-16 4.44089210e-16]
+ [4.44089210e-16 8.60422844e-16 9.99200722e-16]]
+######diff_x[0,0,1,1]:
+ [[2.22044605e-15 0.00000000e+00 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 4.99600361e-16]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,1]:
+ [[1.77635684e-15 0.00000000e+00 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 1.77635684e-15 4.44089210e-16]
+ [2.66453526e-15 1.77635684e-15 3.55271368e-15]]
+######diff_x[0,1,1,1]:
+ [[1.99840144e-15 3.55271368e-15 0.00000000e+00]
+ [6.93889390e-16 6.66133815e-16 5.32907052e-15]
+ [1.77635684e-15 1.38777878e-15 1.33226763e-15]
+ [0.00000000e+00 1.77635684e-15 2.77555756e-16]]
+######diff_x[0,0,1,1]:
+ [[8.88178420e-16 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 4.44089210e-16 1.77635684e-15]
+ [2.66453526e-15 1.33226763e-15 7.21644966e-16]
+ [4.44089210e-16 1.11022302e-15 0.00000000e+00]]
+######diff_x[1,1,1,1]:
+ [[1.77635684e-15 0.00000000e+00 0.00000000e+00]
+ [8.88178420e-16 0.00000000e+00 8.88178420e-16]
+ [3.33066907e-15 2.66453526e-15 8.88178420e-16]
+ [4.44089210e-16 2.66453526e-15 0.00000000e+00]]
+######diff_x[0,1,1,1]:
+ [[1.77635684e-15 1.55431223e-15 5.55111512e-16]
+ [9.43689571e-16 8.88178420e-16 1.77635684e-15]
+ [1.33226763e-15 2.66453526e-15 0.00000000e+00]
+ [8.88178420e-16 3.55271368e-15 7.21644966e-16]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 2.66453526e-15 4.44089210e-15]
+ [0.00000000e+00 8.88178420e-16 1.77635684e-15]
+ [8.88178420e-16 0.00000000e+00 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 1.33226763e-15]]
+######diff_x[1,1,1,1]:
+ [[0.00000000e+00 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 4.44089210e-16 1.11022302e-16]
+ [2.33146835e-15 0.00000000e+00 1.77635684e-15]
+ [4.44089210e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,0,-1]:
+ [[3.55271368e-15 1.77635684e-15 8.88178420e-16]
+ [2.66453526e-15 5.55111512e-16 5.55111512e-16]
+ [0.00000000e+00 7.99360578e-15 1.77635684e-15]
+ [1.11022302e-15 2.22044605e-15 0.00000000e+00]]
+######diff_x[0,0,0,0]:
+ [[1.02001740e-15 4.44089210e-16 2.63677968e-16]
+ [2.66453526e-15 6.66133815e-16 1.11022302e-16]
+ [4.44089210e-16 4.44089210e-16 1.33226763e-15]
+ [4.44089210e-16 0.00000000e+00 0.00000000e+00]]
+######diff_x[0,0,-1,-1]:
+ [[2.22044605e-15 0.00000000e+00 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 4.99600361e-16]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,-1]:
+ [[2.66453526e-15 2.88657986e-15 6.66133815e-16]
+ [4.44089210e-16 1.11022302e-15 1.77635684e-15]
+ [3.10862447e-15 8.88178420e-16 4.44089210e-16]
+ [6.10622664e-16 6.66133815e-16 3.10862447e-15]]
+######diff_x[0,-1,-1,-1]:
+ [[3.55271368e-15 6.66133815e-16 4.44089210e-16]
+ [8.88178420e-16 3.55271368e-15 0.00000000e+00]
+ [6.66133815e-16 0.00000000e+00 0.00000000e+00]
+ [1.77635684e-15 8.88178420e-16 4.44089210e-16]]
+######diff_x[0,0,-1,-1]:
+ [[2.88657986e-15 8.88178420e-16 7.21644966e-16]
+ [8.88178420e-16 8.88178420e-16 0.00000000e+00]
+ [2.66453526e-15 8.88178420e-16 0.00000000e+00]
+ [1.11022302e-16 4.44089210e-16 0.00000000e+00]]
+######diff_x[-1,-1,-1,-1]:
+ [[7.77156117e-16 1.33226763e-15 5.55111512e-17]
+ [3.33066907e-16 4.44089210e-16 0.00000000e+00]
+ [4.44089210e-16 4.44089210e-16 1.33226763e-15]
+ [6.66133815e-16 0.00000000e+00 8.88178420e-16]]
+######diff_x[0,-1,-1,-1]:
+ [[8.88178420e-16 2.22044605e-16 8.88178420e-16]
+ [1.77635684e-15 8.88178420e-16 1.77635684e-15]
+ [2.22044605e-15 1.77635684e-15 1.77635684e-15]
+ [1.77635684e-15 6.66133815e-16 1.49880108e-15]]
+######diff_x[-1,-1,-1,-1]:
+ [[0.00000000e+00 1.33226763e-15 1.77635684e-15]
+ [4.44089210e-15 2.22044605e-16 1.77635684e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]
+ [3.88578059e-16 2.66453526e-15 0.00000000e+00]] [[2.22044605e-16 1.55431223e-15 2.38697950e-15]
+ [1.77635684e-15 0.00000000e+00 7.77156117e-16]
+ [2.22044605e-16 3.55271368e-15 3.33066907e-16]
+ [3.55271368e-15 3.55271368e-15 1.11022302e-15]]
+######diff_x[0,0,0,0]:
+ [[0.00000000e+00 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 4.44089210e-16 1.11022302e-16]
+ [2.33146835e-15 0.00000000e+00 1.77635684e-15]
+ [4.44089210e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,0,2]:
+
+######diff_x[0,0,0,0]:
+ [[7.77156117e-16 4.44089210e-16 2.66453526e-15]
+ [4.44089210e-16 1.33226763e-15 2.22044605e-16]
+ [8.88178420e-16 8.88178420e-16 1.33226763e-15]
+ [8.88178420e-16 5.32907052e-15 5.32907052e-15]]
+######diff_x[0,0,2,2]:
+ [[2.22044605e-15 0.00000000e+00 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 4.99600361e-16]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,2]:
+ [[5.32907052e-15 1.77635684e-15 8.88178420e-16]
+ [1.33226763e-15 3.55271368e-15 8.88178420e-16]
+ [7.77156117e-16 2.66453526e-15 8.88178420e-16]
+ [8.88178420e-16 8.88178420e-16 1.22124533e-15]]
+######diff_x[0,2,2,2]:
+ [[8.88178420e-16 5.32907052e-15 1.77635684e-15]
+ [1.33226763e-15 2.22044605e-15 1.11022302e-15]
+ [0.00000000e+00 1.77635684e-15 1.33226763e-15]
+ [6.66133815e-16 8.88178420e-16 4.44089210e-16]]
+######diff_x[0,0,2,2]:
+ [[0.00000000e+00 0.00000000e+00 1.27675648e-15]
+ [8.88178420e-16 2.22044605e-16 4.44089210e-16]
+ [4.44089210e-15 8.88178420e-16 0.00000000e+00]
+ [4.44089210e-16 1.77635684e-15 2.22044605e-16]]
+######diff_x[2,2,2,2]:
+ [[3.10862447e-15 7.77156117e-16 1.77635684e-15]
+ [6.10622664e-16 4.44089210e-16 0.00000000e+00]
+ [2.22044605e-16 0.00000000e+00 7.10542736e-15]
+ [6.66133815e-16 8.88178420e-16 5.55111512e-16]]
+######diff_x[0,2,2,2]:
+ [[5.68989300e-16 5.55111512e-16 6.21724894e-15]
+ [2.22044605e-15 8.88178420e-16 6.66133815e-16]
+ [0.00000000e+00 1.11022302e-15 1.33226763e-15]
+ [1.11022302e-15 1.33226763e-15 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 1.22124533e-15 4.44089210e-16]
+ [0.00000000e+00 1.44328993e-15 8.88178420e-16]
+ [2.22044605e-16 3.55271368e-15 3.10862447e-15]
+ [1.22124533e-15 2.22044605e-16 2.22044605e-16]]
+######diff_x[2,2,2,2]:
+ [[0.00000000e+00 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 4.44089210e-16 1.11022302e-16]
+ [2.33146835e-15 0.00000000e+00 1.77635684e-15]
+ [4.44089210e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,0,-2]:
+ [[4.44089210e-16 1.77635684e-15 7.21644966e-16]
+ [0.00000000e+00 2.66453526e-15 2.79290480e-16]
+ [2.66453526e-15 0.00000000e+00 0.00000000e+00]
+ [3.55271368e-15 4.44089210e-16 0.00000000e+00]]
+######diff_x[0,0,0,0]:
+ [[8.88178420e-16 1.11022302e-15 8.88178420e-16]
+ [0.00000000e+00 1.33226763e-15 3.33066907e-16]
+ [9.43689571e-16 8.88178420e-16 2.22044605e-15]
+ [8.88178420e-16 2.22044605e-15 7.77156117e-16]]
+######diff_x[0,0,-2,-2]:
+ [[2.22044605e-15 0.00000000e+00 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 4.99600361e-16]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,-2]:
+ [[1.66533454e-15 7.77156117e-16 8.88178420e-16]
+ [2.22044605e-16 0.00000000e+00 4.44089210e-16]
+ [0.00000000e+00 2.55351296e-15 8.88178420e-16]
+ [0.00000000e+00 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,-2,-2,-2]:
+ [[2.22044605e-16 4.44089210e-16 5.55111512e-16]
+ [0.00000000e+00 0.00000000e+00 1.33226763e-15]
+ [0.00000000e+00 0.00000000e+00 1.44328993e-15]
+ [8.88178420e-16 9.99200722e-16 8.88178420e-16]]
+######diff_x[0,0,-2,-2]:
+ [[8.88178420e-16 8.88178420e-16 2.22044605e-16]
+ [8.88178420e-16 7.21644966e-16 8.88178420e-16]
+ [2.22044605e-16 6.66133815e-16 2.66453526e-15]
+ [5.55111512e-16 4.44089210e-15 2.66453526e-15]]
+######diff_x[0,-2,-2,-2]:
+ [[1.77635684e-15 1.77635684e-15 1.77635684e-15]
+ [8.88178420e-16 3.55271368e-15 4.16333634e-16]
+ [1.11022302e-16 1.77635684e-15 8.88178420e-16]
+ [4.44089210e-16 8.74300632e-16 0.00000000e+00]]
+######diff_x[-2,-2,-2,-2]:
+ [[6.66133815e-16 2.66453526e-15 1.77635684e-15]
+ [1.33226763e-15 8.88178420e-16 2.22044605e-15]
+ [1.33226763e-15 3.55271368e-15 0.00000000e+00]
+ [1.77635684e-15 5.32907052e-15 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[2.35922393e-16 2.66453526e-15 2.22044605e-15]
+ [8.88178420e-16 1.77635684e-15 7.77156117e-16]
+ [0.00000000e+00 9.99200722e-16 3.55271368e-15]
+ [2.77555756e-16 1.77635684e-15 4.44089210e-16]]
+######diff_x[-2,-2,-2,-2]:
+ [[1.33226763e-15 0.00000000e+00 0.00000000e+00]
+ [1.09634524e-15 5.55111512e-16 1.22124533e-15]
+ [0.00000000e+00 0.00000000e+00 6.66133815e-16]
+ [3.10862447e-15 2.22044605e-15 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[0.00000000e+00 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 4.44089210e-16 1.11022302e-16]
+ [2.33146835e-15 0.00000000e+00 1.77635684e-15]
+ [4.44089210e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,0,3]:
+ [[7.77156117e-16 3.55271368e-15 4.44089210e-16]
+ [1.77635684e-15 8.32667268e-16 1.13743650e-15]
+ [8.88178420e-16 1.77635684e-15 8.88178420e-16]
+ [1.77635684e-15 8.88178420e-16 1.77635684e-15]]
+######diff_x[0,0,3,3]:
+ [[2.22044605e-15 0.00000000e+00 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 4.99600361e-16]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,3]:
+ [[8.88178420e-16 2.22044605e-16 0.00000000e+00]
+ [8.88178420e-16 3.55271368e-15 0.00000000e+00]
+ [4.44089210e-16 1.11022302e-15 3.55271368e-15]
+ [0.00000000e+00 2.22044605e-15 1.11022302e-15]]
+######diff_x[0,3,3,3]:
+ [[1.77635684e-15 1.88737914e-15 2.22044605e-15]
+ [8.88178420e-16 1.55431223e-15 1.33226763e-15]
+ [6.66133815e-16 2.22044605e-16 3.55271368e-15]
+ [1.22124533e-15 0.00000000e+00 0.00000000e+00]]
+######diff_x[0,0,3,3]:
+######p[0,0,0,1]:
+ [[0.00000000e+00 1.77635684e-15 2.77555756e-16]
+ [0.00000000e+00 6.66133815e-16 4.44089210e-16]
+ [4.44089210e-16 1.77635684e-15 2.66453526e-15]
+ [1.77635684e-15 3.55271368e-15 1.99840144e-15]]
+######diff_x[3,3,3,3]:
+ [[2.22044605e-16 4.44089210e-15 2.66453526e-15]
+ [3.33066907e-16 8.88178420e-16 1.77635684e-15]
+ [8.88178420e-16 0.00000000e+00 1.55431223e-15]
+ [1.77635684e-15 3.55271368e-15 8.88178420e-16]]
+######diff_x[0,3,3,3]:
+ [[1.77635684e-15 2.66453526e-15 5.32907052e-15]
+ [1.33226763e-15 0.00000000e+00 0.00000000e+00]
+ [1.33226763e-15 6.66133815e-16 8.88178420e-16]
+ [8.88178420e-16 1.33226763e-15 6.66133815e-16]]
+######diff_x[0,0,0,0]:
+ [[5.55111512e-16 0.00000000e+00 8.88178420e-16]
+ [8.88178420e-16 8.88178420e-16 1.11022302e-15]
+ [1.77635684e-15 2.22044605e-15 0.00000000e+00]
+ [1.16573418e-15 1.94289029e-15 1.77635684e-15]]
+######diff_x[3,3,3,3]:
+ [[0.00000000e+00 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 4.44089210e-16 1.11022302e-16]
+ [2.33146835e-15 0.00000000e+00 1.77635684e-15]
+ [4.44089210e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,0,-3]:
+ [[ 1.15530604-1.37070631j -1.85498975-0.62357567j -1.25587389+0.09962544j]
+ [-0.3701442 +0.2582003j  -0.66001316-0.19623021j  0.16552556-0.1773606j ]
+ [-0.77895381-0.47288067j -0.18679263+2.3094258j   0.40644029+0.75965477j]
+ [-2.41970381-0.64685221j  1.70862651+0.11441768j  0.76805276-1.2367084j ]]
+ [[4.44089210e-16 8.88178420e-16 4.44089210e-15]
+ [1.11022302e-16 6.66133815e-16 8.88178420e-16]
+ [4.44089210e-16 4.44089210e-16 8.88178420e-16]
+ [1.77635684e-15 5.32907052e-15 1.55431223e-15]]
+######diff_x[0,0,0,0]:
+ [[4.44089210e-16 1.55431223e-15 2.66453526e-15]
+ [1.33226763e-15 8.88178420e-16 2.22044605e-15]
+ [0.00000000e+00 2.27595720e-15 8.88178420e-16]
+ [1.77635684e-15 4.44089210e-16 1.11022302e-15]]
+######diff_x[0,0,-3,-3]:
+ [[2.22044605e-15 0.00000000e+00 2.66453526e-15]
+ [1.77635684e-15 2.22044605e-15 3.55271368e-15]
+ [0.00000000e+00 8.88178420e-16 4.99600361e-16]
+ [2.22044605e-15 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,0,-3]:
+ [[0.00000000e+00 8.88178420e-16 6.66133815e-16]
+ [1.77635684e-15 4.44089210e-16 1.38777878e-16]
+ [8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [5.32907052e-15 4.44089210e-16 0.00000000e+00]]
+######diff_x[0,0,-3,-3]:
+ [[2.77555756e-17 8.88178420e-16 2.66453526e-15]
+ [3.95516953e-16 2.66453526e-15 1.55431223e-15]
+ [8.88178420e-16 0.00000000e+00 0.00000000e+00]
+ [1.77635684e-15 8.32667268e-16 6.66133815e-16]]
+######diff_x[0,-3,-3,-3]:
+ [[0.00000000e+00 4.44089210e-16 8.88178420e-16]
+ [8.88178420e-16 5.55111512e-17 8.88178420e-16]
+ [8.32667268e-16 2.66453526e-15 8.88178420e-16]
+ [9.99200722e-16 1.77635684e-15 1.33226763e-15]]
+######diff_x[0,-3,-3,-3]:
+ [[2.66453526e-15 1.60982339e-15 3.55271368e-15]
+ [2.66453526e-15 8.88178420e-16 1.77635684e-15]
+ [0.00000000e+00 1.77635684e-15 3.55271368e-15]
+ [1.24900090e-15 9.43689571e-16 0.00000000e+00]]
+######diff_x[-3,-3,-3,-3]:
+ [[8.88178420e-16 4.44089210e-16 2.66453526e-15]
+ [2.66453526e-15 4.44089210e-16 1.04083409e-17]
+ [2.66453526e-15 2.66453526e-15 5.32907052e-15]
+ [8.32667268e-16 0.00000000e+00 8.88178420e-16]]
+===============round  1 ======================
+ [[1.33226763e-15 8.88178420e-16 8.88178420e-16]
+ [8.88178420e-16 1.77635684e-15 1.77635684e-15]
+ [3.55271368e-15 0.00000000e+00 4.44089210e-16]
+ [0.00000000e+00 0.00000000e+00 8.88178420e-16]]
+######diff_x[-3,-3,-3,-3]:
+ [[1.11022302e-15 0.00000000e+00 1.69309011e-15]
+ [9.36750677e-17 4.44089210e-16 2.66453526e-15]
+ [0.00000000e+00 4.44089210e-16 4.44089210e-16]
+ [1.13797860e-15 1.77635684e-15 8.32667268e-16]]
+===============round  1 ======================
+######p[0,0,0,1]:
+ [[-0.36926188+0.39711754j  0.01256696-0.70137016j -1.27311117-0.11846332j]
+ [-0.05501322-1.25944476j  0.62598097-0.95849728j  0.40443678-0.54797157j]
+ [-0.19564866+0.44659861j -1.43251328-0.78711295j  0.67762687+0.56018139j]
+ [-1.75244367-1.74995197j  0.1501647 +0.27618194j -0.61718256-2.17580501j]]
+######p[0,0,0,1]:
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[2.08166817e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,0,1]:
+ [[3.55271368e-15 8.88178420e-16 0.00000000e+00]
+ [4.44089210e-15 8.88178420e-16 2.66453526e-15]
+ [2.22044605e-16 4.44089210e-16 8.88178420e-16]
+ [4.44089210e-16 8.88178420e-16 2.66453526e-15]]
+######diff_x[0,0,1,1]:
+ [[2.33146835e-15 4.44089210e-16 3.99680289e-15]
+ [8.88178420e-16 1.77635684e-15 0.00000000e+00]
+ [0.00000000e+00 0.00000000e+00 3.55271368e-15]
+ [0.00000000e+00 6.66133815e-16 1.77635684e-15]]
+######diff_x[0,1,1,1]:
+ [[1.77635684e-15 2.66453526e-15 1.33226763e-15]
+ [3.55271368e-15 2.66453526e-15 5.32907052e-15]
+ [2.66453526e-15 8.88178420e-16 5.55111512e-16]
+ [2.66453526e-15 7.10542736e-15 8.88178420e-16]]
+######diff_x[1,1,1,1]:
+ [[3.99680289e-15 0.00000000e+00 2.22044605e-16]
+ [4.44089210e-16 4.44089210e-16 8.88178420e-16]
+ [4.44089210e-16 0.00000000e+00 8.88178420e-16]
+ [4.44089210e-16 1.77635684e-15 2.66453526e-15]]
+######diff_x[0,0,0,0]:
+ [[2.08166817e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,0,-1]:
+ [[1.66533454e-15 6.66133815e-16 1.33226763e-15]
+ [4.16333634e-16 2.66453526e-15 1.33226763e-15]
+ [0.00000000e+00 1.77635684e-15 2.66453526e-15]
+ [8.88178420e-16 1.33226763e-15 1.77635684e-15]]
+######diff_x[0,0,-1,-1]:
+ [[8.88178420e-16 4.66293670e-15 8.88178420e-16]
+ [1.33226763e-15 1.77635684e-15 8.88178420e-16]
+ [3.33066907e-16 8.88178420e-16 1.33226763e-15]
+ [2.35922393e-16 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,-1,-1,-1]:
+ [[1.77635684e-15 3.10862447e-15 1.33226763e-15]
+ [2.66453526e-15 1.77635684e-15 6.66133815e-16]
+ [8.88178420e-16 2.22044605e-16 4.44089210e-16]
+ [1.77635684e-15 1.77635684e-15 6.66133815e-16]]
+######diff_x[-1,-1,-1,-1]:
+ [[0.00000000e+00 1.77635684e-15 1.99840144e-15]
+ [8.88178420e-16 4.44089210e-15 0.00000000e+00]
+ [8.88178420e-16 2.22044605e-16 2.77555756e-17]
+ [1.11022302e-15 1.77635684e-15 1.22124533e-15]]
+######diff_x[0,0,0,0]:
+ [[2.08166817e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,0,2]:
+ [[3.33066907e-16 1.77635684e-15 1.55431223e-15]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00]
+ [4.44089210e-16 2.66453526e-15 1.77635684e-15]
+ [2.22044605e-16 1.77635684e-15 1.55431223e-15]]
+######diff_x[0,0,2,2]:
+ [[1.11022302e-15 3.60822483e-16 3.74700271e-16]
+ [1.11022302e-15 2.66453526e-15 1.77635684e-15]
+ [4.44089210e-16 8.88178420e-16 0.00000000e+00]
+ [0.00000000e+00 2.22044605e-16 2.66453526e-15]]
+######diff_x[0,2,2,2]:
+ [[1.77635684e-15 0.00000000e+00 8.88178420e-16]
+ [1.77635684e-15 3.55271368e-15 1.77635684e-15]
+ [0.00000000e+00 0.00000000e+00 8.88178420e-16]
+ [4.44089210e-16 4.16333634e-16 2.66453526e-15]]
+######diff_x[2,2,2,2]:
+ [[1.55431223e-15 8.88178420e-16 0.00000000e+00]
+ [8.88178420e-16 6.66133815e-16 5.55111512e-16]
+ [9.99200722e-16 0.00000000e+00 1.77635684e-15]
+ [1.77635684e-15 4.44089210e-16 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[2.08166817e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,0,-2]:
+ [[1.33226763e-15 1.77635684e-15 1.77635684e-15]
+ [3.55271368e-15 2.22044605e-16 2.91433544e-16]
+ [8.88178420e-16 7.07767178e-16 0.00000000e+00]
+ [1.77635684e-15 8.88178420e-16 0.00000000e+00]]
+######diff_x[0,0,-2,-2]:
+ [[1.33226763e-15 1.77635684e-15 8.88178420e-16]
+ [2.77555756e-17 1.33226763e-15 8.88178420e-16]
+ [4.44089210e-16 1.77635684e-15 2.66453526e-15]
+ [1.33226763e-15 1.44328993e-15 1.77635684e-15]]
+######diff_x[0,-2,-2,-2]:
+ [[9.99200722e-16 8.88178420e-16 1.13797860e-15]
+ [6.93889390e-17 8.88178420e-16 8.88178420e-16]
+ [0.00000000e+00 2.22044605e-16 8.88178420e-16]
+ [2.77555756e-16 0.00000000e+00 1.33226763e-15]]
+######diff_x[-2,-2,-2,-2]:
+ [[4.44089210e-16 1.77635684e-15 1.77635684e-15]
+ [1.77635684e-15 1.77635684e-15 3.55271368e-15]
+ [1.77635684e-15 0.00000000e+00 2.44249065e-15]
+ [3.99680289e-15 1.11022302e-16 1.99840144e-15]]
+######diff_x[0,0,0,0]:
+ [[2.08166817e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,0,3]:
+ [[8.88178420e-16 0.00000000e+00 8.88178420e-15]
+ [2.66453526e-15 4.44089210e-16 8.88178420e-16]
+ [8.88178420e-16 1.11022302e-16 2.66453526e-15]
+ [1.11022302e-15 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,0,3,3]:
+ [[6.66133815e-16 0.00000000e+00 2.77555756e-16]
+ [4.16333634e-16 1.05471187e-15 1.33226763e-15]
+ [1.77635684e-15 6.21724894e-15 4.44089210e-16]
+ [1.33226763e-15 0.00000000e+00 8.88178420e-16]]
+######diff_x[0,3,3,3]:
+ [[8.88178420e-16 0.00000000e+00 2.66453526e-15]
+ [8.88178420e-16 8.88178420e-16 8.88178420e-16]
+ [8.88178420e-16 1.77635684e-15 2.22044605e-16]
+ [0.00000000e+00 8.88178420e-16 2.22044605e-16]]
+######diff_x[3,3,3,3]:
+ [[0.00000000e+00 0.00000000e+00 3.55271368e-15]
+ [1.77635684e-15 1.11022302e-15 0.00000000e+00]
+ [3.33066907e-15 3.55271368e-15 1.11022302e-15]
+ [1.80411242e-15 1.77635684e-15 3.33066907e-16]]
+######diff_x[0,0,0,0]:
+ [[2.08166817e-15 8.88178420e-16 4.44089210e-16]
+ [3.55271368e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.66453526e-15 1.33226763e-15]
+ [8.88178420e-16 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,0,-3]:
+ [[4.44089210e-16 1.77635684e-15 8.88178420e-16]
+ [7.10542736e-15 0.00000000e+00 0.00000000e+00]
+ [4.44089210e-16 2.22044605e-16 8.88178420e-16]
+ [2.66453526e-15 6.66133815e-16 8.88178420e-16]]
+######diff_x[0,0,-3,-3]:
+ [[8.88178420e-16 3.55271368e-15 8.88178420e-16]
+ [4.44089210e-16 2.66453526e-15 0.00000000e+00]
+ [2.66453526e-15 2.22044605e-15 8.88178420e-16]
+ [1.77635684e-15 1.55431223e-15 8.88178420e-16]]
+######diff_x[0,-3,-3,-3]:
+ [[3.55271368e-15 3.55271368e-15 4.44089210e-16]
+ [5.55111512e-16 3.55271368e-15 4.44089210e-16]
+ [8.88178420e-16 1.77635684e-15 2.73739365e-15]
+ [0.00000000e+00 4.44089210e-16 1.99840144e-15]]
+######diff_x[-3,-3,-3,-3]:
+ [[8.88178420e-16 8.88178420e-16 0.00000000e+00]
+ [1.77635684e-15 1.52655666e-15 1.55431223e-15]
+ [1.11022302e-15 2.66453526e-15 0.00000000e+00]
+ [8.88178420e-16 1.77635684e-15 3.55271368e-15]]
+===============round  1 ======================
+######p[0,0,0,1]:
+ [[ 1.1259853 -0.71834259j -0.42558436-1.12936976j -1.47109064-0.21779824j]
+ [ 2.6014487 +0.15494j     0.12140348-0.61739214j -0.24192139+2.02162818j]
+ [-0.53241816+1.60410401j  1.53030585-0.80381153j -0.15619346-2.08132427j]
+ [ 0.3263399 -0.4341909j  -0.27810258+0.65732228j  0.74969729+0.80183276j]]
+ [[-1.40245554-1.10013297j  0.23819507-0.35270642j -0.14049109+0.88372753j]
+ [-0.83602106-0.59854631j -0.90091273+0.3634705j  -1.3569326 -0.73273532j]
+ [ 0.5210373 +1.91740629j -0.65697429-0.36784412j -0.98347478-1.42074289j]
+ [-1.59015997-0.06674985j  0.511279  +0.35584616j -0.16111819-1.69863102j]]
+###### (32, 16, 16, 32)
+######T: [] ,
+ 0
+######Z: [] ,
+ 0
+######Y: [] ,
+ 0
+######X: [] ,
+ 0
+######diff_x[0,0,0,0]:
+ [[1.77635684e-15 2.22044605e-15 1.77635684e-15]
+ [1.77635684e-15 1.33226763e-15 2.22044605e-16]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [1.42941214e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[0,0,0,1]:
+ [[8.88178420e-16 2.66453526e-15 2.22044605e-15]
+ [1.33226763e-15 8.88178420e-16 8.88178420e-16]
+ [2.66453526e-15 1.77635684e-15 1.77635684e-15]
+ [8.88178420e-16 1.77635684e-15 6.93889390e-17]]
+######diff_x[0,0,1,1]:
+ [[8.88178420e-16 1.77635684e-15 3.55271368e-15]
+ [1.44328993e-15 2.22044605e-16 4.44089210e-16]
+ [4.44089210e-16 2.66453526e-15 9.99200722e-16]
+ [6.10622664e-16 0.00000000e+00 2.22044605e-16]]
+######diff_x[0,1,1,1]:
+ [[4.44089210e-16 4.44089210e-15 1.77635684e-15]
+ [0.00000000e+00 2.22044605e-16 9.99200722e-16]
+ [3.10862447e-15 0.00000000e+00 2.05391260e-15]
+ [1.33226763e-15 2.22044605e-15 7.77156117e-16]]
+######diff_x[1,1,1,1]:
+ [[2.66453526e-15 1.22124533e-15 4.44089210e-16]
+ [7.77156117e-16 3.55271368e-15 8.88178420e-16]
+ [1.77635684e-15 4.44089210e-15 6.66133815e-16]
+ [1.33226763e-15 9.99200722e-16 8.88178420e-16]]
+######diff_x[0,0,0,0]:
+ [[1.77635684e-15 2.22044605e-15 1.77635684e-15]
+ [1.77635684e-15 1.33226763e-15 2.22044605e-16]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [1.42941214e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[0,0,0,-1]:
+ [[4.44089210e-16 1.77635684e-15 4.44089210e-16]
+ [1.77635684e-15 0.00000000e+00 4.44089210e-16]
+ [8.88178420e-16 8.88178420e-16 1.33226763e-15]
+ [3.55271368e-15 0.00000000e+00 4.44089210e-16]]
+######diff_x[0,0,-1,-1]:
+ [[0.00000000e+00 3.88578059e-15 8.88178420e-16]
+ [9.99200722e-16 2.66453526e-15 1.77635684e-15]
+ [0.00000000e+00 4.44089210e-16 3.33066907e-16]
+ [6.66133815e-16 8.88178420e-16 8.88178420e-16]]
+######diff_x[0,-1,-1,-1]:
+ [[0.00000000e+00 4.44089210e-16 8.88178420e-16]
+ [4.44089210e-16 8.88178420e-16 0.00000000e+00]
+ [0.00000000e+00 2.22044605e-16 4.44089210e-15]
+ [4.44089210e-16 6.66133815e-16 8.88178420e-16]]
+######diff_x[-1,-1,-1,-1]:
+ [[3.55271368e-15 2.22044605e-15 3.44169138e-15]
+ [7.10542736e-15 1.38777878e-17 8.88178420e-16]
+ [2.66453526e-15 1.77635684e-15 3.55271368e-15]
+ [1.77635684e-15 3.55271368e-15 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[1.77635684e-15 2.22044605e-15 1.77635684e-15]
+ [1.77635684e-15 1.33226763e-15 2.22044605e-16]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [1.42941214e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[0,0,0,2]:
+ [[8.88178420e-16 4.44089210e-16 1.77635684e-15]
+ [1.33226763e-15 1.33226763e-15 1.11022302e-15]
+ [0.00000000e+00 6.66133815e-16 1.33226763e-15]
+ [0.00000000e+00 0.00000000e+00 0.00000000e+00]]
+######diff_x[0,0,2,2]:
+ [[0.00000000e+00 0.00000000e+00 4.44089210e-16]
+ [2.66453526e-15 0.00000000e+00 4.44089210e-16]
+ [1.77635684e-15 0.00000000e+00 0.00000000e+00]
+ [5.55111512e-17 3.55271368e-15 6.66133815e-16]]
+######diff_x[0,2,2,2]:
+ [[1.11022302e-16 1.77635684e-15 8.88178420e-16]
+ [1.77635684e-15 1.77635684e-15 2.10942375e-15]
+ [5.55111512e-16 8.88178420e-16 2.66453526e-15]
+ [0.00000000e+00 8.88178420e-16 1.11022302e-15]]
+######diff_x[2,2,2,2]:
+ [[1.77635684e-15 1.33226763e-15 1.77635684e-15]
+ [0.00000000e+00 2.66453526e-15 6.66133815e-16]
+ [8.88178420e-16 0.00000000e+00 1.99840144e-15]
+ [4.44089210e-15 1.33226763e-15 4.44089210e-16]]
+######diff_x[0,0,0,0]:
+ [[1.77635684e-15 2.22044605e-15 1.77635684e-15]
+ [1.77635684e-15 1.33226763e-15 2.22044605e-16]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [1.42941214e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[0,0,0,-2]:
+ [[0.00000000e+00 2.91433544e-16 5.32907052e-15]
+ [7.77156117e-16 1.77635684e-15 0.00000000e+00]
+ [8.88178420e-16 0.00000000e+00 3.10862447e-15]
+ [0.00000000e+00 1.77635684e-15 8.88178420e-16]]
+######diff_x[0,0,-2,-2]:
+ [[2.66453526e-15 4.44089210e-16 2.22044605e-16]
+ [8.88178420e-16 1.77635684e-15 1.33226763e-15]
+ [1.33226763e-15 0.00000000e+00 8.88178420e-16]
+ [0.00000000e+00 2.22044605e-15 0.00000000e+00]]
+######diff_x[0,-2,-2,-2]:
+ [[5.45136852e-16 4.44089210e-16 1.77635684e-15]
+ [1.55431223e-15 1.77635684e-15 3.55271368e-15]
+ [8.88178420e-16 3.55271368e-15 4.44089210e-16]
+ [8.88178420e-16 1.77635684e-15 4.44089210e-16]]
+######diff_x[-2,-2,-2,-2]:
+ [[1.77635684e-15 0.00000000e+00 0.00000000e+00]
+ [4.44089210e-16 6.66133815e-16 3.55271368e-15]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [2.36789754e-15 8.88178420e-16 1.33226763e-15]]
+######diff_x[0,0,0,0]:
+ [[1.77635684e-15 2.22044605e-15 1.77635684e-15]
+ [1.77635684e-15 1.33226763e-15 2.22044605e-16]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [1.42941214e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[0,0,0,3]:
+ [[2.22044605e-15 0.00000000e+00 4.44089210e-16]
+ [1.33226763e-15 1.77635684e-15 1.77635684e-15]
+ [1.95156391e-16 2.22044605e-16 0.00000000e+00]
+ [0.00000000e+00 1.05471187e-15 8.88178420e-16]]
+######diff_x[0,0,3,3]:
+ [[4.44089210e-16 1.33226763e-15 3.33066907e-16]
+ [1.06581410e-14 2.66453526e-15 8.88178420e-16]
+ [8.88178420e-16 1.11022302e-16 8.88178420e-16]
+ [1.22124533e-15 1.33226763e-15 3.55271368e-15]]
+######diff_x[0,3,3,3]:
+ [[6.66133815e-16 9.99200722e-16 0.00000000e+00]
+ [1.77635684e-15 8.88178420e-16 4.44089210e-16]
+ [0.00000000e+00 0.00000000e+00 2.66453526e-15]
+ [8.32667268e-16 4.44089210e-16 1.77635684e-15]]
+######diff_x[3,3,3,3]:
+ [[3.10862447e-15 8.88178420e-16 0.00000000e+00]
+ [1.55431223e-15 1.33226763e-15 4.44089210e-16]
+ [1.55431223e-15 0.00000000e+00 5.55111512e-16]
+ [4.44089210e-16 1.77635684e-15 1.77635684e-15]]
+######diff_x[0,0,0,0]:
+ [[1.77635684e-15 2.22044605e-15 1.77635684e-15]
+ [1.77635684e-15 1.33226763e-15 2.22044605e-16]
+ [0.00000000e+00 1.77635684e-15 1.77635684e-15]
+ [1.42941214e-15 2.22044605e-15 4.44089210e-16]]
+######diff_x[0,0,0,-3]:
+ [[8.88178420e-16 1.77635684e-15 0.00000000e+00]
+ [2.22044605e-15 2.66453526e-15 0.00000000e+00]
+ [8.88178420e-16 3.55271368e-15 3.10862447e-15]
+ [3.55271368e-15 2.22044605e-15 1.33226763e-15]]
+######diff_x[0,0,-3,-3]:
+ [[1.55431223e-15 8.88178420e-16 7.21644966e-16]
+ [8.88178420e-16 5.55111512e-16 2.66453526e-15]
+ [2.66453526e-15 1.55431223e-15 8.88178420e-16]
+ [8.88178420e-16 0.00000000e+00 8.88178420e-16]]
+######diff_x[0,-3,-3,-3]:
+ [[0.00000000e+00 4.44089210e-16 1.99840144e-15]
+ [4.44089210e-15 2.22044605e-15 3.88578059e-16]
+ [8.88178420e-16 0.00000000e+00 5.32907052e-15]
+ [4.44089210e-16 1.77635684e-15 0.00000000e+00]]
+######diff_x[-3,-3,-3,-3]:
+ [[8.88178420e-16 8.88178420e-16 5.32907052e-15]
+ [2.22044605e-16 0.00000000e+00 2.22044605e-16]
+ [8.88178420e-16 8.88178420e-16 2.22044605e-15]
+ [4.44089210e-16 4.44089210e-16 4.44089210e-15]]
+===============round  1 ======================
+######p[0,0,0,1]:
+ [[-0.09932564-0.17464746j -1.82273745+1.08146215j -0.87987222-0.06774638j]
+ [ 1.15958908+1.47877091j  1.3925712 -0.68847329j  0.6879543 -0.81306909j]
+ [ 0.44867205+0.76742291j -1.03040793-0.94038955j -0.12807766-1.69377533j]
+ [-0.08406422-0.97836576j -0.91750337-0.124801j    0.04118042-1.44422859j]]
+######p[0,0,0,1]:
+ [[-1.18374719-0.40150514j  0.128995  -0.68923345j -2.10598194-0.50969185j]
+ [ 0.29843795+1.51167785j -1.08046799-0.66125074j  0.48398143+1.27150865j]
+ [-1.14316593-1.40462869j  0.48686087-0.74401816j -0.79269422+1.03755608j]
+ [ 1.48473112-1.32772973j -0.91960159-0.76833229j -0.5605117 -0.35818936j]]
+Quda dslash: 0.07478761905804276 sec
+Quda dslash: 0.028704574913717806 sec
+Quda dslash: 0.2634641630575061 sec
+Quda dslash: 0.05179908697027713 sec
+Quda dslash: 0.12005793303251266 sec
+Quda dslash: 0.09448679303750396 sec
+Quda dslash: 0.07468345109373331 sec
+Quda dslash: 0.2963246409781277 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011095516 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:5
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+nccl wilson dslash total time: (without malloc free memcpy) :0.011418029 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:7
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+nccl wilson dslash total time: (without malloc free memcpy) :0.009906526 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+nccl wilson dslash total time: (without malloc free memcpy) :0.010202355 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :7
+move_wards[_B_Y_]       :3
+move_wards[_B_Z_]       :5
+move_wards[_B_T_]       :6
+move_wards[_F_X_]       :7
+move_wards[_F_Y_]       :3
+move_wards[_F_Z_]       :5
+move_wards[_F_T_]       :6
+move_wards[_BX_BY_]     :3
+move_wards[_BX_BZ_]     :5
+move_wards[_BX_BT_]     :6
+move_wards[_BY_BZ_]     :1
+move_wards[_BY_BT_]     :2
+move_wards[_BZ_BT_]     :4
+move_wards[_FX_BY_]     :3
+move_wards[_FX_BZ_]     :5
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :5
+move_wards[_B_Y_]       :1
+move_wards[_B_Z_]       :7
+move_wards[_B_T_]       :4
+move_wards[_F_X_]       :5
+move_wards[_F_Y_]       :1
+move_wards[_F_Z_]       :7
+move_wards[_F_T_]       :4
+move_wards[_BX_BY_]     :1
+move_wards[_BX_BZ_]     :7
+move_wards[_BX_BT_]     :4
+move_wards[_BY_BZ_]     :3
+move_wards[_BY_BT_]     :0
+move_wards[_BZ_BT_]     :6
+move_wards[_FX_BY_]     :1
+move_wards[_FX_BZ_]     :7
+move_wards[_FX_BT_]     :4
+move_wards[_FY_BZ_]     :3
+move_wards[_FY_BT_]     :0
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:6
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :6
+move_wards[_B_Y_]       :2
+move_wards[_B_Z_]       :4
+move_wards[_B_T_]       :7
+move_wards[_F_X_]       :6
+move_wards[_F_Y_]       :2
+move_wards[_F_Z_]       :4
+move_wards[_F_T_]       :7
+move_wards[_BX_BY_]     :2
+move_wards[_BX_BZ_]     :4
+move_wards[_BX_BT_]     :7
+move_wards[_BY_BZ_]     :0
+move_wards[_BY_BT_]     :3
+move_wards[_BZ_BT_]     :5
+move_wards[_FX_BY_]     :2
+move_wards[_FX_BZ_]     :4
+move_wards[_FX_BT_]     :7
+move_wards[_FY_BZ_]     :0
+move_wards[_FY_BT_]     :3
+move_wards[_FZ_BT_]     :5
+move_wards[_BX_FY_]     :2
+move_wards[_BX_FZ_]     :4
+move_wards[_BX_FT_]     :7
+move_wards[_BY_FZ_]     :0
+move_wards[_BY_FT_]     :3
+move_wards[_BZ_FT_]     :5
+move_wards[_FX_FY_]     :2
+move_wards[_FX_FZ_]     :4
+move_wards[_FZ_BT_]     :6
+move_wards[_BX_FY_]     :1
+move_wards[_BX_FZ_]     :7
+move_wards[_BX_FT_]     :4
+move_wards[_BY_FZ_]     :3
+move_wards[_BY_FT_]     :0
+move_wards[_BZ_FT_]     :6
+move_wards[_FX_FY_]     :1
+move_wards[_FX_FZ_]     :7
+move_wards[_FX_FT_]     :4
+move_wards[_FY_FZ_]     :3
+move_wards[_FY_FT_]     :0
+move_wards[_FZ_FT_]     :6
+move_wards[_FX_BT_]     :6
+move_wards[_FY_BZ_]     :1
+move_wards[_FY_BT_]     :2
+move_wards[_FZ_BT_]     :4
+move_wards[_BX_FY_]     :3
+move_wards[_BX_FZ_]     :5
+move_wards[_BX_FT_]     :6
+move_wards[_BY_FZ_]     :1
+move_wards[_BY_FT_]     :2
+move_wards[_BZ_FT_]     :4
+move_wards[_FX_FY_]     :3
+move_wards[_FX_FZ_]     :5
+move_wards[_FX_FT_]     :6
+move_wards[_FY_FZ_]     :1
+move_wards[_FY_FT_]     :2
+move_wards[_FZ_FT_]     :4
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:4
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :4
+move_wards[_B_Y_]       :0
+move_wards[_B_Z_]       :6
+move_wards[_B_T_]       :5
+move_wards[_F_X_]       :4
+move_wards[_F_Y_]       :0
+move_wards[_F_Z_]       :6
+move_wards[_F_T_]       :5
+move_wards[_BX_BY_]     :0
+move_wards[_BX_BZ_]     :6
+move_wards[_BX_BT_]     :5
+move_wards[_BY_BZ_]     :2
+move_wards[_BY_BT_]     :1
+move_wards[_BZ_BT_]     :7
+move_wards[_FX_BY_]     :0
+move_wards[_FX_BZ_]     :6
+move_wards[_FX_BT_]     :5
+move_wards[_FY_BZ_]     :2
+move_wards[_FY_BT_]     :1
+move_wards[_FZ_BT_]     :7
+move_wards[_BX_FY_]     :0
+move_wards[_BX_FZ_]     :6
+move_wards[_BX_FT_]     :5
+move_wards[_BY_FZ_]     :2
+move_wards[_BY_FT_]     :1
+move_wards[_BZ_FT_]     :7
+move_wards[_FX_FY_]     :0
+move_wards[_FX_FZ_]     :6
+move_wards[_FX_FT_]     :5
+move_wards[_FY_FZ_]     :2
+move_wards[_FY_FT_]     :1
+move_wards[_FZ_FT_]     :7
+move_wards[_FX_FT_]     :7
+move_wards[_FY_FZ_]     :0
+move_wards[_FY_FT_]     :3
+move_wards[_FZ_FT_]     :5
+nccl wilson dslash total time: (without malloc free memcpy) :0.012155088 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:0
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+nccl wilson dslash total time: (without malloc free memcpy) :0.014317899 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:3
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :3
+move_wards[_B_Y_]       :7
+move_wards[_B_Z_]       :1
+move_wards[_B_T_]       :2
+move_wards[_F_X_]       :3
+move_wards[_F_Y_]       :7
+move_wards[_F_Z_]       :1
+move_wards[_F_T_]       :2
+move_wards[_BX_BY_]     :7
+move_wards[_BX_BZ_]     :1
+move_wards[_BX_BT_]     :2
+move_wards[_BY_BZ_]     :5
+move_wards[_BY_BT_]     :6
+nccl wilson dslash total time: (without malloc free memcpy) :0.011871673 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+nccl wilson dslash total time: (without malloc free memcpy) :0.009267843 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+host_params[_NODE_RANK_]:2
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :0
+move_wards[_B_Y_]       :4
+move_wards[_B_Z_]       :2
+move_wards[_B_T_]       :1
+move_wards[_F_X_]       :0
+move_wards[_F_Y_]       :4
+move_wards[_F_Z_]       :2
+move_wards[_F_T_]       :1
+move_wards[_BX_BY_]     :4
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:1
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :1
+move_wards[_B_Y_]       :5
+move_wards[_B_Z_]       :3
+move_wards[_B_T_]       :0
+move_wards[_F_X_]       :1
+move_wards[_F_Y_]       :5
+move_wards[_F_Z_]       :3
+move_wards[_F_T_]       :0
+move_wards[_BX_BY_]     :5
+move_wards[_BZ_BT_]     :0
+move_wards[_FX_BY_]     :7
+move_wards[_FX_BZ_]     :1
+move_wards[_FX_BT_]     :2
+move_wards[_FY_BZ_]     :5
+move_wards[_FY_BT_]     :6
+move_wards[_FZ_BT_]     :0
+move_wards[_BX_FY_]     :7
+move_wards[_BX_FZ_]     :1
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :2
+move_wards[_B_Y_]       :6
+move_wards[_B_Z_]       :0
+move_wards[_B_T_]       :3
+move_wards[_F_X_]       :2
+move_wards[_F_Y_]       :6
+move_wards[_F_Z_]       :0
+move_wards[_F_T_]       :3
+move_wards[_BX_BY_]     :6
+move_wards[_BX_BZ_]     :0
+move_wards[_BX_BT_]     :3
+move_wards[_BY_BZ_]     :4
+move_wards[_BY_BT_]     :7
+move_wards[_BZ_BT_]     :1
+move_wards[_FX_BY_]     :6
+move_wards[_FX_BZ_]     :0
+move_wards[_FX_BT_]     :3
+move_wards[_FY_BZ_]     :4
+move_wards[_FY_BT_]     :7
+move_wards[_FZ_BT_]     :1
+move_wards[_BX_FY_]     :6
+move_wards[_BX_FZ_]     :0
+move_wards[_BX_FT_]     :3
+move_wards[_BY_FZ_]     :4
+move_wards[_BY_FT_]     :7
+move_wards[_BZ_FT_]     :1
+move_wards[_FX_FY_]     :6
+move_wards[_FX_FZ_]     :0
+move_wards[_FX_FT_]     :3
+move_wards[_FY_FZ_]     :4
+move_wards[_FY_FT_]     :7
+move_wards[_FZ_FT_]     :1
+move_wards[_BX_FT_]     :2
+move_wards[_BY_FZ_]     :5
+move_wards[_BY_FT_]     :6
+move_wards[_BZ_FT_]     :0
+move_wards[_FX_FY_]     :7
+move_wards[_FX_FZ_]     :1
+move_wards[_FX_FT_]     :2
+move_wards[_FY_FZ_]     :5
+move_wards[_FY_FT_]     :6
+move_wards[_FZ_FT_]     :0
+move_wards[_BX_BZ_]     :2
+move_wards[_BX_BT_]     :1
+move_wards[_BY_BZ_]     :6
+move_wards[_BY_BT_]     :5
+move_wards[_BZ_BT_]     :3
+move_wards[_FX_BY_]     :4
+move_wards[_FX_BZ_]     :2
+move_wards[_FX_BT_]     :1
+move_wards[_FY_BZ_]     :6
+move_wards[_FY_BT_]     :5
+move_wards[_FZ_BT_]     :3
+move_wards[_BX_FY_]     :4
+move_wards[_BX_FZ_]     :2
+move_wards[_BX_FT_]     :1
+move_wards[_BY_FZ_]     :6
+move_wards[_BY_FT_]     :5
+move_wards[_BZ_FT_]     :3
+move_wards[_FX_FY_]     :4
+move_wards[_FX_FZ_]     :2
+move_wards[_FX_FT_]     :1
+move_wards[_FY_FZ_]     :6
+move_wards[_FY_FT_]     :5
+move_wards[_FZ_FT_]     :3
+move_wards[_BX_BZ_]     :3
+move_wards[_BX_BT_]     :0
+move_wards[_BY_BZ_]     :7
+move_wards[_BY_BT_]     :4
+move_wards[_BZ_BT_]     :2
+move_wards[_FX_BY_]     :5
+move_wards[_FX_BZ_]     :3
+move_wards[_FX_BT_]     :0
+move_wards[_FY_BZ_]     :7
+move_wards[_FY_BT_]     :4
+move_wards[_FZ_BT_]     :2
+move_wards[_BX_FY_]     :5
+move_wards[_BX_FZ_]     :3
+move_wards[_BX_FT_]     :0
+move_wards[_BY_FZ_]     :7
+move_wards[_BY_FT_]     :4
+move_wards[_BZ_FT_]     :2
+move_wards[_FX_FY_]     :5
+move_wards[_FX_FZ_]     :3
+move_wards[_FX_FT_]     :0
+move_wards[_FY_FZ_]     :7
+move_wards[_FY_FT_]     :4
+move_wards[_FZ_FT_]     :2
+make clover total time: (without malloc free memcpy) :11.328501352 sec
+ make clover total time: (without malloc free memcpy) :11.329943086 sec
+ make clover total time: (without malloc free memcpy) :11.331791841 sec
+ make clover total time: (without malloc free memcpy) :11.333770605 sec
+ make clover total time: (without malloc free memcpy) :11.339602159 sec
+ make clover total time: (without malloc free memcpy) :11.338251166 sec
+ inverse clover total time: (without malloc free memcpy) :0.013096384 sec
+ inverse clover total time: (without malloc free memcpy) :0.013110382 sec
+ give clover total time: (without malloc free memcpy) :0.000223355 sec
+ give clover total time: (without malloc free memcpy) :0.000221411 sec
+ make clover total time: (without malloc free memcpy) :11.343648103 sec
+ make clover total time: (without malloc free memcpy) :11.343350400 sec
+ inverse clover total time: (without malloc free memcpy) :0.013117747 sec
+ give clover total time: (without malloc free memcpy) :0.000221341 sec
+ inverse clover total time: (without malloc free memcpy) :0.013130192 sec
+ give clover total time: (without malloc free memcpy) :0.000224237 sec
+ inverse clover total time: (without malloc free memcpy) :0.013105622 sec
+ inverse clover total time: (without malloc free memcpy) :0.013134661 sec
+ give clover total time: (without malloc free memcpy) :0.000220871 sec
+ give clover total time: (without malloc free memcpy) :0.000219257 sec
+ inverse clover total time: (without malloc free memcpy) :0.013130832 sec
+ give clover total time: (without malloc free memcpy) :0.000221933 sec
+ inverse clover total time: (without malloc free memcpy) :0.013123518 sec
+ give clover total time: (without malloc free memcpy) :0.000220379 sec
+ nccl wilson dslash total time: (without malloc free memcpy) :0.013908954 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:2
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :2
+move_wards[_B_Y_]       :6
+move_wards[_B_Z_]       :0
+move_wards[_B_T_]       :3
+move_wards[_F_X_]       :2
+move_wards[_F_Y_]       :6
+move_wards[_F_Z_]       :0
+move_wards[_F_T_]       :3
+move_wards[_BX_BY_]     :6
+move_wards[_BX_BZ_]     :0
+move_wards[_BX_BT_]     :3
+move_wards[_BY_BZ_]     :4
+move_wards[_BY_BT_]     :7
+move_wards[_BZ_BT_]     :1
+move_wards[_FX_BY_]     :6
+move_wards[_FX_BZ_]     :0
+move_wards[_FX_BT_]     :3
+move_wards[_FY_BZ_]     :4
+nccl wilson dslash total time: (without malloc free memcpy) :0.015144566 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:0
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+nccl wilson dslash total time: (without malloc free memcpy) :0.012910393 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:7
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+nccl wilson dslash total time: (without malloc free memcpy) :0.010180371 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:1
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+move_wards[_FY_BT_]     :7
+move_wards[_FZ_BT_]     :1
+move_wards[_BX_FY_]     :6
+move_wards[_BX_FZ_]     :0
+move_wards[_BX_FT_]     :3
+move_wards[_BY_FZ_]     :4
+move_wards[_BY_FT_]     :7
+move_wards[_BZ_FT_]     :1
+move_wards[_FX_FY_]     :6
+move_wards[_FX_FZ_]     :0
+move_wards[_FX_FT_]     :3
+nccl wilson dslash total time: (without malloc free memcpy) :0.013181664 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:6
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :6
+move_wards[_B_Y_]       :2
+move_wards[_B_Z_]       :4
+move_wards[_B_T_]       :7
+move_wards[_F_X_]       :6
+move_wards[_F_Y_]       :2
+move_wards[_F_Z_]       :4
+move_wards[_F_T_]       :7
+move_wards[_BX_BY_]     :2
+move_wards[_BX_BZ_]     :4
+move_wards[_BX_BT_]     :7
+move_wards[_BY_BZ_]     :0
+move_wards[_BY_BT_]     :3
+move_wards[_BZ_BT_]     :5
+move_wards[_FX_BY_]     :2
+move_wards[_FX_BZ_]     :4
+move_wards[_FX_BT_]     :7
+move_wards[_FY_BZ_]     :0
+move_wards[_FY_BT_]     :3
+move_wards[_FZ_BT_]     :5
+move_wards[_BX_FY_]     :2
+move_wards[_BX_FZ_]     :4
+move_wards[_BX_FT_]     :7
+move_wards[_BY_FZ_]     :0
+move_wards[_BY_FT_]     :3
+move_wards[_BZ_FT_]     :5
+move_wards[_FX_FY_]     :2
+move_wards[_FX_FZ_]     :4
+move_wards[_FX_FT_]     :7
+move_wards[_FY_FZ_]     :0
+move_wards[_FY_FT_]     :3
+move_wards[_FZ_FT_]     :5
+nccl wilson dslash total time: (without malloc free memcpy) :0.015236760 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:4
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :4
+move_wards[_B_Y_]       :0
+move_wards[_B_Z_]       :6
+move_wards[_B_T_]       :5
+move_wards[_F_X_]       :4
+move_wards[_F_Y_]       :0
+move_wards[_F_Z_]       :6
+move_wards[_F_T_]       :5
+move_wards[_BX_BY_]     :0
+move_wards[_BX_BZ_]     :6
+move_wards[_BX_BT_]     :5
+move_wards[_BY_BZ_]     :2
+move_wards[_BY_BT_]     :1
+move_wards[_BZ_BT_]     :7
+move_wards[_FX_BY_]     :0
+move_wards[_FX_BZ_]     :6
+move_wards[_FX_BT_]     :5
+move_wards[_FY_BZ_]     :2
+move_wards[_FY_BT_]     :1
+move_wards[_FZ_BT_]     :7
+move_wards[_BX_FY_]     :0
+move_wards[_BX_FZ_]     :6
+move_wards[_BX_FT_]     :5
+move_wards[_BY_FZ_]     :2
+move_wards[_BY_FT_]     :1
+move_wards[_BZ_FT_]     :7
+move_wards[_FX_FY_]     :0
+move_wards[_FX_FZ_]     :6
+move_wards[_FX_FT_]     :5
+move_wards[_FY_FZ_]     :2
+move_wards[_FY_FT_]     :1
+move_wards[_FZ_FT_]     :7
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :7
+move_wards[_B_Y_]       :3
+move_wards[_B_Z_]       :5
+move_wards[_B_T_]       :6
+move_wards[_F_X_]       :7
+move_wards[_F_Y_]       :3
+move_wards[_F_Z_]       :5
+move_wards[_F_T_]       :6
+move_wards[_BX_BY_]     :3
+move_wards[_BX_BZ_]     :5
+move_wards[_BX_BT_]     :6
+move_wards[_BY_BZ_]     :1
+move_wards[_BY_BT_]     :2
+move_wards[_BZ_BT_]     :4
+move_wards[_FX_BY_]     :3
+move_wards[_FX_BZ_]     :5
+move_wards[_FX_BT_]     :6
+move_wards[_FY_BZ_]     :1
+move_wards[_FY_BT_]     :2
+move_wards[_FZ_BT_]     :4
+move_wards[_BX_FY_]     :3
+move_wards[_BX_FZ_]     :5
+move_wards[_BX_FT_]     :6
+move_wards[_BY_FZ_]     :1
+move_wards[_BY_FT_]     :2
+move_wards[_BZ_FT_]     :4
+move_wards[_FX_FY_]     :3
+move_wards[_FX_FZ_]     :5
+move_wards[_FX_FT_]     :6
+move_wards[_FY_FZ_]     :1
+move_wards[_FY_FT_]     :2
+move_wards[_FZ_FT_]     :4
+nccl wilson dslash total time: (without malloc free memcpy) :0.011735011 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:3
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :3
+move_wards[_B_Y_]       :7
+move_wards[_B_Z_]       :1
+move_wards[_B_T_]       :2
+move_wards[_F_X_]       :3
+move_wards[_F_Y_]       :7
+move_wards[_F_Z_]       :1
+move_wards[_F_T_]       :2
+move_wards[_BX_BY_]     :7
+move_wards[_BX_BZ_]     :1
+move_wards[_BX_BT_]     :2
+move_wards[_BY_BZ_]     :5
+move_wards[_BY_BT_]     :6
+move_wards[_BZ_BT_]     :0
+move_wards[_FX_BY_]     :7
+move_wards[_FX_BZ_]     :1
+move_wards[_FX_BT_]     :2
+move_wards[_FY_BZ_]     :5
+move_wards[_FY_BT_]     :6
+move_wards[_FZ_BT_]     :0
+move_wards[_BX_FY_]     :7
+move_wards[_BX_FZ_]     :1
+move_wards[_BX_FT_]     :2
+move_wards[_BY_FZ_]     :5
+move_wards[_BY_FT_]     :6
+move_wards[_BZ_FT_]     :0
+move_wards[_FX_FY_]     :7
+move_wards[_FX_FZ_]     :1
+move_wards[_FX_FT_]     :2
+move_wards[_FY_FZ_]     :5
+move_wards[_FY_FT_]     :6
+move_wards[_FZ_FT_]     :0
+nccl wilson dslash total time: (without malloc free memcpy) :0.011774420 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :1
+host_params[_NODE_RANK_]:5
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :5
+move_wards[_B_Y_]       :1
+move_wards[_B_Z_]       :7
+move_wards[_B_T_]       :4
+move_wards[_F_X_]       :5
+move_wards[_F_Y_]       :1
+move_wards[_F_Z_]       :7
+move_wards[_F_T_]       :4
+move_wards[_BX_BY_]     :1
+move_wards[_BX_BZ_]     :7
+move_wards[_BX_BT_]     :4
+move_wards[_BY_BZ_]     :3
+move_wards[_BY_BT_]     :0
+move_wards[_BZ_BT_]     :6
+move_wards[_FX_BY_]     :1
+move_wards[_FX_BZ_]     :7
+move_wards[_FX_BT_]     :4
+move_wards[_FY_BZ_]     :3
+move_wards[_FY_BT_]     :0
+move_wards[_FZ_BT_]     :6
+move_wards[_BX_FY_]     :1
+move_wards[_BX_FZ_]     :7
+move_wards[_BX_FT_]     :4
+move_wards[_BY_FZ_]     :3
+move_wards[_BY_FT_]     :0
+move_wards[_BZ_FT_]     :6
+move_wards[_FX_FY_]     :1
+move_wards[_FX_FZ_]     :7
+move_wards[_FX_FT_]     :4
+move_wards[_FY_FZ_]     :3
+move_wards[_FY_FT_]     :0
+move_wards[_FZ_FT_]     :6
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :1
+move_wards[_B_Y_]       :5
+move_wards[_B_Z_]       :3
+move_wards[_B_T_]       :0
+move_wards[_F_X_]       :1
+move_wards[_F_Y_]       :5
+move_wards[_F_Z_]       :3
+move_wards[_F_T_]       :0
+move_wards[_BX_BY_]     :5
+move_wards[_BX_BZ_]     :3
+move_wards[_BX_BT_]     :0
+move_wards[_BY_BZ_]     :7
+move_wards[_BY_BT_]     :4
+move_wards[_BZ_BT_]     :2
+move_wards[_FX_BY_]     :5
+move_wards[_FX_BZ_]     :3
+move_wards[_FX_BT_]     :0
+move_wards[_FY_BZ_]     :7
+move_wards[_FY_BT_]     :4
+move_wards[_FZ_BT_]     :2
+move_wards[_BX_FY_]     :5
+move_wards[_BX_FZ_]     :3
+move_wards[_BX_FT_]     :0
+move_wards[_BY_FZ_]     :7
+move_wards[_BY_FT_]     :4
+move_wards[_BZ_FT_]     :2
+move_wards[_FX_FY_]     :5
+move_wards[_FX_FZ_]     :3
+move_wards[_FX_FT_]     :0
+move_wards[_FY_FZ_]     :7
+move_wards[_FY_FT_]     :4
+move_wards[_FZ_FT_]     :2
+move_wards[_FY_FZ_]     :4
+move_wards[_FY_FT_]     :7
+move_wards[_FZ_FT_]     :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :0
+move_wards[_B_Y_]       :4
+move_wards[_B_Z_]       :2
+move_wards[_B_T_]       :1
+move_wards[_F_X_]       :0
+move_wards[_F_Y_]       :4
+move_wards[_F_Z_]       :2
+move_wards[_F_T_]       :1
+move_wards[_BX_BY_]     :4
+move_wards[_BX_BZ_]     :2
+move_wards[_BX_BT_]     :1
+move_wards[_BY_BZ_]     :6
+move_wards[_BY_BT_]     :5
+move_wards[_BZ_BT_]     :3
+move_wards[_FX_BY_]     :4
+move_wards[_FX_BZ_]     :2
+move_wards[_FX_BT_]     :1
+move_wards[_FY_BZ_]     :6
+move_wards[_FY_BT_]     :5
+move_wards[_FZ_BT_]     :3
+move_wards[_BX_FY_]     :4
+move_wards[_BX_FZ_]     :2
+move_wards[_BX_FT_]     :1
+move_wards[_BY_FZ_]     :6
+move_wards[_BY_FT_]     :5
+move_wards[_BZ_FT_]     :3
+move_wards[_FX_FY_]     :4
+move_wards[_FX_FZ_]     :2
+move_wards[_FX_FT_]     :1
+move_wards[_FY_FZ_]     :6
+move_wards[_FY_FT_]     :5
+move_wards[_FZ_FT_]     :3
+make clover total time: (without malloc free memcpy) :12.868444730 sec
+ make clover total time: (without malloc free memcpy) :12.870014850 sec
+ make clover total time: (without malloc free memcpy) :12.870048959 sec
+ make clover total time: (without malloc free memcpy) :12.873186392 sec
+ make clover total time: (without malloc free memcpy) :12.873494887 sec
+ make clover total time: (without malloc free memcpy) :12.873755937 sec
+ make clover total time: (without malloc free memcpy) :12.874334681 sec
+ inverse clover total time: (without malloc free memcpy) :0.013151053 sec
+ inverse clover total time: (without malloc free memcpy) :0.013111194 sec
+ give clover total time: (without malloc free memcpy) :0.000221702 sec
+ inverse clover total time: (without malloc free memcpy) :0.013118619 sec
+ give clover total time: (without malloc free memcpy) :0.000223155 sec
+ give clover total time: (without malloc free memcpy) :0.000222864 sec
+ inverse clover total time: (without malloc free memcpy) :0.013146113 sec
+ give clover total time: (without malloc free memcpy) :0.000220881 sec
+ inverse clover total time: (without malloc free memcpy) :0.013084620 sec
+ inverse clover total time: (without malloc free memcpy) :0.013109741 sec
+ give clover total time: (without malloc free memcpy) :0.000221982 sec
+ give clover total time: (without malloc free memcpy) :0.000225078 sec
+ inverse clover total time: (without malloc free memcpy) :0.013126725 sec
+ give clover total time: (without malloc free memcpy) :0.000221411 sec
+ make clover total time: (without malloc free memcpy) :12.892441832 sec
+ inverse clover total time: (without malloc free memcpy) :0.013149470 sec
+ give clover total time: (without malloc free memcpy) :0.000219437 sec
+ ~/qcu
