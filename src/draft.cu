@@ -4,7 +4,7 @@ using namespace qcu;
 void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity)
 {
-    // define for wilson_dslash
+    // define for test_wilson_dslash
     LatticeSet _set;
     _set.give(param->lattice_size, parity);
     _set.init();
@@ -30,7 +30,7 @@ void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, int parity)
 {
-    // define for nccl_clover_dslash
+    // define for test_clover_dslash
     LatticeSet _set;
     _set.give(param->lattice_size, parity);
     _set.init();

@@ -340,6 +340,7 @@ namespace qcu
                     move_wards[_FX_FY_] = move_wards[_F_Y_] + tmp * grid_3dim[_YZT_];
                 }
             }
+#ifndef _MPI_
             {
                 // nccl set
                 if (host_params[_NODE_RANK_] == 0)
@@ -351,6 +352,7 @@ namespace qcu
                 checkNcclErrors(ncclCommInitRank(&nccl_comm, host_params[_NODE_SIZE_],
                                                  nccl_id, host_params[_NODE_RANK_]));
             }
+#endif
             { // set stream and malloc vec
                 CUBLAS_CHECK(cublasCreate(&cublasH));
                 checkCudaErrors(

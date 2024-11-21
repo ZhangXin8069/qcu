@@ -4,7 +4,7 @@ using namespace qcu;
 void applyDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid)
 {
-  // define for nccl_wilson_dslash
+  // define for apply_wilson_dslash
   LatticeSet _set;
   _set.give(param->lattice_size, grid->lattice_size, parity);
   _set.init();

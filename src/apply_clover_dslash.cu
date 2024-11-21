@@ -4,7 +4,7 @@ using namespace qcu;
 void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity, QcuParam *grid)
 {
-  // define for nccl_clover_dslash
+  // define for apply_clover_dslash
   LatticeSet _set;
   _set.give(param->lattice_size, grid->lattice_size, parity);
   _set.init();
