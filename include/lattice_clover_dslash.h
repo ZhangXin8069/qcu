@@ -17,6 +17,7 @@ namespace qcu
                 &clover, (set_ptr->lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex),
                 set_ptr->stream));
         }
+#ifndef _MPI_
         void _make_nccl(void *gauge)
         {
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
@@ -546,6 +547,7 @@ namespace qcu
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
         }
+#endif
         void _make_mpi(void *gauge)
         {
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed

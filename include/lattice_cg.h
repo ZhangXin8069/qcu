@@ -187,6 +187,7 @@ namespace qcu
           sizeof(LatticeComplex), cudaMemcpyHostToDevice,
           set_ptr->streams[stream_index]));
     }
+#ifndef _MPI_
     void _dot_nccl(void *vec0, void *vec1, const int vals_index,
                    const int stream_index)
     {
@@ -203,6 +204,7 @@ namespace qcu
           ncclDouble, ncclSum, set_ptr->nccl_comm,
           set_ptr->streams[stream_index]));
     }
+#endif
     void _dot(void *vec0, void *vec1, const int vals_index,
               const int stream_index)
     {

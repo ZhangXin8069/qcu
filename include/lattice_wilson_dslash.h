@@ -10,6 +10,7 @@ namespace qcu
     LatticeSet *set_ptr;
     cudaError_t err;
     void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
+#ifndef _MPI_
     void run_nccl(void *fermion_out, void *fermion_in, void *gauge,
                   void *_device_params)
     {
@@ -215,6 +216,7 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
     }
+#endif
     void run_mpi_non_block(void *fermion_out, void *fermion_in, void *gauge,
                            void *_device_params)
     {
