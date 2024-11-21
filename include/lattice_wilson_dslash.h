@@ -763,9 +763,12 @@ namespace qcu
     }
     void run(void *fermion_out, void *fermion_in, void *gauge, void *_device_params)
     {
+#ifdef _MPI_
       run_mpi(fermion_out, fermion_in, gauge, _device_params);
       // run_mpi_non_block(fermion_out, fermion_in, gauge, _device_params);
-      // run_nccl(fermion_out, fermion_in, gauge, _device_params);
+#else
+      run_nccl(fermion_out, fermion_in, gauge, _device_params);
+#endif
     }
     void run_eo(void *fermion_out, void *fermion_in, void *gauge)
     {

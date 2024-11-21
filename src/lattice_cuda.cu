@@ -2,7 +2,6 @@
 #pragma optimize(5)
 namespace qcu
 {
-#ifdef LATTICE_CUDA
   __global__ void give_random_vals(void *device_random_vals, unsigned long seed)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -278,5 +277,4 @@ namespace qcu
       tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(params[_NODE_RANK_]);
     }
   }
-#endif
 }

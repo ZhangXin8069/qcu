@@ -1106,8 +1106,11 @@ namespace qcu
             // make clover
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto start = std::chrono::high_resolution_clock::now();
-            // _make_nccl(gauge);
+#ifdef _MPI_
             _make_mpi(gauge);
+#else
+            _make_nccl(gauge);
+#endif
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto end = std::chrono::high_resolution_clock::now();
             auto duration =

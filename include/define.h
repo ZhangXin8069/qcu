@@ -145,31 +145,7 @@ namespace qcu
 #define _MASS_ 0.0
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
-#define DRAFT
-#define LATTICE_SET
-#define LATTICE_CUDA
-#define BISTABCG
-#define CG
-#define MULTGRID
-#define WILSON_DSLASH
-#define CLOVER_DSLASH
-// #define OVERLAP_DSLASH
-#define NCCL_WILSON_DSLASH
-#define NCCL_CLOVER_DSLASH
-// #define NCCL_OVERLAP_DSLASH
-#define WILSON_BISTABCG
-// #define CLOVER_BISTABCG
-// #define OVERLAP_BISTABCG
-#define NCCL_WILSON_BISTABCG
-#define NCCL_WILSON_CG
-// #define NCCL_CLOVER_BISTABCG
-// #define NCCL_OVERLAP_BISTABCG
-// #define WILSON_MULTGRID
-// #define CLOVER_MULTGRID
-// #define OVERLAP_MULTGRID
-// #define NCCL_WILSON_MULTGRID
-// #define NCCL_CLOVER_MULTGRID
-// #define NCCL_OVERLAP_MULTGRID
+#define _MPI_ // _NCCL_ will be undefine
 // CUDA API error checking
 #define CUDA_CHECK(err)                                                  \
   do                                                                     \

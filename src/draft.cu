@@ -1,7 +1,6 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-#ifdef DRAFT
 void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity)
 {
@@ -28,9 +27,6 @@ void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     sctzyx2tzyxsc(fermion_out, &_set);
     _set.end();
 }
-void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
-                  QcuParam *param, int parity, QcuParam *grid) {}
-void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {}
 void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, int parity)
 {
@@ -109,4 +105,3 @@ void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     _set.end();
 }
-#endif

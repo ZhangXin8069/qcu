@@ -2,8 +2,6 @@
 #pragma optimize(5)
 namespace qcu
 {
-#ifdef CLOVER_DSLASH
-  
   __global__ void pick_up_u_x(void *device_U, void *device_params,
                               void *device_u_b_x_send_vec,
                               void *device_u_f_x_send_vec)
@@ -553,5 +551,4 @@ namespace qcu
       u_f_z_f_t_send_vec[i * lat_tzyx / lat_z / lat_t] = tmp_U[i * lat_tzyx];
     }
   }
-#endif
 }

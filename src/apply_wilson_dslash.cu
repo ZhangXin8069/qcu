@@ -1,7 +1,6 @@
  #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-#ifdef NCCL_WILSON_DSLASH
 void applyDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity, QcuParam *grid)
 {
@@ -20,4 +19,3 @@ void applyDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   sctzyx2tzyxsc(fermion_out, &_set);
   _set.end();
 }
-#endif

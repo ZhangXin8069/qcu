@@ -1,7 +1,6 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-#ifdef NCCL_CLOVER_DSLASH
 void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity, QcuParam *grid)
 {
@@ -39,4 +38,3 @@ void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   _clover_dslash.end();
   _set.end();
 }
-#endif

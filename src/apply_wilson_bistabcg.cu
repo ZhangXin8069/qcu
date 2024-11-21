@@ -1,7 +1,6 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-#ifdef NCCL_WILSON_BISTABCG
 void applyBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                       QcuParam *param, QcuParam *grid)
 {
@@ -22,4 +21,3 @@ void applyBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   psctzyx2ptzyxsc(fermion_out, &_set);
   _set.end();
 }
-#endif

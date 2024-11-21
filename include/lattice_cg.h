@@ -206,8 +206,11 @@ namespace qcu
     void _dot(void *vec0, void *vec1, const int vals_index,
               const int stream_index)
     {
+#ifdef _MPI_
       _dot_mpi(vec0, vec1, vals_index, stream_index);
-      // _dot_nccl(vec0, vec1, vals_index, stream_index);
+#else
+      _dot_nccl(vec0, vec1, vals_index, stream_index);
+#endif
     }
     void _diff(void *x, void *ans)
     { // there is a bug
@@ -262,7 +265,7 @@ namespace qcu
       print_vals(-1);
       exit(1);
     }
-    void run_nccl()
+    void run()
     {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
@@ -382,10 +385,10 @@ namespace qcu
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       }
     }
-    void _run()
+    void run_test()
     {
       auto start = std::chrono::high_resolution_clock::now();
-      run_nccl();
+      run();
       auto end = std::chrono::high_resolution_clock::now();
       auto duration =
           std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
@@ -396,10 +399,6 @@ namespace qcu
              ":%.9lf "
              "sec\n",
              double(duration) / 1e9);
-    }
-    void run()
-    {
-      _run();
       if (if_input == 0)
       {
         _diff(x_o, ans_o);

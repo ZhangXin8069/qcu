@@ -2,8 +2,6 @@
 #pragma optimize(5)
 namespace qcu
 {
-#ifdef CLOVER_DSLASH
-  
   __global__ void make_clover(void *device_U, void *device_clover,
                               void *device_params)
   {
@@ -908,4 +906,3 @@ namespace qcu
     }
   }
 }
-#endif
