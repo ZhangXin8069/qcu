@@ -1,7 +1,10 @@
 from pycparser import c_parser, c_generator
+
 if __name__ == '__main__':
     src = r'''
+
     void f(char * restrict joe){}
+
 int main(void)
 {
     unsigned int long k = 4;
@@ -13,7 +16,9 @@ int main(void)
     ast = parser.parse(src)
     ast.show()
     generator = c_generator.CGenerator()
+
     print(generator.visit(ast))
+
     # tracing the generator for debugging
     #~ import trace
     #~ tr = trace.Trace(countcallers=1)

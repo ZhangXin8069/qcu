@@ -8,12 +8,18 @@
 #include <signal.h>
 #include <time.h>
 #include <wchar.h>
+
 /*
     multiline comment
     comment
 */
+
 int main()
 {
     auto char* multi = "a multi"; /* and a comment !*/
 }
+
 /* A final comment for good measure /* /* /* */
+
+
+

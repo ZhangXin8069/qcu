@@ -1,48 +1,63 @@
 from enum import IntEnum
+
 QUDA_VERSION_MAJOR = 1
 QUDA_VERSION_MINOR = 1
 QUDA_VERSION_SUBMINOR = 0
+
 QUDA_VERSION = (QUDA_VERSION_MAJOR << 16) | (QUDA_VERSION_MINOR << 8) | QUDA_VERSION_SUBMINOR
 """
 This macro is deprecated.  Use QUDA_VERSION_MAJOR, etc., instead.
 """
+
 QUDA_MAX_DIM = 6
 """
 Maximum number of dimensions supported by QUDA.  In practice, no
 routines make use of more than 5.
 """
+
 QUDA_MAX_GEOMETRY = 8
 """
 Maximum geometry supported by a field.  This essentially is
 the maximum number of dimensions supported per lattice site.
 """
+
 QUDA_MAX_MULTI_SHIFT = 32
 """
 Maximum number of shifts supported by the multi-shift solver.
 This number may be changed if need be.
 """
+
 QUDA_MAX_BLOCK_SRC = 64
 """
 Maximum number of sources that can be supported by the block solver
 """
+
 QUDA_MAX_ARRAY_SIZE = max(QUDA_MAX_MULTI_SHIFT, QUDA_MAX_BLOCK_SRC)
 """
 Maximum array length used in QudaInvertParam arrays
 """
+
 QUDA_MAX_DWF_LS = 32
 """
 Maximum length of the Ls dimension for domain-wall fermions
 """
+
 QUDA_MAX_MG_LEVEL = 5
 """
 Maximum number of multi-grid levels.  This number may be
 increased if needed.
 """
+
+
 QUDA_INVALID_ENUM = -0x7FFFFFFF - 1
+
+
 class qudaError_t(IntEnum):
     QUDA_SUCCESS = 0
     QUDA_ERROR = 1
     QUDA_ERROR_UNINITIALIZED = 2
+
+
 class QudaMemoryType(IntEnum):
     QUDA_MEMORY_DEVICE = 0
     QUDA_MEMORY_DEVICE_PINNED = 1
@@ -51,9 +66,13 @@ class QudaMemoryType(IntEnum):
     QUDA_MEMORY_MAPPED = 4
     QUDA_MEMORY_MANAGED = 5
     QUDA_MEMORY_INVALID = QUDA_INVALID_ENUM
+
+
 #
 # Types used in QudaGaugeParam
 #
+
+
 class QudaLinkType(IntEnum):
     QUDA_SU3_LINKS = 0
     QUDA_GENERAL_LINKS = 1
@@ -72,6 +91,8 @@ class QudaLinkType(IntEnum):
     QUDA_ASQTAD_MOM_LINKS = QUDA_MOMENTUM_LINKS
     QUDA_ASQTAD_GENERAL_LINKS = QUDA_GENERAL_LINKS
     QUDA_INVALID_LINKS = QUDA_INVALID_ENUM
+
+
 class QudaGaugeFieldOrder(IntEnum):
     QUDA_FLOAT_GAUGE_ORDER = 1
     QUDA_FLOAT2_GAUGE_ORDER = 2
@@ -99,16 +120,22 @@ class QudaGaugeFieldOrder(IntEnum):
     QUDA_TIFR_PADDED_GAUGE_ORDER = 17
     """expect *gauge, mu, parity, t, z+halo, y, x/2, column-row order"""
     QUDA_INVALID_GAUGE_ORDER = QUDA_INVALID_ENUM
+
+
 class QudaTboundary(IntEnum):
     QUDA_ANTI_PERIODIC_T = -1
     QUDA_PERIODIC_T = 1
     QUDA_INVALID_T_BOUNDARY = QUDA_INVALID_ENUM
+
+
 class QudaPrecision(IntEnum):
     QUDA_QUARTER_PRECISION = 1
     QUDA_HALF_PRECISION = 2
     QUDA_SINGLE_PRECISION = 4
     QUDA_DOUBLE_PRECISION = 8
     QUDA_INVALID_PRECISION = QUDA_INVALID_ENUM
+
+
 class QudaReconstructType(IntEnum):
     QUDA_RECONSTRUCT_NO = 18
     """store all 18 real numbers explicitly"""
@@ -123,15 +150,21 @@ class QudaReconstructType(IntEnum):
     QUDA_RECONSTRUCT_10 = 10
     """10-number parameterization used for storing the momentum field"""
     QUDA_RECONSTRUCT_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaGaugeFixed(IntEnum):
     QUDA_GAUGE_FIXED_NO = 0
     """no gauge fixing"""
     QUDA_GAUGE_FIXED_YES = 1
     """gauge field stored in temporal gauge"""
     QUDA_GAUGE_FIXED_INVALID = QUDA_INVALID_ENUM
+
+
 #
 # Types used in QudaInvertParam
 #
+
+
 class QudaDslashType(IntEnum):
     QUDA_WILSON_DSLASH = 0
     QUDA_CLOVER_WILSON_DSLASH = 1
@@ -147,6 +180,8 @@ class QudaDslashType(IntEnum):
     QUDA_LAPLACE_DSLASH = 11
     QUDA_COVDEV_DSLASH = 12
     QUDA_INVALID_DSLASH = QUDA_INVALID_ENUM
+
+
 class QudaInverterType(IntEnum):
     QUDA_CG_INVERTER = 0
     QUDA_BICGSTAB_INVERTER = 1
@@ -172,6 +207,8 @@ class QudaInverterType(IntEnum):
     QUDA_CA_CGNR_INVERTER = 21
     QUDA_CA_GCR_INVERTER = 22
     QUDA_INVALID_INVERTER = QUDA_INVALID_ENUM
+
+
 class QudaEigType(IntEnum):
     QUDA_EIG_TR_LANCZOS = 0
     """Thick restarted lanczos solver"""
@@ -182,11 +219,14 @@ class QudaEigType(IntEnum):
     QUDA_EIG_BLK_IR_ARNOLDI = 3
     """Block Implicitly Restarted Arnoldi solver"""
     QUDA_EIG_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaEigSpectrumType(IntEnum):
     """
     S=smallest L=largest\n
     R=real M=modulus I=imaniary
     """
+
     QUDA_SPECTRUM_LM_EIG = 0
     QUDA_SPECTRUM_SM_EIG = 1
     QUDA_SPECTRUM_LR_EIG = 2
@@ -194,6 +234,8 @@ class QudaEigSpectrumType(IntEnum):
     QUDA_SPECTRUM_LI_EIG = 4
     QUDA_SPECTRUM_SI_EIG = 5
     QUDA_SPECTRUM_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaSolutionType(IntEnum):
     QUDA_MAT_SOLUTION = 0
     QUDA_MATDAG_MAT_SOLUTION = 1
@@ -202,6 +244,8 @@ class QudaSolutionType(IntEnum):
     QUDA_MATPCDAG_MATPC_SOLUTION = 4
     QUDA_MATPCDAG_MATPC_SHIFT_SOLUTION = 5
     QUDA_INVALID_SOLUTION = QUDA_INVALID_ENUM
+
+
 class QudaSolveType(IntEnum):
     QUDA_DIRECT_SOLVE = 0
     QUDA_NORMOP_SOLVE = 1
@@ -214,20 +258,28 @@ class QudaSolveType(IntEnum):
     QUDA_NORMEQ_PC_SOLVE = QUDA_NORMOP_PC_SOLVE
     """deprecated"""
     QUDA_INVALID_SOLVE = QUDA_INVALID_ENUM
+
+
 class QudaMultigridCycleType(IntEnum):
     QUDA_MG_CYCLE_VCYCLE = 0
     QUDA_MG_CYCLE_FCYCLE = 1
     QUDA_MG_CYCLE_WCYCLE = 2
     QUDA_MG_CYCLE_RECURSIVE = 3
     QUDA_MG_CYCLE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaSchwarzType(IntEnum):
     QUDA_ADDITIVE_SCHWARZ = 0
     QUDA_MULTIPLICATIVE_SCHWARZ = 1
     QUDA_INVALID_SCHWARZ = QUDA_INVALID_ENUM
+
+
 class QudaAcceleratorType(IntEnum):
     QUDA_MADWF_ACCELERATOR = 0
     """Use the MADWF accelerator"""
     QUDA_INVALID_ACCELERATOR = QUDA_INVALID_ENUM
+
+
 class QudaResidualType(IntEnum):
     QUDA_L2_RELATIVE_RESIDUAL = 1
     """L2 relative residual (default)"""
@@ -236,45 +288,63 @@ class QudaResidualType(IntEnum):
     QUDA_HEAVY_QUARK_RESIDUAL = 4
     """Fermilab heavy quark residual"""
     QUDA_INVALID_RESIDUAL = QUDA_INVALID_ENUM
+
+
 class QudaCABasis(IntEnum):
     """Which basis to use for CA algorithms"""
+
     QUDA_POWER_BASIS = 0
     QUDA_CHEBYSHEV_BASIS = 1
     QUDA_INVALID_BASIS = QUDA_INVALID_ENUM
+
+
 class QudaMatPCType(IntEnum):
     """
     Whether the preconditioned matrix is (1-k^2 Deo Doe) or (1-k^2 Doe Deo)
+
     For the clover-improved Wilson Dirac operator, QUDA_MATPC_EVEN_EVEN
     defaults to the "symmetric" form, (1 - k^2 A_ee^-1 D_eo A_oo^-1 D_oe)
     and likewise for QUDA_MATPC_ODD_ODD.
+
     For the "asymmetric" form, (A_ee - k^2 D_eo A_oo^-1 D_oe), select
     QUDA_MATPC_EVEN_EVEN_ASYMMETRIC.
     """
+
     QUDA_MATPC_EVEN_EVEN = 0
     QUDA_MATPC_ODD_ODD = 1
     QUDA_MATPC_EVEN_EVEN_ASYMMETRIC = 2
     QUDA_MATPC_ODD_ODD_ASYMMETRIC = 3
     QUDA_MATPC_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaDagType(IntEnum):
     QUDA_DAG_NO = 0
     QUDA_DAG_YES = 1
     QUDA_DAG_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaMassNormalization(IntEnum):
     QUDA_KAPPA_NORMALIZATION = 0
     QUDA_MASS_NORMALIZATION = 1
     QUDA_ASYMMETRIC_MASS_NORMALIZATION = 2
     QUDA_INVALID_NORMALIZATION = QUDA_INVALID_ENUM
+
+
 class QudaSolverNormalization(IntEnum):
     QUDA_DEFAULT_NORMALIZATION = 0
     """leave source and solution untouched"""
     QUDA_SOURCE_NORMALIZATION = 1
     """normalize such that || src || = 1"""
+
+
 class QudaPreserveSource(IntEnum):
     QUDA_PRESERVE_SOURCE_NO = 0
     """use the source for the residual"""
     QUDA_PRESERVE_SOURCE_YES = 1
     """keep the source intact"""
     QUDA_PRESERVE_SOURCE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaDiracFieldOrder(IntEnum):
     QUDA_INTERNAL_DIRAC_ORDER = 0
     """internal dirac order used, varies on precision and dslash type"""
@@ -291,6 +361,8 @@ class QudaDiracFieldOrder(IntEnum):
     QUDA_TIFR_PADDED_DIRAC_ORDER = 6
     """padded z dimension for TIFR RHMC code"""
     QUDA_INVALID_DIRAC_ORDER = QUDA_INVALID_ENUM
+
+
 class QudaCloverFieldOrder(IntEnum):
     QUDA_FLOAT_CLOVER_ORDER = 1
     """even-odd float ordering"""
@@ -307,28 +379,41 @@ class QudaCloverFieldOrder(IntEnum):
     QUDA_BQCD_CLOVER_ORDER = 11
     """even-odd, super-diagonal packed and reordered"""
     QUDA_INVALID_CLOVER_ORDER = QUDA_INVALID_ENUM
+
+
 class QudaVerbosity(IntEnum):
     QUDA_SILENT = 0
     QUDA_SUMMARIZE = 1
     QUDA_VERBOSE = 2
     QUDA_DEBUG_VERBOSE = 3
     QUDA_INVALID_VERBOSITY = QUDA_INVALID_ENUM
+
+
 class QudaTune(IntEnum):
     QUDA_TUNE_NO = 0
     QUDA_TUNE_YES = 1
     QUDA_TUNE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaPreserveDirac(IntEnum):
     QUDA_PRESERVE_DIRAC_NO = 0
     QUDA_PRESERVE_DIRAC_YES = 1
     QUDA_PRESERVE_DIRAC_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaParity(IntEnum):
     """Type used for "parity" argument to dslashQuda()"""
+
     QUDA_EVEN_PARITY = 0
     QUDA_ODD_PARITY = 1
     QUDA_INVALID_PARITY = QUDA_INVALID_ENUM
+
+
 #
 # Types used only internally
 #
+
+
 class QudaDiracType(IntEnum):
     QUDA_WILSON_DIRAC = 0
     QUDA_WILSONPC_DIRAC = 1
@@ -360,18 +445,27 @@ class QudaDiracType(IntEnum):
     QUDA_GAUGE_LAPLACEPC_DIRAC = 27
     QUDA_GAUGE_COVDEV_DIRAC = 28
     QUDA_INVALID_DIRAC = QUDA_INVALID_ENUM
+
+
 class QudaFieldLocation(IntEnum):
     """Where the field is stored"""
+
     QUDA_CPU_FIELD_LOCATION = 1
     QUDA_CUDA_FIELD_LOCATION = 2
     QUDA_INVALID_FIELD_LOCATION = QUDA_INVALID_ENUM
+
+
 class QudaSiteSubset(IntEnum):
     """Which sites are included"""
+
     QUDA_PARITY_SITE_SUBSET = 1
     QUDA_FULL_SITE_SUBSET = 2
     QUDA_INVALID_SITE_SUBSET = QUDA_INVALID_ENUM
+
+
 class QudaSiteOrder(IntEnum):
     """Site ordering (always t-z-y-x, with rightmost varying fastest)"""
+
     QUDA_LEXICOGRAPHIC_SITE_ORDER = 0
     """lexicographic ordering"""
     QUDA_EVEN_ODD_SITE_ORDER = 1
@@ -379,8 +473,11 @@ class QudaSiteOrder(IntEnum):
     QUDA_ODD_EVEN_SITE_ORDER = 2
     """CPS uses this"""
     QUDA_INVALID_SITE_ORDER = QUDA_INVALID_ENUM
+
+
 class QudaFieldOrder(IntEnum):
     """Degree of freedom ordering"""
+
     QUDA_FLOAT_FIELD_ORDER = 1
     """spin-color-complex-space"""
     QUDA_FLOAT2_FIELD_ORDER = 2
@@ -400,6 +497,8 @@ class QudaFieldOrder(IntEnum):
     QUDA_PADDED_SPACE_SPIN_COLOR_FIELD_ORDER = 13
     """TIFR RHMC ordering"""
     QUDA_INVALID_FIELD_ORDER = QUDA_INVALID_ENUM
+
+
 class QudaFieldCreate(IntEnum):
     QUDA_NULL_FIELD_CREATE = 0
     """new field"""
@@ -412,13 +511,17 @@ class QudaFieldCreate(IntEnum):
     QUDA_GHOST_FIELD_CREATE = 4
     """dummy field used only for ghost storage"""
     QUDA_INVALID_FIELD_CREATE = QUDA_INVALID_ENUM
+
+
 class QudaGammaBasis(IntEnum):
     """
     gamj=((top 2 rows)(bottom 2 rows))  s1,s2,s3 are Pauli spin matrices, 1 is 2x2 identity
+
     Dirac-Pauli -> DeGrand-Rossi   T = i/sqrt(2)*((s2,-s2)(s2,s2))     field_DR = T * field_DP\n
     UKQCD -> DeGrand-Rossi         T = i/sqrt(2)*((-s2,-s2)(-s2,s2))   field_DR = T * field_UK\n
     Chiral -> DeGrand-Rossi        T = i*((0,-s2)(s2,0))               field_DR = T * field_chiral
     """
+
     QUDA_DEGRAND_ROSSI_GAMMA_BASIS = 0
     """gam1=((0,i*s1)(-i*s1,0)) gam2=((0,-i*s2)(i*s2,0)) gam3=((0,i*s3)(-i*s3,0)) gam4=((0,1)(1,0))  gam5=((-1,0)(0,1))"""
     QUDA_UKQCD_GAMMA_BASIS = 1
@@ -429,6 +532,8 @@ class QudaGammaBasis(IntEnum):
     """gam1=((0,-i*s1)(i*s1,0)) gam2=((0,-i*s2)(i*s2,0)) gam3=((0,-i*s3)(i*s3,0)) gam4=((1,0)(0,-1)) gam5=((0,1)(1,0))"""
     QUDA_INVALID_GAMMA_BASIS = QUDA_INVALID_ENUM
     """gam5=gam4*gam1*gam2*gam3"""
+
+
 class QudaSourceType(IntEnum):
     QUDA_POINT_SOURCE = 0
     QUDA_RANDOM_SOURCE = 1
@@ -436,10 +541,14 @@ class QudaSourceType(IntEnum):
     QUDA_SINUSOIDAL_SOURCE = 3
     QUDA_CORNER_SOURCE = 4
     QUDA_INVALID_SOURCE = QUDA_INVALID_ENUM
+
+
 class QudaNoiseType(IntEnum):
     QUDA_NOISE_GAUSS = 0
     QUDA_NOISE_UNIFORM = 1
     QUDA_NOISE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaDilutionType(IntEnum):
     QUDA_DILUTION_SPIN = 0
     QUDA_DILUTION_COLOR = 1
@@ -447,66 +556,96 @@ class QudaDilutionType(IntEnum):
     QUDA_DILUTION_SPIN_COLOR_EVEN_ODD = 3
     QUDA_DILUTION_BLOCK = 4
     QUDA_DILUTION_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaProjectionType(IntEnum):
     """used to select projection method for deflated solvers"""
+
     QUDA_MINRES_PROJECTION = 0
     QUDA_GALERKIN_PROJECTION = 1
     QUDA_INVALID_PROJECTION = QUDA_INVALID_ENUM
+
+
 class QudaPCType(IntEnum):
     """used to select checkerboard preconditioning method"""
+
     QUDA_4D_PC = 4
     QUDA_5D_PC = 5
     QUDA_PC_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaTwistFlavorType(IntEnum):
     QUDA_TWIST_SINGLET = 1
     QUDA_TWIST_NONDEG_DOUBLET = 2
     QUDA_TWIST_NO = 0
     QUDA_TWIST_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaTwistDslashType(IntEnum):
     QUDA_DEG_TWIST_INV_DSLASH = 0
     QUDA_DEG_DSLASH_TWIST_INV = 1
     QUDA_DEG_DSLASH_TWIST_XPAY = 2
     QUDA_NONDEG_DSLASH = 3
     QUDA_DSLASH_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaTwistCloverDslashType(IntEnum):
     QUDA_DEG_CLOVER_TWIST_INV_DSLASH = 0
     QUDA_DEG_DSLASH_CLOVER_TWIST_INV = 1
     QUDA_DEG_DSLASH_CLOVER_TWIST_XPAY = 2
     QUDA_TC_DSLASH_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaTwistGamma5Type(IntEnum):
     QUDA_TWIST_GAMMA5_DIRECT = 0
     QUDA_TWIST_GAMMA5_INVERSE = 1
     QUDA_TWIST_GAMMA5_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaUseInitGuess(IntEnum):
     QUDA_USE_INIT_GUESS_NO = 0
     QUDA_USE_INIT_GUESS_YES = 1
     QUDA_USE_INIT_GUESS_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaDeflatedGuess(IntEnum):
     QUDA_DEFLATED_GUESS_NO = 0
     QUDA_DEFLATED_GUESS_YES = 1
     QUDA_DEFLATED_GUESS_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaComputeNullVector(IntEnum):
     QUDA_COMPUTE_NULL_VECTOR_NO = 0
     QUDA_COMPUTE_NULL_VECTOR_YES = 1
     QUDA_COMPUTE_NULL_VECTOR_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaSetupType(IntEnum):
     QUDA_NULL_VECTOR_SETUP = 0
     QUDA_TEST_VECTOR_SETUP = 1
     QUDA_INVALID_SETUP_TYPE = QUDA_INVALID_ENUM
+
+
 class QudaTransferType(IntEnum):
     QUDA_TRANSFER_AGGREGATE = 0
     QUDA_TRANSFER_COARSE_KD = 1
     QUDA_TRANSFER_OPTIMIZED_KD = 2
     QUDA_TRANSFER_OPTIMIZED_KD_DROP_LONG = 3
     QUDA_TRANSFER_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaBoolean(IntEnum):
     QUDA_BOOLEAN_FALSE = 0
     QUDA_BOOLEAN_TRUE = 1
     QUDA_BOOLEAN_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaBLASType(IntEnum):
     QUDA_BLAS_GEMM = 0
     QUDA_BLAS_LU_INV = 1
     QUDA_BLAS_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaBLASOperation(IntEnum):
     QUDA_BLAS_OP_N = 0
     """No transpose"""
@@ -515,6 +654,8 @@ class QudaBLASOperation(IntEnum):
     QUDA_BLAS_OP_C = 2
     """Conjugate transpose"""
     QUDA_BLAS_OP_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaBLASDataType(IntEnum):
     QUDA_BLAS_DATATYPE_S = 0
     """Single"""
@@ -525,19 +666,27 @@ class QudaBLASDataType(IntEnum):
     QUDA_BLAS_DATATYPE_Z = 3
     """Complex(double)"""
     QUDA_BLAS_DATATYPE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaBLASDataOrder(IntEnum):
     QUDA_BLAS_DATAORDER_ROW = 0
     QUDA_BLAS_DATAORDER_COL = 1
     QUDA_BLAS_DATAORDER_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaDirection(IntEnum):
     QUDA_BACKWARDS = -1
     QUDA_IN_PLACE = 0
     QUDA_FORWARDS = 1
     QUDA_BOTH_DIRS = 2
+
+
 class QudaLinkDirection(IntEnum):
     QUDA_LINK_BACKWARDS = 0
     QUDA_LINK_FORWARDS = 1
     QUDA_LINK_BIDIRECTIONAL = 2
+
+
 class QudaFieldGeometry(IntEnum):
     QUDA_SCALAR_GEOMETRY = 1
     QUDA_VECTOR_GEOMETRY = 4
@@ -546,17 +695,23 @@ class QudaFieldGeometry(IntEnum):
     QUDA_KDINVERSE_GEOMETRY = 16
     """Decomposition of Kahler-Dirac block"""
     QUDA_INVALID_GEOMETRY = QUDA_INVALID_ENUM
+
+
 class QudaGhostExchange(IntEnum):
     QUDA_GHOST_EXCHANGE_NO = 0
     QUDA_GHOST_EXCHANGE_PAD = 1
     QUDA_GHOST_EXCHANGE_EXTENDED = 2
     QUDA_GHOST_EXCHANGE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaStaggeredPhase(IntEnum):
     QUDA_STAGGERED_PHASE_NO = 0
     QUDA_STAGGERED_PHASE_MILC = 1
     QUDA_STAGGERED_PHASE_CHROMA = 2
     QUDA_STAGGERED_PHASE_TIFR = 3
     QUDA_STAGGERED_PHASE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaSpinTasteGamma(IntEnum):
     QUDA_SPIN_TASTE_G1 = 0
     QUDA_SPIN_TASTE_GX = 1
@@ -575,6 +730,8 @@ class QudaSpinTasteGamma(IntEnum):
     QUDA_SPIN_TASTE_G5GZ = 11
     QUDA_SPIN_TASTE_G5GT = 7
     QUDA_SPIN_TASTE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaContractType(IntEnum):
     QUDA_CONTRACT_TYPE_STAGGERED_FT_T = 0
     """Staggered, FT in tdim"""
@@ -597,6 +754,8 @@ class QudaContractType(IntEnum):
     QUDA_CONTRACT_TYPE_OPEN_FT_Z = 9
     """Open spin elementals, FT in zdim"""
     QUDA_CONTRACT_TYPE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaFFTSymmType(IntEnum):
     QUDA_FFT_SYMM_ODD = 1
     """sin(phase)"""
@@ -605,6 +764,8 @@ class QudaFFTSymmType(IntEnum):
     QUDA_FFT_SYMM_EO = 3
     """exp(-i phase)"""
     QUDA_FFT_SYMM_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaContractGamma(IntEnum):
     QUDA_CONTRACT_GAMMA_I = 0
     QUDA_CONTRACT_GAMMA_G1 = 1
@@ -623,6 +784,8 @@ class QudaContractGamma(IntEnum):
     QUDA_CONTRACT_GAMMA_S23 = 14
     QUDA_CONTRACT_GAMMA_S34 = 15
     QUDA_CONTRACT_GAMMA_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaGaugeSmearType(IntEnum):
     QUDA_GAUGE_SMEAR_APE = 0
     QUDA_GAUGE_SMEAR_STOUT = 1
@@ -631,16 +794,23 @@ class QudaGaugeSmearType(IntEnum):
     QUDA_GAUGE_SMEAR_WILSON_FLOW = 4
     QUDA_GAUGE_SMEAR_SYMANZIK_FLOW = 5
     QUDA_GAUGE_SMEAR_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaWFlowType(IntEnum):
     QUDA_WFLOW_TYPE_WILSON = 0
     QUDA_WFLOW_TYPE_SYMANZIK = 1
     QUDA_WFLOW_TYPE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaFermionSmearType(IntEnum):
     QUDA_FERMION_SMEAR_TYPE_GAUSSIAN = 0
     QUDA_FERMION_SMEAR_TYPE_WUPPERTAL = 1
     QUDA_FERMION_SMEAR_TYPE_INVALID = QUDA_INVALID_ENUM
+
+
 class QudaExtLibType(IntEnum):
     """Allows to choose an appropriate external library"""
+
     QUDA_CUSOLVE_EXTLIB = 0
     QUDA_EIGEN_EXTLIB = 1
     QUDA_EXTLIB_INVALID = QUDA_INVALID_ENUM

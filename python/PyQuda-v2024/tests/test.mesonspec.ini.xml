@@ -5,6 +5,7 @@
   </annotation>
   <Param>
     <InlineMeasurements>
+
       <elem>
         <Name>MAKE_SOURCE</Name>
         <Frequency>1</Frequency>
@@ -15,6 +16,7 @@
             <SourceType>POINT_SOURCE</SourceType>
             <j_decay>3</j_decay>
             <t_srce>0 0 0 0</t_srce>
+
             <Displacement>
               <version>1</version>
               <DisplacementType>NONE</DisplacementType>
@@ -26,6 +28,7 @@
           <source_id>pt_source_1</source_id>
         </NamedObject>
       </elem>
+
       <elem>
         <Name>PROPAGATOR</Name>
         <Frequency>1</Frequency>
@@ -63,6 +66,7 @@
           <prop_id>pt_prop_1</prop_id>
         </NamedObject>
       </elem>
+
       <elem>
         <Name>SINK_SMEAR</Name>
         <Frequency>1</Frequency>
@@ -72,6 +76,7 @@
             <version>2</version>
             <SinkType>POINT_SINK</SinkType>
             <j_decay>3</j_decay>
+
             <Displacement>
               <version>1</version>
               <DisplacementType>NONE</DisplacementType>
@@ -84,6 +89,7 @@
           <smeared_prop_id>pt_pt_sink_1</smeared_prop_id>
         </NamedObject>
       </elem>
+
       <elem>
         <annotation>
          Compute the meson spectrum. 
@@ -110,11 +116,13 @@
                   <first_id>pt_pt_sink_1</first_id>
                   <second_id>pt_pt_sink_1</second_id>
                   <factor>1.0</factor>
+
                   <SourceSpinInsertion>
                     <version>1</version>
                     <SpinInsertionType>RIGHT_GAMMA_INSERTION</SpinInsertionType>
                     <gamma>15</gamma>
                   </SourceSpinInsertion>
+
                   <SinkSpinInsertion>
                     <version>1</version>
                     <SpinInsertionType>RIGHT_GAMMA_INSERTION</SpinInsertionType>
@@ -133,11 +141,13 @@
                   <first_id>pt_pt_sink_1</first_id>
                   <second_id>pt_pt_sink_1</second_id>
                   <factor>-1.0</factor>
+
                   <SourceSpinInsertion>
                     <version>1</version>
                     <SpinInsertionType>RIGHT_GAMMA_INSERTION</SpinInsertionType>
                     <gamma>7</gamma>
                   </SourceSpinInsertion>
+
                   <SinkSpinInsertion>
                     <version>1</version>
                     <SpinInsertionType>RIGHT_GAMMA_INSERTION</SpinInsertionType>
@@ -150,9 +160,11 @@
         </NamedObject>
         <xml_file>mesonspec.dat.xml</xml_file>
       </elem>
+
     </InlineMeasurements>
     <nrow>4 4 4 8</nrow>
   </Param>
+
   <RNG>
     <Seed>
       <elem>11</elem>
@@ -161,6 +173,7 @@
       <elem>0</elem>
     </Seed>
   </RNG>
+
   <Cfg>
     <cfg_type>SZINQIO</cfg_type>
     <cfg_file>tests/weak_field.lime</cfg_file>

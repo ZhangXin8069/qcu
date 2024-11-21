@@ -26,6 +26,7 @@
           <gauge_rot_id>gauge_rot</gauge_rot_id>
         </NamedObject>
       </elem>
+
       <elem>
         <annotation>
           Write the config
@@ -41,6 +42,7 @@
           <file_volfmt>SINGLEFILE</file_volfmt>
         </File>
       </elem>
+
     </InlineMeasurements>
     <nrow>4 4 4 8</nrow>
   </Param>

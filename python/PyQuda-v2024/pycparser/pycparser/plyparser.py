@@ -7,7 +7,9 @@
 # Eli Bendersky [https://eli.thegreenplace.net/]
 # License: BSD
 #-----------------------------------------------------------------
+
 import warnings
+
 class Coord(object):
     """ Coordinates of a syntactic element. Consists of:
             - File name
@@ -19,11 +21,16 @@ class Coord(object):
         self.file = file
         self.line = line
         self.column = column
+
     def __str__(self):
         str = "%s:%s" % (self.file, self.line)
         if self.column: str += ":%s" % self.column
         return str
+
+
 class ParseError(Exception): pass
+
+
 class PLYParser(object):
     def _create_opt_rule(self, rulename):
         """ Given a rule name, creates an optional ply.yacc rule
@@ -31,16 +38,20 @@ class PLYParser(object):
             <rulename>_opt
         """
         optname = rulename + '_opt'
+
         def optrule(self, p):
             p[0] = p[1]
+
         optrule.__doc__ = '%s : empty\n| %s' % (optname, rulename)
         optrule.__name__ = 'p_%s' % optname
         setattr(self.__class__, optrule.__name__, optrule)
+
     def _coord(self, lineno, column=None):
         return Coord(
                 file=self.clex.filename,
                 line=lineno,
                 column=column)
+
     def _token_coord(self, p, token_idx):
         """ Returns the coordinates for the YaccProduction object 'p' indexed
             with 'token_idx'. The coordinate includes the 'lineno' and
@@ -51,10 +62,14 @@ class PLYParser(object):
             last_cr = -1
         column = (p.lexpos(token_idx) - (last_cr))
         return self._coord(p.lineno(token_idx), column)
+
     def _parse_error(self, msg, coord):
         raise ParseError("%s: %s" % (coord, msg))
+
+
 def parameterized(*params):
     """ Decorator to create parameterized rules.
+
     Parameterized rule methods must be named starting with 'p_' and contain
     'xxx', and their docstrings may contain 'xxx' and 'yyy'. These will be
     replaced by the given parameter tuples. For example, ``p_xxx_rule()`` with
@@ -66,8 +81,11 @@ def parameterized(*params):
         rule_func._params = params
         return rule_func
     return decorate
+
+
 def template(cls):
     """ Class decorator to generate rules from parameterized rule templates.
+
     See `parameterized` for more information on parameterized rules.
     """
     issued_nodoc_warning = False
@@ -93,8 +111,11 @@ def template(cls):
                         stacklevel=2)
                     issued_nodoc_warning = True
     return cls
+
+
 def _create_param_rules(cls, func):
     """ Create ply.yacc rules based on a parameterized rule function
+
     Generates new methods (one per each pair of parameters) based on the
     template rule function `func`, and attaches them to `cls`. The rule
     function's parameters must be accessible via its `_params` attribute.
@@ -103,8 +124,10 @@ def _create_param_rules(cls, func):
         # Use the template method's body for each new method
         def param_rule(self, p):
             func(self, p)
+
         # Substitute in the params for the grammar rule and function name
         param_rule.__doc__ = func.__doc__.replace('xxx', xxx).replace('yyy', yyy)
         param_rule.__name__ = func.__name__.replace('xxx', xxx)
+
         # Attach the new method to the class
         setattr(cls, param_rule.__name__, param_rule)

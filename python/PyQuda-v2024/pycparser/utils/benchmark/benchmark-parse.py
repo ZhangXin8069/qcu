@@ -10,12 +10,18 @@ import os
 import statistics
 import sys
 import time
+
 sys.path.extend(['.', '..'])
+
 from pycparser import c_parser, c_ast
+
+
 def measure_parse(text, n, progress_cb):
     """Measure the parsing of text with pycparser.
+
     text should represent a full file. n is the number of iterations to measure.
     progress_cb will be called with the iteration number each time one is done.
+
     Returns a list of elapsed times, one per iteration.
     """
     times = []
@@ -28,6 +34,8 @@ def measure_parse(text, n, progress_cb):
         times.append(elapsed)
         progress_cb(i)
     return times
+
+
 def measure_file(filename, n):
     progress_cb = lambda i: print('.', sep='', end='', flush=True)
     with open(filename) as f:
@@ -36,7 +44,11 @@ def measure_file(filename, n):
         times = measure_parse(text, n, progress_cb)
     print('    Mean: %.3f  Stddev: %.3f' % (statistics.mean(times),
                                             statistics.stdev(times)))
+
+
 NUM_RUNS = 5
+
+
 if __name__ == '__main__':
     if len(sys.argv) < 2:
         print("Usage: %s <dir with input files>")

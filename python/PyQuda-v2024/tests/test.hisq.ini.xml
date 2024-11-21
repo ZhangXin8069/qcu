@@ -12,6 +12,7 @@
             <SourceType>POINT_SOURCE</SourceType>
             <j_decay>3</j_decay>
             <t_srce>0 0 0 0</t_srce>
+
             <Displacement>
               <version>1</version>
               <DisplacementType>NONE</DisplacementType>
@@ -23,6 +24,7 @@
           <source_id>pt_source_0</source_id>
         </NamedObject>
       </elem>
+
       <elem>
         <Name>PROPAGATOR_STAG</Name>
         <Frequency>1</Frequency>
@@ -55,6 +57,7 @@
           <prop_id>pt_prop_0</prop_id>
         </NamedObject>
       </elem>
+
       <elem>
         <Name>QIO_WRITE_NAMED_OBJECT</Name>
         <Frequency>1</Frequency>
@@ -70,6 +73,7 @@
     </InlineMeasurements>
     <nrow>4 4 4 8</nrow>
   </Param>
+
   <RNG>
     <Seed>
       <elem>11</elem>
@@ -78,8 +82,10 @@
       <elem>0</elem>
     </Seed>
   </RNG>
+
   <Cfg>
     <cfg_type>SZINQIO</cfg_type>
     <cfg_file>tests/weak_field.lime</cfg_file>
   </Cfg>
+
 </chroma>

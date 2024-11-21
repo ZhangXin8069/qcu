@@ -1,5 +1,7 @@
 from typing import List, Literal, Union
+
 import numpy
+
 from ..pointer import ndarrayPointer
 from ..pyquda import (
     QudaGaugeSmearParam,
@@ -32,7 +34,10 @@ from ..enum_quda import (
     QudaReconstructType,
     QudaSolveType,
 )
+
 from . import Gauge, general
+
+
 class PureGauge(Gauge):
     def __init__(self, latt_info: LatticeInfo) -> None:
         super().__init__(latt_info)
@@ -47,42 +52,54 @@ class PureGauge(Gauge):
         self.newQudaInvertParam()
         self.newQudaGaugeSmearParam()
         self.newQudaGaugeObservableParam()
+
     def newQudaGaugeParam(self):
         gauge_param = general.newQudaGaugeParam(self.latt_info, 1.0, 0.0, self.precision, self.reconstruct)
         self.gauge_param = gauge_param
+
     def newQudaInvertParam(self):
         invert_param = general.newQudaInvertParam(0, 1 / 8, 0, 0, 0.0, 1.0, None, self.precision)
         invert_param.solve_type = QudaSolveType.QUDA_DIRECT_SOLVE
         invert_param.mass_normalization = QudaMassNormalization.QUDA_KAPPA_NORMALIZATION
         self.invert_param = invert_param
+
     def newQudaGaugeSmearParam(self):
         smear_param = QudaGaugeSmearParam()
         self.smear_param = smear_param
+
     def newQudaGaugeObservableParam(self):
         obs_param = QudaGaugeObservableParam()
         self.obs_param = obs_param
+
     def loadGauge(self, gauge: LatticeGauge):
         self.gauge_param.use_resident_gauge = 0
         loadGaugeQuda(gauge.data_ptrs, self.gauge_param)
         self.gauge_param.use_resident_gauge = 1
+
     def saveGauge(self, gauge: LatticeGauge):
         saveGaugeQuda(gauge.data_ptrs, self.gauge_param)
+
     def freeGauge(self):
         freeUniqueGaugeQuda(QudaLinkType.QUDA_WILSON_LINKS)
+
     def loadMom(self, mom: LatticeMom):
         momResidentQuda(mom.data_ptrs, self.gauge_param)
+
     def saveFreeMom(self, mom: LatticeMom):
         self.gauge_param.make_resident_mom = 0
         self.gauge_param.return_result_mom = 1
         momResidentQuda(mom.data_ptrs, self.gauge_param)
         self.gauge_param.make_resident_mom = 1
         self.gauge_param.return_result_mom = 0
+
     def saveSmearedGauge(self, gauge: LatticeGauge):
         self.gauge_param.type = QudaLinkType.QUDA_SMEARED_LINKS
         saveGaugeQuda(gauge.data_ptrs, self.gauge_param)
         self.gauge_param.type = QudaLinkType.QUDA_WILSON_LINKS
+
     def freeSmearedGauge(self):
         freeUniqueGaugeQuda(QudaLinkType.QUDA_SMEARED_LINKS)
+
     def covDev(self, x: LatticeFermion, covdev_mu: int):
         b = LatticeFermion(x.latt_info)
         self.invert_param.dslash_type = QudaDslashType.QUDA_COVDEV_DSLASH
@@ -91,6 +108,7 @@ class PureGauge(Gauge):
         self.invert_param.covdev_mu = covdev_mu
         MatQuda(b.data_ptr, x.data_ptr, self.invert_param)
         return b
+
     def laplace(self, x: LatticeStaggeredFermion, laplace3D: int):
         b = LatticeStaggeredFermion(x.latt_info)
         self.invert_param.dslash_type = QudaDslashType.QUDA_LAPLACE_DSLASH
@@ -100,6 +118,7 @@ class PureGauge(Gauge):
         self.invert_param.laplace3D = laplace3D
         MatQuda(b.data_ptr, x.data_ptr, self.invert_param)
         return b
+
     def wuppertalSmear(self, x: Union[LatticeFermion, LatticeStaggeredFermion], n_steps: int, alpha: float):
         if isinstance(x, LatticeStaggeredFermion):
             b = LatticeStaggeredFermion(x.latt_info)
@@ -109,6 +128,7 @@ class PureGauge(Gauge):
             self.invert_param.dslash_type = QudaDslashType.QUDA_WILSON_DSLASH
         performWuppertalnStep(b.data_ptr, x.data_ptr, self.invert_param, n_steps, alpha)
         return b
+
     def staggeredPhase(self, gauge: LatticeGauge):
         self.gauge_param.use_resident_gauge = 0
         self.gauge_param.make_resident_gauge = 0
@@ -118,6 +138,7 @@ class PureGauge(Gauge):
         self.gauge_param.use_resident_gauge = 1
         self.gauge_param.make_resident_gauge = 1
         self.gauge_param.return_result_gauge = 0
+
     def projectSU3(self, gauge: LatticeGauge, tol: float):
         self.gauge_param.use_resident_gauge = 0
         self.gauge_param.make_resident_gauge = 0
@@ -126,6 +147,7 @@ class PureGauge(Gauge):
         self.gauge_param.use_resident_gauge = 1
         self.gauge_param.make_resident_gauge = 1
         self.gauge_param.return_result_gauge = 0
+
     @classmethod
     def _getPath(cls, path: List[int]):
         input_path_buf = numpy.zeros((len(path)), "<i4")
@@ -137,6 +159,7 @@ class PureGauge(Gauge):
             else:
                 raise ValueError(f"path should be list of int from 0 to 7, but get {path}")
         return input_path_buf, len(path)
+
     def path(
         self,
         gauge: LatticeGauge,
@@ -174,6 +197,7 @@ class PureGauge(Gauge):
         self.gauge_param.use_resident_gauge = 1
         self.gauge_param.make_resident_gauge = 1
         return gauge_path
+
     @classmethod
     def _getLoops(cls, loops: List[List[int]]):
         num_paths = len(loops)
@@ -196,6 +220,7 @@ class PureGauge(Gauge):
             if dx != [0, 0, 0, 0]:
                 raise ValueError(f"path {loops[i]} is not a loop")
         return input_path_buf, path_length, num_paths, max_length
+
     def loop(
         self,
         gauge: LatticeGauge,
@@ -231,6 +256,7 @@ class PureGauge(Gauge):
         self.gauge_param.use_resident_gauge = 1
         self.gauge_param.make_resident_gauge = 1
         return gauge_loop
+
     def loopTrace(self, loops: List[List[int]]):
         input_path_buf, path_length, num_paths, max_length = PureGauge._getLoops(loops)
         traces = numpy.zeros((num_paths), "<c16")
@@ -245,6 +271,7 @@ class PureGauge(Gauge):
             1.0,
         )
         return traces
+
     def apeSmear(self, n_steps: int, alpha: float, dir_ignore: int):
         self.smear_param.smear_type = QudaGaugeSmearType.QUDA_GAUGE_SMEAR_APE
         self.smear_param.n_steps = n_steps
@@ -254,6 +281,7 @@ class PureGauge(Gauge):
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_TRUE
         performGaugeSmearQuda(self.smear_param, self.obs_param)
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
+
     def stoutSmear(self, n_steps: int, rho: float, dir_ignore: int):
         self.smear_param.smear_type = QudaGaugeSmearType.QUDA_GAUGE_SMEAR_STOUT
         self.smear_param.n_steps = n_steps
@@ -263,6 +291,7 @@ class PureGauge(Gauge):
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_TRUE
         performGaugeSmearQuda(self.smear_param, self.obs_param)
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
+
     def hypSmear(self, n_steps: int, alpha1: float, alpha2: float, alpha3: float, dir_ignore: int):
         self.smear_param.smear_type = QudaGaugeSmearType.QUDA_GAUGE_SMEAR_HYP
         self.smear_param.n_steps = n_steps
@@ -274,6 +303,7 @@ class PureGauge(Gauge):
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_TRUE
         performGaugeSmearQuda(self.smear_param, self.obs_param)
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
+
     def wilsonFlow(self, n_steps: int, epsilon: float, t0: float, restart: bool):
         self.smear_param.smear_type = QudaGaugeSmearType.QUDA_GAUGE_SMEAR_WILSON_FLOW
         self.smear_param.n_steps = n_steps
@@ -286,6 +316,7 @@ class PureGauge(Gauge):
         performWFlowQuda(self.smear_param, self.obs_param)
         self.obs_param.compute_plaquette = QudaBoolean.QUDA_BOOLEAN_FALSE
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
+
     def symanzikFlow(self, n_steps: int, epsilon: float, t0: float, restart: bool):
         self.smear_param.smear_type = QudaGaugeSmearType.QUDA_GAUGE_SMEAR_SYMANZIK_FLOW
         self.smear_param.n_steps = n_steps
@@ -298,26 +329,31 @@ class PureGauge(Gauge):
         performWFlowQuda(self.smear_param, self.obs_param)
         self.obs_param.compute_plaquette = QudaBoolean.QUDA_BOOLEAN_FALSE
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
+
     def plaquette(self):
         self.obs_param.compute_plaquette = QudaBoolean.QUDA_BOOLEAN_TRUE
         gaugeObservablesQuda(self.obs_param)
         self.obs_param.compute_plaquette = QudaBoolean.QUDA_BOOLEAN_FALSE
         return self.obs_param.plaquette
+
     def polyakovLoop(self):
         self.obs_param.compute_polyakov_loop = QudaBoolean.QUDA_BOOLEAN_TRUE
         gaugeObservablesQuda(self.obs_param)
         self.obs_param.compute_polyakov_loop = QudaBoolean.QUDA_BOOLEAN_FALSE
         return self.obs_param.ploop
+
     def energy(self):
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_TRUE
         gaugeObservablesQuda(self.obs_param)
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
         return self.obs_param.energy
+
     def qcharge(self):
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_TRUE
         gaugeObservablesQuda(self.obs_param)
         self.obs_param.compute_qcharge = QudaBoolean.QUDA_BOOLEAN_FALSE
         return self.obs_param.qcharge
+
     def qchargeDensity(self):
         qcharge_density = numpy.zeros((self.latt_info.volume), "<f8")
         self.obs_param.qcharge_density = ndarrayPointer(qcharge_density, True)
@@ -326,10 +362,13 @@ class PureGauge(Gauge):
         self.obs_param.compute_qcharge_density = QudaBoolean.QUDA_BOOLEAN_TRUE
         Lx, Ly, Lz, Lt = self.latt_info.size
         return qcharge_density.reshape(2, Lt, Lz, Ly, Lx // 2)
+
     def gaussGauge(self, seed: int, sigma: float):
         gaussGaugeQuda(seed, sigma)
+
     def gaussMom(self, seed: int, sigma: float):
         gaussMomQuda(seed, sigma)
+
     def fixingOVR(
         self,
         gauge: LatticeGauge,
@@ -352,6 +391,7 @@ class PureGauge(Gauge):
             stopWtheta,
             self.gauge_param,
         )
+
     def fixingFFT(
         self,
         gauge: LatticeGauge,

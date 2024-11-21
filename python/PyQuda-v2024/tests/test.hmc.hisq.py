@@ -1,9 +1,12 @@
 import numpy as np
 import cupy as cp
+
 from check_pyquda import test_dir
+
 from pyquda import init, setGPUID
 from pyquda.hmc_hisq import HMC
 from pyquda.field import Nc, LatticeInfo, LatticeStaggeredFermion, LatticeGauge
+
 ensembles = {
     "A1": ([16, 16, 16, 16], 5.789),
     "B0": ([24, 24, 24, 24], 6),
@@ -11,23 +14,31 @@ ensembles = {
     "D1": ([48, 48, 48, 48], 6.475),
     "E1": ([4, 4, 4, 4], 6),
 }
+
 tag = "E1"
+
 setGPUID(1)
 init(resource_path=".cache")
 latt_info = LatticeInfo(ensembles[tag][0], -1, 1.0)
 beta = ensembles[tag][1]
 Lx, Ly, Lz, Lt = latt_info.size
+
 gauge = LatticeGauge(latt_info, None)
+
 mass = 4
 hmc = HMC(latt_info, mass, 1e-9, 1000)
 hmc.loadGauge(gauge)
 hmc.loadMom(gauge)
+
+
 def loop_ndarray(path, num_paths, max_length):
     ret = -np.ones((num_paths, max_length), "<i4")
     for i in range(num_paths):
         for j in range(len(path[i])):
             ret[i, j] = path[i][j]
     return ret
+
+
 def path_ndarray(path, num_paths, max_length):
     ret = -np.ones((4, num_paths, max_length), "<i4")
     for d in range(4):
@@ -35,6 +46,8 @@ def path_ndarray(path, num_paths, max_length):
             for j in range(len(path[d][i])):
                 ret[d, i, j] = path[d][i][j]
     return ret
+
+
 def path_force(path, coeffs):
     num_paths = len(path)
     lengths = []
@@ -65,6 +78,8 @@ def path_force(path, coeffs):
     num_fpaths = len(flengths)
     force = path_ndarray(force, num_fpaths, max_length - 1)
     return num_paths, max_length, path, lengths, coeffs, force, num_fpaths, flengths, fcoeffs
+
+
 input_path = [
     [0, 1, 7, 6],
     [0, 2, 7, 5],
@@ -105,17 +120,21 @@ input_coeffs = [
     1 / 12,
     1 / 12,
 ]
+
 num_paths, max_length, path, lengths, coeffs, force, num_fpaths, flengths, fcoeffs = path_force(
     input_path, input_coeffs
 )
 coeffs *= beta / Nc
 fcoeffs *= beta / Nc
+
 rho_ = 0.2539785108410595
 theta_ = -0.03230286765269967
 vartheta_ = 0.08398315262876693
 lambda_ = 0.6822365335719091
+
 plaquette = hmc.plaquette()
 print(f"\nplaquette = {plaquette}\n")
+
 t = 1.0
 dt = 0.2
 steps = round(t / dt)
@@ -123,15 +142,20 @@ dt = t / steps
 warm = 20
 for i in range(100):
     hmc.gaussMom(i)
+
     cp.random.seed(i)
     phi = 2 * cp.pi * cp.random.random((2, Lt, Lz, Ly, Lx // 2, Nc), "<f8")
     r = cp.random.random((2, Lt, Lz, Ly, Lx // 2, Nc), "<f8")
+
     noise = LatticeStaggeredFermion(latt_info, cp.sqrt(-cp.log(r)) * (cp.cos(phi) + 1j * cp.sin(phi)))
+
     hmc.initNoise(noise, i)
+
     kinetic = hmc.actionMom()
     potential = hmc.actionGauge(path, lengths, coeffs, num_paths, max_length)
     potential += hmc.actionFermion(noise)
     energy = kinetic + potential
+
     for step in range(steps):
         hmc.computeGaugeForce(vartheta_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce(vartheta_ * dt, noise)
@@ -150,11 +174,14 @@ for i in range(100):
         hmc.updateGaugeField(rho_ * dt)
         hmc.computeGaugeForce(vartheta_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce(vartheta_ * dt, noise)
+
     hmc.reunitGaugeField(1e-15)
+
     kinetic1 = hmc.actionMom()
     potential1 = hmc.actionGauge(path, lengths, coeffs, num_paths, max_length)
     potential1 += hmc.actionFermion(noise)
     energy1 = kinetic1 + potential1
+
     accept = np.random.rand() < np.exp(energy - energy1)
     if warm > 0:
         warm -= 1
@@ -162,7 +189,9 @@ for i in range(100):
         hmc.saveGauge(gauge)
     else:
         hmc.loadGauge(gauge)
+
     plaquette = hmc.plaquette()
+
     print(
         f"Step {i}:\n"
         f"PE_old = {potential}, KE_old = {kinetic}\n"

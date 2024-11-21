@@ -6,7 +6,9 @@
 // This code is in the public domain.
 //----------------------------------------------------------------
 #include "memmgr.h"
+
 typedef ulong Align;
+
 union mem_header_union
 {
     struct
@@ -14,25 +16,33 @@ union mem_header_union
         // Pointer to the next block in the free list
         //
         union mem_header_union* next;
+
         // Size of the block (in quantas of sizeof(mem_header_t))
         //
         ulong size;
     } s;
+
     // Used to align headers in memory to a boundary
     //
     Align align_dummy;
 };
+
 typedef union mem_header_union mem_header_t;
+
 // Initial empty list
 //
 static mem_header_t base;
+
 // Start of free list
 //
 static mem_header_t* freep = 0;
+
 // Static pool for new allocations
 //
 static byte pool[POOL_SIZE] = {0};
 static ulong pool_free_pos = 0;
+
+
 void memmgr_init()
 {
     base.s.next = 0;
@@ -40,13 +50,19 @@ void memmgr_init()
     freep = 0;
     pool_free_pos = 0;
 }
+
+
 static mem_header_t* get_mem_from_pool(ulong nquantas)
 {
     ulong total_req_size;
+
     mem_header_t* h;
+
     if (nquantas < MIN_POOL_ALLOC_QUANTAS)
         nquantas = MIN_POOL_ALLOC_QUANTAS;
+
     total_req_size = nquantas * sizeof(mem_header_t);
+
     if (pool_free_pos + total_req_size <= POOL_SIZE)
     {
         h = (mem_header_t*) (pool + pool_free_pos);
@@ -58,8 +74,11 @@ static mem_header_t* get_mem_from_pool(ulong nquantas)
     {
         return 0;
     }
+
     return freep;
 }
+
+
 // Allocations are done in 'quantas' of header size.
 // The search for a free block of adequate size begins at the point 'freep'
 // where the last block was found.
@@ -72,11 +91,13 @@ void* memmgr_alloc(ulong nbytes)
 {
     mem_header_t* p;
     mem_header_t* prevp;
+
     // Calculate how many quantas are required: we need enough to house all
     // the requested bytes, plus the header. The -1 and +1 are there to make sure
     // that if nbytes is a multiple of nquantas, we don't allocate too much
     //
     ulong nquantas = (nbytes + sizeof(mem_header_t) - 1) / sizeof(mem_header_t) + 1;
+
     // First alloc call, and no free list yet ? Use 'base' for an initial
     // denegerate block of size 0, which points to itself
     //
@@ -85,6 +106,7 @@ void* memmgr_alloc(ulong nbytes)
         base.s.next = freep = prevp = &base;
         base.s.size = 0;
     }
+
     for (p = prevp->s.next; ; prevp = p, p = p->s.next)
     {
         // big enough ?
@@ -104,6 +126,7 @@ void* memmgr_alloc(ulong nbytes)
                 p += p->s.size;
                 p->s.size = nquantas;
             }
+
             freep = prevp;
             return (void*) (p + 1);
         }
@@ -126,6 +149,8 @@ void* memmgr_alloc(ulong nbytes)
         }
     }
 }
+
+
 // Scans the free list, starting at freep, looking the the place to insert the
 // free block. This is either between two existing blocks or at the end of the
 // list. In any case, if the block being freed is adjacent to either neighbor,
@@ -135,8 +160,10 @@ void memmgr_free(void* ap)
 {
     mem_header_t* block;
     mem_header_t* p;
+
     // acquire pointer to block header
     block = ((mem_header_t*) ap) - 1;
+
     // Find the correct place to place the block in (the free list is sorted by
     // address, increasing order)
     //
@@ -150,6 +177,7 @@ void memmgr_free(void* ap)
         if (p >= p->s.next && (block > p || block < p->s.next))
             break;
     }
+
     // Try to combine with the higher neighbor
     //
     if (block + block->s.size == p->s.next)
@@ -161,6 +189,7 @@ void memmgr_free(void* ap)
     {
         block->s.next = p->s.next;
     }
+
     // Try to combine with the lower neighbor
     //
     if (p + p->s.size == block)
@@ -172,5 +201,6 @@ void memmgr_free(void* ap)
     {
         p->s.next = block;
     }
+
     freep = p;
 }

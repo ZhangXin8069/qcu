@@ -1,5 +1,7 @@
 from typing import List, Literal, Union
+
 import numpy
+
 from . import getDefaultLattice, getLogger
 from .field import (
     Ns,
@@ -17,6 +19,8 @@ from .field import (
 from .dirac import Multigrid, Dirac, StaggeredDirac
 from .utils.source import source
 from .deprecated import smear, smear4, invert12, getDslash, getStaggeredDslash
+
+
 def invert(
     dirac: Dirac,
     source_type: Literal["point", "wall", "volume", "momentum", "colorvector"],
@@ -25,26 +29,34 @@ def invert(
     restart: int = 0,
 ):
     latt_info = dirac.latt_info
+
     propag = LatticePropagator(latt_info)
     for spin in range(Ns):
         for color in range(Nc):
             b = source(latt_info, source_type, t_srce, spin, color, source_phase)
             x = dirac.invertRestart(b, restart)
             propag.setFermion(x, spin, color)
+
     return propag
+
+
 def invertPropagator(
     dirac: Dirac,
     source_propag: LatticePropagator,
     restart: int = 0,
 ):
     latt_info = dirac.latt_info
+
     propag = LatticePropagator(latt_info)
     for spin in range(Ns):
         for color in range(Nc):
             b = source_propag.getFermion(spin, color)
             x = dirac.invertRestart(b, restart)
             propag.setFermion(x, spin, color)
+
     return propag
+
+
 def invertStaggered(
     dirac: StaggeredDirac,
     source_type: Literal["point", "wall", "volume", "momentum", "colorvector"],
@@ -53,27 +65,36 @@ def invertStaggered(
     restart: int = 0,
 ):
     latt_info = dirac.latt_info
+
     propag = LatticeStaggeredPropagator(latt_info)
     for color in range(Nc):
         b = source(latt_info, source_type, t_srce, None, color, source_phase)
         x = dirac.invertRestart(b, restart)
         propag.setFermion(x, color)
+
     return propag
+
+
 def invertStaggeredPropagator(
     dirac: StaggeredDirac,
     source_propag: LatticeStaggeredPropagator,
     restart: int = 0,
 ):
     latt_info = dirac.latt_info
+
     propag = LatticeStaggeredPropagator(latt_info)
     for color in range(Nc):
         b = source_propag.getFermion(color)
         x = dirac.invertRestart(b, restart)
         propag.setFermion(x, color)
+
     return propag
+
+
 def gatherLattice(data: numpy.ndarray, axes: List[int], reduce_op: Literal["sum", "mean"] = "sum", root: int = 0):
     """
     MPI gather or reduce data from all MPI subgrid onto the root process.
+
     Args:
     - data: numpy.ndarray
         The local data array to be gathered.
@@ -88,16 +109,20 @@ def gatherLattice(data: numpy.ndarray, axes: List[int], reduce_op: Literal["sum"
         The reduction operation to be applied after gathering the datai when its axis == -1. Default is "sum".
     - root: int, optional
         The rank of the root process that will receive the gathered data. Default is 0.
+
     Returns:
     - numpy.ndarray
         The gathered and reduced data array on the root process.
+
     Raises:
     - NotImplementedError
         If the specified reduce operation is not supported.
+
     Note:
     - This function assumes that MPI environment has been initialized before its invocation.
     """
     from . import getMPIComm, getMPISize, getMPIRank, getGridSize, getCoordFromRank
+
     Gx, Gy, Gz, Gt = getGridSize()
     Lt, Lz, Ly, Lx = [data.shape[axis] if axis >= 0 else 1 for axis in axes]
     keep = tuple([axis for axis in axes if axis >= 0])
@@ -107,10 +132,12 @@ def gatherLattice(data: numpy.ndarray, axes: List[int], reduce_op: Literal["sum"
     suffix = data.shape[keep[-1] + 1 :]
     prefix_size = int(numpy.prod(prefix))
     suffix_size = int(numpy.prod(suffix))
+
     if getMPIRank() == root:
         sendbuf = numpy.ascontiguousarray(data.reshape(-1))
         recvbuf = numpy.zeros((getMPISize(), data.size), data.dtype)
         getMPIComm().Gatherv(sendbuf, recvbuf, root)
+
         data = numpy.zeros_like(recvbuf).reshape(prefix_size, Gt * Lt, Gz * Lz, Gy * Ly, Gx * Lx, suffix_size)
         for rank in range(getMPISize()):
             gx, gy, gz, gt = getCoordFromRank(rank, getGridSize())
@@ -123,6 +150,7 @@ def gatherLattice(data: numpy.ndarray, axes: List[int], reduce_op: Literal["sum"
                 :,
             ] = recvbuf[rank].reshape(prefix_size, Lt, Lz, Ly, Lx, suffix_size)
         data = data.reshape(*prefix, Gt * Lt, Gz * Lz, Gy * Ly, Gx * Lx, *suffix)
+
         if reduce_op.lower() == "sum":
             return data.sum(reduce_axis)
         elif reduce_op.lower() == "mean":
@@ -136,6 +164,8 @@ def gatherLattice(data: numpy.ndarray, axes: List[int], reduce_op: Literal["sum"
         recvbuf = None
         getMPIComm().Gatherv(sendbuf, recvbuf, root)
         return None
+
+
 def getDirac(
     latt_info: LatticeInfo,
     mass: float,
@@ -159,12 +189,17 @@ def getDirac(
     else:
         if not isinstance(multigrid, list) and not isinstance(multigrid, Multigrid):
             multigrid = [[2, 2, 2, 2], [4, 4, 4, 4]]
+
     if clover_csw != 0.0:
         from .dirac.clover_wilson import CloverWilson
+
         return CloverWilson(latt_info, mass, kappa, tol, maxiter, clover_csw, clover_xi, multigrid)
     else:
         from .dirac.wilson import Wilson
+
         return Wilson(latt_info, mass, kappa, tol, maxiter, multigrid)
+
+
 def getStaggeredDirac(
     latt_info: LatticeInfo,
     mass: float,
@@ -175,8 +210,12 @@ def getStaggeredDirac(
 ):
     assert latt_info.anisotropy == 1.0
     kappa = 1 / 2
+
     from .dirac.hisq import HISQ
+
     return HISQ(latt_info, mass, kappa, tol, maxiter, tadpole_coeff, naik_epsilon, None)
+
+
 def getWilson(
     latt_info: LatticeInfo,
     mass: float,
@@ -191,8 +230,12 @@ def getWilson(
     else:
         if not isinstance(multigrid, list) and not isinstance(multigrid, Multigrid):
             multigrid = [[2, 2, 2, 2], [4, 4, 4, 4]]
+
     from .dirac.wilson import Wilson
+
     return Wilson(latt_info, mass, kappa, tol, maxiter, multigrid)
+
+
 def getClover(
     latt_info: LatticeInfo,
     mass: float,
@@ -217,8 +260,12 @@ def getClover(
     else:
         if not isinstance(multigrid, list) and not isinstance(multigrid, Multigrid):
             multigrid = [[2, 2, 2, 2], [4, 4, 4, 4]]
+
     from .dirac.clover_wilson import CloverWilson
+
     return CloverWilson(latt_info, mass, kappa, tol, maxiter, clover_csw, clover_xi, multigrid)
+
+
 def getHISQ(
     latt_info: LatticeInfo,
     mass: float,
@@ -229,8 +276,12 @@ def getHISQ(
 ):
     assert latt_info.anisotropy == 1.0
     kappa = 1 / 2  # to be compatible with mass normalization
+
     from .dirac.hisq import HISQ
+
     return HISQ(latt_info, mass, kappa, tol, maxiter, tadpole_coeff, naik_epsilon, None)
+
+
 def getDefaultDirac(
     mass: float,
     tol: float,
@@ -241,6 +292,8 @@ def getDefaultDirac(
     multigrid: Union[List[List[int]], Multigrid] = None,
 ):
     return getDirac(getDefaultLattice(), mass, tol, maxiter, xi_0, clover_coeff_t, clover_coeff_r, multigrid)
+
+
 def getDefaultStaggeredDirac(
     mass: float,
     tol: float,

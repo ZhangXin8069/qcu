@@ -7,6 +7,7 @@
   </annotation>
   <Param>
     <InlineMeasurements>
+
       <elem>
         <Name>WILSON_FLOW</Name>
         <Frequency>1</Frequency>
@@ -22,6 +23,7 @@
           <gauge_out>wflow</gauge_out>
         </NamedObject>
       </elem>
+
       <elem>
         <Name>QIO_WRITE_NAMED_OBJECT</Name>
         <Frequency>1</Frequency>
@@ -34,9 +36,12 @@
           <file_volfmt>SINGLEFILE</file_volfmt>
         </File>
       </elem>
+
+
     </InlineMeasurements>
     <nrow>4 4 4 8</nrow>
   </Param>
+
   <RNG>
     <Seed>
       <elem>11</elem>
@@ -45,6 +50,7 @@
       <elem>0</elem>
     </Seed>
   </RNG>
+
   <Cfg>
     <cfg_type>SZINQIO</cfg_type>
     <cfg_file>tests/weak_field.lime</cfg_file>

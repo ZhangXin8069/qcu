@@ -1,12 +1,16 @@
 from libc.stdlib cimport malloc, free
+
 cdef class Pointer:
     def __cinit__(self, str dtype, *args):
         self.dtype = dtype
         self.ptr = NULL
+
     cdef set_ptr(self, void *ptr):
         self.ptr = ptr
+
     def __repr__(self) -> str:
         return f"Pointer at 0x{<size_t>self.ptr:016x}"
+
 cdef class Pointers(Pointer):
     def __cinit__(self, str dtype, unsigned int n1):
         self.n1 = n1
@@ -16,13 +20,16 @@ cdef class Pointers(Pointer):
                 self.ptrs[i] = NULL
         else:
             self.ptrs = <void **>NULL
+
     def __dealloc__(self):
         if self.ptrs:
             free(self.ptrs)
+
     cdef set_ptrs(self, void **ptrs):
         for i in range(self.n1):
             self.ptrs[i] = ptrs[i]
         self.ptr = <void *>self.ptrs
+
 cdef class Pointerss(Pointer):
     def __cinit__(self, str dtype, unsigned int n1, unsigned int n2):
         self.n1 = n1
@@ -35,16 +42,19 @@ cdef class Pointerss(Pointer):
                     self.ptrss[i][j] = NULL
         else:
             self.ptrss = <void ***>NULL
+
     def __dealloc__(self):
         if self.ptrss:
             for i in range(self.n1):
                 free(self.ptrss[i])
             free(self.ptrss)
+
     cdef set_ptrss(self, void ***ptrss):
         for i in range(self.n1):
             for j in range(self.n2):
                 self.ptrss[i][j] = ptrss[i][j]
         self.ptr = <void *>self.ptrss
+
 def ndarrayPointer(ndarray, as_void=False):
     ndarray_type = ".".join([type(ndarray).__module__, type(ndarray).__name__])
     if ndarray_type == "numpy.ndarray":
@@ -58,6 +68,7 @@ def ndarrayPointer(ndarray, as_void=False):
         dtype = f"<{'c' if ndarray.dtype.is_complex else 'f' if ndarray.dtype.is_floating_point else 'i' if ndarray.dtype.is_signed else 'u'}{ndarray.dtype.itemsize}"
     else:
         raise TypeError(f"ndarrayPointer: ndarray has unsupported type={type(ndarray)}")
+
     if not as_void:
         if dtype == "<i4":
             dtype = "int"
@@ -69,6 +80,7 @@ def ndarrayPointer(ndarray, as_void=False):
             raise TypeError(f"ndarrayPointer: ndarray has unsupported dtype={dtype}")
     else:
         dtype = "void"
+
     shape = ndarray.shape
     ndim = ndarray.ndim
     cdef size_t ptr_uint64
@@ -129,4 +141,5 @@ def ndarrayPointer(ndarray, as_void=False):
         return ptr3
     else:
         raise NotImplementedError("ndarray.ndim > 3 not implemented yet")
+
 ndarrayDataPointer = ndarrayPointer
