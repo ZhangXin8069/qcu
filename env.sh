@@ -1,1 +1,1 @@
-x99_docker-env.sh
+./computer-env.sh
