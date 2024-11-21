@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
+#pragma optimize(5)
 namespace qcu
 {
-#ifdef CG
   __global__ void cg_give_b_e(void *device_b_e, void *device_ans_e,
                               void *device_vec0, double kappa,
                               void *device_vals)
@@ -151,5 +151,4 @@ namespace qcu
       vec[i] = x[i] - ans[i];
     }
   }
-#endif
 }

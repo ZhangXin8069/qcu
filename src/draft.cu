@@ -1,10 +1,10 @@
 #include "../include/qcu.h"
+#pragma optimize(5)
 using namespace qcu;
-#ifdef DRAFT
-void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity)
 {
-    // define for wilson_dslash
+    // define for test_wilson_dslash
     LatticeSet _set;
     _set.give(param->lattice_size, parity);
     _set.init();
@@ -27,13 +27,10 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     sctzyx2tzyxsc(fermion_out, &_set);
     _set.end();
 }
-void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
-                  QcuParam *param, int parity, QcuParam *grid) {}
-void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {}
-void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
+void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, int parity)
 {
-    // define for nccl_clover_dslash
+    // define for test_clover_dslash
     LatticeSet _set;
     _set.give(param->lattice_size, parity);
     _set.init();
@@ -108,4 +105,3 @@ void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
     _set.end();
 }
-#endif

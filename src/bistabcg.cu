@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
-namespace qcu
+#pragma optimize(5)
+    namespace qcu
 {
-#ifdef BISTABCG
   __global__ void bistabcg_give_1beta(void *device_vals)
   {
     LatticeComplex *vals = static_cast<LatticeComplex *>(device_vals);
@@ -179,5 +179,4 @@ namespace qcu
       vec[i] = x[i] - ans[i];
     }
   }
-#endif
 }

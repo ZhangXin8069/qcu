@@ -1,22 +1,18 @@
 cdef extern from "enum_quda.h":
     cdef enum:
         QUDA_INVALID_ENUM = -0x7fffffff - 1
-
     ctypedef enum qudaError_t:
         QUDA_SUCCESS = 0
         QUDA_ERROR = 1
         QUDA_ERROR_UNINITIALIZED = 2
-
     ctypedef enum QudaMemoryType:
         QUDA_MEMORY_DEVICE
         QUDA_MEMORY_PINNED
         QUDA_MEMORY_MAPPED
         QUDA_MEMORY_INVALID = QUDA_INVALID_ENUM
-
     #
     # Types used in QudaGaugeParam
     #
-
     ctypedef enum QudaLinkType:
         QUDA_SU3_LINKS
         QUDA_GENERAL_LINKS
@@ -30,7 +26,6 @@ cdef extern from "enum_quda.h":
         QUDA_ASQTAD_MOM_LINKS = QUDA_MOMENTUM_LINKS
         QUDA_ASQTAD_GENERAL_LINKS = QUDA_GENERAL_LINKS
         QUDA_INVALID_LINKS = QUDA_INVALID_ENUM
-
     ctypedef enum QudaGaugeFieldOrder:
         QUDA_FLOAT_GAUGE_ORDER = 1
         QUDA_FLOAT2_GAUGE_ORDER = 2  # no reconstruct and double precision
@@ -46,19 +41,16 @@ cdef extern from "enum_quda.h":
         QUDA_TIFR_GAUGE_ORDER        # expect *gauge, mu, even-odd, spacetime, column-row order
         QUDA_TIFR_PADDED_GAUGE_ORDER # expect *gauge, mu, parity, t, z+halo, y, x/2, column-row order
         QUDA_INVALID_GAUGE_ORDER = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTboundary:
         QUDA_ANTI_PERIODIC_T = -1
         QUDA_PERIODIC_T = 1
         QUDA_INVALID_T_BOUNDARY = QUDA_INVALID_ENUM
-
     ctypedef enum QudaPrecision:
         QUDA_QUARTER_PRECISION = 1
         QUDA_HALF_PRECISION = 2
         QUDA_SINGLE_PRECISION = 4
         QUDA_DOUBLE_PRECISION = 8
         QUDA_INVALID_PRECISION = QUDA_INVALID_ENUM
-
     ctypedef enum QudaReconstructType:
         QUDA_RECONSTRUCT_NO = 18 # store all 18 real numbers explicitly
         QUDA_RECONSTRUCT_12 = 12 # reconstruct from 12 real numbers
@@ -67,16 +59,13 @@ cdef extern from "enum_quda.h":
         QUDA_RECONSTRUCT_13 = 13 # used for storing HISQ long-link variables
         QUDA_RECONSTRUCT_10 = 10 # 10-number parameterization used for storing the momentum field
         QUDA_RECONSTRUCT_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaGaugeFixed:
         QUDA_GAUGE_FIXED_NO  # no gauge fixing
         QUDA_GAUGE_FIXED_YES # gauge field stored in temporal gauge
         QUDA_GAUGE_FIXED_INVALID = QUDA_INVALID_ENUM
-
     #
     # Types used in QudaInvertParam
     #
-
     ctypedef enum QudaDslashType:
         QUDA_WILSON_DSLASH
         QUDA_CLOVER_WILSON_DSLASH
@@ -92,7 +81,6 @@ cdef extern from "enum_quda.h":
         QUDA_LAPLACE_DSLASH
         QUDA_COVDEV_DSLASH
         QUDA_INVALID_DSLASH = QUDA_INVALID_ENUM
-
     ctypedef enum QudaInverterType:
         QUDA_CG_INVERTER
         QUDA_BICGSTAB_INVERTER
@@ -118,14 +106,12 @@ cdef extern from "enum_quda.h":
         QUDA_CA_CGNR_INVERTER
         QUDA_CA_GCR_INVERTER
         QUDA_INVALID_INVERTER = QUDA_INVALID_ENUM
-
     ctypedef enum QudaEigType:
         QUDA_EIG_TR_LANCZOS     # Thick restarted lanczos solver
         QUDA_EIG_BLK_TR_LANCZOS # Block Thick restarted lanczos solver
         QUDA_EIG_IR_ARNOLDI     # Implicitly Restarted Arnoldi solver
         QUDA_EIG_BLK_IR_ARNOLDI # Block Implicitly Restarted Arnoldi solver
         QUDA_EIG_INVALID = QUDA_INVALID_ENUM
-
     # S=smallest L=largest
     # R=real M=modulus I=imaniary
     ctypedef enum QudaEigSpectrumType:
@@ -136,7 +122,6 @@ cdef extern from "enum_quda.h":
         QUDA_SPECTRUM_LI_EIG = 4
         QUDA_SPECTRUM_SI_EIG = 5
         QUDA_SPECTRUM_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaSolutionType:
         QUDA_MAT_SOLUTION
         QUDA_MATDAG_MAT_SOLUTION
@@ -145,7 +130,6 @@ cdef extern from "enum_quda.h":
         QUDA_MATPCDAG_MATPC_SOLUTION
         QUDA_MATPCDAG_MATPC_SHIFT_SOLUTION
         QUDA_INVALID_SOLUTION = QUDA_INVALID_ENUM
-
     ctypedef enum QudaSolveType:
         QUDA_DIRECT_SOLVE
         QUDA_NORMOP_SOLVE
@@ -156,35 +140,29 @@ cdef extern from "enum_quda.h":
         QUDA_NORMEQ_SOLVE = QUDA_NORMOP_SOLVE       # deprecated
         QUDA_NORMEQ_PC_SOLVE = QUDA_NORMOP_PC_SOLVE # deprecated
         QUDA_INVALID_SOLVE = QUDA_INVALID_ENUM
-
     ctypedef enum QudaMultigridCycleType:
         QUDA_MG_CYCLE_VCYCLE
         QUDA_MG_CYCLE_FCYCLE
         QUDA_MG_CYCLE_WCYCLE
         QUDA_MG_CYCLE_RECURSIVE
         QUDA_MG_CYCLE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaSchwarzType:
         QUDA_ADDITIVE_SCHWARZ = 0
         QUDA_MULTIPLICATIVE_SCHWARZ = 1
         QUDA_INVALID_SCHWARZ = QUDA_INVALID_ENUM
-
     ctypedef enum QudaAcceleratorType:
         QUDA_MADWF_ACCELERATOR = 0 # Use the MADWF accelerator
         QUDA_INVALID_ACCELERATOR = QUDA_INVALID_ENUM
-
     ctypedef enum QudaResidualType:
         QUDA_L2_RELATIVE_RESIDUAL = 1 # L2 relative residual (default)
         QUDA_L2_ABSOLUTE_RESIDUAL = 2 # L2 absolute residual
         QUDA_HEAVY_QUARK_RESIDUAL = 4 # Fermilab heavy quark residual
         QUDA_INVALID_RESIDUAL = QUDA_INVALID_ENUM
-
     # Which basis to use for CA algorithms
     ctypedef enum QudaCABasis:
         QUDA_POWER_BASIS
         QUDA_CHEBYSHEV_BASIS
         QUDA_INVALID_BASIS = QUDA_INVALID_ENUM
-
     # Whether the preconditioned matrix is (1-k^2 Deo Doe) or (1-k^2 Doe Deo)
     #
     # For the clover-improved Wilson Dirac operator, QUDA_MATPC_EVEN_EVEN
@@ -200,27 +178,22 @@ cdef extern from "enum_quda.h":
         QUDA_MATPC_EVEN_EVEN_ASYMMETRIC
         QUDA_MATPC_ODD_ODD_ASYMMETRIC
         QUDA_MATPC_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaDagType:
         QUDA_DAG_NO
         QUDA_DAG_YES
         QUDA_DAG_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaMassNormalization:
         QUDA_KAPPA_NORMALIZATION
         QUDA_MASS_NORMALIZATION
         QUDA_ASYMMETRIC_MASS_NORMALIZATION
         QUDA_INVALID_NORMALIZATION = QUDA_INVALID_ENUM
-
     ctypedef enum QudaSolverNormalization:
         QUDA_DEFAULT_NORMALIZATION # leave source and solution untouched
         QUDA_SOURCE_NORMALIZATION  # normalize such that || src || = 1
-
     ctypedef enum QudaPreserveSource:
         QUDA_PRESERVE_SOURCE_NO  # use the source for the residual
         QUDA_PRESERVE_SOURCE_YES # keep the source intact
         QUDA_PRESERVE_SOURCE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaDiracFieldOrder:
         QUDA_INTERNAL_DIRAC_ORDER    # internal dirac order used, varies on precision and dslash type
         QUDA_DIRAC_ORDER             # even-odd, color inside spin
@@ -230,7 +203,6 @@ cdef extern from "enum_quda.h":
         QUDA_LEX_DIRAC_ORDER         # lexicographical order, color inside spin
         QUDA_TIFR_PADDED_DIRAC_ORDER # padded z dimension for TIFR RHMC code
         QUDA_INVALID_DIRAC_ORDER = QUDA_INVALID_ENUM
-
     ctypedef enum QudaCloverFieldOrder:
         QUDA_FLOAT_CLOVER_ORDER = 1  # even-odd float ordering
         QUDA_FLOAT2_CLOVER_ORDER = 2 # even-odd float2 ordering
@@ -240,37 +212,30 @@ cdef extern from "enum_quda.h":
         QUDA_QDPJIT_CLOVER_ORDER     # (diagonal / off-diagonal)-chirality-spacetime
         QUDA_BQCD_CLOVER_ORDER       # even-odd, super-diagonal packed and reordered
         QUDA_INVALID_CLOVER_ORDER = QUDA_INVALID_ENUM
-
     ctypedef enum QudaVerbosity:
         QUDA_SILENT
         QUDA_SUMMARIZE
         QUDA_VERBOSE
         QUDA_DEBUG_VERBOSE
         QUDA_INVALID_VERBOSITY = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTune:
         QUDA_TUNE_NO
         QUDA_TUNE_YES
         QUDA_TUNE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaPreserveDirac:
         QUDA_PRESERVE_DIRAC_NO
         QUDA_PRESERVE_DIRAC_YES
         QUDA_PRESERVE_DIRAC_INVALID = QUDA_INVALID_ENUM
-
     #
     # Type used for "parity" argument to dslashQuda()
     #
-
     ctypedef enum QudaParity:
         QUDA_EVEN_PARITY = 0
         QUDA_ODD_PARITY
         QUDA_INVALID_PARITY = QUDA_INVALID_ENUM
-
     #
     # Types used only internally
     #
-
     ctypedef enum QudaDiracType:
         QUDA_WILSON_DIRAC
         QUDA_WILSONPC_DIRAC
@@ -302,26 +267,22 @@ cdef extern from "enum_quda.h":
         QUDA_GAUGE_LAPLACEPC_DIRAC
         QUDA_GAUGE_COVDEV_DIRAC
         QUDA_INVALID_DIRAC = QUDA_INVALID_ENUM
-
     # Where the field is stored
     ctypedef enum QudaFieldLocation:
         QUDA_CPU_FIELD_LOCATION = 1
         QUDA_CUDA_FIELD_LOCATION = 2
         QUDA_INVALID_FIELD_LOCATION = QUDA_INVALID_ENUM
-
     # Which sites are included
     ctypedef enum QudaSiteSubset:
         QUDA_PARITY_SITE_SUBSET = 1
         QUDA_FULL_SITE_SUBSET = 2
         QUDA_INVALID_SITE_SUBSET = QUDA_INVALID_ENUM
-
     # Site ordering (always t-z-y-x, with rightmost varying fastest)
     ctypedef enum QudaSiteOrder:
         QUDA_LEXICOGRAPHIC_SITE_ORDER # lexicographic ordering
         QUDA_EVEN_ODD_SITE_ORDER      # QUDA and QDP use this
         QUDA_ODD_EVEN_SITE_ORDER      # CPS uses this
         QUDA_INVALID_SITE_ORDER = QUDA_INVALID_ENUM
-
     # Degree of freedom ordering
     ctypedef enum QudaFieldOrder:
         QUDA_FLOAT_FIELD_ORDER = 1               # spin-color-complex-space
@@ -334,20 +295,17 @@ cdef extern from "enum_quda.h":
         QUDA_QOP_DOMAIN_WALL_FIELD_ORDER         # QOP domain-wall ordering
         QUDA_PADDED_SPACE_SPIN_COLOR_FIELD_ORDER # TIFR RHMC ordering
         QUDA_INVALID_FIELD_ORDER = QUDA_INVALID_ENUM
-
     ctypedef enum QudaFieldCreate:
         QUDA_NULL_FIELD_CREATE      # create new field
         QUDA_ZERO_FIELD_CREATE      # create new field and zero it
         QUDA_COPY_FIELD_CREATE      # create copy to field
         QUDA_REFERENCE_FIELD_CREATE # create reference to field
         QUDA_INVALID_FIELD_CREATE = QUDA_INVALID_ENUM
-
     ctypedef enum QudaGammaBasis:
         QUDA_DEGRAND_ROSSI_GAMMA_BASIS
         QUDA_UKQCD_GAMMA_BASIS
         QUDA_CHIRAL_GAMMA_BASIS
         QUDA_INVALID_GAMMA_BASIS = QUDA_INVALID_ENUM
-
     ctypedef enum QudaSourceType:
         QUDA_POINT_SOURCE
         QUDA_RANDOM_SOURCE
@@ -355,125 +313,103 @@ cdef extern from "enum_quda.h":
         QUDA_SINUSOIDAL_SOURCE
         QUDA_CORNER_SOURCE
         QUDA_INVALID_SOURCE = QUDA_INVALID_ENUM
-
     ctypedef enum QudaNoiseType:
         QUDA_NOISE_GAUSS
         QUDA_NOISE_UNIFORM
         QUDA_NOISE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaDilutionType:
         QUDA_DILUTION_SPIN
         QUDA_DILUTION_COLOR
         QUDA_DILUTION_SPIN_COLOR
         QUDA_DILUTION_SPIN_COLOR_EVEN_ODD
         QUDA_DILUTION_INVALID = QUDA_INVALID_ENUM
-
     # used to select projection method for deflated solvers
     ctypedef enum QudaProjectionType:
         QUDA_MINRES_PROJECTION
         QUDA_GALERKIN_PROJECTION
         QUDA_INVALID_PROJECTION = QUDA_INVALID_ENUM
-
     # used to select checkerboard preconditioning method
     ctypedef enum QudaPCType:
         QUDA_4D_PC = 4
         QUDA_5D_PC = 5
         QUDA_PC_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTwistFlavorType:
         QUDA_TWIST_SINGLET = 1
         QUDA_TWIST_NONDEG_DOUBLET = +2
         QUDA_TWIST_NO = 0
         QUDA_TWIST_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTwistDslashType:
         QUDA_DEG_TWIST_INV_DSLASH
         QUDA_DEG_DSLASH_TWIST_INV
         QUDA_DEG_DSLASH_TWIST_XPAY
         QUDA_NONDEG_DSLASH
         QUDA_DSLASH_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTwistCloverDslashType:
         QUDA_DEG_CLOVER_TWIST_INV_DSLASH
         QUDA_DEG_DSLASH_CLOVER_TWIST_INV
         QUDA_DEG_DSLASH_CLOVER_TWIST_XPAY
         QUDA_TC_DSLASH_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTwistGamma5Type:
         QUDA_TWIST_GAMMA5_DIRECT
         QUDA_TWIST_GAMMA5_INVERSE
         QUDA_TWIST_GAMMA5_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaUseInitGuess:
         QUDA_USE_INIT_GUESS_NO
         QUDA_USE_INIT_GUESS_YES
         QUDA_USE_INIT_GUESS_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaDeflatedGuess:
         QUDA_DEFLATED_GUESS_NO
         QUDA_DEFLATED_GUESS_YES
         QUDA_DEFLATED_GUESS_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaComputeNullVector:
         QUDA_COMPUTE_NULL_VECTOR_NO
         QUDA_COMPUTE_NULL_VECTOR_YES
         QUDA_COMPUTE_NULL_VECTOR_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaSetupType:
         QUDA_NULL_VECTOR_SETUP
         QUDA_TEST_VECTOR_SETUP
         QUDA_INVALID_SETUP_TYPE = QUDA_INVALID_ENUM
-
     ctypedef enum QudaTransferType:
         QUDA_TRANSFER_AGGREGATE
         QUDA_TRANSFER_COARSE_KD
         QUDA_TRANSFER_OPTIMIZED_KD
         QUDA_TRANSFER_OPTIMIZED_KD_DROP_LONG
         QUDA_TRANSFER_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaBoolean:
         QUDA_BOOLEAN_FALSE = 0
         QUDA_BOOLEAN_TRUE = 1
         QUDA_BOOLEAN_INVALID = QUDA_INVALID_ENUM
-
     # define these for backwards compatibility
     int QUDA_BOOLEAN_NO = QUDA_BOOLEAN_FALSE
     int QUDA_BOOLEAN_YES = QUDA_BOOLEAN_TRUE
-
     ctypedef enum QudaBLASType:
         QUDA_BLAS_GEMM = 0
         QUDA_BLAS_LU_INV = 1
         QUDA_BLAS_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaBLASOperation:
         QUDA_BLAS_OP_N = 0 # No transpose
         QUDA_BLAS_OP_T = 1 # Transpose only
         QUDA_BLAS_OP_C = 2 # Conjugate transpose
         QUDA_BLAS_OP_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaBLASDataType:
         QUDA_BLAS_DATATYPE_S = 0 # Single
         QUDA_BLAS_DATATYPE_D = 1 # Double
         QUDA_BLAS_DATATYPE_C = 2 # Complex(single)
         QUDA_BLAS_DATATYPE_Z = 3 # Complex(double)
         QUDA_BLAS_DATATYPE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaBLASDataOrder:
         QUDA_BLAS_DATAORDER_ROW = 0
         QUDA_BLAS_DATAORDER_COL = 1
         QUDA_BLAS_DATAORDER_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaDirection:
         QUDA_BACKWARDS = -1
         QUDA_IN_PLACE = 0
         QUDA_FORWARDS = +1
         QUDA_BOTH_DIRS = 2
-
     ctypedef enum QudaLinkDirection:
         QUDA_LINK_BACKWARDS
         QUDA_LINK_FORWARDS
         QUDA_LINK_BIDIRECTIONAL
-
     ctypedef enum QudaFieldGeometry:
         QUDA_SCALAR_GEOMETRY = 1
         QUDA_VECTOR_GEOMETRY = 4
@@ -481,25 +417,21 @@ cdef extern from "enum_quda.h":
         QUDA_COARSE_GEOMETRY = 8
         QUDA_KDINVERSE_GEOMETRY = 16 # Decomposition of Kahler-Dirac block
         QUDA_INVALID_GEOMETRY = QUDA_INVALID_ENUM
-
     ctypedef enum QudaGhostExchange:
         QUDA_GHOST_EXCHANGE_NO
         QUDA_GHOST_EXCHANGE_PAD
         QUDA_GHOST_EXCHANGE_EXTENDED
         QUDA_GHOST_EXCHANGE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaStaggeredPhase:
         QUDA_STAGGERED_PHASE_NO = 0
         QUDA_STAGGERED_PHASE_MILC = 1
         QUDA_STAGGERED_PHASE_CPS = 2
         QUDA_STAGGERED_PHASE_TIFR = 3
         QUDA_STAGGERED_PHASE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaContractType:
         QUDA_CONTRACT_TYPE_OPEN # Open spin elementals
         QUDA_CONTRACT_TYPE_DR   # DegrandRossi
         QUDA_CONTRACT_TYPE_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaContractGamma:
         QUDA_CONTRACT_GAMMA_I = 0
         QUDA_CONTRACT_GAMMA_G1 = 1
@@ -518,7 +450,6 @@ cdef extern from "enum_quda.h":
         QUDA_CONTRACT_GAMMA_S23 = 14
         QUDA_CONTRACT_GAMMA_S34 = 15
         QUDA_CONTRACT_GAMMA_INVALID = QUDA_INVALID_ENUM
-
     ctypedef enum QudaGaugeSmearType:
         QUDA_GAUGE_SMEAR_APE
         QUDA_GAUGE_SMEAR_STOUT
@@ -526,7 +457,6 @@ cdef extern from "enum_quda.h":
         QUDA_GAUGE_SMEAR_WILSON_FLOW
         QUDA_GAUGE_SMEAR_SYMANZIK_FLOW
         QUDA_GAUGE_SMEAR_INVALID = QUDA_INVALID_ENUM
-
     # Allows to choose an appropriate external library
     ctypedef enum QudaExtLibType:
         QUDA_CUSOLVE_EXTLIB

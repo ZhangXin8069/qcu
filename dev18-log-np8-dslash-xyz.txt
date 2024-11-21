@@ -1,0 +1,603 @@
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[ 12%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[ 12%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 31%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 31%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/hello_world.cu.o
+[ 62%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/multigrid.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
+[ 87%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+rm: cannot remove ‘log_*’: No such file or directory
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-SXM-80GB
+Found device 1: NVIDIA A100-SXM-80GB
+Found device 2: NVIDIA A100-SXM-80GB
+Found device 3: NVIDIA A100-SXM-80GB
+Found device 4: NVIDIA A100-SXM-80GB
+Found device 5: NVIDIA A100-SXM-80GB
+Found device 6: NVIDIA A100-SXM-80GB
+Found device 7: NVIDIA A100-SXM-80GB
+Using device 0: NVIDIA A100-SXM-80GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.01311843702569604 sec
+Quda dslash: 0.012953017023392022 sec
+Quda dslash: 0.013202414033003151 sec
+Quda dslash: 0.012979799997992814 sec
+Quda dslash: 0.014813744928687811 sec
+Quda dslash: 0.014446823974139988 sec
+Quda dslash: 0.014753103954717517 sec
+Quda dslash: 0.01458693400491029 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.014863764 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007207495 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008503448 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010082957 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.034227639 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007451912 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011072699 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.016321861 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.277064597 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.277884311 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.274936936 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.276283821 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.277910824 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.277331118 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.282285493 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.280140908 sec
+QCU dslash: 12.297555822995491 sec
+QCU dslash: 12.300149301998317 sec
+QCU dslash: 12.50255397404544 sec
+QCU dslash: 12.502707610023208 sec
+QCU dslash: 12.50439819903113 sec
+QCU dslash: 12.505526507971808 sec
+QCU dslash: 12.506351451971568 sec
+QCU dslash: 12.506924544926733 sec
+quda difference:  2.806939206599898e-16
+===============round  1 ======================
+quda difference:  2.806222729970394e-16
+===============round  1 ======================
+quda difference:  2.804253845311367e-16
+===============round  1 ======================
+quda difference:  2.8059475705565597e-16
+===============round  1 ======================
+quda difference:  2.807203319985646e-16
+===============round  1 ======================
+quda difference:  2.8074207451091134e-16
+===============round  1 ======================
+quda difference:  2.805284457351594e-16
+===============round  1 ======================
+quda difference:  2.805694876076178e-16
+===============round  1 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.015937073971144855 sec
+Quda dslash: 0.013967338018119335 sec
+Quda dslash: 0.014178719953633845 sec
+Quda dslash: 0.015562877990305424 sec
+Quda dslash: 0.014164081076160073 sec
+Quda dslash: 0.0141961449990049 sec
+Quda dslash: 0.014565018936991692 sec
+Quda dslash: 0.014138599974103272 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007638264 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010498254 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009776445 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008527637 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006344966 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007947500 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.015416517 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007182225 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.024804177 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.020553044 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.018529310 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007410770 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.025189335 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.023311291 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008187027 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.022949561 sec
+QCU dslash: 12.223438650020398 sec
+quda difference:  2.805782011080344e-16
+===============round  2 ======================
+QCU dslash: 12.242431813967414 sec
+quda difference:  2.804458009076466e-16
+===============round  2 ======================
+QCU dslash: 12.27899180201348 sec
+quda difference:  2.8055591061113943e-16
+===============round  2 ======================
+QCU dslash: 12.284754047053866 sec
+quda difference:  2.806240553689887e-16
+===============round  2 ======================
+QCU dslash: 12.28609027096536 sec
+quda difference:  2.805803297198558e-16
+===============round  2 ======================
+QCU dslash: 12.291507667978294 sec
+quda difference:  2.807098834092885e-16
+===============round  2 ======================
+QCU dslash: 12.293923311983235 sec
+quda difference:  2.803047284968137e-16
+===============round  2 ======================
+QCU dslash: 12.298023674986325 sec
+quda difference:  2.805410031551393e-16
+===============round  2 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.01898488902952522 sec
+Quda dslash: 0.01501553796697408 sec
+Quda dslash: 0.018201397033408284 sec
+Quda dslash: 0.018750280956737697 sec
+Quda dslash: 0.01914647000376135 sec
+Quda dslash: 0.015992003958672285 sec
+Quda dslash: 0.015969398897141218 sec
+Quda dslash: 0.015313811949454248 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.017795699 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.017584257 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.020363567 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.019872087 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.016729474 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.014170884 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008326856 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.018350926 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007248808 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012850392 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012937014 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007414668 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013991396 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010930977 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009598231 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013634044 sec
+QCU dslash: 11.691696626017801 sec
+quda difference:  2.8062482855551106e-16
+QCU dslash: 11.692389465984888 sec
+===============round  3 ======================
+quda difference:  2.805781012451888e-16
+===============round  3 ======================
+QCU dslash: 11.721044428064488 sec
+quda difference:  2.8088967582333494e-16
+===============round  3 ======================
+QCU dslash: 11.734819905017503 sec
+quda difference:  2.805630663684605e-16
+===============round  3 ======================
+QCU dslash: 11.73664712603204 sec
+quda difference:  2.8057760880641544e-16
+===============round  3 ======================
+QCU dslash: 11.738300301018171 sec
+quda difference:  2.8066466516976223e-16
+===============round  3 ======================
+QCU dslash: 11.74059349205345 sec
+QCU dslash: 11.740666466997936 sec
+quda difference:  2.806727076186546e-16
+===============round  3 ======================
+quda difference:  2.8051217345740375e-16
+===============round  3 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.017714607063680887 sec
+Quda dslash: 0.015542387962341309 sec
+Quda dslash: 0.0177505889441818 sec
+Quda dslash: 0.020957640022970736 sec
+Quda dslash: 0.02096279989928007 sec
+Quda dslash: 0.015454042004421353 sec
+Quda dslash: 0.020962500013411045 sec
+Quda dslash: 0.02118712803348899 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012608260 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013111733 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.015845061 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.017607794 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007980326 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008223130 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013440017 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.005986301 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008594109 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007048729 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007106665 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008296025 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009999921 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006936114 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011534600 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006027383 sec
+QCU dslash: 10.732187499990687 sec
+quda difference:  2.805658695685579e-16
+QCU dslash: 10.733103776001371 sec
+===============round  4 ======================
+quda difference:  2.805458984412349e-16
+===============round  4 ======================
+QCU dslash: 10.854533547069877 sec
+QCU dslash: 10.855012131039985 sec
+quda difference:  2.8053112057982824e-16
+===============round  4 ======================
+quda difference:  2.8046578536349697e-16
+===============round  4 ======================
+QCU dslash: 10.856492331018671 sec
+QCU dslash: 10.856491028913297 sec
+QCU dslash: 10.857015946065076 sec
+quda difference:  2.805204188574718e-16
+quda difference:  2.8058291766112167e-16
+quda difference:  2.8054589902904016e-16
+===============round  4 ======================
+===============round  4 ======================
+===============round  4 ======================
+QCU dslash: 10.860426894039847 sec
+quda difference:  2.8065581665421196e-16
+===============round  4 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.03393894305918366 sec
+Quda dslash: 0.03389212104957551 sec
+Quda dslash: 0.03444384003523737 sec
+Quda dslash: 0.03390828298870474 sec
+Quda dslash: 0.034218229935504496 sec
+Quda dslash: 0.034728085971437395 sec
+Quda dslash: 0.03442395001184195 sec
+Quda dslash: 0.03388954501133412 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011074202 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010208496 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009974991 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.005761373 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006240147 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008482256 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008278009 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012290075 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.017253788 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.015963637 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009565575 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007931298 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008714339 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.018619641 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008329011 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008670431 sec
+QCU dslash: 11.179794294992462 sec
+quda difference:  2.80526604803778e-16
+===============round  5 ======================
+QCU dslash: 11.187583199003711 sec
+quda difference:  2.804619171409412e-16
+===============round  5 ======================
+QCU dslash: 11.23166765307542 sec
+quda difference:  2.80534679512035e-16
+===============round  5 ======================
+QCU dslash: 11.233365628053434 sec
+quda difference:  2.806625212390549e-16
+QCU dslash: 11.2346943449229 sec
+===============round  5 ======================
+quda difference:  2.8051175796732167e-16
+===============round  5 ======================
+QCU dslash: 11.237374496995471 sec
+quda difference:  2.803567912627601e-16
+===============round  5 ======================
+QCU dslash: 11.241406954010017 sec
+quda difference:  2.8046265781034477e-16
+===============round  5 ======================
+QCU dslash: 11.246323553961702 sec
+quda difference:  2.8044980876045506e-16
+===============round  5 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.016722469008527696 sec
+Quda dslash: 0.01585421897470951 sec
+Quda dslash: 0.01672638696618378 sec
+Quda dslash: 0.016593242064118385 sec
+Quda dslash: 0.016726116999052465 sec
+Quda dslash: 0.013634465052746236 sec
+Quda dslash: 0.015777816995978355 sec
+Quda dslash: 0.01389242906589061 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006451198 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011072278 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.005806613 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012259976 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010968180 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007022406 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008274091 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008670100 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.025684561 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.033035422 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.026202344 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.029337352 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.030395801 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.028760141 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.030460951 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.019746787 sec
+QCU dslash: 12.251025723991916 sec
+quda difference:  2.8048645769508944e-16
+===============round  6 ======================
+QCU dslash: 12.257223526015878 sec
+quda difference:  2.8056494062665317e-16
+===============round  6 ======================
+QCU dslash: 12.373268174938858 sec
+QCU dslash: 12.373683982994407 sec
+QCU dslash: 12.374220141908154 sec
+QCU dslash: 12.37430414906703 sec
+quda difference:  2.805222804504209e-16
+QCU dslash: 12.374246985069476 sec
+===============round  6 ======================
+quda difference:  2.806098121174735e-16
+quda difference:  2.806415955473092e-16
+quda difference:  2.805820904341634e-16
+QCU dslash: 12.375291908043437 sec
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+quda difference:  2.8043089784085076e-16
+===============round  6 ======================
+quda difference:  2.80575875498166e-16
+===============round  6 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.01935171999502927 sec
+Quda dslash: 0.01933279202785343 sec
+Quda dslash: 0.019306338974274695 sec
+Quda dslash: 0.01654219999909401 sec
+Quda dslash: 0.019072824041359127 sec
+Quda dslash: 0.019518551998771727 sec
+Quda dslash: 0.01637174002826214 sec
+Quda dslash: 0.017576742102392018 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008274973 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011342247 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012275587 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007851239 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007775838 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012042773 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011224572 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009848699 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006563873 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007215832 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009361709 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008429652 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011459790 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.003905995 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011103981 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009871014 sec
+QCU dslash: 11.759226188994944 sec
+quda difference:  2.805158637480073e-16
+===============round  7 ======================
+QCU dslash: 11.761413066997193 sec
+quda difference:  2.805696644779372e-16
+===============round  7 ======================
+QCU dslash: 11.88209029904101 sec
+quda difference:  2.80854568565458e-16
+QCU dslash: 11.883054259931669 sec
+===============round  7 ======================
+quda difference:  2.8066748694942414e-16
+QCU dslash: 11.884820210048929 sec
+===============round  7 ======================
+QCU dslash: 11.884952273103409 sec
+QCU dslash: 11.885279785026796 sec
+quda difference:  2.8057424841793183e-16
+QCU dslash: 11.886179849039763 sec
+quda difference:  2.8060308423216845e-16
+===============round  7 ======================
+===============round  7 ======================
+quda difference:  2.8039043758889513e-16
+quda difference:  2.806123998871546e-16
+===============round  7 ======================
+===============round  7 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.025815902976319194 sec
+Quda dslash: 0.026359737967140973 sec
+Quda dslash: 0.026082174037583172 sec
+Quda dslash: 0.026098827947862446 sec
+Quda dslash: 0.0256655840203166 sec
+Quda dslash: 0.026196382008492947 sec
+Quda dslash: 0.025554743013344705 sec
+Quda dslash: 0.025633280049078166 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.028557709 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.027026927 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.025165478 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.023331251 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007457724 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.023886949 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.026395279 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.028222110 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013099710 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.015302750 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.015609111 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008598658 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009438913 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011678697 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009418062 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008860479 sec
+QCU dslash: 11.922156286076643 sec
+QCU dslash: 11.922869896981865 sec
+quda difference:  2.8054830847056235e-16
+quda difference:  2.8051351821853642e-16
+===============round  8 ======================
+===============round  8 ======================
+QCU dslash: 12.04339315497782 sec
+QCU dslash: 12.0437350460561 sec
+QCU dslash: 12.043876277981326 sec
+quda difference:  2.806756723880524e-16
+===============round  8 ======================
+quda difference:  2.8057837695648915e-16
+QCU dslash: 12.044627024093643 sec
+quda difference:  2.8037530941688027e-16
+===============round  8 ======================
+===============round  8 ======================
+quda difference:  2.806650793087843e-16
+===============round  8 ======================
+QCU dslash: 12.049874322023243 sec
+QCU dslash: 12.050026545999572 sec
+quda difference:  2.8059315736603595e-16
+===============round  8 ======================
+quda difference:  2.806276904965835e-16
+===============round  8 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.02001788793131709 sec
+Quda dslash: 0.05775741802062839 sec
+Quda dslash: 0.019795104046352208 sec
+Quda dslash: 0.05730780097655952 sec
+Quda dslash: 0.05741038604173809 sec
+Quda dslash: 0.020204298896715045 sec
+Quda dslash: 0.019900132901966572 sec
+Quda dslash: 0.05747900204733014 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009534433 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011773425 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006994531 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011435001 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006869161 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009345476 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007942470 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.014331865 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.028961784 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.032224457 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.029139879 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.032598733 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.028939991 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007439768 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.029809945 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.032266250 sec
+QCU dslash: 11.408965229056776 sec
+quda difference:  2.805255728220984e-16
+===============round  9 ======================
+QCU dslash: 11.426725147059187 sec
+quda difference:  2.806085996341424e-16
+===============round  9 ======================
+QCU dslash: 11.458171632955782 sec
+QCU dslash: 11.458282354054973 sec
+quda difference:  2.8039804657038283e-16
+quda difference:  2.8070171760522344e-16
+===============round  9 ======================
+===============round  9 ======================
+QCU dslash: 11.465181014034897 sec
+quda difference:  2.805625496021666e-16
+===============round  9 ======================
+QCU dslash: 11.47501677798573 sec
+quda difference:  2.807548577052164e-16
+QCU dslash: 11.475908674998209 sec
+QCU dslash: 11.476047892938368 sec
+===============round  9 ======================
+quda difference:  2.8055242568525246e-16
+===============round  9 ======================
+quda difference:  2.8067623802694646e-16
+===============round  9 ======================
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.01805228996090591 sec
+Quda dslash: 0.019871255033649504 sec
+Quda dslash: 0.01986109500285238 sec
+Quda dslash: 0.01645262201782316 sec
+Quda dslash: 0.0184165759710595 sec
+Quda dslash: 0.018292448949068785 sec
+Quda dslash: 0.018894890090450644 sec
+Quda dslash: 0.016655075014568865 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009010379 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013700497 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008659229 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009355577 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.006616328 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013324899 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013046814 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008392798 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.003427823 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010124759 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.004928032 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.009986084 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.008694389 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.004999284 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.005127640 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.007598485 sec
+QCU dslash: 12.139587556011975 sec
+quda difference:  2.8035946826168157e-16
+QCU dslash: 12.142250824021176 sec
+quda difference:  2.8041642959786615e-16
+QCU dslash: 12.267097709001973 sec
+quda difference:  2.8052517859323413e-16
+QCU dslash: 12.268413290963508 sec
+QCU dslash: 12.268890601932071 sec
+QCU dslash: 12.26934258302208 sec
+QCU dslash: 12.269868270959705 sec
+quda difference:  2.8053670531765394e-16
+quda difference:  2.8060709472074824e-16
+quda difference:  2.8067816552497983e-16
+quda difference:  2.805731296442866e-16
+QCU dslash: 12.272740726009943 sec
+quda difference:  2.8045521568997867e-16
+               initQuda Total time =     4.433 secs
+                     init     =     4.433 secs (100.000%),	 with        2 calls at 2.216e+06 us per call
+        total accounted       =     4.433 secs (100.000%)
+        total missing         =     0.000 secs (  0.000%)
+          loadGaugeQuda Total time =     2.061 secs
+                 download     =     0.992 secs ( 48.120%),	 with       20 calls at 4.958e+04 us per call
+                   upload     =     0.004 secs (  0.192%),	 with       10 calls at 3.956e+02 us per call
+                     init     =     1.065 secs ( 51.666%),	 with       20 calls at 5.323e+04 us per call
+                  compute     =     0.000 secs (  0.000%),	 with       20 calls at 4.500e-01 us per call
+                     free     =     0.000 secs (  0.006%),	 with       20 calls at 5.700e+00 us per call
+        total accounted       =     2.060 secs ( 99.984%)
+        total missing         =     0.000 secs (  0.016%)
+             dslashQuda Total time =     0.187 secs
+                 download     =     0.000 secs (  0.191%),	 with       20 calls at 1.780e+01 us per call
+                   upload     =     0.000 secs (  0.129%),	 with       20 calls at 1.205e+01 us per call
+                     init     =     0.001 secs (  0.291%),	 with       20 calls at 2.715e+01 us per call
+                  compute     =     0.185 secs ( 99.341%),	 with       20 calls at 9.264e+03 us per call
+                     free     =     0.000 secs (  0.032%),	 with       20 calls at 2.950e+00 us per call
+        total accounted       =     0.186 secs ( 99.983%)
+        total missing         =     0.000 secs (  0.017%)
+                endQuda Total time =     0.199 secs
+       initQuda-endQuda Total time =   126.662 secs
+                   QUDA Total time =     7.026 secs
+                 download     =     0.992 secs ( 14.118%),	 with       40 calls at 2.480e+04 us per call
+                   upload     =     0.004 secs (  0.060%),	 with       30 calls at 1.399e+02 us per call
+                     init     =     5.498 secs ( 78.247%),	 with       42 calls at 1.309e+05 us per call
+                  compute     =     0.333 secs (  4.744%),	 with       50 calls at 6.666e+03 us per call
+                     free     =     0.000 secs (  0.002%),	 with       40 calls at 4.275e+00 us per call
+        total accounted       =     6.828 secs ( 97.170%)
+        total missing         =     0.199 secs (  2.830%)
+Device memory used = 284.8 MiB
+Pinned device memory used = 0.0 MiB
+Managed memory used = 0.0 MiB
+Shmem memory used = 0.0 MiB
+Page-locked host memory used = 19.5 MiB
+Total host memory used >= 26.8 MiB
+~/qcu
