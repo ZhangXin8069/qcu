@@ -601,7 +601,9 @@ namespace qcu
             CUBLAS_CHECK(cublasDestroy(cublasH));
             checkCudaErrors(cudaStreamSynchronize(stream));
             checkCudaErrors(cudaStreamDestroy(stream));
+#ifndef _MPI_
             checkNcclErrors(ncclCommDestroy(nccl_comm));
+#endif
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
         void _print()
