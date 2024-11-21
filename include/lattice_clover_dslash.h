@@ -708,7 +708,6 @@ namespace qcu
                     {
                     }
                     // x edge part comm
-
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_X_],
                                  set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
                                  set_ptr->move_wards[_B_X_], 0, set_ptr->host_u_1dim_recv_vec[_F_X_],
@@ -724,7 +723,6 @@ namespace qcu
                 }
                 {
                     // y edge part comm
-
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_Y_],
                                  set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
                                  set_ptr->move_wards[_B_Y_], 0, set_ptr->host_u_1dim_recv_vec[_F_Y_],
@@ -740,7 +738,6 @@ namespace qcu
                 }
                 {
                     // z edge part comm
-
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_Z_],
                                  set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
                                  set_ptr->move_wards[_B_Z_], 0, set_ptr->host_u_1dim_recv_vec[_F_Z_],
@@ -756,7 +753,6 @@ namespace qcu
                 }
                 {
                     // t edge part comm
-
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_T_],
                                  set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
                                  set_ptr->move_wards[_B_T_], 0, set_ptr->host_u_1dim_recv_vec[_F_T_],

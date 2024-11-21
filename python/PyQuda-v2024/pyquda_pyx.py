@@ -1,62 +1,47 @@
 import os
 import sys
 from typing import Dict, List, NamedTuple, Union
-
-
 class QudaEnumMeta(NamedTuple):
     name: str
     value: Union[int, str]
-
     def __repr__(self) -> str:
         return f"{self.name} = {self.value}"
-
-
 class QudaParamsMeta(NamedTuple):
     name: str
     type: str
     ptr: str
     array: List[int]
-
     def __repr__(self) -> str:
         self_array = "" if len(self.array) == 0 else f"[{']['.join(self.array)}]"
         return f"{self.type} {self.ptr}{self.name}{self_array}"
-
-
 normal = """
     @property
     def %name%(self):
         return self.param.%name%
-
     @%name%.setter
     def %name%(self, value):
         self.param.%name% = value
 """
-
 cstring = """
     @property
     def %name%(self):
         return self.param.%name%
-
     @%name%.setter
     def %name%(self, const char value[]):
         self.param.%name% = value
 """
-
 param = """
     @property
     def %name%(self):
         param = %type%()
         param.from_ptr(self.param.%name%)
         return param
-
     @%name%.setter
     def %name%(self, value):
         self.set_%name%(value)
-
     cdef set_%name%(self, QudaInvertParam value):
         self.param.%name% = &value.param
 """
-
 multigrid = """
     @property
     def %name%(self):
@@ -64,13 +49,11 @@ multigrid = """
         for i in range(self.n_level):
             value.append(self.param.%name%[i])
         return value
-
     @%name%.setter
     def %name%(self, value):
         for i in range(self.n_level):
             self.param.%name%[i] = value[i]
 """
-
 multigrid_param = """
     @property
     def %name%(self):
@@ -80,65 +63,52 @@ multigrid_param = """
             param.from_ptr(self.param.%name%[i])
             params.append(param)
         return params
-
     @%name%.setter
     def %name%(self, value):
         for i in range(self.param.n_level):
             self.set_%name%(value[i], i)
-
     cdef set_%name%(self, %type% value, int i):
         self.param.%name%[i] = &value.param
 """
-
 void_ptr = """
     @property
     def %name%(self):
         ptr = Pointer("void")
         ptr.set_ptr(self.param.%name%)
         return ptr
-
     @%name%.setter
     def %name%(self, value):
         self.set_%name%(value)
-
     cdef set_%name%(self, Pointer value):
         assert value.dtype == "void"
         self.param.%name% = value.ptr
 """
-
 ptr = """
     @property
     def %name%(self):
         ptr = Pointer("%type%")
         ptr.set_ptr(self.param.%name%)
         return ptr
-
     @%name%.setter
     def %name%(self, value):
         self.set_%name%(value)
-
     cdef set_%name%(self, Pointer value):
         assert value.dtype == "%type%"
         self.param.%name% = <%type% *>value.ptr
 """
-
 ptrptr = """
     @property
     def %name%(self):
         ptr = Pointers("%type%", self.param.num_paths)
         ptr.set_ptrs(<void **>self.param.%name%)
         return ptr
-
     @%name%.setter
     def %name%(self, value):
         self.set_%name%(value)
-
     cdef set_%name%(self, Pointers value):
         assert value.dtype == "%type%"
         self.param.%name% = <%type% **>value.ptrs
 """
-
-
 def build_pyquda_pyx(pyquda_root, quda_path):
     fake_libc_include = os.path.join(pyquda_root, "pycparser", "utils", "fake_libc_include")
     quda_include = os.path.join(quda_path, "include")
@@ -150,7 +120,6 @@ def build_pyquda_pyx(pyquda_root, quda_path):
     except ImportError or ModuleNotFoundError:
         from pycparser.pycparser import parse_file, c_ast  # This is for the language server
     sys.path.remove(os.path.join(pyquda_root, "pycparser"))
-
     def evaluate(node):
         if node is None:
             return
@@ -170,7 +139,6 @@ def build_pyquda_pyx(pyquda_root, quda_path):
             return node.name
         else:
             raise ValueError(f"Unknown node {node}")
-
     quda_enum_meta: Dict[str, List[QudaParamsMeta]] = {}
     quda_params_meta: Dict[str, List[QudaParamsMeta]] = {}
     ast = parse_file(
@@ -235,7 +203,6 @@ def build_pyquda_pyx(pyquda_root, quda_path):
                         raise ValueError(f"Unexpected node {node}")
                 else:
                     raise ValueError(f"Unexpected node {node}")
-
     with open(os.path.join(quda_include, "enum_quda.h"), "r") as f:
         enum_quda_h = f.read()
     with open(os.path.join(pyquda_root, "pyquda", "enum_quda.in.py"), "r") as f:
@@ -246,7 +213,6 @@ def build_pyquda_pyx(pyquda_root, quda_path):
         pyquda_pyx = f.read()
     # with open(os.path.join(pyquda_root, "pyquda", "pyquda.in.pyi"), "r") as f:
     #     pyquda_pyi = f.read()
-
     enum_quda_start = enum_quda_py.find("\nQUDA_INVALID_ENUM = -0x7FFFFFFF - 1")
     quda_constants_pxd = 'cdef extern from "quda_constants.h":\n    cdef enum:'
     start = enum_quda_py.find("\nQUDA", 0)
@@ -254,14 +220,12 @@ def build_pyquda_pyx(pyquda_root, quda_path):
         stop = enum_quda_py.find(" =", start)
         quda_constants_pxd += f"\n        {enum_quda_py[start + 1 : stop]}\n"
         start = enum_quda_py.find("\nQUDA", stop)
-
     enum_quda_pxd = 'cdef extern from "enum_quda.h":'
     start = enum_quda_py.find("\nclass ", enum_quda_start)
     while start >= 0:
         stop = enum_quda_py.find("(IntEnum):", start)
         enum_quda_pxd += f"\n    ctypedef enum {enum_quda_py[start + 7 : stop]}:\n        pass\n"
         start = enum_quda_py.find("\nclass ", stop)
-
     for key, val in quda_enum_meta.items():
         enum_quda_py_block = ""
         for item in val:
@@ -274,7 +238,6 @@ def build_pyquda_pyx(pyquda_root, quda_path):
             enum_quda_py_block += f"    {item}{comment}\n"
         idx = enum_quda_py.find(key)
         enum_quda_py = enum_quda_py[:idx] + enum_quda_py[idx:].replace("    pass\n", enum_quda_py_block, 1)
-
     for key, val in quda_params_meta.items():
         quda_pxd_block = ""
         pyquda_pyx_block = ""
@@ -324,7 +287,6 @@ def build_pyquda_pyx(pyquda_root, quda_path):
         #     f"##%%!! {key}\n",
         #     pyi.replace("double _Complex", "double_complex").replace("unsigned int", "int"),
         # )
-
     with open(os.path.join(pyquda_root, "pyquda", "src", "quda_constants.pxd"), "w") as f:
         f.write(quda_constants_pxd)
     with open(os.path.join(pyquda_root, "pyquda", "src", "enum_quda.pxd"), "w") as f:
@@ -335,10 +297,8 @@ def build_pyquda_pyx(pyquda_root, quda_path):
         f.write(pyquda_pyx)
     with open(os.path.join(pyquda_root, "pyquda", "enum_quda.py"), "w") as f:
         f.write(enum_quda_py)
-
     # with open(os.path.join(pyquda_root, "pyquda", "pyquda.pyi"), "w") as f:
     #     f.write(pyquda_pyi)
-
     if os.path.exists(os.path.join(pyquda_root, "yacctab.py")):
         os.remove(os.path.join(pyquda_root, "yacctab.py"))
     if os.path.exists(os.path.join(pyquda_root, "lextab.py")):

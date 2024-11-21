@@ -8,59 +8,46 @@
 # This module implements an ANSI-C style lexical preprocessor for PLY.
 # -----------------------------------------------------------------------------
 import sys
-
 # Some Python 3 compatibility shims
 if sys.version_info.major < 3:
     STRING_TYPES = (str, unicode)
 else:
     STRING_TYPES = str
     xrange = range
-
 # -----------------------------------------------------------------------------
 # Default preprocessor lexer definitions.   These tokens are enough to get
 # a basic preprocessor working.   Other modules may import these if they want
 # -----------------------------------------------------------------------------
-
 tokens = (
    'CPP_ID','CPP_INTEGER', 'CPP_FLOAT', 'CPP_STRING', 'CPP_CHAR', 'CPP_WS', 'CPP_COMMENT1', 'CPP_COMMENT2', 'CPP_POUND','CPP_DPOUND'
 )
-
 literals = "+-*/%|&~^<>=!?()[]{}.,;:\\\'\""
-
 # Whitespace
 def t_CPP_WS(t):
     r'\s+'
     t.lexer.lineno += t.value.count("\n")
     return t
-
 t_CPP_POUND = r'\#'
 t_CPP_DPOUND = r'\#\#'
-
 # Identifier
 t_CPP_ID = r'[A-Za-z_][\w_]*'
-
 # Integer literal
 def CPP_INTEGER(t):
     r'(((((0x)|(0X))[0-9a-fA-F]+)|(\d+))([uU][lL]|[lL][uU]|[uU]|[lL])?)'
     return t
-
 t_CPP_INTEGER = CPP_INTEGER
-
 # Floating literal
 t_CPP_FLOAT = r'((\d+)(\.\d+)(e(\+|-)?(\d+))? | (\d+)e(\+|-)?(\d+))([lL]|[fF])?'
-
 # String literal
 def t_CPP_STRING(t):
     r'\"([^\\\n]|(\\(.|\n)))*?\"'
     t.lexer.lineno += t.value.count("\n")
     return t
-
 # Character constant 'c' or L'c'
 def t_CPP_CHAR(t):
     r'(L)?\'([^\\\n]|(\\(.|\n)))*?\''
     t.lexer.lineno += t.value.count("\n")
     return t
-
 # Comment
 def t_CPP_COMMENT1(t):
     r'(/\*(.|\n)*?\*/)'
@@ -69,25 +56,21 @@ def t_CPP_COMMENT1(t):
     # replace with one space or a number of '\n'
     t.type = 'CPP_WS'; t.value = '\n' * ncr if ncr else ' '
     return t
-
 # Line comment
 def t_CPP_COMMENT2(t):
     r'(//.*?(\n|$))'
     # replace with '/n'
     t.type = 'CPP_WS'; t.value = '\n'
     return t
-
 def t_error(t):
     t.type = t.value[0]
     t.value = t.value[0]
     t.lexer.skip(1)
     return t
-
 import re
 import copy
 import time
 import os.path
-
 # -----------------------------------------------------------------------------
 # trigraph()
 #
@@ -104,7 +87,6 @@ import os.path
 #     ??>    }
 #     ??-    ~
 # -----------------------------------------------------------------------------
-
 _trigraph_pat = re.compile(r'''\?\?[=/\'\(\)\!<>\-]''')
 _trigraph_rep = {
     '=':'#',
@@ -117,10 +99,8 @@ _trigraph_rep = {
     '>':'}',
     '-':'~'
 }
-
 def trigraph(input):
     return _trigraph_pat.sub(lambda g: _trigraph_rep[g.group()[-1]],input)
-
 # ------------------------------------------------------------------
 # Macro object
 #
@@ -136,7 +116,6 @@ def trigraph(input):
 # pre-scanned and used to create patch lists that are later used
 # during macro expansion
 # ------------------------------------------------------------------
-
 class Macro(object):
     def __init__(self,name,value,arglist=None,variadic=False):
         self.name = name
@@ -146,14 +125,12 @@ class Macro(object):
         if variadic:
             self.vararg = arglist[-1]
         self.source = None
-
 # ------------------------------------------------------------------
 # Preprocessor object
 #
 # Object representing a preprocessor.  Contains macro definitions,
 # include directories, and other information
 # ------------------------------------------------------------------
-
 class Preprocessor(object):
     def __init__(self,lexer=None):
         if lexer is None:
@@ -162,21 +139,17 @@ class Preprocessor(object):
         self.macros = { }
         self.path = []
         self.temp_path = []
-
         # Probe the lexer for selected tokens
         self.lexprobe()
-
         tm = time.localtime()
         self.define("__DATE__ \"%s\"" % time.strftime("%b %d %Y",tm))
         self.define("__TIME__ \"%s\"" % time.strftime("%H:%M:%S",tm))
         self.parser = None
-
     # -----------------------------------------------------------------------------
     # tokenize()
     #
     # Utility function. Given a string of text, tokenize into a list of tokens
     # -----------------------------------------------------------------------------
-
     def tokenize(self,text):
         tokens = []
         self.lexer.input(text)
@@ -185,16 +158,13 @@ class Preprocessor(object):
             if not tok: break
             tokens.append(tok)
         return tokens
-
     # ---------------------------------------------------------------------
     # error()
     #
     # Report a preprocessor error/warning of some kind
     # ----------------------------------------------------------------------
-
     def error(self,file,line,msg):
         print("%s:%d %s" % (file,line,msg))
-
     # ----------------------------------------------------------------------
     # lexprobe()
     #
@@ -203,9 +173,7 @@ class Preprocessor(object):
     # If this works right, the preprocessor will simply "work"
     # with any suitable lexer regardless of how tokens have been named.
     # ----------------------------------------------------------------------
-
     def lexprobe(self):
-
         # Determine the token type for identifiers
         self.lexer.input("identifier")
         tok = self.lexer.token()
@@ -213,7 +181,6 @@ class Preprocessor(object):
             print("Couldn't determine identifier type")
         else:
             self.t_ID = tok.type
-
         # Determine the token type for integers
         self.lexer.input("12345")
         tok = self.lexer.token()
@@ -222,7 +189,6 @@ class Preprocessor(object):
         else:
             self.t_INTEGER = tok.type
             self.t_INTEGER_TYPE = type(tok.value)
-
         # Determine the token type for strings enclosed in double quotes
         self.lexer.input("\"filename\"")
         tok = self.lexer.token()
@@ -230,7 +196,6 @@ class Preprocessor(object):
             print("Couldn't determine string type")
         else:
             self.t_STRING = tok.type
-
         # Determine the token type for whitespace--if any
         self.lexer.input("  ")
         tok = self.lexer.token()
@@ -238,7 +203,6 @@ class Preprocessor(object):
             self.t_SPACE = None
         else:
             self.t_SPACE = tok.type
-
         # Determine the token type for newlines
         self.lexer.input("\n")
         tok = self.lexer.token()
@@ -247,9 +211,7 @@ class Preprocessor(object):
             print("Couldn't determine token for newlines")
         else:
             self.t_NEWLINE = tok.type
-
         self.t_WS = (self.t_SPACE, self.t_NEWLINE)
-
         # Check for other characters used by the preprocessor
         chars = [ '<','>','#','##','\\','(',')',',','.']
         for c in chars:
@@ -257,16 +219,13 @@ class Preprocessor(object):
             tok = self.lexer.token()
             if not tok or tok.value != c:
                 print("Unable to lex '%s' required for preprocessor" % c)
-
     # ----------------------------------------------------------------------
     # add_path()
     #
     # Adds a search path to the preprocessor.
     # ----------------------------------------------------------------------
-
     def add_path(self,path):
         self.path.append(path)
-
     # ----------------------------------------------------------------------
     # group_lines()
     #
@@ -275,7 +234,6 @@ class Preprocessor(object):
     # function forms the lowest level of the preprocessor---grouping into text into
     # a line-by-line format.
     # ----------------------------------------------------------------------
-
     def group_lines(self,input):
         lex = self.lexer.clone()
         lines = [x.rstrip() for x in input.splitlines()]
@@ -285,11 +243,9 @@ class Preprocessor(object):
                 lines[i] = lines[i][:-1]+lines[j]
                 lines[j] = ""
                 j += 1
-
         input = "\n".join(lines)
         lex.input(input)
         lex.lineno = 1
-
         current_line = []
         while True:
             tok = lex.token()
@@ -299,16 +255,13 @@ class Preprocessor(object):
             if tok.type in self.t_WS and '\n' in tok.value:
                 yield current_line
                 current_line = []
-
         if current_line:
             yield current_line
-
     # ----------------------------------------------------------------------
     # tokenstrip()
     #
     # Remove leading/trailing whitespace tokens from a token list
     # ----------------------------------------------------------------------
-
     def tokenstrip(self,tokens):
         i = 0
         while i < len(tokens) and tokens[i].type in self.t_WS:
@@ -319,8 +272,6 @@ class Preprocessor(object):
             i -= 1
         del tokens[i+1:]
         return tokens
-
-
     # ----------------------------------------------------------------------
     # collect_args()
     #
@@ -336,27 +287,22 @@ class Preprocessor(object):
     # This function properly handles nested parenthesis and commas---these do not
     # define new arguments.
     # ----------------------------------------------------------------------
-
     def collect_args(self,tokenlist):
         args = []
         positions = []
         current_arg = []
         nesting = 1
         tokenlen = len(tokenlist)
-
         # Search for the opening '('.
         i = 0
         while (i < tokenlen) and (tokenlist[i].type in self.t_WS):
             i += 1
-
         if (i < tokenlen) and (tokenlist[i].value == '('):
             positions.append(i+1)
         else:
             self.error(self.source,tokenlist[0].lineno,"Missing '(' in macro arguments")
             return 0, [], []
-
         i += 1
-
         while i < tokenlen:
             t = tokenlist[i]
             if t.value == '(':
@@ -377,11 +323,9 @@ class Preprocessor(object):
             else:
                 current_arg.append(t)
             i += 1
-
         # Missing end argument
         self.error(self.source,tokenlist[-1].lineno,"Missing ')' in macro arguments")
         return 0, [],[]
-
     # ----------------------------------------------------------------------
     # macro_prescan()
     #
@@ -389,7 +333,6 @@ class Preprocessor(object):
     # This is used to speed up macro expansion later on---we'll know
     # right away where to apply patches to the value to form the expansion
     # ----------------------------------------------------------------------
-
     def macro_prescan(self,macro):
         macro.patch     = []             # Standard macro arguments
         macro.str_patch = []             # String conversion expansion
@@ -424,7 +367,6 @@ class Preprocessor(object):
                     macro.var_comma_patch.append(i-1)
             i += 1
         macro.patch.sort(key=lambda x: x[2],reverse=True)
-
     # ----------------------------------------------------------------------
     # macro_expand_args()
     #
@@ -432,31 +374,25 @@ class Preprocessor(object):
     # returns an expanded version of a macro.  The return value is a token sequence
     # representing the replacement macro tokens
     # ----------------------------------------------------------------------
-
     def macro_expand_args(self,macro,args):
         # Make a copy of the macro token sequence
         rep = [copy.copy(_x) for _x in macro.value]
-
         # Make string expansion patches.  These do not alter the length of the replacement sequence
-
         str_expansion = {}
         for argnum, i in macro.str_patch:
             if argnum not in str_expansion:
                 str_expansion[argnum] = ('"%s"' % "".join([x.value for x in args[argnum]])).replace("\\","\\\\")
             rep[i] = copy.copy(rep[i])
             rep[i].value = str_expansion[argnum]
-
         # Make the variadic macro comma patch.  If the variadic macro argument is empty, we get rid
         comma_patch = False
         if macro.variadic and not args[-1]:
             for i in macro.var_comma_patch:
                 rep[i] = None
                 comma_patch = True
-
         # Make all other patches.   The order of these matters.  It is assumed that the patch list
         # has been sorted in reverse order of patch location since replacements will cause the
         # size of the replacement sequence to expand from the patch point.
-
         expanded = { }
         for ptype, argnum, i in macro.patch:
             # Concatenation.   Argument is left unexpanded
@@ -467,14 +403,10 @@ class Preprocessor(object):
                 if argnum not in expanded:
                     expanded[argnum] = self.expand_macros(args[argnum])
                 rep[i:i+1] = expanded[argnum]
-
         # Get rid of removed comma if necessary
         if comma_patch:
             rep = [_i for _i in rep if _i]
-
         return rep
-
-
     # ----------------------------------------------------------------------
     # expand_macros()
     #
@@ -482,7 +414,6 @@ class Preprocessor(object):
     # The expanded argument is a dictionary that contains macros already
     # expanded.  This is used to prevent infinite recursion.
     # ----------------------------------------------------------------------
-
     def expand_macros(self,tokens,expanded=None):
         if expanded is None:
             expanded = {}
@@ -493,7 +424,6 @@ class Preprocessor(object):
                 if t.value in self.macros and t.value not in expanded:
                     # Yes, we found a macro match
                     expanded[t.value] = True
-
                     m = self.macros[t.value]
                     if not m.arglist:
                         # A simple macro
@@ -525,7 +455,6 @@ class Preprocessor(object):
                                     else:
                                         args[len(m.arglist)-1] = tokens[j+positions[len(m.arglist)-1]:j+tokcount-1]
                                         del args[len(m.arglist):]
-
                                 # Get macro replacement text
                                 rep = self.macro_expand_args(m,args)
                                 rep = self.expand_macros(rep,expanded)
@@ -538,17 +467,14 @@ class Preprocessor(object):
                 elif t.value == '__LINE__':
                     t.type = self.t_INTEGER
                     t.value = self.t_INTEGER_TYPE(t.lineno)
-
             i += 1
         return tokens
-
     # ----------------------------------------------------------------------
     # evalexpr()
     #
     # Evaluate an expression token sequence for the purposes of evaluating
     # integral expressions.
     # ----------------------------------------------------------------------
-
     def evalexpr(self,tokens):
         # tokens = tokenize(line)
         # Search for defined macros
@@ -591,7 +517,6 @@ class Preprocessor(object):
                 tokens[i].value = str(tokens[i].value)
                 while tokens[i].value[-1] not in "0123456789abcdefABCDEF":
                     tokens[i].value = tokens[i].value[:-1]
-
         expr = "".join([str(x.value) for x in tokens])
         expr = expr.replace("&&"," and ")
         expr = expr.replace("||"," or ")
@@ -602,40 +527,32 @@ class Preprocessor(object):
             self.error(self.source,tokens[0].lineno,"Couldn't evaluate expression")
             result = 0
         return result
-
     # ----------------------------------------------------------------------
     # parsegen()
     #
     # Parse an input string/
     # ----------------------------------------------------------------------
     def parsegen(self,input,source=None):
-
         # Replace trigraph sequences
         t = trigraph(input)
         lines = self.group_lines(t)
-
         if not source:
             source = ""
-
         self.define("__FILE__ \"%s\"" % source)
-
         self.source = source
         chunk = []
         enable = True
         iftrigger = False
         ifstack = []
-
         for x in lines:
             for i,tok in enumerate(x):
                 if tok.type not in self.t_WS: break
             if tok.value == '#':
                 # Preprocessor directive
-
                 # insert necessary whitespace instead of eaten tokens
                 for tok in x:
                     if tok.type in self.t_WS and '\n' in tok.value:
                         chunk.append(tok)
-
                 dirtokens = self.tokenstrip(x[i+1:])
                 if dirtokens:
                     name = dirtokens[0].value
@@ -643,7 +560,6 @@ class Preprocessor(object):
                 else:
                     name = ""
                     args = []
-
                 if name == 'define':
                     if enable:
                         for tok in self.expand_macros(chunk):
@@ -703,7 +619,6 @@ class Preprocessor(object):
                                     iftrigger = True
                     else:
                         self.error(self.source,dirtokens[0].lineno,"Misplaced #elif")
-
                 elif name == 'else':
                     if ifstack:
                         if ifstack[-1][0]:
@@ -714,7 +629,6 @@ class Preprocessor(object):
                                 iftrigger = True
                     else:
                         self.error(self.source,dirtokens[0].lineno,"Misplaced #else")
-
                 elif name == 'endif':
                     if ifstack:
                         enable,iftrigger = ifstack.pop()
@@ -723,22 +637,18 @@ class Preprocessor(object):
                 else:
                     # Unknown preprocessor directive
                     pass
-
             else:
                 # Normal text
                 if enable:
                     chunk.extend(x)
-
         for tok in self.expand_macros(chunk):
             yield tok
         chunk = []
-
     # ----------------------------------------------------------------------
     # include()
     #
     # Implementation of file-inclusion
     # ----------------------------------------------------------------------
-
     def include(self,tokens):
         # Try to extract the filename and then process an include file
         if not tokens:
@@ -746,7 +656,6 @@ class Preprocessor(object):
         if tokens:
             if tokens[0].value != '<' and tokens[0].type != self.t_STRING:
                 tokens = self.expand_macros(tokens)
-
             if tokens[0].value == '<':
                 # Include <...>
                 i = 1
@@ -781,17 +690,14 @@ class Preprocessor(object):
                 pass
         else:
             print("Couldn't find '%s'" % filename)
-
     # ----------------------------------------------------------------------
     # define()
     #
     # Define a new macro
     # ----------------------------------------------------------------------
-
     def define(self,tokens):
         if isinstance(tokens,STRING_TYPES):
             tokens = self.tokenize(tokens)
-
         linetok = tokens
         try:
             name = linetok[0]
@@ -851,20 +757,17 @@ class Preprocessor(object):
                 print("Bad macro definition")
         except LookupError:
             print("Bad macro definition")
-
     # ----------------------------------------------------------------------
     # undef()
     #
     # Undefine a macro
     # ----------------------------------------------------------------------
-
     def undef(self,tokens):
         id = tokens[0].value
         try:
             del self.macros[id]
         except LookupError:
             pass
-
     # ----------------------------------------------------------------------
     # parse()
     #
@@ -873,7 +776,6 @@ class Preprocessor(object):
     def parse(self,input,source=None,ignore={}):
         self.ignore = ignore
         self.parser = self.parsegen(input,source)
-
     # ----------------------------------------------------------------------
     # token()
     #
@@ -887,16 +789,13 @@ class Preprocessor(object):
         except StopIteration:
             self.parser = None
             return None
-
 if __name__ == '__main__':
     import ply.lex as lex
     lexer = lex.lex()
-
     # Run a preprocessor
     import sys
     f = open(sys.argv[1])
     input = f.read()
-
     p = Preprocessor(lexer)
     p.parse(input,sys.argv[1])
     while True:

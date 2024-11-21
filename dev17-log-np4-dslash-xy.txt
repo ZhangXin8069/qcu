@@ -7204,12 +7204,10 @@ quda difference:  2.8052012999149046e-16
  [3.55271368e-15 9.99200722e-16 6.66133815e-16]
  [8.88178420e-16 1.15879528e-15 8.88178420e-16]
  [1.33226763e-15 8.88178420e-16 2.22044605e-16]]
-
                initQuda Total time =     3.562 secs
                      init     =     3.562 secs ( 99.999%),	 with        2 calls at 1.781e+06 us per call
         total accounted       =     3.562 secs ( 99.999%)
         total missing         =     0.000 secs (  0.001%)
-
           loadGaugeQuda Total time =     0.862 secs
                  download     =     0.366 secs ( 42.425%),	 with       20 calls at 1.829e+04 us per call
                    upload     =     0.007 secs (  0.848%),	 with       10 calls at 7.317e+02 us per call
@@ -7218,7 +7216,6 @@ quda difference:  2.8052012999149046e-16
                      free     =     0.000 secs (  0.009%),	 with       20 calls at 4.000e+00 us per call
         total accounted       =     0.862 secs ( 99.976%)
         total missing         =     0.000 secs (  0.024%)
-
              dslashQuda Total time =     0.123 secs
                  download     =     0.000 secs (  0.191%),	 with       20 calls at 1.180e+01 us per call
                    upload     =     0.000 secs (  0.119%),	 with       20 calls at 7.350e+00 us per call
@@ -7227,11 +7224,8 @@ quda difference:  2.8052012999149046e-16
                      free     =     0.000 secs (  0.024%),	 with       20 calls at 1.500e+00 us per call
         total accounted       =     0.123 secs ( 99.977%)
         total missing         =     0.000 secs (  0.023%)
-
                 endQuda Total time =     0.115 secs
-
        initQuda-endQuda Total time =    38.509 secs
-
                    QUDA Total time =     4.812 secs
                  download     =     0.366 secs (  7.609%),	 with       40 calls at 9.153e+03 us per call
                    upload     =     0.007 secs (  0.155%),	 with       30 calls at 2.487e+02 us per call
@@ -7240,12 +7234,10 @@ quda difference:  2.8052012999149046e-16
                      free     =     0.000 secs (  0.002%),	 with       40 calls at 2.725e+00 us per call
         total accounted       =     4.697 secs ( 97.615%)
         total missing         =     0.115 secs (  2.385%)
-
 Device memory used = 561.4 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
 Page-locked host memory used = 33.0 MiB
 Total host memory used >= 45.4 MiB
-
 ~/qcu

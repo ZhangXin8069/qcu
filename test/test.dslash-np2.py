@@ -18,8 +18,6 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
-
-
 def compare(round):
     # generate a vector p randomly
     p = LatticeFermion(latt_size, cp.random.randn(
@@ -62,7 +60,5 @@ def compare(round):
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(
         Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
-
-
 for i in range(0, 10):
     compare(i)

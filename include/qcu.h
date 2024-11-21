@@ -30,7 +30,6 @@ extern "C"
                         QcuParam *param, QcuParam *grid);
   void applyCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                   QcuParam *param, QcuParam *grid);
-
 #ifdef __cplusplus
 }
 #endif

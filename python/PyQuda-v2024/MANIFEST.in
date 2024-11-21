@@ -6,7 +6,6 @@ exclude pyquda/src/pyquda.pyx
 exclude pyquda/enum_quda.py
 exclude pyquda/src/*.c
 exclude pyquda/src/*.cpp
-
 exclude tests/*
 include pyquda_pyx.py
 include pycparser/LICENSE

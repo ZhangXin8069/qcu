@@ -31,7 +31,6 @@ int main(void)
   printf("GPU SMs = %d\n", prop.multiProcessorCount);                    // 获得 SM 数目
   printf("GPU SM clock rate = %.3f GHz\n", prop.clockRate / 1e6);        // prop.clockRate 单位为 kHz，除以 1e6 之后单位为 GHz
   printf("GPU Mem clock rate = %.3f GHz\n", prop.memoryClockRate / 1e6); // 同上
-
   if ((prop.major == 8) && (prop.minor == 0)) // SM 8.0，即 A100
   {
     // 根据公式计算峰值吞吐，其中 64、32、256、256 是从表中查到
@@ -41,7 +40,6 @@ int main(void)
     printf("FP16 Peak Performance = %.3f GFLOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 256 * 2);
     printf("BF16 Peak Performance = %.3f GFLOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 128 * 2);
     printf("INT8 Peak Performance = %.3f GOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 256 * 2);
-
     printf("-----------Tensor Core Dense Performance------------\n");
     printf("TF32 Peak Performance = %.3f GFLOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 512 * 2);
     printf("FP64 Peak Performance = %.3f GFLOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 64 * 2);
@@ -57,6 +55,5 @@ int main(void)
     printf("INT8 Peak Performance = %.3f GOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 4096 * 2);
     printf("INT4 Peak Performance = %.3f GOPS.\n", prop.multiProcessorCount * (prop.clockRate / 1e6) * 8192 * 2);
   }
-
   return 0;
 }

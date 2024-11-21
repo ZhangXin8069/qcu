@@ -1,7 +1,5 @@
 from typing import Union, List
-
 import numpy
-
 from pyquda.pointer import Pointers
 from pyquda.pyquda import (
     gaussGaugeQuda,
@@ -19,10 +17,7 @@ from pyquda.pyquda import (
 from pyquda.enum_quda import QudaTboundary, QudaVerbosity
 from pyquda.field import LatticeInfo, LatticeGauge, LatticeMom
 from pyquda.dirac.pure_gauge import PureGauge
-
 nullptr = Pointers("void", 0)
-
-
 def getLoopsCoeffs(loops: List[List[int]], coeffs: List[float]):
     num_paths = len(loops)
     assert num_paths == len(coeffs)
@@ -47,18 +42,14 @@ def getLoopsCoeffs(loops: List[List[int]], coeffs: List[float]):
         if dx != [0, 0, 0, 0]:
             raise ValueError(f"path {loops[i]} is not a loop")
     return input_path_buf, path_length, loop_coeff, num_paths, max_length
-
-
 class HMC:
     def __init__(self, latt_info: LatticeInfo) -> None:
         assert latt_info.anisotropy == 1.0
         self.latt_info = latt_info
         self._pure_gauge = PureGauge(latt_info)
         self.gauge_param = self._pure_gauge.gauge_param
-
     def setVerbosity(self, verbosity: QudaVerbosity):
         setVerbosityQuda(verbosity, b"\0")
-
     def initialize(self, gauge: Union[LatticeGauge, int, None] = None):
         if isinstance(gauge, LatticeGauge):
             self.loadGauge(gauge)
@@ -69,7 +60,6 @@ class HMC:
             self.loadMom(unit)
             if gauge is not None:
                 self.gaussGauge(gauge)
-
     def actionGauge(self, loops: List[List[int]], coeffs: List[float]) -> float:
         input_path_buf, path_length, loop_coeff, num_paths, max_length = getLoopsCoeffs(loops, coeffs)
         traces = numpy.zeros((num_paths), "<c16")
@@ -83,14 +73,11 @@ class HMC:
             1,
         )
         return traces.real.sum()
-
     def actionMom(self) -> float:
         return momActionQuda(nullptr, self.gauge_param)
-
     def updateGauge(self, dt: float):
         updateGaugeFieldQuda(nullptr, nullptr, dt, False, True, self.gauge_param)
         loadGaugeQuda(nullptr, self.gauge_param)
-
     def updateMom(self, loops: List[List[List[int]]], coeffs: List[float], dt: float):
         input_path_buf_, path_length, loop_coeff, num_paths, max_length = getLoopsCoeffs(loops[0], coeffs)
         input_path_buf = numpy.full((4, num_paths, max_length - 1), -1, "<i4")
@@ -111,7 +98,6 @@ class HMC:
             dt,
             self.gauge_param,
         )
-
     def loadGauge(self, gauge: LatticeGauge):
         gauge_in = gauge.copy()
         if self.gauge_param.t_boundary == QudaTboundary.QUDA_ANTI_PERIODIC_T:
@@ -119,18 +105,14 @@ class HMC:
         self.gauge_param.use_resident_gauge = 0
         loadGaugeQuda(gauge_in.data_ptrs, self.gauge_param)
         self.gauge_param.use_resident_gauge = 1
-
     def saveGauge(self, gauge: LatticeGauge):
         saveGaugeQuda(gauge.data_ptrs, self.gauge_param)
         if self.gauge_param.t_boundary == QudaTboundary.QUDA_ANTI_PERIODIC_T:
             gauge.setAntiPeriodicT()
-
     def gaussGauge(self, seed: int):
         gaussGaugeQuda(seed, 1.0)
-
     def loadMom(self, mom: LatticeMom):
         momResidentQuda(mom.data_ptrs, self.gauge_param)
-
     def saveMom(self, mom: LatticeMom):
         self.gauge_param.make_resident_mom = 0
         self.gauge_param.return_result_mom = 1
@@ -138,15 +120,12 @@ class HMC:
         self.gauge_param.make_resident_mom = 1
         self.gauge_param.return_result_mom = 0
         momResidentQuda(mom.data_ptrs, self.gauge_param)  # keep momResident
-
     def gaussMom(self, seed: int):
         gaussMomQuda(seed, 1.0)
-
     def reunitGauge(self, tol: float):
         gauge = LatticeGauge(self.latt_info)
         self.saveGauge(gauge)
         gauge.projectSU3(tol)
         self.loadGauge(gauge)
-
     def plaquette(self):
         return plaqQuda()[0]

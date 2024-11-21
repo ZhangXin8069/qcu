@@ -1,5 +1,4 @@
 Run these examples from the root directory of pycparser.
-
 Please note that most realistic C code samples would require running the C
 preprocessor before passing the code to **pycparser**; see the `README file
 <https://github.com/eliben/pycparser/blob/master/README.rst>`_ and

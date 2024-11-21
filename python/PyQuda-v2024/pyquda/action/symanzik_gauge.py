@@ -1,23 +1,16 @@
 import numpy
-
 from ..pointer import Pointers
 from ..pyquda import computeGaugeLoopTraceQuda, computeGaugeForceQuda
 from ..field import Nc, LatticeInfo
 from ..dirac.pure_gauge import PureGauge
-
 nullptr = Pointers("void", 0)
-
 from . import GaugeAction
-
-
 def loop_ndarray(path, num_paths, max_length):
     ret = -numpy.ones((num_paths, max_length), "<i4")
     for i in range(num_paths):
         for j in range(len(path[i])):
             ret[i, j] = path[i][j]
     return ret
-
-
 def path_ndarray(path, num_paths, max_length):
     ret = -numpy.ones((4, num_paths, max_length), "<i4")
     for d in range(4):
@@ -25,8 +18,6 @@ def path_ndarray(path, num_paths, max_length):
             for j in range(len(path[d][i])):
                 ret[d, i, j] = path[d][i][j]
     return ret
-
-
 def path_force(path, coeffs):
     num_paths = len(path)
     lengths = []
@@ -58,15 +49,11 @@ def path_force(path, coeffs):
     max_flength = max_length - 1
     fpath = path_ndarray(fpath, num_fpaths, max_flength)
     return path, num_paths, max_length, lengths, coeffs, fpath, num_fpaths, max_flength, flengths, fcoeffs
-
-
 class SymanzikGauge(GaugeAction):
     def __init__(self, latt_info: LatticeInfo, beta: float, u_0: float):
         super().__init__(latt_info)
-
         self.pure_gauge = PureGauge(latt_info)
         self.gauge_param = self.pure_gauge.gauge_param
-
         input_path = [
             [0, 1, 7, 6],
             [0, 2, 7, 5],
@@ -121,7 +108,6 @@ class SymanzikGauge(GaugeAction):
         ) = path_force(input_path, input_coeffs)
         self.coeffs *= beta * (5 / 3) / u_0**4 / Nc
         self.fcoeffs *= beta * (5 / 3) / u_0**4 / Nc
-
     def action(self) -> float:
         traces = numpy.zeros((self.num_paths), "<c16")
         computeGaugeLoopTraceQuda(
@@ -134,7 +120,6 @@ class SymanzikGauge(GaugeAction):
             1,
         )
         return traces.real.sum()
-
     def force(self, dt: float):
         computeGaugeForceQuda(
             nullptr,

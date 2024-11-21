@@ -1,13 +1,10 @@
 from typing import List, Union
 from math import sqrt
-
 from . import pyquda as quda
 from . import enum_quda
 from .field import LatticeGauge, LatticeColorVector, LatticeFermion, LatticePropagator, Nc, Nd, Ns, lexico, cb2
 from .dslash.abstract import Dslash
 from .utils.source import source
-
-
 def smear(latt_size: List[int], gauge: LatticeGauge, nstep: int, rho: float):
     smear_param = quda.QudaGaugeSmearParam()
     smear_param.n_steps = nstep
@@ -22,8 +19,6 @@ def smear(latt_size: List[int], gauge: LatticeGauge, nstep: int, rho: float):
     quda.performGaugeSmearQuda(smear_param, obs_param)
     dslash.gauge_param.type = enum_quda.QudaLinkType.QUDA_SMEARED_LINKS
     quda.saveGaugeQuda(gauge.data_ptrs, dslash.gauge_param)
-
-
 def smear4(latt_size: List[int], gauge: LatticeGauge, nstep: int, rho: float):
     smear_param = quda.QudaGaugeSmearParam()
     smear_param.n_steps = nstep
@@ -39,13 +34,10 @@ def smear4(latt_size: List[int], gauge: LatticeGauge, nstep: int, rho: float):
     quda.performGaugeSmearQuda(smear_param, obs_param)
     dslash.gauge_param.type = enum_quda.QudaLinkType.QUDA_SMEARED_LINKS
     quda.saveGaugeQuda(gauge.data_ptrs, dslash.gauge_param)
-
-
 def invert(dslash: Dslash, source_type: str, t_srce: Union[int, List[int]], phase=None):
     latt_size = dslash.gauge_param.X
     Lx, Ly, Lz, Lt = latt_size
     Vol = Lx * Ly * Lz * Lt
-
     prop = LatticePropagator(latt_size)
     data = prop.data.reshape(Vol, Ns, Ns, Nc, Nc)
     for spin in range(Ns):
@@ -53,15 +45,11 @@ def invert(dslash: Dslash, source_type: str, t_srce: Union[int, List[int]], phas
             b = source(latt_size, source_type, t_srce, spin, color, phase)
             x = dslash.invert(b)
             data[:, :, spin, :, color] = x.data.reshape(Vol, Ns, Nc)
-
     return prop
-
-
 def invert12(b12: LatticePropagator, dslash: Dslash):
     latt_size = b12.latt_size
     Lx, Ly, Lz, Lt = latt_size
     Vol = Lx * Ly * Lz * Lt
-
     x12 = LatticePropagator(latt_size)
     for spin in range(Ns):
         for color in range(Nc):
@@ -71,10 +59,7 @@ def invert12(b12: LatticePropagator, dslash: Dslash):
             x = dslash.invert(b)
             data = x12.data.reshape(Vol, Ns, Ns, Nc, Nc)
             data[:, :, spin, :, color] = x.data.reshape(Vol, Ns, Nc)
-
     return x12
-
-
 def getDslash(
     latt_size: List[int],
     mass: float,
@@ -106,14 +91,11 @@ def getDslash(
             geo_block_size = [[2, 2, 2, 2], [4, 4, 4, 4]]
         else:
             geo_block_size = multigrid
-
     if clover_coeff != 0.0:
         from .dslash import clover_wilson
-
         return clover_wilson.CloverWilson(
             latt_size, kappa, tol, maxiter, xi, clover_coeff, clover_xi, t_boundary, geo_block_size
         )
     else:
         from .dslash import wilson
-
         return wilson.Wilson(latt_size, kappa, tol, maxiter, xi, t_boundary, geo_block_size)

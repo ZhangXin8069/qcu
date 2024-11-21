@@ -252,12 +252,10 @@ nccl wilson dslash total time: (without malloc free memcpy) :0.003900834 sec
  [ 4.90784325-8.01701311j  7.95972905+2.18858563j  4.39178501-4.28168468j]]
 QCU dslash: 1.0420487560040783 sec
 quda difference:  1.4143128749860931
-
                initQuda Total time =     0.622 secs
                      init     =     0.622 secs ( 99.999%),	 with        2 calls at 3.109e+05 us per call
         total accounted       =     0.622 secs ( 99.999%)
         total missing         =     0.000 secs (  0.001%)
-
           loadGaugeQuda Total time =     0.285 secs
                  download     =     0.162 secs ( 57.033%),	 with       20 calls at 8.122e+03 us per call
                    upload     =     0.047 secs ( 16.339%),	 with       10 calls at 4.654e+03 us per call
@@ -266,7 +264,6 @@ quda difference:  1.4143128749860931
                      free     =     0.001 secs (  0.187%),	 with       20 calls at 2.660e+01 us per call
         total accounted       =     0.283 secs ( 99.271%)
         total missing         =     0.002 secs (  0.729%)
-
              dslashQuda Total time =     0.019 secs
                  download     =     0.000 secs (  2.368%),	 with       20 calls at 2.205e+01 us per call
                    upload     =     0.000 secs (  0.950%),	 with       20 calls at 8.850e+00 us per call
@@ -275,11 +272,8 @@ quda difference:  1.4143128749860931
                      free     =     0.000 secs (  0.193%),	 with       20 calls at 1.800e+00 us per call
         total accounted       =     0.019 secs ( 99.823%)
         total missing         =     0.000 secs (  0.177%)
-
                 endQuda Total time =     0.019 secs
-
        initQuda-endQuda Total time =    17.193 secs
-
                    QUDA Total time =     1.475 secs
                  download     =     0.163 secs ( 11.043%),	 with       40 calls at 4.072e+03 us per call
                    upload     =     0.047 secs (  3.167%),	 with       30 calls at 1.557e+03 us per call
@@ -288,12 +282,10 @@ quda difference:  1.4143128749860931
                      free     =     0.001 secs (  0.039%),	 with       40 calls at 1.425e+01 us per call
         total accounted       =     1.454 secs ( 98.572%)
         total missing         =     0.021 secs (  1.428%)
-
 Device memory used = 1086.0 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
 Page-locked host memory used = 48.0 MiB
 Total host memory used >= 66.0 MiB
-
 ~/qcu

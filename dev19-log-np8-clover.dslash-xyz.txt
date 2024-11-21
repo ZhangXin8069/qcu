@@ -6757,7 +6757,6 @@ rank 0 my x and x difference: 4.1328090442264756e-16, takes 12.371739270049147 s
  [ 1.48353969-8.13632867j  2.73800634+2.50031138j -8.65539672+2.57429573j]
  [-3.04063698-1.11054219j  7.55366259-2.64472246j -2.12229635+4.84582329j]
  [-1.53467695-0.93843838j  7.80015799-6.15451797j  4.19051336-2.08304954j]]
-
 ######diff_x[0,-2,-2,-2]:
  [[8.88178420e-15 4.16333634e-16 3.55271368e-15]
  [0.00000000e+00 6.38378239e-16 9.99200722e-16]
@@ -6840,7 +6839,6 @@ rank 0 my x and x difference: 4.1328090442264756e-16, takes 12.371739270049147 s
    -2.68151298-4.75958056j]
  [  1.13435711+1.77936281j  -7.07407593+0.89914498j
   -11.76153564-6.38521623j]]
-
 QCU dslash: 12.592023493954912 sec
 QCU dslash: 12.59336080797948 sec
 rank 0 my x and x difference: 4.134970725620888e-16, takes 12.59336080797948 sec, my_norm = 11478.918532897085, norm = 11478.918532897083
@@ -6960,7 +6958,6 @@ rank 0 my x and x difference: 4.1329700191282167e-16, takes 12.626626817975193 s
  [4.44089210e-15 6.21724894e-15 0.00000000e+00]
  [1.77635684e-15 4.44089210e-16 2.66453526e-15]]
 ######diff_x[0,0,2,2]:
-
 ######diff_x[0,0,1,1]:
  [[4.44089210e-16 2.77555756e-16 8.88178420e-16]
  [4.44089210e-16 8.88178420e-16 2.22044605e-15]
@@ -6975,7 +6972,6 @@ rank 0 my x and x difference: 4.1329700191282167e-16, takes 12.626626817975193 s
  [4.44089210e-16 2.88657986e-15 1.33226763e-15]
  [7.77156117e-16 3.55271368e-15 0.00000000e+00]]
 ######diff_x[2,2,2,2]:
-
 ######diff_x[0,1,1,1]:
  [[2.55351296e-15 3.55271368e-15 2.22044605e-16]
  [1.33226763e-15 0.00000000e+00 4.44089210e-16]
@@ -6990,7 +6986,6 @@ rank 0 my x and x difference: 4.1329700191282167e-16, takes 12.626626817975193 s
  [0.00000000e+00 0.00000000e+00 0.00000000e+00]
  [0.00000000e+00 0.00000000e+00 1.77635684e-15]]
 ######diff_x[0,0,0,-2]:
-
 ######diff_x[1,1,1,1]:
  [[8.88178420e-16 2.66453526e-15 8.88178420e-16]
  [4.44089210e-16 8.88178420e-16 8.88178420e-16]
@@ -7005,7 +7000,6 @@ rank 0 my x and x difference: 4.1329700191282167e-16, takes 12.626626817975193 s
  [3.55271368e-15 1.11022302e-15 2.66453526e-15]
  [6.66133815e-16 1.77635684e-15 1.33226763e-15]]
 ######diff_x[0,-2,-2,-2]:
-
 ######diff_x[0,0,0,0]:
  [[0.00000000e+00 3.55271368e-15 1.77635684e-15]
  [2.22044605e-15 3.55271368e-15 8.88178420e-16]
@@ -7680,7 +7674,6 @@ rank 0 my x and x difference: 4.1309414433961803e-16, takes 12.640390512999147 s
                      init     =     4.674 secs (100.000%),	 with        2 calls at 2.337e+06 us per call
         total accounted       =     4.674 secs (100.000%)
         total missing         =     0.000 secs (  0.000%)
-
           loadGaugeQuda Total time =     1.388 secs
                  download     =     0.936 secs ( 67.472%),	 with        3 calls at 3.121e+05 us per call
                    upload     =     0.000 secs (  0.028%),	 with        1 calls at 3.930e+02 us per call
@@ -7690,7 +7683,6 @@ rank 0 my x and x difference: 4.1309414433961803e-16, takes 12.640390512999147 s
                      free     =     0.000 secs (  0.001%),	 with        3 calls at 6.667e+00 us per call
         total accounted       =     1.386 secs ( 99.845%)
         total missing         =     0.002 secs (  0.155%)
-
          loadCloverQuda Total time =     0.267 secs
                      init     =     0.019 secs (  7.001%),	 with        4 calls at 4.665e+03 us per call
                   compute     =     0.026 secs (  9.856%),	 with        2 calls at 1.313e+04 us per call
@@ -7698,7 +7690,6 @@ rank 0 my x and x difference: 4.1309414433961803e-16, takes 12.640390512999147 s
                      free     =     0.000 secs (  0.000%),	 with        1 calls at 1.000e+00 us per call
         total accounted       =     0.267 secs ( 99.994%)
         total missing         =     0.000 secs (  0.006%)
-
              dslashQuda Total time =     1.275 secs
                  download     =     0.000 secs (  0.028%),	 with       10 calls at 3.510e+01 us per call
                    upload     =     0.000 secs (  0.009%),	 with       10 calls at 1.160e+01 us per call
@@ -7707,11 +7698,8 @@ rank 0 my x and x difference: 4.1309414433961803e-16, takes 12.640390512999147 s
                      free     =     0.000 secs (  0.002%),	 with       10 calls at 3.100e+00 us per call
         total accounted       =     1.275 secs ( 99.998%)
         total missing         =     0.000 secs (  0.002%)
-
                 endQuda Total time =     0.326 secs
-
        initQuda-endQuda Total time =    76.546 secs
-
                    QUDA Total time =     7.942 secs
                  download     =     0.937 secs ( 11.795%),	 with       13 calls at 7.206e+04 us per call
                    upload     =     0.001 secs (  0.006%),	 with       11 calls at 4.600e+01 us per call
@@ -7721,12 +7709,10 @@ rank 0 my x and x difference: 4.1309414433961803e-16, takes 12.640390512999147 s
                      free     =     0.000 secs (  0.001%),	 with       14 calls at 3.500e+00 us per call
         total accounted       =     7.614 secs ( 95.866%)
         total missing         =     0.328 secs (  4.134%)
-
 Device memory used = 2055.6 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
 Page-locked host memory used = 675.0 MiB
 Total host memory used >= 675.0 MiB
-
        ~/qcu

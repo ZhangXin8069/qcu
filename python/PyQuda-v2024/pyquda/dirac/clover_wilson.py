@@ -1,11 +1,7 @@
 from typing import List, Union
-
 from ..field import LatticeInfo, LatticeGauge, LatticeClover
 from ..enum_quda import QudaDslashType, QudaPrecision
-
 from . import Multigrid, Dirac, general
-
-
 class CloverWilson(Dirac):
     def __init__(
         self,
@@ -27,11 +23,9 @@ class CloverWilson(Dirac):
         self.newQudaGaugeParam()
         self.newQudaMultigridParam(multigrid, mass, kappa, 0.25, 16, 1e-6, 1000, 0, 8)
         self.newQudaInvertParam(mass, kappa, tol, maxiter, clover_csw, clover_xi)
-
     def newQudaGaugeParam(self):
         gauge_param = general.newQudaGaugeParam(self.latt_info, 1.0, 0.0, self.precision, self.reconstruct)
         self.gauge_param = gauge_param
-
     def newQudaMultigridParam(
         self,
         multigrid: Union[List[List[int]], Multigrid],
@@ -64,7 +58,6 @@ class CloverWilson(Dirac):
             self.multigrid = Multigrid(mg_param, mg_inv_param)
         else:
             self.multigrid = Multigrid(None, None)
-
     def newQudaInvertParam(
         self, mass: float, kappa: float, tol: float, maxiter: int, clover_csw: float, clover_xi: float
     ):
@@ -73,18 +66,15 @@ class CloverWilson(Dirac):
         )
         invert_param.dslash_type = QudaDslashType.QUDA_CLOVER_WILSON_DSLASH
         self.invert_param = invert_param
-
     def saveClover(self, gauge: LatticeGauge):
         if self.clover is None or self.clover_inv is None:
             self.clover = LatticeClover(gauge.latt_info)
             self.clover_inv = LatticeClover(gauge.latt_info)
         general.saveClover(self.clover, self.clover_inv, gauge, self.gauge_param, self.invert_param)
-
     def restoreClover(self):
         assert self.clover is not None and self.clover_inv is not None
         general.loadClover(self.clover, self.clover_inv, None, self.gauge_param, self.invert_param)
         self.updateMultigrid(True)
-
     def loadGauge(self, gauge: LatticeGauge, thin_update_only: bool = False):
         general.loadClover(self.clover, self.clover_inv, gauge, self.gauge_param, self.invert_param)
         general.loadGauge(gauge, self.gauge_param)
@@ -92,6 +82,5 @@ class CloverWilson(Dirac):
             self.newMultigrid()
         else:
             self.updateMultigrid(thin_update_only)
-
     def destroy(self):
         self.destroyMultigrid()

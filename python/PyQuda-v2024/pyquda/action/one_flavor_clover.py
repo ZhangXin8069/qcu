@@ -1,5 +1,4 @@
 import numpy
-
 from .. import getLogger
 from ..pointer import Pointers
 from ..pyquda import computeCloverForceQuda, invertMultiShiftQuda, loadCloverQuda, loadGaugeQuda
@@ -15,12 +14,8 @@ from ..enum_quda import (
 )
 from ..field import Nd, Nc, Ns, LatticeInfo, LatticeFermion, MultiLatticeFermion
 from ..dirac.clover_wilson import CloverWilson
-
 nullptr = Pointers("void", 0)
-
 from . import FermionAction
-
-
 const_fourth_root = 6.10610118771501
 residue_fourth_root = [
     -5.90262826538435e-06,
@@ -84,36 +79,29 @@ offset_inv_square_root = [
     18.850085313508,
     99.6213166072174,
 ]
-
-
 class OneFlavorClover(FermionAction):
     def __init__(self, latt_info: LatticeInfo, mass: float, tol: float, maxiter: int, clover_csw: float) -> None:
         super().__init__(latt_info)
         if latt_info.anisotropy != 1.0:
             getLogger().critical("anisotropy != 1.0 not implemented", NotImplementedError)
-
         kappa = 1 / (2 * (mass + Nd))
         self.kappa2 = -(kappa**2)
         self.ck = -kappa * clover_csw / 8
         self.num_flavor = 1
-
         self.dirac = CloverWilson(latt_info, mass, kappa, tol, maxiter, clover_csw, 1, None)
         self.phi = LatticeFermion(latt_info)
         self.gauge_param = self.dirac.gauge_param
         self.invert_param = self.dirac.invert_param
-
         self.invert_param.inv_type = QudaInverterType.QUDA_CG_INVERTER
         self.invert_param.solution_type = QudaSolutionType.QUDA_MATPCDAG_MATPC_SOLUTION
         self.invert_param.solve_type = QudaSolveType.QUDA_NORMOP_PC_SOLVE  # This is set to compute action
         self.invert_param.matpc_type = QudaMatPCType.QUDA_MATPC_EVEN_EVEN_ASYMMETRIC
         self.invert_param.mass_normalization = QudaMassNormalization.QUDA_KAPPA_NORMALIZATION
         self.invert_param.verbosity = QudaVerbosity.QUDA_SILENT
-
     def updateClover(self, new_gauge: bool):
         if new_gauge:
             loadGaugeQuda(nullptr, self.gauge_param)
             loadCloverQuda(nullptr, nullptr, self.invert_param)
-
     def action(self, new_gauge: bool) -> float:
         self.invert_param.compute_clover_trlog = 1
         self.updateClover(new_gauge)
@@ -131,7 +119,6 @@ class OneFlavorClover(FermionAction):
             - self.latt_info.volume_cb2 * Ns * Nc
             - self.num_flavor * self.invert_param.trlogA[1]
         )
-
     def force(self, dt, new_gauge: bool):
         self.updateClover(new_gauge)
         num_offset = len(offset_inv_square_root)
@@ -155,7 +142,6 @@ class OneFlavorClover(FermionAction):
             self.invert_param,
         )
         self.invert_param.dagger = QudaDagType.QUDA_DAG_NO
-
     def sample(self, noise: LatticeFermion, new_gauge: bool):
         self.updateClover(new_gauge)
         num_offset = len(offset_fourth_root)

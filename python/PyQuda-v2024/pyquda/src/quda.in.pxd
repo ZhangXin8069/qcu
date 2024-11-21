@@ -1,5 +1,4 @@
 #pragma once
-
 #
 # @file  quda.h
 # @brief Main header file for the QUDA library
@@ -8,51 +7,39 @@
 # and QudaInvertParam, be sure to update lib/check_params.h as well
 # as the Fortran interface in lib/quda_fortran.F90.
 #
-
 from enum_quda cimport *
 from libc.stdio cimport FILE
 # from quda_define cimport *
 from quda_constants cimport *
-
 cdef extern from "complex.h":
     pass
 ctypedef double complex double_complex
-
 cdef extern from "quda.h":
-
     #
     # Parameters having to do with the gauge field or the
     # interpretation of the gauge field by various Dirac operators
     #
     ctypedef struct QudaGaugeParam:
         pass
-
     #
     # Parameters relating to the solver and the choice of Dirac operator.
     #
     ctypedef struct QudaInvertParam:
         pass
-
     # Parameter set for solving eigenvalue problems.
     ctypedef struct QudaEigParam:
         pass
-
     ctypedef struct QudaMultigridParam:
         pass
-
     ctypedef struct QudaGaugeObservableParam:
         pass
-
     ctypedef struct QudaGaugeSmearParam:
         pass
-
     ctypedef struct QudaBLASParam:
         pass
-
     #
     # Interface functions, found in interface_quda.cpp
     #
-
     #
     # Set parameters related to status reporting.
     #
@@ -80,7 +67,6 @@ cdef extern from "quda.h":
     #
     void setVerbosityQuda(QudaVerbosity verbosity, const char prefix[],
                           FILE *outfile)
-
     #
     # initCommsGridQuda() takes an optional "rank_from_coords" argument that
     # should be a pointer to a user-defined function with this prototype.
@@ -92,13 +78,10 @@ cdef extern from "quda.h":
     # @see initCommsGridQuda
     #
     ctypedef int (*QudaCommsMap)(const int *coords, void *fdata)
-
     #
     # @param mycomm User provided MPI communicator in place of MPI_COMM_WORLD
     #
-
     void qudaSetCommHandle(void *mycomm)
-
     #
     # Declare the grid mapping ("logical topology" in QMP parlance)
     # used for communications in a multi-GPU grid.  This function
@@ -125,9 +108,7 @@ cdef extern from "quda.h":
     #
     # @see QudaCommsMap
     #
-
     void initCommsGridQuda(int nDim, const int *dims, QudaCommsMap func, void *fdata)
-
     #
     # Initialize the library.  This is a low-level interface that is
     # called by initQuda.  Calling initQudaDevice requires that the
@@ -139,7 +120,6 @@ cdef extern from "quda.h":
     #               allocation of devices to processes.
     #
     void initQudaDevice(int device)
-
     #
     # Initialize the library persistant memory allocations (both host
     # and device).  This is a low-level interface that is called by
@@ -147,7 +127,6 @@ cdef extern from "quda.h":
     # previously called initQudaDevice.
     #
     void initQudaMemory()
-
     #
     # Initialize the library.  This function is actually a wrapper
     # around calls to initQudaDevice() and initQudaMemory().
@@ -158,19 +137,16 @@ cdef extern from "quda.h":
     #                allocation of devices to processes.
     #
     void initQuda(int device)
-
     #
     # Finalize the library.
     #
     void endQuda()
-
     #
     # @brief update the radius for halos.
     # @details This should only be needed for automated testing when
     # different partitioning is applied within a single run.
     #
     void updateR()
-
     #
     # A new QudaGaugeParam should always be initialized immediately
     # after it's defined (and prior to explicitly setting its members)
@@ -179,7 +155,6 @@ cdef extern from "quda.h":
     #   QudaGaugeParam gauge_param = newQudaGaugeParam()
     #
     QudaGaugeParam newQudaGaugeParam()
-
     #
     # A new QudaInvertParam should always be initialized immediately
     # after it's defined (and prior to explicitly setting its members)
@@ -188,7 +163,6 @@ cdef extern from "quda.h":
     #   QudaInvertParam invert_param = newQudaInvertParam()
     #
     QudaInvertParam newQudaInvertParam()
-
     #
     # A new QudaMultigridParam should always be initialized immediately
     # after it's defined (and prior to explicitly setting its members)
@@ -197,7 +171,6 @@ cdef extern from "quda.h":
     #   QudaMultigridParam mg_param = newQudaMultigridParam()
     #
     QudaMultigridParam newQudaMultigridParam()
-
     #
     # A new QudaEigParam should always be initialized immediately
     # after it's defined (and prior to explicitly setting its members)
@@ -206,7 +179,6 @@ cdef extern from "quda.h":
     #   QudaEigParam eig_param = newQudaEigParam()
     #
     QudaEigParam newQudaEigParam()
-
     #
     # A new QudaGaugeObservableParam should always be initialized
     # immediately after it's defined (and prior to explicitly setting
@@ -215,7 +187,6 @@ cdef extern from "quda.h":
     #   QudaGaugeObservalbeParam obs_param = newQudaGaugeObservableParam();
     #
     QudaGaugeObservableParam newQudaGaugeObservableParam()
-
     #
     # A new QudaGaugeSmearParam should always be initialized
     # immediately after it's defined (and prior to explicitly setting
@@ -224,7 +195,6 @@ cdef extern from "quda.h":
     #   QudaGaugeSmearParam smear_param = newQudaGaugeSmearParam();
     #
     QudaGaugeSmearParam newQudaGaugeSmearParam()
-
     #
     # A new QudaBLASParam should always be initialized immediately
     # after it's defined (and prior to explicitly setting its members)
@@ -233,78 +203,65 @@ cdef extern from "quda.h":
     #   QudaBLASParam blas_param = newQudaBLASParam()
     #
     QudaBLASParam newQudaBLASParam()
-
     #
     # Print the members of QudaGaugeParam.
     # @param param The QudaGaugeParam whose elements we are to print.
     #
     void printQudaGaugeParam(QudaGaugeParam *param)
-
     #
     # Print the members of QudaInvertParam.
     # @param param The QudaInvertParam whose elements we are to print.
     #
     void printQudaInvertParam(QudaInvertParam *param)
-
     #
     # Print the members of QudaMultigridParam.
     # @param param The QudaMultigridParam whose elements we are to print.
     #
     void printQudaMultigridParam(QudaMultigridParam *param)
-
     #
     # Print the members of QudaEigParam.
     # @param param The QudaEigParam whose elements we are to print.
     #
     void printQudaEigParam(QudaEigParam *param)
-
     #
     # Print the members of QudaGaugeObservableParam.
     # @param param The QudaGaugeObservableParam whose elements we are to print.
     #
     void printQudaGaugeObservableParam(QudaGaugeObservableParam *param)
-
     #
     # Print the members of QudaBLASParam.
     # @param param The QudaBLASParam whose elements we are to print.
     #
     void printQudaBLASParam(QudaBLASParam *param)
-
     #
     # Load the gauge field from the host.
     # @param h_gauge Base pointer to host gauge field (regardless of dimensionality)
     # @param param   Contains all metadata regarding host and device storage
     #
     void loadGaugeQuda(void *h_gauge, QudaGaugeParam *param)
-
     #
     # Free QUDA's internal copy of the gauge field.
     #
     void freeGaugeQuda()
-
     #
     # Free a unique type (Wilson, HISQ fat, HISQ long, smeared) of internal gauge field.
     # @param link_type[in] Type of link type to free up
     #
     void freeUniqueGaugeQuda(QudaLinkType link_type)
-
     #
     # Free QUDA's internal smeared gauge field.
     #
     void freeGaugeSmearedQuda()
-
     #
     # Free QUDA's internal two-link gauge field.
     #
     void freeGaugeTwoLinkQuda()
-
     #
     # Save the gauge field to the host.
     # @param h_gauge Base pointer to host gauge field (regardless of dimensionality)
     # @param param   Contains all metadata regarding host and device storage
     #
     void saveGaugeQuda(void *h_gauge, QudaGaugeParam *param)
-
     #
     # Load the clover term and/or the clover inverse from the host.
     # Either h_clover or h_clovinv may be set to NULL.
@@ -314,12 +271,10 @@ cdef extern from "quda.h":
     #
     void loadCloverQuda(void *h_clover, void *h_clovinv,
                         QudaInvertParam *inv_param)
-
     #
     # Free QUDA's internal copy of the clover term and/or clover inverse.
     #
     void freeCloverQuda()
-
     #
     # Perform the solve, according to the parameters set in param.  It
     # is assumed that the gauge field has already been loaded via
@@ -331,7 +286,6 @@ cdef extern from "quda.h":
     #
     void lanczosQuda(int k0, int m, void *hp_Apsi, void *hp_r, void *hp_V, void *hp_alpha, void *hp_beta,
                      QudaEigParam *eig_param)
-
     #
     # Perform the eigensolve. The problem matrix is defined by the invert param, the
     # mode of solution is specified by the eig param. It is assumed that the gauge
@@ -341,7 +295,6 @@ cdef extern from "quda.h":
     # @param param Contains all metadata regarding the type of solve.
     #
     void eigensolveQuda(void **h_evecs, double_complex *h_evals, QudaEigParam *param)
-
     #
     # Perform the solve, according to the parameters set in param.  It
     # is assumed that the gauge field has already been loaded via
@@ -352,7 +305,6 @@ cdef extern from "quda.h":
     #               storage and solver parameters
     #
     void invertQuda(void *h_x, void *h_b, QudaInvertParam *param)
-
     #
     # @brief Perform the solve like @invertQuda but for multiple rhs by spliting the comm grid into
     # sub-partitions: each sub-partition invert one or more rhs'.
@@ -367,7 +319,6 @@ cdef extern from "quda.h":
     # @param param       Contains all metadata regarding host and device storage and solver parameters
     #
     void invertMultiSrcQuda(void **_hp_x, void **_hp_b, QudaInvertParam *param)
-
     #
     # Solve for multiple shifts (e.g., masses).
     # @param _hp_x    Array of solution spinor fields
@@ -376,7 +327,6 @@ cdef extern from "quda.h":
     #               storage and solver parameters
     #
     void invertMultiShiftQuda(void **_hp_x, void *_hp_b, QudaInvertParam *param)
-
     #
     # Setup the multigrid solver, according to the parameters set in param.  It
     # is assumed that the gauge field has already been loaded via
@@ -385,7 +335,6 @@ cdef extern from "quda.h":
     #               storage and solver parameters
     #
     void* newMultigridQuda(QudaMultigridParam *param)
-
     #
     # @brief Free resources allocated by the multigrid solver
     # @param mg_instance Pointer to instance of multigrid_solver
@@ -393,7 +342,6 @@ cdef extern from "quda.h":
     # storage and solver parameters
     #
     void destroyMultigridQuda(void *mg_instance)
-
     #
     # @brief Updates the multigrid preconditioner for the new gauge / clover field
     # @param mg_instance Pointer to instance of multigrid_solver
@@ -402,7 +350,6 @@ cdef extern from "quda.h":
     # to do a full update or a thin update.
     #
     void updateMultigridQuda(void *mg_instance, QudaMultigridParam *param)
-
     #
     # @brief Dump the null-space vectors to disk
     # @param[in] mg_instance Pointer to the instance of multigrid_solver
@@ -411,7 +358,6 @@ cdef extern from "quda.h":
     # sets the output filename prefix).
     #
     void dumpMultigridQuda(void *mg_instance, QudaMultigridParam *param)
-
     #
     # Apply the Dslash operator (D_{eo} or D_{oe}).
     # @param[out] h_out  Result spinor field
@@ -421,7 +367,6 @@ cdef extern from "quda.h":
     # @param[in] parity The destination parity of the field
     #
     void dslashQuda(void *h_out, void *h_in, QudaInvertParam *inv_param, QudaParity parity)
-
     #
     # Apply the covariant derivative.
     # @param[out] h_out  Result spinor field
@@ -430,7 +375,6 @@ cdef extern from "quda.h":
     # @param[in] param  Metadata for host and device storage
     #
     void covDevQuda(void *h_out, void *h_in, int dir, QudaInvertParam *param)
-
     #
     # Apply the covariant derivative.
     # @param[out] h_out  Result spinor field
@@ -440,7 +384,6 @@ cdef extern from "quda.h":
     # @param[in] param  Metadata for host and device storage
     #
     void shiftQuda(void *h_out, void *h_in, int dir, int sym, QudaInvertParam *param)
-
     #
     # Apply the spin-taste operator.
     # @param[out] h_out  Result spinor field
@@ -450,7 +393,6 @@ cdef extern from "quda.h":
     # @param[in] param  Metadata for host and device storage
     #
     void spinTasteQuda(void *h_out, void *h_in, int spin, int taste, QudaInvertParam *param)
-
     #
     # @brief Perform the solve like @dslashQuda but for multiple rhs by spliting the comm grid into
     # sub-partitions: each sub-partition does one or more rhs'.
@@ -463,7 +405,6 @@ cdef extern from "quda.h":
     # @param parity      Parity to apply dslash on
     #
     void dslashMultiSrcQuda(void **_hp_x, void **_hp_b, QudaInvertParam *param, QudaParity parity)
-
     #
     # Apply the clover operator or its inverse.
     # @param h_out  Result spinor field
@@ -474,7 +415,6 @@ cdef extern from "quda.h":
     # @param inverse Whether to apply the inverse of the clover term
     #
     void cloverQuda(void *h_out, void *h_in, QudaInvertParam *inv_param, QudaParity parity, int inverse)
-
     #
     # Apply the full Dslash matrix, possibly even/odd preconditioned.
     # @param h_out  Result spinor field
@@ -483,7 +423,6 @@ cdef extern from "quda.h":
     #               storage
     #
     void MatQuda(void *h_out, void *h_in, QudaInvertParam *inv_param)
-
     #
     # Apply M^{\dag}M, possibly even/odd preconditioned.
     # @param h_out  Result spinor field
@@ -492,20 +431,15 @@ cdef extern from "quda.h":
     #               storage
     #
     void MatDagMatQuda(void *h_out, void *h_in, QudaInvertParam *inv_param)
-
-
     #
     # The following routines are temporary additions used by the HISQ
     # link-fattening code.
     #
-
     void set_dim(int *)
     void pack_ghost(void **cpuLink, void **cpuGhost, int nFace,
                     QudaPrecision precision)
-
     void computeKSLinkQuda(void* fatlink, void* longlink, void* ulink, void* inlink,
                            double *path_coeff, QudaGaugeParam *param)
-
     #
     # Compute two-link field
     #
@@ -515,7 +449,6 @@ cdef extern from "quda.h":
     #               storage
     #
     void computeTwoLinkQuda(void *twolink, void *inlink, QudaGaugeParam *param)
-
     #
     # Either downloads and sets the resident momentum field, or uploads
     # and returns the resident momentum field
@@ -524,7 +457,6 @@ cdef extern from "quda.h":
     # @param[in] param The parameters of the external field
     #
     void momResidentQuda(void *mom, QudaGaugeParam *param)
-
     #
     # Compute the gauge force and update the momentum field
     #
@@ -540,7 +472,6 @@ cdef extern from "quda.h":
     #
     int computeGaugeForceQuda(void *mom, void *sitelink, int ***input_path_buf, int *path_length, double *loop_coeff,
                               int num_paths, int max_length, double dt, QudaGaugeParam *qudaGaugeParam)
-
     #
     # Compute the product of gauge links along a path and add to/overwrite the output field
     #
@@ -556,7 +487,6 @@ cdef extern from "quda.h":
     #
     int computeGaugePathQuda(void *out, void *sitelink, int ***input_path_buf, int *path_length, double *loop_coeff,
                              int num_paths, int max_length, double dt, QudaGaugeParam *qudaGaugeParam)
-
     #
     # Compute the traces of products of gauge links along paths using the resident field
     #
@@ -570,7 +500,6 @@ cdef extern from "quda.h":
     #
     void computeGaugeLoopTraceQuda(double_complex *traces, int **input_path_buf, int *path_length, double *loop_coeff,
                                    int num_paths, int max_length, double factor)
-
     #
     # Evolve the gauge field by step size dt, using the momentum field
     # I.e., Evalulate U(t+dt) = e(dt pi) U(t)
@@ -584,7 +513,6 @@ cdef extern from "quda.h":
     #
     void updateGaugeFieldQuda(void* gauge, void* momentum, double dt,
                               int conj_mom, int exact, QudaGaugeParam* param)
-
     #
     # Apply the staggered phase factors to the gauge field.  If the
     # imaginary chemical potential is non-zero then the phase factor
@@ -595,7 +523,6 @@ cdef extern from "quda.h":
     # @param param The parameters of the gauge field
     #
     void staggeredPhaseQuda(void *gauge_h, QudaGaugeParam *param)
-
     #
     # Project the input field on the SU(3) group.  If the target
     # tolerance is not met, this routine will give a runtime error.
@@ -605,7 +532,6 @@ cdef extern from "quda.h":
     # @param param The parameters of the gauge field
     #
     void projectSU3Quda(void *gauge_h, double tol, QudaGaugeParam *param)
-
     #
     # Evaluate the momentum contribution to the Hybrid Monte Carlo
     # action.
@@ -615,7 +541,6 @@ cdef extern from "quda.h":
     # @return momentum action
     #
     double momActionQuda(void* momentum, QudaGaugeParam* param)
-
     #
     # Allocate a gauge (matrix) field on the device and optionally download a host gauge field.
     #
@@ -625,7 +550,6 @@ cdef extern from "quda.h":
     # @return Pointer to the gauge field (cast as a void*)
     #
     void* createGaugeFieldQuda(void* gauge, int geometry, QudaGaugeParam* param)
-
     #
     # Copy the QUDA gauge (matrix) field on the device to the CPU
     #
@@ -634,21 +558,18 @@ cdef extern from "quda.h":
     # @param param The parameters of the host and device fields
     #
     void  saveGaugeFieldQuda(void* outGauge, void* inGauge, QudaGaugeParam* param)
-
     #
     # Reinterpret gauge as a pointer to a GaugeField and call destructor.
     #
     # @param gauge Gauge field to be freed
     #
     void destroyGaugeFieldQuda(void* gauge)
-
     #
     # Compute the clover field and its inverse from the resident gauge field.
     #
     # @param param The parameters of the clover field to create
     #
     void createCloverQuda(QudaInvertParam* param)
-
     #
     # Compute the clover force contributions from a set of partial
     # fractions stemming from a rational approximation suitable for use
@@ -670,7 +591,6 @@ cdef extern from "quda.h":
     void computeCloverForceQuda(void *mom, double dt, void **x, void **p, double *coeff, double kappa2, double ck,
                                 int nvector, double multiplicity, void *gauge,
                                 QudaGaugeParam *gauge_param, QudaInvertParam *inv_param)
-
     #
     # Compute the force from a clover or twisted clover determinant or
     # a set of partial fractions stemming from a rational approximation
@@ -687,7 +607,6 @@ cdef extern from "quda.h":
     #
     void computeTMCloverForceQuda(void *h_mom, void **h_x, void **h_x0, double *coeff, int nvector,
                                   QudaGaugeParam *gauge_param, QudaInvertParam *inv_param, int detratio)
-
     #
     # Compute the naive staggered force.  All fields must be in the same precision.
     #
@@ -701,7 +620,6 @@ cdef extern from "quda.h":
     #
     void computeStaggeredForceQuda(void *mom, double dt, double delta, void *gauge, void **x, QudaGaugeParam *gauge_param,
                                    QudaInvertParam *invert_param)
-
     #
     # Compute the fermion force for the HISQ quark action and integrate the momentum.
     # @param momentum        The momentum field we are integrating
@@ -729,7 +647,6 @@ cdef extern from "quda.h":
                               int num_naik,
                               double** coeff,
                               QudaGaugeParam* param)
-
     #
     # @brief Generate Gaussian distributed fields and store in the
     # resident gauge field. We create a Gaussian-distributed su(n)
@@ -737,12 +654,10 @@ cdef extern from "quda.h":
     # the distributed su(n) field and sigma is the width of the
     # distribution (sigma = 0 results in a free field, and sigma = 1 has
     # maximum disorder).
-
     # @param seed The seed used for the RNG
     # @param sigma Width of Gaussian distrubution
     #
     void gaussGaugeQuda(unsigned long long seed, double sigma)
-
     #
     # @brief Generate Gaussian distributed fields and store in the
     # resident momentum field. We create a Gaussian-distributed su(n)
@@ -754,28 +669,23 @@ cdef extern from "quda.h":
     # @param sigma Width of Gaussian distrubution
     #
     void gaussMomQuda(unsigned long long seed, double sigma)
-
     #
     # Computes the total, spatial and temporal plaquette averages of the loaded gauge configuration.
     # @param[out] Array for storing the averages (total, spatial, temporal)
     #
     void plaqQuda(double plaq[3])
-
     #
     # @brief Computes the trace of the Polyakov loop of the current resident field
     # in a given direction.
-
     # @param[out] ploop Trace of the Polyakov loop in direction dir
     # @param[in] dir Direction of Polyakov loop
     #
     void polyakovLoopQuda(double ploop[2], int dir)
-
     #
     # Performs a deep copy from the internal extendedGaugeResident field.
     # @param Pointer to externally allocated GaugeField
     #
     void copyExtendedResidentGaugeQuda(void *resident_gauge)
-
     #
     # Performs gaussian/Wuppertal smearing on a given spinor using the gauge field
     # gaugeSmeared, if it exist, or gaugePrecise if no smeared field is present.
@@ -789,7 +699,6 @@ cdef extern from "quda.h":
     #
     void performFermionSmearQuda(void *h_out, void *h_in, QudaInvertParam *param, const int n_steps, const double coeff,
                                 const QudaFermionSmearType smear_type)
-
     #
     # LEGACY
     # Performs Wuppertal smearing on a given spinor using the gauge field
@@ -802,7 +711,6 @@ cdef extern from "quda.h":
     # @param alpha  Alpha coefficient for Wuppertal smearing.
     #
     void performWuppertalnStep(void *h_out, void *h_in, QudaInvertParam *param, unsigned int n_steps, double alpha)
-
     #
     # LEGACY
     # Performs gaussian smearing on a given spinor using the gauge field
@@ -815,7 +723,6 @@ cdef extern from "quda.h":
     # @param omega  Width of the Gaussian distribution
     #
     void performGaussianSmearNStep(void *h_out, void *h_in, QudaInvertParam *param, const int n_steps, const double omega)
-
     #
     # Performs APE, Stout, or Over Imroved STOUT smearing on gaugePrecise and stores it in gaugeSmeared
     # @param[in] smear_param Parameter struct that defines the computation parameters
@@ -823,7 +730,6 @@ cdef extern from "quda.h":
     # observables we are making and the resulting observables.
     #
     void performGaugeSmearQuda(QudaGaugeSmearParam *smear_param, QudaGaugeObservableParam *obs_param)
-
     #
     # Performs Wilson Flow on gaugePrecise and stores it in gaugeSmeared
     # @param[in] smear_param Parameter struct that defines the computation parameters
@@ -831,7 +737,6 @@ cdef extern from "quda.h":
     # observables we are making and the resulting observables.
     #
     void performWFlowQuda(QudaGaugeSmearParam *smear_param, QudaGaugeObservableParam *obs_param)
-
     #
     # @brief Calculates a variety of gauge-field observables.  If a
     # smeared gauge field is presently loaded (in gaugeSmeared) the
@@ -841,7 +746,6 @@ cdef extern from "quda.h":
     # observables we are making and the resulting observables.
     #
     void gaugeObservablesQuda(QudaGaugeObservableParam *param)
-
     #
     # Public function to perform color contractions of the host spinors x and y.
     # @param[in] x pointer to host data
@@ -853,7 +757,6 @@ cdef extern from "quda.h":
     #
     void contractQuda(const void *x, const void *y, void *result, const QudaContractType cType, QudaInvertParam *param,
                       const int *X)
-
     #
     # @param[in] x pointer to host data array
     # @param[in] y pointer to host data array
@@ -870,8 +773,6 @@ cdef extern from "quda.h":
     void contractFTQuda(void **x, void **y, void **result, const QudaContractType cType, void *cs_param_ptr,
                         const int src_colors, const int *X, const int *const source_position, const int n_mom,
                         const int *const mom_modes, const QudaFFTSymmType *const fft_type)
-
-
     #
     # @brief Gauge fixing with overrelaxation with support for single and multi GPU.
     # @param[in,out] gauge, gauge field to be fixed
@@ -888,7 +789,6 @@ cdef extern from "quda.h":
     int computeGaugeFixingOVRQuda(void *gauge, const unsigned int gauge_dir, const unsigned int Nsteps,
                                   const unsigned int verbose_interval, const double relax_boost, const double tolerance,
                                   const unsigned int reunit_interval, const unsigned int stopWtheta, QudaGaugeParam *param)
-
     #
     # @brief Gauge fixing with Steepest descent method with FFTs with support for single GPU only.
     # @param[in,out] gauge, gauge field to be fixed
@@ -905,7 +805,6 @@ cdef extern from "quda.h":
     int computeGaugeFixingFFTQuda(void *gauge, const unsigned int gauge_dir, const unsigned int Nsteps,
                                   const unsigned int verbose_interval, const double alpha, const unsigned int autotune,
                                   const double tolerance, const unsigned int stopWtheta, QudaGaugeParam *param)
-
     #
     # @brief Strided Batched GEMM
     # @param[in] arrayA The array containing the A matrix data
@@ -915,7 +814,6 @@ cdef extern from "quda.h":
     # @param[in] param The data defining the problem execution.
     #
     void blasGEMMQuda(void *arrayA, void *arrayB, void *arrayC, QudaBoolean native, QudaBLASParam *param)
-
     #
     # @brief Strided Batched in-place matrix inversion via LU
     # @param[in] Ainv The array containing the A inverse matrix data
@@ -924,38 +822,30 @@ cdef extern from "quda.h":
     # @param[in] param The data defining the problem execution.
     #
     void blasLUInvQuda(void *Ainv, void *A, QudaBoolean use_native, QudaBLASParam *param)
-
     #
     # @brief Flush the chronological history for the given index
     # @param[in] index Index for which we are flushing
     #
     void flushChronoQuda(int index)
-
-
     #
     # Create deflation solver resources.
     #
     #
     void* newDeflationQuda(QudaEigParam *param)
-
     #
     # Free resources allocated by the deflated solver
     #
     void destroyDeflationQuda(void *df_instance)
-
     void setMPICommHandleQuda(void *mycomm)
-
     # Parameter set for quark smearing operations
     ctypedef struct QudaQuarkSmearParam:
         pass
-
     #
     # Performs two-link Gaussian smearing on a given spinor (for staggered fermions).
     # @param[in,out] h_in Input spinor field to smear
     # @param[in] smear_param   Contains all metadata the operator which will be applied to the spinor
     #
     void performTwoLinkGaussianSmearNStep(void *h_in, QudaQuarkSmearParam *smear_param)
-
     #
     # @brief Performs contractions between a set of quark fields and
     # eigenvectors of the 3-d Laplace operator.
@@ -973,6 +863,3 @@ cdef extern from "quda.h":
     #
     void laphSinkProject(double_complex *host_sinks, void **host_quark, int n_quark, int tile_quark,
                         void **host_evec, int nevec, int tile_evec, QudaInvertParam *inv_param, const int X[4])
-
-
-

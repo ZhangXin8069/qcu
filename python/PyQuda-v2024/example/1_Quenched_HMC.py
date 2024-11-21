@@ -1,19 +1,15 @@
 from math import exp
 from random import random
 from time import perf_counter
-
 from pyquda import init
 from pyquda.utils import io
 from pyquda.field import LatticeInfo, LatticeGauge, Nc
-
 from hmc import HMC
-
 init(resource_path=".cache")
 latt_info = LatticeInfo([16, 16, 16, 32])
 hmc = HMC(latt_info)
 hmc.initialize()
 gauge = LatticeGauge(latt_info)
-
 u_0 = 0.855453
 beta = 6.20
 input_path = [
@@ -32,7 +28,6 @@ input_coeff = [
     -beta / Nc,
     -beta / Nc,
 ]
-
 input_path2 = [
     [
         [0, 1, 4, 5],
@@ -75,43 +70,33 @@ input_coeff2 = [
     beta / Nc,
     beta / Nc,
 ]
-
 start = 0
 stop = 2000
 warm = 500
 save = 5
 t = 1.0
 n_steps = 100
-
 print("\n" f"Trajectory {start}:\n" f"plaquette = {hmc.plaquette()}\n")
-
 for i in range(start, stop):
     s = perf_counter()
-
     hmc.gaussMom(i)
-
     kinetic_old = hmc.actionMom()
     potential_old = hmc.actionGauge(input_path, input_coeff)
     energy_old = kinetic_old + potential_old
-
     dt = t / n_steps
     for _ in range(n_steps):
         hmc.updateMom(input_path2, input_coeff2, dt / 2)
         hmc.updateGauge(dt)
         hmc.updateMom(input_path2, input_coeff2, dt / 2)
-
     hmc.reunitGauge(1e-15)
-
     kinetic = hmc.actionMom()
     potential = hmc.actionGauge(input_path, input_coeff)
     energy = kinetic + potential
-
     accept = random() < exp(energy_old - energy)
     if accept or i < warm:
         hmc.saveGauge(gauge)
     else:
         hmc.loadGauge(gauge)
-
     print(
         f"Trajectory {i + 1}:\n"
         f"plaquette = {hmc.plaquette()}\n"
@@ -123,6 +108,5 @@ for i in range(start, stop):
         f"accept? {accept or i < warm}\n"
         f"HMC time = {perf_counter() - s:.3f} secs\n"
     )
-
     if (i + 1) % save == 0:
         io.writeNPYGauge(f"./cfg/cfg_{i + 1}.npy", gauge)
