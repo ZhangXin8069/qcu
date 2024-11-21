@@ -6,8 +6,8 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-// clang-format on
-// #define PRINT_NCCL_WILSON_CG
+  // clang-format on
+  // #define PRINT_NCCL_WILSON_CG
   struct LatticeCg
   {
     LatticeSet *set_ptr;
@@ -162,8 +162,34 @@ namespace qcu
       gauge = _gauge;
       __init();
     }
-    void _dot(void *vec0, void *vec1, const int vals_index,
-              const int stream_index)
+    void _dot_mpi(void *vec0, void *vec1, const int vals_index,
+                  const int stream_index)
+    {
+      // dest(val) = _dot(A,B)
+      CUBLAS_CHECK(cublasDotcEx(
+          set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
+          traits<data_type>::cuda_data_type, 1, vec1,
+          traits<data_type>::cuda_data_type, 1,
+          ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
+          traits<data_type>::cuda_data_type, traits<data_type>::cuda_data_type));
+      checkCudaErrors(cudaMemcpyAsync(
+          ((static_cast<LatticeComplex *>(host_vals)) + _send_tmp_),
+          ((static_cast<LatticeComplex *>(device_vals)) + _send_tmp_),
+          sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+          set_ptr->streams[stream_index]));
+      MPI_Barrier(MPI_COMM_WORLD);
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
+      MPI_Allreduce(((static_cast<LatticeComplex *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex *>(host_vals)) + vals_index), 2, MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
+      MPI_Barrier(MPI_COMM_WORLD);
+      checkCudaErrors(cudaMemcpyAsync(
+          ((static_cast<LatticeComplex *>(device_vals)) + vals_index),
+          ((static_cast<LatticeComplex *>(host_vals)) + vals_index),
+          sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+          set_ptr->streams[stream_index]));
+    }
+#ifndef _MPI_
+    void _dot_nccl(void *vec0, void *vec1, const int vals_index,
+                   const int stream_index)
     {
       // dest(val) = _dot(A,B)
       CUBLAS_CHECK(cublasDotcEx(
@@ -177,6 +203,16 @@ namespace qcu
           ((static_cast<LatticeComplex *>(device_vals)) + vals_index), 2,
           ncclDouble, ncclSum, set_ptr->nccl_comm,
           set_ptr->streams[stream_index]));
+    }
+#endif
+    void _dot(void *vec0, void *vec1, const int vals_index,
+              const int stream_index)
+    {
+#ifdef _MPI_
+      _dot_mpi(vec0, vec1, vals_index, stream_index);
+#else
+      _dot_nccl(vec0, vec1, vals_index, stream_index);
+#endif
     }
     void _diff(void *x, void *ans)
     { // there is a bug
@@ -231,7 +267,7 @@ namespace qcu
       print_vals(-1);
       exit(1);
     }
-    void run_nccl()
+    void run()
     {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
@@ -351,10 +387,10 @@ namespace qcu
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       }
     }
-    void _run()
+    void run_test()
     {
       auto start = std::chrono::high_resolution_clock::now();
-      run_nccl();
+      run();
       auto end = std::chrono::high_resolution_clock::now();
       auto duration =
           std::chrono::duration_cast<std::chrono::nanoseconds>(end - start)
@@ -365,10 +401,6 @@ namespace qcu
              ":%.9lf "
              "sec\n",
              double(duration) / 1e9);
-    }
-    void run()
-    {
-      _run();
       if (if_input == 0)
       {
         _diff(x_o, ans_o);

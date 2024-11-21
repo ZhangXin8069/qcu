@@ -1,0 +1,160 @@
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[ 12%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 12%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 25%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 31%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/hello_world.cu.o
+[ 56%] Building CUDA object CMakeFiles/qcu.dir/src/multigrid.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 87%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+rm: cannot remove ‘log_*’: No such file or directory
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-SXM-80GB
+Found device 1: NVIDIA A100-SXM-80GB
+Found device 2: NVIDIA A100-SXM-80GB
+Found device 3: NVIDIA A100-SXM-80GB
+Found device 4: NVIDIA A100-SXM-80GB
+Found device 5: NVIDIA A100-SXM-80GB
+Found device 6: NVIDIA A100-SXM-80GB
+Found device 7: NVIDIA A100-SXM-80GB
+Using device 0: NVIDIA A100-SXM-80GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+######p[0,0,0,1]:
+ [[ 0.6804626 +1.46920786j  0.79508205+0.42467047j  0.32336917+1.5212147j ]
+ [ 1.94037005-1.94471035j  2.2982976 -0.75934265j  0.75218008-1.92006046j]
+ [-0.1835509 +0.99012019j  1.08172447-1.47269372j -0.15348532+1.27925446j]
+ [-0.58112862+0.93842659j -1.19441588+1.24875813j  0.5164352 -0.52486757j]]
+######p[0,0,0,1]:
+ [[ 0.20504126-0.0068623j   0.21205679+0.27261112j -1.17562294+0.69619948j]
+ [ 1.0511614 -1.58665701j  0.52252188+1.53709771j  0.06640725-1.1226127j ]
+ [-0.00958907+0.24579036j  0.7974931 -0.72214885j -1.67723955-0.00439404j]
+ [-2.12104532-1.49548509j -0.01622744+0.35400588j  0.03006649-0.56654538j]]
+######p[0,0,0,1]:
+ [[ 0.21100994+0.36671925j -0.540503  +0.19895422j  0.26162065+0.01498898j]
+ [ 0.7708313 +1.57478549j -0.65591573-0.81651797j  0.02853932-1.04221346j]
+ [-0.21104617-0.07664702j  0.0822125 +1.05537601j  0.01885561+0.72467931j]
+ [ 0.00286975+0.04455169j  1.85699175-0.37158866j  0.69315743+0.83100627j]]
+######p[0,0,0,1]:
+ [[ 0.08013906+0.11654399j  0.11465386+0.38868762j  2.34903202-0.52196712j]
+ [-0.85093346+1.13314847j  1.09347145+0.25819277j -1.08003714+0.31283181j]
+ [ 0.10513888-0.74682749j -0.31096743-0.48002073j -0.35435285-0.63912145j]
+ [ 0.89168918+1.37089507j  0.1888977 -0.14954882j  0.96854038-1.73616632j]]
+######p[0,0,0,1]:
+ [[-2.68124131-0.3204539j  -1.74760735-1.47183839j -0.78239272+1.13026907j]
+ [ 1.01290519-0.66724444j -0.0648356 -0.75283707j  1.00564922-1.76217315j]
+ [ 0.01965592+1.15164928j  0.68880131+2.2486715j  -0.11667284+1.04389354j]
+ [-0.85344139-0.27785426j  1.65130166+0.13712819j  0.18847819+0.47031485j]]
+######p[0,0,0,1]:
+ [[ 1.28695744+0.16318098j -0.84423235+0.31996664j -0.81718111+0.42752857j]
+ [-0.51329178+1.88750261j -1.75183178-1.46736302j -1.65828445+1.27124059j]
+ [ 0.93890377-0.2383206j  -1.04618198+1.37341417j -1.62641011+0.26132857j]
+ [-0.70338629+1.68204881j -0.42783741-0.11650814j  0.74763555+1.39377029j]]
+######p[0,0,0,1]:
+ [[ 1.22196863-0.81937936j  0.65478035-1.18544644j  1.35454392+0.16496345j]
+ [ 0.45627412+1.02818209j -1.30263839+1.09031224j -1.59813067-0.07391277j]
+ [ 2.37286096-1.08800226j -0.15961288+1.6241457j   0.05824335+1.22804578j]
+ [ 0.61069317+0.47202831j -1.67769631+0.34044063j  1.64897902+0.61593715j]]
+######p[0,0,0,1]:
+ [[ 0.19380441-0.99212338j -0.54546569-1.69599762j -0.29197464+0.45677707j]
+ [-0.47367323-0.95949469j -0.44620141+1.7018249j   1.0847259 -0.2332818j ]
+ [-0.87839394-0.37064331j  0.73429346+2.21124379j  0.18713179-0.21399961j]
+ [-0.96796934+0.30259364j  0.25171759-0.09787772j -0.80380475+1.3922003j ]]
+Quda dslash: 0.02634593495167792 sec
+Quda dslash: 0.14512598793953657 sec
+Quda dslash: 0.16487482795491815 sec
+Quda dslash: 0.14187157794367522 sec
+Quda dslash: 0.22364485799334943 sec
+Quda dslash: 0.17069324001204222 sec
+Quda dslash: 0.22737329197116196 sec
+Quda dslash: 0.22228053701110184 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011790781 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.033418027 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.016689048 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.010657562 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.015026834 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.013728235 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.012865234 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.011056207 sec
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+Failed: CUDA error 0009 "invalid configuration argument" from file </public/home/zhangxin/qcu/src/../include/./lattice_clover_dslash.h>, line 1117.
+--------------------------------------------------------------------------
+Primary job  terminated normally, but 1 process returned
+a non-zero exit code. Per user-direction, the job has been aborted.
+--------------------------------------------------------------------------
+--------------------------------------------------------------------------
+mpirun detected that one or more processes exited with non-zero status, thus causing
+the job to be terminated. The first process to do so was:
+  Process name: [[26569,1],0]
+  Exit code:    1
+--------------------------------------------------------------------------
+~/qcu

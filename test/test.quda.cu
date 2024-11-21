@@ -19,7 +19,8 @@ protected:
     printfQuda("Grid partition info:     X  Y  Z  T\n");
     printfQuda("                         %d  %d  %d  %d\n", dimPartitioned(0), dimPartitioned(1), dimPartitioned(2),
                dimPartitioned(3));
-    if (dslash_test_wrapper.test_split_grid) {
+    if (dslash_test_wrapper.test_split_grid)
+    {
       printfQuda("Testing with split grid: %d  %d  %d  %d\n", grid_partition[0], grid_partition[1], grid_partition[2],
                  grid_partition[3]);
     }
@@ -48,7 +49,8 @@ public:
 TEST_F(DslashTest, benchmark) { dslash_test_wrapper.run_test(niter, /**show_metrics =*/true); }
 TEST_F(DslashTest, verify)
 {
-  if (!verify_results) GTEST_SKIP();
+  if (!verify_results)
+    GTEST_SKIP();
   dslash_test_wrapper.dslashRef();
   dslash_test_wrapper.run_test(2);
   double deviation = dslash_test_wrapper.verify();
@@ -56,8 +58,7 @@ TEST_F(DslashTest, verify)
   // If we are using tensor core we tolerate a greater deviation
   if (dslash_type == QUDA_MOBIUS_DWF_DSLASH && dslash_test_wrapper.dtest_type == dslash_test_type::MatPCDagMatPCLocal)
     tol *= 10;
-  if (dslash_test_wrapper.gauge_param.reconstruct == QUDA_RECONSTRUCT_8
-      && dslash_test_wrapper.inv_param.cuda_prec >= QUDA_HALF_PRECISION)
+  if (dslash_test_wrapper.gauge_param.reconstruct == QUDA_RECONSTRUCT_8 && dslash_test_wrapper.inv_param.cuda_prec >= QUDA_HALF_PRECISION)
     tol *= 10; // if recon 8, we tolerate a greater deviation
   ASSERT_LE(deviation, tol) << "CPU and CUDA implementations do not agree";
 }
@@ -72,9 +73,12 @@ int main(int argc, char **argv)
   app->add_option("--test", dtest_type, "Test method")->transform(CLI::CheckedTransformer(dtest_type_map));
   add_eofa_option_group(app);
   add_comms_option_group(app);
-  try {
+  try
+  {
     app->parse(argc, argv);
-  } catch (const CLI::ParseError &e) {
+  }
+  catch (const CLI::ParseError &e)
+  {
     return app->exit(e);
   }
   initComms(argc, argv, gridsize_from_cmdline);
@@ -87,7 +91,10 @@ int main(int argc, char **argv)
   argv_copy = argv;
   // Ensure gtest prints only from rank 0
   ::testing::TestEventListeners &listeners = ::testing::UnitTest::GetInstance()->listeners();
-  if (comm_rank() != 0) { delete listeners.Release(listeners.default_result_printer()); }
+  if (comm_rank() != 0)
+  {
+    delete listeners.Release(listeners.default_result_printer());
+  }
   test_rc = RUN_ALL_TESTS();
   finalizeComms();
   return test_rc;

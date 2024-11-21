@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
+#pragma optimize(5)
 namespace qcu
 {
-#ifdef WILSON_DSLASH
 #define __X__
 #define __Y__
 #define __Z__
@@ -1313,5 +1313,4 @@ namespace qcu
     add_dest(origin_dest, dest, lat_tzyx);
 #endif
   }
-#endif
 }

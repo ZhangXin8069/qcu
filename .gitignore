@@ -25,3 +25,4 @@ _*
 lib/*
 .ssub.sh
 .vscode
+*.log*

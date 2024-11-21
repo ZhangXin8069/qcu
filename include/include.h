@@ -20,7 +20,9 @@
 #include <library_types.h>
 #include <memory>
 #include <mpi.h>
+#ifndef _MPI_
 #include <nccl.h>
+#endif
 #include <random>
 #include <stdexcept>
 #include <stdio.h>

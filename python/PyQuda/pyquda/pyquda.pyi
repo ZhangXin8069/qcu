@@ -1,9 +1,7 @@
 from typing import List
-
 size_t = int
 double = float
 double_complex = complex
-
 from .enum_quda import (  # noqa: F401
     QUDA_INVALID_ENUM,
     QUDA_VERSION_MAJOR,
@@ -85,13 +83,10 @@ from .enum_quda import (  # noqa: F401
     QudaGaugeSmearType,
     QudaExtLibType,
 )
-
 from .pointer import Pointer, Pointers
-
 class QudaGaugeParam:
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
-
     struct_size: size_t
     location: QudaFieldLocation
     X: List[int, 4]
@@ -133,11 +128,9 @@ class QudaGaugeParam:
     gauge_offset: size_t
     mom_offset: size_t
     site_size: size_t
-
 class QudaInvertParam:
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
-
     struct_size: size_t
     input_location: QudaFieldLocation
     output_location: QudaFieldLocation
@@ -280,11 +273,9 @@ class QudaInvertParam:
     extlib_type: QudaExtLibType
     native_blas_lapack: QudaBoolean
     use_mobius_fused_kernel: QudaBoolean
-
 class QudaEigParam:
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
-
     struct_size: size_t
     invert_param: QudaInvertParam
     eig_type: QudaEigType
@@ -331,11 +322,9 @@ class QudaEigParam:
     gflops: double
     secs: double
     extlib_type: QudaExtLibType
-
 class QudaMultigridParam:
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
-
     struct_size: size_t
     invert_param: QudaInvertParam
     eig_param: List[QudaEigParam, QUDA_MAX_MG_LEVEL]
@@ -404,11 +393,9 @@ class QudaMultigridParam:
     staggered_kd_dagger_approximation: QudaBoolean
     use_mma: QudaBoolean
     thin_update_only: QudaBoolean
-
 class QudaGaugeObservableParam:
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
-
     struct_size: size_t
     su_project: QudaBoolean
     compute_plaquette: QudaBoolean
@@ -426,13 +413,10 @@ class QudaGaugeObservableParam:
     energy: List[double, 3]
     compute_qcharge_density: QudaBoolean
     qcharge_density: Pointer
-
 class QudaGaugeSmearParam:
     def __init__(self) -> None: ...
-
     # def __repr__(self) -> str:
     #     ...
-
     struct_size: size_t
     n_steps: int
     epsilon: double
@@ -440,11 +424,9 @@ class QudaGaugeSmearParam:
     rho: double
     meas_interval: int
     smear_type: QudaGaugeSmearType
-
 class QudaBLASParam:
     def __init__(self) -> None: ...
     def __repr__(self) -> str: ...
-
     struct_size: size_t
     trans_a: QudaBLASOperation
     trans_b: QudaBLASOperation
@@ -465,24 +447,20 @@ class QudaBLASParam:
     batch_count: int
     data_type: QudaBLASDataType
     data_order: QudaBLASDataOrder
-
 def setVerbosityQuda(verbosity: QudaVerbosity, prefix: bytes) -> None:
     """
     Set parameters related to status reporting.
-
     In typical usage, this function will be called once (or not at
     all) just before the call to initQuda(), but it's valid to call
     it any number of times at any point during execution.  Prior to
     the first time it's called, the parameters take default values
     as indicated below.
-
     @param verbosity:
         Default verbosity, ranging from QUDA_SILENT to
         QUDA_DEBUG_VERBOSE.  Within a solver, this
         parameter is overridden by the "verbosity"
         member of QudaInvertParam.  The default value
         is QUDA_SUMMARIZE.
-
     @param prefix:
         String to prepend to all messages from QUDA.  This
         defaults to the empty string (""), but you may
@@ -491,7 +469,6 @@ def setVerbosityQuda(verbosity: QudaVerbosity, prefix: bytes) -> None:
         application.
     """
     ...
-
 def initCommsGridQuda(nDim: int, dims: List[int, 4]):
     """
     Declare the grid mapping ("logical topology" in QMP parlance)
@@ -499,23 +476,19 @@ def initCommsGridQuda(nDim: int, dims: List[int, 4]):
     should be called prior to initQuda().  The only case in which
     it's optional is when QMP is used for communication and the
     logical topology has already been declared by the application.
-
     @param nDim:
         Number of grid dimensions.  "4" is the only supported
         value currently.
-
     @param dims:
         Array of grid dimensions.  dims[0]*dims[1]*dims[2]*dims[3]
         must equal the total number of MPI ranks or QMP nodes.
     """
     ...
-
 def initQudaDevice(device: int) -> None:
     """
     Initialize the library.  This is a low-level interface that is
     called by initQuda.  Calling initQudaDevice requires that the
     user also call initQudaMemory before using QUDA.
-
     @param device:
         CUDA device number to use.  In a multi-GPU build,
         this parameter may either be set explicitly on a
@@ -523,7 +496,6 @@ def initQudaDevice(device: int) -> None:
         allocation of devices to processes.
     """
     ...
-
 def initQudaMemory() -> None:
     """
     Initialize the library persistant memory allocations (both host
@@ -532,12 +504,10 @@ def initQudaMemory() -> None:
     previously called initQudaDevice.
     """
     ...
-
 def initQuda(device: int) -> None:
     """
     Initialize the library.  This function is actually a wrapper
     around calls to initQudaDevice() and initQudaMemory().
-
     @param device:
         CUDA device number to use.  In a multi-GPU build,
         this parameter may either be set explicitly on a
@@ -545,13 +515,11 @@ def initQuda(device: int) -> None:
         allocation of devices to processes.
     """
     ...
-
 def endQuda() -> None:
     """
     Finalize the library.
     """
     ...
-
 def loadGaugeQuda(h_gauge: Pointers, param: QudaGaugeParam) -> None:
     """
     Load the gauge field from the host.
@@ -561,13 +529,11 @@ def loadGaugeQuda(h_gauge: Pointers, param: QudaGaugeParam) -> None:
         Contains all metadata regarding host and device storage
     """
     ...
-
 def freeGaugeQuda() -> None:
     """
     Free QUDA's internal copy of the gauge field.
     """
     ...
-
 def saveGaugeQuda(h_gauge: Pointers, param: QudaGaugeParam) -> None:
     """
     Save the gauge field to the host.
@@ -577,7 +543,6 @@ def saveGaugeQuda(h_gauge: Pointers, param: QudaGaugeParam) -> None:
         Contains all metadata regarding host and device storage
     """
     ...
-
 def loadCloverQuda(h_clover: Pointer, h_clovinv: Pointer, inv_param: QudaInvertParam) -> None:
     """
     Load the clover term and/or the clover inverse from the host.
@@ -590,13 +555,11 @@ def loadCloverQuda(h_clover: Pointer, h_clovinv: Pointer, inv_param: QudaInvertP
         Contains all metadata regarding host and device storage
     """
     ...
-
 def freeCloverQuda() -> None:
     """
     Free QUDA's internal copy of the clover term and/or clover inverse.
     """
     ...
-
 def invertQuda(h_x: Pointer, h_b: Pointer, param: QudaInvertParam) -> None:
     """
     Perform the solve, according to the parameters set in param.  It
@@ -611,7 +574,6 @@ def invertQuda(h_x: Pointer, h_b: Pointer, param: QudaInvertParam) -> None:
         storage and solver parameters
     """
     ...
-
 def invertMultiShiftQuda(_hp_x: Pointers, _hp_b: Pointer, param: QudaInvertParam) -> None:
     """
     Perform the solve like @invertQuda but for multiple rhs by spliting the comm grid into sub-partitions:
@@ -634,7 +596,6 @@ def invertMultiShiftQuda(_hp_x: Pointers, _hp_b: Pointer, param: QudaInvertParam
         Contains all metadata regarding host and device storage for gauge field
     """
     ...
-
 def newMultigridQuda(param: QudaMultigridParam) -> Pointer:
     """
     Setup the multigrid solver, according to the parameters set in param.  It
@@ -645,7 +606,6 @@ def newMultigridQuda(param: QudaMultigridParam) -> Pointer:
         storage and solver parameters
     """
     ...
-
 def destroyMultigridQuda(mg_instance: Pointer):
     """
     Free resources allocated by the multigrid solver
@@ -656,7 +616,6 @@ def destroyMultigridQuda(mg_instance: Pointer):
         storage and solver parameters
     """
     ...
-
 def updateMultigridQuda(mg_instance: Pointer, param: QudaMultigridParam):
     """
     Updates the multigrid preconditioner for the new gauge / clover field
@@ -668,7 +627,6 @@ def updateMultigridQuda(mg_instance: Pointer, param: QudaMultigridParam):
         to do a full update or a thin update.
     """
     ...
-
 def dumpMultigridQuda(mg_instance: Pointer, param: QudaMultigridParam):
     """
     Dump the null-space vectors to disk
@@ -680,7 +638,6 @@ def dumpMultigridQuda(mg_instance: Pointer, param: QudaMultigridParam):
         sets the output filename prefix).
     """
     ...
-
 def dslashQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam, parity: QudaParity) -> None:
     """
     Apply the Dslash operator (D_{eo} or D_{oe}).
@@ -695,7 +652,6 @@ def dslashQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam, parity
         The destination parity of the field
     """
     ...
-
 def cloverQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam, parity: QudaParity, inverse: int) -> None:
     """
     Apply the clover operator or its inverse.
@@ -712,7 +668,6 @@ def cloverQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam, parity
         Whether to apply the inverse of the clover term
     """
     ...
-
 def MatQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam) -> None:
     """
     Apply the full Dslash matrix, possibly even/odd preconditioned.
@@ -725,7 +680,6 @@ def MatQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam) -> None:
         storage
     """
     ...
-
 def MatDagMatQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam) -> None:
     r"""
     Apply M^{\dag}M, possibly even/odd preconditioned.
@@ -738,19 +692,16 @@ def MatDagMatQuda(h_out: Pointer, h_in: Pointer, inv_param: QudaInvertParam) -> 
         storage
     """
     ...
-
 def momResidentQuda(mom: Pointer, param: QudaGaugeParam) -> None:
     """
     Either downloads and sets the resident momentum field, or uploads
     and returns the resident momentum field
-
     @param[in,out] mom:
         The external momentum field
     @param[in] param:
         The parameters of the external field
     """
     ...
-
 def computeGaugeForceQuda(
     mom: Pointers,
     sitelink: Pointers,
@@ -764,7 +715,6 @@ def computeGaugeForceQuda(
 ) -> None:
     """
     Compute the gauge force and update the momentum field
-
     @param[in,out] mom:
         The momentum field to be updated
     @param[in] sitelink:
@@ -785,7 +735,6 @@ def computeGaugeForceQuda(
         The parameters of the external fields and the computation settings
     """
     ...
-
 def computeGaugePathQuda(
     out: Pointers,
     sitelink: Pointers,
@@ -799,7 +748,6 @@ def computeGaugePathQuda(
 ) -> None:
     """
     Compute the product of gauge links along a path and add to/overwrite the output field
-
     @param[in,out] out:
         The output field to be updated
     @param[in] sitelink:
@@ -820,7 +768,6 @@ def computeGaugePathQuda(
         The parameters of the external fields and the computation settings
     """
     ...
-
 def computeGaugeLoopTraceQuda(
     traces: Pointer,
     input_path_buf: Pointers,
@@ -832,7 +779,6 @@ def computeGaugeLoopTraceQuda(
 ) -> None:
     """
     Compute the traces of products of gauge links along paths using the resident field
-
     @param[in,out] traces:
         The computed traces
     @param[in] sitelink:
@@ -849,14 +795,12 @@ def computeGaugeLoopTraceQuda(
         An overall normalization factor
     """
     ...
-
 def updateGaugeFieldQuda(
     gauge: Pointers, momentum: Pointers, dt: double, conj_mom: int, exact: int, param: QudaGaugeParam
 ) -> None:
     """
     Evolve the gauge field by step size dt, using the momentum field
     I.e., Evalulate U(t+dt) = e(dt pi) U(t)
-
     @param gauge:
         The gauge field to be updated
     @param momentum:
@@ -871,12 +815,10 @@ def updateGaugeFieldQuda(
         The parameters of the external fields and the computation settings
     """
     ...
-
 def projectSU3Quda(gauge_h: Pointers, tol: double, param: QudaGaugeParam):
     """
     Project the input field on the SU(3) group.  If the target
     tolerance is not met, this routine will give a runtime error.
-
     @param gauge_h:
         The gauge field to be updated
     @param tol:
@@ -885,12 +827,10 @@ def projectSU3Quda(gauge_h: Pointers, tol: double, param: QudaGaugeParam):
         The parameters of the gauge field
     """
     ...
-
 def momActionQuda(momentum: Pointer, param: QudaGaugeParam) -> double:
     """
     Evaluate the momentum contribution to the Hybrid Monte Carlo
     action.
-
     @param momentum:
         The momentum field
     @param param:
@@ -899,16 +839,13 @@ def momActionQuda(momentum: Pointer, param: QudaGaugeParam) -> double:
         momentum action
     """
     ...
-
 def createCloverQuda(param: QudaInvertParam) -> None:
     """
     Compute the clover field and its inverse from the resident gauge field.
-
     @param param:
         The parameters of the clover field to create
     """
     ...
-
 def computeCloverForceQuda(
     mom: Pointers,
     dt: double,
@@ -927,7 +864,6 @@ def computeCloverForceQuda(
     Compute the clover force contributions in each dimension mu given
     the array of solution fields, and compute the resulting momentum
     field.
-
     @param mom:
         Force matrix
     @param dt:
@@ -954,7 +890,6 @@ def computeCloverForceQuda(
         Dirac and solver meta data
     """
     ...
-
 def gaussGaugeQuda(seed: int, sigma: double) -> None:
     """
     Generate Gaussian distributed fields and store in the
@@ -963,14 +898,12 @@ def gaussGaugeQuda(seed: int, sigma: double) -> None:
     the distributed su(n) field and sigma is the width of the
     distribution (sigma = 0 results in a free field, and sigma = 1 has
     maximum disorder).
-
     @param seed:
         The seed used for the RNG
     @param sigma:
         Width of Gaussian distrubution
     """
     ...
-
 def gaussMomQuda(seed: int, sigma: double) -> None:
     """
     Generate Gaussian distributed fields and store in the
@@ -978,14 +911,12 @@ def gaussMomQuda(seed: int, sigma: double) -> None:
     field, e.g., sigma * H, where H is the distributed su(n) field
     and sigma is the width of the distribution (sigma = 0 results
     in a free field, and sigma = 1 has maximum disorder).
-
     @param seed:
         The seed used for the RNG
     @param sigma:
         Width of Gaussian distrubution
     """
     ...
-
 def plaqQuda(plaq: List[double, 3]) -> None:
     """
     Computes the total, spatial and temporal plaquette averages of the loaded gauge configuration.
@@ -993,7 +924,6 @@ def plaqQuda(plaq: List[double, 3]) -> None:
         Array for storing the averages (total, spatial, temporal)
     """
     ...
-
 def performGaugeSmearQuda(smear_param: QudaGaugeSmearParam, obs_param: QudaGaugeObservableParam) -> None:
     """
     Performs APE, Stout, or Over Imroved STOUT smearing on gaugePrecise and stores it in gaugeSmeared
@@ -1004,7 +934,6 @@ def performGaugeSmearQuda(smear_param: QudaGaugeSmearParam, obs_param: QudaGauge
         observables we are making and the resulting observables.
     """
     ...
-
 def performWFlowQuda(smear_param: QudaGaugeSmearParam, obs_param: QudaGaugeObservableParam) -> None:
     """
     Performs Wilson Flow on gaugePrecise and stores it in gaugeSmeared
@@ -1015,7 +944,6 @@ def performWFlowQuda(smear_param: QudaGaugeSmearParam, obs_param: QudaGaugeObser
         observables we are making and the resulting observables.
     """
     ...
-
 def gaugeObservablesQuda(param: QudaGaugeObservableParam):
     """
     Calculates a variety of gauge-field observables.  If a
@@ -1027,7 +955,6 @@ def gaugeObservablesQuda(param: QudaGaugeObservableParam):
         observables we are making and the resulting observables.
     """
     ...
-
 def computeGaugeFixingOVRQuda(
     gauge: Pointers,
     gauge_dir: int,
@@ -1064,7 +991,6 @@ def computeGaugeFixingOVRQuda(
     @param[out] timeinfo:
     """
     ...
-
 def computeGaugeFixingFFTQuda(
     gauge: Pointers,
     gauge_dir: int,

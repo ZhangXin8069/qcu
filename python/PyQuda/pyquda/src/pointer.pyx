@@ -1,18 +1,13 @@
 from warnings import warn
-
 from libc.stdlib cimport malloc, free
-
 import numpy
 cimport numpy
-
 cdef class Pointer:
     def __cinit__(self, str dtype, *args):
         self.dtype = dtype
         self.ptr = NULL
-
     cdef set_ptr(self, void *ptr):
         self.ptr = ptr
-
 cdef class Pointers(Pointer):
     def __cinit__(self, str dtype, unsigned int n1):
         self.n1 = n1
@@ -22,16 +17,13 @@ cdef class Pointers(Pointer):
                 self.ptrs[i] = NULL
         else:
             self.ptrs = <void **>NULL
-
     def __dealloc__(self):
         if self.ptrs:
             free(self.ptrs)
-
     cdef set_ptrs(self, void **ptrs):
         for i in range(self.n1):
             self.ptrs[i] = ptrs[i]
         self.ptr = <void *>self.ptrs
-
 cdef class Pointerss(Pointer):
     def __cinit__(self, str dtype, unsigned int n1, unsigned int n2):
         self.n1 = n1
@@ -44,22 +36,18 @@ cdef class Pointerss(Pointer):
                     self.ptrss[i][j] = NULL
         else:
             self.ptrss = <void ***>NULL
-
     def __dealloc__(self):
         if self.ptrss:
             for i in range(self.n1):
                 free(self.ptrss[i])
             free(self.ptrss)
-
     cdef set_ptrss(self, void ***ptrss):
         for i in range(self.n1):
             for j in range(self.n2):
                 self.ptrss[i][j] = ptrss[i][j]
         self.ptr = <void *>self.ptrss
-
 def ndarrayDataPointer(ndarray, as_void=False):
     gpu = None
-
     try:
         import cupy
         if isinstance(ndarray, cupy.ndarray):
@@ -67,7 +55,6 @@ def ndarrayDataPointer(ndarray, as_void=False):
             gpu = "cupy"
     except ImportError as e:
         warn(e.msg, ImportWarning)
-
     try:
         import torch
         if isinstance(ndarray, torch.Tensor):
@@ -81,13 +68,11 @@ def ndarrayDataPointer(ndarray, as_void=False):
             gpu = "torch"
     except ImportError as e:
         warn(e.msg, ImportWarning)
-
     if gpu is None:
         if isinstance(ndarray, numpy.ndarray):
             dtype = ndarray.dtype
         else:
             raise ImportError(f"ndarrayDataPointer: ndarray has unsupported type={type(ndarray)}")
-
     if not as_void:
         dtype = ndarray.dtype
         if dtype == numpy.int32:

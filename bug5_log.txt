@@ -55,7 +55,6 @@ CUDA Runtime version = 12040
 Found device 0: NVIDIA GeForce RTX 4060 Laptop GPU
 WARNING: ** Running on a device with compute capability 8.9 but QUDA was compiled for 8.0. **
  -- This might result in a lower performance. Please consider adjusting QUDA_GPU_ARCH when running cmake.
-
 Using device 0: NVIDIA GeForce RTX 4060 Laptop GPU
 WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
 WARNING: Autotuning disabled
