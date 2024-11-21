@@ -2,7 +2,7 @@
 #pragma optimize(5)
 using namespace qcu;
 #ifdef NCCL_WILSON_CG
-void ncclCgQcu(void *fermion_out, void *fermion_in, void *gauge,
+void applyCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid) {
   // define for nccl_wilson_cg
   LatticeSet _set;

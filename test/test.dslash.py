@@ -26,8 +26,10 @@ def applyDslash(Mp, p, U_seed):
     b = core.LatticeFermion(latt_info)
 
     # Dslash a = b
-    quda.dslashQuda(b.even_ptr, a.odd_ptr, dslash.invert_param, QudaParity.QUDA_EVEN_PARITY)
-    quda.dslashQuda(b.odd_ptr, a.even_ptr, dslash.invert_param, QudaParity.QUDA_ODD_PARITY)
+    quda.dslashQuda(b.even_ptr, a.odd_ptr, dslash.invert_param,
+                    QudaParity.QUDA_EVEN_PARITY)
+    quda.dslashQuda(b.odd_ptr, a.even_ptr, dslash.invert_param,
+                    QudaParity.QUDA_ODD_PARITY)
 
     # Save b to Mp
     Mp[:] = b.lexico()

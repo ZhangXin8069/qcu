@@ -21,8 +21,10 @@ latt_info = core.LatticeInfo([4, 4, 4, 8], t_boundary=-1, anisotropy=1.0)
 
 monomials = [
     symanzik_gauge.SymanzikGauge(latt_info, beta, u_0),
-    two_flavor_clover.TwoFlavorClover(latt_info, mass_l, tol, maxiter, clover_csw),
-    one_flavor_clover.OneFlavorClover(latt_info, mass_s, tol, maxiter, clover_csw),
+    two_flavor_clover.TwoFlavorClover(
+        latt_info, mass_l, tol, maxiter, clover_csw),
+    one_flavor_clover.OneFlavorClover(
+        latt_info, mass_s, tol, maxiter, clover_csw),
 ]
 
 hmc = HMC(latt_info, monomials, O4Nf5Ng0V)

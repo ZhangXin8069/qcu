@@ -64,7 +64,8 @@ def path_force(path, coeffs):
                 fcoeffs[loop[j]].append(-coeffs[i])
                 flengths[loop[j]].append(lengths[i] - 1)
             else:
-                force[loop_dag[lengths[i] - 1 - j]].append(np.roll(loop_dag, j + 1 - lengths[i])[1:])
+                force[loop_dag[lengths[i] - 1 - j]
+                      ].append(np.roll(loop_dag, j + 1 - lengths[i])[1:])
                 fcoeffs[loop_dag[lengths[i] - 1 - j]].append(-coeffs[i])
                 flengths[loop_dag[lengths[i] - 1 - j]].append(lengths[i] - 1)
     max_length = max(lengths)
@@ -147,7 +148,8 @@ for i in range(100):
     phi = 2 * cp.pi * cp.random.random((2, Lt, Lz, Ly, Lx // 2, Nc), "<f8")
     r = cp.random.random((2, Lt, Lz, Ly, Lx // 2, Nc), "<f8")
 
-    noise = LatticeStaggeredFermion(latt_info, cp.sqrt(-cp.log(r)) * (cp.cos(phi) + 1j * cp.sin(phi)))
+    noise = LatticeStaggeredFermion(
+        latt_info, cp.sqrt(-cp.log(r)) * (cp.cos(phi) + 1j * cp.sin(phi)))
 
     hmc.initNoise(noise, i)
 
@@ -157,22 +159,28 @@ for i in range(100):
     energy = kinetic + potential
 
     for step in range(steps):
-        hmc.computeGaugeForce(vartheta_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
+        hmc.computeGaugeForce(vartheta_ * dt, force,
+                              flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce(vartheta_ * dt, noise)
         hmc.updateGaugeField(rho_ * dt)
-        hmc.computeGaugeForce(lambda_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
+        hmc.computeGaugeForce(lambda_ * dt, force, flengths,
+                              fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce(lambda_ * dt, noise)
         hmc.updateGaugeField(theta_ * dt)
-        hmc.computeGaugeForce((0.5 - (lambda_ + vartheta_)) * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
+        hmc.computeGaugeForce((0.5 - (lambda_ + vartheta_)) * dt,
+                              force, flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce((0.5 - (lambda_ + vartheta_)) * dt, noise)
         hmc.updateGaugeField((1.0 - 2 * (theta_ + rho_)) * dt)
-        hmc.computeGaugeForce((0.5 - (lambda_ + vartheta_)) * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
+        hmc.computeGaugeForce((0.5 - (lambda_ + vartheta_)) * dt,
+                              force, flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce((0.5 - (lambda_ + vartheta_)) * dt, noise)
         hmc.updateGaugeField(theta_ * dt)
-        hmc.computeGaugeForce(lambda_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
+        hmc.computeGaugeForce(lambda_ * dt, force, flengths,
+                              fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce(lambda_ * dt, noise)
         hmc.updateGaugeField(rho_ * dt)
-        hmc.computeGaugeForce(vartheta_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
+        hmc.computeGaugeForce(vartheta_ * dt, force,
+                              flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeFermionForce(vartheta_ * dt, noise)
 
     hmc.reunitGaugeField(1e-15)

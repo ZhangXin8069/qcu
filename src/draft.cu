@@ -2,7 +2,7 @@
 #pragma optimize(5)
 using namespace qcu;
 #ifdef DRAFT
-void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                QcuParam *param, int parity)
 {
     // define for wilson_dslash
@@ -31,7 +31,7 @@ void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
 void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                   QcuParam *param, int parity, QcuParam *grid) {}
 void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid) {}
-void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
+void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, int parity)
 {
     // define for nccl_clover_dslash

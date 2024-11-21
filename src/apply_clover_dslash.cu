@@ -2,7 +2,7 @@
 #pragma optimize(5)
 using namespace qcu;
 #ifdef NCCL_CLOVER_DSLASH
-void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
+void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity, QcuParam *grid)
 {
   // define for nccl_clover_dslash

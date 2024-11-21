@@ -1,6 +1,6 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
-namespace qcu
+    namespace qcu
 {
 #ifdef BISTABCG
   __global__ void bistabcg_give_1beta(void *device_vals)

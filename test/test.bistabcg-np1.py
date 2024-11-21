@@ -30,7 +30,8 @@ mpi.init(grid_size)
 print(f"single latt size = {latt_size}")
 # set
 # p = LatticeFermion(latt_size, cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
-p = LatticeFermion(latt_size, cp.ones([Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
+p = LatticeFermion(latt_size, cp.ones(
+    [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
 qcu_p = LatticeFermion(latt_size)
 quda_p = LatticeFermion(latt_size)
 qcu_x = LatticeFermion(latt_size)
@@ -80,8 +81,8 @@ def compare(round):
     if rank == 0:
         print("===============qcu==================")
     t1 = perf_counter()
-    qcu.ncclCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
-    # qcu.ncclBistabCgQcu(qcu_x.data_ptr,
+    qcu.applyBistabCgQcu(qcu_x.data_ptr, p.data_ptr, U.data_ptr, param, grid)
+    # qcu.applyBistabCgQcu(qcu_x.data_ptr,
     #                     quda_x.data_ptr, U.data_ptr, param, grid)
     # D*x=p, to get qcu_x
     cp.cuda.runtime.deviceSynchronize()

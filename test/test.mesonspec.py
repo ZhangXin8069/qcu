@@ -67,4 +67,5 @@ for t in range(Lt):
             res = cp.roll(res, -t)
             twopt[t, :, gamma_idx, p] = res.get()
         gamma_idx += 1
-    print(f"Contraction for {len(gamma_insertion)} gamma insertions: {perf_counter()-s:.2f}sec.")
+    print(
+        f"Contraction for {len(gamma_insertion)} gamma insertions: {perf_counter()-s:.2f}sec.")

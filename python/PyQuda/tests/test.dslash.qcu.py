@@ -49,8 +49,8 @@ def compare(round):
 
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    qcu.dslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
-    qcu.dslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
+    qcu.testDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
+    qcu.testDslashQcu(Mp1.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f"QCU dslash: {t2 - t1} sec")

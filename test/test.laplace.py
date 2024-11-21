@@ -22,8 +22,10 @@ gauge.smearSTOUT(10, 0.12, 3)
 Lx, Ly, Lz = gauge.latt_info.Lx, gauge.latt_info.Ly, gauge.latt_info.Lz
 latt_info = LaplaceLatticeInfo([Lx, Ly, Lz, 1])
 gauge_tmp_lexico = cp.array(gauge.lexico()[:, t])
-gauge_tmp_lexico_dagger = gauge_tmp_lexico.transpose(0, 1, 2, 3, 5, 4).conj().copy()
-gauge_tmp = LatticeGauge(latt_info, core.cb2(gauge.lexico()[:, t : t + 1], [1, 2, 3, 4]))
+gauge_tmp_lexico_dagger = gauge_tmp_lexico.transpose(
+    0, 1, 2, 3, 5, 4).conj().copy()
+gauge_tmp = LatticeGauge(latt_info, core.cb2(
+    gauge.lexico()[:, t: t + 1], [1, 2, 3, 4]))
 
 Lx, Ly, Lz, _ = latt_info.size
 n_ev = 20
@@ -36,11 +38,13 @@ def Laplacian(x):
     x = x.reshape(Lz * Ly * Lx * Nc, -1)
     ret = cp.zeros_like(x, "<c16")
     for i in range(x.shape[1]):
-        ret[:, i] = gauge_tmp.laplace(LatticeStaggeredFermion(latt_info, x[:, i]), 3).data.reshape(Lz * Ly * Lx * Nc)
+        ret[:, i] = gauge_tmp.laplace(LatticeStaggeredFermion(
+            latt_info, x[:, i]), 3).data.reshape(Lz * Ly * Lx * Nc)
     return ret
 
 
-A = linalg.LinearOperator((Lz * Ly * Lx * Nc, Lz * Ly * Lx * Nc), matvec=Laplacian, matmat=Laplacian)
+A = linalg.LinearOperator(
+    (Lz * Ly * Lx * Nc, Lz * Ly * Lx * Nc), matvec=Laplacian, matmat=Laplacian)
 s = perf_counter()
 evals, evecs = linalg.eigsh(A, n_ev, which="SA", tol=tol)
 print(f"{perf_counter() - s:.3f} secs")
@@ -54,17 +58,24 @@ def _Laplacian(x):
         x
         - (1 / 6)
         * (
-            contract("zyxab,zyxbc->zyxac", gauge_tmp_lexico[0], cp.roll(x, -1, 2))
-            + contract("zyxab,zyxbc->zyxac", gauge_tmp_lexico[1], cp.roll(x, -1, 1))
-            + contract("zyxab,zyxbc->zyxac", gauge_tmp_lexico[2], cp.roll(x, -1, 0))
-            + cp.roll(contract("zyxab,zyxbc->zyxac", gauge_tmp_lexico_dagger[0], x), 1, 2)
-            + cp.roll(contract("zyxab,zyxbc->zyxac", gauge_tmp_lexico_dagger[1], x), 1, 1)
-            + cp.roll(contract("zyxab,zyxbc->zyxac", gauge_tmp_lexico_dagger[2], x), 1, 0)
+            contract("zyxab,zyxbc->zyxac",
+                     gauge_tmp_lexico[0], cp.roll(x, -1, 2))
+            + contract("zyxab,zyxbc->zyxac",
+                       gauge_tmp_lexico[1], cp.roll(x, -1, 1))
+            + contract("zyxab,zyxbc->zyxac",
+                       gauge_tmp_lexico[2], cp.roll(x, -1, 0))
+            + cp.roll(contract("zyxab,zyxbc->zyxac",
+                      gauge_tmp_lexico_dagger[0], x), 1, 2)
+            + cp.roll(contract("zyxab,zyxbc->zyxac",
+                      gauge_tmp_lexico_dagger[1], x), 1, 1)
+            + cp.roll(contract("zyxab,zyxbc->zyxac",
+                      gauge_tmp_lexico_dagger[2], x), 1, 0)
         )
     ).reshape(Lz * Ly * Lx * Nc, -1)
 
 
-A = linalg.LinearOperator((Lz * Ly * Lx * Nc, Lz * Ly * Lx * Nc), matvec=_Laplacian, matmat=_Laplacian)
+A = linalg.LinearOperator(
+    (Lz * Ly * Lx * Nc, Lz * Ly * Lx * Nc), matvec=_Laplacian, matmat=_Laplacian)
 s = perf_counter()
 evals, evecs = linalg.eigsh(A, n_ev, which="SA", tol=tol)
 print(f"{perf_counter() - s:.3f} secs")

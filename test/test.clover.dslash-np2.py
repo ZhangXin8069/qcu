@@ -52,6 +52,7 @@ U = gauge_utils.gaussGauge(latt_size, 0)
 # dslash.loadGauge(U)
 np.set_printoptions(threshold=np.inf)
 
+
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
@@ -71,10 +72,10 @@ def compare(round):
     grid.lattice_size = grid_size
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-    pyqcu.ncclDslashCloverQcu(Mp1.even_ptr, p.odd_ptr,
-                              U.data_ptr, param, 0, grid)
-    pyqcu.ncclDslashCloverQcu(Mp1.odd_ptr, p.even_ptr,
-                              U.data_ptr, param, 1, grid)
+    pyqcu.applyCloverDslashQcu(Mp1.even_ptr, p.odd_ptr,
+                               U.data_ptr, param, 0, grid)
+    pyqcu.applyCloverDslashQcu(Mp1.odd_ptr, p.even_ptr,
+                               U.data_ptr, param, 1, grid)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
