@@ -6,7 +6,7 @@
 namespace qcu
 {
   // #define PRINT_NCCL_WILSON_BISTABCG
-  template <typename T = double>
+  template <typename T>
   struct LatticeBistabCg
   {
     using _cublas_type = typename std::conditional<

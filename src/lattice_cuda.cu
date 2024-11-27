@@ -2,8 +2,7 @@
 #pragma optimize(5)
 namespace qcu
 {
-  template <typename T = double>
-template <typename T = double>
+  template <typename T>
   __global__ void give_random_vals(void *device_random_vals, unsigned long seed)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -18,7 +17,7 @@ template <typename T = double>
       random_vals[idx * _LAT_SC_ + i]._data.y = curand_uniform(&state_imag);
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void give_custom_vals(void *device_custom_vals, double real,
                                    double imag)
   {
@@ -31,21 +30,21 @@ template <typename T = double>
       custom_vals[idx * _LAT_SC_ + i]._data.y = imag;
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void give_1zero(void *device_vals, const int vals_index)
   {
     LatticeComplex<T> *origin_vals = static_cast<LatticeComplex<T> *>(device_vals);
     LatticeComplex<T> _(0.0, 0.0);
     origin_vals[vals_index] = _;
   }
-template <typename T = double>
+  template <typename T>
   __global__ void give_1one(void *device_vals, const int vals_index)
   {
     LatticeComplex<T> *origin_vals = static_cast<LatticeComplex<T> *>(device_vals);
     LatticeComplex<T> _(1.0, 0.0);
     origin_vals[vals_index] = _;
   }
-template <typename T = double>
+  template <typename T>
   __global__ void give_1custom(void *device_vals, const int vals_index,
                                double real, double imag)
   {
@@ -53,7 +52,7 @@ template <typename T = double>
     LatticeComplex<T> _(real, imag);
     origin_vals[vals_index] = _;
   }
-template <typename T = double>
+  template <typename T>
   __global__ void _tzyxsc2sctzyx(void *device_fermi, void *device__fermi,
                                  int lat_4dim)
   {
@@ -67,7 +66,7 @@ template <typename T = double>
       _fermion[i * lat_4dim] = fermion[i];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void _sctzyx2tzyxsc(void *device_fermi, void *device__fermi,
                                  int lat_4dim)
   {
@@ -113,7 +112,7 @@ template <typename T = double>
     checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
-template <typename T = double>
+  template <typename T>
   __global__ void _dptzyxcc2ccdptzyx(void *device_gauge, void *device__gauge,
                                      int lat_4dim)
   {
@@ -134,7 +133,7 @@ template <typename T = double>
       }
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void _ccdptzyx2dptzyxcc(void *device_gauge, void *device__gauge,
                                      int lat_4dim)
   {
@@ -186,7 +185,7 @@ template <typename T = double>
     checkCudaErrors(cudaFreeAsync(_gauge, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
-template <typename T = double>
+  template <typename T>
   __global__ void _ptzyxsc2psctzyx(void *device_fermi, void *device__fermi,
                                    int lat_4dim)
   {
@@ -204,7 +203,7 @@ template <typename T = double>
       }
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void _psctzyx2ptzyxsc(void *device_fermi, void *device__fermi,
                                    int lat_4dim)
   {
@@ -254,7 +253,7 @@ template <typename T = double>
     checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
-template <typename T = double>
+  template <typename T>
   __global__ void give_debug_u(void *device_U, void *device_params)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;

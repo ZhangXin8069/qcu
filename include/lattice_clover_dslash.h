@@ -5,7 +5,7 @@
 #include "./lattice_set.h"
 namespace qcu
 {
-    template <typename T = double>
+    template <typename T>
     struct LatticeCloverDslash
     {
         using _cublas_type = typename std::conditional<

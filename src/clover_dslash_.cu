@@ -2,8 +2,7 @@
 #pragma optimize(5)
 namespace qcu
 {
-  template <typename T = double>
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_x(void *device_U, void *device_params,
                               void *device_u_b_x_send_vec,
                               void *device_u_f_x_send_vec)
@@ -47,7 +46,7 @@ template <typename T = double>
       u_f_x_send_vec[i * lat_tzyx / lat_x] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_y(void *device_U, void *device_params,
                               void *device_u_b_y_send_vec,
                               void *device_u_f_y_send_vec)
@@ -91,7 +90,7 @@ template <typename T = double>
       u_f_y_send_vec[i * lat_tzyx / lat_y] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_z(void *device_U, void *device_params,
                               void *device_u_b_z_send_vec,
                               void *device_u_f_z_send_vec)
@@ -135,7 +134,7 @@ template <typename T = double>
       u_f_z_send_vec[i * lat_tzyx / lat_z] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_t(void *device_U, void *device_params,
                               void *device_u_b_t_send_vec,
                               void *device_u_f_t_send_vec)
@@ -179,7 +178,7 @@ template <typename T = double>
       u_f_t_send_vec[i * lat_tzyx / lat_t] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_xy(void *device_U, void *device_params,
                                void *device_u_b_x_b_y_send_vec,
                                void *device_u_f_x_b_y_send_vec,
@@ -243,7 +242,7 @@ template <typename T = double>
       u_f_x_f_y_send_vec[i * lat_tzyx / lat_x / lat_y] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_xz(void *device_U, void *device_params,
                                void *device_u_b_x_b_z_send_vec,
                                void *device_u_f_x_b_z_send_vec,
@@ -307,7 +306,7 @@ template <typename T = double>
       u_f_x_f_z_send_vec[i * lat_tzyx / lat_x / lat_z] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_xt(void *device_U, void *device_params,
                                void *device_u_b_x_b_t_send_vec,
                                void *device_u_f_x_b_t_send_vec,
@@ -371,7 +370,7 @@ template <typename T = double>
       u_f_x_f_t_send_vec[i * lat_tzyx / lat_x / lat_t] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_yz(void *device_U, void *device_params,
                                void *device_u_b_y_b_z_send_vec,
                                void *device_u_f_y_b_z_send_vec,
@@ -435,7 +434,7 @@ template <typename T = double>
       u_f_y_f_z_send_vec[i * lat_tzyx / lat_y / lat_z] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_yt(void *device_U, void *device_params,
                                void *device_u_b_y_b_t_send_vec,
                                void *device_u_f_y_b_t_send_vec,
@@ -499,7 +498,7 @@ template <typename T = double>
       u_f_y_f_t_send_vec[i * lat_tzyx / lat_y / lat_t] = tmp_U[i * lat_tzyx];
     }
   }
-template <typename T = double>
+  template <typename T>
   __global__ void pick_up_u_zt(void *device_U, void *device_params,
                                void *device_u_b_z_b_t_send_vec,
                                void *device_u_f_z_b_t_send_vec,

@@ -8,7 +8,7 @@ namespace qcu
 {
   // clang-format on
   // #define PRINT_NCCL_WILSON_CG
-  template <typename T = double>
+  template <typename T>
   struct LatticeCg
   {
     using _cublas_type = typename std::conditional<
