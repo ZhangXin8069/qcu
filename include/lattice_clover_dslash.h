@@ -8,27 +8,39 @@ namespace qcu
     template <typename T>
     struct LatticeCloverDslash
     {
-        using _cublas_type = typename std::conditional<
-                                 std::is_same<T, T>::value, cuDoubleComplex,
-                                 typename std::conditional<
-                                     std::is_same<T, float>::value, cuFloatComplex,
-                                     void>::type>::type > ;
-        using _mpi_type = typename std::conditional<
-                              std::is_same<T, T>::value, MPI_DOUBLE,
-                              typename std::conditional<
-                                  std::is_same<T, float>::value, MPI_FLOAT,
-                                  void>::type>::type > ;
-#ifndef _MPI_
-        using _nccl_type = ncclDouble typename std::conditional<
-                               std::is_same<T, T>::value, ,
-                               typename std::conditional<
-                                   std::is_same<T, float>::value, ncclFloat,
-                                   void>::type>::type > ;
-#endif
-        LatticeSet *set_ptr;
+        LatticeSet<T> *set_ptr;
         cudaError_t err;
         void *clover;
-        void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
+        void give(LatticeSet<T> *_set_ptr)
+        {
+            set_ptr = _set_ptr;
+            if (std::is_same<T, double>::value)
+            {
+                using _mpi_type = MPI_DOUBLE;
+            }
+            if (std::is_same<T, float>::value)
+            {
+                using _mpi_type = MPI_FLOAT;
+            }
+            if (std::is_same<T, int>::value)
+            {
+                using _mpi_type = MPI_INT;
+            }
+#ifndef _MPI_
+            if (std::is_same<T, double>::value)
+            {
+                using _nccl_type = ncclDouble;
+            }
+            if (std::is_same<T, float>::value)
+            {
+                using _nccl_type = ncclFloat;
+            }
+            if (std::is_same<T, int>::value)
+            {
+                using _nccl_type = ncclInt;
+            }
+#endif
+        }
         void init()
         {
             checkCudaErrors(cudaMallocAsync(
@@ -46,61 +58,61 @@ namespace qcu
             // edge send part
             {
                 // u_1dim_send
-                pick_up_u_x<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                pick_up_u_x<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_X_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_X_],
                     set_ptr->device_u_1dim_send_vec[_F_X_]);
-                pick_up_u_y<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                pick_up_u_y<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_Y_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_Y_],
                     set_ptr->device_u_1dim_send_vec[_F_Y_]);
-                pick_up_u_z<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                pick_up_u_z<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_Z_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_Z_],
                     set_ptr->device_u_1dim_send_vec[_F_Z_]);
-                pick_up_u_t<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                pick_up_u_t<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_T_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_T_],
                     set_ptr->device_u_1dim_send_vec[_F_T_]);
             }
             {
                 // u_2dim_send
-                pick_up_u_xy<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XY_],
+                pick_up_u_xy<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XY_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_X_B_Y_],
                     set_ptr->device_u_2dim_send_vec[_F_X_B_Y_],
                     set_ptr->device_u_2dim_send_vec[_B_X_F_Y_],
                     set_ptr->device_u_2dim_send_vec[_F_X_F_Y_]);
-                pick_up_u_xz<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XZ_],
+                pick_up_u_xz<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XZ_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_X_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_X_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_B_X_F_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_X_F_Z_]);
-                pick_up_u_xt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XT_],
+                pick_up_u_xt<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XT_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_X_B_T_],
                     set_ptr->device_u_2dim_send_vec[_F_X_B_T_],
                     set_ptr->device_u_2dim_send_vec[_B_X_F_T_],
                     set_ptr->device_u_2dim_send_vec[_F_X_F_T_]);
-                pick_up_u_yz<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YZ_],
+                pick_up_u_yz<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YZ_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_Y_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_B_Y_F_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_F_Z_]);
-                pick_up_u_yt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YT_],
+                pick_up_u_yt<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YT_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_Y_B_T_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_B_T_],
                     set_ptr->device_u_2dim_send_vec[_B_Y_F_T_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_F_T_]);
-                pick_up_u_zt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _ZT_],
+                pick_up_u_zt<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _ZT_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_Z_B_T_],
@@ -524,7 +536,7 @@ namespace qcu
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-            make_clover_all<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+            make_clover_all<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
                               set_ptr->stream>>>(
                 gauge, clover, set_ptr->device_params,
                 set_ptr->device_u_1dim_recv_vec[_B_X_],
@@ -576,61 +588,61 @@ namespace qcu
             // edge send part
             {
                 // u_1dim_send
-                pick_up_u_x<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                pick_up_u_x<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_X_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_X_],
                     set_ptr->device_u_1dim_send_vec[_F_X_]);
-                pick_up_u_y<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                pick_up_u_y<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_Y_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_Y_],
                     set_ptr->device_u_1dim_send_vec[_F_Y_]);
-                pick_up_u_z<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                pick_up_u_z<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_Z_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_Z_],
                     set_ptr->device_u_1dim_send_vec[_F_Z_]);
-                pick_up_u_t<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                pick_up_u_t<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
                               set_ptr->stream_dims[_T_]>>>(
                     gauge, set_ptr->device_params, set_ptr->device_u_1dim_send_vec[_B_T_],
                     set_ptr->device_u_1dim_send_vec[_F_T_]);
             }
             {
                 // u_2dim_send
-                pick_up_u_xy<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XY_],
+                pick_up_u_xy<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XY_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_X_B_Y_],
                     set_ptr->device_u_2dim_send_vec[_F_X_B_Y_],
                     set_ptr->device_u_2dim_send_vec[_B_X_F_Y_],
                     set_ptr->device_u_2dim_send_vec[_F_X_F_Y_]);
-                pick_up_u_xz<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XZ_],
+                pick_up_u_xz<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XZ_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_X_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_X_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_B_X_F_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_X_F_Z_]);
-                pick_up_u_xt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XT_],
+                pick_up_u_xt<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _XT_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_X_B_T_],
                     set_ptr->device_u_2dim_send_vec[_F_X_B_T_],
                     set_ptr->device_u_2dim_send_vec[_B_X_F_T_],
                     set_ptr->device_u_2dim_send_vec[_F_X_F_T_]);
-                pick_up_u_yz<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YZ_],
+                pick_up_u_yz<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YZ_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_Y_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_B_Z_],
                     set_ptr->device_u_2dim_send_vec[_B_Y_F_Z_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_F_Z_]);
-                pick_up_u_yt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YT_],
+                pick_up_u_yt<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _YT_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_Y_B_T_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_B_T_],
                     set_ptr->device_u_2dim_send_vec[_B_Y_F_T_],
                     set_ptr->device_u_2dim_send_vec[_F_Y_F_T_]);
-                pick_up_u_zt<<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _ZT_],
+                pick_up_u_zt<T><<<set_ptr->gridDim_2dim[_2DIM_ - 1 - _ZT_],
                                set_ptr->blockDim, 0, set_ptr->stream>>>(
                     gauge, set_ptr->device_params,
                     set_ptr->device_u_2dim_send_vec[_B_Z_B_T_],
@@ -1080,7 +1092,7 @@ namespace qcu
             }
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
             // edge recv part
-            make_clover_all<<<set_ptr->gridDim, set_ptr->blockDim, 0,
+            make_clover_all<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
                               set_ptr->stream>>>(
                 gauge, clover, set_ptr->device_params,
                 set_ptr->device_u_1dim_recv_vec[_B_X_],
@@ -1142,7 +1154,7 @@ namespace qcu
             // inverse clover
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto start = std::chrono::high_resolution_clock::now();
-            inverse_clover<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+            inverse_clover<T><<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
                 clover, set_ptr->device_params);
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto end = std::chrono::high_resolution_clock::now();
@@ -1160,7 +1172,7 @@ namespace qcu
             // give clover
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto start = std::chrono::high_resolution_clock::now();
-            give_clover<<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+            give_clover<T><<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
                 clover, fermion_out, set_ptr->device_params);
             checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
             auto end = std::chrono::high_resolution_clock::now();

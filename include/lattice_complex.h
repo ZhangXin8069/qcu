@@ -3,7 +3,7 @@
 #include "./include.h"
 namespace qcu
 {
-  template <typename T = double>
+  template <typename T>
   struct LatticeComplex
   {
     using _data_type = typename std::conditional<

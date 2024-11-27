@@ -472,7 +472,6 @@ namespace qcu
       }                                                                    \
     }                                                                      \
   }
-
 #define free_vec(device_send_vec, device_recv_vec, host_send_vec, \
                  host_recv_vec)                                   \
   {                                                               \

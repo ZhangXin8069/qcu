@@ -5,8 +5,9 @@
 #include "./define.h"
 namespace qcu
 {
-  template <typename T>
-  __global__ void give_param(void *device_param, int vals_index, int val);
+    template <typename T>
+    __global__ void give_param(void *device_param, int vals_index, int val);
+    template <typename T>
     struct LatticeSet
     {
         int lat_2dim[_2DIM_];
@@ -490,27 +491,27 @@ namespace qcu
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_no_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_even_no_dag, _PARITY_,
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _PARITY_,
                                                 _EVEN_);
-                give_param<<<1, 1, 0, stream>>>(device_params_even_no_dag, _DAGGER_,
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _DAGGER_,
                                                 _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_no_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_no_dag, _PARITY_,
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _PARITY_,
                                                 _ODD_);
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_no_dag, _DAGGER_,
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _DAGGER_,
                                                 _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_even_dag, _PARITY_, _EVEN_);
-                give_param<<<1, 1, 0, stream>>>(device_params_even_dag, _DAGGER_, _USE_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_dag, _PARITY_, _EVEN_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_dag, _DAGGER_, _USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_dag, _PARITY_, _ODD_);
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_dag, _PARITY_, _ODD_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
         }
