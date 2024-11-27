@@ -245,21 +245,12 @@ namespace qcu
     }                                                              \
   }
 // little strange, but don't want change
-#define give_vals(U, zero, n)                                 \
-  {                                                           \
-    LatticeComplex *tmp_U = static_cast<LatticeComplex *>(U); \
-    for (int i = 0; i < n; i++)                               \
-    {                                                         \
-      tmp_U[i] = zero;                                        \
-    }                                                         \
-  }
-#define give_rand(input_matrix, size)                                \
-  {                                                                  \
-    for (int i = 0; i < size; i++)                                   \
-    {                                                                \
-      input_matrix[i].real = static_cast<double>(rand()) / RAND_MAX; \
-      input_matrix[i].imag = static_cast<double>(rand()) / RAND_MAX; \
-    }                                                                \
+#define give_vals(U, zero, n)   \
+  {                             \
+    for (int i = 0; i < n; i++) \
+    {                           \
+      U[i] = zero;              \
+    }                           \
   }
 #define give_u(U, tmp_U, lat_tzyx)                       \
   {                                                      \
@@ -481,29 +472,7 @@ namespace qcu
       }                                                                    \
     }                                                                      \
   }
-#define malloc_vec(lat_3dim_Half_SC, device_send_vec, device_recv_vec,  \
-                   host_send_vec, host_recv_vec)                        \
-  {                                                                     \
-    for (int i = 0; i < _DIM_; i++)                                     \
-    {                                                                   \
-      cudaMalloc(&device_send_vec[i * _SR_],                            \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      cudaMalloc(&device_send_vec[i * _SR_ + 1],                        \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      cudaMalloc(&device_recv_vec[i * _SR_],                            \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      cudaMalloc(&device_recv_vec[i * _SR_ + 1],                        \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      host_send_vec[i * _SR_] =                                         \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-      host_send_vec[i * _SR_ + 1] =                                     \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-      host_recv_vec[i * _SR_] =                                         \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-      host_recv_vec[i * _SR_ + 1] =                                     \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-    }                                                                   \
-  }
+
 #define free_vec(device_send_vec, device_recv_vec, host_send_vec, \
                  host_recv_vec)                                   \
   {                                                               \

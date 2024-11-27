@@ -2,6 +2,8 @@
 #pragma optimize(5)
 namespace qcu
 {
+  template <typename T = double>
+template <typename T = double>
   __global__ void make_clover(void *device_U, void *device_clover,
                               void *device_params)
   {
@@ -34,18 +36,18 @@ namespace qcu
     move_forward(move_wards[_F_Y_], y, lat_y);
     move_forward(move_wards[_F_Z_], z, lat_z);
     move_forward(move_wards[_F_T_], t, lat_t);
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
-    LatticeComplex *origin_clover =
-        ((static_cast<LatticeComplex *>(device_clover)) + idx);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp1[_LAT_CC_];
-    LatticeComplex tmp2[_LAT_CC_];
-    LatticeComplex tmp3[_LAT_CC_];
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex clover[_LAT_SCSC_];
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> *origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) + idx);
+    LatticeComplex<T> *origin_clover =
+        ((static_cast<LatticeComplex<T> *>(device_clover)) + idx);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp1[_LAT_CC_];
+    LatticeComplex<T> tmp2[_LAT_CC_];
+    LatticeComplex<T> tmp3[_LAT_CC_];
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> clover[_LAT_SCSC_];
     // sigmaF
     {
       give_vals(clover, zero, _LAT_SCSC_);
@@ -846,7 +848,7 @@ namespace qcu
     }
     {
       // A=1+T
-      LatticeComplex one(1.0, 0);
+      LatticeComplex<T> one(1.0, 0);
       for (int i = 0; i < _LAT_SCSC_; i++)
       {
         clover[i] *= -0.125; //-1/8
@@ -858,40 +860,42 @@ namespace qcu
     }
     give_clr(origin_clover, clover, lat_tzyx);
   }
+template <typename T = double>
   __global__ void inverse_clover(void *device_clover, void *device_params)
   {
-    LatticeComplex *origin_clover;
+    LatticeComplex<T> *origin_clover;
     int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
     {
       int idx = blockIdx.x * blockDim.x + threadIdx.x;
-      origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
+      origin_clover = ((static_cast<LatticeComplex<T> *>(device_clover)) + idx);
     }
     {
-      LatticeComplex pivot;
-      LatticeComplex factor;
-      LatticeComplex clover[_LAT_SCSC_];
-      LatticeComplex augmented_clover[_LAT_SCSC_ * _BF_];
+      LatticeComplex<T> pivot;
+      LatticeComplex<T> factor;
+      LatticeComplex<T> clover[_LAT_SCSC_];
+      LatticeComplex<T> augmented_clover[_LAT_SCSC_ * _BF_];
       get_clr(clover, origin_clover, lat_tzyx);
       _inverse(clover, clover, augmented_clover, pivot, factor, _LAT_SC_);
       give_clr(origin_clover, clover, lat_tzyx);
     }
   }
+template <typename T = double>
   __global__ void give_clover(void *device_clover, void *device_dest,
                               void *device_params)
   {
-    LatticeComplex *origin_clover;
-    LatticeComplex *origin_dest;
+    LatticeComplex<T> *origin_clover;
+    LatticeComplex<T> *origin_dest;
     int lat_tzyx = static_cast<int *>(device_params)[_LAT_XYZT_];
     {
       int idx = blockIdx.x * blockDim.x + threadIdx.x;
-      origin_clover = ((static_cast<LatticeComplex *>(device_clover)) + idx);
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) + idx);
+      origin_clover = ((static_cast<LatticeComplex<T> *>(device_clover)) + idx);
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) + idx);
     }
     {
-      LatticeComplex clover[_LAT_SCSC_];
-      LatticeComplex dest[_LAT_SC_];
-      LatticeComplex tmp_dest[_LAT_SC_];
-      LatticeComplex zero(0.0, 0.0);
+      LatticeComplex<T> clover[_LAT_SCSC_];
+      LatticeComplex<T> dest[_LAT_SC_];
+      LatticeComplex<T> tmp_dest[_LAT_SC_];
+      LatticeComplex<T> zero(0.0, 0.0);
       give_vals(tmp_dest, zero, _LAT_SC_);
       get_src(dest, origin_dest, lat_tzyx);
       get_clr(clover, origin_clover, lat_tzyx);

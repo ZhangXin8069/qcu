@@ -3,12 +3,19 @@
 #include "./include.h"
 namespace qcu
 {
-  using data_type = cuDoubleComplex;
+  template <typename T = double>
   struct LatticeComplex
   {
-    double2 _data;
-    __host__ __device__ __inline__ LatticeComplex(const double &_real = 0.0,
-                                                  const double &_imag = 0.0)
+    using _data_type = typename std::conditional<
+        std::is_same<T, double>::value, double2,
+        typename std::conditional<
+            std::is_same<T, float>::value, float2,
+            typename std::conditional<
+                std::is_same<T, half>::value, half2,
+                void>::type>::type>::type;
+    _data_type _data;
+    __host__ __device__ __inline__ LatticeComplex(const T &_real = 0.0,
+                                                  const T &_imag = 0.0)
     {
       _data.x = _real;
       _data.y = _imag;
@@ -21,7 +28,7 @@ namespace qcu
       return *this;
     }
     __host__ __device__ __inline__ LatticeComplex &
-    operator=(const double &other)
+    operator=(const T &other)
     {
       _data.x = other;
       _data.y = 0;
@@ -44,21 +51,21 @@ namespace qcu
                             _data.x * other._data.y + _data.y * other._data.x);
     }
     __host__ __device__ __inline__ LatticeComplex
-    operator*(const double &other) const
+    operator*(const T &other) const
     {
       return LatticeComplex(_data.x * other, _data.y * other);
     }
     __host__ __device__ __inline__ LatticeComplex
     operator/(const LatticeComplex &other) const
     {
-      double denom =
+      T denom =
           other._data.x * other._data.x + other._data.y * other._data.y;
       return LatticeComplex(
           (_data.x * other._data.x + _data.y * other._data.y) / denom,
           (_data.y * other._data.x - _data.x * other._data.y) / denom);
     }
     __host__ __device__ __inline__ LatticeComplex
-    operator/(const double &other) const
+    operator/(const T &other) const
     {
       return LatticeComplex(_data.x / other, _data.y / other);
     }
@@ -98,7 +105,7 @@ namespace qcu
       return *this;
     }
     __host__ __device__ __inline__ LatticeComplex &
-    operator*=(const double &other)
+    operator*=(const T &other)
     {
       _data.x = _data.x * other;
       _data.y = _data.y * other;
@@ -107,14 +114,14 @@ namespace qcu
     __host__ __device__ __inline__ LatticeComplex &
     operator/=(const LatticeComplex &other)
     {
-      double denom =
+      T denom =
           other._data.x * other._data.x + other._data.y * other._data.y;
       _data.x = (_data.x * other._data.x + _data.y * other._data.y) / denom;
       _data.y = (_data.y * other._data.x - _data.x * other._data.y) / denom;
       return *this;
     }
     __host__ __device__ __inline__ LatticeComplex &
-    operator/=(const double &other)
+    operator/=(const T &other)
     {
       _data.x = _data.x / other;
       _data.y = _data.y / other;
@@ -132,7 +139,7 @@ namespace qcu
     {
       return LatticeComplex(-_data.y, _data.x);
     }
-    __host__ __device__ __inline__ LatticeComplex multi_i(double val) const
+    __host__ __device__ __inline__ LatticeComplex multi_i(T val) const
     {
       return LatticeComplex(-_data.y * val, _data.x * val);
     }
@@ -140,7 +147,7 @@ namespace qcu
     {
       return LatticeComplex(_data.x, _data.y);
     }
-    __host__ __device__ __inline__ LatticeComplex multi_none(double val) const
+    __host__ __device__ __inline__ LatticeComplex multi_none(T val) const
     {
       return LatticeComplex(_data.x * val, _data.y * val);
     }
@@ -148,7 +155,7 @@ namespace qcu
     {
       return LatticeComplex(_data.y, -_data.x);
     }
-    __host__ __device__ __inline__ double norm2() const
+    __host__ __device__ __inline__ T norm2() const
     {
       return sqrt(_data.x * _data.x + _data.y * _data.y);
     }

@@ -5,8 +5,26 @@
 #include "./lattice_set.h"
 namespace qcu
 {
+    template <typename T = double>
     struct LatticeCloverDslash
     {
+        using _cublas_type = typename std::conditional<
+                                 std::is_same<T, T>::value, cuDoubleComplex,
+                                 typename std::conditional<
+                                     std::is_same<T, float>::value, cuFloatComplex,
+                                     void>::type>::type > ;
+        using _mpi_type = typename std::conditional<
+                              std::is_same<T, T>::value, MPI_DOUBLE,
+                              typename std::conditional<
+                                  std::is_same<T, float>::value, MPI_FLOAT,
+                                  void>::type>::type > ;
+#ifndef _MPI_
+        using _nccl_type = ncclDouble typename std::conditional<
+                               std::is_same<T, T>::value, ,
+                               typename std::conditional<
+                                   std::is_same<T, float>::value, ncclFloat,
+                                   void>::type>::type > ;
+#endif
         LatticeSet *set_ptr;
         cudaError_t err;
         void *clover;
@@ -14,7 +32,7 @@ namespace qcu
         void init()
         {
             checkCudaErrors(cudaMallocAsync(
-                &clover, (set_ptr->lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex),
+                &clover, (set_ptr->lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex<T>),
                 set_ptr->stream));
         }
 #ifndef _MPI_
@@ -98,21 +116,21 @@ namespace qcu
                     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_B_X_],
-                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_X_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_X_],
-                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_X_]);
                     ncclGroupEnd();
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_F_X_],
-                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_X_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_X_],
-                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_X_]);
                     ncclGroupEnd();
@@ -122,21 +140,21 @@ namespace qcu
                     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_B_Y_],
-                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Y_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_Y_],
-                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Y_]);
                     ncclGroupEnd();
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_F_Y_],
-                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Y_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_Y_],
-                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Y_]);
                     ncclGroupEnd();
@@ -146,21 +164,21 @@ namespace qcu
                     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_B_Z_],
-                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Z_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_Z_],
-                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Z_]);
                     ncclGroupEnd();
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_F_Z_],
-                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Z_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_Z_],
-                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_Z_]);
                     ncclGroupEnd();
@@ -170,21 +188,21 @@ namespace qcu
                     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_B_T_],
-                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_T_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_F_T_],
-                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_T_]);
                     ncclGroupEnd();
                     ncclGroupStart();
                     ncclSend(set_ptr->device_u_1dim_send_vec[_F_T_],
-                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_T_]);
                     ncclRecv(set_ptr->device_u_1dim_recv_vec[_B_T_],
-                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, ncclDouble,
+                             set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _nccl_type,
                              set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                              set_ptr->stream_dims[_T_]);
                     ncclGroupEnd();
@@ -198,48 +216,48 @@ namespace qcu
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_B_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_BY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_BY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_F_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_FY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_FY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_B_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_BY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_BY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_F_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_FY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_FY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_F_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_FY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_FY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_B_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_BY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_BY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_F_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_FY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_FY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_B_Y_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_BY_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_BY_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclGroupEnd();
                     }
@@ -249,48 +267,48 @@ namespace qcu
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclGroupEnd();
                     }
@@ -300,48 +318,48 @@ namespace qcu
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_X_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_X_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_X_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FX_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FX_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_X_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BX_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BX_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclGroupEnd();
                     }
@@ -351,48 +369,48 @@ namespace qcu
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_F_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_FZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_FZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_B_Z_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_BZ_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_BZ_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclGroupEnd();
                     }
@@ -402,48 +420,48 @@ namespace qcu
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_Y_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Y_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_Y_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FY_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FY_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Y_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BY_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BY_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclGroupEnd();
                     }
@@ -453,48 +471,48 @@ namespace qcu
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_Z_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BZ_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BZ_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Z_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FZ_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FZ_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_a_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_Z_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FZ_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FZ_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Z_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BZ_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BZ_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_b_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_B_Z_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BZ_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BZ_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_F_Z_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FZ_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FZ_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_c_]);
                         ncclGroupEnd();
                         ncclGroupStart();
                         ncclSend(set_ptr->device_u_2dim_send_vec[_F_Z_F_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_FZ_FT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_FZ_FT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclRecv(set_ptr->device_u_2dim_recv_vec[_B_Z_B_T_],
                                  set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                      _REAL_IMAG_,
-                                 ncclDouble, set_ptr->move_wards[_BZ_BT_], set_ptr->nccl_comm,
+                                 _nccl_type, set_ptr->move_wards[_BZ_BT_], set_ptr->nccl_comm,
                                  set_ptr->stream_dims[_d_]);
                         ncclGroupEnd();
                     }
@@ -633,22 +651,22 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_send_vec[i * _BF_],
                             set_ptr->device_u_1dim_send_vec[i * _BF_],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_send_vec[i * _BF_ + 1],
                             set_ptr->device_u_1dim_send_vec[i * _BF_ + 1],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_recv_vec[i * _BF_],
                             set_ptr->device_u_1dim_recv_vec[i * _BF_],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_1dim_recv_vec[i * _BF_ + 1],
                             set_ptr->device_u_1dim_recv_vec[i * _BF_ + 1],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyDeviceToHost,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                     }
                     for (int i = 0; i < _2DIM_; i++)
@@ -656,49 +674,49 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyDeviceToHost,
                             set_ptr->stream));
                     }
@@ -711,60 +729,60 @@ namespace qcu
                     }
                     // x edge part comm
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_X_],
-                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_X_], 0, set_ptr->host_u_1dim_recv_vec[_F_X_],
-                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_X_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_F_X_],
-                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_X_], 0, set_ptr->host_u_1dim_recv_vec[_B_X_],
-                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_X_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_X_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                 }
                 {
                     // y edge part comm
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_Y_],
-                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_Y_], 0, set_ptr->host_u_1dim_recv_vec[_F_Y_],
-                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_Y_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_F_Y_],
-                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_Y_], 0, set_ptr->host_u_1dim_recv_vec[_B_Y_],
-                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Y_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_Y_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                 }
                 {
                     // z edge part comm
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_Z_],
-                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_Z_], 0, set_ptr->host_u_1dim_recv_vec[_F_Z_],
-                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_Z_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_F_Z_],
-                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_Z_], 0, set_ptr->host_u_1dim_recv_vec[_B_Z_],
-                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_Z_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_Z_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                 }
                 {
                     // t edge part comm
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_B_T_],
-                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_T_], 0, set_ptr->host_u_1dim_recv_vec[_F_T_],
-                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_T_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                     MPI_Sendrecv(set_ptr->host_u_1dim_send_vec[_F_T_],
-                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_F_T_], 0, set_ptr->host_u_1dim_recv_vec[_B_T_],
-                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, MPI_DOUBLE,
+                                 set_ptr->lat_3dim[_T_] * _LAT_PDCC_ * _REAL_IMAG_, _mpi_type,
                                  set_ptr->move_wards[_B_T_], 0, MPI_COMM_WORLD,
                                  MPI_STATUS_IGNORE);
                 }
@@ -775,34 +793,34 @@ namespace qcu
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_X_B_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_BY_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_F_Y_],
+                                     _mpi_type, set_ptr->move_wards[_BX_BY_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_F_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_FY_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FX_FY_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_X_B_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_BY_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_F_Y_],
+                                     _mpi_type, set_ptr->move_wards[_FX_BY_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_F_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_FY_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BX_FY_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_X_F_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_FY_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_B_Y_],
+                                     _mpi_type, set_ptr->move_wards[_BX_FY_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_B_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_BY_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FX_BY_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_X_F_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_FY_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_B_Y_],
+                                     _mpi_type, set_ptr->move_wards[_FX_FY_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_B_Y_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XY_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_BY_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BX_BY_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                     }
                     {
@@ -810,34 +828,34 @@ namespace qcu
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_X_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_F_Z_],
+                                     _mpi_type, set_ptr->move_wards[_BX_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_FZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FX_FZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_X_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_F_Z_],
+                                     _mpi_type, set_ptr->move_wards[_FX_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_FZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BX_FZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_X_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_B_Z_],
+                                     _mpi_type, set_ptr->move_wards[_BX_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_BZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FX_BZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_X_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_B_Z_],
+                                     _mpi_type, set_ptr->move_wards[_FX_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_BZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BX_BZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                     }
                     {
@@ -845,34 +863,34 @@ namespace qcu
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_X_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_BT_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_F_T_],
+                                     _mpi_type, set_ptr->move_wards[_BX_BT_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_FT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FX_FT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_X_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_BT_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_F_T_],
+                                     _mpi_type, set_ptr->move_wards[_FX_BT_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_FT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BX_FT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_X_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_FT_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_B_T_],
+                                     _mpi_type, set_ptr->move_wards[_BX_FT_], 0, set_ptr->host_u_2dim_recv_vec[_F_X_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_BT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FX_BT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_X_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FX_FT_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_B_T_],
+                                     _mpi_type, set_ptr->move_wards[_FX_FT_], 0, set_ptr->host_u_2dim_recv_vec[_B_X_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _XT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BX_BT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BX_BT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                     }
                     {
@@ -880,34 +898,34 @@ namespace qcu
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_Y_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_F_Z_],
+                                     _mpi_type, set_ptr->move_wards[_BY_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_FZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FY_FZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_Y_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_F_Z_],
+                                     _mpi_type, set_ptr->move_wards[_FY_BZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_FZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BY_FZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_Y_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_B_Z_],
+                                     _mpi_type, set_ptr->move_wards[_BY_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_BZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FY_BZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_Y_F_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_B_Z_],
+                                     _mpi_type, set_ptr->move_wards[_FY_FZ_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_B_Z_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YZ_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_BZ_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BY_BZ_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                     }
                     {
@@ -915,34 +933,34 @@ namespace qcu
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_Y_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_BT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_F_T_],
+                                     _mpi_type, set_ptr->move_wards[_BY_BT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_FT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FY_FT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_Y_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_BT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_F_T_],
+                                     _mpi_type, set_ptr->move_wards[_FY_BT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_FT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BY_FT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_Y_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_FT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_B_T_],
+                                     _mpi_type, set_ptr->move_wards[_BY_FT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Y_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_BT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FY_BT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_Y_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FY_FT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_B_T_],
+                                     _mpi_type, set_ptr->move_wards[_FY_FT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Y_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _YT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BY_BT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BY_BT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                     }
                     {
@@ -950,34 +968,34 @@ namespace qcu
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_Z_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BZ_BT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Z_F_T_],
+                                     _mpi_type, set_ptr->move_wards[_BZ_BT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Z_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FZ_FT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FZ_FT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_Z_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FZ_BT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Z_F_T_],
+                                     _mpi_type, set_ptr->move_wards[_FZ_BT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Z_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BZ_FT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BZ_FT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_B_Z_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BZ_FT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Z_B_T_],
+                                     _mpi_type, set_ptr->move_wards[_BZ_FT_], 0, set_ptr->host_u_2dim_recv_vec[_F_Z_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FZ_BT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_FZ_BT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                         MPI_Sendrecv(set_ptr->host_u_2dim_send_vec[_F_Z_F_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_FZ_FT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Z_B_T_],
+                                     _mpi_type, set_ptr->move_wards[_FZ_FT_], 0, set_ptr->host_u_2dim_recv_vec[_B_Z_B_T_],
                                      set_ptr->lat_2dim[_2DIM_ - 1 - _ZT_] * _LAT_PDCC_ *
                                          _REAL_IMAG_,
-                                     MPI_DOUBLE, set_ptr->move_wards[_BZ_BT_], 0, MPI_COMM_WORLD,
+                                     _mpi_type, set_ptr->move_wards[_BZ_BT_], 0, MPI_COMM_WORLD,
                                      MPI_STATUS_IGNORE);
                     }
                 }
@@ -989,22 +1007,22 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_send_vec[i * _BF_],
                             set_ptr->host_u_1dim_send_vec[i * _BF_],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_send_vec[i * _BF_ + 1],
                             set_ptr->host_u_1dim_send_vec[i * _BF_ + 1],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_recv_vec[i * _BF_],
                             set_ptr->host_u_1dim_recv_vec[i * _BF_],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_1dim_recv_vec[i * _BF_ + 1],
                             set_ptr->host_u_1dim_recv_vec[i * _BF_ + 1],
-                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), cudaMemcpyHostToDevice,
+                            set_ptr->lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), cudaMemcpyHostToDevice,
                             set_ptr->stream));
                     }
                     for (int i = 0; i < _2DIM_; i++)
@@ -1012,49 +1030,49 @@ namespace qcu
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->host_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                         checkCudaErrors(cudaMemcpyAsync(
                             set_ptr->device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
                             set_ptr->host_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
-                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                            set_ptr->lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                             cudaMemcpyHostToDevice,
                             set_ptr->stream));
                     }

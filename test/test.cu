@@ -1,80 +1,83 @@
-#include "../include/qcu.h"
-#include "define.h"
-using namespace qcu;
-#define __CLOVER_DSLASH__
+#include <iostream>
+#include <cuda_fp16.h> // 包含半精度相关函数
+
+// 通用精度转换模板函数
+template <typename T1, typename T2>
+__device__ T2 convert(T1 a);
+
+// 专门化 float 和 double 之间的转换
+template <>
+__device__ double convert<float, double>(float a)
+{
+    return static_cast<double>(a);
+}
+
+template <>
+__device__ float convert<double, float>(double a)
+{
+    return static_cast<float>(a);
+}
+
+// 专门化 float 和 half 之间的转换
+template <>
+__device__ __half convert<float, __half>(float a)
+{
+    return __float2half(a);
+}
+
+template <>
+__device__ float convert<__half, float>(__half a)
+{
+    return __half2float(a);
+}
+
+// 专门化 half 和 double 之间的转换
+template <>
+__device__ double convert<__half, double>(__half a)
+{
+    float temp = __half2float(a);
+    return static_cast<double>(temp);
+}
+
+template <>
+__device__ __half convert<double, __half>(double a)
+{
+    float temp = static_cast<float>(a);
+    return __float2half(temp);
+}
+
+__global__ void precisionConversionKernel()
+{
+    // 测试不同精度之间的转换
+
+    // 测试float和double之间的转换
+    float a = 3.14159f;
+    double b = convert<float, double>(a);
+    float c = convert<double, float>(b);
+
+    // 测试float和half之间的转换
+    __half d = convert<float, __half>(a);
+    float e = convert<__half, float>(d);
+
+    // 测试half和double之间的转换
+    double f = convert<__half, double>(d);
+    __half g = convert<double, __half>(f);
+
+    // 打印结果
+    printf("a (float): %f\n", a);
+    printf("b (double from float): %f\n", b);
+    printf("c (float from double): %f\n", c);
+    printf("d (half from float): %f\n", __half2float(d));
+    printf("e (float from half): %f\n", e);
+    printf("f (double from half): %f\n", f);
+    printf("g (half from double): %f\n", __half2float(g));
+}
+
 int main()
 {
-  MPI_Init(NULL, NULL);
-  int param_lattice_size[_DIM_];
-  int grid_lattice_size[_DIM_];
-  for (int i = 0; i < _DIM_; i++)
-  {
-    param_lattice_size[i] = _LAT_EXAMPLE_;
-    grid_lattice_size[i] = _GRID_EXAMPLE_ * 2;
-  }
-  grid_lattice_size[_Z_] = _GRID_EXAMPLE_;
-  LatticeSet _set;
-  int parity = _ODD_;
-  _set.give(param_lattice_size, grid_lattice_size, parity);
-  _set.init();
-  void *gauge;
-  void *fermion_in;
-  void *fermion_out;
-  checkCudaErrors(cudaMalloc(
-      &gauge, _LAT_DCC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                  _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex)));
-  checkCudaErrors(cudaStreamSynchronize(_set.stream));
-  give_debug_u<<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
-      gauge, _set.device_params);
-  checkCudaErrors(cudaStreamSynchronize(_set.stream));
-  checkCudaErrors(cudaMalloc(
-      &fermion_in, _LAT_SC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                       _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex)));
-  checkCudaErrors(cudaMalloc(&fermion_out, _LAT_SC_ * _EVEN_ODD_ *
-                                               _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                                               _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                                               sizeof(LatticeComplex)));
-  {
-    // define for dslash
-    dptzyxcc2ccdptzyx(gauge, &_set);
-    tzyxsc2sctzyx(fermion_in, &_set);
-    tzyxsc2sctzyx(fermion_out, &_set);
-    LatticeWilsonDslash _wilson_dslash;
-    _wilson_dslash.give(&_set);
-#ifdef __CLOVER_DSLASH__
-    LatticeCloverDslash _clover_dslash;
-    _clover_dslash.give(&_set);
-    _clover_dslash.init();
-#endif
-    {
-      // wilson dslash
-      _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
-    }
-#ifdef __CLOVER_DSLASH__
-    {
-      // make clover
-      _clover_dslash.make(gauge);
-    }
-    {
-      // inverse clover
-      _clover_dslash.inverse();
-    }
-    {
-      // give clover
-      _clover_dslash.give(fermion_out);
-    }
-#endif
-    ccdptzyx2dptzyxcc(gauge, &_set);
-    sctzyx2tzyxsc(fermion_in, &_set);
-    sctzyx2tzyxsc(fermion_out, &_set);
-#ifdef __CLOVER_DSLASH__
-    _clover_dslash.end();
-#endif
-  }
-  cudaFree(gauge);
-  cudaFree(fermion_in);
-  cudaFree(fermion_out);
-  _set.end();
-  MPI_Finalize();
-  return 0;
+    // 启动内核函数
+    precisionConversionKernel<<<1, 1>>>();
+    cudaDeviceSynchronize();
+
+    return 0;
 }

@@ -90,7 +90,7 @@ void use_device_api(int N)
      */
     CHECK(cudaMalloc((void **)&dOut, sizeof(float) * N));
     CHECK(cudaMalloc((void **)&states, sizeof(curandState) *
-                threads_per_block * blocks_per_grid));
+                                           threads_per_block * blocks_per_grid));
     hOut = (float *)malloc(sizeof(float) * N);
     // Execute a kernel that generates and consumes its own random numbers
     device_api_kernel<<<blocks_per_grid, threads_per_block>>>(states, dOut, N);

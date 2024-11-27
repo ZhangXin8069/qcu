@@ -41,7 +41,7 @@ void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     _wilson_dslash.give(&_set);
     void *clover;
     checkCudaErrors(cudaMallocAsync(
-        &clover, (_set.lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex),
+        &clover, (_set.lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex<T>),
         _set.stream));
     cudaError_t err;
     {

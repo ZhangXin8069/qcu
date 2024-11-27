@@ -25,6 +25,7 @@ protected:
                  grid_partition[3]);
     }
   }
+
 public:
   virtual void SetUp()
   {
