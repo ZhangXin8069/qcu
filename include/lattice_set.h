@@ -491,16 +491,16 @@ namespace qcu
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _PARITY_,
-                                                _EVEN_);
+                                                   _EVEN_);
                 give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _DAGGER_,
-                                                _NO_USE_);
+                                                   _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_no_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _PARITY_,
-                                                _ODD_);
+                                                   _ODD_);
                 give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _DAGGER_,
-                                                _NO_USE_);
+                                                   _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));

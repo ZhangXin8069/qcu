@@ -1323,4 +1323,115 @@ namespace qcu
     add_dest(origin_dest, dest, lat_tzyx);
 #endif
   }
+  ////////////////////////////////
+  template __global__ void wilson_dslash<double>(void *device_U, void *device_src,
+                                                 void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_inside<double>(void *device_U, void *device_src,
+                                                        void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_x_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_x_send_vec,
+                                                        void *device_f_x_send_vec);
+  template __global__ void wilson_dslash_x_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_x_recv_vec,
+                                                        void *device_f_x_recv_vec);
+  template __global__ void wilson_dslash_y_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_y_send_vec,
+                                                        void *device_f_y_send_vec);
+  template __global__ void wilson_dslash_y_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_y_recv_vec,
+                                                        void *device_f_y_recv_vec);
+  template __global__ void wilson_dslash_z_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_z_send_vec,
+                                                        void *device_f_z_send_vec);
+  template __global__ void wilson_dslash_z_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_z_recv_vec,
+                                                        void *device_f_z_recv_vec);
+  template __global__ void wilson_dslash_t_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_t_send_vec,
+                                                        void *device_f_t_send_vec);
+  template __global__ void wilson_dslash_t_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_t_recv_vec,
+                                                        void *device_f_t_recv_vec);
+  ///////////////
+  template __global__ void wilson_dslash<float>(void *device_U, void *device_src,
+                                                void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_inside<float>(void *device_U, void *device_src,
+                                                       void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_x_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_x_send_vec,
+                                                       void *device_f_x_send_vec);
+  template __global__ void wilson_dslash_x_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_x_recv_vec,
+                                                       void *device_f_x_recv_vec);
+  template __global__ void wilson_dslash_y_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_y_send_vec,
+                                                       void *device_f_y_send_vec);
+  template __global__ void wilson_dslash_y_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_y_recv_vec,
+                                                       void *device_f_y_recv_vec);
+  template __global__ void wilson_dslash_z_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_z_send_vec,
+                                                       void *device_f_z_send_vec);
+  template __global__ void wilson_dslash_z_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_z_recv_vec,
+                                                       void *device_f_z_recv_vec);
+  template __global__ void wilson_dslash_t_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_t_send_vec,
+                                                       void *device_f_t_send_vec);
+  template __global__ void wilson_dslash_t_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_t_recv_vec,
+                                                       void *device_f_t_recv_vec);
+  //////////////
+  template __global__ void wilson_dslash<half>(void *device_U, void *device_src,
+                                               void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_inside<half>(void *device_U, void *device_src,
+                                                      void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_x_send<half>(void *device_U, void *device_src,
+                                                      void *device_params,
+                                                      void *device_b_x_send_vec,
+                                                      void *device_f_x_send_vec);
+  template __global__ void wilson_dslash_x_recv<half>(void *device_U, void *device_dest,
+                                                      void *device_params,
+                                                      void *device_b_x_recv_vec,
+                                                      void *device_f_x_recv_vec);
+  template __global__ void wilson_dslash_y_send<half>(void *device_U, void *device_src,
+                                                      void *device_params,
+                                                      void *device_b_y_send_vec,
+                                                      void *device_f_y_send_vec);
+  template __global__ void wilson_dslash_y_recv<half>(void *device_U, void *device_dest,
+                                                      void *device_params,
+                                                      void *device_b_y_recv_vec,
+                                                      void *device_f_y_recv_vec);
+  template __global__ void wilson_dslash_z_send<half>(void *device_U, void *device_src,
+                                                      void *device_params,
+                                                      void *device_b_z_send_vec,
+                                                      void *device_f_z_send_vec);
+  template __global__ void wilson_dslash_z_recv<half>(void *device_U, void *device_dest,
+                                                      void *device_params,
+                                                      void *device_b_z_recv_vec,
+                                                      void *device_f_z_recv_vec);
+  template __global__ void wilson_dslash_t_send<half>(void *device_U, void *device_src,
+                                                      void *device_params,
+                                                      void *device_b_t_send_vec,
+                                                      void *device_f_t_send_vec);
+  template __global__ void wilson_dslash_t_recv<half>(void *device_U, void *device_dest,
+                                                      void *device_params,
+                                                      void *device_b_t_recv_vec,
+                                                      void *device_f_t_recv_vec);
 }

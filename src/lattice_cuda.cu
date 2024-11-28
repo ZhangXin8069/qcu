@@ -3,12 +3,6 @@
 namespace qcu
 {
   template <typename T>
-  __global__ void give_param(void *device_param, int vals_index, int val)
-  {
-    int *param = static_cast<int *>(device_param);
-    param[vals_index] = val;
-  }
-  template <typename T>
   __global__ void give_random_vals(void *device_random_vals, unsigned long seed)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -301,4 +295,67 @@ namespace qcu
       tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(params[_NODE_RANK_]);
     }
   }
+  //////////////////////////////////
+  template __global__ void give_random_vals<double>(void *device_random_vals, unsigned long seed);
+  template __global__ void give_custom_vals<double>(void *device_custom_vals, double real,
+                                                    double imag);
+  template __global__ void give_1zero<double>(void *device_vals, const int vals_index);
+  template __global__ void give_1one<double>(void *device_vals, const int vals_index);
+  template __global__ void give_1custom<double>(void *device_vals, const int vals_index,
+                                                double real, double imag);
+  template __global__ void _tzyxsc2sctzyx<double>(void *device_fermi, void *device__fermi,
+                                                  int lat_4dim);
+  template __global__ void _sctzyx2tzyxsc<double>(void *device_fermi, void *device__fermi,
+                                                  int lat_4dim);
+  template __global__ void _dptzyxcc2ccdptzyx<double>(void *device_gauge, void *device__gauge,
+                                                      int lat_4dim);
+  template __global__ void _ccdptzyx2dptzyxcc<double>(void *device_gauge, void *device__gauge,
+                                                      int lat_4dim);
+  template __global__ void _ptzyxsc2psctzyx<double>(void *device_fermi, void *device__fermi,
+                                                    int lat_4dim);
+  template __global__ void _psctzyx2ptzyxsc<double>(void *device_fermi, void *device__fermi,
+                                                    int lat_4dim);
+  template __global__ void give_debug_u<double>(void *device_U, void *device_params);
+  /////////////////
+  template __global__ void give_random_vals<float>(void *device_random_vals, unsigned long seed);
+  template __global__ void give_custom_vals<float>(void *device_custom_vals, double real,
+                                                   double imag);
+  template __global__ void give_1zero<float>(void *device_vals, const int vals_index);
+  template __global__ void give_1one<float>(void *device_vals, const int vals_index);
+  template __global__ void give_1custom<float>(void *device_vals, const int vals_index,
+                                               double real, double imag);
+  template __global__ void _tzyxsc2sctzyx<float>(void *device_fermi, void *device__fermi,
+                                                 int lat_4dim);
+  template __global__ void _sctzyx2tzyxsc<float>(void *device_fermi, void *device__fermi,
+                                                 int lat_4dim);
+  template __global__ void _dptzyxcc2ccdptzyx<float>(void *device_gauge, void *device__gauge,
+                                                     int lat_4dim);
+  template __global__ void _ccdptzyx2dptzyxcc<float>(void *device_gauge, void *device__gauge,
+                                                     int lat_4dim);
+  template __global__ void _ptzyxsc2psctzyx<float>(void *device_fermi, void *device__fermi,
+                                                   int lat_4dim);
+  template __global__ void _psctzyx2ptzyxsc<float>(void *device_fermi, void *device__fermi,
+                                                   int lat_4dim);
+  template __global__ void give_debug_u<float>(void *device_U, void *device_params);
+  ////////////////////
+  template __global__ void give_random_vals<half>(void *device_random_vals, unsigned long seed);
+  template __global__ void give_custom_vals<half>(void *device_custom_vals, double real,
+                                                  double imag);
+  template __global__ void give_1zero<half>(void *device_vals, const int vals_index);
+  template __global__ void give_1one<half>(void *device_vals, const int vals_index);
+  template __global__ void give_1custom<half>(void *device_vals, const int vals_index,
+                                              double real, double imag);
+  template __global__ void _tzyxsc2sctzyx<half>(void *device_fermi, void *device__fermi,
+                                                int lat_4dim);
+  template __global__ void _sctzyx2tzyxsc<half>(void *device_fermi, void *device__fermi,
+                                                int lat_4dim);
+  template __global__ void _dptzyxcc2ccdptzyx<half>(void *device_gauge, void *device__gauge,
+                                                    int lat_4dim);
+  template __global__ void _ccdptzyx2dptzyxcc<half>(void *device_gauge, void *device__gauge,
+                                                    int lat_4dim);
+  template __global__ void _ptzyxsc2psctzyx<half>(void *device_fermi, void *device__fermi,
+                                                  int lat_4dim);
+  template __global__ void _psctzyx2ptzyxsc<half>(void *device_fermi, void *device__fermi,
+                                                  int lat_4dim);
+  template __global__ void give_debug_u<half>(void *device_U, void *device_params);
 }
