@@ -89,18 +89,6 @@ namespace qcu
   template <typename T>
   void tzyxsc2sctzyx(void *fermion, LatticeSet<T> *set_ptr)
   {
-    if (std::is_same<T, double>::value)
-    {
-      using _cublas_type = double2;
-    }
-    if (std::is_same<T, float>::value)
-    {
-      using _cublas_type = float2;
-    }
-    if (std::is_same<T, int>::value)
-    {
-      using _cublas_type = int2;
-    }
     void *_fermion;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(&_fermion,
@@ -118,18 +106,6 @@ namespace qcu
   template <typename T>
   void sctzyx2tzyxsc(void *fermion, LatticeSet<T> *set_ptr)
   {
-    if (std::is_same<T, double>::value)
-    {
-      using _cublas_type = double2;
-    }
-    if (std::is_same<T, float>::value)
-    {
-      using _cublas_type = float2;
-    }
-    if (std::is_same<T, int>::value)
-    {
-      using _cublas_type = int2;
-    }
     void *_fermion;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(&_fermion,
@@ -188,18 +164,6 @@ namespace qcu
   template <typename T>
   void dptzyxcc2ccdptzyx(void *gauge, LatticeSet<T> *set_ptr)
   {
-    if (std::is_same<T, double>::value)
-    {
-      using _cublas_type = double2;
-    }
-    if (std::is_same<T, float>::value)
-    {
-      using _cublas_type = float2;
-    }
-    if (std::is_same<T, int>::value)
-    {
-      using _cublas_type = int2;
-    }
     void *_gauge;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
@@ -217,18 +181,6 @@ namespace qcu
   template <typename T>
   void ccdptzyx2dptzyxcc(void *gauge, LatticeSet<T> *set_ptr)
   {
-    if (std::is_same<T, double>::value)
-    {
-      using _cublas_type = double2;
-    }
-    if (std::is_same<T, float>::value)
-    {
-      using _cublas_type = float2;
-    }
-    if (std::is_same<T, int>::value)
-    {
-      using _cublas_type = int2;
-    }
     void *_gauge;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
@@ -282,18 +234,6 @@ namespace qcu
   template <typename T>
   void ptzyxsc2psctzyx(void *fermion, LatticeSet<T> *set_ptr)
   {
-    if (std::is_same<T, double>::value)
-    {
-      using _cublas_type = double2;
-    }
-    if (std::is_same<T, float>::value)
-    {
-      using _cublas_type = float2;
-    }
-    if (std::is_same<T, int>::value)
-    {
-      using _cublas_type = int2;
-    }
     void *_fermion;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(
@@ -311,18 +251,6 @@ namespace qcu
   template <typename T>
   void psctzyx2ptzyxsc(void *fermion, LatticeSet<T> *set_ptr)
   {
-    if (std::is_same<T, double>::value)
-    {
-      using _cublas_type = double2;
-    }
-    if (std::is_same<T, float>::value)
-    {
-      using _cublas_type = float2;
-    }
-    if (std::is_same<T, int>::value)
-    {
-      using _cublas_type = int2;
-    }
     void *_fermion;
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     checkCudaErrors(cudaMallocAsync(

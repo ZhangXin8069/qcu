@@ -13,32 +13,6 @@ namespace qcu
     void give(LatticeSet<T> *_set_ptr)
     {
       set_ptr = _set_ptr;
-      if (std::is_same<T, double>::value)
-      {
-        using _mpi_type = MPI_DOUBLE;
-      }
-      if (std::is_same<T, float>::value)
-      {
-        using _mpi_type = MPI_FLOAT;
-      }
-      if (std::is_same<T, int>::value)
-      {
-        using _mpi_type = MPI_INT;
-      }
-#ifndef _MPI_
-      if (std::is_same<T, double>::value)
-      {
-        using _nccl_type = ncclDouble;
-      }
-      if (std::is_same<T, float>::value)
-      {
-        using _nccl_type = ncclFloat;
-      }
-      if (std::is_same<T, int>::value)
-      {
-        using _nccl_type = ncclInt;
-      }
-#endif
     }
 #ifndef _MPI_
     void run_nccl(void *fermion_out, void *fermion_in, void *gauge,
@@ -51,27 +25,27 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       { // edge send part
         wilson_dslash_x_send<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_X_]>>>(
+                                  set_ptr->stream_dims[_X_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_X_],
             set_ptr->device_send_vec[_F_X_]);
         wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Y_]>>>(
+                                  set_ptr->stream_dims[_Y_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Y_],
             set_ptr->device_send_vec[_F_Y_]);
         wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Z_]>>>(
+                                  set_ptr->stream_dims[_Z_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Z_],
             set_ptr->device_send_vec[_F_Z_]);
         wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_T_]>>>(
+                                  set_ptr->stream_dims[_T_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_T_],
             set_ptr->device_send_vec[_F_T_]);
       }
       {                                                          // inside compute part
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
         wilson_dslash_inside<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                               set_ptr->stream>>>(gauge, fermion_in, fermion_out,
-                                                  _device_params);
+                                  set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                     _device_params);
       }
       {
         // x edge part
@@ -81,7 +55,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_X_],
               set_ptr->device_send_vec[_B_X_]);
         }
@@ -114,7 +88,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Y_],
               set_ptr->device_send_vec[_B_Y_]);
         }
@@ -147,7 +121,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Z_],
               set_ptr->device_send_vec[_B_Z_]);
         }
@@ -180,7 +154,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_T_],
               set_ptr->device_send_vec[_B_T_]);
         }
@@ -211,7 +185,7 @@ namespace qcu
         { // x part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
           wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_X_],
               set_ptr->device_recv_vec[_F_X_]);
         }
@@ -219,7 +193,7 @@ namespace qcu
         { // y part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
           wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Y_],
               set_ptr->device_recv_vec[_F_Y_]);
         }
@@ -227,7 +201,7 @@ namespace qcu
         { // z part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
           wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Z_],
               set_ptr->device_recv_vec[_F_Z_]);
         }
@@ -235,7 +209,7 @@ namespace qcu
         { // t part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
           wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_T_],
               set_ptr->device_recv_vec[_F_T_]);
         }
@@ -257,7 +231,7 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       { // edge send part
         wilson_dslash_x_send<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_X_]>>>(
+                                  set_ptr->stream_dims[_X_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_X_],
             set_ptr->device_send_vec[_F_X_]);
         if (set_ptr->host_params[_GRID_X_] != 1)
@@ -272,7 +246,7 @@ namespace qcu
               set_ptr->stream_dims[_X_]));
         }
         wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Y_]>>>(
+                                  set_ptr->stream_dims[_Y_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Y_],
             set_ptr->device_send_vec[_F_Y_]);
         if (set_ptr->host_params[_GRID_Y_] != 1)
@@ -287,7 +261,7 @@ namespace qcu
               set_ptr->stream_dims[_Y_]));
         }
         wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Z_]>>>(
+                                  set_ptr->stream_dims[_Z_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Z_],
             set_ptr->device_send_vec[_F_Z_]);
         if (set_ptr->host_params[_GRID_Z_] != 1)
@@ -302,7 +276,7 @@ namespace qcu
               set_ptr->stream_dims[_Z_]));
         }
         wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_T_]>>>(
+                                  set_ptr->stream_dims[_T_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_T_],
             set_ptr->device_send_vec[_F_T_]);
         if (set_ptr->host_params[_GRID_T_] != 1)
@@ -320,8 +294,8 @@ namespace qcu
       {                                                          // inside compute part ans wait
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
         wilson_dslash_inside<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                               set_ptr->stream>>>(gauge, fermion_in, fermion_out,
-                                                  _device_params);
+                                  set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                     _device_params);
       }
       {
         // x edge part
@@ -331,7 +305,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_X_],
               set_ptr->device_send_vec[_B_X_]);
         }
@@ -360,7 +334,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Y_],
               set_ptr->device_send_vec[_B_Y_]);
         }
@@ -389,7 +363,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Z_],
               set_ptr->device_send_vec[_B_Z_]);
         }
@@ -418,7 +392,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_T_],
               set_ptr->device_send_vec[_B_T_]);
         }
@@ -497,7 +471,7 @@ namespace qcu
         { // x part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
           wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_X_],
               set_ptr->device_recv_vec[_F_X_]);
         }
@@ -505,7 +479,7 @@ namespace qcu
         { // y part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
           wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Y_],
               set_ptr->device_recv_vec[_F_Y_]);
         }
@@ -513,7 +487,7 @@ namespace qcu
         { // z part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
           wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Z_],
               set_ptr->device_recv_vec[_F_Z_]);
         }
@@ -521,7 +495,7 @@ namespace qcu
         { // t part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
           wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_T_],
               set_ptr->device_recv_vec[_F_T_]);
         }
@@ -542,7 +516,7 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       { // edge send part
         wilson_dslash_x_send<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_X_]>>>(
+                                  set_ptr->stream_dims[_X_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_X_],
             set_ptr->device_send_vec[_F_X_]);
         if (set_ptr->host_params[_GRID_X_] != 1)
@@ -557,7 +531,7 @@ namespace qcu
               set_ptr->stream_dims[_X_]));
         }
         wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Y_]>>>(
+                                  set_ptr->stream_dims[_Y_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Y_],
             set_ptr->device_send_vec[_F_Y_]);
         if (set_ptr->host_params[_GRID_Y_] != 1)
@@ -572,7 +546,7 @@ namespace qcu
               set_ptr->stream_dims[_Y_]));
         }
         wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Z_]>>>(
+                                  set_ptr->stream_dims[_Z_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Z_],
             set_ptr->device_send_vec[_F_Z_]);
         if (set_ptr->host_params[_GRID_Z_] != 1)
@@ -587,7 +561,7 @@ namespace qcu
               set_ptr->stream_dims[_Z_]));
         }
         wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_T_]>>>(
+                                  set_ptr->stream_dims[_T_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_T_],
             set_ptr->device_send_vec[_F_T_]);
         if (set_ptr->host_params[_GRID_T_] != 1)
@@ -605,8 +579,8 @@ namespace qcu
       {                                                          // inside compute part ans wait
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
         wilson_dslash_inside<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                               set_ptr->stream>>>(gauge, fermion_in, fermion_out,
-                                                  _device_params);
+                                  set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                     _device_params);
       }
       {
         // x edge part
@@ -616,7 +590,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_X_],
               set_ptr->device_send_vec[_B_X_]);
         }
@@ -641,7 +615,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Y_],
               set_ptr->device_send_vec[_B_Y_]);
         }
@@ -666,7 +640,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Z_],
               set_ptr->device_send_vec[_B_Z_]);
         }
@@ -691,7 +665,7 @@ namespace qcu
           // no comm
           // edge recv part
           wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_T_],
               set_ptr->device_send_vec[_B_T_]);
         }
@@ -758,7 +732,7 @@ namespace qcu
         { // x part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
           wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_X_],
               set_ptr->device_recv_vec[_F_X_]);
         }
@@ -766,7 +740,7 @@ namespace qcu
         { // y part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
           wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Y_],
               set_ptr->device_recv_vec[_F_Y_]);
         }
@@ -774,7 +748,7 @@ namespace qcu
         { // z part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
           wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Z_],
               set_ptr->device_recv_vec[_F_Z_]);
         }
@@ -782,7 +756,7 @@ namespace qcu
         { // t part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
           wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_T_],
               set_ptr->device_recv_vec[_F_T_]);
         }

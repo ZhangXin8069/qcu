@@ -27,44 +27,6 @@ namespace qcu
     {
       set_ptr = _set_ptr;
       wilson_dslash.give(set_ptr);
-      if (std::is_same<T, double>::value)
-      {
-        using _cublas_type = double2;
-      }
-      if (std::is_same<T, float>::value)
-      {
-        using _cublas_type = float2;
-      }
-      if (std::is_same<T, int>::value)
-      {
-        using _cublas_type = int2;
-      }
-      if (std::is_same<T, double>::value)
-      {
-        using _mpi_type = MPI_DOUBLE;
-      }
-      if (std::is_same<T, float>::value)
-      {
-        using _mpi_type = MPI_FLOAT;
-      }
-      if (std::is_same<T, int>::value)
-      {
-        using _mpi_type = MPI_INT;
-      }
-#ifndef _MPI_
-      if (std::is_same<T, double>::value)
-      {
-        using _nccl_type = ncclDouble;
-      }
-      if (std::is_same<T, float>::value)
-      {
-        using _nccl_type = ncclFloat;
-      }
-      if (std::is_same<T, int>::value)
-      {
-        using _nccl_type = ncclInt;
-      }
-#endif
     }
     void _init()
     {

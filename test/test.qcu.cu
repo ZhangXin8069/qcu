@@ -1,76 +1,42 @@
 #include "../include/qcu.h"
 #include "define.h"
+#include "../include/qcu.h"
+#pragma optimize(5)
 using namespace qcu;
-#define __CLOVER_DSLASH__
+using T = double;
 int main()
 {
   MPI_Init(NULL, NULL);
-  int param_lattice_size[_DIM_];
-  int grid_lattice_size[_DIM_];
-  for (int i = 0; i < _DIM_; i++)
-  {
-    param_lattice_size[i] = _LAT_EXAMPLE_;
-    grid_lattice_size[i] = _GRID_EXAMPLE_ * 2;
-  }
-  grid_lattice_size[_Z_] = _GRID_EXAMPLE_;
-  LatticeSet _set;
-  int parity = _ODD_;
-  _set.give(param_lattice_size, grid_lattice_size, parity);
-  _set.init();
   void *gauge;
   void *fermion_in;
   void *fermion_out;
+  QcuParam param;
+  QcuParam grid;
+  for (int i = 0; i < _DIM_; i++)
+  {
+    param.lattice_size[i] = _LAT_EXAMPLE_;
+    grid.lattice_size[i] = _GRID_EXAMPLE_;
+  }
+  grid.lattice_size[_T_] = 2;
   checkCudaErrors(cudaMalloc(
       &gauge, _LAT_DCC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                  _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex)));
-  checkCudaErrors(cudaStreamSynchronize(_set.stream));
-  give_debug_u<<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
+                  _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex<T>)));
+  LatticeSet<T> _set;
+  int parity = _ODD_;
+  _set.give(param.lattice_size, grid.lattice_size, parity);
+  _set.init();
+  give_debug_u<T><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
       gauge, _set.device_params);
   checkCudaErrors(cudaStreamSynchronize(_set.stream));
   checkCudaErrors(cudaMalloc(
       &fermion_in, _LAT_SC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                       _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex)));
+                       _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex<T>)));
   checkCudaErrors(cudaMalloc(&fermion_out, _LAT_SC_ * _EVEN_ODD_ *
                                                _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
                                                _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                                               sizeof(LatticeComplex)));
-  {
-    // define for dslash
-    dptzyxcc2ccdptzyx(gauge, &_set);
-    tzyxsc2sctzyx(fermion_in, &_set);
-    tzyxsc2sctzyx(fermion_out, &_set);
-    LatticeWilsonDslash _wilson_dslash;
-    _wilson_dslash.give(&_set);
-#ifdef __CLOVER_DSLASH__
-    LatticeCloverDslash _clover_dslash;
-    _clover_dslash.give(&_set);
-    _clover_dslash.init();
-#endif
-    {
-      // wilson dslash
-      _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
-    }
-#ifdef __CLOVER_DSLASH__
-    {
-      // make clover
-      _clover_dslash.make(gauge);
-    }
-    {
-      // inverse clover
-      _clover_dslash.inverse();
-    }
-    {
-      // give clover
-      _clover_dslash.give(fermion_out);
-    }
-#endif
-    ccdptzyx2dptzyxcc(gauge, &_set);
-    sctzyx2tzyxsc(fermion_in, &_set);
-    sctzyx2tzyxsc(fermion_out, &_set);
-#ifdef __CLOVER_DSLASH__
-    _clover_dslash.end();
-#endif
-  }
+                                               sizeof(LatticeComplex<T>)));
+  applyCgQcu(fermion_out, fermion_in, gauge,
+             &param, &grid);
   cudaFree(gauge);
   cudaFree(fermion_in);
   cudaFree(fermion_out);

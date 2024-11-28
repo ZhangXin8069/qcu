@@ -484,4 +484,7 @@ namespace qcu
     }                                                             \
   }
 }
+#define _cublas_type CUDA_C_64F
+#define _mpi_type MPI_DOUBLE
+#define _nccl_type ncclDouble
 #endif
