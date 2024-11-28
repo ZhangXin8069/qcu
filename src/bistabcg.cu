@@ -1,32 +1,38 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
-    namespace qcu
+namespace qcu
 {
+  template <typename T>
   __global__ void bistabcg_give_1beta(void *device_vals)
   {
     LatticeComplex<T> *vals = static_cast<LatticeComplex<T> *>(device_vals);
     vals[_beta_] = (vals[_rho_] / vals[_rho_prev_]) * (vals[_alpha_] / vals[_omega_]);
   }
+  template <typename T>
   __global__ void bistabcg_give_1rho_prev(void *device_vals)
   {
     LatticeComplex<T> *vals = static_cast<LatticeComplex<T> *>(device_vals);
     vals[_rho_prev_] = vals[_rho_];
   }
+  template <typename T>
   __global__ void bistabcg_give_1alpha(void *device_vals)
   {
     LatticeComplex<T> *vals = static_cast<LatticeComplex<T> *>(device_vals);
     vals[_alpha_] = vals[_rho_] / vals[_tmp0_];
   }
+  template <typename T>
   __global__ void bistabcg_give_1omega(void *device_vals)
   {
     LatticeComplex<T> *vals = static_cast<LatticeComplex<T> *>(device_vals);
     vals[_omega_] = vals[_tmp0_] / vals[_tmp1_];
   }
+  template <typename T>
   __global__ void bistabcg_give_1diff(void *device_vals)
   {
     LatticeComplex<T> *vals = static_cast<LatticeComplex<T> *>(device_vals);
     vals[_diff_tmp_] = vals[_diff_tmp_] / vals[_norm2_tmp_];
   }
+  template <typename T>
   __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
                                     void *device_vec0, double kappa,
                                     void *device_vals)
@@ -41,6 +47,7 @@
       b_e[i] = ans_e[i] - vec0[i] * kappa; // b_e=ans_e-kappa*D_eo(ans_o)
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
                                     void *device_vec1, double kappa,
                                     void *device_vals)
@@ -55,6 +62,7 @@
       b_o[i] = ans_o[i] - vec1[i] * kappa; // b_o=ans_o-kappa*D_oe(ans_e)
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_b__o(void *device_b__o, void *device_b_o,
                                      void *device_vec0, double kappa,
                                      void *device_vals)
@@ -69,6 +77,7 @@
       b__o[i] = b_o[i] + vec0[i] * kappa; // b__o=b_o+kappa*D_oe(b_e)
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
                                        void *device_vec1, double kappa,
                                        void *device_vals)
@@ -83,6 +92,7 @@
       dest_o[i] = src_o[i] - vec1[i] * kappa * kappa; // dest_o=ans_o-kappa^2*tmp1
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_rr(void *device_r, void *device_b__o,
                                    void *device_r_tilde, void *device_vals)
   {
@@ -98,6 +108,7 @@
       r_tilde[i] = r[i];
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_p(void *device_p, void *device_r, void *device_v,
                                   void *device_vals)
   {
@@ -116,6 +127,7 @@
       p[i] = r[i] + (p[i] - v[i] * omega) * beta;
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_s(void *device_s, void *device_r, void *device_v,
                                   void *device_vals)
   {
@@ -132,6 +144,7 @@
       s[i] = r[i] - v[i] * alpha;
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_x_o(void *device_x_o, void *device_p,
                                     void *device_s, void *device_vals)
   {
@@ -150,6 +163,7 @@
       x_o[i] = x_o[i] + p[i] * alpha + s[i] * omega;
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_r(void *device_r, void *device_s, void *device_tt,
                                   void *device_vals)
   {
@@ -166,6 +180,7 @@
       r[i] = s[i] - t[i] * omega;
     }
   }
+  template <typename T>
   __global__ void bistabcg_give_diff(void *device_x, void *device_ans,
                                      void *device_vec, void *device_vals)
   {

@@ -5,11 +5,15 @@
 #include "wilson_dslash.h"
 namespace qcu
 {
+  template <typename T>
   struct LatticeWilsonDslash
   {
-    LatticeSet *set_ptr;
+    LatticeSet<T> *set_ptr;
     cudaError_t err;
-    void give(LatticeSet *_set_ptr) { set_ptr = _set_ptr; }
+    void give(LatticeSet<T> *_set_ptr)
+    {
+      set_ptr = _set_ptr;
+    }
 #ifndef _MPI_
     void run_nccl(void *fermion_out, void *fermion_in, void *gauge,
                   void *_device_params)
@@ -20,28 +24,28 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       { // edge send part
-        wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_X_]>>>(
+        wilson_dslash_x_send<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_X_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_X_],
             set_ptr->device_send_vec[_F_X_]);
-        wilson_dslash_y_send<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Y_]>>>(
+        wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_Y_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Y_],
             set_ptr->device_send_vec[_F_Y_]);
-        wilson_dslash_z_send<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Z_]>>>(
+        wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_Z_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Z_],
             set_ptr->device_send_vec[_F_Z_]);
-        wilson_dslash_t_send<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_T_]>>>(
+        wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_T_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_T_],
             set_ptr->device_send_vec[_F_T_]);
       }
       {                                                          // inside compute part
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                               set_ptr->stream>>>(gauge, fermion_in, fermion_out,
-                                                  _device_params);
+        wilson_dslash_inside<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                                  set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                     _device_params);
       }
       {
         // x edge part
@@ -50,8 +54,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_X_],
               set_ptr->device_send_vec[_B_X_]);
         }
@@ -60,18 +64,18 @@ namespace qcu
           // comm
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                   ncclDouble, set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_X_]);
           ncclRecv(set_ptr->device_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                   ncclDouble, set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_X_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                   ncclDouble, set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_X_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_X_]);
           ncclRecv(set_ptr->device_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                   ncclDouble, set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_X_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_X_]);
           ncclGroupEnd();
         }
@@ -83,8 +87,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Y_],
               set_ptr->device_send_vec[_B_Y_]);
         }
@@ -93,18 +97,18 @@ namespace qcu
           // comm
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
-                   ncclDouble, set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Y_]);
           ncclRecv(set_ptr->device_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
-                   ncclDouble, set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Y_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
-                   ncclDouble, set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_Y_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Y_]);
           ncclRecv(set_ptr->device_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
-                   ncclDouble, set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_Y_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Y_]);
           ncclGroupEnd();
         }
@@ -116,8 +120,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Z_],
               set_ptr->device_send_vec[_B_Z_]);
         }
@@ -126,18 +130,18 @@ namespace qcu
           // comm
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
-                   ncclDouble, set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Z_]);
           ncclRecv(set_ptr->device_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
-                   ncclDouble, set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Z_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
-                   ncclDouble, set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_Z_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Z_]);
           ncclRecv(set_ptr->device_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
-                   ncclDouble, set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_Z_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_Z_]);
           ncclGroupEnd();
         }
@@ -149,8 +153,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_T_],
               set_ptr->device_send_vec[_B_T_]);
         }
@@ -159,18 +163,18 @@ namespace qcu
           // comm
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
-                   ncclDouble, set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_T_]);
           ncclRecv(set_ptr->device_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
-                   ncclDouble, set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_T_]);
           ncclGroupEnd();
           ncclGroupStart();
           ncclSend(set_ptr->device_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
-                   ncclDouble, set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_F_T_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_T_]);
           ncclRecv(set_ptr->device_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
-                   ncclDouble, set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
+                   _nccl_type, set_ptr->move_wards[_B_T_], set_ptr->nccl_comm,
                    set_ptr->stream_dims[_T_]);
           ncclGroupEnd();
         }
@@ -180,32 +184,32 @@ namespace qcu
         if (set_ptr->host_params[_GRID_X_] != 1)
         { // x part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
-          wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_X_],
               set_ptr->device_recv_vec[_F_X_]);
         }
         if (set_ptr->host_params[_GRID_Y_] != 1)
         { // y part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
-          wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Y_],
               set_ptr->device_recv_vec[_F_Y_]);
         }
         if (set_ptr->host_params[_GRID_Z_] != 1)
         { // z part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
-          wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Z_],
               set_ptr->device_recv_vec[_F_Z_]);
         }
         if (set_ptr->host_params[_GRID_T_] != 1)
         { // t part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-          wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_T_],
               set_ptr->device_recv_vec[_F_T_]);
         }
@@ -226,8 +230,8 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       { // edge send part
-        wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_X_]>>>(
+        wilson_dslash_x_send<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_X_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_X_],
             set_ptr->device_send_vec[_F_X_]);
         if (set_ptr->host_params[_GRID_X_] != 1)
@@ -241,8 +245,8 @@ namespace qcu
               sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_X_]));
         }
-        wilson_dslash_y_send<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Y_]>>>(
+        wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_Y_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Y_],
             set_ptr->device_send_vec[_F_Y_]);
         if (set_ptr->host_params[_GRID_Y_] != 1)
@@ -256,8 +260,8 @@ namespace qcu
               sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Y_]));
         }
-        wilson_dslash_z_send<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Z_]>>>(
+        wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_Z_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Z_],
             set_ptr->device_send_vec[_F_Z_]);
         if (set_ptr->host_params[_GRID_Z_] != 1)
@@ -271,8 +275,8 @@ namespace qcu
               sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Z_]));
         }
-        wilson_dslash_t_send<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_T_]>>>(
+        wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_T_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_T_],
             set_ptr->device_send_vec[_F_T_]);
         if (set_ptr->host_params[_GRID_T_] != 1)
@@ -289,9 +293,9 @@ namespace qcu
       }
       {                                                          // inside compute part ans wait
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                               set_ptr->stream>>>(gauge, fermion_in, fermion_out,
-                                                  _device_params);
+        wilson_dslash_inside<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                                  set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                     _device_params);
       }
       {
         // x edge part
@@ -300,8 +304,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_X_],
               set_ptr->device_send_vec[_B_X_]);
         }
@@ -309,16 +313,16 @@ namespace qcu
         {
           // comm
           MPI_Isend(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                    MPI_DOUBLE, set_ptr->move_wards[_B_X_], _B_X_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_X_], _B_X_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_B_X_]);
           MPI_Irecv(set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                    MPI_DOUBLE, set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_B_X_]);
           MPI_Isend(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                    MPI_DOUBLE, set_ptr->move_wards[_F_X_], _F_X_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_X_], _F_X_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_F_X_]);
           MPI_Irecv(set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                    MPI_DOUBLE, set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_F_X_]);
         }
       }
@@ -329,8 +333,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Y_],
               set_ptr->device_send_vec[_B_Y_]);
         }
@@ -338,16 +342,16 @@ namespace qcu
         {
           // comm
           MPI_Isend(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
-                    MPI_DOUBLE, set_ptr->move_wards[_B_Y_], _B_Y_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_Y_], _B_Y_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_B_Y_]);
           MPI_Irecv(set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
-                    MPI_DOUBLE, set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_B_Y_]);
           MPI_Isend(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
-                    MPI_DOUBLE, set_ptr->move_wards[_F_Y_], _F_Y_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_Y_], _F_Y_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_F_Y_]);
           MPI_Irecv(set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
-                    MPI_DOUBLE, set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_F_Y_]);
         }
       }
@@ -358,8 +362,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Z_],
               set_ptr->device_send_vec[_B_Z_]);
         }
@@ -367,16 +371,16 @@ namespace qcu
         {
           // comm
           MPI_Isend(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
-                    MPI_DOUBLE, set_ptr->move_wards[_B_Z_], _B_Z_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_Z_], _B_Z_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_B_Z_]);
           MPI_Irecv(set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
-                    MPI_DOUBLE, set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_B_Z_]);
           MPI_Isend(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
-                    MPI_DOUBLE, set_ptr->move_wards[_F_Z_], _F_Z_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_Z_], _F_Z_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_F_Z_]);
           MPI_Irecv(set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
-                    MPI_DOUBLE, set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_F_Z_]);
         }
       }
@@ -387,8 +391,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_T_],
               set_ptr->device_send_vec[_B_T_]);
         }
@@ -396,16 +400,16 @@ namespace qcu
         {
           // comm
           MPI_Isend(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
-                    MPI_DOUBLE, set_ptr->move_wards[_B_T_], _B_T_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_T_], _B_T_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_B_T_]);
           MPI_Irecv(set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
-                    MPI_DOUBLE, set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_B_T_]);
           MPI_Isend(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
-                    MPI_DOUBLE, set_ptr->move_wards[_F_T_], _F_T_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_F_T_], _F_T_, MPI_COMM_WORLD,
                     &set_ptr->send_request[_F_T_]);
           MPI_Irecv(set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
-                    MPI_DOUBLE, set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
+                    _mpi_type, set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
                     &set_ptr->recv_request[_F_T_]);
         }
       }
@@ -466,32 +470,32 @@ namespace qcu
         if (set_ptr->host_params[_GRID_X_] != 1)
         { // x part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
-          wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_X_],
               set_ptr->device_recv_vec[_F_X_]);
         }
         if (set_ptr->host_params[_GRID_Y_] != 1)
         { // y part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
-          wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Y_],
               set_ptr->device_recv_vec[_F_Y_]);
         }
         if (set_ptr->host_params[_GRID_Z_] != 1)
         { // z part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
-          wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Z_],
               set_ptr->device_recv_vec[_F_Z_]);
         }
         if (set_ptr->host_params[_GRID_T_] != 1)
         { // t part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-          wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_T_],
               set_ptr->device_recv_vec[_F_T_]);
         }
@@ -511,8 +515,8 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
       { // edge send part
-        wilson_dslash_x_send<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_X_]>>>(
+        wilson_dslash_x_send<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_X_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_X_],
             set_ptr->device_send_vec[_F_X_]);
         if (set_ptr->host_params[_GRID_X_] != 1)
@@ -526,8 +530,8 @@ namespace qcu
               sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_X_]));
         }
-        wilson_dslash_y_send<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Y_]>>>(
+        wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_Y_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Y_],
             set_ptr->device_send_vec[_F_Y_]);
         if (set_ptr->host_params[_GRID_Y_] != 1)
@@ -541,8 +545,8 @@ namespace qcu
               sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Y_]));
         }
-        wilson_dslash_z_send<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_Z_]>>>(
+        wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_Z_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_Z_],
             set_ptr->device_send_vec[_F_Z_]);
         if (set_ptr->host_params[_GRID_Z_] != 1)
@@ -556,8 +560,8 @@ namespace qcu
               sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Z_]));
         }
-        wilson_dslash_t_send<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                               set_ptr->stream_dims[_T_]>>>(
+        wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                  set_ptr->stream_dims[_T_]>>>(
             gauge, fermion_in, _device_params, set_ptr->device_send_vec[_B_T_],
             set_ptr->device_send_vec[_F_T_]);
         if (set_ptr->host_params[_GRID_T_] != 1)
@@ -574,9 +578,9 @@ namespace qcu
       }
       {                                                          // inside compute part ans wait
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream)); // needed
-        wilson_dslash_inside<<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                               set_ptr->stream>>>(gauge, fermion_in, fermion_out,
-                                                  _device_params);
+        wilson_dslash_inside<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                                  set_ptr->stream>>>(gauge, fermion_in, fermion_out,
+                                                     _device_params);
       }
       {
         // x edge part
@@ -585,8 +589,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_X_],
               set_ptr->device_send_vec[_B_X_]);
         }
@@ -594,12 +598,12 @@ namespace qcu
         {
           // comm
           MPI_Sendrecv(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                       MPI_DOUBLE, set_ptr->move_wards[_B_X_], _B_X_, set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                       MPI_DOUBLE, set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_B_X_], _B_X_, set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+                       _mpi_type, set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
           MPI_Sendrecv(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                       MPI_DOUBLE, set_ptr->move_wards[_F_X_], _F_X_, set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
-                       MPI_DOUBLE, set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_F_X_], _F_X_, set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+                       _mpi_type, set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
         }
       }
@@ -610,8 +614,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Y_],
               set_ptr->device_send_vec[_B_Y_]);
         }
@@ -619,12 +623,12 @@ namespace qcu
         {
           // comm
           MPI_Sendrecv(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
-                       MPI_DOUBLE, set_ptr->move_wards[_B_Y_], _B_Y_, set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
-                       MPI_DOUBLE, set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_B_Y_], _B_Y_, set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
+                       _mpi_type, set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
           MPI_Sendrecv(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
-                       MPI_DOUBLE, set_ptr->move_wards[_F_Y_], _F_Y_, set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
-                       MPI_DOUBLE, set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_F_Y_], _F_Y_, set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
+                       _mpi_type, set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
         }
       }
@@ -635,8 +639,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_Z_],
               set_ptr->device_send_vec[_B_Z_]);
         }
@@ -644,12 +648,12 @@ namespace qcu
         {
           // comm
           MPI_Sendrecv(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
-                       MPI_DOUBLE, set_ptr->move_wards[_B_Z_], _B_Z_, set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
-                       MPI_DOUBLE, set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_B_Z_], _B_Z_, set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
+                       _mpi_type, set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
           MPI_Sendrecv(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
-                       MPI_DOUBLE, set_ptr->move_wards[_F_Z_], _F_Z_, set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
-                       MPI_DOUBLE, set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_F_Z_], _F_Z_, set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
+                       _mpi_type, set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
         }
       }
@@ -660,8 +664,8 @@ namespace qcu
         {
           // no comm
           // edge recv part
-          wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_send_vec[_F_T_],
               set_ptr->device_send_vec[_B_T_]);
         }
@@ -669,12 +673,12 @@ namespace qcu
         {
           // comm
           MPI_Sendrecv(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
-                       MPI_DOUBLE, set_ptr->move_wards[_B_T_], _B_T_, set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
-                       MPI_DOUBLE, set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_B_T_], _B_T_, set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
+                       _mpi_type, set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
           MPI_Sendrecv(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
-                       MPI_DOUBLE, set_ptr->move_wards[_F_T_], _F_T_, set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
-                       MPI_DOUBLE, set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
+                       _mpi_type, set_ptr->move_wards[_F_T_], _F_T_, set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
+                       _mpi_type, set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
                        MPI_STATUS_IGNORE);
         }
       }
@@ -727,32 +731,32 @@ namespace qcu
         if (set_ptr->host_params[_GRID_X_] != 1)
         { // x part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_X_]));
-          wilson_dslash_x_recv<<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_x_recv<T><<<set_ptr->gridDim_3dim[_X_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_X_],
               set_ptr->device_recv_vec[_F_X_]);
         }
         if (set_ptr->host_params[_GRID_Y_] != 1)
         { // y part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Y_]));
-          wilson_dslash_y_recv<<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_y_recv<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Y_],
               set_ptr->device_recv_vec[_F_Y_]);
         }
         if (set_ptr->host_params[_GRID_Z_] != 1)
         { // z part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_Z_]));
-          wilson_dslash_z_recv<<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_z_recv<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_Z_],
               set_ptr->device_recv_vec[_F_Z_]);
         }
         if (set_ptr->host_params[_GRID_T_] != 1)
         { // t part recv
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream_dims[_T_]));
-          wilson_dslash_t_recv<<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
-                                 set_ptr->stream>>>(
+          wilson_dslash_t_recv<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
+                                    set_ptr->stream>>>(
               gauge, fermion_out, _device_params, set_ptr->device_recv_vec[_B_T_],
               set_ptr->device_recv_vec[_F_T_]);
         }

@@ -31,7 +31,7 @@ int main(void)
   printf("GPU SMs = %d\n", prop.multiProcessorCount);                    // 获得 SM 数目
   printf("GPU SM clock rate = %.3f GHz\n", prop.clockRate / 1e6);        // prop.clockRate 单位为 kHz，除以 1e6 之后单位为 GHz
   printf("GPU Mem clock rate = %.3f GHz\n", prop.memoryClockRate / 1e6); // 同上
-  if ((prop.major == 8) && (prop.minor == 0)) // SM 8.0，即 A100
+  if ((prop.major == 8) && (prop.minor == 0))                            // SM 8.0，即 A100
   {
     // 根据公式计算峰值吞吐，其中 64、32、256、256 是从表中查到
     printf("-----------CUDA Core Performance------------\n");

@@ -7,6 +7,8 @@ from pyquda.enum_quda import QudaParity
 init([1, 1, 1, 1], [16, 16, 16, 32], 1, 1.0, resource_path=".cache")
 latt_info = core.getDefaultLattice()
 Lx, Ly, Lz, Lt = latt_info.size
+
+
 def applyDslash(Mp, p, U_seed):
     # Set parameters in Dslash and use m=-3.5 to make kappa=1
     dslash = core.getDefaultDirac(-3.5, 0, 0)
@@ -26,6 +28,8 @@ def applyDslash(Mp, p, U_seed):
     Mp[:] = b.lexico()
     # Return gauge as a ndarray with shape (Nd, Lt, Lz, Ly, Lx, Ns, Ns)
     return U.lexico()
+
+
 p = np.zeros((Lt, Lz, Ly, Lx, Ns, Nc), "<c16")
 p[0, 0, 0, 0, 0, 0] = 1
 Mp = np.zeros((Lt, Lz, Ly, Lx, Ns, Nc), "<c16")

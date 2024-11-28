@@ -22,12 +22,16 @@ mass = 4
 hmc = HMC(latt_info, mass, 1e-9, 1000)
 hmc.loadGauge(gauge)
 hmc.loadMom(gauge)
+
+
 def loop_ndarray(path, num_paths, max_length):
     ret = -np.ones((num_paths, max_length), "<i4")
     for i in range(num_paths):
         for j in range(len(path[i])):
             ret[i, j] = path[i][j]
     return ret
+
+
 def path_ndarray(path, num_paths, max_length):
     ret = -np.ones((4, num_paths, max_length), "<i4")
     for d in range(4):
@@ -35,6 +39,8 @@ def path_ndarray(path, num_paths, max_length):
             for j in range(len(path[d][i])):
                 ret[d, i, j] = path[d][i][j]
     return ret
+
+
 def path_force(path, coeffs):
     num_paths = len(path)
     lengths = []
@@ -66,6 +72,8 @@ def path_force(path, coeffs):
     num_fpaths = len(flengths)
     force = path_ndarray(force, num_fpaths, max_length - 1)
     return num_paths, max_length, path, lengths, coeffs, force, num_fpaths, flengths, fcoeffs
+
+
 input_path = [
     [0, 1, 7, 6],
     [0, 2, 7, 5],

@@ -51,6 +51,8 @@ U = gauge_utils.gaussGauge(latt_size, 0)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 # dslash.loadGauge(U)
 np.set_printoptions(threshold=np.inf)
+
+
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
@@ -80,6 +82,8 @@ def compare(round):
     print("######Mp1[0,0,0,1]:\n", Mp1.lexico()[0, 0, 0, 1])
     print(f'QCU dslash: {t2 - t1} sec')
     print(f'rank {0} my x and x difference: {cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data)}, takes {t2 - t1} sec, my_norm = {cp.linalg.norm(Mp1.data)}, norm = {cp.linalg.norm(Mp.data)}')
+
+
 #     print("######", Mp.lexico().shape)
 #     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
 #     diff = np.sum(diff_x, axis=(-1, -2))

@@ -5,6 +5,8 @@ from typing import Dict, Tuple
 import zlib
 import numpy as np
 Nd, Ns, Nc = 4, 4, 3
+
+
 def readQIOGauge(filename: str):
     filename = path.expanduser(path.expandvars(filename))
     with open(filename, "rb") as f:
@@ -23,6 +25,8 @@ def readQIOGauge(filename: str):
             if "binary" not in key and key not in ["scidac-file-xml", "scidac-record-xml"]:
                 print(f.read(value[1]).strip(b"\x00").decode("utf-8"))
     return meta["ildg-binary-data"][0], ">c16", meta["ildg-binary-data"][1] // 16
+
+
 def readQIOPropagator(filename: str):
     filename = path.expanduser(path.expandvars(filename))
     with open(filename, "rb") as f:
@@ -41,6 +45,8 @@ def readQIOPropagator(filename: str):
             if "binary" not in key and key not in ["scidac-file-xml", "scidac-record-xml"]:
                 print(f.read(value[1]).strip(b"\x00").decode("utf-8"))
     return meta["ildg-binary-data"][0], ">c16", meta["ildg-binary-data"][1] // 16
+
+
 def readGauge(filename: str):
     filename = path.expanduser(path.expandvars(filename))
     with open(filename, "rb") as f:
@@ -57,6 +63,8 @@ def readGauge(filename: str):
         offset = f.tell()
     print(latt_size, time_stamp, sum29, sum31)
     return offset, f"{endian}c8", int(np.prod(latt_size)) * Nd * Nc * Nc
+
+
 offset, dtype, count = readGauge(
     "/public/ensemble/a09m310/l3296f211b630m0074m037m440e.4728")
 buf = np.fromfile(

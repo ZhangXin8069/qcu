@@ -49,6 +49,8 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 dslash.loadGauge(U)
 np.set_printoptions(threshold=np.inf)
+
+
 def compare(round):
     print('===============round ', round, '======================')
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
@@ -151,5 +153,7 @@ def compare(round):
           diff_x[0, -3, -3, -3])
     print("######diff_x[-3,-3,-3,-3]:\n",
           diff_x[-3, -3, -3, -3])
+
+
 for i in range(0, 5):
     compare(i)
