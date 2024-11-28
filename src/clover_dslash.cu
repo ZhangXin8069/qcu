@@ -2,7 +2,6 @@
 #pragma optimize(5)
 namespace qcu
 {
-  template <typename T>
   __global__ void make_clover(void *device_U, void *device_clover,
                               void *device_params)
   {
@@ -859,7 +858,6 @@ namespace qcu
     }
     give_clr(origin_clover, clover, lat_tzyx);
   }
-  template <typename T>
   __global__ void inverse_clover(void *device_clover, void *device_params)
   {
     LatticeComplex<T> *origin_clover;
@@ -878,7 +876,6 @@ namespace qcu
       give_clr(origin_clover, clover, lat_tzyx);
     }
   }
-  template <typename T>
   __global__ void give_clover(void *device_clover, void *device_dest,
                               void *device_params)
   {

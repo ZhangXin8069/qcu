@@ -11,7 +11,6 @@ private:
   std::chrono::time_point<std::chrono::high_resolution_clock> end_time;
   bool running;
   double elapsed_time_second;
-
 public:
   Timer() = default;
   void start()

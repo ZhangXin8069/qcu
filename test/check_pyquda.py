@@ -10,8 +10,6 @@ except ModuleNotFoundError:
     import pyquda
 finally:
     pyquda.getLogger().debug(f"Using {pyquda.__file__} as pyquda")
-
-
 def chroma(ini_xml: str):
     chroma_path = os.path.abspath(os.path.join(test_dir, "bin", "chroma"))
     ini_xml_path = os.path.abspath(os.path.join(test_dir, ini_xml))

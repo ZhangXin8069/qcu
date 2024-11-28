@@ -244,13 +244,20 @@ namespace qcu
       }                                                            \
     }                                                              \
   }
-// little strange, but don't want change
 #define give_vals(U, zero, n)   \
   {                             \
     for (int i = 0; i < n; i++) \
     {                           \
       U[i] = zero;              \
     }                           \
+  }
+#define give_rand(input_matrix, size)                                   \
+  {                                                                     \
+    for (int i = 0; i < size; i++)                                      \
+    {                                                                   \
+      input_matrix[i]._data.x = static_cast<double>(rand()) / RAND_MAX; \
+      input_matrix[i]._data.y = static_cast<double>(rand()) / RAND_MAX; \
+    }                                                                   \
   }
 #define give_u(U, tmp_U, lat_tzyx)                       \
   {                                                      \
@@ -472,6 +479,29 @@ namespace qcu
       }                                                                    \
     }                                                                      \
   }
+#define malloc_vec(lat_3dim_Half_SC, device_send_vec, device_recv_vec,     \
+                   host_send_vec, host_recv_vec)                           \
+  {                                                                        \
+    for (int i = 0; i < _DIM_; i++)                                        \
+    {                                                                      \
+      cudaMalloc(&device_send_vec[i * _SR_],                               \
+                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>));         \
+      cudaMalloc(&device_send_vec[i * _SR_ + 1],                           \
+                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>));         \
+      cudaMalloc(&device_recv_vec[i * _SR_],                               \
+                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>));         \
+      cudaMalloc(&device_recv_vec[i * _SR_ + 1],                           \
+                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>));         \
+      host_send_vec[i * _SR_] =                                            \
+          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)); \
+      host_send_vec[i * _SR_ + 1] =                                        \
+          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)); \
+      host_recv_vec[i * _SR_] =                                            \
+          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)); \
+      host_recv_vec[i * _SR_ + 1] =                                        \
+          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)); \
+    }                                                                      \
+  }
 #define free_vec(device_send_vec, device_recv_vec, host_send_vec, \
                  host_recv_vec)                                   \
   {                                                               \
@@ -484,7 +514,6 @@ namespace qcu
     }                                                             \
   }
 }
-#define _cublas_type CUDA_C_64F
-#define _mpi_type MPI_DOUBLE
-#define _nccl_type ncclDouble
+using data_type = cuDoubleComplex;
+using T = double;
 #endif

@@ -52,8 +52,6 @@ dslash = core.getDslash(
 # dslash.invert_param.inv_type = 13  # QUDA_BICGSTABL_INVERTER
 U = gauge_utils.gaussGauge(latt_size, 0)
 dslash.loadGauge(U)
-
-
 def compare(round):
     # quda
     cp.cuda.runtime.deviceSynchronize()
@@ -93,7 +91,5 @@ def compare(round):
     )
     print(f"qcu rank {rank} takes {t2 - t1} sec")
     print("============================")
-
-
 for i in range(0, 10):
     compare(i)
