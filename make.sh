@@ -1,5 +1,5 @@
 # source ./env.sh
 cmake .
-make -j16
+make -j36
 mv libqcu.so ./lib
 bash ./clean.sh

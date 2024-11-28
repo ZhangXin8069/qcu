@@ -23,7 +23,6 @@ int main()
   int parity = _ODD_;
   _set.give(param.lattice_size, grid.lattice_size, parity);
   _set.init();
-  return 0;
   give_debug_u<double><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
       gauge, _set.device_params);
   checkCudaErrors(cudaStreamSynchronize(_set.stream));
