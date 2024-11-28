@@ -1,6 +1,4 @@
-#include "../include/qcu.h"
-#include "define.h"
-#include "../include/qcu.h"
+#include "./include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
 using T = double;
