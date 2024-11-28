@@ -1,19 +1,19 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-using T = double;
+
 void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                    QcuParam *param, int parity)
 {
     // define for test_wilson_dslash
-    LatticeSet<T> _set;
+    LatticeSet<double> _set;
     _set.give(param->lattice_size, parity);
     _set.init();
-    dptzyxcc2ccdptzyx<T>(gauge, &_set);
-    tzyxsc2sctzyx<T>(fermion_in, &_set);
-    tzyxsc2sctzyx<T>(fermion_out, &_set);
+    dptzyxcc2ccdptzyx<double>(gauge, &_set);
+    tzyxsc2sctzyx<double>(fermion_in, &_set);
+    tzyxsc2sctzyx<double>(fermion_out, &_set);
     auto start = std::chrono::high_resolution_clock::now();
-    wilson_dslash<T><<<_set.gridDim, _set.blockDim>>>(gauge, fermion_in, fermion_out,
+    wilson_dslash<double><<<_set.gridDim, _set.blockDim>>>(gauge, fermion_in, fermion_out,
                                                    _set.device_params);
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
@@ -23,26 +23,26 @@ void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     printf("wilson dslash total time: (without malloc free memcpy) :%.9lf "
            "sec\n",
            double(duration) / 1e9);
-    ccdptzyx2dptzyxcc<T>(gauge, &_set);
-    sctzyx2tzyxsc<T>(fermion_in, &_set);
-    sctzyx2tzyxsc<T>(fermion_out, &_set);
+    ccdptzyx2dptzyxcc<double>(gauge, &_set);
+    sctzyx2tzyxsc<double>(fermion_in, &_set);
+    sctzyx2tzyxsc<double>(fermion_out, &_set);
     _set.end();
 }
 void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                          QcuParam *param, int parity)
 {
     // define for test_clover_dslash
-    LatticeSet<T> _set;
+    LatticeSet<double> _set;
     _set.give(param->lattice_size, parity);
     _set.init();
-    dptzyxcc2ccdptzyx<T>(gauge, &_set);
-    tzyxsc2sctzyx<T>(fermion_in, &_set);
-    tzyxsc2sctzyx<T>(fermion_out, &_set);
-    LatticeWilsonDslash<T> _wilson_dslash;
+    dptzyxcc2ccdptzyx<double>(gauge, &_set);
+    tzyxsc2sctzyx<double>(fermion_in, &_set);
+    tzyxsc2sctzyx<double>(fermion_out, &_set);
+    LatticeWilsonDslash<double> _wilson_dslash;
     _wilson_dslash.give(&_set);
     void *clover;
     checkCudaErrors(cudaMallocAsync(
-        &clover, (_set.lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex<T>),
+        &clover, (_set.lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex<double>),
         _set.stream));
     cudaError_t err;
     {
@@ -53,7 +53,7 @@ void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         // make clover
         checkCudaErrors(cudaStreamSynchronize(_set.stream));
         auto start = std::chrono::high_resolution_clock::now();
-        make_clover<T><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
+        make_clover<double><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
             gauge, clover, _set.device_params);
         checkCudaErrors(cudaStreamSynchronize(_set.stream));
         auto end = std::chrono::high_resolution_clock::now();
@@ -69,7 +69,7 @@ void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         // inverse clover
         checkCudaErrors(cudaStreamSynchronize(_set.stream));
         auto start = std::chrono::high_resolution_clock::now();
-        inverse_clover<T><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
+        inverse_clover<double><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
             clover, _set.device_params);
         checkCudaErrors(cudaStreamSynchronize(_set.stream));
         auto end = std::chrono::high_resolution_clock::now();
@@ -86,7 +86,7 @@ void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         // give clover
         checkCudaErrors(cudaStreamSynchronize(_set.stream));
         auto start = std::chrono::high_resolution_clock::now();
-        give_clover<T><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
+        give_clover<double><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
             clover, fermion_out, _set.device_params);
         checkCudaErrors(cudaStreamSynchronize(_set.stream));
         auto end = std::chrono::high_resolution_clock::now();
@@ -98,9 +98,9 @@ void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
         printf("give clover total time: (without malloc free memcpy) :%.9lf sec\n ",
                double(duration) / 1e9);
     }
-    ccdptzyx2dptzyxcc<T>(gauge, &_set);
-    sctzyx2tzyxsc<T>(fermion_in, &_set);
-    sctzyx2tzyxsc<T>(fermion_out, &_set);
+    ccdptzyx2dptzyxcc<double>(gauge, &_set);
+    sctzyx2tzyxsc<double>(fermion_in, &_set);
+    sctzyx2tzyxsc<double>(fermion_out, &_set);
     // free
     checkCudaErrors(cudaFreeAsync(clover, _set.stream));
     checkCudaErrors(cudaStreamSynchronize(_set.stream));
