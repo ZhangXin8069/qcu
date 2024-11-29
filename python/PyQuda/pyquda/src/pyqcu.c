@@ -2263,7 +2263,7 @@ static PyObject *__pyx_builtin_enumerate;
 static PyObject *__pyx_builtin_IndexError;
 /* #### Code section: string_decls ### */
 static const char __pyx_k_gc[] = "gc";
-static const char __pyx_k__15[] = "?";
+static const char __pyx_k__14[] = "?";
 static const char __pyx_k_grid[] = "grid";
 static const char __pyx_k_main[] = "__main__";
 static const char __pyx_k_name[] = "__name__";
@@ -2296,7 +2296,6 @@ static const char __pyx_k_OverflowError[] = "OverflowError";
 static const char __pyx_k_reduce_cython[] = "__reduce_cython__";
 static const char __pyx_k_testDslashQcu[] = "testDslashQcu";
 static const char __pyx_k_applyDslashQcu[] = "applyDslashQcu";
-static const char __pyx_k_applyGmresIrQcu[] = "applyGmresIrQcu";
 static const char __pyx_k_setstate_cython[] = "__setstate_cython__";
 static const char __pyx_k_applyBistabCgQcu[] = "applyBistabCgQcu";
 static const char __pyx_k_asyncio_coroutines[] = "asyncio.coroutines";
@@ -2319,7 +2318,6 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_4testCloverDslashQcu(CYTHON_UNUSED PyOb
 static PyObject *__pyx_pf_6pyquda_5pyqcu_6applyCloverDslashQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, int __pyx_v_parity, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
 static PyObject *__pyx_pf_6pyquda_5pyqcu_8applyBistabCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
 static PyObject *__pyx_pf_6pyquda_5pyqcu_10applyCgQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
-static PyObject *__pyx_pf_6pyquda_5pyqcu_12applyGmresIrQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid); /* proto */
 static PyObject *__pyx_tp_new_6pyquda_5pyqcu_QcuParam(PyTypeObject *t, PyObject *a, PyObject *k); /*proto*/
 /* #### Code section: late_includes ### */
 /* #### Code section: module_state ### */
@@ -2366,12 +2364,11 @@ typedef struct {
   PyObject *__pyx_n_s_QcuParam___reduce_cython;
   PyObject *__pyx_n_s_QcuParam___setstate_cython;
   PyObject *__pyx_n_s_TypeError;
-  PyObject *__pyx_n_s__15;
+  PyObject *__pyx_n_s__14;
   PyObject *__pyx_n_s_applyBistabCgQcu;
   PyObject *__pyx_n_s_applyCgQcu;
   PyObject *__pyx_n_s_applyCloverDslashQcu;
   PyObject *__pyx_n_s_applyDslashQcu;
-  PyObject *__pyx_n_s_applyGmresIrQcu;
   PyObject *__pyx_n_s_asyncio_coroutines;
   PyObject *__pyx_n_s_cline_in_traceback;
   PyObject *__pyx_kp_u_disable;
@@ -2417,7 +2414,6 @@ typedef struct {
   PyObject *__pyx_codeobj__10;
   PyObject *__pyx_codeobj__12;
   PyObject *__pyx_codeobj__13;
-  PyObject *__pyx_codeobj__14;
 } __pyx_mstate;
 
 #if CYTHON_USE_MODULE_STATE
@@ -2472,12 +2468,11 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_n_s_QcuParam___reduce_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_QcuParam___setstate_cython);
   Py_CLEAR(clear_module_state->__pyx_n_s_TypeError);
-  Py_CLEAR(clear_module_state->__pyx_n_s__15);
+  Py_CLEAR(clear_module_state->__pyx_n_s__14);
   Py_CLEAR(clear_module_state->__pyx_n_s_applyBistabCgQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_applyCgQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_applyCloverDslashQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_applyDslashQcu);
-  Py_CLEAR(clear_module_state->__pyx_n_s_applyGmresIrQcu);
   Py_CLEAR(clear_module_state->__pyx_n_s_asyncio_coroutines);
   Py_CLEAR(clear_module_state->__pyx_n_s_cline_in_traceback);
   Py_CLEAR(clear_module_state->__pyx_kp_u_disable);
@@ -2523,7 +2518,6 @@ static int __pyx_m_clear(PyObject *m) {
   Py_CLEAR(clear_module_state->__pyx_codeobj__10);
   Py_CLEAR(clear_module_state->__pyx_codeobj__12);
   Py_CLEAR(clear_module_state->__pyx_codeobj__13);
-  Py_CLEAR(clear_module_state->__pyx_codeobj__14);
   return 0;
 }
 #endif
@@ -2556,12 +2550,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_n_s_QcuParam___reduce_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_QcuParam___setstate_cython);
   Py_VISIT(traverse_module_state->__pyx_n_s_TypeError);
-  Py_VISIT(traverse_module_state->__pyx_n_s__15);
+  Py_VISIT(traverse_module_state->__pyx_n_s__14);
   Py_VISIT(traverse_module_state->__pyx_n_s_applyBistabCgQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_applyCgQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_applyCloverDslashQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_applyDslashQcu);
-  Py_VISIT(traverse_module_state->__pyx_n_s_applyGmresIrQcu);
   Py_VISIT(traverse_module_state->__pyx_n_s_asyncio_coroutines);
   Py_VISIT(traverse_module_state->__pyx_n_s_cline_in_traceback);
   Py_VISIT(traverse_module_state->__pyx_kp_u_disable);
@@ -2607,7 +2600,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
   Py_VISIT(traverse_module_state->__pyx_codeobj__10);
   Py_VISIT(traverse_module_state->__pyx_codeobj__12);
   Py_VISIT(traverse_module_state->__pyx_codeobj__13);
-  Py_VISIT(traverse_module_state->__pyx_codeobj__14);
   return 0;
 }
 #endif
@@ -2654,12 +2646,11 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_n_s_QcuParam___reduce_cython __pyx_mstate_global->__pyx_n_s_QcuParam___reduce_cython
 #define __pyx_n_s_QcuParam___setstate_cython __pyx_mstate_global->__pyx_n_s_QcuParam___setstate_cython
 #define __pyx_n_s_TypeError __pyx_mstate_global->__pyx_n_s_TypeError
-#define __pyx_n_s__15 __pyx_mstate_global->__pyx_n_s__15
+#define __pyx_n_s__14 __pyx_mstate_global->__pyx_n_s__14
 #define __pyx_n_s_applyBistabCgQcu __pyx_mstate_global->__pyx_n_s_applyBistabCgQcu
 #define __pyx_n_s_applyCgQcu __pyx_mstate_global->__pyx_n_s_applyCgQcu
 #define __pyx_n_s_applyCloverDslashQcu __pyx_mstate_global->__pyx_n_s_applyCloverDslashQcu
 #define __pyx_n_s_applyDslashQcu __pyx_mstate_global->__pyx_n_s_applyDslashQcu
-#define __pyx_n_s_applyGmresIrQcu __pyx_mstate_global->__pyx_n_s_applyGmresIrQcu
 #define __pyx_n_s_asyncio_coroutines __pyx_mstate_global->__pyx_n_s_asyncio_coroutines
 #define __pyx_n_s_cline_in_traceback __pyx_mstate_global->__pyx_n_s_cline_in_traceback
 #define __pyx_kp_u_disable __pyx_mstate_global->__pyx_kp_u_disable
@@ -2705,7 +2696,6 @@ static int __pyx_m_traverse(PyObject *m, visitproc visit, void *arg) {
 #define __pyx_codeobj__10 __pyx_mstate_global->__pyx_codeobj__10
 #define __pyx_codeobj__12 __pyx_mstate_global->__pyx_codeobj__12
 #define __pyx_codeobj__13 __pyx_mstate_global->__pyx_codeobj__13
-#define __pyx_codeobj__14 __pyx_mstate_global->__pyx_codeobj__14
 /* #### Code section: module_code ### */
 
 /* "carray.to_py":114
@@ -4685,7 +4675,6 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_8applyBistabCgQcu(CYTHON_UNUSED PyObjec
  *     qcu.applyBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
  */
 
 /* Python wrapper */
@@ -4862,8 +4851,6 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_10applyCgQcu(CYTHON_UNUSED PyObject *__
  *     qcu.applyBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
  *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)             # <<<<<<<<<<<<<<
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- *     qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  */
   applyCgQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), (&__pyx_v_grid->param));
 
@@ -4872,205 +4859,6 @@ static PyObject *__pyx_pf_6pyquda_5pyqcu_10applyCgQcu(CYTHON_UNUSED PyObject *__
  *     qcu.applyBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- */
-
-  /* function exit code */
-  __pyx_r = Py_None; __Pyx_INCREF(Py_None);
-  __Pyx_XGIVEREF(__pyx_r);
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-/* "pyquda/src/pyqcu.pyx":25
- * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
- *     qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- */
-
-/* Python wrapper */
-static PyObject *__pyx_pw_6pyquda_5pyqcu_13applyGmresIrQcu(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-); /*proto*/
-static PyMethodDef __pyx_mdef_6pyquda_5pyqcu_13applyGmresIrQcu = {"applyGmresIrQcu", (PyCFunction)(void*)(__Pyx_PyCFunction_FastCallWithKeywords)__pyx_pw_6pyquda_5pyqcu_13applyGmresIrQcu, __Pyx_METH_FASTCALL|METH_KEYWORDS, 0};
-static PyObject *__pyx_pw_6pyquda_5pyqcu_13applyGmresIrQcu(PyObject *__pyx_self, 
-#if CYTHON_METH_FASTCALL
-PyObject *const *__pyx_args, Py_ssize_t __pyx_nargs, PyObject *__pyx_kwds
-#else
-PyObject *__pyx_args, PyObject *__pyx_kwds
-#endif
-) {
-  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out = 0;
-  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in = 0;
-  struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge = 0;
-  struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param = 0;
-  struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid = 0;
-  #if !CYTHON_METH_FASTCALL
-  CYTHON_UNUSED Py_ssize_t __pyx_nargs;
-  #endif
-  CYTHON_UNUSED PyObject *const *__pyx_kwvalues;
-  PyObject* values[5] = {0,0,0,0,0};
-  int __pyx_lineno = 0;
-  const char *__pyx_filename = NULL;
-  int __pyx_clineno = 0;
-  PyObject *__pyx_r = 0;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("applyGmresIrQcu (wrapper)", 0);
-  #if !CYTHON_METH_FASTCALL
-  #if CYTHON_ASSUME_SAFE_MACROS
-  __pyx_nargs = PyTuple_GET_SIZE(__pyx_args);
-  #else
-  __pyx_nargs = PyTuple_Size(__pyx_args); if (unlikely(__pyx_nargs < 0)) return NULL;
-  #endif
-  #endif
-  __pyx_kwvalues = __Pyx_KwValues_FASTCALL(__pyx_args, __pyx_nargs);
-  {
-    PyObject **__pyx_pyargnames[] = {&__pyx_n_s_fermion_out,&__pyx_n_s_fermion_in,&__pyx_n_s_gauge,&__pyx_n_s_param,&__pyx_n_s_grid,0};
-    if (__pyx_kwds) {
-      Py_ssize_t kw_args;
-      switch (__pyx_nargs) {
-        case  5: values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
-        CYTHON_FALLTHROUGH;
-        case  4: values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-        CYTHON_FALLTHROUGH;
-        case  3: values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-        CYTHON_FALLTHROUGH;
-        case  2: values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-        CYTHON_FALLTHROUGH;
-        case  1: values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-        CYTHON_FALLTHROUGH;
-        case  0: break;
-        default: goto __pyx_L5_argtuple_error;
-      }
-      kw_args = __Pyx_NumKwargs_FASTCALL(__pyx_kwds);
-      switch (__pyx_nargs) {
-        case  0:
-        if (likely((values[0] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fermion_out)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[0]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L3_error)
-        else goto __pyx_L5_argtuple_error;
-        CYTHON_FALLTHROUGH;
-        case  1:
-        if (likely((values[1] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_fermion_in)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[1]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("applyGmresIrQcu", 1, 5, 5, 1); __PYX_ERR(1, 25, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  2:
-        if (likely((values[2] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_gauge)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[2]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("applyGmresIrQcu", 1, 5, 5, 2); __PYX_ERR(1, 25, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  3:
-        if (likely((values[3] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_param)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[3]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("applyGmresIrQcu", 1, 5, 5, 3); __PYX_ERR(1, 25, __pyx_L3_error)
-        }
-        CYTHON_FALLTHROUGH;
-        case  4:
-        if (likely((values[4] = __Pyx_GetKwValue_FASTCALL(__pyx_kwds, __pyx_kwvalues, __pyx_n_s_grid)) != 0)) {
-          (void)__Pyx_Arg_NewRef_FASTCALL(values[4]);
-          kw_args--;
-        }
-        else if (unlikely(PyErr_Occurred())) __PYX_ERR(1, 25, __pyx_L3_error)
-        else {
-          __Pyx_RaiseArgtupleInvalid("applyGmresIrQcu", 1, 5, 5, 4); __PYX_ERR(1, 25, __pyx_L3_error)
-        }
-      }
-      if (unlikely(kw_args > 0)) {
-        const Py_ssize_t kwd_pos_args = __pyx_nargs;
-        if (unlikely(__Pyx_ParseOptionalKeywords(__pyx_kwds, __pyx_kwvalues, __pyx_pyargnames, 0, values + 0, kwd_pos_args, "applyGmresIrQcu") < 0)) __PYX_ERR(1, 25, __pyx_L3_error)
-      }
-    } else if (unlikely(__pyx_nargs != 5)) {
-      goto __pyx_L5_argtuple_error;
-    } else {
-      values[0] = __Pyx_Arg_FASTCALL(__pyx_args, 0);
-      values[1] = __Pyx_Arg_FASTCALL(__pyx_args, 1);
-      values[2] = __Pyx_Arg_FASTCALL(__pyx_args, 2);
-      values[3] = __Pyx_Arg_FASTCALL(__pyx_args, 3);
-      values[4] = __Pyx_Arg_FASTCALL(__pyx_args, 4);
-    }
-    __pyx_v_fermion_out = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[0]);
-    __pyx_v_fermion_in = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[1]);
-    __pyx_v_gauge = ((struct __pyx_obj_6pyquda_7pointer_Pointer *)values[2]);
-    __pyx_v_param = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[3]);
-    __pyx_v_grid = ((struct __pyx_obj_6pyquda_5pyqcu_QcuParam *)values[4]);
-  }
-  goto __pyx_L6_skip;
-  __pyx_L5_argtuple_error:;
-  __Pyx_RaiseArgtupleInvalid("applyGmresIrQcu", 1, 5, 5, __pyx_nargs); __PYX_ERR(1, 25, __pyx_L3_error)
-  __pyx_L6_skip:;
-  goto __pyx_L4_argument_unpacking_done;
-  __pyx_L3_error:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_AddTraceback("pyquda.pyqcu.applyGmresIrQcu", __pyx_clineno, __pyx_lineno, __pyx_filename);
-  __Pyx_RefNannyFinishContext();
-  return NULL;
-  __pyx_L4_argument_unpacking_done:;
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_out), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_out", 0))) __PYX_ERR(1, 25, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_fermion_in), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "fermion_in", 0))) __PYX_ERR(1, 25, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_gauge), __pyx_ptype_6pyquda_7pointer_Pointer, 1, "gauge", 0))) __PYX_ERR(1, 25, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_param), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "param", 0))) __PYX_ERR(1, 25, __pyx_L1_error)
-  if (unlikely(!__Pyx_ArgTypeTest(((PyObject *)__pyx_v_grid), __pyx_ptype_6pyquda_5pyqcu_QcuParam, 1, "grid", 0))) __PYX_ERR(1, 25, __pyx_L1_error)
-  __pyx_r = __pyx_pf_6pyquda_5pyqcu_12applyGmresIrQcu(__pyx_self, __pyx_v_fermion_out, __pyx_v_fermion_in, __pyx_v_gauge, __pyx_v_param, __pyx_v_grid);
-
-  /* function exit code */
-  goto __pyx_L0;
-  __pyx_L1_error:;
-  __pyx_r = NULL;
-  __pyx_L0:;
-  {
-    Py_ssize_t __pyx_temp;
-    for (__pyx_temp=0; __pyx_temp < (Py_ssize_t)(sizeof(values)/sizeof(values[0])); ++__pyx_temp) {
-      __Pyx_Arg_XDECREF_FASTCALL(values[__pyx_temp]);
-    }
-  }
-  __Pyx_RefNannyFinishContext();
-  return __pyx_r;
-}
-
-static PyObject *__pyx_pf_6pyquda_5pyqcu_12applyGmresIrQcu(CYTHON_UNUSED PyObject *__pyx_self, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_out, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_fermion_in, struct __pyx_obj_6pyquda_7pointer_Pointer *__pyx_v_gauge, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_param, struct __pyx_obj_6pyquda_5pyqcu_QcuParam *__pyx_v_grid) {
-  PyObject *__pyx_r = NULL;
-  __Pyx_RefNannyDeclarations
-  __Pyx_RefNannySetupContext("applyGmresIrQcu", 1);
-
-  /* "pyquda/src/pyqcu.pyx":26
- *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- *     qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)             # <<<<<<<<<<<<<<
- */
-  applyGmresIrQcu(__pyx_v_fermion_out->ptr, __pyx_v_fermion_in->ptr, __pyx_v_gauge->ptr, (&__pyx_v_param->param), (&__pyx_v_grid->param));
-
-  /* "pyquda/src/pyqcu.pyx":25
- * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
- *     qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  */
 
   /* function exit code */
@@ -5264,12 +5052,11 @@ static int __Pyx_CreateStringTabAndInitStrings(void) {
     {&__pyx_n_s_QcuParam___reduce_cython, __pyx_k_QcuParam___reduce_cython, sizeof(__pyx_k_QcuParam___reduce_cython), 0, 0, 1, 1},
     {&__pyx_n_s_QcuParam___setstate_cython, __pyx_k_QcuParam___setstate_cython, sizeof(__pyx_k_QcuParam___setstate_cython), 0, 0, 1, 1},
     {&__pyx_n_s_TypeError, __pyx_k_TypeError, sizeof(__pyx_k_TypeError), 0, 0, 1, 1},
-    {&__pyx_n_s__15, __pyx_k__15, sizeof(__pyx_k__15), 0, 0, 1, 1},
+    {&__pyx_n_s__14, __pyx_k__14, sizeof(__pyx_k__14), 0, 0, 1, 1},
     {&__pyx_n_s_applyBistabCgQcu, __pyx_k_applyBistabCgQcu, sizeof(__pyx_k_applyBistabCgQcu), 0, 0, 1, 1},
     {&__pyx_n_s_applyCgQcu, __pyx_k_applyCgQcu, sizeof(__pyx_k_applyCgQcu), 0, 0, 1, 1},
     {&__pyx_n_s_applyCloverDslashQcu, __pyx_k_applyCloverDslashQcu, sizeof(__pyx_k_applyCloverDslashQcu), 0, 0, 1, 1},
     {&__pyx_n_s_applyDslashQcu, __pyx_k_applyDslashQcu, sizeof(__pyx_k_applyDslashQcu), 0, 0, 1, 1},
-    {&__pyx_n_s_applyGmresIrQcu, __pyx_k_applyGmresIrQcu, sizeof(__pyx_k_applyGmresIrQcu), 0, 0, 1, 1},
     {&__pyx_n_s_asyncio_coroutines, __pyx_k_asyncio_coroutines, sizeof(__pyx_k_asyncio_coroutines), 0, 0, 1, 1},
     {&__pyx_n_s_cline_in_traceback, __pyx_k_cline_in_traceback, sizeof(__pyx_k_cline_in_traceback), 0, 0, 1, 1},
     {&__pyx_kp_u_disable, __pyx_k_disable, sizeof(__pyx_k_disable), 0, 1, 0, 0},
@@ -5403,17 +5190,8 @@ static CYTHON_SMALL_CODE int __Pyx_InitCachedConstants(void) {
  *     qcu.applyBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
  */
   __pyx_codeobj__13 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_applyCgQcu, 23, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__13)) __PYX_ERR(1, 23, __pyx_L1_error)
-
-  /* "pyquda/src/pyqcu.pyx":25
- * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
- *     qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- */
-  __pyx_codeobj__14 = (PyObject*)__Pyx_PyCode_New(5, 0, 0, 5, 0, CO_OPTIMIZED|CO_NEWLOCALS, __pyx_empty_bytes, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_tuple__11, __pyx_empty_tuple, __pyx_empty_tuple, __pyx_kp_s_pyquda_src_pyqcu_pyx, __pyx_n_s_applyGmresIrQcu, 25, __pyx_empty_bytes); if (unlikely(!__pyx_codeobj__14)) __PYX_ERR(1, 25, __pyx_L1_error)
   __Pyx_RefNannyFinishContext();
   return 0;
   __pyx_L1_error:;
@@ -5909,22 +5687,10 @@ if (!__Pyx_RefNanny) {
  *     qcu.applyBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
  * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
  *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
  */
   __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_11applyCgQcu, 0, __pyx_n_s_applyCgQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__13)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 23, __pyx_L1_error)
   __Pyx_GOTREF(__pyx_t_2);
   if (PyDict_SetItem(__pyx_d, __pyx_n_s_applyCgQcu, __pyx_t_2) < 0) __PYX_ERR(1, 23, __pyx_L1_error)
-  __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
-
-  /* "pyquda/src/pyqcu.pyx":25
- * def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
- *     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- * def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):             # <<<<<<<<<<<<<<
- *     qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
- */
-  __pyx_t_2 = __Pyx_CyFunction_New(&__pyx_mdef_6pyquda_5pyqcu_13applyGmresIrQcu, 0, __pyx_n_s_applyGmresIrQcu, NULL, __pyx_n_s_pyquda_pyqcu, __pyx_d, ((PyObject *)__pyx_codeobj__14)); if (unlikely(!__pyx_t_2)) __PYX_ERR(1, 25, __pyx_L1_error)
-  __Pyx_GOTREF(__pyx_t_2);
-  if (PyDict_SetItem(__pyx_d, __pyx_n_s_applyGmresIrQcu, __pyx_t_2) < 0) __PYX_ERR(1, 25, __pyx_L1_error)
   __Pyx_DECREF(__pyx_t_2); __pyx_t_2 = 0;
 
   /* "pyquda/src/pyqcu.pyx":1
@@ -10088,7 +9854,7 @@ __Pyx_PyType_GetName(PyTypeObject* tp)
     if (unlikely(name == NULL) || unlikely(!PyUnicode_Check(name))) {
         PyErr_Clear();
         Py_XDECREF(name);
-        name = __Pyx_NewRef(__pyx_n_s__15);
+        name = __Pyx_NewRef(__pyx_n_s__14);
     }
     return name;
 }
