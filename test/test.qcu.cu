@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-
+using T = float;
 int main()
 {
   MPI_Init(NULL, NULL);
@@ -18,23 +18,23 @@ int main()
   grid.lattice_size[_T_] = 2;
   checkCudaErrors(cudaMalloc(
       &gauge, _LAT_DCC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                  _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex<double>)));
-  LatticeSet<double> _set;
+                  _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex<T>)));
+  LatticeSet<T> _set;
   int parity = _ODD_;
   _set.give(param.lattice_size, grid.lattice_size, parity);
   _set.init();
-  give_debug_u<double><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
+  give_debug_u<T><<<_set.gridDim, _set.blockDim, 0, _set.stream>>>(
       gauge, _set.device_params);
   checkCudaErrors(cudaStreamSynchronize(_set.stream));
   checkCudaErrors(cudaMalloc(
       &fermion_in, _LAT_SC_ * _EVEN_ODD_ * _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                       _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex<double>)));
+                       _LAT_EXAMPLE_ * _LAT_EXAMPLE_ * sizeof(LatticeComplex<T>)));
   checkCudaErrors(cudaMalloc(&fermion_out, _LAT_SC_ * _EVEN_ODD_ *
                                                _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
                                                _LAT_EXAMPLE_ * _LAT_EXAMPLE_ *
-                                               sizeof(LatticeComplex<double>)));
-  applyCgQcu(fermion_out, fermion_in, gauge,
-             &param, &grid);
+                                               sizeof(LatticeComplex<T>)));
+  applyCloverDslashQcu(fermion_out, fermion_in, gauge,
+                       &param, parity, &grid);
   cudaFree(gauge);
   cudaFree(fermion_in);
   cudaFree(fermion_out);
