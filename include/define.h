@@ -4,7 +4,6 @@
 namespace qcu
 {
 #define _BLOCK_SIZE_ 128
-// #define _BLOCK_SIZE_ 16 // for small grid test
 #define _a_ 0
 #define _b_ 1
 #define _c_ 2
