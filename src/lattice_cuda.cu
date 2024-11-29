@@ -169,6 +169,7 @@ namespace qcu
         ((static_cast<LatticeComplex<T> *>(device_fermi)) + idx);
     LatticeComplex<T> *_fermion =
         ((static_cast<LatticeComplex<T> *>(device__fermi)) + idx * _LAT_SC_);
+    printf("fermion[0]._data.x:%f,fermion[0]._data.y:%f\n", fermion[0]._data.x, fermion[0]._data.y);
     for (int i = 0; i < _LAT_SC_; i++)
     {
       _fermion[i] = fermion[i * lat_4dim];
@@ -217,7 +218,6 @@ namespace qcu
         ((static_cast<LatticeComplex<T> *>(device_gauge)) + idx * _LAT_CC_);
     LatticeComplex<T> *_gauge =
         ((static_cast<LatticeComplex<T> *>(device__gauge)) + idx);
-    printf("gauge[0]._data.x:%f,gauge[0]._data.y:%f\n", gauge[0]._data.x, gauge[0]._data.y);
     for (int p = 0; p < _EVEN_ODD_; p++)
     {
       for (int d = 0; d < _LAT_D_; d++)
