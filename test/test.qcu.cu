@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-using T = float;
+using T = double;
 int main()
 {
   MPI_Init(NULL, NULL);

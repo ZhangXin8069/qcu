@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-using T = float;
+using T = double;
 void applyDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                     QcuParam *param, int parity, QcuParam *grid)
 {

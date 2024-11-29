@@ -75,11 +75,11 @@ from ..enum_quda import (  # noqa: F401
 )
 from ..enum_quda import QUDA_MAX_DIM, QUDA_MAX_MULTI_SHIFT, QUDA_MAX_MG_LEVEL
 nullptr = Pointer("void")
-cpu_prec = QudaPrecision.QUDA_SINGLE_PRECISION
-cuda_prec = QudaPrecision.QUDA_SINGLE_PRECISION
-cuda_prec_sloppy = QudaPrecision.QUDA_SINGLE_PRECISION
-cuda_prec_precondition = QudaPrecision.QUDA_SINGLE_PRECISION
-cuda_prec_eigensolver = QudaPrecision.QUDA_SINGLE_PRECISION
+cpu_prec = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec_sloppy = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec_precondition = QudaPrecision.QUDA_DOUBLE_PRECISION
+cuda_prec_eigensolver = QudaPrecision.QUDA_DOUBLE_PRECISION
 link_recon = QudaReconstructType.QUDA_RECONSTRUCT_12
 link_recon_sloppy = QudaReconstructType.QUDA_RECONSTRUCT_12
 """
