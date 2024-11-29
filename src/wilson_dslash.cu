@@ -6,6 +6,7 @@ namespace qcu
 #define __Y__
 #define __Z__
 #define __T__
+  template <typename T>
   __global__ void wilson_dslash(void *device_U, void *device_src,
                                 void *device_dest, void *device_params)
   {
@@ -27,22 +28,22 @@ namespace qcu
     const int y = parity / lat_x;
     const int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     const int eo = (y + z + t) & 0x01; // (y+z+t)%2
-                                       //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
-    LatticeComplex *origin_src =
-        ((static_cast<LatticeComplex *>(device_src)) + idx);
-    LatticeComplex *origin_dest =
-        ((static_cast<LatticeComplex *>(device_dest)) + idx);
-    LatticeComplex *tmp_U;
-    LatticeComplex *tmp_src;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex src[_LAT_SC_];
-    LatticeComplex dest[_LAT_SC_];
+                                       //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) + idx);
+    LatticeComplex<T> *origin_src =
+        ((static_cast<LatticeComplex<T> *>(device_src)) + idx);
+    LatticeComplex<T> *origin_dest =
+        ((static_cast<LatticeComplex<T> *>(device_dest)) + idx);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> *tmp_src;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> src[_LAT_SC_];
+    LatticeComplex<T> dest[_LAT_SC_];
     // just wilson(Sum part)
 #ifdef __X__
     {   // x part
@@ -261,6 +262,7 @@ namespace qcu
 #endif
     give_dest(origin_dest, dest, lat_tzyx);
   }
+  template <typename T>
   __global__ void wilson_dslash_inside(void *device_U, void *device_src,
                                        void *device_dest, void *device_params)
   {
@@ -282,23 +284,23 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     // printf("dagger_val:%f\n", dagger_val);
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
-                                 //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *origin_U = ((static_cast<LatticeComplex *>(device_U)) + idx);
-    LatticeComplex *origin_src =
-        ((static_cast<LatticeComplex *>(device_src)) + idx);
-    LatticeComplex *origin_dest =
-        ((static_cast<LatticeComplex *>(device_dest)) + idx);
-    LatticeComplex *tmp_U;
-    LatticeComplex *tmp_src;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex src[_LAT_SC_];
-    LatticeComplex dest[_LAT_SC_];
+                                 //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) + idx);
+    LatticeComplex<T> *origin_src =
+        ((static_cast<LatticeComplex<T> *>(device_src)) + idx);
+    LatticeComplex<T> *origin_dest =
+        ((static_cast<LatticeComplex<T> *>(device_dest)) + idx);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> *tmp_src;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> src[_LAT_SC_];
+    LatticeComplex<T> dest[_LAT_SC_];
     // just wilson(Sum part)
 #ifdef __X__
     {   // x part
@@ -518,6 +520,7 @@ namespace qcu
 #endif
     give_dest(origin_dest, dest, lat_tzyx);
   }
+  template <typename T>
   __global__ void wilson_dslash_x_send(void *device_U, void *device_src,
                                        void *device_params,
                                        void *device_b_x_send_vec,
@@ -541,29 +544,29 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
-                                 //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex src[_LAT_SC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_x_send_vec[_LAT_HALF_SC_];
-    LatticeComplex f_x_send_vec[_LAT_HALF_SC_];
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_src;
-    LatticeComplex *origin_b_x_send_vec;
-    LatticeComplex *origin_f_x_send_vec;
+                                 //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> src[_LAT_SC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_x_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_x_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_src;
+    LatticeComplex<T> *origin_b_x_send_vec;
+    LatticeComplex<T> *origin_f_x_send_vec;
     {
       lat_x = params[_LAT_X_]; // give lat_size back
       x = 0;                   // b_x
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_x_send_vec =
-          ((static_cast<LatticeComplex *>(device_b_x_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_x_send_vec)) +
            (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x-1
@@ -584,12 +587,12 @@ namespace qcu
     }
     {
       x = lat_x - 1; // f_x
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_x_send_vec =
-          ((static_cast<LatticeComplex *>(device_f_x_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_x_send_vec)) +
            (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x+1
@@ -621,6 +624,7 @@ namespace qcu
     }
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_x_recv(void *device_U, void *device_dest,
                                        void *device_params,
                                        void *device_b_x_recv_vec,
@@ -644,28 +648,28 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
-                                 //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_x_recv_vec[_LAT_HALF_SC_];
-    LatticeComplex f_x_recv_vec[_LAT_HALF_SC_]; // needed
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_dest;
-    LatticeComplex *origin_b_x_recv_vec;
-    LatticeComplex *origin_f_x_recv_vec;
+                                 //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_x_recv_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_x_recv_vec[_LAT_HALF_SC_]; // needed
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_dest;
+    LatticeComplex<T> *origin_b_x_recv_vec;
+    LatticeComplex<T> *origin_f_x_recv_vec;
     {
       lat_x = params[_LAT_X_]; // give lat_size back
       x = 0;                   // b_x
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_x_recv_vec =
-          ((static_cast<LatticeComplex *>(device_b_x_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_x_recv_vec)) +
            (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x-1
@@ -687,12 +691,12 @@ namespace qcu
     }
     {
       x = lat_x - 1; // f_x
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_x_recv_vec =
-          ((static_cast<LatticeComplex *>(device_f_x_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_x_recv_vec)) +
            (((t * lat_z + z) * lat_y + y) / _EVEN_ODD_)); // fake edge
     }
     { // x+1
@@ -721,6 +725,7 @@ namespace qcu
     add_dest_x(origin_dest, dest, lat_tzyx, (move == 1 - lat_x)); // even-odd
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_y_send(void *device_U, void *device_src,
                                        void *device_params,
                                        void *device_b_y_send_vec,
@@ -744,28 +749,28 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex src[_LAT_SC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_y_send_vec[_LAT_HALF_SC_];
-    LatticeComplex f_y_send_vec[_LAT_HALF_SC_];
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_src;
-    LatticeComplex *origin_b_y_send_vec;
-    LatticeComplex *origin_f_y_send_vec;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> src[_LAT_SC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_y_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_y_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_src;
+    LatticeComplex<T> *origin_b_y_send_vec;
+    LatticeComplex<T> *origin_f_y_send_vec;
     {
       lat_y = params[_LAT_Y_]; // give lat_size back
       y = 0;                   // b_y
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_y_send_vec =
-          ((static_cast<LatticeComplex *>(device_b_y_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_y_send_vec)) +
            (((t * lat_z + z)) * lat_x + x));
     }
     { // y-1
@@ -783,12 +788,12 @@ namespace qcu
     }
     {
       y = lat_y - 1; // f_y
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_y_send_vec =
-          ((static_cast<LatticeComplex *>(device_f_y_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_y_send_vec)) +
            (((t * lat_z + z)) * lat_x + x));
     }
     { // y+1
@@ -817,6 +822,7 @@ namespace qcu
     }
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_y_recv(void *device_U, void *device_dest,
                                        void *device_params,
                                        void *device_b_y_recv_vec,
@@ -840,27 +846,27 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_y_recv_vec[_LAT_HALF_SC_];
-    LatticeComplex f_y_recv_vec[_LAT_HALF_SC_]; // needed
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_dest;
-    LatticeComplex *origin_b_y_recv_vec;
-    LatticeComplex *origin_f_y_recv_vec;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_y_recv_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_y_recv_vec[_LAT_HALF_SC_]; // needed
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_dest;
+    LatticeComplex<T> *origin_b_y_recv_vec;
+    LatticeComplex<T> *origin_f_y_recv_vec;
     {
       lat_y = params[_LAT_Y_]; // give lat_size back
       y = 0;                   // b_y
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_y_recv_vec =
-          ((static_cast<LatticeComplex *>(device_b_y_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_y_recv_vec)) +
            (((t * lat_z + z)) * lat_x + x));
     }
     { // y-1
@@ -883,12 +889,12 @@ namespace qcu
     }
     {
       y = lat_y - 1; // f_y
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_y_recv_vec =
-          ((static_cast<LatticeComplex *>(device_f_y_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_y_recv_vec)) +
            (((t * lat_z + z)) * lat_x + x));
     }
     { // y+1
@@ -917,6 +923,7 @@ namespace qcu
     add_dest(origin_dest, dest, lat_tzyx);
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_z_send(void *device_U, void *device_src,
                                        void *device_params,
                                        void *device_b_z_send_vec,
@@ -940,28 +947,28 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex src[_LAT_SC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_z_send_vec[_LAT_HALF_SC_];
-    LatticeComplex f_z_send_vec[_LAT_HALF_SC_];
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_src;
-    LatticeComplex *origin_b_z_send_vec;
-    LatticeComplex *origin_f_z_send_vec;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> src[_LAT_SC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_z_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_z_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_src;
+    LatticeComplex<T> *origin_b_z_send_vec;
+    LatticeComplex<T> *origin_f_z_send_vec;
     {
       lat_z = params[_LAT_Z_]; // give lat_size back
       z = 0;                   // b_z
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_z_send_vec =
-          ((static_cast<LatticeComplex *>(device_b_z_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_z_send_vec)) +
            (((t)*lat_y + y) * lat_x + x));
     }
     { // z-1
@@ -980,12 +987,12 @@ namespace qcu
     }
     {
       z = lat_z - 1; // f_z
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_z_send_vec =
-          ((static_cast<LatticeComplex *>(device_f_z_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_z_send_vec)) +
            (((t)*lat_y + y) * lat_x + x));
     }
     { // z+1
@@ -1015,6 +1022,7 @@ namespace qcu
     }
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_z_recv(void *device_U, void *device_dest,
                                        void *device_params,
                                        void *device_b_z_recv_vec,
@@ -1038,27 +1046,27 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_z_recv_vec[_LAT_HALF_SC_];
-    LatticeComplex f_z_recv_vec[_LAT_HALF_SC_]; // needed
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_dest;
-    LatticeComplex *origin_b_z_recv_vec;
-    LatticeComplex *origin_f_z_recv_vec;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_z_recv_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_z_recv_vec[_LAT_HALF_SC_]; // needed
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_dest;
+    LatticeComplex<T> *origin_b_z_recv_vec;
+    LatticeComplex<T> *origin_f_z_recv_vec;
     {
       lat_z = params[_LAT_Z_]; // give lat_size back
       z = 0;                   // b_z
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_z_recv_vec =
-          ((static_cast<LatticeComplex *>(device_b_z_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_z_recv_vec)) +
            (((t)*lat_y + y) * lat_x + x));
     }
     { // z-1
@@ -1081,12 +1089,12 @@ namespace qcu
     }
     {
       z = lat_z - 1; // f_z
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_z_recv_vec =
-          ((static_cast<LatticeComplex *>(device_f_z_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_z_recv_vec)) +
            (((t)*lat_y + y) * lat_x + x));
     }
     { // z+1
@@ -1115,6 +1123,7 @@ namespace qcu
     add_dest(origin_dest, dest, lat_tzyx);
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_t_send(void *device_U, void *device_src,
                                        void *device_params,
                                        void *device_b_t_send_vec,
@@ -1139,28 +1148,28 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex src[_LAT_SC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_t_send_vec[_LAT_HALF_SC_];
-    LatticeComplex f_t_send_vec[_LAT_HALF_SC_];
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_src;
-    LatticeComplex *origin_b_t_send_vec;
-    LatticeComplex *origin_f_t_send_vec;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> src[_LAT_SC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_t_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_t_send_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_src;
+    LatticeComplex<T> *origin_b_t_send_vec;
+    LatticeComplex<T> *origin_f_t_send_vec;
     {
       lat_t = params[_LAT_T_]; // give lat_size back
       t = 0;                   // b_t
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_t_send_vec =
-          ((static_cast<LatticeComplex *>(device_b_t_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_t_send_vec)) +
            (((z)*lat_y + y) * lat_x + x));
     }
     { // t-1
@@ -1178,12 +1187,12 @@ namespace qcu
     }
     {
       t = lat_t - 1; // f_t
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_src = ((static_cast<LatticeComplex *>(device_src)) +
+      origin_src = ((static_cast<LatticeComplex<T> *>(device_src)) +
                     (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_t_send_vec =
-          ((static_cast<LatticeComplex *>(device_f_t_send_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_t_send_vec)) +
            (((z)*lat_y + y) * lat_x + x));
     }
     { // t+1
@@ -1212,6 +1221,7 @@ namespace qcu
     }
 #endif
   }
+  template <typename T>
   __global__ void wilson_dslash_t_recv(void *device_U, void *device_dest,
                                        void *device_params,
                                        void *device_b_t_recv_vec,
@@ -1236,27 +1246,27 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
-    //  LatticeComplex I(0.0, 1.0);
-    LatticeComplex zero(0.0, 0.0);
-    LatticeComplex *tmp_U;
-    LatticeComplex tmp0(0.0, 0.0);
-    LatticeComplex tmp1(0.0, 0.0);
-    LatticeComplex U[_LAT_CC_];
-    LatticeComplex dest[_LAT_SC_];
-    LatticeComplex b_t_recv_vec[_LAT_HALF_SC_];
-    LatticeComplex f_t_recv_vec[_LAT_HALF_SC_]; // needed
-    LatticeComplex *origin_U;
-    LatticeComplex *origin_dest;
-    LatticeComplex *origin_b_t_recv_vec;
-    LatticeComplex *origin_f_t_recv_vec;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    //  LatticeComplex<T> I(0.0, 1.0);
+    LatticeComplex<T> zero(0.0, 0.0);
+    LatticeComplex<T> *tmp_U;
+    LatticeComplex<T> tmp0(0.0, 0.0);
+    LatticeComplex<T> tmp1(0.0, 0.0);
+    LatticeComplex<T> U[_LAT_CC_];
+    LatticeComplex<T> dest[_LAT_SC_];
+    LatticeComplex<T> b_t_recv_vec[_LAT_HALF_SC_];
+    LatticeComplex<T> f_t_recv_vec[_LAT_HALF_SC_]; // needed
+    LatticeComplex<T> *origin_U;
+    LatticeComplex<T> *origin_dest;
+    LatticeComplex<T> *origin_b_t_recv_vec;
+    LatticeComplex<T> *origin_f_t_recv_vec;
     {
       lat_t = params[_LAT_T_]; // give lat_size back
       t = 0;                   // b_t
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_b_t_recv_vec =
-          ((static_cast<LatticeComplex *>(device_b_t_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_b_t_recv_vec)) +
            (((z)*lat_y + y) * lat_x + x));
     }
     { // t-1
@@ -1279,12 +1289,12 @@ namespace qcu
     }
     {
       t = lat_t - 1; // f_t
-      origin_U = ((static_cast<LatticeComplex *>(device_U)) +
+      origin_U = ((static_cast<LatticeComplex<T> *>(device_U)) +
                   (((t * lat_z + z) * lat_y + y) * lat_x + x));
-      origin_dest = ((static_cast<LatticeComplex *>(device_dest)) +
+      origin_dest = ((static_cast<LatticeComplex<T> *>(device_dest)) +
                      (((t * lat_z + z) * lat_y + y) * lat_x + x));
       origin_f_t_recv_vec =
-          ((static_cast<LatticeComplex *>(device_f_t_recv_vec)) +
+          ((static_cast<LatticeComplex<T> *>(device_f_t_recv_vec)) +
            (((z)*lat_y + y) * lat_x + x));
     }
     { // t+1
@@ -1313,4 +1323,78 @@ namespace qcu
     add_dest(origin_dest, dest, lat_tzyx);
 #endif
   }
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
+  template __global__ void wilson_dslash<double>(void *device_U, void *device_src,
+                                                 void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_inside<double>(void *device_U, void *device_src,
+                                                        void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_x_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_x_send_vec,
+                                                        void *device_f_x_send_vec);
+  template __global__ void wilson_dslash_x_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_x_recv_vec,
+                                                        void *device_f_x_recv_vec);
+  template __global__ void wilson_dslash_y_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_y_send_vec,
+                                                        void *device_f_y_send_vec);
+  template __global__ void wilson_dslash_y_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_y_recv_vec,
+                                                        void *device_f_y_recv_vec);
+  template __global__ void wilson_dslash_z_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_z_send_vec,
+                                                        void *device_f_z_send_vec);
+  template __global__ void wilson_dslash_z_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_z_recv_vec,
+                                                        void *device_f_z_recv_vec);
+  template __global__ void wilson_dslash_t_send<double>(void *device_U, void *device_src,
+                                                        void *device_params,
+                                                        void *device_b_t_send_vec,
+                                                        void *device_f_t_send_vec);
+  template __global__ void wilson_dslash_t_recv<double>(void *device_U, void *device_dest,
+                                                        void *device_params,
+                                                        void *device_b_t_recv_vec,
+                                                        void *device_f_t_recv_vec);
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
+  template __global__ void wilson_dslash<float>(void *device_U, void *device_src,
+                                                void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_inside<float>(void *device_U, void *device_src,
+                                                       void *device_dest, void *device_params);
+  template __global__ void wilson_dslash_x_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_x_send_vec,
+                                                       void *device_f_x_send_vec);
+  template __global__ void wilson_dslash_x_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_x_recv_vec,
+                                                       void *device_f_x_recv_vec);
+  template __global__ void wilson_dslash_y_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_y_send_vec,
+                                                       void *device_f_y_send_vec);
+  template __global__ void wilson_dslash_y_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_y_recv_vec,
+                                                       void *device_f_y_recv_vec);
+  template __global__ void wilson_dslash_z_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_z_send_vec,
+                                                       void *device_f_z_send_vec);
+  template __global__ void wilson_dslash_z_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_z_recv_vec,
+                                                       void *device_f_z_recv_vec);
+  template __global__ void wilson_dslash_t_send<float>(void *device_U, void *device_src,
+                                                       void *device_params,
+                                                       void *device_b_t_send_vec,
+                                                       void *device_f_t_send_vec);
+  template __global__ void wilson_dslash_t_recv<float>(void *device_U, void *device_dest,
+                                                       void *device_params,
+                                                       void *device_b_t_recv_vec,
+                                                       void *device_f_t_recv_vec);
 }

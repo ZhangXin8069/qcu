@@ -5,8 +5,10 @@
 #include "./include.h"
 #include "./lattice_cg.h"
 #include "./lattice_bistabcg.h"
+#include "./lattice_gmres_ir.h"
 #include "./lattice_clover_dslash.h"
 #include "./lattice_complex.h"
+#include "./lattice_mpi.h"
 #include "./lattice_cuda.h"
 #include "./lattice_set.h"
 #include "./lattice_wilson_dslash.h"
@@ -30,6 +32,8 @@ extern "C"
                         QcuParam *param, QcuParam *grid);
   void applyCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                   QcuParam *param, QcuParam *grid);
+  void applyGmresIrQcu(void *fermion_out, void *fermion_in, void *gauge,
+                       QcuParam *param, QcuParam *grid);
 #ifdef __cplusplus
 }
 #endif

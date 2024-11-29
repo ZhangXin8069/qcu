@@ -22,3 +22,5 @@ def applyBistabCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, Qcu
     qcu.applyBistabCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
 def applyCgQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
     qcu.applyCgQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
+def applyGmresIrQcu(Pointer fermion_out, Pointer fermion_in, Pointer gauge, QcuParam param, QcuParam grid):
+    qcu.applyGmresIrQcu(fermion_out.ptr, fermion_in.ptr, gauge.ptr, &param.param, &grid.param)
