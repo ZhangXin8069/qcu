@@ -1,7 +1,6 @@
 #ifndef _LATTICE_MPI_H
 #define _LATTICE_MPI_H
 #include "./include.h"
-#include "./lattice_set.h"
 namespace qcu
 {
     template <typename T>

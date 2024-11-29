@@ -1,6 +1,7 @@
 #ifndef _LATTICE_BISTABCG_H
 #define _LATTICE_BISTABCG_H
 #include "./bistabcg.h"
+#include "./lattice_mpi.h"
 #include "./lattice_cuda.h"
 #include "./lattice_wilson_dslash.h"
 namespace qcu
@@ -169,7 +170,7 @@ namespace qcu
           set_ptr->streams[stream_index]));
       MPI_Barrier(MPI_COMM_WORLD);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
-      _MPI_Allreduce(((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex<T> *>(host_vals)) + vals_index), 2, MPI_SUM, MPI_COMM_WORLD);
+      _MPI_Allreduce<T>(((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex<T> *>(host_vals)) + vals_index), 2, MPI_SUM, MPI_COMM_WORLD);
       MPI_Barrier(MPI_COMM_WORLD);
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index),

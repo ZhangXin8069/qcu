@@ -1,8 +1,8 @@
 #ifndef _LATTICE_WILSON_DSLASH_H
 #define _LATTICE_WILSON_DSLASH_H
 #include "./lattice_set.h"
-#include "define.h"
-#include "wilson_dslash.h"
+#include "./lattice_mpi.h"
+#include "./wilson_dslash.h"
 namespace qcu
 {
   template <typename T>
@@ -105,16 +105,16 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Isend(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+          _MPI_Isend<T>(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                      set_ptr->move_wards[_B_X_], _B_X_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_B_X_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                      set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_B_X_]);
-          _MPI_Isend(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+          _MPI_Isend<T>(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                      set_ptr->move_wards[_F_X_], _F_X_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_F_X_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                      set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_F_X_]);
         }
@@ -134,16 +134,16 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Isend(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
+          _MPI_Isend<T>(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
                      set_ptr->move_wards[_B_Y_], _B_Y_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_B_Y_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
                      set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_B_Y_]);
-          _MPI_Isend(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
+          _MPI_Isend<T>(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
                      set_ptr->move_wards[_F_Y_], _F_Y_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_F_Y_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
                      set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_F_Y_]);
         }
@@ -163,16 +163,16 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Isend(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
+          _MPI_Isend<T>(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
                      set_ptr->move_wards[_B_Z_], _B_Z_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_B_Z_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
                      set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_B_Z_]);
-          _MPI_Isend(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
+          _MPI_Isend<T>(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
                      set_ptr->move_wards[_F_Z_], _F_Z_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_F_Z_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
                      set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_F_Z_]);
         }
@@ -192,16 +192,16 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Isend(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
+          _MPI_Isend<T>(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
                      set_ptr->move_wards[_B_T_], _B_T_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_B_T_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
                      set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_B_T_]);
-          _MPI_Isend(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
+          _MPI_Isend<T>(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
                      set_ptr->move_wards[_F_T_], _F_T_, MPI_COMM_WORLD,
                      &set_ptr->send_request[_F_T_]);
-          _MPI_Irecv(set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
+          _MPI_Irecv<T>(set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
                      set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
                      &set_ptr->recv_request[_F_T_]);
         }
@@ -390,11 +390,11 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Sendrecv(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                         set_ptr->move_wards[_B_X_], _B_X_, set_ptr->host_recv_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                         set_ptr->move_wards[_F_X_], _B_X_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
-          _MPI_Sendrecv(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_F_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                         set_ptr->move_wards[_F_X_], _F_X_, set_ptr->host_recv_vec[_B_X_], set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_,
                         set_ptr->move_wards[_B_X_], _F_X_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
@@ -415,11 +415,11 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Sendrecv(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
                         set_ptr->move_wards[_B_Y_], _B_Y_, set_ptr->host_recv_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
                         set_ptr->move_wards[_F_Y_], _B_Y_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
-          _MPI_Sendrecv(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_F_Y_], set_ptr->lat_3dim_SC[_Y_],
                         set_ptr->move_wards[_F_Y_], _F_Y_, set_ptr->host_recv_vec[_B_Y_], set_ptr->lat_3dim_SC[_Y_],
                         set_ptr->move_wards[_B_Y_], _F_Y_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
@@ -440,11 +440,11 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Sendrecv(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
                         set_ptr->move_wards[_B_Z_], _B_Z_, set_ptr->host_recv_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
                         set_ptr->move_wards[_F_Z_], _B_Z_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
-          _MPI_Sendrecv(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_F_Z_], set_ptr->lat_3dim_SC[_Z_],
                         set_ptr->move_wards[_F_Z_], _F_Z_, set_ptr->host_recv_vec[_B_Z_], set_ptr->lat_3dim_SC[_Z_],
                         set_ptr->move_wards[_B_Z_], _F_Z_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
@@ -465,11 +465,11 @@ namespace qcu
         else
         {
           // comm
-          _MPI_Sendrecv(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
                         set_ptr->move_wards[_B_T_], _B_T_, set_ptr->host_recv_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
                         set_ptr->move_wards[_F_T_], _B_T_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
-          _MPI_Sendrecv(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
+          _MPI_Sendrecv<T>(set_ptr->host_send_vec[_F_T_], set_ptr->lat_3dim_SC[_T_],
                         set_ptr->move_wards[_F_T_], _F_T_, set_ptr->host_recv_vec[_B_T_], set_ptr->lat_3dim_SC[_T_],
                         set_ptr->move_wards[_B_T_], _F_T_, MPI_COMM_WORLD,
                         MPI_STATUS_IGNORE);
