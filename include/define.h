@@ -144,7 +144,6 @@ namespace qcu
 #define _MASS_ 0.0
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
-#define _MPI_ // _NCCL_ will be undefine
 // CUDA API error checking
 #define CUDA_CHECK(err)                                                  \
   do                                                                     \
@@ -228,20 +227,6 @@ namespace qcu
         exit(EXIT_FAILURE);                               \
       }                                                   \
     }                                                     \
-  }
-#define checkNcclErrors(err)                                       \
-  {                                                                \
-    if (_CHECK_ERROR_)                                             \
-    {                                                              \
-      if (err != ncclSuccess)                                      \
-      {                                                            \
-        fprintf(stderr,                                            \
-                "Failed: NCCL error %04d \"%s\" from file <%s>, "  \
-                "line %i.\n",                                      \
-                err, ncclGetErrorString(err), __FILE__, __LINE__); \
-        exit(EXIT_FAILURE);                                        \
-      }                                                            \
-    }                                                              \
   }
 // little strange, but don't want change
 #define give_vals(U, zero, n)   \
@@ -483,6 +468,4 @@ namespace qcu
     }                                                             \
   }
 }
-#define _mpi_type MPI_DOUBLE
-#define _nccl_type ncclDouble
 #endif

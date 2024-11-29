@@ -5,7 +5,7 @@
 #include "./lattice_wilson_dslash.h"
 namespace qcu
 {
-  // #define PRINT_NCCL_WILSON_BISTABCG
+  // #define PRINT_MULTI_GPU_WILSON_BISTABCG
   template <typename T>
   struct LatticeBistabCg
   {
@@ -159,8 +159,8 @@ namespace qcu
       // dest(val) = _dot(A,B)
       CUBLAS_CHECK(_cublasDot<T>(
           set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-           1, vec1,
-           1,
+          1, vec1,
+          1,
           ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_),
@@ -169,7 +169,7 @@ namespace qcu
           set_ptr->streams[stream_index]));
       MPI_Barrier(MPI_COMM_WORLD);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
-      MPI_Allreduce(((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex<T> *>(host_vals)) + vals_index), 2, _mpi_type, MPI_SUM, MPI_COMM_WORLD);
+      _MPI_Allreduce(((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex<T> *>(host_vals)) + vals_index), 2, MPI_SUM, MPI_COMM_WORLD);
       MPI_Barrier(MPI_COMM_WORLD);
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index),
@@ -177,31 +177,10 @@ namespace qcu
           sizeof(LatticeComplex<T>), cudaMemcpyHostToDevice,
           set_ptr->streams[stream_index]));
     }
-#ifndef _MPI_
-    void _dot_nccl(void *vec0, void *vec1, const int vals_index,
-                   const int stream_index)
-    {
-      // dest(val) = _dot(A,B)
-      CUBLAS_CHECK(_cublasDot<T>(
-          set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-           1, vec1,
-           1,
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
-      checkNcclErrors(ncclAllReduce(
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index), 2,
-          _nccl_type, ncclSum, set_ptr->nccl_comm,
-          set_ptr->streams[stream_index]));
-    }
-#endif
     void _dot(void *vec0, void *vec1, const int vals_index,
               const int stream_index)
     {
-#ifdef _MPI_
       _dot_mpi(vec0, vec1, vals_index, stream_index);
-#else
-      _dot_nccl(vec0, vec1, vals_index, stream_index);
-#endif
     }
     void _diff(void *x, void *ans)
     { // there is a bug
@@ -330,7 +309,7 @@ namespace qcu
                                  set_ptr->streams[_b_]>>>(x_o, p, s, device_vals);
         }
         {
-#ifdef PRINT_NCCL_WILSON_BISTABCG
+#ifdef PRINT_MULTI_GPU_WILSON_BISTABCG
           std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                     << "##Residual:" << host_vals[_norm2_tmp_]._data.x
                     << std::endl;
@@ -360,9 +339,9 @@ namespace qcu
           // dest(B) = B + alpha*A
           CUBLAS_CHECK(
               _cublasAxpy<T>(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
-                           device_vec1,
-                           1, device_vec0,
-                           1));
+                             device_vec1,
+                             1, device_vec0,
+                             1));
           CUBLAS_CHECK(_cublasCopy<T>(set_ptr->cublasH,
                                       set_ptr->lat_4dim_SC * _REAL_IMAG_,
                                       (T *)device_vec0, 1, (T *)x_e, 1));
@@ -385,7 +364,7 @@ namespace qcu
       set_ptr->err = cudaGetLastError();
       checkCudaErrors(set_ptr->err);
       printf(
-          "nccl wilson bistabcg total time: (without malloc free memcpy) :%.9lf "
+          "multi-gpu wilson bistabcg total time: (without malloc free memcpy) :%.9lf "
           "sec\n",
           T(duration) / 1e9);
       if (if_input == 0)

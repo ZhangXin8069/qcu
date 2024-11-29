@@ -20,8 +20,6 @@ namespace qcu
         dim3 gridDim_2dim[_2DIM_];
         dim3 gridDim;
         dim3 blockDim;
-        ncclUniqueId nccl_id;
-        ncclComm_t nccl_comm;
         cublasHandle_t cublasH;
         cudaStream_t stream;
         cublasHandle_t cublasHs[_DIM_];
@@ -341,19 +339,6 @@ namespace qcu
                     move_wards[_FX_FY_] = move_wards[_F_Y_] + tmp * grid_3dim[_YZT_];
                 }
             }
-#ifndef _MPI_
-            {
-                // nccl set
-                if (host_params[_NODE_RANK_] == 0)
-                {
-                    checkNcclErrors(ncclGetUniqueId(&nccl_id));
-                }
-                checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
-                                         MPI_COMM_WORLD));
-                checkNcclErrors(ncclCommInitRank(&nccl_comm, host_params[_NODE_SIZE_],
-                                                 nccl_id, host_params[_NODE_RANK_]));
-            }
-#endif
             { // set stream and malloc vec
                 CUBLAS_CHECK(cublasCreate(&cublasH));
                 checkCudaErrors(
@@ -602,9 +587,6 @@ namespace qcu
             CUBLAS_CHECK(cublasDestroy(cublasH));
             checkCudaErrors(cudaStreamSynchronize(stream));
             checkCudaErrors(cudaStreamDestroy(stream));
-#ifndef _MPI_
-            checkNcclErrors(ncclCommDestroy(nccl_comm));
-#endif
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
         void _print()

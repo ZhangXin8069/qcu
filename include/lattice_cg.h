@@ -7,7 +7,7 @@
 namespace qcu
 {
   // clang-format on
-  // #define PRINT_NCCL_WILSON_CG
+  // #define PRINT_MULTI_GPU_WILSON_CG
   template <typename T>
   struct LatticeCg
   {
@@ -106,8 +106,8 @@ namespace qcu
         //// b__o -> Dslash^dag b__o
         CUBLAS_CHECK(
             _cublasCopy<T>(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * _REAL_IMAG_,
-                        (T *)b__o, 1, (T *)device_vec2, 1));
+                           set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                           (T *)b__o, 1, (T *)device_vec2, 1));
         _wilson_dslash_dag(b__o, device_vec2, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         give_random_vals<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
@@ -169,8 +169,8 @@ namespace qcu
       // dest(val) = _dot(A,B)
       CUBLAS_CHECK(_cublasDot<T>(
           set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-           1, vec1,
-           1,
+          1, vec1,
+          1,
           ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_),
@@ -179,7 +179,7 @@ namespace qcu
           set_ptr->streams[stream_index]));
       MPI_Barrier(MPI_COMM_WORLD);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[stream_index]));
-      MPI_Allreduce(((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex<T> *>(host_vals)) + vals_index), 2, _mpi_type, MPI_SUM, MPI_COMM_WORLD);
+      _MPI_Allreduce(((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_), ((static_cast<LatticeComplex<T> *>(host_vals)) + vals_index), 2, MPI_SUM, MPI_COMM_WORLD);
       MPI_Barrier(MPI_COMM_WORLD);
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index),
@@ -187,31 +187,10 @@ namespace qcu
           sizeof(LatticeComplex<T>), cudaMemcpyHostToDevice,
           set_ptr->streams[stream_index]));
     }
-#ifndef _MPI_
-    void _dot_nccl(void *vec0, void *vec1, const int vals_index,
-                   const int stream_index)
-    {
-      // dest(val) = _dot(A,B)
-      CUBLAS_CHECK(_cublasDot<T>(
-          set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-           1, vec1,
-           1,
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
-      checkNcclErrors(ncclAllReduce(
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index), 2,
-          _nccl_type, ncclSum, set_ptr->nccl_comm,
-          set_ptr->streams[stream_index]));
-    }
-#endif
     void _dot(void *vec0, void *vec1, const int vals_index,
               const int stream_index)
     {
-#ifdef _MPI_
       _dot_mpi(vec0, vec1, vals_index, stream_index);
-#else
-      _dot_nccl(vec0, vec1, vals_index, stream_index);
-#endif
     }
     void _diff(void *x, void *ans)
     { // there is a bug
@@ -276,8 +255,8 @@ namespace qcu
       // p[i] = r[i]
       CUBLAS_CHECK(
           _cublasCopy<T>(set_ptr->cublasH,
-                      set_ptr->lat_4dim_SC * _REAL_IMAG_,
-                      (T *)r, 1, (T *)p, 1));
+                         set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                         (T *)r, 1, (T *)p, 1));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       {
         // rho = <r, r>;
@@ -340,7 +319,7 @@ namespace qcu
         }
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
         {
-#ifdef PRINT_NCCL_WILSON_CG
+#ifdef PRINT_MULTI_GPU_WILSON_CG
           print_vals(loop);
           std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_]
                     << "##LOOP:" << loop
@@ -366,22 +345,22 @@ namespace qcu
         // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
         CUBLAS_CHECK(
             _cublasCopy<T>(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * _REAL_IMAG_,
-                        (T *)b_e, 1, (T *)device_vec0, 1));
+                           set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                           (T *)b_e, 1, (T *)device_vec0, 1));
         wilson_dslash.run_eo(device_vec1, x_o, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         LatticeComplex<T> _(set_ptr->kappa(), 0.0);
         // dest(B) = B + alpha*A
         CUBLAS_CHECK(_cublasAxpy<T>(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
-                                   device_vec1,
-                                   1,
-                                  device_vec0,
-                                  1));
+                                    device_vec1,
+                                    1,
+                                    device_vec0,
+                                    1));
         CUBLAS_CHECK(
             _cublasCopy<T>(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * _REAL_IMAG_,
-                        (T *)device_vec0, 1, (T *)x_e, 1));
+                           set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                           (T *)device_vec0, 1, (T *)x_e, 1));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       }
@@ -396,7 +375,7 @@ namespace qcu
               .count();
       set_ptr->err = cudaGetLastError();
       checkCudaErrors(set_ptr->err);
-      printf("nccl wilson Cg total time: (without malloc free memcpy) "
+      printf("multi-gpu wilson Cg total time: (without malloc free memcpy) "
              ":%.9lf "
              "sec\n",
              T(duration) / 1e9);
