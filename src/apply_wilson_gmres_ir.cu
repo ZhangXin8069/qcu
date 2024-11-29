@@ -3,7 +3,7 @@
 using namespace qcu;
 using T = double;
 void applyGmresIrQcu(void *fermion_out, void *fermion_in, void *gauge,
-                      QcuParam *param, QcuParam *grid)
+                     QcuParam *param, QcuParam *grid)
 {
   // define for apply_wilson_gmres_ir
   LatticeSet<T> _set;
