@@ -1397,41 +1397,4 @@ namespace qcu
                                                        void *device_params,
                                                        void *device_b_t_recv_vec,
                                                        void *device_f_t_recv_vec);
-  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
-  template __global__ void wilson_dslash<half>(void *device_U, void *device_src,
-                                               void *device_dest, void *device_params);
-  template __global__ void wilson_dslash_inside<half>(void *device_U, void *device_src,
-                                                      void *device_dest, void *device_params);
-  template __global__ void wilson_dslash_x_send<half>(void *device_U, void *device_src,
-                                                      void *device_params,
-                                                      void *device_b_x_send_vec,
-                                                      void *device_f_x_send_vec);
-  template __global__ void wilson_dslash_x_recv<half>(void *device_U, void *device_dest,
-                                                      void *device_params,
-                                                      void *device_b_x_recv_vec,
-                                                      void *device_f_x_recv_vec);
-  template __global__ void wilson_dslash_y_send<half>(void *device_U, void *device_src,
-                                                      void *device_params,
-                                                      void *device_b_y_send_vec,
-                                                      void *device_f_y_send_vec);
-  template __global__ void wilson_dslash_y_recv<half>(void *device_U, void *device_dest,
-                                                      void *device_params,
-                                                      void *device_b_y_recv_vec,
-                                                      void *device_f_y_recv_vec);
-  template __global__ void wilson_dslash_z_send<half>(void *device_U, void *device_src,
-                                                      void *device_params,
-                                                      void *device_b_z_send_vec,
-                                                      void *device_f_z_send_vec);
-  template __global__ void wilson_dslash_z_recv<half>(void *device_U, void *device_dest,
-                                                      void *device_params,
-                                                      void *device_b_z_recv_vec,
-                                                      void *device_f_z_recv_vec);
-  template __global__ void wilson_dslash_t_send<half>(void *device_U, void *device_src,
-                                                      void *device_params,
-                                                      void *device_b_t_send_vec,
-                                                      void *device_f_t_send_vec);
-  template __global__ void wilson_dslash_t_recv<half>(void *device_U, void *device_dest,
-                                                      void *device_params,
-                                                      void *device_b_t_recv_vec,
-                                                      void *device_f_t_recv_vec);
 }

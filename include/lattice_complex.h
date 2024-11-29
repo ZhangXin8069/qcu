@@ -10,9 +10,7 @@ namespace qcu
         std::is_same<T, double>::value, double2,
         typename std::conditional<
             std::is_same<T, float>::value, float2,
-            typename std::conditional<
-                std::is_same<T, half>::value, half2,
-                void>::type>::type>::type;
+            void>::type>::type;
     _data_type _data;
     __host__ __device__ __inline__ LatticeComplex(const T &_real = 0.0,
                                                   const T &_imag = 0.0)

@@ -647,47 +647,4 @@ namespace qcu
                                                void *device_u_f_z_b_t_send_vec,
                                                void *device_u_b_z_f_t_send_vec,
                                                void *device_u_f_z_f_t_send_vec);
-  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
-  template __global__ void pick_up_u_x<half>(void *device_U, void *device_params,
-                                             void *device_u_b_x_send_vec,
-                                             void *device_u_f_x_send_vec);
-  template __global__ void pick_up_u_y<half>(void *device_U, void *device_params,
-                                             void *device_u_b_y_send_vec,
-                                             void *device_u_f_y_send_vec);
-  template __global__ void pick_up_u_z<half>(void *device_U, void *device_params,
-                                             void *device_u_b_z_send_vec,
-                                             void *device_u_f_z_send_vec);
-  template __global__ void pick_up_u_t<half>(void *device_U, void *device_params,
-                                             void *device_u_b_t_send_vec,
-                                             void *device_u_f_t_send_vec);
-  template __global__ void pick_up_u_xy<half>(void *device_U, void *device_params,
-                                              void *device_u_b_x_b_y_send_vec,
-                                              void *device_u_f_x_b_y_send_vec,
-                                              void *device_u_b_x_f_y_send_vec,
-                                              void *device_u_f_x_f_y_send_vec);
-  template __global__ void pick_up_u_xz<half>(void *device_U, void *device_params,
-                                              void *device_u_b_x_b_z_send_vec,
-                                              void *device_u_f_x_b_z_send_vec,
-                                              void *device_u_b_x_f_z_send_vec,
-                                              void *device_u_f_x_f_z_send_vec);
-  template __global__ void pick_up_u_xt<half>(void *device_U, void *device_params,
-                                              void *device_u_b_x_b_t_send_vec,
-                                              void *device_u_f_x_b_t_send_vec,
-                                              void *device_u_b_x_f_t_send_vec,
-                                              void *device_u_f_x_f_t_send_vec);
-  template __global__ void pick_up_u_yz<half>(void *device_U, void *device_params,
-                                              void *device_u_b_y_b_z_send_vec,
-                                              void *device_u_f_y_b_z_send_vec,
-                                              void *device_u_b_y_f_z_send_vec,
-                                              void *device_u_f_y_f_z_send_vec);
-  template __global__ void pick_up_u_yt<half>(void *device_U, void *device_params,
-                                              void *device_u_b_y_b_t_send_vec,
-                                              void *device_u_f_y_b_t_send_vec,
-                                              void *device_u_b_y_f_t_send_vec,
-                                              void *device_u_f_y_f_t_send_vec);
-  template __global__ void pick_up_u_zt<half>(void *device_U, void *device_params,
-                                              void *device_u_b_z_b_t_send_vec,
-                                              void *device_u_f_z_b_t_send_vec,
-                                              void *device_u_b_z_f_t_send_vec,
-                                              void *device_u_f_z_f_t_send_vec);
 }

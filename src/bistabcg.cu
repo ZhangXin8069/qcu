@@ -254,34 +254,4 @@ namespace qcu
                                                   void *device_vals);
   template __global__ void bistabcg_give_diff<float>(void *device_x, void *device_ans,
                                                      void *device_vec, void *device_vals);
-  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
-  template __global__ void bistabcg_give_1beta<half>(void *device_vals);
-  template __global__ void bistabcg_give_1rho_prev<half>(void *device_vals);
-  template __global__ void bistabcg_give_1alpha<half>(void *device_vals);
-  template __global__ void bistabcg_give_1omega<half>(void *device_vals);
-  template __global__ void bistabcg_give_1diff<half>(void *device_vals);
-  template __global__ void bistabcg_give_b_e<half>(void *device_b_e, void *device_ans_e,
-                                                   void *device_vec0, half kappa,
-                                                   void *device_vals);
-  template __global__ void bistabcg_give_b_o<half>(void *device_b_o, void *device_ans_o,
-                                                   void *device_vec1, half kappa,
-                                                   void *device_vals);
-  template __global__ void bistabcg_give_b__o<half>(void *device_b__o, void *device_b_o,
-                                                    void *device_vec0, half kappa,
-                                                    void *device_vals);
-  template __global__ void bistabcg_give_dest_o<half>(void *device_dest_o, void *device_src_o,
-                                                      void *device_vec1, half kappa,
-                                                      void *device_vals);
-  template __global__ void bistabcg_give_rr<half>(void *device_r, void *device_b__o,
-                                                  void *device_r_tilde, void *device_vals);
-  template __global__ void bistabcg_give_p<half>(void *device_p, void *device_r, void *device_v,
-                                                 void *device_vals);
-  template __global__ void bistabcg_give_s<half>(void *device_s, void *device_r, void *device_v,
-                                                 void *device_vals);
-  template __global__ void bistabcg_give_x_o<half>(void *device_x_o, void *device_p,
-                                                   void *device_s, void *device_vals);
-  template __global__ void bistabcg_give_r<half>(void *device_r, void *device_s, void *device_tt,
-                                                 void *device_vals);
-  template __global__ void bistabcg_give_diff<half>(void *device_x, void *device_ans,
-                                                    void *device_vec, void *device_vals);
 }

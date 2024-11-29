@@ -5,6 +5,24 @@
 namespace qcu
 {
   template <typename T>
+  cublasStatus_t _cublasCopy(cublasHandle_t handle, int n, const T *x, int incx, T *y, int incy);
+  template <typename T>
+  cublasStatus_t _cublasAxpy(cublasHandle_t handle,
+                             int n,
+                             const void *alpha,
+                             const void *x,
+                             int incx,
+                             void *y,
+                             int incy);
+  template <typename T>
+  cublasStatus_t _cublasDot(cublasHandle_t handle,
+                            int n,
+                            const void *x,
+                            int incx,
+                            const void *y,
+                            int incy,
+                            void *result);
+  template <typename T>
   __global__ void give_random_vals(void *device_random_vals, unsigned long seed);
   template <typename T>
   __global__ void give_custom_vals(void *device_custom_vals, T real,

@@ -105,8 +105,8 @@ namespace qcu
             b__o, b_o, device_vec0, set_ptr->kappa(), device_vals);
         //// b__o -> Dslash^dag b__o
         CUBLAS_CHECK(
-            cublasDcopy(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(T),
+            _cublasCopy<T>(set_ptr->cublasH,
+                        set_ptr->lat_4dim_SC * _REAL_IMAG_,
                         (T *)b__o, 1, (T *)device_vec2, 1));
         _wilson_dslash_dag(b__o, device_vec2, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
@@ -167,12 +167,11 @@ namespace qcu
                   const int stream_index)
     {
       // dest(val) = _dot(A,B)
-      CUBLAS_CHECK(cublasDotcEx(
+      CUBLAS_CHECK(_cublasDot<T>(
           set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-          _cublas_type, 1, vec1,
-          _cublas_type, 1,
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
-          _cublas_type, _cublas_type));
+           1, vec1,
+           1,
+          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_),
           ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
@@ -193,12 +192,11 @@ namespace qcu
                    const int stream_index)
     {
       // dest(val) = _dot(A,B)
-      CUBLAS_CHECK(cublasDotcEx(
+      CUBLAS_CHECK(_cublasDot<T>(
           set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-          _cublas_type, 1, vec1,
-          _cublas_type, 1,
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
-          _cublas_type, _cublas_type));
+           1, vec1,
+           1,
+          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
       checkNcclErrors(ncclAllReduce(
           ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
           ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index), 2,
@@ -277,8 +275,8 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
       // p[i] = r[i]
       CUBLAS_CHECK(
-          cublasDcopy(set_ptr->cublasH,
-                      set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(T),
+          _cublasCopy<T>(set_ptr->cublasH,
+                      set_ptr->lat_4dim_SC * _REAL_IMAG_,
                       (T *)r, 1, (T *)p, 1));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       {
@@ -367,22 +365,22 @@ namespace qcu
       {
         // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
         CUBLAS_CHECK(
-            cublasDcopy(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(T),
+            _cublasCopy<T>(set_ptr->cublasH,
+                        set_ptr->lat_4dim_SC * _REAL_IMAG_,
                         (T *)b_e, 1, (T *)device_vec0, 1));
         wilson_dslash.run_eo(device_vec1, x_o, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
         LatticeComplex<T> _(set_ptr->kappa(), 0.0);
         // dest(B) = B + alpha*A
-        CUBLAS_CHECK(cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
-                                  _cublas_type, device_vec1,
-                                  _cublas_type, 1,
-                                  device_vec0, _cublas_type,
-                                  1, _cublas_type));
+        CUBLAS_CHECK(_cublasAxpy<T>(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
+                                   device_vec1,
+                                   1,
+                                  device_vec0,
+                                  1));
         CUBLAS_CHECK(
-            cublasDcopy(set_ptr->cublasH,
-                        set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(T),
+            _cublasCopy<T>(set_ptr->cublasH,
+                        set_ptr->lat_4dim_SC * _REAL_IMAG_,
                         (T *)device_vec0, 1, (T *)x_e, 1));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));

@@ -157,12 +157,11 @@ namespace qcu
                   const int stream_index)
     {
       // dest(val) = _dot(A,B)
-      CUBLAS_CHECK(cublasDotcEx(
+      CUBLAS_CHECK(_cublasDot<T>(
           set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-          _cublas_type, 1, vec1,
-          _cublas_type, 1,
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
-          _cublas_type, _cublas_type));
+           1, vec1,
+           1,
+          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
       checkCudaErrors(cudaMemcpyAsync(
           ((static_cast<LatticeComplex<T> *>(host_vals)) + _send_tmp_),
           ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
@@ -183,12 +182,11 @@ namespace qcu
                    const int stream_index)
     {
       // dest(val) = _dot(A,B)
-      CUBLAS_CHECK(cublasDotcEx(
+      CUBLAS_CHECK(_cublasDot<T>(
           set_ptr->cublasHs[stream_index], set_ptr->lat_4dim_SC, vec0,
-          _cublas_type, 1, vec1,
-          _cublas_type, 1,
-          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
-          _cublas_type, _cublas_type));
+           1, vec1,
+           1,
+          ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_)));
       checkNcclErrors(ncclAllReduce(
           ((static_cast<LatticeComplex<T> *>(device_vals)) + _send_tmp_),
           ((static_cast<LatticeComplex<T> *>(device_vals)) + vals_index), 2,
@@ -353,24 +351,21 @@ namespace qcu
         if (if_input)
         {
           // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
-          CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
-                                   set_ptr->lat_4dim_SC * sizeof(_cublas_type) /
-                                       sizeof(T),
-                                   (T *)b_e, 1, (T *)device_vec0, 1));
+          CUBLAS_CHECK(_cublasCopy<T>(set_ptr->cublasH,
+                                      set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                                      (T *)b_e, 1, (T *)device_vec0, 1));
           wilson_dslash.run_eo(device_vec1, x_o, gauge);
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
           LatticeComplex<T> _(set_ptr->kappa(), 0.0);
           // dest(B) = B + alpha*A
           CUBLAS_CHECK(
-              cublasAxpyEx(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
-                           _cublas_type, device_vec1,
-                           _cublas_type, 1, device_vec0,
-                           _cublas_type, 1,
-                           _cublas_type));
-          CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
-                                   set_ptr->lat_4dim_SC * sizeof(_cublas_type) /
-                                       sizeof(T),
-                                   (T *)device_vec0, 1, (T *)x_e, 1));
+              _cublasAxpy<T>(set_ptr->cublasH, set_ptr->lat_4dim_SC, &_,
+                           device_vec1,
+                           1, device_vec0,
+                           1));
+          CUBLAS_CHECK(_cublasCopy<T>(set_ptr->cublasH,
+                                      set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                                      (T *)device_vec0, 1, (T *)x_e, 1));
           checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
           checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
           checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
