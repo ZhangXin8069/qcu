@@ -7,15 +7,15 @@ namespace qcu
   template <typename T>
   __global__ void give_random_vals(void *device_random_vals, unsigned long seed);
   template <typename T>
-  __global__ void give_custom_vals(void *device_custom_vals, double real,
-                                   double imag);
+  __global__ void give_custom_vals(void *device_custom_vals, T real,
+                                   T imag);
   template <typename T>
   __global__ void give_1zero(void *device_vals, const int vals_index);
   template <typename T>
   __global__ void give_1one(void *device_vals, const int vals_index);
   template <typename T>
   __global__ void give_1custom(void *device_vals, const int vals_index,
-                               double real, double imag);
+                               T real, T imag);
   template <typename T>
   __global__ void _tzyxsc2sctzyx(void *device_fermi, void *device__fermi,
                                  int lat_4dim);

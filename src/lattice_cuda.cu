@@ -18,8 +18,8 @@ namespace qcu
     }
   }
   template <typename T>
-  __global__ void give_custom_vals(void *device_custom_vals, double real,
-                                   double imag)
+  __global__ void give_custom_vals(void *device_custom_vals, T real,
+                                   T imag)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
     LatticeComplex<T> *custom_vals =
@@ -46,7 +46,7 @@ namespace qcu
   }
   template <typename T>
   __global__ void give_1custom(void *device_vals, const int vals_index,
-                               double real, double imag)
+                               T real, T imag)
   {
     LatticeComplex<T> *origin_vals = static_cast<LatticeComplex<T> *>(device_vals);
     LatticeComplex<T> _(real, imag);
@@ -92,8 +92,8 @@ namespace qcu
         fermion, _fermion, set_ptr->lat_4dim);
     CUBLAS_CHECK(
         cublasDcopy(set_ptr->cublasH,
-                    set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(double),
-                    (double *)_fermion, 1, (double *)fermion, 1));
+                    set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(T),
+                    (T *)_fermion, 1, (T *)fermion, 1));
     checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -109,8 +109,8 @@ namespace qcu
         fermion, _fermion, set_ptr->lat_4dim);
     CUBLAS_CHECK(
         cublasDcopy(set_ptr->cublasH,
-                    set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(double),
-                    (double *)_fermion, 1, (double *)fermion, 1));
+                    set_ptr->lat_4dim_SC * sizeof(_cublas_type) / sizeof(T),
+                    (T *)_fermion, 1, (T *)fermion, 1));
     checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -167,8 +167,8 @@ namespace qcu
                             set_ptr->stream>>>(gauge, _gauge, set_ptr->lat_4dim);
     CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
                              set_ptr->lat_4dim_DCC * _EVEN_ODD_ *
-                                 sizeof(_cublas_type) / sizeof(double),
-                             (double *)_gauge, 1, (double *)gauge, 1));
+                                 sizeof(_cublas_type) / sizeof(T),
+                             (T *)_gauge, 1, (T *)gauge, 1));
     checkCudaErrors(cudaFreeAsync(_gauge, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -184,8 +184,8 @@ namespace qcu
                             set_ptr->stream>>>(gauge, _gauge, set_ptr->lat_4dim);
     CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
                              set_ptr->lat_4dim_DCC * _EVEN_ODD_ *
-                                 sizeof(_cublas_type) / sizeof(double),
-                             (double *)_gauge, 1, (double *)gauge, 1));
+                                 sizeof(_cublas_type) / sizeof(T),
+                             (T *)_gauge, 1, (T *)gauge, 1));
     checkCudaErrors(cudaFreeAsync(_gauge, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -237,8 +237,8 @@ namespace qcu
         fermion, _fermion, set_ptr->lat_4dim);
     CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
                              set_ptr->lat_4dim_SC * _EVEN_ODD_ *
-                                 sizeof(_cublas_type) / sizeof(double),
-                             (double *)_fermion, 1, (double *)fermion, 1));
+                                 sizeof(_cublas_type) / sizeof(T),
+                             (T *)_fermion, 1, (T *)fermion, 1));
     checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -254,8 +254,8 @@ namespace qcu
         fermion, _fermion, set_ptr->lat_4dim);
     CUBLAS_CHECK(cublasDcopy(set_ptr->cublasH,
                              set_ptr->lat_4dim_SC * _EVEN_ODD_ *
-                                 sizeof(_cublas_type) / sizeof(double),
-                             (double *)_fermion, 1, (double *)fermion, 1));
+                                 sizeof(_cublas_type) / sizeof(T),
+                             (T *)_fermion, 1, (T *)fermion, 1));
     checkCudaErrors(cudaFreeAsync(_fermion, set_ptr->stream));
     checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
   }
@@ -287,12 +287,12 @@ namespace qcu
     for (int i = 0; i < _LAT_DCC_; i++)
     {
       tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.x =
-          double((((((i * _EVEN_ODD_ + parity) * lat_t + t) * lat_z + z) * lat_y +
-                   y) *
-                      lat_x +
-                  x)) /
+          T((((((i * _EVEN_ODD_ + parity) * lat_t + t) * lat_z + z) * lat_y +
+              y) *
+                 lat_x +
+             x)) /
           lat_tzyx;
-      tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(params[_NODE_RANK_]);
+      tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = T(params[_NODE_RANK_]);
     }
   }
   //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
@@ -324,12 +324,12 @@ namespace qcu
   template __global__ void give_debug_u<double>(void *device_U, void *device_params);
   //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void give_random_vals<float>(void *device_random_vals, unsigned long seed);
-  template __global__ void give_custom_vals<float>(void *device_custom_vals, double real,
-                                                   double imag);
+  template __global__ void give_custom_vals<float>(void *device_custom_vals, float real,
+                                                   float imag);
   template __global__ void give_1zero<float>(void *device_vals, const int vals_index);
   template __global__ void give_1one<float>(void *device_vals, const int vals_index);
   template __global__ void give_1custom<float>(void *device_vals, const int vals_index,
-                                               double real, double imag);
+                                               float real, float imag);
   template __global__ void _tzyxsc2sctzyx<float>(void *device_fermi, void *device__fermi,
                                                  int lat_4dim);
   template __global__ void _sctzyx2tzyxsc<float>(void *device_fermi, void *device__fermi,
@@ -351,12 +351,12 @@ namespace qcu
   template __global__ void give_debug_u<float>(void *device_U, void *device_params);
   //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void give_random_vals<half>(void *device_random_vals, unsigned long seed);
-  template __global__ void give_custom_vals<half>(void *device_custom_vals, double real,
-                                                  double imag);
+  template __global__ void give_custom_vals<half>(void *device_custom_vals, half real,
+                                                  half imag);
   template __global__ void give_1zero<half>(void *device_vals, const int vals_index);
   template __global__ void give_1one<half>(void *device_vals, const int vals_index);
   template __global__ void give_1custom<half>(void *device_vals, const int vals_index,
-                                              double real, double imag);
+                                              half real, half imag);
   template __global__ void _tzyxsc2sctzyx<half>(void *device_fermi, void *device__fermi,
                                                 int lat_4dim);
   template __global__ void _sctzyx2tzyxsc<half>(void *device_fermi, void *device__fermi,

@@ -514,7 +514,7 @@ namespace qcu
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
         }
-        double kappa()
+        T kappa()
         {
             /*
             a=1(always\ ignore)

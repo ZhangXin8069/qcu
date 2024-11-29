@@ -238,11 +238,11 @@ namespace qcu
         { // x part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_X_], set_ptr->device_send_vec[_B_X_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_X_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_X_], set_ptr->device_send_vec[_F_X_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_X_]));
         }
         wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
@@ -253,11 +253,11 @@ namespace qcu
         { // y part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_Y_], set_ptr->device_send_vec[_B_Y_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Y_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_Y_], set_ptr->device_send_vec[_F_Y_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Y_]));
         }
         wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
@@ -268,11 +268,11 @@ namespace qcu
         { // z part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_Z_], set_ptr->device_send_vec[_B_Z_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Z_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_Z_], set_ptr->device_send_vec[_F_Z_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Z_]));
         }
         wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
@@ -283,11 +283,11 @@ namespace qcu
         { // t part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_T_], set_ptr->device_send_vec[_B_T_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_T_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_T_], set_ptr->device_send_vec[_F_T_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_T_]));
         }
       }
@@ -418,12 +418,12 @@ namespace qcu
         MPI_Wait(&set_ptr->recv_request[_B_X_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_X_], set_ptr->host_recv_vec[_F_X_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_X_]));
         MPI_Wait(&set_ptr->recv_request[_F_X_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_X_], set_ptr->host_recv_vec[_B_X_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_X_]));
       }
       if (set_ptr->host_params[_GRID_Y_] != 1)
@@ -431,12 +431,12 @@ namespace qcu
         MPI_Wait(&set_ptr->recv_request[_B_Y_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_Y_], set_ptr->host_recv_vec[_F_Y_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Y_]));
         MPI_Wait(&set_ptr->recv_request[_F_Y_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_Y_], set_ptr->host_recv_vec[_B_Y_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Y_]));
       }
       if (set_ptr->host_params[_GRID_Z_] != 1)
@@ -444,12 +444,12 @@ namespace qcu
         MPI_Wait(&set_ptr->recv_request[_B_Z_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_Z_], set_ptr->host_recv_vec[_F_Z_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Z_]));
         MPI_Wait(&set_ptr->recv_request[_F_Z_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_Z_], set_ptr->host_recv_vec[_B_Z_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Z_]));
       }
       if (set_ptr->host_params[_GRID_T_] != 1)
@@ -457,12 +457,12 @@ namespace qcu
         MPI_Wait(&set_ptr->recv_request[_B_T_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_T_], set_ptr->host_recv_vec[_F_T_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_T_]));
         MPI_Wait(&set_ptr->recv_request[_F_T_], MPI_STATUS_IGNORE);
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_T_], set_ptr->host_recv_vec[_B_T_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_T_]));
       }
       {
@@ -523,11 +523,11 @@ namespace qcu
         { // x part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_X_], set_ptr->device_send_vec[_B_X_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_X_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_X_], set_ptr->device_send_vec[_F_X_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_X_]));
         }
         wilson_dslash_y_send<T><<<set_ptr->gridDim_3dim[_Y_], set_ptr->blockDim, 0,
@@ -538,11 +538,11 @@ namespace qcu
         { // y part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_Y_], set_ptr->device_send_vec[_B_Y_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Y_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_Y_], set_ptr->device_send_vec[_F_Y_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Y_]));
         }
         wilson_dslash_z_send<T><<<set_ptr->gridDim_3dim[_Z_], set_ptr->blockDim, 0,
@@ -553,11 +553,11 @@ namespace qcu
         { // z part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_Z_], set_ptr->device_send_vec[_B_Z_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Z_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_Z_], set_ptr->device_send_vec[_F_Z_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_Z_]));
         }
         wilson_dslash_t_send<T><<<set_ptr->gridDim_3dim[_T_], set_ptr->blockDim, 0,
@@ -568,11 +568,11 @@ namespace qcu
         { // t part d2h
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_B_T_], set_ptr->device_send_vec[_B_T_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_T_]));
           checkCudaErrors(cudaMemcpyAsync(
               set_ptr->host_send_vec[_F_T_], set_ptr->device_send_vec[_F_T_],
-              sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
+              sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyDeviceToHost,
               set_ptr->stream_dims[_T_]));
         }
       }
@@ -686,44 +686,44 @@ namespace qcu
       { // x part h2d
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_X_], set_ptr->host_recv_vec[_F_X_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_X_]));
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_X_], set_ptr->host_recv_vec[_B_X_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_X_] / _EVEN_ODD_, cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_X_]));
       }
       if (set_ptr->host_params[_GRID_Y_] != 1)
       { // y part h2d
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_Y_], set_ptr->host_recv_vec[_F_Y_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Y_]));
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_Y_], set_ptr->host_recv_vec[_B_Y_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Y_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Y_]));
       }
       if (set_ptr->host_params[_GRID_Z_] != 1)
       { // z part h2d
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_Z_], set_ptr->host_recv_vec[_F_Z_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Z_]));
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_Z_], set_ptr->host_recv_vec[_B_Z_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_Z_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_Z_]));
       }
       if (set_ptr->host_params[_GRID_T_] != 1)
       { // t part h2d
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_F_T_], set_ptr->host_recv_vec[_F_T_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_T_]));
         checkCudaErrors(cudaMemcpyAsync(
             set_ptr->device_recv_vec[_B_T_], set_ptr->host_recv_vec[_B_T_],
-            sizeof(double) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
+            sizeof(T) * set_ptr->lat_3dim_SC[_T_], cudaMemcpyHostToDevice,
             set_ptr->stream_dims[_T_]));
       }
       {

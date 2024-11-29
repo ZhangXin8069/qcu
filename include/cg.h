@@ -5,20 +5,20 @@ namespace qcu
 {
   template <typename T>
   __global__ void cg_give_b_e(void *device_b_e, void *device_ans_e,
-                              void *device_vec0, double kappa, void *device_vals);
+                              void *device_vec0, T kappa, void *device_vals);
   template <typename T>
   __global__ void cg_give_b_o(void *device_b_o, void *device_ans_o,
-                              void *device_vec1, double kappa, void *device_vals);
+                              void *device_vec1, T kappa, void *device_vals);
   template <typename T>
   __global__ void cg_give_b__o(void *device_b__o, void *device_b_o,
-                               void *device_vec0, double kappa,
+                               void *device_vec0, T kappa,
                                void *device_vals);
   template <typename T>
   __global__ void cg_give_r(void *device_r, void *device_b__o, void *device_vec1,
                             void *device_vals);
   template <typename T>
   __global__ void cg_give_dest_o(void *device_dest_o, void *device_src_o,
-                                 void *device_vec1, double kappa,
+                                 void *device_vec1, T kappa,
                                  void *device_vals);
   template <typename T>
   __global__ void cg_give_1diff(void *device_vals);

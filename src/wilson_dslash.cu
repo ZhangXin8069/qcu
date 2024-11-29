@@ -28,7 +28,7 @@ namespace qcu
     const int y = parity / lat_x;
     const int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     const int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                        //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
@@ -284,7 +284,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     // printf("dagger_val:%f\n", dagger_val);
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex<T> I(0.0, 1.0);
@@ -544,7 +544,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
@@ -648,7 +648,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     int eo = (y + z + t) & 0x01; // (y+z+t)%2
                                  //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
@@ -749,7 +749,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
     LatticeComplex<T> *tmp_U;
@@ -846,7 +846,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
     LatticeComplex<T> *tmp_U;
@@ -947,7 +947,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
     LatticeComplex<T> *tmp_U;
@@ -1046,7 +1046,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
     LatticeComplex<T> *tmp_U;
@@ -1148,7 +1148,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
     LatticeComplex<T> *tmp_U;
@@ -1246,7 +1246,7 @@ namespace qcu
     int y = parity / lat_x;
     int x = parity - y * lat_x;
     parity = params[_PARITY_];
-    double dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
+    T dagger_val = 2.0 * (params[_DAGGER_] == 0) - 1.0;
     //  LatticeComplex<T> I(0.0, 1.0);
     LatticeComplex<T> zero(0.0, 0.0);
     LatticeComplex<T> *tmp_U;

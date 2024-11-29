@@ -34,7 +34,7 @@ namespace qcu
   }
   template <typename T>
   __global__ void bistabcg_give_b_e(void *device_b_e, void *device_ans_e,
-                                    void *device_vec0, double kappa,
+                                    void *device_vec0, T kappa,
                                     void *device_vals)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -49,7 +49,7 @@ namespace qcu
   }
   template <typename T>
   __global__ void bistabcg_give_b_o(void *device_b_o, void *device_ans_o,
-                                    void *device_vec1, double kappa,
+                                    void *device_vec1, T kappa,
                                     void *device_vals)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -64,7 +64,7 @@ namespace qcu
   }
   template <typename T>
   __global__ void bistabcg_give_b__o(void *device_b__o, void *device_b_o,
-                                     void *device_vec0, double kappa,
+                                     void *device_vec0, T kappa,
                                      void *device_vals)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -79,7 +79,7 @@ namespace qcu
   }
   template <typename T>
   __global__ void bistabcg_give_dest_o(void *device_dest_o, void *device_src_o,
-                                       void *device_vec1, double kappa,
+                                       void *device_vec1, T kappa,
                                        void *device_vals)
   {
     int idx = blockIdx.x * blockDim.x + threadIdx.x;
@@ -231,16 +231,16 @@ namespace qcu
   template __global__ void bistabcg_give_1omega<float>(void *device_vals);
   template __global__ void bistabcg_give_1diff<float>(void *device_vals);
   template __global__ void bistabcg_give_b_e<float>(void *device_b_e, void *device_ans_e,
-                                                    void *device_vec0, double kappa,
+                                                    void *device_vec0, float kappa,
                                                     void *device_vals);
   template __global__ void bistabcg_give_b_o<float>(void *device_b_o, void *device_ans_o,
-                                                    void *device_vec1, double kappa,
+                                                    void *device_vec1, float kappa,
                                                     void *device_vals);
   template __global__ void bistabcg_give_b__o<float>(void *device_b__o, void *device_b_o,
-                                                     void *device_vec0, double kappa,
+                                                     void *device_vec0, float kappa,
                                                      void *device_vals);
   template __global__ void bistabcg_give_dest_o<float>(void *device_dest_o, void *device_src_o,
-                                                       void *device_vec1, double kappa,
+                                                       void *device_vec1, float kappa,
                                                        void *device_vals);
   template __global__ void bistabcg_give_rr<float>(void *device_r, void *device_b__o,
                                                    void *device_r_tilde, void *device_vals);
@@ -261,16 +261,16 @@ namespace qcu
   template __global__ void bistabcg_give_1omega<half>(void *device_vals);
   template __global__ void bistabcg_give_1diff<half>(void *device_vals);
   template __global__ void bistabcg_give_b_e<half>(void *device_b_e, void *device_ans_e,
-                                                   void *device_vec0, double kappa,
+                                                   void *device_vec0, half kappa,
                                                    void *device_vals);
   template __global__ void bistabcg_give_b_o<half>(void *device_b_o, void *device_ans_o,
-                                                   void *device_vec1, double kappa,
+                                                   void *device_vec1, half kappa,
                                                    void *device_vals);
   template __global__ void bistabcg_give_b__o<half>(void *device_b__o, void *device_b_o,
-                                                    void *device_vec0, double kappa,
+                                                    void *device_vec0, half kappa,
                                                     void *device_vals);
   template __global__ void bistabcg_give_dest_o<half>(void *device_dest_o, void *device_src_o,
-                                                      void *device_vec1, double kappa,
+                                                      void *device_vec1, half kappa,
                                                       void *device_vals);
   template __global__ void bistabcg_give_rr<half>(void *device_r, void *device_b__o,
                                                   void *device_r_tilde, void *device_vals);
@@ -284,5 +284,4 @@ namespace qcu
                                                  void *device_vals);
   template __global__ void bistabcg_give_diff<half>(void *device_x, void *device_ans,
                                                     void *device_vec, void *device_vals);
-
 }
