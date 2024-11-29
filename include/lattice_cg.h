@@ -32,40 +32,29 @@ namespace qcu
     }
     void _init()
     {
-      {
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        checkCudaErrors(
-            cudaMallocAsync(&b__o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
-                            set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &r, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>), set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &p, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>), set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &v, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>), set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &device_vec0, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
-            set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &device_vec1, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
-            set_ptr->stream));
-        checkCudaErrors(cudaMallocAsync(
-            &device_vec2, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
-            set_ptr->stream));
-      }
-      {
-        checkCudaErrors(cudaMallocAsync(
-            &device_vals, _vals_size_ * sizeof(LatticeComplex<T>), set_ptr->stream));
-        give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _tmp0_);
-        give_1one<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _rho_prev_);
-        give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _rho_);
-        give_1one<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _alpha_);
-        give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _send_tmp_);
-        give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _norm2_tmp_);
-        give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _diff_tmp_);
-        give_1custom<T><<<1, 1, 0, set_ptr->stream>>>(
-            device_vals, _lat_4dim_, T(set_ptr->lat_4dim), 0.0);
-      }
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      checkCudaErrors(
+          cudaMallocAsync(&b__o, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
+                          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &r, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &p, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &v, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>), set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vec0, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vec1, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vec2, set_ptr->lat_4dim_SC * sizeof(LatticeComplex<T>),
+          set_ptr->stream));
+      checkCudaErrors(cudaMallocAsync(
+          &device_vals, _vals_size_ * sizeof(LatticeComplex<T>), set_ptr->stream));
+      give_1custom<T><<<1, 1, 0, set_ptr->stream>>>(
+          device_vals, _lat_4dim_, T(set_ptr->lat_4dim), 0.0);
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
     }
     void __init()
@@ -111,12 +100,6 @@ namespace qcu
                            (T *)b__o, 1, (T *)device_vec2, 1));
         _wilson_dslash_dag(b__o, device_vec2, gauge);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
-        give_random_vals<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
-                              set_ptr->stream>>>(x_o, 23333);
-        _wilson_dslash_all(r, x_o, gauge);
-        cg_give_r<T><<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
-            r, b__o, r, device_vals);
-        checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       }
       if (if_input == 0)
       {
@@ -146,6 +129,28 @@ namespace qcu
       _wilson_dslash(device_vec2, fermion_in, gauge);
       _wilson_dslash_dag(fermion_out, device_vec2, gauge);
     }
+    void _run_init()
+    {
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+      give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _tmp0_);
+      give_1one<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _rho_prev_);
+      give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _rho_);
+      give_1one<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _alpha_);
+      give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _send_tmp_);
+      give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _norm2_tmp_);
+      give_1zero<T><<<1, 1, 0, set_ptr->stream>>>(device_vals, _diff_tmp_);
+      give_random_vals<T><<<set_ptr->gridDim, set_ptr->blockDim, 0,
+                            set_ptr->stream>>>(x_o, 23333);
+      _wilson_dslash_all(r, x_o, gauge);
+      cg_give_r<T><<<set_ptr->gridDim, set_ptr->blockDim, 0, set_ptr->stream>>>(
+          r, b__o, r, device_vals);
+      // p[i] = r[i]
+      CUBLAS_CHECK(
+          _cublasCopy<T>(set_ptr->cublasH,
+                         set_ptr->lat_4dim_SC * _REAL_IMAG_,
+                         (T *)r, 1, (T *)p, 1));
+      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
+    }
     void init(void *_x, void *_b, void *_gauge)
     {
       _init();
@@ -156,6 +161,7 @@ namespace qcu
       b_e = _b;
       b_o = ((static_cast<LatticeComplex<T> *>(_b)) + set_ptr->lat_4dim_SC);
       __init();
+      _run_init();
     }
     void init(void *_gauge)
     {
@@ -163,6 +169,7 @@ namespace qcu
       if_input = 0;
       gauge = _gauge;
       __init();
+      _run_init();
     }
     void _dot_mpi(void *vec0, void *vec1, const int vals_index,
                   const int stream_index)
@@ -246,19 +253,13 @@ namespace qcu
       print_vals(-1);
       exit(1);
     }
-    void run()
+    void _run()
     {
       checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_a_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-      // p[i] = r[i]
-      CUBLAS_CHECK(
-          _cublasCopy<T>(set_ptr->cublasH,
-                         set_ptr->lat_4dim_SC * _REAL_IMAG_,
-                         (T *)r, 1, (T *)p, 1));
-      checkCudaErrors(cudaStreamSynchronize(set_ptr->stream));
       {
         // rho = <r, r>;
         _dot(r, r, _rho_, _a_);
@@ -300,14 +301,6 @@ namespace qcu
           // rho = <r_tilde, r_tilde>;
           _dot(r, r, _rho_, _c_);
         }
-        {
-          // break;
-          checkCudaErrors(cudaMemcpyAsync(
-              ((static_cast<LatticeComplex<T> *>(host_vals)) + _rho_prev_),
-              ((static_cast<LatticeComplex<T> *>(device_vals)) + _rho_prev_),
-              sizeof(LatticeComplex<T>), cudaMemcpyDeviceToHost,
-              set_ptr->streams[_d_]));
-        }
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
         {
           // beta = <r_tilde, r_tilde>/<r, r> = rho/rho_prev;
@@ -328,10 +321,10 @@ namespace qcu
                     << std::endl;
 #endif
         }
-        if ((host_vals[_rho_prev_]._data.x < _TOL_ || loop == _MAX_ITER_ - 1))
+        if ((host_vals[_rho_]._data.x < _TOL_ || loop == _MAX_ITER_ - 1))
         {
           std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_]
-                    << "##LOOP:" << loop << "##Residual:" << host_vals[_rho_prev_]
+                    << "##LOOP:" << loop << "##Residual:" << host_vals[_rho_]
                     << std::endl;
           break;
         }
@@ -341,6 +334,10 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
+    }
+    void run()
+    {
+      _run();
       if (if_input)
       {
         // get $x_{e}$ by $b_{e}+\kappa D_{eo}x_{o}$
