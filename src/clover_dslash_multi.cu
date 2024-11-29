@@ -2029,7 +2029,7 @@ namespace qcu
     }
     give_clr(origin_clover, clover, lat_tzyx);
   }
-  //////////////////////////////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void make_clover_all<double>(
       void *device_U, void *device_clover, void *device_params,
       void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
@@ -2048,7 +2048,7 @@ namespace qcu
       void *device_u_b_y_f_t_recv_vec, void *device_u_f_y_f_t_recv_vec,
       void *device_u_b_z_b_t_recv_vec, void *device_u_f_z_b_t_recv_vec,
       void *device_u_b_z_f_t_recv_vec, void *device_u_f_z_f_t_recv_vec);
-  ////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void make_clover_all<float>(
       void *device_U, void *device_clover, void *device_params,
       void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,
@@ -2067,7 +2067,7 @@ namespace qcu
       void *device_u_b_y_f_t_recv_vec, void *device_u_f_y_f_t_recv_vec,
       void *device_u_b_z_b_t_recv_vec, void *device_u_f_z_b_t_recv_vec,
       void *device_u_b_z_f_t_recv_vec, void *device_u_f_z_f_t_recv_vec);
-  //////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void make_clover_all<half>(
       void *device_U, void *device_clover, void *device_params,
       void *device_u_b_x_recv_vec, void *device_u_f_x_recv_vec,

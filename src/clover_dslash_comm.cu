@@ -561,7 +561,7 @@ namespace qcu
       u_f_z_f_t_send_vec[i * lat_tzyx / lat_z / lat_t] = tmp_U[i * lat_tzyx];
     }
   }
-  //////////////////////////////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void pick_up_u_x<double>(void *device_U, void *device_params,
                                                void *device_u_b_x_send_vec,
                                                void *device_u_f_x_send_vec);
@@ -604,7 +604,7 @@ namespace qcu
                                                 void *device_u_f_z_b_t_send_vec,
                                                 void *device_u_b_z_f_t_send_vec,
                                                 void *device_u_f_z_f_t_send_vec);
-  ////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void pick_up_u_x<float>(void *device_U, void *device_params,
                                               void *device_u_b_x_send_vec,
                                               void *device_u_f_x_send_vec);
@@ -647,7 +647,7 @@ namespace qcu
                                                void *device_u_f_z_b_t_send_vec,
                                                void *device_u_b_z_f_t_send_vec,
                                                void *device_u_f_z_f_t_send_vec);
-  //////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void pick_up_u_x<half>(void *device_U, void *device_params,
                                              void *device_u_b_x_send_vec,
                                              void *device_u_f_x_send_vec);

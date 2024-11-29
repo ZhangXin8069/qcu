@@ -3,7 +3,7 @@
 using namespace qcu;
 
 void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
-                         QcuParam *param, int parity, QcuParam *grid)
+                          QcuParam *param, int parity, QcuParam *grid)
 {
   // define for apply_clover_dslash
   LatticeSet<double> _set;
@@ -12,7 +12,7 @@ void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   dptzyxcc2ccdptzyx<double>(gauge, &_set);
   tzyxsc2sctzyx<double>(fermion_in, &_set);
   tzyxsc2sctzyx<double>(fermion_out, &_set);
-    LatticeWilsonDslash<double> _wilson_dslash;
+  LatticeWilsonDslash<double> _wilson_dslash;
   LatticeCloverDslash<double> _clover_dslash;
   _wilson_dslash.give(&_set);
   _clover_dslash.give(&_set);

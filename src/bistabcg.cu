@@ -194,7 +194,7 @@ namespace qcu
       vec[i] = x[i] - ans[i];
     }
   }
-  ///////////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void bistabcg_give_1beta<double>(void *device_vals);
   template __global__ void bistabcg_give_1rho_prev<double>(void *device_vals);
   template __global__ void bistabcg_give_1alpha<double>(void *device_vals);
@@ -224,7 +224,7 @@ namespace qcu
                                                    void *device_vals);
   template __global__ void bistabcg_give_diff<double>(void *device_x, void *device_ans,
                                                       void *device_vec, void *device_vals);
-  ////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void bistabcg_give_1beta<float>(void *device_vals);
   template __global__ void bistabcg_give_1rho_prev<float>(void *device_vals);
   template __global__ void bistabcg_give_1alpha<float>(void *device_vals);
@@ -254,7 +254,7 @@ namespace qcu
                                                   void *device_vals);
   template __global__ void bistabcg_give_diff<float>(void *device_x, void *device_ans,
                                                      void *device_vec, void *device_vals);
-  /////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void bistabcg_give_1beta<half>(void *device_vals);
   template __global__ void bistabcg_give_1rho_prev<half>(void *device_vals);
   template __global__ void bistabcg_give_1alpha<half>(void *device_vals);

@@ -295,7 +295,7 @@ namespace qcu
       tmp_U[i * _EVEN_ODD_ * lat_tzyx]._data.y = double(params[_NODE_RANK_]);
     }
   }
-  /////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void give_random_vals<double>(void *device_random_vals, unsigned long seed);
   template __global__ void give_custom_vals<double>(void *device_custom_vals, double real,
                                                     double imag);
@@ -322,7 +322,7 @@ namespace qcu
   template void ptzyxsc2psctzyx<double>(void *fermion, LatticeSet<double> *set_ptr);
   template void psctzyx2ptzyxsc<double>(void *fermion, LatticeSet<double> *set_ptr);
   template __global__ void give_debug_u<double>(void *device_U, void *device_params);
-  /////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void give_random_vals<float>(void *device_random_vals, unsigned long seed);
   template __global__ void give_custom_vals<float>(void *device_custom_vals, double real,
                                                    double imag);
@@ -349,7 +349,7 @@ namespace qcu
   template void ptzyxsc2psctzyx<float>(void *fermion, LatticeSet<float> *set_ptr);
   template void psctzyx2ptzyxsc<float>(void *fermion, LatticeSet<float> *set_ptr);
   template __global__ void give_debug_u<float>(void *device_U, void *device_params);
-  /////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void give_random_vals<half>(void *device_random_vals, unsigned long seed);
   template __global__ void give_custom_vals<half>(void *device_custom_vals, double real,
                                                   double imag);

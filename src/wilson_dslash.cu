@@ -1323,7 +1323,7 @@ namespace qcu
     add_dest(origin_dest, dest, lat_tzyx);
 #endif
   }
-  ////////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void wilson_dslash<double>(void *device_U, void *device_src,
                                                  void *device_dest, void *device_params);
   template __global__ void wilson_dslash_inside<double>(void *device_U, void *device_src,
@@ -1360,7 +1360,7 @@ namespace qcu
                                                         void *device_params,
                                                         void *device_b_t_recv_vec,
                                                         void *device_f_t_recv_vec);
-  ///////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void wilson_dslash<float>(void *device_U, void *device_src,
                                                 void *device_dest, void *device_params);
   template __global__ void wilson_dslash_inside<float>(void *device_U, void *device_src,
@@ -1397,7 +1397,7 @@ namespace qcu
                                                        void *device_params,
                                                        void *device_b_t_recv_vec,
                                                        void *device_f_t_recv_vec);
-  //////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void wilson_dslash<half>(void *device_U, void *device_src,
                                                void *device_dest, void *device_params);
   template __global__ void wilson_dslash_inside<half>(void *device_U, void *device_src,

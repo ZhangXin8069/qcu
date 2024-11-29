@@ -908,19 +908,19 @@ namespace qcu
       give_dest(origin_dest, tmp_dest, lat_tzyx);
     }
   }
-  //////////////////////////////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void make_clover<double>(void *device_U, void *device_clover,
                                                void *device_params);
   template __global__ void inverse_clover<double>(void *device_clover, void *device_params);
   template __global__ void give_clover<double>(void *device_clover, void *device_dest,
                                                void *device_params);
-  ////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void make_clover<float>(void *device_U, void *device_clover,
                                               void *device_params);
   template __global__ void inverse_clover<float>(void *device_clover, void *device_params);
   template __global__ void give_clover<float>(void *device_clover, void *device_dest,
                                               void *device_params);
-  //////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void make_clover<half>(void *device_U, void *device_clover,
                                              void *device_params);
   template __global__ void inverse_clover<half>(void *device_clover, void *device_params);

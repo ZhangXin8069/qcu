@@ -14,7 +14,7 @@ void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
     tzyxsc2sctzyx<double>(fermion_out, &_set);
     auto start = std::chrono::high_resolution_clock::now();
     wilson_dslash<double><<<_set.gridDim, _set.blockDim>>>(gauge, fermion_in, fermion_out,
-                                                   _set.device_params);
+                                                           _set.device_params);
     auto end = std::chrono::high_resolution_clock::now();
     auto duration =
         std::chrono::duration_cast<std::chrono::nanoseconds>(end - start).count();

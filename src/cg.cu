@@ -164,7 +164,7 @@ namespace qcu
       vec[i] = x[i] - ans[i];
     }
   }
-  ///////////////////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void cg_give_b_e<double>(void *device_b_e, void *device_ans_e,
                                                void *device_vec0, double kappa, void *device_vals);
   template __global__ void cg_give_b_o<double>(void *device_b_o, void *device_ans_o,
@@ -189,7 +189,7 @@ namespace qcu
                                                    void *device_vals);
   template __global__ void cg_give_diff<double>(void *device_x, void *device_ans, void *device_vec,
                                                 void *device_vals);
-  ///////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void cg_give_b_e<float>(void *device_b_e, void *device_ans_e,
                                               void *device_vec0, double kappa, void *device_vals);
   template __global__ void cg_give_b_o<float>(void *device_b_o, void *device_ans_o,
@@ -214,7 +214,7 @@ namespace qcu
                                                   void *device_vals);
   template __global__ void cg_give_diff<float>(void *device_x, void *device_ans, void *device_vec,
                                                void *device_vals);
-  //////////////////
+  //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
   template __global__ void cg_give_b_e<half>(void *device_b_e, void *device_ans_e,
                                              void *device_vec0, double kappa, void *device_vals);
   template __global__ void cg_give_b_o<half>(void *device_b_o, void *device_ans_o,
