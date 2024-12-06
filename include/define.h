@@ -140,8 +140,6 @@ namespace qcu
 #define _GRID_EXAMPLE_ 1
 #define _MAX_ITER_ 1e3
 #define _TOL_ 1e-9
-// #define _MASS_ -3.5
-#define _MASS_ 0.0
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 // CUDA API error checking

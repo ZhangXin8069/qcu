@@ -508,7 +508,17 @@ namespace qcu
             \kappa=\frac{1}{2m_q a+8r}
             or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
             */
-            return 1 / (2 * _MASS_ + 8);
+            T mass = 0.0;
+            T mass = -3.5;
+            return 1 / (2 * mass + 8);
+        }
+        int max_iter()
+        {
+            return 1e3;
+        }
+        T tol()
+        {
+            return 1e-9;
         }
         float get_time()
         {

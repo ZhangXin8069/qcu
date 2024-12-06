@@ -55,7 +55,7 @@ namespace qcu
     {
       checkCudaErrors(cudaStreamSynchronize(gmres.set_ptr->stream));
       checkCudaErrors(cudaStreamSynchronize(gmres.set_ptr->streams[_a_]));
-      for (int loop = 0; loop < _MAX_ITER_; loop++)
+      for (int loop = 0; loop < set_ptr->max_iter(); loop++)
       {
         _run();
         checkCudaErrors(cudaStreamSynchronize(gmres.set_ptr->streams[_a_]));
@@ -63,8 +63,8 @@ namespace qcu
         checkCudaErrors(cudaStreamSynchronize(gmres.set_ptr->streams[_a_]));
         std::cout << "##RANK:" << gmres.set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                   << "##Residual:" << gmres.host_vals[_norm2_tmp_] << std::endl;
-        if ((gmres.host_vals[_norm2_tmp_]._data.x < _TOL_ / 10 ||
-             loop == _MAX_ITER_ - 1)) // just for test, wait for multi-precision
+        if ((gmres.host_vals[_norm2_tmp_]._data.x < set_ptr->tol() / 10 ||
+             loop == set_ptr->max_iter() - 1)) // just for test, wait for multi-precision
         {
           std::cout << "##RANK:" << gmres.set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                     << "##Residual:" << gmres.host_vals[_norm2_tmp_] << std::endl;
