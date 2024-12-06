@@ -509,7 +509,7 @@ namespace qcu
             or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
             */
             T mass = 0.0;
-            T mass = -3.5;
+            // T mass = -3.5;
             return 1 / (2 * mass + 8);
         }
         int max_iter()
