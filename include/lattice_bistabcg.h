@@ -245,7 +245,7 @@ namespace qcu
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_c_]));
       checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_d_]));
-      for (int loop = 0; loop < _MAX_ITER_; loop++)
+      for (int loop = 0; loop < set_ptr->max_iter(); loop++)
       {
         _dot(r_tilde, r, _rho_, _a_);
         checkCudaErrors(cudaStreamSynchronize(set_ptr->streams[_b_]));
@@ -313,8 +313,8 @@ namespace qcu
                     << "##Residual:" << host_vals[_norm2_tmp_]._data.x
                     << std::endl;
 #endif
-          if ((host_vals[_norm2_tmp_]._data.x < _TOL_ ||
-               loop == _MAX_ITER_ - 1))
+          if ((host_vals[_norm2_tmp_]._data.x < set_ptr->tol() ||
+               loop == set_ptr->max_iter() - 1))
           {
             std::cout << "##RANK:" << set_ptr->host_params[_NODE_RANK_] << "##LOOP:" << loop
                       << "##Residual:" << host_vals[_norm2_tmp_] << std::endl;
