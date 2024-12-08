@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-using T = double;
+using T = float;
 void applyCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                 QcuParam *param, QcuParam *grid)
 {
