@@ -29,8 +29,10 @@ mpi.init(grid_size)
 print(f"single latt size = {latt_size}")
 # set
 # p = LatticeFermion(latt_size, cp.random.randn(Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
+# p = LatticeFermion(latt_size, cp.ones(
+#     [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
 p = LatticeFermion(latt_size, cp.ones(
-    [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex128))
+    [Lt, Lz, Ly, Lx, Ns, Nc * 2]).view(cp.complex64))
 qcu_p = LatticeFermion(latt_size)
 quda_p = LatticeFermion(latt_size)
 qcu_x = LatticeFermion(latt_size)
