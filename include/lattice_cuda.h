@@ -5,6 +5,14 @@
 namespace qcu
 {
   template <typename T>
+  void device_save(void *d_array, const int size, const std::string &filename);
+  template <typename T>
+  void host_save(void *h_array, const int size, const std::string &filename);
+  template <typename T>
+  void device_load(void *d_array, const int size, const std::string &filename);
+  template <typename T>
+  void host_load(void *h_array, const int size, const std::string &filename);
+  template <typename T>
   cublasStatus_t _cublasCopy(cublasHandle_t handle, int n, const T *x, int incx, T *y, int incy);
   template <typename T>
   cublasStatus_t _cublasAxpy(cublasHandle_t handle,

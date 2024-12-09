@@ -19,6 +19,8 @@ latt_size = [Lx // Gx, Ly // Gy, Lz // Gz, Lt // Gt]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
 mpi.init(grid_size)
+
+
 def compare(round):
     # generate a vector p randomly
     p = LatticeFermion(latt_size, cp.random.randn(
@@ -41,11 +43,13 @@ def compare(round):
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'Quda dslash: {t2 - t1} sec')
+    # """
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
     grid = pyqcu.QcuParam()
     grid.lattice_size = grid_size
+    Mp1.data = Mp.data.copy()
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
     pyqcu.applyDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
@@ -61,5 +65,8 @@ def compare(round):
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(
         Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
-for i in range(0, 10):
+    # """
+
+
+for i in range(0, 1):
     compare(i)
