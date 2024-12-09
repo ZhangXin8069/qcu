@@ -66,6 +66,7 @@ def compare(round):
     param.lattice_size = latt_size
     grid = pyqcu.QcuParam()
     grid.lattice_size = grid_size
+#     Mp1.data = Mp.data.copy()
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
     pyqcu.applyCloverDslashQcu(Mp1.even_ptr, p.odd_ptr,
@@ -151,5 +152,5 @@ def compare(round):
           diff_x[0, -3, -3, -3])
     print("######diff_x[-3,-3,-3,-3]:\n",
           diff_x[-3, -3, -3, -3])
-for i in range(0, 5):
+for i in range(0, 1):
     compare(i)
