@@ -13,7 +13,7 @@ int main()
   int parity;
   { // io5
     std::stringstream filename;
-    filename << "wilson-dslash-gauge_1733737880_-16-32-32-32-524288-1-1-1-1-1-0-1-0-d.bin";
+    filename << "wilson-clover-dslash-kappa1-gauge_1733741679_-16-16-32-32-262144-1-1-1-1-1-0-1-0-d.bin";
     get_filename(filename, param, parity, grid);
   }
   // define for apply_clover_dslash
@@ -23,7 +23,7 @@ int main()
   _set._print();
   { // io
     std::stringstream filename;
-    filename << "wilson-dslash-fermion-out_1733737880_-16-32-32-32-524288-1-1-1-1-1-0-1-0-d.bin";
+    filename << "wilson-clover-dslash-kappa1-fermion-out_1733741679_-16-16-32-32-262144-1-1-1-1-1-0-1-0-d.bin";
     cudaDeviceSynchronize();
     cudaMalloc(&fermion_out, _set.lat_4dim_SC * _REAL_IMAG_ * sizeof(T));
     cudaDeviceSynchronize();
@@ -31,7 +31,7 @@ int main()
   }
   { // io
     std::stringstream filename;
-    filename << "wilson-dslash-fermion-in_1733737880_-16-32-32-32-524288-1-1-1-1-1-0-1-0-d.bin";
+    filename << "wilson-clover-dslash-kappa1-fermion-in_1733741679_-16-16-32-32-262144-1-1-1-1-1-0-1-0-d.bin";
     cudaDeviceSynchronize();
     cudaMalloc(&fermion_in, _set.lat_4dim_SC * _REAL_IMAG_ * sizeof(T));
     cudaDeviceSynchronize();
@@ -39,7 +39,7 @@ int main()
   }
   { // io
     std::stringstream filename;
-    filename << "wilson-dslash-gauge_1733737880_-16-32-32-32-524288-1-1-1-1-1-0-1-0-d.bin";
+    filename << "wilson-clover-dslash-kappa1-gauge_1733741679_-16-16-32-32-262144-1-1-1-1-1-0-1-0-d.bin";
     cudaDeviceSynchronize();
     cudaMalloc(&gauge, _set.lat_4dim_DCC * _EVEN_ODD_ * _REAL_IMAG_ * sizeof(T));
     cudaDeviceSynchronize();
@@ -54,21 +54,21 @@ int main()
     // wilson dslash
     _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
   }
-  // {
-  //   // make clover
-  //   _clover_dslash.make(gauge);
-  // }
-  // {
-  //   // inverse clover
-  //   _clover_dslash.inverse();
-  // }
-  // {
-  //   // give clover
-  //   _clover_dslash.give(fermion_out);
-  // }
+  {
+    // make clover
+    _clover_dslash.make(gauge);
+  }
+  {
+    // inverse clover
+    _clover_dslash.inverse();
+  }
+  {
+    // give clover
+    _clover_dslash.give(fermion_out);
+  }
   { // io
     std::stringstream filename;
-    filename << "_wilson-dslash-fermion-out_1733737880_-16-32-32-32-524288-1-1-1-1-1-0-1-0-d.bin";
+    filename << "_wilson-clover-dslash-kappa1-fermion-out_1733741679_-16-16-32-32-262144-1-1-1-1-1-0-1-0-d.bin";
     device_save<T>(fermion_out, _set.lat_4dim_SC * _REAL_IMAG_, filename.str());
   }
   // _clover_dslash.end();
