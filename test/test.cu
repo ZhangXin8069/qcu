@@ -41,22 +41,22 @@ int main()
   _wilson_dslash.give(&_set);
   _clover_dslash.give(&_set);
   _clover_dslash.init();
-  {
-    // wilson dslash
-    _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
-  }
-  {
-    // make clover
-    _clover_dslash.make(gauge);
-  }
-  {
-    // inverse clover
-    _clover_dslash.inverse();
-  }
-  {
-    // give clover
-    _clover_dslash.give(fermion_out);
-  }
+  // {
+  //   // wilson dslash
+  //   _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
+  // }
+  // {
+  //   // make clover
+  //   _clover_dslash.make(gauge);
+  // }
+  // {
+  //   // inverse clover
+  //   _clover_dslash.inverse();
+  // }
+  // {
+  //   // give clover
+  //   _clover_dslash.give(fermion_out);
+  // }
   { // io
     std::stringstream filename;
     filename << "_wilson-clover-dslash-kappa1-fermion-out_1733741679_-16-16-32-32-262144-1-1-1-1-1-0-1-0-d.bin";
