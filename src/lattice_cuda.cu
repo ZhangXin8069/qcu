@@ -5,7 +5,6 @@ namespace qcu
   template <typename T>
   void device_save(void *d_array, const int size, const std::string &filename)
   {
-
     T *h_array;
     h_array = new T[size];
     cudaDeviceSynchronize();
@@ -42,12 +41,8 @@ namespace qcu
   template <typename T>
   void device_load(void *d_array, const int size, const std::string &filename)
   {
-
     T *h_array;
     h_array = new T[size];
-    cudaDeviceSynchronize();
-    cudaMalloc((void **)&d_array, size * sizeof(T));
-    cudaDeviceSynchronize();
     std::ifstream inFile(filename, std::ios::binary);
     if (inFile.is_open())
     {
@@ -67,7 +62,6 @@ namespace qcu
   template <typename T>
   void host_load(void *h_array, const int size, const std::string &filename)
   {
-    h_array = new T[size];
     std::ifstream inFile(filename, std::ios::binary);
     if (inFile.is_open())
     {
