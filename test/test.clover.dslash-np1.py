@@ -11,7 +11,7 @@ test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 # latt_size = [32, 32, 32, 32]
-latt_size = [32, 16, 32, 32]
+latt_size = [32, 32, 32, 32]
 # latt_size = [16, 16, 16, 16]
 # latt_size = [32, 32, 32, 32]
 # latt_size = [8, 16, 16, 16]
@@ -66,7 +66,7 @@ def compare(round):
     param.lattice_size = latt_size
     grid = pyqcu.QcuParam()
     grid.lattice_size = grid_size
-#     Mp1.data = Mp.data.copy()
+    Mp1.data = Mp.data.copy()
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
     pyqcu.applyCloverDslashQcu(Mp1.even_ptr, p.odd_ptr,
