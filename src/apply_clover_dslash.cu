@@ -17,6 +17,27 @@ void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
   _wilson_dslash.give(&_set);
   _clover_dslash.give(&_set);
   _clover_dslash.init();
+  {   // test
+    { // io
+      std::stringstream filename;
+      filename << "wilson-clover-dslash-kappa1-fermion-out";
+      give_filename(filename, _set.host_params);
+      device_save<T>(fermion_out, _set.lat_4dim_SC * _REAL_IMAG_, filename.str());
+    }
+    { // io
+      std::stringstream filename;
+      filename << "wilson-clover-dslash-kappa1-fermion-in";
+      give_filename(filename, _set.host_params);
+      device_save<T>(fermion_in, _set.lat_4dim_SC * _REAL_IMAG_, filename.str());
+    }
+    { // io
+      std::stringstream filename;
+      filename << "wilson-clover-dslash-kappa1-gauge";
+      give_filename(filename, _set.host_params);
+      device_save<T>(gauge, _set.lat_4dim_SC * _REAL_IMAG_ * _EVEN_ODD_, filename.str());
+    }
+    exit(1);
+  }
   {
     // wilson dslash
     _wilson_dslash.run_test(fermion_out, fermion_in, gauge);
