@@ -27,7 +27,6 @@ def compare(round):
         Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
     Mp = LatticeFermion(latt_size)
     Mp1 = LatticeFermion(latt_size)
-    Mp2 = LatticeFermion(latt_size)
     print('===============round ', round, '======================')
     # Set parameters in Dslash and use m=-3.5 to make kappa=1
     dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
@@ -66,18 +65,25 @@ def compare(round):
     print(Mp.data_ptr)
     print(type(Mp.data))
     print(Mp.data.dtype)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    Mp1.data = Mp1.data.astype(cp.complex64)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
     t2 = perf_counter()
     print(f'turn data to float: {t2 - t1} sec')
     U.data.astype(cp.complex64).tofile("U.bin")
-    Mp.data.astype(cp.complex64).tofile("Mp.bin")
     p.data.astype(cp.complex64).tofile("p.bin")
+    Mp.data.astype(cp.complex64).tofile("Mp.bin")
+    ######
     # """
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
     grid = pyqcu.QcuParam()
     grid.lattice_size = grid_size
-    Mp1.data = Mp.data.copy()
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
     pyqcu.applyDslashQcu(Mp1.even_ptr, p.odd_ptr, U.data_ptr, param, 0, grid)
