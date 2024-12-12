@@ -4,7 +4,6 @@
 namespace qcu
 {
 #define _BLOCK_SIZE_ 128
-// #define _BLOCK_SIZE_ 16 // for small grid test
 #define _a_ 0
 #define _b_ 1
 #define _c_ 2
@@ -141,35 +140,46 @@ namespace qcu
 #define _GRID_EXAMPLE_ 1
 #define _MAX_ITER_ 1e3
 #define _TOL_ 1e-9
-// #define _MASS_ -3.5
-#define _MASS_ 0.0
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
-#define DRAFT
-#define LATTICE_SET
-#define LATTICE_CUDA
-#define BISTABCG
-#define CG
-#define MULTGRID
-#define WILSON_DSLASH
-#define CLOVER_DSLASH
-// #define OVERLAP_DSLASH
-#define NCCL_WILSON_DSLASH
-#define NCCL_CLOVER_DSLASH
-// #define NCCL_OVERLAP_DSLASH
-#define WILSON_BISTABCG
-// #define CLOVER_BISTABCG
-// #define OVERLAP_BISTABCG
-#define NCCL_WILSON_BISTABCG
-#define NCCL_WILSON_CG
-// #define NCCL_CLOVER_BISTABCG
-// #define NCCL_OVERLAP_BISTABCG
-// #define WILSON_MULTGRID
-// #define CLOVER_MULTGRID
-// #define OVERLAP_MULTGRID
-// #define NCCL_WILSON_MULTGRID
-// #define NCCL_CLOVER_MULTGRID
-// #define NCCL_OVERLAP_MULTGRID
+#define give_filename(filename, _set_host_params) \
+  {                                               \
+    filename << "_" << time(nullptr) << "_-";     \
+    for (int _ : _set_host_params)                \
+    {                                             \
+      filename << _ << "-";                       \
+    }                                             \
+    filename << typeid(T).name() << ".bin";       \
+    std::cout << filename.str() << std::endl;     \
+  }
+#define get_filename(filename, param, parity, grid)    \
+  {                                                    \
+    int i = 0;                                         \
+    int _[_VALS_SIZE_];                                \
+    std::string segment;                               \
+    std::cout << filename.str() << std::endl;          \
+    while (std::getline(filename, segment, '-'))       \
+    {                                                  \
+      try                                              \
+      {                                                \
+        _[i] = std::stoi(segment);                     \
+        std::cout << _[i] << std::endl;                \
+        i++;                                           \
+      }                                                \
+      catch (const std::invalid_argument &)            \
+      {                                                \
+      }                                                \
+    }                                                  \
+    param.lattice_size[_X_] = _[_LAT_X_] * _EVEN_ODD_; \
+    param.lattice_size[_Y_] = _[_LAT_Y_];              \
+    param.lattice_size[_Z_] = _[_LAT_Z_];              \
+    param.lattice_size[_T_] = _[_LAT_T_];              \
+    parity = _[_PARITY_];                              \
+    grid.lattice_size[_X_] = _[_GRID_X_];              \
+    grid.lattice_size[_Y_] = _[_GRID_Y_];              \
+    grid.lattice_size[_Z_] = _[_GRID_Z_];              \
+    grid.lattice_size[_T_] = _[_GRID_T_];              \
+  }
 // CUDA API error checking
 #define CUDA_CHECK(err)                                                  \
   do                                                                     \
@@ -254,36 +264,13 @@ namespace qcu
       }                                                   \
     }                                                     \
   }
-#define checkNcclErrors(err)                                       \
-  {                                                                \
-    if (_CHECK_ERROR_)                                             \
-    {                                                              \
-      if (err != ncclSuccess)                                      \
-      {                                                            \
-        fprintf(stderr,                                            \
-                "Failed: NCCL error %04d \"%s\" from file <%s>, "  \
-                "line %i.\n",                                      \
-                err, ncclGetErrorString(err), __FILE__, __LINE__); \
-        exit(EXIT_FAILURE);                                        \
-      }                                                            \
-    }                                                              \
-  }
 // little strange, but don't want change
-#define give_vals(U, zero, n)                                 \
-  {                                                           \
-    LatticeComplex *tmp_U = static_cast<LatticeComplex *>(U); \
-    for (int i = 0; i < n; i++)                               \
-    {                                                         \
-      tmp_U[i] = zero;                                        \
-    }                                                         \
-  }
-#define give_rand(input_matrix, size)                                \
-  {                                                                  \
-    for (int i = 0; i < size; i++)                                   \
-    {                                                                \
-      input_matrix[i].real = static_cast<double>(rand()) / RAND_MAX; \
-      input_matrix[i].imag = static_cast<double>(rand()) / RAND_MAX; \
-    }                                                                \
+#define give_vals(U, zero, n)   \
+  {                             \
+    for (int i = 0; i < n; i++) \
+    {                           \
+      U[i] = zero;              \
+    }                           \
   }
 #define give_u(U, tmp_U, lat_tzyx)                       \
   {                                                      \
@@ -504,29 +491,6 @@ namespace qcu
             augmented_matrix[i * 2 * size + size + j];                     \
       }                                                                    \
     }                                                                      \
-  }
-#define malloc_vec(lat_3dim_Half_SC, device_send_vec, device_recv_vec,  \
-                   host_send_vec, host_recv_vec)                        \
-  {                                                                     \
-    for (int i = 0; i < _DIM_; i++)                                     \
-    {                                                                   \
-      cudaMalloc(&device_send_vec[i * _SR_],                            \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      cudaMalloc(&device_send_vec[i * _SR_ + 1],                        \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      cudaMalloc(&device_recv_vec[i * _SR_],                            \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      cudaMalloc(&device_recv_vec[i * _SR_ + 1],                        \
-                 lat_3dim_Half_SC[i] * sizeof(LatticeComplex));         \
-      host_send_vec[i * _SR_] =                                         \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-      host_send_vec[i * _SR_ + 1] =                                     \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-      host_recv_vec[i * _SR_] =                                         \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-      host_recv_vec[i * _SR_ + 1] =                                     \
-          (void *)malloc(lat_3dim_Half_SC[i] * sizeof(LatticeComplex)); \
-    }                                                                   \
   }
 #define free_vec(device_send_vec, device_recv_vec, host_send_vec, \
                  host_recv_vec)                                   \

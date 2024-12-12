@@ -5,8 +5,10 @@
 #include "./include.h"
 #include "./lattice_cg.h"
 #include "./lattice_bistabcg.h"
+#include "./lattice_gmres_ir.h"
 #include "./lattice_clover_dslash.h"
 #include "./lattice_complex.h"
+#include "./lattice_mpi.h"
 #include "./lattice_cuda.h"
 #include "./lattice_set.h"
 #include "./lattice_wilson_dslash.h"
@@ -18,21 +20,20 @@ extern "C"
   {
     int lattice_size[4];
   } QcuParam;
-  void dslashQcu(void *fermion_out, void *fermion_in, void *gauge,
-                 QcuParam *param, int parity);
-  void dslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
-                       QcuParam *param, int parity);
-  void mpiDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
-                    QcuParam *param, int parity, QcuParam *grid);
-  void mpiBistabCgQcu(void *gauge, QcuParam *param, QcuParam *grid);
-  void ncclDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
-                     QcuParam *param, int parity, QcuParam *grid);
-  void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
+  void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                     QcuParam *param, int parity);
+  void applyDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                      QcuParam *param, int parity, QcuParam *grid);
+  void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                           QcuParam *param, int parity);
+  void applyCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                            QcuParam *param, int parity, QcuParam *grid);
+  void applyBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
+                        QcuParam *param, QcuParam *grid);
+  void applyCgQcu(void *fermion_out, void *fermion_in, void *gauge,
+                  QcuParam *param, QcuParam *grid);
+  void applyGmresIrQcu(void *fermion_out, void *fermion_in, void *gauge,
                        QcuParam *param, QcuParam *grid);
-  void ncclCgQcu(void *fermion_out, void *fermion_in, void *gauge,
-                 QcuParam *param, QcuParam *grid);
-  void ncclDslashCloverQcu(void *fermion_out, void *fermion_in, void *gauge,
-                           QcuParam *param, int parity, QcuParam *grid);
 #ifdef __cplusplus
 }
 #endif

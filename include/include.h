@@ -20,12 +20,12 @@
 #include <library_types.h>
 #include <memory>
 #include <mpi.h>
-#include <nccl.h>
 #include <random>
 #include <stdexcept>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string>
 #include <unistd.h>
-#include <vector>
+#include <fstream>
+#include <sstream>
 #endif

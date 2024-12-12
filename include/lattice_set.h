@@ -1,11 +1,12 @@
 #ifndef _LATTICE_SET_H
 #define _LATTICE_SET_H
-#include "./lattice_cuda.h"
 #pragma once
 #include "./define.h"
 namespace qcu
 {
+    template <typename T>
     __global__ void give_param(void *device_param, int vals_index, int val);
+    template <typename T>
     struct LatticeSet
     {
         int lat_2dim[_2DIM_];
@@ -19,8 +20,6 @@ namespace qcu
         dim3 gridDim_2dim[_2DIM_];
         dim3 gridDim;
         dim3 blockDim;
-        ncclUniqueId nccl_id;
-        ncclComm_t nccl_comm;
         cublasHandle_t cublasH;
         cudaStream_t stream;
         cublasHandle_t cublasHs[_DIM_];
@@ -340,17 +339,6 @@ namespace qcu
                     move_wards[_FX_FY_] = move_wards[_F_Y_] + tmp * grid_3dim[_YZT_];
                 }
             }
-            {
-                // nccl set
-                if (host_params[_NODE_RANK_] == 0)
-                {
-                    checkNcclErrors(ncclGetUniqueId(&nccl_id));
-                }
-                checkMpiErrors(MPI_Bcast((void *)&nccl_id, sizeof(nccl_id), MPI_BYTE, 0,
-                                         MPI_COMM_WORLD));
-                checkNcclErrors(ncclCommInitRank(&nccl_comm, host_params[_NODE_SIZE_],
-                                                 nccl_id, host_params[_NODE_RANK_]));
-            }
             { // set stream and malloc vec
                 CUBLAS_CHECK(cublasCreate(&cublasH));
                 checkCudaErrors(
@@ -369,99 +357,99 @@ namespace qcu
                     lat_3dim_SC[i] = lat_3dim_Half_SC[i] * 2;
                     checkCudaErrors(cudaMallocAsync(
                         &device_send_vec[i * _BF_],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_send_vec[i * _BF_ + 1],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_recv_vec[i * _BF_],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_recv_vec[i * _BF_ + 1],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex), stream));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocHost(
                         &host_send_vec[i * _BF_],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)));
                     checkCudaErrors(cudaMallocHost(
                         &host_send_vec[i * _BF_ + 1],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)));
                     checkCudaErrors(cudaMallocHost(
                         &host_recv_vec[i * _BF_],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)));
                     checkCudaErrors(cudaMallocHost(
                         &host_recv_vec[i * _BF_ + 1],
-                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex)));
+                        lat_3dim_Half_SC[i] * sizeof(LatticeComplex<T>)));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_1dim_send_vec[i * _BF_],
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_1dim_send_vec[i * _BF_ + 1],
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_1dim_recv_vec[i * _BF_],
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_1dim_recv_vec[i * _BF_ + 1],
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex), stream));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>), stream));
                     host_u_1dim_send_vec[i * _BF_] = (void *)malloc(
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_1dim_send_vec[i * _BF_ + 1] = (void *)malloc(
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_1dim_recv_vec[i * _BF_] = (void *)malloc(
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_1dim_recv_vec[i * _BF_ + 1] = (void *)malloc(
-                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_3dim[i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                 }
                 for (int i = 0; i < _2DIM_; i++)
                 {
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_send_vec[i * _BF_ * _BF_ + 0],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 0],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_send_vec[i * _BF_ * _BF_ + 1],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 1],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_send_vec[i * _BF_ * _BF_ + 2],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 2],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_send_vec[i * _BF_ * _BF_ + 3],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     checkCudaErrors(cudaMallocAsync(
                         &device_u_2dim_recv_vec[i * _BF_ * _BF_ + 3],
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex),
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>),
                         stream));
                     host_u_2dim_send_vec[i * _BF_ * _BF_ + 0] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_recv_vec[i * _BF_ * _BF_ + 0] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_send_vec[i * _BF_ * _BF_ + 1] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_recv_vec[i * _BF_ * _BF_ + 1] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_send_vec[i * _BF_ * _BF_ + 2] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_recv_vec[i * _BF_ * _BF_ + 2] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_send_vec[i * _BF_ * _BF_ + 3] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                     host_u_2dim_recv_vec[i * _BF_ * _BF_ + 3] = (void *)malloc(
-                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex));
+                        lat_2dim[_2DIM_ - 1 - i] * _LAT_PDCC_ * sizeof(LatticeComplex<T>));
                 }
                 for (int i = 0; i < _WARDS_; i++)
                 {
@@ -487,31 +475,31 @@ namespace qcu
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_no_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_even_no_dag, _PARITY_,
-                                                _EVEN_);
-                give_param<<<1, 1, 0, stream>>>(device_params_even_no_dag, _DAGGER_,
-                                                _NO_USE_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _PARITY_,
+                                                   _EVEN_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _DAGGER_,
+                                                   _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_no_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_no_dag, _PARITY_,
-                                                _ODD_);
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_no_dag, _DAGGER_,
-                                                _NO_USE_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _PARITY_,
+                                                   _ODD_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _DAGGER_,
+                                                   _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_even_dag, _PARITY_, _EVEN_);
-                give_param<<<1, 1, 0, stream>>>(device_params_even_dag, _DAGGER_, _USE_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_dag, _PARITY_, _EVEN_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_even_dag, _DAGGER_, _USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_dag, host_params,
                                                 _VALS_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_dag, _PARITY_, _ODD_);
-                give_param<<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_dag, _PARITY_, _ODD_);
+                give_param<T><<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
         }
-        double kappa()
+        T kappa()
         {
             /*
             a=1(always\ ignore)
@@ -520,7 +508,17 @@ namespace qcu
             \kappa=\frac{1}{2m_q a+8r}
             or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
             */
-            return 1 / (2 * _MASS_ + 8);
+            T mass = 0.0;
+            // T mass = -3.5;
+            return 1 / (2 * mass + 8);
+        }
+        int max_iter()
+        {
+            return 1e3;
+        }
+        T tol()
+        {
+            return 1e-9;
         }
         float get_time()
         {
@@ -599,7 +597,6 @@ namespace qcu
             CUBLAS_CHECK(cublasDestroy(cublasH));
             checkCudaErrors(cudaStreamSynchronize(stream));
             checkCudaErrors(cudaStreamDestroy(stream));
-            checkNcclErrors(ncclCommDestroy(nccl_comm));
             // CUDA_CHECK(cudaDeviceReset());// don't use this !
         }
         void _print()

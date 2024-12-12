@@ -1,11 +1,7 @@
 from typing import List
-
 import numpy
 import cupy
-
 from .. import mpi
-
-
 def isqrt(n):
     if n > 0:
         x = 1 << (n.bit_length() + 1 >> 1)
@@ -18,8 +14,6 @@ def isqrt(n):
         return 0
     else:
         raise ValueError("Integer square root not defined for negative numbers.")
-
-
 def getMomList(mom2_max, mom2_min=0):
     mom_list = []
     radius = isqrt(mom2_max)
@@ -30,14 +24,10 @@ def getMomList(mom2_max, mom2_min=0):
                 if np2 <= mom2_max and np2 >= mom2_min:
                     mom_list.append((npx, npy, npz))
     return mom_list
-
-
 def getMomDict(mom2_max, mom2_min=0):
     mom_list = getMomList(mom2_max, mom2_min)
     mom_dict = {key: " ".join([str(np) for np in val]) for key, val in enumerate(mom_list)}
     return mom_dict
-
-
 class Phase:
     def __init__(self, latt_size: List[int]) -> None:
         Lx, Ly, Lz, Lt = latt_size
@@ -76,11 +66,9 @@ class Phase:
         self.x = cupy.array(x_cb2)
         self.y = cupy.array(y_cb2)
         self.z = cupy.array(z_cb2)
-
     def __getitem__(self, momentum: List[int]):
         npx, npy, npz = momentum
         return cupy.exp(npx * self.x + npy * self.y + npz * self.z)
-
     def cache(self, mom_list: List[List[int]]):
         ret = cupy.zeros((len(mom_list), *self.x.shape), "<c16")
         for idx, mom in enumerate(mom_list):

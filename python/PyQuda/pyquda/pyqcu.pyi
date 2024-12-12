@@ -1,39 +1,21 @@
 from pointer import Pointer
-
-
 class QcuParam:
     def __init__(self) -> None: ...
-
     lattice_size: int
-
-
-def dslashQcu(fermion_out: Pointer, fermion_in: Pointer,
+def testDslashQcu(fermion_out: Pointer, fermion_in: Pointer,
               gauge: Pointer, param: QcuParam, parity: int) -> None: ...
-
-
-def dslashCloverQcu(fermion_out: Pointer, fermion_in: Pointer,
+def applyDslashQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
+                  param: QcuParam, parity: int, grid: QcuParam) -> None: ...
+def testCloverDslashQcu(fermion_out: Pointer, fermion_in: Pointer,
                     gauge: Pointer, param: QcuParam, parity: int) -> None: ...
-
-
-def mpiDslashQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
-                 param: QcuParam, parity: int, grid: QcuParam) -> None: ...
-
-
-def mpiBistabCgQcu(gauge: Pointer, param: QcuParam,
-                   grid: QcuParam) -> None: ...
-
-
-def ncclDslashQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
+def applyCloverDslashQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
                   param: QcuParam, parity: int, grid: QcuParam) -> None: ...
-
-
-def ncclBistabCgQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
+def applyBistabCgQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
                     param: QcuParam,
                     grid: QcuParam) -> None: ...
-
-def ncclCgQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
+def applyCgQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
                     param: QcuParam,
                     grid: QcuParam) -> None: ...
-
-def ncclDslashCloverQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
-                  param: QcuParam, parity: int, grid: QcuParam) -> None: ...
+def applyGmresIrQcu(fermion_out: Pointer, fermion_in: Pointer, gauge: Pointer,
+                    param: QcuParam,
+                    grid: QcuParam) -> None: ...

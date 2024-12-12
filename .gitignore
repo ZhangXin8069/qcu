@@ -12,6 +12,8 @@
 *__pycache__
 *.o
 *a.out
+*b.out
+*c.out
 *.so
 *.nvvp
 *.nsys-rep
@@ -19,7 +21,8 @@
 *.sqlite
 *.sw*
 *RemoteSystemsTempFiles
-# *
+_*
 lib/*
 .ssub.sh
-*.vscode
+.vscode
+*.log*

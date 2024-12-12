@@ -1933,12 +1933,10 @@ qcu rank 0 takes 11.112513457075693 sec
 rank 0 my x and x difference: , 1.5315885627454088e-08, takes 11.112996109994128 sec, my_x_norm = 195229.3700531826
 qcu rank 0 takes 11.112996109994128 sec
 ============================
-
                initQuda Total time =     5.100 secs
                      init     =     5.100 secs (100.000%),	 with        2 calls at 2.550e+06 us per call
         total accounted       =     5.100 secs (100.000%)
         total missing         =     0.000 secs (  0.000%)
-
           loadGaugeQuda Total time =     0.529 secs
                  download     =     0.527 secs ( 99.487%),	 with        2 calls at 2.633e+05 us per call
                    upload     =     0.000 secs (  0.073%),	 with        1 calls at 3.840e+02 us per call
@@ -1947,7 +1945,6 @@ qcu rank 0 takes 11.112996109994128 sec
                      free     =     0.000 secs (  0.002%),	 with        2 calls at 4.500e+00 us per call
         total accounted       =     0.529 secs ( 99.996%)
         total missing         =     0.000 secs (  0.004%)
-
              invertQuda Total time =    54.224 secs
                  download     =     0.009 secs (  0.017%),	 with       10 calls at 9.359e+02 us per call
                    upload     =     0.000 secs (  0.000%),	 with       10 calls at 1.600e+01 us per call
@@ -1958,11 +1955,8 @@ qcu rank 0 takes 11.112996109994128 sec
                      free     =     0.001 secs (  0.002%),	 with       20 calls at 5.315e+01 us per call
         total accounted       =    54.043 secs ( 99.666%)
         total missing         =     0.181 secs (  0.334%)
-
                 endQuda Total time =     0.103 secs
-
        initQuda-endQuda Total time =   168.393 secs
-
                    QUDA Total time =    59.975 secs
                  download     =     0.536 secs (  0.894%),	 with       12 calls at 4.466e+04 us per call
                    upload     =     0.001 secs (  0.001%),	 with       11 calls at 4.927e+01 us per call
@@ -1973,12 +1967,10 @@ qcu rank 0 takes 11.112996109994128 sec
                      free     =     0.001 secs (  0.002%),	 with       22 calls at 4.873e+01 us per call
         total accounted       =    59.691 secs ( 99.525%)
         total missing         =     0.285 secs (  0.475%)
-
 Device memory used = 444.0 MiB
 Pinned device memory used = 0.0 MiB
 Managed memory used = 0.0 MiB
 Shmem memory used = 0.0 MiB
 Page-locked host memory used = 24.0 MiB
 Total host memory used >= 28.9 MiB
-
 ~/qcu

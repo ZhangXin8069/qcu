@@ -2,19 +2,15 @@ from os import path, environ
 from distutils.core import Extension, setup
 from Cython.Build import cythonize
 import numpy
-
 VERSION = "0.3.2"
 LICENSE = "MIT"
 DESCRIPTION = "Python wrapper for quda written in Cython."
-
 ld_library_path = [path.abspath(_path) for _path in environ["LD_LIBRARY_PATH"].strip().split(":")]
-
 for libquda_path in ld_library_path:
     if path.exists(path.join(libquda_path, "libquda.so")):
         break
 else:
     raise RuntimeError("Cannot find libquda.so in LD_LIBRARY_PATH environment")
-
 BUILD_QCU = False
 for libqcu_path in ld_library_path:
     if path.exists(path.join(libqcu_path, "libqcu.so")):
@@ -22,9 +18,7 @@ for libqcu_path in ld_library_path:
         break
 else:
     import warnings
-
     warnings.warn("Cannot find libqcu.so in LD_LIBRARY_PATH environment.", RuntimeWarning)
-
 extensions = [
     Extension(
         "pyquda.pointer",
@@ -43,7 +37,6 @@ extensions = [
         language="c",
     ),
 ]
-
 if BUILD_QCU:
     extensions.append(
         Extension(
@@ -56,12 +49,10 @@ if BUILD_QCU:
             language="c",
         )
     )
-
 ext_modules = cythonize(
     extensions,
     language_level="3",
 )
-
 packages = [
     "pyquda",
     "pyquda.dslash",
@@ -73,7 +64,6 @@ package_dir = {
 package_data = {
     "pyquda": ["*.pyi", "*.pxd", "src.pxd", "include/**"],
 }
-
 setup(
     name="PyQuda",
     version=VERSION,
