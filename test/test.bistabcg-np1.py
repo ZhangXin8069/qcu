@@ -103,9 +103,12 @@ def compare(round):
     print(qcu_x.data.dtype)
     t2 = perf_counter()
     print(f'turn data to float: {t2 - t1} sec')
-    U.data.astype(cp.complex64).tofile("U.bin")
-    p.data.astype(cp.complex64).tofile("p.bin")
-    quda_x.data.astype(cp.complex64).tofile("quda_x.bin")
+    U.data.astype(cp.complex64).tofile("wilson-bistabcg-gauge_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    p.data.tofile("wilson-bistabcg-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    quda_x.data.tofile("wilson-bistabcg-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
     ######
     # qcu
     param = qcu.QcuParam()
