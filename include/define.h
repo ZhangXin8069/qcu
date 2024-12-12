@@ -152,33 +152,33 @@ namespace qcu
     filename << typeid(T).name() << ".bin";       \
     std::cout << filename.str() << std::endl;     \
   }
-#define get_filename(filename, param, parity, grid)    \
-  {                                                    \
-    int i = 0;                                         \
-    int _[_VALS_SIZE_];                                \
-    std::string segment;                               \
-    std::cout << filename.str() << std::endl;          \
-    while (std::getline(filename, segment, '-'))       \
-    {                                                  \
-      try                                              \
-      {                                                \
-        _[i] = std::stoi(segment);                     \
-        std::cout << _[i] << std::endl;                \
-        i++;                                           \
-      }                                                \
-      catch (const std::invalid_argument &)            \
-      {                                                \
-      }                                                \
-    }                                                  \
-    param.lattice_size[_X_] = _[_LAT_X_] * _EVEN_ODD_; \
-    param.lattice_size[_Y_] = _[_LAT_Y_];              \
-    param.lattice_size[_Z_] = _[_LAT_Z_];              \
-    param.lattice_size[_T_] = _[_LAT_T_];              \
-    parity = _[_PARITY_];                              \
-    grid.lattice_size[_X_] = _[_GRID_X_];              \
-    grid.lattice_size[_Y_] = _[_GRID_Y_];              \
-    grid.lattice_size[_Z_] = _[_GRID_Z_];              \
-    grid.lattice_size[_T_] = _[_GRID_T_];              \
+#define get_filename(filename, param, parity, grid) \
+  {                                                 \
+    int i = 0;                                      \
+    int _[_VALS_SIZE_];                             \
+    std::string segment;                            \
+    std::cout << filename.str() << std::endl;       \
+    while (std::getline(filename, segment, '-'))    \
+    {                                               \
+      try                                           \
+      {                                             \
+        _[i] = std::stoi(segment);                  \
+        std::cout << _[i] << std::endl;             \
+        i++;                                        \
+      }                                             \
+      catch (const std::invalid_argument &)         \
+      {                                             \
+      }                                             \
+    }                                               \
+    param.lattice_size[_X_] = _[_LAT_X_];           \
+    param.lattice_size[_Y_] = _[_LAT_Y_];           \
+    param.lattice_size[_Z_] = _[_LAT_Z_];           \
+    param.lattice_size[_T_] = _[_LAT_T_];           \
+    parity = _[_PARITY_];                           \
+    grid.lattice_size[_X_] = _[_GRID_X_];           \
+    grid.lattice_size[_Y_] = _[_GRID_Y_];           \
+    grid.lattice_size[_Z_] = _[_GRID_Z_];           \
+    grid.lattice_size[_T_] = _[_GRID_T_];           \
   }
 // CUDA API error checking
 #define CUDA_CHECK(err)                                                  \
