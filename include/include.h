@@ -26,5 +26,6 @@
 #include <stdlib.h>
 #include <string>
 #include <unistd.h>
-#include <vector>
+#include <fstream>
+#include <sstream>
 #endif

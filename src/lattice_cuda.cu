@@ -2,6 +2,78 @@
 #pragma optimize(5)
 namespace qcu
 {
+  template <typename T>
+  void device_save(void *d_array, const int size, const std::string &filename)
+  {
+    T *h_array;
+    h_array = new T[size];
+    cudaDeviceSynchronize();
+    cudaMemcpy(h_array, d_array, size * sizeof(T), cudaMemcpyDeviceToHost);
+    cudaDeviceSynchronize();
+    std::ofstream outFile(filename, std::ios::binary);
+    if (outFile.is_open())
+    {
+      outFile.write(reinterpret_cast<char *>(h_array), size * sizeof(T));
+      outFile.close();
+      std::cout << "save to " << filename << std::endl;
+    }
+    else
+    {
+      std::cerr << "unable to save to " << filename << std::endl;
+    }
+    delete[] h_array;
+  }
+  template <typename T>
+  void host_save(void *h_array, const int size, const std::string &filename)
+  {
+    std::ofstream outFile(filename, std::ios::binary);
+    if (outFile.is_open())
+    {
+      outFile.write(reinterpret_cast<char *>(h_array), size * sizeof(T));
+      outFile.close();
+      std::cout << "save to " << filename << std::endl;
+    }
+    else
+    {
+      std::cerr << "unable to save to " << filename << std::endl;
+    }
+  }
+  template <typename T>
+  void device_load(void *d_array, const int size, const std::string &filename)
+  {
+    T *h_array;
+    h_array = new T[size];
+    std::ifstream inFile(filename, std::ios::binary);
+    if (inFile.is_open())
+    {
+      inFile.read(reinterpret_cast<char *>(h_array), size * sizeof(T));
+      inFile.close();
+      std::cout << "load from " << filename << std::endl;
+    }
+    else
+    {
+      std::cerr << "unable to load from " << filename << std::endl;
+    }
+    cudaDeviceSynchronize();
+    cudaMemcpy(d_array, h_array, size * sizeof(T), cudaMemcpyHostToDevice);
+    cudaDeviceSynchronize();
+    delete[] h_array;
+  }
+  template <typename T>
+  void host_load(void *h_array, const int size, const std::string &filename)
+  {
+    std::ifstream inFile(filename, std::ios::binary);
+    if (inFile.is_open())
+    {
+      inFile.read(reinterpret_cast<char *>(h_array), size * sizeof(T));
+      inFile.close();
+      std::cout << "load from " << filename << std::endl;
+    }
+    else
+    {
+      std::cerr << "unable to load from " << filename << std::endl;
+    }
+  }
   template <>
   cublasStatus_t _cublasCopy<double>(cublasHandle_t handle, int n, const double *x, int incx, double *y, int incy)
   {
@@ -391,6 +463,10 @@ namespace qcu
     }
   }
   //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
+  template void device_save<double>(void *d_array, const int size, const std::string &filename);
+  template void host_save<double>(void *h_array, const int size, const std::string &filename);
+  template void device_load<double>(void *d_array, const int size, const std::string &filename);
+  template void host_load<double>(void *h_array, const int size, const std::string &filename);
   template __global__ void give_random_vals<double>(void *device_random_vals, unsigned long seed);
   template __global__ void give_custom_vals<double>(void *device_custom_vals, double real,
                                                     double imag);
@@ -418,6 +494,10 @@ namespace qcu
   template void psctzyx2ptzyxsc<double>(void *fermion, LatticeSet<double> *set_ptr);
   template __global__ void give_debug_u<double>(void *device_U, void *device_params);
   //@@@CUDA_TEMPLATE_FOR_DEVICE@@@
+  template void device_save<float>(void *d_array, const int size, const std::string &filename);
+  template void host_save<float>(void *h_array, const int size, const std::string &filename);
+  template void device_load<float>(void *d_array, const int size, const std::string &filename);
+  template void host_load<float>(void *h_array, const int size, const std::string &filename);
   template __global__ void give_random_vals<float>(void *device_random_vals, unsigned long seed);
   template __global__ void give_custom_vals<float>(void *device_custom_vals, float real,
                                                    float imag);
