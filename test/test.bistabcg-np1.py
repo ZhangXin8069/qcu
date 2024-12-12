@@ -52,6 +52,8 @@ dslash = core.getDslash(
 # dslash.invert_param.inv_type = 13  # QUDA_BICGSTABL_INVERTER
 U = gauge_utils.gaussGauge(latt_size, 0)
 dslash.loadGauge(U)
+
+
 def compare(round):
     # quda
     cp.cuda.runtime.deviceSynchronize()
@@ -85,18 +87,26 @@ def compare(round):
     print(p.data_ptr)
     print(type(p.data))
     print(p.data.dtype)
-    print(Mp.data_ptr)
-    print(type(Mp.data))
-    print(Mp.data.dtype)
-    Mp.data = Mp.data.astype(cp.complex64)
-    print(Mp.data_ptr)
-    print(type(Mp.data))
-    print(Mp.data.dtype)
+    print(quda_x.data_ptr)
+    print(type(quda_x.data))
+    print(quda_x.data.dtype)
+    quda_x.data = quda_x.data.astype(cp.complex64)
+    print(quda_x.data_ptr)
+    print(type(quda_x.data))
+    print(quda_x.data.dtype)
+    print(qcu_x.data_ptr)
+    print(type(qcu_x.data))
+    print(qcu_x.data.dtype)
+    qcu_x.data = qcu_x.data.astype(cp.complex64)
+    print(qcu_x.data_ptr)
+    print(type(qcu_x.data))
+    print(qcu_x.data.dtype)
     t2 = perf_counter()
     print(f'turn data to float: {t2 - t1} sec')
     U.data.astype(cp.complex64).tofile("U.bin")
-    Mp.data.astype(cp.complex64).tofile("Mp.bin")
     p.data.astype(cp.complex64).tofile("p.bin")
+    quda_x.data.astype(cp.complex64).tofile("quda_x.bin")
+    ######
     # qcu
     param = qcu.QcuParam()
     param.lattice_size = latt_size
@@ -120,5 +130,9 @@ def compare(round):
     )
     print(f"qcu rank {rank} takes {t2 - t1} sec")
     print("============================")
+    print('quda difference: ', cp.linalg.norm(
+        qcu_x.data - quda_x.data) / cp.linalg.norm(quda_x.data))
+
+
 for i in range(0, 1):
     compare(i)
