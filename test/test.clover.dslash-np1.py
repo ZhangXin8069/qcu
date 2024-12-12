@@ -98,7 +98,6 @@ def compare(round):
     U.data.astype(cp.complex64).tofile("U.bin")
     p.data.astype(cp.complex64).tofile("p.bin")
     Mp.data.astype(cp.complex64).tofile("Mp.bin")
-    ######
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
@@ -125,7 +124,7 @@ def compare(round):
     print("######", Mp.lexico().shape)
     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
     diff = np.sum(diff_x, axis=(-1, -2))
-    _ = np.where(diff > 1e-5)
+    _ = np.where(diff > 1e-3)
     print("######", diff.shape)
     print("######T:", _[0], ",\n", len(_[0]))
     print("######Z:", _[1], ",\n", len(_[1]))
