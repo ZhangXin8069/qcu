@@ -10,10 +10,10 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-# latt_size = [32, 32, 32, 64]
-latt_size = [32, 32, 32, 64]
+# latt_size = [32, 32, 32, 32]
+latt_size = [32, 16, 32, 32]
 # latt_size = [16, 16, 16, 16]
-# latt_size = [32, 32, 32, 64]
+# latt_size = [32, 32, 32, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
@@ -63,6 +63,53 @@ def compare(round):
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'Quda dslash: {t2 - t1} sec')
+    # float test
+    t1 = perf_counter()
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    U.data = U.data.astype(cp.complex64)
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    p.data = p.data.astype(cp.complex64)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    print(Mp.data_ptr)
+    print(type(Mp.data))
+    print(Mp.data.dtype)
+    Mp.data = Mp.data.astype(cp.complex64)
+    print(Mp.data_ptr)
+    print(type(Mp.data))
+    print(Mp.data.dtype)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    Mp1.data = Mp1.data.astype(cp.complex64)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    t2 = perf_counter()
+    print(f'turn data to float: {t2 - t1} sec')
+    U.data.astype(cp.complex64).tofile("wilson-clover-dslash-gauge_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(p.data)[:p.data.size/2]
+    _.tofile("wilson-clover-dslash-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 1, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(p.data)[p.data.size/2:]
+    _.tofile("wilson-clover-dslash-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(Mp.data)[:Mp.data.size/2]
+    _.tofile("wilson-clover-dslash-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(Mp.data)[Mp.data.size/2:]
+    _.tofile("wilson-clover-dslash-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 1, mpi.rank, mpi.size, 0))
+    ######
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
@@ -80,6 +127,8 @@ def compare(round):
     #                           U.data_ptr, param, 1)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
+    print("######Mp[0,0,0,0]:\n", Mp.lexico()[0, 0, 0, 0])
+    print("######Mp1[0,0,0,0]:\n", Mp1.lexico()[0, 0, 0, 0])
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
     print("######Mp1[0,0,0,1]:\n", Mp1.lexico()[0, 0, 0, 1])
     print(f'QCU dslash: {t2 - t1} sec')
@@ -87,7 +136,7 @@ def compare(round):
     print("######", Mp.lexico().shape)
     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
     diff = np.sum(diff_x, axis=(-1, -2))
-    _ = np.where(diff > 1e-5)
+    _ = np.where(diff > 1e-3)
     print("######", diff.shape)
     print("######T:", _[0], ",\n", len(_[0]))
     print("######Z:", _[1], ",\n", len(_[1]))
@@ -155,5 +204,5 @@ def compare(round):
           diff_x[-3, -3, -3, -3])
 
 
-for i in range(0, 5):
+for i in range(0, 1):
     compare(i)

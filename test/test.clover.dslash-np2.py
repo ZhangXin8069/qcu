@@ -10,12 +10,10 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
-latt_size = [32, 32, 32, 64]
-# latt_size = [32, 32, 32, 64]
-# latt_size = [32, 32, 32, 64]
+# latt_size = [32, 32, 32, 32]
+latt_size = [32, 32, 32, 32]
 # latt_size = [16, 16, 16, 16]
-# latt_size = [32, 32, 32, 64]
-# latt_size = [8, 8, 8, 8]
+# latt_size = [32, 32, 32, 32]
 # latt_size = [8, 16, 16, 16]
 # latt_size = [8, 4, 8, 64]
 # latt_size = [4, 16, 16, 32]
@@ -24,7 +22,7 @@ latt_size = [32, 32, 32, 64]
 # latt_size = [4, 4, 4, 4]
 # latt_size = [8, 8, 8, 8]
 # latt_size = [8, 8, 8, 16]
-grid_size = [2, 1, 1, 1]
+grid_size = [1, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
@@ -46,10 +44,10 @@ U = gauge_utils.gaussGauge(latt_size, 0)
 # Set parameters in Dslash and use m=-3.5 to make kappa=1
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
 # Generate gauge and then load it
-# dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
-#                         coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
+dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu,
+                        coeff_t, coeff_r, multigrid=False, anti_periodic_t=False)
 # dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
-# dslash.loadGauge(U)
+dslash.loadGauge(U)
 np.set_printoptions(threshold=np.inf)
 
 
@@ -58,13 +56,60 @@ def compare(round):
     print("######p[0,0,0,1]:\n", p.lexico()[0, 0, 0, 1])
     cp.cuda.runtime.deviceSynchronize()
     t1 = perf_counter()
-#     quda.dslashQuda(Mp.even_ptr, p.odd_ptr, dslash.invert_param,
-#                     QudaParity.QUDA_EVEN_PARITY)
-#     quda.dslashQuda(Mp.odd_ptr, p.even_ptr, dslash.invert_param,
-#                     QudaParity.QUDA_ODD_PARITY)
+    quda.dslashQuda(Mp.even_ptr, p.odd_ptr, dslash.invert_param,
+                    QudaParity.QUDA_EVEN_PARITY)
+    quda.dslashQuda(Mp.odd_ptr, p.even_ptr, dslash.invert_param,
+                    QudaParity.QUDA_ODD_PARITY)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'Quda dslash: {t2 - t1} sec')
+    # float test
+    t1 = perf_counter()
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    U.data = U.data.astype(cp.complex64)
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    p.data = p.data.astype(cp.complex64)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    print(Mp.data_ptr)
+    print(type(Mp.data))
+    print(Mp.data.dtype)
+    Mp.data = Mp.data.astype(cp.complex64)
+    print(Mp.data_ptr)
+    print(type(Mp.data))
+    print(Mp.data.dtype)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    Mp1.data = Mp1.data.astype(cp.complex64)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    t2 = perf_counter()
+    print(f'turn data to float: {t2 - t1} sec')
+    U.data.astype(cp.complex64).tofile("wilson-clover-dslash-gauge_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(p.data)[:p.data.size/2]
+    _.tofile("wilson-clover-dslash-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 1, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(p.data)[p.data.size/2:]
+    _.tofile("wilson-clover-dslash-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(Mp.data)[:Mp.data.size/2]
+    _.tofile("wilson-clover-dslash-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(Mp.data)[Mp.data.size/2:]
+    _.tofile("wilson-clover-dslash-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 1, mpi.rank, mpi.size, 0))
+    ######
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
@@ -76,82 +121,88 @@ def compare(round):
                                U.data_ptr, param, 0, grid)
     pyqcu.applyCloverDslashQcu(Mp1.odd_ptr, p.even_ptr,
                                U.data_ptr, param, 1, grid)
+    # pyqcu.testCloverDslashQcu(Mp1.even_ptr, p.odd_ptr,
+    #                           U.data_ptr, param, 0)
+    # pyqcu.testCloverDslashQcu(Mp1.odd_ptr, p.even_ptr,
+    #                           U.data_ptr, param, 1)
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
+    print("######Mp[0,0,0,0]:\n", Mp.lexico()[0, 0, 0, 0])
+    print("######Mp1[0,0,0,0]:\n", Mp1.lexico()[0, 0, 0, 0])
     print("######Mp[0,0,0,1]:\n", Mp.lexico()[0, 0, 0, 1])
     print("######Mp1[0,0,0,1]:\n", Mp1.lexico()[0, 0, 0, 1])
     print(f'QCU dslash: {t2 - t1} sec')
     print(f'rank {0} my x and x difference: {cp.linalg.norm(Mp1.data - Mp.data) / cp.linalg.norm(Mp.data)}, takes {t2 - t1} sec, my_norm = {cp.linalg.norm(Mp1.data)}, norm = {cp.linalg.norm(Mp.data)}')
+    print("######", Mp.lexico().shape)
+    diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
+    diff = np.sum(diff_x, axis=(-1, -2))
+    _ = np.where(diff > 1e-3)
+    print("######", diff.shape)
+    print("######T:", _[0], ",\n", len(_[0]))
+    print("######Z:", _[1], ",\n", len(_[1]))
+    print("######Y:", _[2], ",\n", len(_[2]))
+    print("######X:", _[3], ",\n", len(_[3]))
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,1]:\n",
+          diff_x[0, 0, 0, 1])
+    print("######diff_x[0,0,1,1]:\n",
+          diff_x[0, 0, 1, 1])
+    print("######diff_x[0,1,1,1]:\n",
+          diff_x[0, 1, 1, 1])
+    print("######diff_x[1,1,1,1]:\n",
+          diff_x[1, 1, 1, 1])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,-1]:\n",
+          diff_x[0, 0, 0, -1])
+    print("######diff_x[0,0,-1,-1]:\n",
+          diff_x[0, 0, -1, -1])
+    print("######diff_x[0,-1,-1,-1]:\n",
+          diff_x[0, -1, -1, -1])
+    print("######diff_x[-1,-1,-1,-1]:\n",
+          diff_x[-1, -1, -1, -1])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,2]:\n",
+          diff_x[0, 0, 0, 2])
+    print("######diff_x[0,0,2,2]:\n",
+          diff_x[0, 0, 2, 2])
+    print("######diff_x[0,2,2,2]:\n",
+          diff_x[0, 2, 2, 2])
+    print("######diff_x[2,2,2,2]:\n",
+          diff_x[2, 2, 2, 2])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,-2]:\n",
+          diff_x[0, 0, 0, -2])
+    print("######diff_x[0,0,-2,-2]:\n",
+          diff_x[0, 0, -2, -2])
+    print("######diff_x[0,-2,-2,-2]:\n",
+          diff_x[0, -2, -2, -2])
+    print("######diff_x[-2,-2,-2,-2]:\n",
+          diff_x[-2, -2, -2, -2])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,3]:\n",
+          diff_x[0, 0, 0, 3])
+    print("######diff_x[0,0,3,3]:\n",
+          diff_x[0, 0, 3, 3])
+    print("######diff_x[0,3,3,3]:\n",
+          diff_x[0, 3, 3, 3])
+    print("######diff_x[3,3,3,3]:\n",
+          diff_x[3, 3, 3, 3])
+    print("######diff_x[0,0,0,0]:\n",
+          diff_x[0, 0, 0, 0])
+    print("######diff_x[0,0,0,-3]:\n",
+          diff_x[0, 0, 0, -3])
+    print("######diff_x[0,0,-3,-3]:\n",
+          diff_x[0, 0, -3, -3])
+    print("######diff_x[0,-3,-3,-3]:\n",
+          diff_x[0, -3, -3, -3])
+    print("######diff_x[-3,-3,-3,-3]:\n",
+          diff_x[-3, -3, -3, -3])
 
 
-#     print("######", Mp.lexico().shape)
-#     diff_x = np.abs((Mp1.lexico()-Mp.lexico()).real)
-#     diff = np.sum(diff_x, axis=(-1, -2))
-#     _ = np.where(diff > 1e-5)
-#     print("######", diff.shape)
-#     print("######T:", _[0], ",\n", len(_[0]))
-#     print("######Z:", _[1], ",\n", len(_[1]))
-#     print("######Y:", _[2], ",\n", len(_[2]))
-#     print("######X:", _[3], ",\n", len(_[3]))
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 0])
-#     print("######diff_x[0,0,0,1]:\n",
-#           diff_x[0, 0, 0, 1])
-#     print("######diff_x[0,0,1,1]:\n",
-#           diff_x[0, 0, 1, 1])
-#     print("######diff_x[0,1,1,1]:\n",
-#           diff_x[0, 1, 1, 1])
-#     print("######diff_x[1,1,1,1]:\n",
-#           diff_x[1, 1, 1, 1])
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 0])
-#     print("######diff_x[0,0,0,-1]:\n",
-#           diff_x[0, 0, 0, -1])
-#     print("######diff_x[0,0,-1,-1]:\n",
-#           diff_x[0, 0, -1, -1])
-#     print("######diff_x[0,-1,-1,-1]:\n",
-#           diff_x[0, -1, -1, -1])
-#     print("######diff_x[-1,-1,-1,-1]:\n",
-#           diff_x[-1, -1, -1, -1])
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 0])
-#     print("######diff_x[0,0,0,2]:\n",
-#           diff_x[0, 0, 0, 2])
-#     print("######diff_x[0,0,2,2]:\n",
-#           diff_x[0, 0, 2, 2])
-#     print("######diff_x[0,2,2,2]:\n",
-#           diff_x[0, 2, 2, 2])
-#     print("######diff_x[2,2,2,2]:\n",
-#           diff_x[2, 2, 2, 2])
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 0])
-#     print("######diff_x[0,0,0,-2]:\n",
-#           diff_x[0, 0, 0, -2])
-#     print("######diff_x[0,0,-2,-2]:\n",
-#           diff_x[0, 0, -2, -2])
-#     print("######diff_x[0,-2,-2,-2]:\n",
-#           diff_x[0, -2, -2, -2])
-#     print("######diff_x[-2,-2,-2,-2]:\n",
-#           diff_x[-2, -2, -2, -2])
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 0])
-#     print("######diff_x[0,0,0,3]:\n",
-#           diff_x[0, 0, 0, 3])
-#     print("######diff_x[0,0,3,3]:\n",
-#           diff_x[0, 0, 3, 3])
-#     print("######diff_x[0,3,3,3]:\n",
-#           diff_x[0, 3, 3, 3])
-#     print("######diff_x[3,3,3,3]:\n",
-#           diff_x[3, 3, 3, 3])
-#     print("######diff_x[0,0,0,0]:\n",
-#           diff_x[0, 0, 0, 0])
-#     print("######diff_x[0,0,0,-3]:\n",
-#           diff_x[0, 0, 0, -3])
-#     print("######diff_x[0,0,-3,-3]:\n",
-#           diff_x[0, 0, -3, -3])
-#     print("######diff_x[0,-3,-3,-3]:\n",
-#           diff_x[0, -3, -3, -3])
-#     print("######diff_x[-3,-3,-3,-3]:\n",
-#           diff_x[-3, -3, -3, -3])
-for i in range(0, 5):
+for i in range(0, 1):
     compare(i)

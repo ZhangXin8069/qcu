@@ -25,8 +25,6 @@ n_ev = 20
 n_kr = min(max(2 * n_ev, n_ev + 32), Lz * Ly * Lx * Nc - 1)
 tol = 1e-9
 max_restarts = 10 * Lz * Ly * Lx * Nc // (n_kr - n_ev)
-
-
 def Laplacian(x):
     x = x.reshape(Lz * Ly * Lx * Nc, -1)
     ret = cp.zeros_like(x, "<c16")
@@ -34,16 +32,12 @@ def Laplacian(x):
         ret[:, i] = gauge_tmp.laplace(LatticeStaggeredFermion(
             latt_info, x[:, i]), 3).data.reshape(Lz * Ly * Lx * Nc)
     return ret
-
-
 A = linalg.LinearOperator(
     (Lz * Ly * Lx * Nc, Lz * Ly * Lx * Nc), matvec=Laplacian, matmat=Laplacian)
 s = perf_counter()
 evals, evecs = linalg.eigsh(A, n_ev, which="SA", tol=tol)
 print(f"{perf_counter() - s:.3f} secs")
 print(evals)
-
-
 def _Laplacian(x):
     x = x.reshape(Lz, Ly, Lx, Nc, -1)
     return (
@@ -65,8 +59,6 @@ def _Laplacian(x):
                       gauge_tmp_lexico_dagger[2], x), 1, 0)
         )
     ).reshape(Lz * Ly * Lx * Nc, -1)
-
-
 A = linalg.LinearOperator(
     (Lz * Ly * Lx * Nc, Lz * Ly * Lx * Nc), matvec=_Laplacian, matmat=_Laplacian)
 s = perf_counter()

@@ -74,9 +74,20 @@ def compare(round):
     print(Mp1.data.dtype)
     t2 = perf_counter()
     print(f'turn data to float: {t2 - t1} sec')
-    U.data.astype(cp.complex64).tofile("U.bin")
-    p.data.astype(cp.complex64).tofile("p.bin")
-    Mp.data.astype(cp.complex64).tofile("Mp.bin")
+    U.data.astype(cp.complex64).tofile("wilson-dslash-gauge_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(p.data)[:p.data.size/2]
+    _.tofile("wilson-dslash-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 1, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(p.data)[p.data.size/2:]
+    _.tofile("wilson-dslash-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(Mp.data)[:Mp.data.size/2]
+    _.tofile("wilson-dslash-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    _ = cp.ravel(Mp.data)[Mp.data.size/2:]
+    _.tofile("wilson-dslash-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 1, mpi.rank, mpi.size, 0))
     ######
     # """
     # then execute my code

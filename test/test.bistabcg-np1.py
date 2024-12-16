@@ -11,8 +11,8 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
-latt_size = [32, 32, 32, 64]
-# latt_size = [32, 32, 32, 64]
+latt_size = [32, 32, 32, 32]
+# latt_size = [32, 32, 32, 32]
 # latt_size = [8, 8, 8, 8]
 # latt_size = [24, 24, 24, 72]
 grid_size = [1, 1, 1, 1]
@@ -71,11 +71,51 @@ def compare(round):
         f"rank {rank} quda x and x difference: , {cp.linalg.norm(quda_p.data - p.data) / cp.linalg.norm(quda_p.data)}, takes {t2 - t1} sec, norm_quda_x = {cp.linalg.norm(quda_x.data)}"
     )
     print(f"quda rank {rank} takes {t2 - t1} sec")
+    # float test
+    t1 = perf_counter()
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    U.data = U.data.astype(cp.complex64)
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    p.data = p.data.astype(cp.complex64)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    print(quda_x.data_ptr)
+    print(type(quda_x.data))
+    print(quda_x.data.dtype)
+    quda_x.data = quda_x.data.astype(cp.complex64)
+    print(quda_x.data_ptr)
+    print(type(quda_x.data))
+    print(quda_x.data.dtype)
+    print(qcu_x.data_ptr)
+    print(type(qcu_x.data))
+    print(qcu_x.data.dtype)
+    qcu_x.data = qcu_x.data.astype(cp.complex64)
+    print(qcu_x.data_ptr)
+    print(type(qcu_x.data))
+    print(qcu_x.data.dtype)
+    t2 = perf_counter()
+    print(f'turn data to float: {t2 - t1} sec')
+    U.data.astype(cp.complex64).tofile("wilson-bistabcg-gauge_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    p.data.tofile("wilson-bistabcg-fermion-in_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    quda_x.data.tofile("wilson-bistabcg-fermion-out_-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-{}-f.bin".format(
+        Lx, Ly, Lz, Lt, Lx*Ly*Lz*Lt, Gx, Gy, Gz, Gt, 0, mpi.rank, mpi.size, 0))
+    ######
     # qcu
     param = qcu.QcuParam()
     param.lattice_size = latt_size
     grid = qcu.QcuParam()
     grid.lattice_size = grid_size
+    # qcu_x.data = quda_x.data.copy()
     cp.cuda.runtime.deviceSynchronize()
     if rank == 0:
         print("===============qcu==================")
@@ -93,7 +133,9 @@ def compare(round):
     )
     print(f"qcu rank {rank} takes {t2 - t1} sec")
     print("============================")
+    print('quda difference: ', cp.linalg.norm(
+        qcu_x.data - quda_x.data) / cp.linalg.norm(quda_x.data))
 
 
-for i in range(0, 10):
+for i in range(0, 1):
     compare(i)

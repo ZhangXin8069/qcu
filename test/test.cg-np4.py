@@ -11,7 +11,7 @@ import numpy as np
 test_dir = os.path.dirname(os.path.abspath(__file__))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 Nd, Ns, Nc = 4, 4, 3
-latt_size = [32, 32, 32, 64]
+latt_size = [32, 32, 32, 32]
 grid_size = [2, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Gx, Gy, Gz, Gt = grid_size
@@ -36,8 +36,6 @@ dslash = core.getDslash(latt_size, mass, 1e-9, 1000, xi_0, nu, coeff_t,
                         coeff_r, multigrid=False, anti_periodic_t=False)
 U = gauge_utils.gaussGauge(latt_size, 0)
 dslash.loadGauge(U)
-
-
 def compare(round):
     # quda
     cp.cuda.runtime.deviceSynchronize()
@@ -73,7 +71,5 @@ def compare(round):
     print(f'rank {rank} my x and x difference: , {cp.linalg.norm(qcu_p.data - p.data) / cp.linalg.norm(qcu_p.data)}, takes {t2 - t1} sec, my_x_norm = {cp.linalg.norm(qcu_x.data)}')
     print(f'qcu rank {rank} takes {t2 - t1} sec')
     print('============================')
-
-
 for i in range(0, 10):
     compare(i)
