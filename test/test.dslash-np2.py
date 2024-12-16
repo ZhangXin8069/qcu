@@ -9,8 +9,9 @@ import cupy as cp
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
+# latt_size = [32, 32, 32, 32]
 latt_size = [32, 32, 32, 64]
-grid_size = [2, 1, 1, 1]
+grid_size = [1, 1, 1, 2]
 Lx, Ly, Lz, Lt = latt_size
 Nd, Ns, Nc = 4, 4, 3
 Gx, Gy, Gz, Gt = grid_size
@@ -26,7 +27,6 @@ def compare(round):
         Lt, Lz, Ly, Lx, Ns, Nc * 2).view(cp.complex128))
     Mp = LatticeFermion(latt_size)
     Mp1 = LatticeFermion(latt_size)
-    Mp2 = LatticeFermion(latt_size)
     print('===============round ', round, '======================')
     # Set parameters in Dslash and use m=-3.5 to make kappa=1
     dslash = core.getDslash(latt_size, -3.5, 0, 0, anti_periodic_t=False)
@@ -42,6 +42,43 @@ def compare(round):
     cp.cuda.runtime.deviceSynchronize()
     t2 = perf_counter()
     print(f'Quda dslash: {t2 - t1} sec')
+    # float test
+    t1 = perf_counter()
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    U.data = U.data.astype(cp.complex64)
+    print(U.data_ptr)
+    print(type(U.data))
+    print(U.data.dtype)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    p.data = p.data.astype(cp.complex64)
+    print(p.data_ptr)
+    print(type(p.data))
+    print(p.data.dtype)
+    print(Mp.data_ptr)
+    print(type(Mp.data))
+    print(Mp.data.dtype)
+    Mp.data = Mp.data.astype(cp.complex64)
+    print(Mp.data_ptr)
+    print(type(Mp.data))
+    print(Mp.data.dtype)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    Mp1.data = Mp1.data.astype(cp.complex64)
+    print(Mp1.data_ptr)
+    print(type(Mp1.data))
+    print(Mp1.data.dtype)
+    t2 = perf_counter()
+    print(f'turn data to float: {t2 - t1} sec')
+    U.data.astype(cp.complex64).tofile("U.bin")
+    p.data.astype(cp.complex64).tofile("p.bin")
+    Mp.data.astype(cp.complex64).tofile("Mp.bin")
+    ######
+    # """
     # then execute my code
     param = pyqcu.QcuParam()
     param.lattice_size = latt_size
@@ -55,14 +92,15 @@ def compare(round):
     t2 = perf_counter()
     # pyqcu.testDslashQcu(Mp2.even_ptr, p.odd_ptr, U.data_ptr, param, 0)
     # pyqcu.testDslashQcu(Mp2.odd_ptr, p.even_ptr, U.data_ptr, param, 1)
-    cp.cuda.runtime.deviceSynchronize()
-    print("######quda:Mp[0,0,0,0]:\n",Mp.lexico()[0,0,0,0])
-    print("######mpi:Mp1[0,0,0,0]:\n",Mp1.lexico()[0,0,0,0])
+    # cp.cuda.runtime.deviceSynchronize()
+    # print("######quda:Mp[0,0,0,0]:\n",Mp.lexico()[0,0,0,0])
+    # print("######mpi:Mp1[0,0,0,0]:\n",Mp1.lexico()[0,0,0,0])
     # print("######test:Mp2[2,0,0,0]:\n",Mp2.lexico()[2,0,0,0])
     print(f'QCU dslash: {t2 - t1} sec')
     print('quda difference: ', cp.linalg.norm(
         Mp1.data - Mp.data) / cp.linalg.norm(Mp.data))
+    # """
 
 
-for i in range(0, 10):
+for i in range(0, 1):
     compare(i)
