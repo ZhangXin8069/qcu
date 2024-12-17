@@ -33,22 +33,6 @@ ComplexVector safe_matrix_vector_mult(const ComplexMatrix &A, const ComplexVecto
     return A * v;
 }
 
-// Utility function for custom diagonal extraction
-template <typename Derived>
-Matrix<typename Derived::Scalar, Dynamic, Dynamic>
-custom_diag(const Eigen::MatrixBase<Derived> &input)
-{
-    if (input.rows() == input.cols())
-    {
-        return input.diagonal().asDiagonal();
-    }
-    else if (input.rows() == 1 || input.cols() == 1)
-    {
-        return input.derived().asDiagonal();
-    }
-    throw std::runtime_error("Invalid input for diagonal extraction");
-}
-
 // Custom QR decomposition for complex matrices
 void custom_qr_decomp(const ComplexMatrix &A,
                       ComplexMatrix &Q,
@@ -280,6 +264,11 @@ int main()
     ComplexMatrix Q, H;
     arnoldi_iteration(A, k, v, Q, H);
     auto [arnoldi_eigenvalues, arnoldi_eigenvectors] = qr_algorithm(H, max_iter);
+
+    // Check dimensions of Q and arnoldi_eigenvectors
+    cout << "Q size: " << Q.rows() << " x " << Q.cols() << endl;
+    cout << "arnoldi_eigenvectors size: " << arnoldi_eigenvectors.rows() << " x " << arnoldi_eigenvectors.cols() << endl;
+
     ComplexVector final_eigenvector = Q.leftCols(k) * arnoldi_eigenvectors.col(0); // Use leftCols(k)
     end = chrono::high_resolution_clock::now();
 
