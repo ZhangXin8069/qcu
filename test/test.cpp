@@ -14,7 +14,7 @@ using ComplexVector = Matrix<Complex, Dynamic, 1>;
 using ComplexMatrix = Matrix<Complex, Dynamic, Dynamic>;
 
 // Utility function for safe matrix multiplication
-ComplexMatrix safe_matrix_mult(const ComplexMatrix &A, const ComplexMatrix &B)
+ComplexMatrix _matrix_mult(const ComplexMatrix &A, const ComplexMatrix &B)
 {
     if (A.cols() != B.rows())
     {
@@ -24,7 +24,7 @@ ComplexMatrix safe_matrix_mult(const ComplexMatrix &A, const ComplexMatrix &B)
 }
 
 // Utility function for safe matrix-vector multiplication
-ComplexVector safe_matrix_vector_mult(const ComplexMatrix &A, const ComplexVector &v)
+ComplexVector _matrix_vector_mult(const ComplexMatrix &A, const ComplexVector &v)
 {
     if (A.cols() != v.rows())
     {
@@ -34,10 +34,10 @@ ComplexVector safe_matrix_vector_mult(const ComplexMatrix &A, const ComplexVecto
 }
 
 // Custom QR decomposition for complex matrices
-void custom_qr_decomp(const ComplexMatrix &A,
-                      ComplexMatrix &Q,
-                      ComplexMatrix &R,
-                      double tol = 1e-9)
+void _qr_decomp(const ComplexMatrix &A,
+                ComplexMatrix &Q,
+                ComplexMatrix &R,
+                double tol = 1e-9)
 {
     int m = A.rows();
     int n = A.cols();
@@ -61,10 +61,10 @@ void custom_qr_decomp(const ComplexMatrix &A,
 }
 
 // Orthonormalization
-ComplexMatrix custom_orth(const ComplexMatrix &A, double tol = 1e-9)
+ComplexMatrix _orth(const ComplexMatrix &A, double tol = 1e-9)
 {
     ComplexMatrix Q, R;
-    custom_qr_decomp(A, Q, R);
+    _qr_decomp(A, Q, R);
 
     int rank = 0;
     for (int i = 0; i < R.diagonal().size(); ++i)
@@ -85,7 +85,7 @@ ComplexMatrix generate_sparse_matrix(const ComplexVector &eigenvalues,
     ComplexMatrix D = ComplexMatrix::Zero(n, n);
     D.diagonal() = eigenvalues;
 
-    return safe_matrix_mult(safe_matrix_mult(eigenvectors, D), eigenvectors.conjugate().transpose());
+    return _matrix_mult(_matrix_mult(eigenvectors, D), eigenvectors.conjugate().transpose());
 }
 
 // Chebyshev polynomial application
@@ -95,11 +95,11 @@ ComplexVector apply_chebyshev_polynomial(const ComplexMatrix &A,
 {
     vector<ComplexVector> T(degree + 1);
     T[0] = v;
-    T[1] = safe_matrix_vector_mult(A, v);
+    T[1] = _matrix_vector_mult(A, v);
 
     for (int k = 2; k <= degree; ++k)
     {
-        T[k] = 2 * safe_matrix_vector_mult(A, T[k - 1]) - T[k - 2];
+        T[k] = 2 * _matrix_vector_mult(A, T[k - 1]) - T[k - 2];
     }
     return T[degree];
 }
@@ -122,7 +122,7 @@ void arnoldi_iteration(const ComplexMatrix &A,
 
     for (int j = 0; j < k; ++j)
     {
-        ComplexVector w = safe_matrix_vector_mult(A, Q.col(j));
+        ComplexVector w = _matrix_vector_mult(A, Q.col(j));
 
         // Orthogonalization
         for (int i = 0; i <= j; ++i)
@@ -148,8 +148,8 @@ pair<ComplexVector, ComplexMatrix> qr_algorithm(ComplexMatrix H,
     ComplexMatrix Q, R;
     for (int iter = 0; iter < max_iter; ++iter)
     {
-        custom_qr_decomp(H, Q, R);
-        H = safe_matrix_mult(R, Q.leftCols(H.cols()));
+        _qr_decomp(H, Q, R);
+        H = _matrix_mult(R, Q.leftCols(H.cols()));
 
         bool converged = true;
         for (int i = 0; i < H.rows(); ++i)
@@ -191,7 +191,7 @@ void validate_eigenvector(const ComplexMatrix &A,
     // Normalize eigenvector
     ComplexVector normalized_vec = eigenvector / eigenvector.norm();
 
-    ComplexVector Av = safe_matrix_vector_mult(A, normalized_vec);
+    ComplexVector Av = _matrix_vector_mult(A, normalized_vec);
     ComplexVector lambda_v = eigenvalues(0) * normalized_vec;
 
     double norm_Av = Av.norm();
@@ -207,7 +207,7 @@ void validate_eigenvector(const ComplexMatrix &A,
 int main()
 {
     const int N = 1000;
-    const int n = 50;
+    const int n = 1000;
     const int degree = 5;
     const int k = 60;
     const int max_iter = 10000;
@@ -233,7 +233,7 @@ int main()
         }
     }
 
-    ComplexMatrix eigenvectors = custom_orth(random_matrix);
+    ComplexMatrix eigenvectors = _orth(random_matrix);
     ComplexMatrix A = generate_sparse_matrix(eigenvalues, eigenvectors);
 
     // Ensure matrix is Hermitian (for better numerical stability)
