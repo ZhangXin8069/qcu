@@ -206,10 +206,11 @@ void validate_eigenvector(const ComplexMatrix &A,
 
 int main()
 {
+    auto start = chrono::high_resolution_clock::now();
     const int N = 1000;
-    const int n = 1000;
+    const int n = 100;
     const int degree = 5;
-    const int k = 60;
+    const int k = 24;
     const int max_iter = 10000;
 
     // Random number generation with consistent seed for reproducibility
@@ -220,7 +221,8 @@ int main()
     ComplexVector eigenvalues = ComplexVector::Zero(N);
     for (int i = 0; i < n; ++i)
     {
-        eigenvalues(i) = Complex(i * 0.5, i * 0.5);
+        // eigenvalues(i) = Complex(i * 0.5, i * 0.5);
+        eigenvalues(i) = Complex(dis(gen), dis(gen));
     }
 
     // Generate random eigenvectors with more controlled generation
@@ -246,12 +248,17 @@ int main()
         v(i) = Complex(dis(gen), dis(gen));
     }
     v = v / v.norm(); // Normalize initial vector
+    auto end = chrono::high_resolution_clock::now();
+
+    cout << "Init time: "
+         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
+         << " ms" << endl;
 
     // Method 1: Eigen's built-in eigenvalue computation
-    auto start = chrono::high_resolution_clock::now();
+    start = chrono::high_resolution_clock::now();
     ComplexMatrix B = A; // Use a copy to avoid modifying original matrix
     Eigen::ComplexEigenSolver<ComplexMatrix> ces(B);
-    auto end = chrono::high_resolution_clock::now();
+    end = chrono::high_resolution_clock::now();
 
     cout << "Eigen method time: "
          << chrono::duration_cast<chrono::milliseconds>(end - start).count()
