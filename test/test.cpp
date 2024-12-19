@@ -1,303 +1,233 @@
-#include <iostream>
-#include <complex>
 #include <Eigen/Dense>
+#include <Eigen/Sparse>
 #include <Eigen/Eigenvalues>
-#include <chrono>
+#include <complex>
 #include <vector>
-#include <random>
-#include <cmath>
-
+#include <iostream>
+#include <algorithm>
+#include <chrono>
+#include <thread>
 using namespace Eigen;
 using namespace std;
-using Complex = std::complex<double>;
-using ComplexVector = Matrix<Complex, Dynamic, 1>;
-using ComplexMatrix = Matrix<Complex, Dynamic, Dynamic>;
-
-// Utility function for safe matrix multiplication
-ComplexMatrix _matrix_mult(const ComplexMatrix &A, const ComplexMatrix &B)
+using namespace std::chrono; // 为 chrono 库设置别名
+class CustomMultiplier
 {
-    if (A.cols() != B.rows())
-    {
-        throw std::runtime_error("Matrix multiplication dimensions do not match");
-    }
-    return A * B;
-}
+private:
+    MatrixXcd original_matrix;
+    int n;
 
-// Utility function for safe matrix-vector multiplication
-ComplexVector _matrix_vector_mult(const ComplexMatrix &A, const ComplexVector &v)
-{
-    if (A.cols() != v.rows())
+public:
+    CustomMultiplier(int size) : n(size)
     {
-        throw std::runtime_error("Matrix-vector multiplication dimensions do not match");
-    }
-    return A * v;
-}
-
-// Custom QR decomposition for complex matrices
-void _qr_decomp(const ComplexMatrix &A,
-                ComplexMatrix &Q,
-                ComplexMatrix &R,
-                double tol = 1e-9)
-{
-    int m = A.rows();
-    int n = A.cols();
-    Q = ComplexMatrix::Zero(m, n);
-    R = ComplexMatrix::Zero(n, n);
-
-    for (int j = 0; j < n; ++j)
-    {
-        ComplexVector v = A.col(j);
-        for (int i = 0; i < j; ++i)
+        auto start = high_resolution_clock::now();
         {
-            R(i, j) = Q.col(i).conjugate().dot(v);
-            v -= R(i, j) * Q.col(i);
+            original_matrix = MatrixXcd::Random(size, size);
         }
-        R(j, j) = v.norm();
-        if (std::abs(R(j, j)) > tol)
-        {
-            Q.col(j) = v / R(j, j);
-        }
+        // {
+        //     VectorXcd eigenvalues = VectorXcd::Random(size);
+        //     MatrixXcd V = MatrixXcd::Random(size, size);
+        //     // {
+        //     //     // VectorXcd eigenvalues(size);
+        //     //     // for (int i = 0; i < size; i++)
+        //     //     // {
+        //     //     //     double real = cos(2.0 * M_PI * i / size);
+        //     //     //     double imag = sin(2.0 * M_PI * i / size);
+        //     //     //     eigenvalues(i) = complex<double>(real, imag);
+        //     //     // }
+        //     // }
+        //     HouseholderQR<MatrixXcd> qr(V);
+        //     MatrixXcd Q = qr.householderQ();
+        //     original_matrix = Q * eigenvalues.asDiagonal() * Q.adjoint();
+        // }
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);
+        cout << "Init time: " << duration.count() << " milliseconds" << endl;
     }
-}
-
-// Orthonormalization
-ComplexMatrix _orth(const ComplexMatrix &A, double tol = 1e-9)
-{
-    ComplexMatrix Q, R;
-    _qr_decomp(A, Q, R);
-
-    int rank = 0;
-    for (int i = 0; i < R.diagonal().size(); ++i)
+    VectorXcd operator*(const VectorXcd &vec) const
     {
-        if (std::abs(R.diagonal()[i]) > tol)
-        {
-            ++rank;
-        }
+        return original_matrix * vec;
     }
-    return Q.leftCols(rank);
-}
-
-// Generate sparse matrix with specified eigenvalues
-ComplexMatrix generate_sparse_matrix(const ComplexVector &eigenvalues,
-                                     const ComplexMatrix &eigenvectors)
+};
+class ImplicitArnoldiSolver
 {
-    int n = eigenvalues.size();
-    ComplexMatrix D = ComplexMatrix::Zero(n, n);
-    D.diagonal() = eigenvalues;
-
-    return _matrix_mult(_matrix_mult(eigenvectors, D), eigenvectors.conjugate().transpose());
-}
-
-// Chebyshev polynomial application
-ComplexVector apply_chebyshev_polynomial(const ComplexMatrix &A,
-                                         const ComplexVector &v,
-                                         int degree)
-{
-    vector<ComplexVector> T(degree + 1);
-    T[0] = v;
-    T[1] = _matrix_vector_mult(A, v);
-
-    for (int k = 2; k <= degree; ++k)
+private:
+    int n, m, max_restarts;
+    const CustomMultiplier &multiplier;
+    double tolerance;
+    complex<double> computeRayleighQuotient(const VectorXcd &v)
     {
-        T[k] = 2 * _matrix_vector_mult(A, T[k - 1]) - T[k - 2];
+        VectorXcd Av = multiplier * v;
+        return (v.adjoint() * Av)(0, 0) / (v.adjoint() * v)(0, 0);
     }
-    return T[degree];
-}
-
-// Arnoldi iteration with dimension safety
-void arnoldi_iteration(const ComplexMatrix &A,
-                       int k,
-                       const ComplexVector &v,
-                       ComplexMatrix &Q,
-                       ComplexMatrix &H)
-{
-    int n = A.rows();
-    k = min(k, n - 1); // Ensure k doesn't exceed matrix dimensions
-    Q = ComplexMatrix::Zero(n, k + 1);
-    H = ComplexMatrix::Zero(k + 1, k);
-
-    // Normalize initial vector
-    ComplexVector q = v / v.norm();
-    Q.col(0) = q;
-
-    for (int j = 0; j < k; ++j)
+    void arnoldiIteration(MatrixXcd &V, MatrixXcd &H, int k_start, int k_end)
     {
-        ComplexVector w = _matrix_vector_mult(A, Q.col(j));
-
-        // Orthogonalization
-        for (int i = 0; i <= j; ++i)
+        auto start = high_resolution_clock::now();
+#pragma omp parallel for
+        for (int j = k_start; j < k_end; j++)
         {
-            H(i, j) = Q.col(i).conjugate().dot(w);
-            w -= H(i, j) * Q.col(i);
-        }
-
-        // Normalize
-        H(j + 1, j) = w.norm();
-        if (std::abs(H(j + 1, j)) > 1e-10)
-        {
-            Q.col(j + 1) = w / H(j + 1, j);
-        }
-    }
-}
-
-// QR Algorithm with improved convergence check
-pair<ComplexVector, ComplexMatrix> qr_algorithm(ComplexMatrix H,
-                                                int max_iter = 5000,
-                                                double tol = 1e-9)
-{
-    ComplexMatrix Q, R;
-    for (int iter = 0; iter < max_iter; ++iter)
-    {
-        _qr_decomp(H, Q, R);
-        H = _matrix_mult(R, Q.leftCols(H.cols()));
-
-        bool converged = true;
-        for (int i = 0; i < H.rows(); ++i)
-        {
-            for (int j = 0; j < H.cols(); ++j)
+            VectorXcd w = multiplier * V.col(j);
+            // 使用更稳定的 Modified Gram-Schmidt
+            for (int i = 0; i <= j; i++)
             {
-                if (i != j && std::abs(H(i, j)) >= tol)
+                complex<double> h = V.col(i).adjoint() * w;
+                H(i, j) = h;
+                w -= h * V.col(i);
+                complex<double> h2 = V.col(i).adjoint() * w;
+                H(i, j) += h2;
+                w -= h2 * V.col(i);
+            }
+            double norm_w = w.norm();
+            if (norm_w < tolerance)
+            {
+                H.col(j).setZero();
+                V.col(j + 1).setZero();
+                break;
+            }
+            H(j + 1, j) = norm_w;
+            V.col(j + 1) = w / norm_w;
+        }
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);
+        cout << "Arnoldi iteration time: " << duration.count() << " milliseconds" << endl;
+    }
+    VectorXcd refineSingleVector(complex<double> &eigenvalue,
+                                 const VectorXcd &initial_vector,
+                                 int max_iter = 15) // 增加迭代次数
+    {
+        auto start = high_resolution_clock::now();
+        VectorXcd current_vector = initial_vector;
+        complex<double> prev_eigenvalue = eigenvalue;
+        // 改进收敛条件和迭代次数
+        for (int iter = 0; iter < max_iter; ++iter)
+        {
+            VectorXcd new_vector = multiplier * current_vector;
+            eigenvalue = computeRayleighQuotient(current_vector);
+            new_vector.normalize();
+            double diff = (new_vector - current_vector).norm();
+            current_vector = new_vector;
+            // 改进的收敛条件
+            if (diff < tolerance && abs(eigenvalue - prev_eigenvalue) < tolerance * 1e-6) // 设定更精细的容忍度
+            {
+                break;
+            }
+            prev_eigenvalue = eigenvalue;
+        }
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);
+        cout << "Refining vector time: " << duration.count() << " milliseconds" << endl;
+        return current_vector;
+    }
+
+public:
+    ImplicitArnoldiSolver(int size, int num_eigenvalues, const CustomMultiplier &mult,
+                          int max_rest = 30, double tol = 1e-12)
+        : n(size), m(num_eigenvalues * 2), max_restarts(max_rest),
+          multiplier(mult), tolerance(tol) {}
+    void solve(vector<complex<double>> &eigenvalues, MatrixXcd &eigenvectors)
+    {
+        auto start = high_resolution_clock::now();
+        MatrixXcd V = MatrixXcd::Zero(n, m + 1);
+        MatrixXcd H = MatrixXcd::Zero(m + 1, m);
+        // Improved initial vector
+        VectorXcd initial = VectorXcd::Random(n);
+        initial.normalize(); // 仅归一化一次
+        V.col(0) = initial;
+        // Main IRAM loop
+        for (int restart = 0; restart < max_restarts; restart++)
+        {
+            arnoldiIteration(V, H, 0, m);
+            MatrixXcd H_m = H.topLeftCorner(m, m);
+            ComplexEigenSolver<MatrixXcd> ces(H_m);
+            vector<pair<double, int>> eig_order(m);
+            for (int i = 0; i < m; i++)
+            {
+                eig_order[i] = make_pair(abs(ces.eigenvalues()(i)), i);
+            }
+            sort(eig_order.begin(), eig_order.end(), greater<pair<double, int>>());
+            bool converged = true;
+            for (int i = 0; i < m / 2; i++)
+            {
+                VectorXcd ritz_vector = V.leftCols(m) * ces.eigenvectors().col(eig_order[i].second);
+                VectorXcd residual = multiplier * ritz_vector -
+                                     ces.eigenvalues()(eig_order[i].second) * ritz_vector;
+                if (residual.norm() > tolerance)
                 {
                     converged = false;
                     break;
                 }
             }
-            if (!converged)
+            if (converged)
                 break;
+            MatrixXcd Q = ces.eigenvectors();
+            V.leftCols(m) = V.leftCols(m) * Q;
+            H.setZero();
         }
-
-        if (converged)
+        MatrixXcd H_m = H.topLeftCorner(m, m);
+        ComplexEigenSolver<MatrixXcd> ces(H_m);
+        eigenvalues.resize(m / 2);
+        eigenvectors = MatrixXcd::Zero(n, m / 2);
+        vector<pair<double, int>> eig_order(m);
+        for (int i = 0; i < m; i++)
         {
-            cout << "Converged in " << iter << " iterations" << endl;
-            break;
+            eig_order[i] = make_pair(abs(ces.eigenvalues()(i)), i);
         }
+        sort(eig_order.begin(), eig_order.end(), greater<pair<double, int>>());
+        for (int i = 0; i < m / 2; i++)
+        {
+            int idx = eig_order[i].second;
+            complex<double> eigenvalue = ces.eigenvalues()(idx);
+            VectorXcd eigenvector = V.leftCols(m) * ces.eigenvectors().col(idx);
+            eigenvector.normalize();
+            eigenvectors.col(i) = refineSingleVector(eigenvalue, eigenvector);
+            eigenvalues[i] = eigenvalue;
+        }
+        auto end = high_resolution_clock::now();
+        auto duration = duration_cast<milliseconds>(end - start);
+        cout << "Eigenvalue computation time: " << duration.count() << " milliseconds" << endl;
     }
-
-    ComplexVector eigenvalues = H.diagonal();
-    return {eigenvalues, Q};
-}
-
-// Eigenvalue validation with more robust checks
-void validate_eigenvector(const ComplexMatrix &A,
-                          const ComplexVector &eigenvalues,
-                          const ComplexVector &eigenvector)
+};
+void verify_results(const CustomMultiplier &multiplier,
+                    const vector<complex<double>> &computed_eigenvalues,
+                    const MatrixXcd &computed_eigenvectors)
 {
-    if (eigenvector.size() == 0)
+    auto start = high_resolution_clock::now();
+    cout << "Verification Results:" << endl;
+    vector<pair<double, int>> errors(computed_eigenvalues.size());
+    for (size_t i = 0; i < computed_eigenvalues.size(); i++)
     {
-        cout << "Empty eigenvector" << endl;
-        return;
+        VectorXcd eigenvector = computed_eigenvectors.col(i);
+        VectorXcd Av = multiplier * eigenvector;
+        VectorXcd lambda_v = computed_eigenvalues[i] * eigenvector;
+        double error = (Av - lambda_v).norm() / eigenvector.norm();
+        errors[i] = make_pair(error, i);
+        cout << "Eigenvalue " << i + 1 << ": " << computed_eigenvalues[i] << endl;
+        cout << "Relative Error: " << error << endl;
+        cout << "-------------------" << endl;
     }
-
-    // Normalize eigenvector
-    ComplexVector normalized_vec = eigenvector / eigenvector.norm();
-
-    ComplexVector Av = _matrix_vector_mult(A, normalized_vec);
-    ComplexVector lambda_v = eigenvalues(0) * normalized_vec;
-
-    double norm_Av = Av.norm();
-    double norm_lambda_v = lambda_v.norm();
-    double error = (Av - lambda_v).norm() / (norm_Av + 1e-10);
-
-    cout << "Eigenvector norm: " << normalized_vec.norm() << endl;
-    cout << "norm_Av: " << norm_Av << endl;
-    cout << "norm_lambda_v: " << norm_lambda_v << endl;
-    cout << "Error: " << error << endl;
+    sort(errors.begin(), errors.end());
+    cout << "\nBest 24 Results:" << endl;
+    for (int i = 0; i < min(24, (int)errors.size()); ++i)
+    {
+        cout << "Eigenvalue " << errors[i].second + 1
+             << " Relative Error: " << errors[i].first << endl;
+    }
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Verification time: " << duration.count() << " milliseconds" << endl;
 }
-
 int main()
 {
-    auto start = chrono::high_resolution_clock::now();
-    const int N = 1000;
-    const int n = 100;
-    const int degree = 5;
-    const int k = 24;
-    const int max_iter = 10000;
-
-    // Random number generation with consistent seed for reproducibility
-    mt19937 gen(42); // Fixed seed
-    normal_distribution<> dis(0.0, 1.0);
-
-    // Generate eigenvalues
-    ComplexVector eigenvalues = ComplexVector::Zero(N);
-    for (int i = 0; i < n; ++i)
-    {
-        // eigenvalues(i) = Complex(i * 0.5, i * 0.5);
-        eigenvalues(i) = Complex(dis(gen), dis(gen));
-    }
-
-    // Generate random eigenvectors with more controlled generation
-    ComplexMatrix random_matrix(N, N);
-    for (int i = 0; i < N; ++i)
-    {
-        for (int j = 0; j < N; ++j)
-        {
-            random_matrix(i, j) = Complex(dis(gen), dis(gen));
-        }
-    }
-
-    ComplexMatrix eigenvectors = _orth(random_matrix);
-    ComplexMatrix A = generate_sparse_matrix(eigenvalues, eigenvectors);
-
-    // Ensure matrix is Hermitian (for better numerical stability)
-    A = (A + A.conjugate().transpose()) / 2.0;
-
-    // Generate random vector
-    ComplexVector v = ComplexVector::Zero(N);
-    for (int i = 0; i < N; ++i)
-    {
-        v(i) = Complex(dis(gen), dis(gen));
-    }
-    v = v / v.norm(); // Normalize initial vector
-    auto end = chrono::high_resolution_clock::now();
-
-    cout << "Init time: "
-         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-         << " ms" << endl;
-
-    // Method 1: Eigen's built-in eigenvalue computation
-    start = chrono::high_resolution_clock::now();
-    ComplexMatrix B = A; // Use a copy to avoid modifying original matrix
-    Eigen::ComplexEigenSolver<ComplexMatrix> ces(B);
-    end = chrono::high_resolution_clock::now();
-
-    cout << "Eigen method time: "
-         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-         << " ms" << endl;
-
-    validate_eigenvector(A, ces.eigenvalues(), ces.eigenvectors().col(0));
-
-    // Method 2: Arnoldi + QR
-    start = chrono::high_resolution_clock::now();
-    ComplexMatrix Q, H;
-    arnoldi_iteration(A, k, v, Q, H);
-    auto [arnoldi_eigenvalues, arnoldi_eigenvectors] = qr_algorithm(H, max_iter);
-
-    // Check dimensions of Q and arnoldi_eigenvectors
-    cout << "Q size: " << Q.rows() << " x " << Q.cols() << endl;
-    cout << "arnoldi_eigenvectors size: " << arnoldi_eigenvectors.rows() << " x " << arnoldi_eigenvectors.cols() << endl;
-
-    ComplexVector final_eigenvector = Q.leftCols(k) * arnoldi_eigenvectors.col(0); // Use leftCols(k)
-    end = chrono::high_resolution_clock::now();
-
-    cout << "Arnoldi + QR time: "
-         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-         << " ms" << endl;
-
-    validate_eigenvector(A, arnoldi_eigenvalues, final_eigenvector);
-
-    // Method 3: Chebyshev + Arnoldi + QR
-    start = chrono::high_resolution_clock::now();
-    ComplexVector v_chebyshev = apply_chebyshev_polynomial(A, v, degree);
-    arnoldi_iteration(A, k, v_chebyshev, Q, H);
-    auto [cheb_eigenvalues, cheb_eigenvectors] = qr_algorithm(H, max_iter);
-    ComplexVector final_cheb_eigenvector = Q.leftCols(k) * cheb_eigenvectors.col(0); // Use leftCols(k)
-    end = chrono::high_resolution_clock::now();
-
-    cout << "Chebyshev + Arnoldi + QR time: "
-         << chrono::duration_cast<chrono::milliseconds>(end - start).count()
-         << " ms" << endl;
-
-    validate_eigenvector(A, cheb_eigenvalues, final_cheb_eigenvector);
-
+    auto start = high_resolution_clock::now();
+    const int matrix_size = 1000;
+    const int num_eigenvalues = 48;
+    CustomMultiplier multiplier(matrix_size);
+    ImplicitArnoldiSolver solver(matrix_size, num_eigenvalues, multiplier);
+    vector<complex<double>> eigenvalues;
+    MatrixXcd eigenvectors;
+    solver.solve(eigenvalues, eigenvectors);
+    verify_results(multiplier, eigenvalues, eigenvectors);
+    auto end = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(end - start);
+    cout << "Total execution time: " << duration.count() << " milliseconds" << endl;
     return 0;
 }

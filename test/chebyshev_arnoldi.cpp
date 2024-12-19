@@ -30,16 +30,17 @@ MatrixType np_diag(const MatrixType &input)
 
 // Chebyshev Polynomial method
 template <typename MatrixType>
-VectorXcd applyChebyshevPolynomial(const MatrixType& A, const VectorXcd& v, int degree) {
-    VectorXcd T = VectorXcd::Zero(A.rows(), degree + 1);  // 初始化一个大小为 degree + 1 的零向量
-    T(0) = v;  // 将向量 v 存入 T 的第一个位置
-    T(1) = A * v;  // 计算 A*v 并存储在 T(1)
+VectorXcd applyChebyshevPolynomial(const MatrixType &A, const VectorXcd &v, int degree)
+{
+    VectorXcd T = VectorXcd::Zero(A.rows(), degree + 1);  // Initialize a vector of size degree + 1
+    T.col(0) = v;                                           // Store vector v in T(0)
+    T.col(1) = A * v;                                       // Compute A * v and store in T(1)
 
-    for (int k = 2; k <= degree; ++k) {
-        T(k) = 2.0 * A * T(k - 1) - T(k - 2);
+    for (int k = 2; k <= degree; ++k)
+    {
+        T.col(k) = 2.0 * A * T.col(k - 1) - T.col(k - 2);  // Chebyshev recurrence relation
     }
-
-    return T(degree);  // 返回第 degree 个值
+    return T.col(degree); // Return the value at degree
 }
 
 // Arnoldi Iteration
@@ -49,46 +50,52 @@ void arnoldiIteration(const MatrixType &A, int k, const VectorXcd &v, MatrixXcd 
     int n = A.rows();
     VectorXcd q = v.normalized();
     Q.col(0) = q;
-
     for (int j = 0; j < k; ++j)
     {
-        VectorXcd w = A * Q.col(j);
+        VectorXcd w = A * Q.col(j); // Dslash operation
         for (int i = 0; i <= j; ++i)
         {
-            H(i, j) = Q.col(i).adjoint() * w;
-            w -= H(i, j) * Q.col(i);
+            H(i, j) = Q.col(i).adjoint() * w; // Compute H(i, j)
+            w -= H(i, j) * Q.col(i);          // Subtract projection from w
         }
-        H(j + 1, j) = w.norm();
-        if (H(j + 1, j) != std::complex<double>(0, 0))
-        { // 修复这里
-            Q.col(j + 1) = w / H(j + 1, j);
-        }
+        H(j + 1, j) = w.norm();  // Norm of the residual
+        Q.col(j + 1) = w / H(j + 1, j);  // Normalize the new vector
     }
 }
 
-// QR Decomposition with Eigenvalues extraction
+// QR Decomposition with Eigenvalues extraction using HouseholderQR
 template <typename MatrixType>
-std::pair<VectorXcd, MatrixXcd> qrAlgorithm(const MatrixType& H, int max_iter = 5000, double tol = 1e-9) {
+std::pair<VectorXcd, MatrixXcd> qrAlgorithm(const MatrixType &H, int max_iter = 5000, double tol = 1e-9)
+{
     MatrixXcd H_current = H;
     MatrixXcd Q = MatrixXcd::Identity(H.rows(), H.cols());
 
-    for (int i = 0; i < max_iter; ++i) {
-        // Perform QR decomposition
-        JacobiSVD<MatrixXcd> svd(H_current, ComputeThinU | ComputeThinV);
-        H_current = svd.matrixV() * svd.matrixU().adjoint();
-        Q = Q * svd.matrixU();
+    for (int i = 0; i < max_iter; ++i)
+    {
+        // Perform QR decomposition using HouseholderQR
+        HouseholderQR<MatrixXcd> qr(H_current);
+        MatrixXcd qr_matrix = qr.matrixQR(); // Get the combined matrix
 
-        // Extract the diagonal matrix of H_current
+        // Extract Q and R from the combined matrix
+        MatrixXcd Q_new = qr_matrix.leftCols(H_current.cols());
+        MatrixXcd R_new = qr_matrix.rightCols(H_current.cols());
+
+        // Update H_current and Q
+        H_current = Q_new.adjoint() * R_new;
+        Q = Q * Q_new;  // Accumulate the Q factors
+
+        // Extract diagonal matrix from H_current
         MatrixXcd H_diag = H_current.diagonal().asDiagonal();
 
-        // Compare the difference between H_current and the diagonal of H_current
-        if ((H_current - H_diag).norm() < tol) {
-            std::cout << "Converged after " << i << " iterations." << std::endl;
+        // Check for convergence (when off-diagonal elements are small enough)
+        if ((H_current - H_diag).norm() < tol)
+        {
+            cout << "Converged after " << i << " iterations." << endl;
             break;
         }
     }
 
-    // Return the diagonal of H_current (eigenvalues) and Q (eigenvectors)
+    // Return the diagonal (eigenvalues) and eigenvectors (Q)
     return std::make_pair(H_current.diagonal(), Q);
 }
 
@@ -128,7 +135,7 @@ int main()
     MatrixXcd H = MatrixXcd::Zero(k + 1, k);
     arnoldiIteration(A, k, v_chebyshev, Q, H);
 
-    // Step 3: QR Algorithm on H
+    // Step 3: QR Algorithm on H using HouseholderQR
     auto [eigenvalues_result, eigenvectors] = qrAlgorithm(H);
 
     // Step 4: Compute eigenvectors
@@ -136,7 +143,7 @@ int main()
 
     // Output the results
     cout << "Eigenvalues: " << eigenvalues_result.transpose() << endl;
-    cout << "Eigenvectors: " << final_eigenvectors.leftCols(3) << endl; // Display first few eigenvectors
+    cout << "Eigenvectors (first few): " << final_eigenvectors.leftCols(3) << endl; // Display first few eigenvectors
 
     return 0;
 }
