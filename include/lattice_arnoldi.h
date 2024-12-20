@@ -119,7 +119,7 @@ namespace qcu
           w -= h2 * V.col(i);
         }
         T norm_w = w.norm();
-        if (norm_w < tol || j == k_end - 1)
+        if (norm_w < tol)
         {
           H.col(j).setZero();
           V.col(j + 1).setZero();

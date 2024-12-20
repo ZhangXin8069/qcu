@@ -35,7 +35,8 @@ int main()
       _bistabcg.run_test();
       {
         LatticeArnoldi<T> _arnoldi;
-        _arnoldi.give(&_bistabcg);
+        // _arnoldi.give(&_bistabcg);
+        _arnoldi.give();
         _arnoldi.run_test();
       }
     }
