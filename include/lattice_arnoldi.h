@@ -20,20 +20,20 @@ namespace qcu
           _matrix = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>::Random(size, size);
         }
         // {
-        //     Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> eigenvalues = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1>::Random(size);
-        //     Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> V = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>::Random(size, size);
-        //     // {
-        //     //     Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> eigenvalues(size);
-        //     //     for (int i = 0; i < size; i++)
-        //     //     {
-        //     //         double real = cos(2.0 * M_PI * i / size);
-        //     //         double imag = sin(2.0 * M_PI * i / size);
-        //     //         eigenvalues(i) = complex<double>(real, imag);
-        //     //     }
-        //     // }
-        //     Eigen::HouseholderQR<Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>> qr(V);
-        //     Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> Q = qr.householderQ();
-        //     _matrix = Q * eigenvalues.asDiagonal() * Q.adjoint();
+        //   Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> eigenvalues = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1>::Random(size);
+        //   Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> V = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>::Random(size, size);
+        //   // {
+        //   //     Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> eigenvalues(size);
+        //   //     for (int i = 0; i < size; i++)
+        //   //     {
+        //   //         double real = cos(2.0 * M_PI * i / size);
+        //   //         double imag = sin(2.0 * M_PI * i / size);
+        //   //         eigenvalues(i) = complex<double>(real, imag);
+        //   //     }
+        //   // }
+        //   Eigen::HouseholderQR<Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>> qr(V);
+        //   Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> Q = qr.householderQ();
+        //   _matrix = Q * eigenvalues.asDiagonal() * Q.adjoint();
         // }
       }
       auto end = std::chrono::high_resolution_clock::now();
@@ -58,6 +58,7 @@ namespace qcu
       }
       else
       {
+        std::cout << "src.norm() = " << src.norm() << std::endl;
         Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> dst = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1>::Zero(size);
         checkCudaErrors(cudaStreamSynchronize(bistacg_ptr->set_ptr->stream));
         checkCudaErrors(cudaMemcpyAsync(bistacg_ptr->x_o, src.data(), size * sizeof(T) * _REAL_IMAG_, cudaMemcpyHostToDevice, bistacg_ptr->set_ptr->stream));
@@ -66,6 +67,7 @@ namespace qcu
         checkCudaErrors(cudaStreamSynchronize(bistacg_ptr->set_ptr->stream));
         checkCudaErrors(cudaMemcpyAsync(dst.data(), bistacg_ptr->r, size * sizeof(T) * _REAL_IMAG_, cudaMemcpyDeviceToHost, bistacg_ptr->set_ptr->stream));
         checkCudaErrors(cudaStreamSynchronize(bistacg_ptr->set_ptr->stream));
+        std::cout << "dst.norm() = " << dst.norm() << std::endl;
         return dst;
       }
     }
@@ -83,7 +85,7 @@ namespace qcu
       if_input = 1;
       bistacg_ptr = _bistacg_ptr;
       lattice_multiplier.give(bistacg_ptr);
-      m = bistacg_ptr->set_ptr->krylov_size();
+      m = bistacg_ptr->set_ptr->krylov_size() * 2;
       n = bistacg_ptr->set_ptr->lat_4dim_SC;
       max_rest = bistacg_ptr->set_ptr->max_rest();
       tol = bistacg_ptr->set_ptr->tol();
@@ -91,15 +93,19 @@ namespace qcu
     void give()
     {
       if_input = 0;
-      m = 48;
-      n = 200;
+      m = 96;
+      n = 1000;
       lattice_multiplier.give(n);
       max_rest = 30;
-      tol = 1e-9;
+      // max_rest = 60;
+      tol = 1e-10;
+      // tol = 1e-16;
     }
     std::complex<T> computeRayleighQuotient(const Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> &v)
     {
+      std::cout << "v.norm() = " << v.norm() << std::endl;
       Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> Av = lattice_multiplier * v;
+      std::cout << "Av.norm() = " << Av.norm() << std::endl;
       return (v.adjoint() * Av)(0, 0) / (v.adjoint() * v)(0, 0);
     }
     void arnoldiIteration(Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> &V,
@@ -108,6 +114,7 @@ namespace qcu
       auto start = std::chrono::high_resolution_clock::now();
       for (int j = k_start; j < k_end; j++)
       {
+        std::cout << "V.col(j).norm() = " << V.col(j).norm() << std::endl;
         Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> w = lattice_multiplier * V.col(j);
         for (int i = 0; i <= j; i++)
         {
@@ -144,6 +151,7 @@ namespace qcu
       for (int iter = 0; iter < max_iter; ++iter)
       {
         Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> new_vector = lattice_multiplier * current_vector;
+        std::cout << "new_vector.norm() = " << new_vector.norm() << std::endl;
         eigenvalue = computeRayleighQuotient(current_vector);
         new_vector.normalize();
         T diff = (new_vector - current_vector).norm();
@@ -165,6 +173,7 @@ namespace qcu
       Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> V = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>::Zero(n, m + 1);
       Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic> H = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, Eigen::Dynamic>::Zero(m + 1, m);
       Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1> initial = Eigen::Matrix<std::complex<T>, Eigen::Dynamic, 1>::Random(n);
+      std::cout << "initial.norm() = " << initial.norm() << std::endl;
       initial.normalize();
       V.col(0) = initial;
       for (int restart = 0; restart < max_rest; restart++)

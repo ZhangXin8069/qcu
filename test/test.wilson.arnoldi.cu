@@ -1,7 +1,7 @@
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
-using T = float;
+using T = double;
 int main()
 {
   MPI_Init(NULL, NULL);
@@ -35,8 +35,8 @@ int main()
       _bistabcg.run_test();
       {
         LatticeArnoldi<T> _arnoldi;
-        // _arnoldi.give(&_bistabcg);
-        _arnoldi.give();
+        _arnoldi.give(&_bistabcg);
+        // _arnoldi.give();
         _arnoldi.run_test();
       }
     }
