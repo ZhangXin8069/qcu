@@ -142,7 +142,6 @@ namespace qcu
 #define _TOL_ 1e-9
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
-#define _KRYLOV_SIZE_ 24
 #define give_filename(filename, _set_host_params) \
   {                                               \
     filename << "_" << time(nullptr) << "_-";     \

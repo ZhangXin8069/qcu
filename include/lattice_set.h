@@ -101,6 +101,18 @@ namespace qcu
             host_params[_GRID_T_] = _GRID_EXAMPLE_;
             host_params[_PARITY_] = parity;
         }
+        void give()
+        {
+            host_params[_LAT_X_] = _LAT_EXAMPLE_;
+            host_params[_LAT_Y_] = _LAT_EXAMPLE_;
+            host_params[_LAT_Z_] = _LAT_EXAMPLE_;
+            host_params[_LAT_T_] = _LAT_EXAMPLE_;
+            host_params[_GRID_X_] = _GRID_EXAMPLE_;
+            host_params[_GRID_Y_] = _GRID_EXAMPLE_;
+            host_params[_GRID_Z_] = _GRID_EXAMPLE_;
+            host_params[_GRID_T_] = _GRID_EXAMPLE_;
+            host_params[_PARITY_] = _EVEN_;
+        }
         void init()
         {
             {
@@ -516,9 +528,17 @@ namespace qcu
         {
             return 1e3;
         }
+        int krylov_size()
+        {
+            return 24;
+        }
         T tol()
         {
             return 1e-9;
+        }
+        T max_rest()
+        {
+            return 30;
         }
         float get_time()
         {
