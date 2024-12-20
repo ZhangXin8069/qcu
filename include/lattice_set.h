@@ -530,7 +530,7 @@ namespace qcu
         }
         int krylov_size()
         {
-            return 48;
+            return 24;
         }
         T tol()
         {
