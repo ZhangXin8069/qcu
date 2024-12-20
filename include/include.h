@@ -28,4 +28,13 @@
 #include <unistd.h>
 #include <fstream>
 #include <sstream>
+#include <Eigen/Dense>
+#include <Eigen/Sparse>
+#include <Eigen/Eigenvalues>
+#include <complex>
+#include <vector>
+#include <iostream>
+#include <algorithm>
+#include <chrono>
+#include <thread>
 #endif

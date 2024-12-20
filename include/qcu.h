@@ -12,6 +12,7 @@
 #include "./lattice_cuda.h"
 #include "./lattice_set.h"
 #include "./lattice_wilson_dslash.h"
+#include "./lattice_arnoldi.h"
 #ifdef __cplusplus
 extern "C"
 {
