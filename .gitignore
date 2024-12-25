@@ -11,6 +11,7 @@
 *.egg-info
 *__pycache__
 *.o
+*.so
 *a.out
 *b.out
 *c.out
@@ -22,7 +23,7 @@
 *.sw*
 *RemoteSystemsTempFiles
 _*
-lib/*
+lib*
 .ssub.sh
 .vscode
 *.log*
