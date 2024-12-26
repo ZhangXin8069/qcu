@@ -43,7 +43,7 @@ int main()
       device_load<T>(gauge, lat_4dim_DCC * _EVEN_ODD_ * _REAL_IMAG_, filename.str());
     }
   }
-  // applyDslashQcu(fermion_out, fermion_in, gauge,
+  // applyWilsonDslashQcu(fermion_out, fermion_in, gauge,
   //                &param, parity, &grid);
   // applyCloverDslashQcu(fermion_out, fermion_in, gauge,
   //                      &param, parity, &grid);
