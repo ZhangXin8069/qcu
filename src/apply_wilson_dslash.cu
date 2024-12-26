@@ -1,4 +1,4 @@
-#include "../include/pyqcu.h"
+#include "../python/pyqcu.h"
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
