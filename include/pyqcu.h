@@ -1,5 +1,5 @@
-#ifndef _QCU_H
-#define _QCU_H
+#ifndef _PYQCU_H
+#define _PYQCU_H
 #pragma once
 #ifdef __cplusplus
 extern "C"
