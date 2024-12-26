@@ -2,7 +2,7 @@
 #pragma optimize(5)
 using namespace qcu;
 using T = float;
-void applyDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+void applyWilsonDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
                     QcuParam *param, int parity, QcuParam *grid)
 {
   // define for apply_wilson_dslash
