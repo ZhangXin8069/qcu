@@ -39,7 +39,11 @@ namespace qcu
 #define _NODE_RANK_ 10
 #define _NODE_SIZE_ 11
 #define _DAGGER_ 12
-#define _VALS_SIZE_ 13
+#define _MAX_ITER_ 13
+#define _PARAM_SIZE_ 14
+#define _MASS_ 0
+#define _TOL_ 1
+#define _ARGV_SIZE_ 2
 #define _DIM_ 4
 #define _1DIM_ 4
 #define _2DIM_ 6
@@ -138,8 +142,6 @@ namespace qcu
 #define _SR_ 2
 #define _LAT_EXAMPLE_ 32
 #define _GRID_EXAMPLE_ 1
-#define _MAX_ITER_ 1e3
-#define _TOL_ 1e-9
 #define _MEM_POOL_ 0
 #define _CHECK_ERROR_ 1
 #define give_filename(filename, _set_host_params) \
@@ -155,7 +157,7 @@ namespace qcu
 #define get_filename(filename, param, parity, grid) \
   {                                                 \
     int i = 0;                                      \
-    int _[_VALS_SIZE_];                             \
+    int _[_PARAM_SIZE_];                             \
     std::string segment;                            \
     std::cout << filename.str() << std::endl;       \
     while (std::getline(filename, segment, '-'))    \
