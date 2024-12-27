@@ -36,8 +36,8 @@ namespace qcu
         int grid_index_1dim[_1DIM_];
         MPI_Request send_request[_WARDS_];
         MPI_Request recv_request[_WARDS_];
-        int host_params[_VALS_SIZE_];
-        int host_argv[_VALS_SIZE_];
+        int host_params[_PARAM_SIZE_];
+        T host_argv[_ARGV_SIZE_];
         void *device_send_vec[_WARDS_];
         void *device_recv_vec[_WARDS_];
         void *host_send_vec[_WARDS_];
@@ -66,53 +66,9 @@ namespace qcu
             host_params[_GRID_Z_] = static_cast<int *>(_params)[_GRID_Z_];
             host_params[_GRID_T_] = static_cast<int *>(_params)[_GRID_T_];
             host_params[_PARITY_] = static_cast<int *>(_params)[_PARITY_];
-        }
-        void give(int *_param_lat_size, int *_grid_lat_size)
-        {
-            host_params[_LAT_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
-            host_params[_LAT_Y_] = _param_lat_size[_Y_];
-            host_params[_LAT_Z_] = _param_lat_size[_Z_];
-            host_params[_LAT_T_] = _param_lat_size[_T_];
-            host_params[_GRID_X_] = _grid_lat_size[_X_];
-            host_params[_GRID_Y_] = _grid_lat_size[_Y_];
-            host_params[_GRID_Z_] = _grid_lat_size[_Z_];
-            host_params[_GRID_T_] = _grid_lat_size[_T_];
-        }
-        void give(int *_param_lat_size, int *_grid_lat_size, int parity)
-        {
-            host_params[_LAT_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
-            host_params[_LAT_Y_] = _param_lat_size[_Y_];
-            host_params[_LAT_Z_] = _param_lat_size[_Z_];
-            host_params[_LAT_T_] = _param_lat_size[_T_];
-            host_params[_GRID_X_] = _grid_lat_size[_X_];
-            host_params[_GRID_Y_] = _grid_lat_size[_Y_];
-            host_params[_GRID_Z_] = _grid_lat_size[_Z_];
-            host_params[_GRID_T_] = _grid_lat_size[_T_];
-            host_params[_PARITY_] = parity;
-        }
-        void give(int *_param_lat_size, int parity)
-        {
-            host_params[_LAT_X_] = _param_lat_size[_X_] / _EVEN_ODD_; // even-odd
-            host_params[_LAT_Y_] = _param_lat_size[_Y_];
-            host_params[_LAT_Z_] = _param_lat_size[_Z_];
-            host_params[_LAT_T_] = _param_lat_size[_T_];
-            host_params[_GRID_X_] = _GRID_EXAMPLE_;
-            host_params[_GRID_Y_] = _GRID_EXAMPLE_;
-            host_params[_GRID_Z_] = _GRID_EXAMPLE_;
-            host_params[_GRID_T_] = _GRID_EXAMPLE_;
-            host_params[_PARITY_] = parity;
-        }
-        void give(int parity)
-        {
-            host_params[_LAT_X_] = _LAT_EXAMPLE_;
-            host_params[_LAT_Y_] = _LAT_EXAMPLE_;
-            host_params[_LAT_Z_] = _LAT_EXAMPLE_;
-            host_params[_LAT_T_] = _LAT_EXAMPLE_;
-            host_params[_GRID_X_] = _GRID_EXAMPLE_;
-            host_params[_GRID_Y_] = _GRID_EXAMPLE_;
-            host_params[_GRID_Z_] = _GRID_EXAMPLE_;
-            host_params[_GRID_T_] = _GRID_EXAMPLE_;
-            host_params[_PARITY_] = parity;
+            host_params[_MAX_ITER_] = static_cast<int *>(_params)[_MAX_ITER_];
+            host_argv[_MASS_] = static_cast<T *>(_argv)[_MASS_];
+            host_argv[_TOL_] = static_cast<T *>(_argv)[_TOL_];
         }
         void init()
         {
@@ -138,16 +94,6 @@ namespace qcu
                     host_params[_GRID_X_] * host_params[_GRID_Y_] * host_params[_GRID_T_];
                 grid_3dim[_XYZ_] =
                     host_params[_GRID_X_] * host_params[_GRID_Y_] * host_params[_GRID_Z_];
-                // { // xyzt
-                //     int tmp;
-                //     tmp = host_params[_NODE_RANK_];
-                //     grid_index_1dim[_T_] = tmp / grid_3dim[_XYZ_];
-                //     tmp -= grid_index_1dim[_T_] * grid_3dim[_XYZ_];
-                //     grid_index_1dim[_Z_] = tmp / grid_2dim[_XY_];
-                //     tmp -= grid_index_1dim[_Z_] * grid_2dim[_XY_];
-                //     grid_index_1dim[_Y_] = tmp / host_params[_GRID_X_];
-                //     grid_index_1dim[_X_] = tmp - grid_index_1dim[_Y_] * host_params[_GRID_X_];
-                // }
                 { // tzyx
                     int tmp;
                     tmp = host_params[_NODE_RANK_];
@@ -206,79 +152,6 @@ namespace qcu
                 move_forward(move_wards[_F_T_], grid_index_1dim[_T_],
                              host_params[_GRID_T_]);
             }
-            // { // xyzt
-            //     move_wards[_B_X_] = host_params[_NODE_RANK_] + move_wards[_B_X_];
-            //     move_wards[_B_Y_] =
-            //         host_params[_NODE_RANK_] + move_wards[_B_Y_] * host_params[_GRID_X_];
-            //     move_wards[_B_Z_] =
-            //         host_params[_NODE_RANK_] + move_wards[_B_Z_] * grid_2dim[_XY_];
-            //     move_wards[_B_T_] =
-            //         host_params[_NODE_RANK_] + move_wards[_B_T_] * grid_3dim[_XYZ_];
-            //     move_wards[_F_X_] = host_params[_NODE_RANK_] + move_wards[_F_X_];
-            //     move_wards[_F_Y_] =
-            //         host_params[_NODE_RANK_] + move_wards[_F_Y_] * host_params[_GRID_X_];
-            //     move_wards[_F_Z_] =
-            //         host_params[_NODE_RANK_] + move_wards[_F_Z_] * grid_2dim[_XY_];
-            //     move_wards[_F_T_] =
-            //         host_params[_NODE_RANK_] + move_wards[_F_T_] * grid_3dim[_XYZ_];
-            //     int tmp;
-            //     { // BB
-            //         move_backward(tmp, grid_index_1dim[_Y_], host_params[_GRID_Y_]);
-            //         move_wards[_BX_BY_] = move_wards[_B_X_] + tmp * host_params[_GRID_X_];
-            //         move_backward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_BX_BZ_] = move_wards[_B_X_] + tmp * grid_2dim[_XY_];
-            //         move_backward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_BX_BT_] = move_wards[_B_X_] + tmp * grid_3dim[_XYZ_];
-            //         move_backward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_BY_BZ_] = move_wards[_B_Y_] + tmp * grid_2dim[_XY_];
-            //         move_backward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_BY_BT_] = move_wards[_B_Y_] + tmp * grid_3dim[_XYZ_];
-            //         move_backward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_BZ_BT_] = move_wards[_B_Z_] + tmp * grid_3dim[_XYZ_];
-            //     }
-            //     { // FB
-            //         move_backward(tmp, grid_index_1dim[_Y_], host_params[_GRID_Y_]);
-            //         move_wards[_FX_BY_] = move_wards[_F_X_] + tmp * host_params[_GRID_X_];
-            //         move_backward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_FX_BZ_] = move_wards[_F_X_] + tmp * grid_2dim[_XY_];
-            //         move_backward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_FX_BT_] = move_wards[_F_X_] + tmp * grid_3dim[_XYZ_];
-            //         move_backward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_FY_BZ_] = move_wards[_F_Y_] + tmp * grid_2dim[_XY_];
-            //         move_backward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_FY_BT_] = move_wards[_F_Y_] + tmp * grid_3dim[_XYZ_];
-            //         move_backward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_FZ_BT_] = move_wards[_F_Z_] + tmp * grid_3dim[_XYZ_];
-            //     }
-            //     { // BF
-            //         move_forward(tmp, grid_index_1dim[_Y_], host_params[_GRID_Y_]);
-            //         move_wards[_BX_FY_] = move_wards[_B_X_] + tmp * host_params[_GRID_X_];
-            //         move_forward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_BX_FZ_] = move_wards[_B_X_] + tmp * grid_2dim[_XY_];
-            //         move_forward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_BX_FT_] = move_wards[_B_X_] + tmp * grid_3dim[_XYZ_];
-            //         move_forward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_BY_FZ_] = move_wards[_B_Y_] + tmp * grid_2dim[_XY_];
-            //         move_forward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_BY_FT_] = move_wards[_B_Y_] + tmp * grid_3dim[_XYZ_];
-            //         move_forward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_BZ_FT_] = move_wards[_B_Z_] + tmp * grid_3dim[_XYZ_];
-            //     }
-            //     { // FF
-            //         move_forward(tmp, grid_index_1dim[_Y_], host_params[_GRID_Y_]);
-            //         move_wards[_FX_FY_] = move_wards[_F_X_] + tmp * host_params[_GRID_X_];
-            //         move_forward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_FX_FZ_] = move_wards[_F_X_] + tmp * grid_2dim[_XY_];
-            //         move_forward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_FX_FT_] = move_wards[_F_X_] + tmp * grid_3dim[_XYZ_];
-            //         move_forward(tmp, grid_index_1dim[_Z_], host_params[_GRID_Z_]);
-            //         move_wards[_FY_FZ_] = move_wards[_F_Y_] + tmp * grid_2dim[_XY_];
-            //         move_forward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_FY_FT_] = move_wards[_F_Y_] + tmp * grid_3dim[_XYZ_];
-            //         move_forward(tmp, grid_index_1dim[_T_], host_params[_GRID_T_]);
-            //         move_wards[_FZ_FT_] = move_wards[_F_Z_] + tmp * grid_3dim[_XYZ_];
-            //     }
-            // }
             { // tzyx
                 move_wards[_B_T_] = host_params[_NODE_RANK_] + move_wards[_B_T_];
                 move_wards[_B_Z_] =
@@ -473,44 +346,49 @@ namespace qcu
             {
                 host_params[_DAGGER_] = _NO_USE_; // needed!!!
                 checkCudaErrors(
-                    cudaMallocAsync(&device_params, _VALS_SIZE_ * sizeof(int), stream));
+                    cudaMallocAsync(&device_params, _PARAM_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMallocAsync(&device_params_even_no_dag,
-                                                _VALS_SIZE_ * sizeof(int), stream));
+                                                _PARAM_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMallocAsync(&device_params_odd_no_dag,
-                                                _VALS_SIZE_ * sizeof(int), stream));
+                                                _PARAM_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMallocAsync(&device_params_even_dag,
-                                                _VALS_SIZE_ * sizeof(int), stream));
+                                                _PARAM_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMallocAsync(&device_params_odd_dag,
-                                                _VALS_SIZE_ * sizeof(int), stream));
+                                                _PARAM_SIZE_ * sizeof(int), stream));
                 checkCudaErrors(cudaMemcpyAsync(device_params, host_params,
-                                                _VALS_SIZE_ * sizeof(int),
+                                                _PARAM_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_no_dag, host_params,
-                                                _VALS_SIZE_ * sizeof(int),
+                                                _PARAM_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _PARITY_,
                                                    _EVEN_);
                 give_param<T><<<1, 1, 0, stream>>>(device_params_even_no_dag, _DAGGER_,
                                                    _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_no_dag, host_params,
-                                                _VALS_SIZE_ * sizeof(int),
+                                                _PARAM_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _PARITY_,
                                                    _ODD_);
                 give_param<T><<<1, 1, 0, stream>>>(device_params_odd_no_dag, _DAGGER_,
                                                    _NO_USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_even_dag, host_params,
-                                                _VALS_SIZE_ * sizeof(int),
+                                                _PARAM_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 give_param<T><<<1, 1, 0, stream>>>(device_params_even_dag, _PARITY_, _EVEN_);
                 give_param<T><<<1, 1, 0, stream>>>(device_params_even_dag, _DAGGER_, _USE_);
                 checkCudaErrors(cudaMemcpyAsync(device_params_odd_dag, host_params,
-                                                _VALS_SIZE_ * sizeof(int),
+                                                _PARAM_SIZE_ * sizeof(int),
                                                 cudaMemcpyHostToDevice, stream));
                 give_param<T><<<1, 1, 0, stream>>>(device_params_odd_dag, _PARITY_, _ODD_);
                 give_param<T><<<1, 1, 0, stream>>>(device_params_odd_dag, _DAGGER_, _USE_);
             }
             checkCudaErrors(cudaStreamSynchronize(stream));
+            _print();
+            printf(
+                "lattice set total time: (without malloc free memcpy) :%.9lf "
+                "sec\n",
+                get_time() / 1e3);
         }
         T kappa()
         {
@@ -521,17 +399,17 @@ namespace qcu
             \kappa=\frac{1}{2m_q a+8r}
             or\ just\ define(m=-3.5):\\ \kappa=1(in\ code\ written\ as\ kappa)
             */
-            T mass = 0.0;
+            // T mass = 0.0;
             // T mass = -3.5;
-            return 1 / (2 * mass + 8);
+            return 1 / (2 * host_argv[_MASS_] + 8);
         }
         int max_iter()
         {
-            return 1e3;
+            return host_params[_MAX_ITER_];
         }
         T tol()
         {
-            return 1e-9;
+            return host_argv[_TOL_];
         }
         float get_time()
         {
@@ -629,6 +507,9 @@ namespace qcu
             printf("host_params[_NODE_RANK_]:%d\n", host_params[_NODE_RANK_]);
             printf("host_params[_NODE_SIZE_]:%d\n", host_params[_NODE_SIZE_]);
             printf("host_params[_DAGGER_]   :%d\n", host_params[_DAGGER_]);
+            printf("host_params[_MAX_ITER_] :%d\n", host_params[_MAX_ITER_]);
+            printf("host_argv[_MASS_]       :%e\n", host_argv[_MASS_]);
+            printf("host_argv[_TOL_]        :%e\n", host_argv[_TOL_]);
             printf("lat_2dim[_XY_]          :%d\n", lat_2dim[_XY_]);
             printf("lat_2dim[_XZ_]          :%d\n", lat_2dim[_XZ_]);
             printf("lat_2dim[_XT_]          :%d\n", lat_2dim[_XT_]);
