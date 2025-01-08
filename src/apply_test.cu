@@ -1,18 +1,13 @@
-#include "../python/pyqcu.h"
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
 using T = float;
-void testWilsonDslashQcu(long long _fermion_out, long long _fermion_in, long long _gauge, long long _params, long long _argv)
+void testDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                   QcuParam *param, int parity)
 {
-    void *fermion_out = (void *)_fermion_out;
-    void *fermion_in = (void *)_fermion_in;
-    void *gauge = (void *)_gauge;
-    void *argv = (void *)_argv;
-    void *params = (void *)_params;
     // define for test_wilson_dslash
     LatticeSet<T> _set;
-    _set.give(params, argv);
+    _set.give(param->lattice_size, parity);
     _set.init();
     dptzyxcc2ccdptzyx<T>(gauge, &_set);
     tzyxsc2sctzyx<T>(fermion_in, &_set);
@@ -33,23 +28,19 @@ void testWilsonDslashQcu(long long _fermion_out, long long _fermion_in, long lon
     sctzyx2tzyxsc<T>(fermion_out, &_set);
     _set.end();
 }
-void testCloverDslashQcu(long long _fermion_out, long long _fermion_in, long long _gauge, long long _params, long long _argv)
+void testCloverDslashQcu(void *fermion_out, void *fermion_in, void *gauge,
+                         QcuParam *param, int parity)
 {
-    void *fermion_out = (void *)_fermion_out;
-    void *fermion_in = (void *)_fermion_in;
-    void *gauge = (void *)_gauge;
-    void *argv = (void *)_argv;
-    void *params = (void *)_params;
     // define for test_clover_dslash
     LatticeSet<T> _set;
-    _set.give(params, argv);
+    _set.give(param->lattice_size, parity);
     _set.init();
     dptzyxcc2ccdptzyx<T>(gauge, &_set);
     tzyxsc2sctzyx<T>(fermion_in, &_set);
     tzyxsc2sctzyx<T>(fermion_out, &_set);
     LatticeWilsonDslash<T> _wilson_dslash;
     _wilson_dslash.give(&_set);
-    void* clover;
+    void *clover;
     checkCudaErrors(cudaMallocAsync(
         &clover, (_set.lat_4dim * _LAT_SCSC_) * sizeof(LatticeComplex<T>),
         _set.stream));

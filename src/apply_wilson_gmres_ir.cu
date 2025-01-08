@@ -1,18 +1,13 @@
-#include "../python/pyqcu.h"
 #include "../include/qcu.h"
 #pragma optimize(5)
 using namespace qcu;
 using T = float;
-void applyGmresIrQcu(long long _fermion_out, long long _fermion_in, long long _gauge, long long _params, long long _argv)
+void applyGmresIrQcu(void *fermion_out, void *fermion_in, void *gauge,
+                     QcuParam *param, QcuParam *grid)
 {
-    void *fermion_out = (void *)_fermion_out;
-  void *fermion_in = (void *)_fermion_in;
-  void *gauge = (void *)_gauge;
-  void *argv = (void *)_argv;
-  void *params = (void *)_params;
   // define for apply_wilson_gmres_ir
   LatticeSet<T> _set;
-  _set.give(params, argv);
+  _set.give(param->lattice_size, grid->lattice_size);
   _set.init();
   dptzyxcc2ccdptzyx<T>(gauge, &_set);
   ptzyxsc2psctzyx<T>(fermion_in, &_set);

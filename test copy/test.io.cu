@@ -16,7 +16,7 @@ int main()
     filename << "wilson-bistabcg-gauge_-32-32-32-32-1048576-1-1-1-1-0-0-1-0-f.bin";
     get_filename(filename, param, parity, grid);
     // lat_4dim_SC = param.lattice_size[_X_] * param.lattice_size[_Y_] * param.lattice_size[_Z_] * param.lattice_size[_T_] * _LAT_SC_ / _EVEN_ODD_; // dslash
-    lat_4dim_SC = param.lattice_size[_X_] * param.lattice_size[_Y_] * param.lattice_size[_Z_] * param.lattice_size[_T_] * _LAT_SC_;              // cg
+    lat_4dim_SC = param.lattice_size[_X_] * param.lattice_size[_Y_] * param.lattice_size[_Z_] * param.lattice_size[_T_] * _LAT_SC_; // cg
     lat_4dim_DCC = param.lattice_size[_X_] * param.lattice_size[_Y_] * param.lattice_size[_Z_] * param.lattice_size[_T_] * _LAT_DCC_ / _EVEN_ODD_;
     { // fermion_out
       std::stringstream filename;
@@ -24,7 +24,7 @@ int main()
       cudaDeviceSynchronize();
       cudaMalloc(&fermion_out, lat_4dim_SC * _REAL_IMAG_ * sizeof(T));
       cudaDeviceSynchronize();
-      // device_load<T>(fermion_out, lat_4dim_SC * _REAL_IMAG_, filename.str());
+      device_load<T>(fermion_out, lat_4dim_SC * _REAL_IMAG_, filename.str());
     }
     { // fermion_in
       std::stringstream filename;
@@ -43,18 +43,28 @@ int main()
       device_load<T>(gauge, lat_4dim_DCC * _EVEN_ODD_ * _REAL_IMAG_, filename.str());
     }
   }
-  // applyDslashQcu(fermion_out, fermion_in, gauge,
+  // applyWilsonDslashQcu(fermion_out, fermion_in, gauge,
   //                &param, parity, &grid);
   // applyCloverDslashQcu(fermion_out, fermion_in, gauge,
   //                      &param, parity, &grid);
-  applyBistabCgQcu(fermion_out, fermion_in, gauge,
-                   &param, &grid);
+  // applyBistabCgQcu(fermion_out, fermion_in, gauge,
+  //                  &param, &grid);
   // applyCgQcu(fermion_out, fermion_in, gauge,
   //                  &param, &grid);
   { // io
     std::stringstream filename;
-    filename << "_wilson-bistabcg-fermion-out_-32-32-32-32-1048576-1-1-1-1-0-0-1-0-f.bin";
+    filename << "qcu_wilson-bistabcg-fermion-out_-32-32-32-32-1048576-1-1-1-1-0-0-1-0-f.bin";
     device_save<T>(fermion_out, lat_4dim_SC * _REAL_IMAG_, filename.str());
+  }
+  { // io
+    std::stringstream filename;
+    filename << "qcu_wilson-bistabcg-fermion-in_-32-32-32-32-1048576-1-1-1-1-0-0-1-0-f.bin";
+    device_save<T>(fermion_in, lat_4dim_SC * _REAL_IMAG_, filename.str());
+  }
+  { // io
+    std::stringstream filename;
+    filename << "qcu_wilson-bistabcg-gauge_-32-32-32-32-1048576-1-1-1-1-0-0-1-0-f.bin";
+    device_save<T>(gauge, lat_4dim_DCC * _EVEN_ODD_ * _REAL_IMAG_, filename.str());
   }
   cudaFree(gauge);
   cudaFree(fermion_in);
