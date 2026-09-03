@@ -1,19 +1,14 @@
 from functools import lru_cache
-
 import cupy
-
-
 class _Constant:
     @staticmethod
     @lru_cache(1)
     def zero():
         return cupy.zeros((4, 4))
-
     @staticmethod
     @lru_cache(1)
     def one():
         return cupy.identity(4)
-
     @staticmethod
     @lru_cache(1)
     def gamma_0():
@@ -25,7 +20,6 @@ class _Constant:
                 [-1j, 0, 0, 0],
             ]
         )
-
     @staticmethod
     @lru_cache(1)
     def gamma_1():
@@ -37,7 +31,6 @@ class _Constant:
                 [-1, 0, 0, 0],
             ]
         )
-
     @staticmethod
     @lru_cache(1)
     def gamma_2():
@@ -49,7 +42,6 @@ class _Constant:
                 [0, 1j, 0, 0],
             ]
         )
-
     @staticmethod
     @lru_cache(1)
     def gamma_3():
@@ -61,8 +53,6 @@ class _Constant:
                 [0, 1, 0, 0],
             ]
         )
-
-
 def gamma(n: int):
     assert isinstance(n, int) and n >= 0 and n <= 15
     return cupy.asarray(
@@ -71,8 +61,6 @@ def gamma(n: int):
         @ (_Constant.gamma_2() if n & 0b0100 else _Constant.one())
         @ (_Constant.gamma_3() if n & 0b1000 else _Constant.one())
     )
-
-
 def bilateral_apply(data, out, axis, gamma_left, gamma_right, conj):
     gamma_left = cupy.sparse.csr_matrix(gamma_left)
     gamma_right = cupy.sparse.csc_matrix(gamma_right)

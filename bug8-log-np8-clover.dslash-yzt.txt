@@ -1,0 +1,718 @@
+-- The C compiler identification is GNU 10.3.0
+-- The CXX compiler identification is GNU 10.3.0
+-- The CUDA compiler identification is NVIDIA 11.4.152
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working C compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/gcc - skipped
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Check for working CXX compiler: /public/soft/linux-centos7-x86_64/gcc-4.8.5/gcc-10.3.0-uoicdrf766usj4ma5wxqq4zaqgatfyy3/bin/g++ - skipped
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Detecting CUDA compiler ABI info
+-- Detecting CUDA compiler ABI info - done
+-- Check for working CUDA compiler: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo/bin/nvcc - skipped
+-- Detecting CUDA compile features
+-- Detecting CUDA compile features - done
+-- Found MPI_C: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI_CXX: /public/soft/linux-centos7-x86_64/gcc-10.3.0/openmpi-4.1.5-atnooy4j3scc3fxoqn5scmzvpjqmoa3p/lib/libmpi.so (found version "3.1") 
+-- Found MPI: TRUE (found version "3.1")  
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Failed
+-- Looking for pthread_create in pthreads
+-- Looking for pthread_create in pthreads - not found
+-- Looking for pthread_create in pthread
+-- Looking for pthread_create in pthread - found
+-- Found Threads: TRUE  
+-- Found CUDA: /public/soft/linux-centos7-x86_64/gcc-10.3.0/cuda-11.4.4-uizl3zvwy66u3bqllanvuxwxxwfyytwo (found version "11.4") 
+-- Using nccl library: /public/home/zhangxin/external-libraries/nccl/build/lib/libnccl.so
+-- Found Nccl: /public/home/zhangxin/external-libraries/nccl/build/include  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /public/home/zhangxin/qcu
+[  6%] Building CUDA object CMakeFiles/qcu.dir/src/cg.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash__.cu.o
+[ 18%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash.cu.o
+[ 31%] Building CUDA object CMakeFiles/qcu.dir/src/hello_world.cu.o
+[ 31%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_cuda.cu.o
+[ 37%] Building CUDA object CMakeFiles/qcu.dir/src/clover_dslash_.cu.o
+[ 43%] Building CUDA object CMakeFiles/qcu.dir/src/draft.cu.o
+[ 50%] Building CUDA object CMakeFiles/qcu.dir/src/bistabcg.cu.o
+[ 56%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_clover_dslash.cu.o
+[ 62%] Building CUDA object CMakeFiles/qcu.dir/src/multigrid.cu.o
+[ 68%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_dslash.cu.o
+[ 75%] Building CUDA object CMakeFiles/qcu.dir/src/lattice_set.cu.o
+[ 81%] Building CUDA object CMakeFiles/qcu.dir/src/wilson_dslash.cu.o
+[ 87%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_bistabcg.cu.o
+[ 93%] Building CUDA object CMakeFiles/qcu.dir/src/nccl_wilson_cg.cu.o
+[100%] Linking CUDA shared library libqcu.so
+[100%] Built target qcu
+fatal: pathspec '"clangd.format.tabSize": 4' did not match any files
+~/qcu/test ~/qcu
+rm: cannot remove ‘log_*’: No such file or directory
+Disabling GPU-Direct RDMA access
+Disabling peer-to-peer access
+QUDA 1.1.0 (git 1.1.0--sm_80)
+CUDA Driver version = 11040
+CUDA Runtime version = 11040
+Found device 0: NVIDIA A100-SXM-80GB
+Found device 1: NVIDIA A100-SXM-80GB
+Found device 2: NVIDIA A100-SXM-80GB
+Found device 3: NVIDIA A100-SXM-80GB
+Found device 4: NVIDIA A100-SXM-80GB
+Found device 5: NVIDIA A100-SXM-80GB
+Found device 6: NVIDIA A100-SXM-80GB
+Found device 7: NVIDIA A100-SXM-80GB
+Using device 0: NVIDIA A100-SXM-80GB
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+WARNING: Autotuning disabled
+WARNING: Autotuning disabled
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+cublasCreated successfully
+Creating Gaussian distrbuted Lie group field with sigma = 1.000000e-01
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+######p[0,0,0,1]:
+ [[-0.06090542-0.03899433j -0.2617631 -0.31751183j -0.51839607-0.65950821j]
+ [-0.694728  -2.23499903j -0.41839705+2.69099542j -0.85607255+0.07054618j]
+ [-0.06924576+0.20618015j -2.08477053-0.84143262j -0.12885311-0.28901563j]
+ [ 1.15404983+1.22818671j  0.10984644+0.69352213j  0.85825169-0.26859178j]]
+######p[0,0,0,1]:
+ [[-0.22743698+0.77732483j  1.30901558-0.28510752j -0.56181364-1.25598412j]
+ [ 0.94752485-0.91190122j -0.24128849+0.67986133j -1.01954634+0.22464726j]
+ [ 0.27226519+0.55634503j -0.22131044+1.99368271j -1.02018655-0.00717545j]
+ [-0.27842481-0.06897058j -0.56568947+0.44033377j  0.42318385-0.80908496j]]
+######p[0,0,0,1]:
+######p[0,0,0,1]:
+ [[-1.42140297+0.47725423j -0.7162831 -0.82688749j  1.22437158-1.05792583j]
+ [ 1.84215992+1.40238092j -0.13721366+1.78512724j  0.00546898-0.25144559j]
+ [-0.77330037-0.48060063j  0.87274546+0.38339123j -1.42695073+0.09588886j]
+ [ 0.12701535-0.22255284j  1.08426612-1.42362913j  0.38464338-1.28069404j]]
+ [[-0.6528351 +0.825377j    1.26492426+1.33319994j  1.26561885+0.93527964j]
+ [ 0.24171704-0.45158938j  0.18820768+0.61790918j  0.14293764-0.21422023j]
+ [-1.76729228-1.0437979j   0.85578805-1.096517j   -1.58427297+0.04372414j]
+ [ 0.12437588+1.02864544j -0.36636154-1.69334685j -0.00221953+2.71397528j]]
+######p[0,0,0,1]:
+ [[-0.12199863-0.92556948j -1.09122271-0.42949425j -0.61530411-2.05844347j]
+ [ 1.62774637-1.01164322j -0.18258161-0.2313359j   0.49862211+2.63777974j]
+ [-1.00692181-0.0224225j   0.64855111-0.86157496j -0.92244959-0.16832578j]
+ [ 0.8365857 -0.59463459j -1.82304373-0.02195572j  0.05711144+0.9792818j ]]
+######p[0,0,0,1]:
+ [[ 0.66056793+0.82642701j -1.07704564+0.4497224j  -0.43881162-1.57127706j]
+ [-0.52025357-0.65016949j -0.20895805+1.1202513j   0.42585482+0.72195635j]
+ [ 0.17212156-0.93229696j -0.01729149-1.17196939j -2.06355794+0.80794016j]
+ [ 0.60985168+0.96369547j  0.15249207+0.84409241j -2.52085079+0.37390723j]]
+######p[0,0,0,1]:
+######p[0,0,0,1]:
+ [[-1.50201266-0.8293714j   0.75856465+0.76131094j  0.03971581-1.44673867j]
+ [ 1.05168127+0.80427868j -0.1770117 -0.09161504j  0.9922897 -1.02353538j]
+ [-0.52985377+1.64963687j -0.15685751+1.32409127j  0.09727581+1.61500397j]
+ [ 0.33084248+1.37682317j  0.20428298-0.12117862j -1.39787829-1.31758598j]]
+ [[ 1.07392641-0.72800678j  0.51513176-1.32131998j -0.81491168+0.56381905j]
+ [ 1.60169798+0.30860085j  1.28542596-1.80610288j -0.95584817+0.81488606j]
+ [-0.19160454-0.63428588j -1.0654597 -0.68409232j  0.73725618+1.37521809j]
+ [-3.28479873+0.96430264j  0.69469472-1.06268469j -2.04141984-0.12163007j]]
+Quda dslash: 0.048233758891001344 sec
+Quda dslash: 0.04725903598591685 sec
+Quda dslash: 0.013320586062036455 sec
+Quda dslash: 0.04474246792960912 sec
+Quda dslash: 0.04894941602833569 sec
+Quda dslash: 0.05029636109247804 sec
+Quda dslash: 0.04779044503811747 sec
+Quda dslash: 0.01198204793035984 sec
+nccl wilson dslash total time: (without malloc free memcpy) :0.034062256 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:0
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+nccl wilson dslash total time: (without malloc free memcpy) :0.014679284 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:1
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :1
+move_wards[_B_Y_]       :5
+move_wards[_B_Z_]       :3
+move_wards[_B_T_]       :0
+move_wards[_F_X_]       :1
+move_wards[_F_Y_]       :5
+move_wards[_F_Z_]       :3
+move_wards[_F_T_]       :0
+move_wards[_BX_BY_]     :5
+move_wards[_BX_BZ_]     :3
+move_wards[_BX_BT_]     :0
+move_wards[_BY_BZ_]     :7
+move_wards[_BY_BT_]     :4
+move_wards[_BZ_BT_]     :2
+move_wards[_FX_BY_]     :5
+move_wards[_FX_BZ_]     :3
+move_wards[_FX_BT_]     :0
+move_wards[_FY_BZ_]     :7
+move_wards[_FY_BT_]     :4
+move_wards[_FZ_BT_]     :2
+move_wards[_BX_FY_]     :5
+move_wards[_BX_FZ_]     :3
+move_wards[_BX_FT_]     :0
+move_wards[_BY_FZ_]     :7
+move_wards[_BY_FT_]     :4
+move_wards[_BZ_FT_]     :2
+move_wards[_FX_FY_]     :-411512912
+move_wards[_FX_FZ_]     :3
+move_wards[_FX_FT_]     :5
+move_wards[_FY_FZ_]     :7
+move_wards[_FY_FT_]     :4
+move_wards[_FZ_FT_]     :2
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :0
+move_wards[_B_Y_]       :4
+move_wards[_B_Z_]       :2
+move_wards[_B_T_]       :1
+move_wards[_F_X_]       :0
+move_wards[_F_Y_]       :4
+move_wards[_F_Z_]       :2
+move_wards[_F_T_]       :1
+move_wards[_BX_BY_]     :4
+move_wards[_BX_BZ_]     :2
+move_wards[_BX_BT_]     :1
+move_wards[_BY_BZ_]     :6
+move_wards[_BY_BT_]     :5
+move_wards[_BZ_BT_]     :3
+move_wards[_FX_BY_]     :4
+move_wards[_FX_BZ_]     :2
+move_wards[_FX_BT_]     :1
+move_wards[_FY_BZ_]     :6
+move_wards[_FY_BT_]     :5
+move_wards[_FZ_BT_]     :3
+move_wards[_BX_FY_]     :4
+move_wards[_BX_FZ_]     :2
+move_wards[_BX_FT_]     :1
+move_wards[_BY_FZ_]     :6
+move_wards[_BY_FT_]     :5
+move_wards[_BZ_FT_]     :3
+move_wards[_FX_FY_]     :449429424
+move_wards[_FX_FZ_]     :2
+move_wards[_FX_FT_]     :4
+move_wards[_FY_FZ_]     :6
+move_wards[_FY_FT_]     :5
+move_wards[_FZ_FT_]     :3
+nccl wilson dslash total time: (without malloc free memcpy) :0.014061934 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:2
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+nccl wilson dslash total time: (without malloc free memcpy) :0.018958937 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:3
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :3
+move_wards[_B_Y_]       :7
+move_wards[_B_Z_]       :1
+move_wards[_B_T_]       :2
+move_wards[_F_X_]       :3
+move_wards[_F_Y_]       :7
+move_wards[_F_Z_]       :1
+move_wards[_F_T_]       :2
+move_wards[_BX_BY_]     :7
+move_wards[_BX_BZ_]     :1
+move_wards[_BX_BT_]     :2
+move_wards[_BY_BZ_]     :5
+move_wards[_BY_BT_]     :6
+move_wards[_BZ_BT_]     :0
+move_wards[_FX_BY_]     :7
+move_wards[_FX_BZ_]     :1
+move_wards[_FX_BT_]     :2
+move_wards[_FY_BZ_]     :5
+move_wards[_FY_BT_]     :6
+move_wards[_FZ_BT_]     :0
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :0
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :2
+move_wards[_B_Y_]       :6
+move_wards[_BX_FY_]     :7
+move_wards[_BX_FZ_]     :1
+move_wards[_BX_FT_]     :2
+move_wards[_BY_FZ_]     :5
+move_wards[_BY_FT_]     :6
+move_wards[_BZ_FT_]     :0
+move_wards[_FX_FY_]     :-1298456656
+move_wards[_FX_FZ_]     :1
+move_wards[_FX_FT_]     :7
+move_wards[_FY_FZ_]     :5
+move_wards[_FY_FT_]     :6
+move_wards[_FZ_FT_]     :0
+move_wards[_B_Z_]       :0
+move_wards[_B_T_]       :3
+move_wards[_F_X_]       :2
+move_wards[_F_Y_]       :6
+move_wards[_F_Z_]       :0
+move_wards[_F_T_]       :3
+move_wards[_BX_BY_]     :6
+move_wards[_BX_BZ_]     :0
+move_wards[_BX_BT_]     :3
+move_wards[_BY_BZ_]     :4
+move_wards[_BY_BT_]     :7
+move_wards[_BZ_BT_]     :1
+move_wards[_FX_BY_]     :6
+move_wards[_FX_BZ_]     :0
+move_wards[_FX_BT_]     :3
+move_wards[_FY_BZ_]     :4
+move_wards[_FY_BT_]     :7
+move_wards[_FZ_BT_]     :1
+move_wards[_BX_FY_]     :6
+move_wards[_BX_FZ_]     :0
+move_wards[_BX_FT_]     :3
+move_wards[_BY_FZ_]     :4
+move_wards[_BY_FT_]     :7
+move_wards[_BZ_FT_]     :1
+move_wards[_FX_FY_]     :835809200
+move_wards[_FX_FZ_]     :0
+move_wards[_FX_FT_]     :6
+move_wards[_FY_FZ_]     :4
+move_wards[_FY_FT_]     :7
+move_wards[_FZ_FT_]     :1
+nccl wilson dslash total time: (without malloc free memcpy) :0.017039901 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:4
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :4
+move_wards[_B_Y_]       :0
+move_wards[_B_Z_]       :6
+move_wards[_B_T_]       :5
+move_wards[_F_X_]       :4
+move_wards[_F_Y_]       :0
+move_wards[_F_Z_]       :6
+move_wards[_F_T_]       :5
+move_wards[_BX_BY_]     :0
+move_wards[_BX_BZ_]     :6
+nccl wilson dslash total time: (without malloc free memcpy) :0.019206420 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:7
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+nccl wilson dslash total time: (without malloc free memcpy) :0.009012678 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:6
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+move_wards[_BX_BT_]     :5
+move_wards[_BY_BZ_]     :2
+move_wards[_BY_BT_]     :1
+move_wards[_BZ_BT_]     :7
+move_wards[_FX_BY_]     :0
+move_wards[_FX_BZ_]     :6
+move_wards[_FX_BT_]     :5
+move_wards[_FY_BZ_]     :2
+move_wards[_FY_BT_]     :1
+move_wards[_FZ_BT_]     :7
+move_wards[_BX_FY_]     :0
+move_wards[_BX_FZ_]     :6
+move_wards[_BX_FT_]     :5
+move_wards[_BY_FZ_]     :2
+move_wards[_BY_FT_]     :1
+move_wards[_BZ_FT_]     :7
+move_wards[_FX_FY_]     :1244581808
+move_wards[_FX_FZ_]     :6
+move_wards[_FX_FT_]     :0
+nccl wilson dslash total time: (without malloc free memcpy) :0.015395954 sec
+gridDim.x               :1024
+blockDim.x              :128
+host_params[_LAT_X_]    :16
+host_params[_LAT_Y_]    :16
+host_params[_LAT_Z_]    :16
+host_params[_LAT_T_]    :32
+host_params[_LAT_XYZT_] :131072
+host_params[_GRID_X_]   :1
+host_params[_GRID_Y_]   :2
+host_params[_GRID_Z_]   :2
+host_params[_GRID_T_]   :2
+host_params[_PARITY_]   :0
+host_params[_NODE_RANK_]:5
+host_params[_NODE_SIZE_]:8
+host_params[_DAGGER_]   :0
+lat_2dim[_XY_]          :256
+lat_2dim[_XZ_]          :256
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+lat_2dim[_XT_]          :512
+lat_2dim[_YZ_]          :256
+lat_2dim[_YT_]          :512
+lat_2dim[_ZT_]          :512
+lat_3dim[_YZT_]         :8192
+lat_3dim[_XZT_]         :8192
+lat_3dim[_XYT_]         :8192
+lat_3dim[_XYZ_]         :4096
+lat_4dim                :131072
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :0
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :5
+move_wards[_B_Y_]       :1
+move_wards[_B_Z_]       :7
+move_wards[_B_T_]       :4
+move_wards[_F_X_]       :5
+move_wards[_F_Y_]       :1
+move_wards[_F_Z_]       :7
+move_wards[_F_T_]       :4
+move_wards[_BX_BY_]     :1
+move_wards[_BX_BZ_]     :7
+move_wards[_BX_BT_]     :4
+move_wards[_BY_BZ_]     :3
+move_wards[_BY_BT_]     :0
+move_wards[_BZ_BT_]     :6
+move_wards[_FX_BY_]     :1
+move_wards[_FX_BZ_]     :7
+move_wards[_FX_BT_]     :4
+move_wards[_FY_BZ_]     :3
+move_wards[_FY_BT_]     :0
+move_wards[_FZ_BT_]     :6
+move_wards[_BX_FY_]     :1
+move_wards[_BX_FZ_]     :7
+move_wards[_BX_FT_]     :4
+move_wards[_BY_FZ_]     :3
+move_wards[_BY_FT_]     :0
+move_wards[_BZ_FT_]     :6
+move_wards[_FX_FY_]     :-1622573136
+move_wards[_FX_FZ_]     :7
+move_wards[_FX_FT_]     :1
+move_wards[_FY_FZ_]     :3
+move_wards[_FY_FT_]     :0
+move_wards[_FZ_FT_]     :6
+grid_2dim[_XY_]         :2
+grid_2dim[_XZ_]         :2
+grid_2dim[_XT_]         :2
+grid_2dim[_YZ_]         :4
+grid_2dim[_YT_]         :4
+grid_2dim[_ZT_]         :4
+grid_3dim[_YZT_]        :8
+grid_3dim[_XZT_]        :4
+grid_3dim[_XYT_]        :4
+grid_3dim[_XYZ_]        :4
+grid_index_1dim[_X_]    :0
+grid_index_1dim[_Y_]    :1
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :0
+move_wards[_B_X_]       :6
+move_wards[_B_Y_]       :2
+move_wards[_B_Z_]       :4
+move_wards[_B_T_]       :7
+move_wards[_F_X_]       :6
+move_wards[_F_Y_]       :2
+move_wards[_F_Z_]       :4
+move_wards[_F_T_]       :7
+move_wards[_BX_BY_]     :2
+move_wards[_BX_BZ_]     :4
+move_wards[_BX_BT_]     :7
+move_wards[_BY_BZ_]     :0
+move_wards[_BY_BT_]     :3
+move_wards[_BZ_BT_]     :5
+move_wards[_FX_BY_]     :2
+move_wards[_FX_BZ_]     :4
+move_wards[_FX_BT_]     :7
+move_wards[_FY_BZ_]     :0
+move_wards[_FY_BT_]     :3
+move_wards[_FZ_BT_]     :5
+move_wards[_BX_FY_]     :2
+move_wards[_BX_FZ_]     :4
+move_wards[_BX_FT_]     :7
+move_wards[_BY_FZ_]     :0
+move_wards[_BY_FT_]     :3
+move_wards[_BZ_FT_]     :5
+move_wards[_FX_FY_]     :-502227024
+move_wards[_FX_FZ_]     :4
+move_wards[_FX_FT_]     :2
+move_wards[_FY_FZ_]     :0
+move_wards[_FY_FT_]     :3
+move_wards[_FZ_FT_]     :5
+move_wards[_FY_FZ_]     :2
+move_wards[_FY_FT_]     :1
+move_wards[_FZ_FT_]     :7
+grid_index_1dim[_Z_]    :1
+grid_index_1dim[_T_]    :1
+move_wards[_B_X_]       :7
+move_wards[_B_Y_]       :3
+move_wards[_B_Z_]       :5
+move_wards[_B_T_]       :6
+move_wards[_F_X_]       :7
+move_wards[_F_Y_]       :3
+move_wards[_F_Z_]       :5
+move_wards[_F_T_]       :6
+move_wards[_BX_BY_]     :3
+move_wards[_BX_BZ_]     :5
+move_wards[_BX_BT_]     :6
+move_wards[_BY_BZ_]     :1
+move_wards[_BY_BT_]     :2
+move_wards[_BZ_BT_]     :4
+move_wards[_FX_BY_]     :3
+move_wards[_FX_BZ_]     :5
+move_wards[_FX_BT_]     :6
+move_wards[_FY_BZ_]     :1
+move_wards[_FY_BT_]     :2
+move_wards[_FZ_BT_]     :4
+move_wards[_BX_FY_]     :3
+move_wards[_BX_FZ_]     :5
+move_wards[_BX_FT_]     :6
+move_wards[_BY_FZ_]     :1
+move_wards[_BY_FT_]     :2
+move_wards[_BZ_FT_]     :4
+move_wards[_FX_FY_]     :-1359679568
+move_wards[_FX_FZ_]     :5
+move_wards[_FX_FT_]     :3
+move_wards[_FY_FZ_]     :1
+move_wards[_FY_FT_]     :2
+move_wards[_FZ_FT_]     :4
+~/qcu

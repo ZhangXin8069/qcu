@@ -1,0 +1,285 @@
+libqcu.so: cannot open shared object file: No such file or directory
+libqcu.so: cannot open shared object file: No such file or directory
+libqcu.so: cannot open shared object file: No such file or directory
+libqcu.so: cannot open shared object file: No such file or directory
+[dcu004:34160] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:34156] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:34158] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:34154] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+libqcu.so: cannot open shared object file: No such file or directory
+libqcu.so: cannot open shared object file: No such file or directory
+libqcu.so: cannot open shared object file: No such file or directory
+libqcu.so: cannot open shared object file: No such file or directory
+[dcu004:34159] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:34153] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:34157] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+[dcu004:34155] pml_ucx.c:285  Error: UCP worker does not support MPI_THREAD_MULTIPLE
+Disabling GPU-Direct RDMA access
+Enabling peer-to-peer copy engine and direct load/store access
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   1 (gpu=1) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   2 (gpu=2) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   5 (gpu=5) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   3 (gpu=3) with neighbor   2 (gpu=2) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   7 (gpu=7) with neighbor   5 (gpu=5) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   7 (gpu=7) with neighbor   6 (gpu=6) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   7 (gpu=7) with neighbor   1 (gpu=1) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   7 (gpu=7) with neighbor   6 (gpu=6) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   7 (gpu=7) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   3 (gpu=3) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   1 (gpu=1) with neighbor   0 (gpu=0) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   5 (gpu=5) with neighbor   3 (gpu=3) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   5 (gpu=5) with neighbor   4 (gpu=4) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   5 (gpu=5) with neighbor   7 (gpu=7) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   5 (gpu=5) with neighbor   4 (gpu=4) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   6 (gpu=6) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   4 (gpu=4) with neighbor   2 (gpu=2) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   0 (gpu=0) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   6 (gpu=6) with neighbor   4 (gpu=4) dir=0, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   2 (gpu=2) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   0 (gpu=0) with neighbor   1 (gpu=1) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   4 (gpu=4) with neighbor   5 (gpu=5) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   4 (gpu=4) with neighbor   6 (gpu=6) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   6 (gpu=6) with neighbor   7 (gpu=7) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   6 (gpu=6) with neighbor   0 (gpu=0) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   3 (gpu=3) dir=0, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   4 (gpu=4) dir=1, dim=0, access rank = (  2)
+Peer-to-peer enabled for rank   4 (gpu=4) with neighbor   5 (gpu=5) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   6 (gpu=6) with neighbor   7 (gpu=7) dir=1, dim=3, access rank = (  2)
+Peer-to-peer enabled for rank   2 (gpu=2) with neighbor   3 (gpu=3) dir=1, dim=3, access rank = (  2)
+QUDA 1.1.0 (git 1.1.0-b869d61-dirty-gfx906)
+*** HIP BACKEND ***
+HIP Driver version = 50400000
+HIP Runtime version = 50400000
+Found device 0: Z100L
+Found device 1: Z100L
+Found device 2: Z100L
+Found device 3: Z100L
+Found device 4: Z100L
+Found device 5: Z100L
+Found device 6: Z100L
+Found device 7: Z100L
+Using device 0: Z100L
+WARNING: Data reordering done on GPU (set with QUDA_REORDER_LOCATION=GPU/CPU)
+Loaded 36 sets of cached parameters from .cache/tunecache.tsv
+Loaded 36 sets of cached parameters from .cache/tunecache.tsv
+WARNING: Using device memory pool allocator
+WARNING: Using pinned memory pool allocator
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+===============round  0 ======================
+hipblasCreated successfully
+===============round  0 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.2356791499769315 sec
+Quda dslash: 0.23493529704865068 sec
+Quda dslash: 0.23560338804963976 sec
+Quda dslash: 0.23561435006558895 sec
+Quda dslash: 0.2352268269751221 sec
+Quda dslash: 0.23522097000386566 sec
+Quda dslash: 0.2352801339002326 sec
+Quda dslash: 0.23501433292403817 sec
+===============round  1 ======================
+===============round  1 ======================
+===============round  1 ======================
+===============round  1 ======================
+===============round  1 ======================
+===============round  1 ======================
+===============round  1 ======================
+===============round  1 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.00730330403894186 sec
+Quda dslash: 0.007314758957363665 sec
+Quda dslash: 0.007377570029348135 sec
+Quda dslash: 0.007109168916940689 sec
+Quda dslash: 0.00705045007634908 sec
+===============round  2 ======================
+===============round  2 ======================
+Quda dslash: 0.006968601024709642 sec
+===============round  2 ======================
+===============round  2 ======================
+Quda dslash: 0.006935055018402636 sec
+Quda dslash: 0.0072226159973070025 sec
+===============round  2 ======================
+===============round  2 ======================
+===============round  2 ======================
+===============round  2 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.007921215030364692 sec
+Quda dslash: 0.007883116020821035 sec
+Quda dslash: 0.008045415044762194 sec
+Quda dslash: 0.007789138937368989 sec
+Quda dslash: 0.007306818035431206 sec
+Quda dslash: 0.007229016977362335 sec
+Quda dslash: 0.00734433310572058 sec
+===============round  3 ======================
+===============round  3 ======================
+===============round  3 ======================
+===============round  3 ======================
+Quda dslash: 0.007399698020890355 sec
+===============round  3 ======================
+===============round  3 ======================
+===============round  3 ======================
+===============round  3 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.008509528008289635 sec
+Quda dslash: 0.008471274049952626 sec
+Quda dslash: 0.00864723208360374 sec
+Quda dslash: 0.008495184010826051 sec
+Quda dslash: 0.008183451951481402 sec
+===============round  4 ======================
+===============round  4 ======================
+Quda dslash: 0.008054882986471057 sec
+Quda dslash: 0.008136198972351849 sec
+===============round  4 ======================
+Quda dslash: 0.007793248980306089 sec
+===============round  4 ======================
+===============round  4 ======================
+===============round  4 ======================
+===============round  4 ======================
+===============round  4 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.007310649030841887 sec
+Quda dslash: 0.00731413799803704 sec
+Quda dslash: 0.007369961007498205 sec
+Quda dslash: 0.007511025993153453 sec
+Quda dslash: 0.006927154026925564 sec
+===============round  5 ======================
+===============round  5 ======================
+===============round  5 ======================
+===============round  5 ======================
+Quda dslash: 0.006924354936927557 sec
+Quda dslash: 0.007061365991830826 sec
+Quda dslash: 0.007225145003758371 sec
+===============round  5 ======================
+===============round  5 ======================
+===============round  5 ======================
+===============round  5 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.00811064406298101 sec
+Quda dslash: 0.008101294981315732 sec
+Quda dslash: 0.007817876990884542 sec
+Quda dslash: 0.007947553996928036 sec
+Quda dslash: 0.007238456979393959 sec
+Quda dslash: 0.007427596021443605 sec
+Quda dslash: 0.0073971220990642905 sec
+Quda dslash: 0.007397499051876366 sec
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+===============round  6 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.007728365948423743 sec
+Quda dslash: 0.007604353944770992 sec
+Quda dslash: 0.007740814937278628 sec
+Quda dslash: 0.007616123999468982 sec
+Quda dslash: 0.007308537024073303 sec
+===============round  7 ======================
+===============round  7 ======================
+===============round  7 ======================
+Quda dslash: 0.007296559051610529 sec
+===============round  7 ======================
+Quda dslash: 0.007191571989096701 sec
+Quda dslash: 0.007192566059529781 sec
+===============round  7 ======================
+===============round  7 ======================
+===============round  7 ======================
+===============round  7 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.007112734951078892 sec
+Quda dslash: 0.007075038040056825 sec
+Quda dslash: 0.006958600017242134 sec
+Quda dslash: 0.007010987028479576 sec
+===============round  8 ======================
+===============round  8 ======================
+===============round  8 ======================
+===============round  8 ======================
+Quda dslash: 0.006614358047954738 sec
+Quda dslash: 0.006716102012433112 sec
+Quda dslash: 0.006501999916508794 sec
+Quda dslash: 0.0065866089425981045 sec
+===============round  8 ======================
+===============round  8 ======================
+===============round  8 ======================
+===============round  8 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.007246970082633197 sec
+Quda dslash: 0.007222371059469879 sec
+Quda dslash: 0.007347012055106461 sec
+Quda dslash: 0.007190030999481678 sec
+Quda dslash: 0.0069668450159952044 sec
+Quda dslash: 0.00663118704687804 sec
+Quda dslash: 0.006914575002156198 sec
+===============round  9 ======================
+===============round  9 ======================
+===============round  9 ======================
+===============round  9 ======================
+Quda dslash: 0.006775935064069927 sec
+===============round  9 ======================
+===============round  9 ======================
+===============round  9 ======================
+===============round  9 ======================
+Creating Gaussian distributed Lie group field with sigma = 1.000000e-01
+Quda dslash: 0.006926178000867367 sec
+Quda dslash: 0.006985201966017485 sec
+Quda dslash: 0.0069285070057958364 sec
+Quda dslash: 0.006988389068283141 sec
+Quda dslash: 0.0065922579960897565 sec
+Quda dslash: 0.00652665295638144 sec
+Quda dslash: 0.0065917999017983675 sec
+Quda dslash: 0.006599831976927817 sec
+WARNING: Environment variable QUDA_PROFILE_OUTPUT_BASE not set; writing to profile.tsv and profile_async.tsv
+Saving 20 sets of cached parameters to .cache/profile_0.tsv
+Saving 0 sets of cached profiles to .cache/profile_async_0.tsv
+
+               initQuda Total time =    27.010 secs
+                     init     =    27.010 secs (100.000%),	 with        2 calls at 1.350e+07 us per call
+        total accounted       =    27.010 secs (100.000%)
+        total missing         =     0.000 secs (  0.000%)
+
+          loadGaugeQuda Total time =     0.251 secs
+                 download     =     0.193 secs ( 77.022%),	 with       20 calls at 9.656e+03 us per call
+                   upload     =     0.016 secs (  6.407%),	 with       10 calls at 1.606e+03 us per call
+                     init     =     0.020 secs (  8.006%),	 with       20 calls at 1.004e+03 us per call
+                  compute     =     0.020 secs (  8.113%),	 with       20 calls at 1.017e+03 us per call
+                     free     =     0.000 secs (  0.087%),	 with       20 calls at 1.085e+01 us per call
+        total accounted       =     0.250 secs ( 99.634%)
+        total missing         =     0.001 secs (  0.366%)
+
+             dslashQuda Total time =     0.260 secs
+                 download     =     0.016 secs (  6.175%),	 with       20 calls at 8.013e+02 us per call
+                   upload     =     0.002 secs (  0.607%),	 with       20 calls at 7.880e+01 us per call
+                     init     =     0.003 secs (  1.038%),	 with       20 calls at 1.348e+02 us per call
+                  compute     =     0.239 secs ( 92.075%),	 with       20 calls at 1.195e+04 us per call
+                     free     =     0.000 secs (  0.054%),	 with       20 calls at 6.950e+00 us per call
+        total accounted       =     0.259 secs ( 99.949%)
+        total missing         =     0.000 secs (  0.051%)
+
+                endQuda Total time =     0.116 secs
+
+       initQuda-endQuda Total time =    29.491 secs
+
+                   QUDA Total time =    27.731 secs
+                 download     =     0.209 secs (  0.754%),	 with       40 calls at 5.229e+03 us per call
+                   upload     =     0.018 secs (  0.064%),	 with       30 calls at 5.880e+02 us per call
+                     init     =    27.033 secs ( 97.481%),	 with       42 calls at 6.436e+05 us per call
+                  compute     =     0.354 secs (  1.278%),	 with       50 calls at 7.090e+03 us per call
+                     free     =     0.000 secs (  0.001%),	 with       40 calls at 8.775e+00 us per call
+        total accounted       =    27.614 secs ( 99.579%)
+        total missing         =     0.117 secs (  0.421%)
+
+Device memory used = 361.9 MiB
+Pinned device memory used = 24.0 MiB
+Managed memory used = 0.0 MiB
+Page-locked host memory used = 21.0 MiB
+Total host memory used >= 28.9 MiB
+

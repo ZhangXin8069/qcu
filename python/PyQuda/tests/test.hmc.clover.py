@@ -2,54 +2,39 @@ import os
 import sys
 import numpy as np
 import cupy as cp
-
 test_dir = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(test_dir, ".."))
-
 import pyquda
 from pyquda import core, enum_quda, field
 from pyquda.hmc import HMC
 from pyquda.field import Nc, Ns
-
 os.environ["QUDA_RESOURCE_PATH"] = ".cache"
 pyquda.init()
-
 ensembles = {
     "A1": ([16, 16, 16, 16], 5.789),
     "B0": ([24, 24, 24, 24], 6),
     "C2": ([32, 32, 32, 32], 6.179),
     "D1": ([48, 48, 48, 48], 6.475),
 }
-
 tag = "A1"
-
 latt_size = ensembles[tag][0]
 Lx, Ly, Lz, Lt = latt_size
 Vol = Lx * Ly * Lz * Lt
-
 beta = ensembles[tag][1]
-
 gauge = field.LatticeGauge(latt_size, None, True)
-
 mass = 4
 kappa = 1 / (2 * (mass + 4))
 csw = 1.0
 hmc = HMC(latt_size, mass, 1e-9, 1000, csw)
 hmc.loadGauge(gauge)
-
 invert_param = hmc.invert_param
-
 hmc.loadMom(gauge)
-
-
 def loop_ndarray(path, num_paths, max_length):
     ret = -np.ones((num_paths, max_length), "<i4")
     for i in range(num_paths):
         for j in range(len(path[i])):
             ret[i, j] = path[i][j]
     return ret
-
-
 def path_ndarray(path, num_paths, max_length):
     ret = -np.ones((4, num_paths, max_length), "<i4")
     for d in range(4):
@@ -57,8 +42,6 @@ def path_ndarray(path, num_paths, max_length):
             for j in range(len(path[d][i])):
                 ret[d, i, j] = path[d][i][j]
     return ret
-
-
 def path_force(path, coeffs):
     num_paths = len(path)
     lengths = []
@@ -89,8 +72,6 @@ def path_force(path, coeffs):
     num_fpaths = len(flengths)
     force = path_ndarray(force, num_fpaths, max_length - 1)
     return num_paths, max_length, path, lengths, coeffs, force, num_fpaths, flengths, fcoeffs
-
-
 input_path = [
     [0, 1, 7, 6],
     [0, 2, 7, 5],
@@ -131,21 +112,17 @@ input_coeffs = [
     1 / 12,
     1 / 12,
 ]
-
 num_paths, max_length, path, lengths, coeffs, force, num_fpaths, flengths, fcoeffs = path_force(
     input_path, input_coeffs
 )
 coeffs *= beta / Nc
 fcoeffs *= beta / Nc
-
 rho_ = 0.2539785108410595
 theta_ = -0.03230286765269967
 vartheta_ = 0.08398315262876693
 lambda_ = 0.6822365335719091
-
 plaquette = pyquda.plaq()
 print(f"\nplaquette = {plaquette}\n")
-
 t = 1.0
 dt = 0.1
 steps = round(t / dt)
@@ -153,28 +130,23 @@ dt = t / steps
 warm = 20
 for i in range(100):
     hmc.gaussMom(i)
-
     cp.random.seed(i)
     phi = 2 * cp.pi * cp.random.random((2, Lt, Lz, Ly, Lx // 2, Ns, Nc))
     r = cp.random.random((2, Lt, Lz, Ly, Lx // 2, Ns, Nc))
     noise = core.LatticeFermion(latt_size, cp.sqrt(-cp.log(r)) * (cp.cos(phi) + 1j * cp.sin(phi)))
-
     # cp.random.manual_seed(i)
     # phi = 2 * cp.pi * cp.rand((2, Lt, Lz, Ly, Lx // 2, Ns, Nc), device="cuda", dtype=cp.float64)
     # r = cp.rand((2, Lt, Lz, Ly, Lx // 2, Ns, Nc), device="cuda",  dtype=cp.float64)
     # noise = core.LatticeFermion(latt_size, cp.sqrt(-cp.log(r)) * (cp.cos(phi) + 1j * cp.sin(phi)))
-
     hmc.updateClover()
     invert_param.dagger = enum_quda.QudaDagType.QUDA_DAG_YES
     pyquda.quda.MatQuda(noise.odd_ptr, noise.even_ptr, invert_param)
     invert_param.dagger = enum_quda.QudaDagType.QUDA_DAG_NO
     pyquda.quda.invertQuda(noise.even_ptr, noise.odd_ptr, invert_param)
-
     kinetic = hmc.actionMom()
     potential = hmc.actionGauge(path, lengths, coeffs, num_paths, max_length)
     potential += hmc.actionFermion()
     energy = kinetic + potential
-
     for step in range(steps):
         hmc.computeGaugeForce(vartheta_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeCloverForce(vartheta_ * dt, noise, -(kappa**2), -kappa * csw / 8)
@@ -193,17 +165,13 @@ for i in range(100):
         hmc.updateGaugeField(rho_ * dt)
         hmc.computeGaugeForce(vartheta_ * dt, force, flengths, fcoeffs, num_fpaths, max_length - 1)
         hmc.computeCloverForce(vartheta_ * dt, noise, -(kappa**2), -kappa * csw / 8)
-
     hmc.reunitGaugeField(gauge, 1e-15)
-
     hmc.updateClover()
     pyquda.quda.invertQuda(noise.even_ptr, noise.odd_ptr, invert_param)
-
     kinetic1 = hmc.actionMom()
     potential1 = hmc.actionGauge(path, lengths, coeffs, num_paths, max_length)
     potential1 += hmc.actionFermion()
     energy1 = kinetic1 + potential1
-
     accept = np.random.rand() < np.exp(energy - energy1)
     if warm > 0:
         warm -= 1
@@ -211,9 +179,7 @@ for i in range(100):
         hmc.saveGauge(gauge)
     else:
         hmc.loadGauge(gauge)
-
     plaquette = pyquda.plaq()
-
     print(
         f"Step {i}:\n"
         f"PE_old = {potential}, KE_old = {kinetic}\n"

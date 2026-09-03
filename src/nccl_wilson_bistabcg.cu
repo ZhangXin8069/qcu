@@ -1,9 +1,7 @@
-// clang-format off
 #include "../include/qcu.h"
-#include "lattice_complex.h"
-#include "lattice_set.h"
+#pragma optimize(5)
+using namespace qcu;
 #ifdef NCCL_WILSON_BISTABCG
-
 void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
                      QcuParam *param, QcuParam *grid) {
   // define for nccl_wilson_bistabcg
@@ -13,7 +11,7 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   dptzyxcc2ccdptzyx(gauge, &_set);
   ptzyxsc2psctzyx(fermion_in, &_set);
   ptzyxsc2psctzyx(fermion_out, &_set);
-  LatticeBistabcg _bistabcg;
+  LatticeBistabCg _bistabcg;
   _bistabcg.give(&_set);
   _bistabcg.init(fermion_out, fermion_in, gauge);
   _bistabcg.run();
@@ -22,7 +20,5 @@ void ncclBistabCgQcu(void *fermion_out, void *fermion_in, void *gauge,
   psctzyx2ptzyxsc(fermion_in, &_set);
   psctzyx2ptzyxsc(fermion_out, &_set);
   _set.end();
-  printf("###%d\n",int(sizeof(double2)));
-  printf("###%d\n",int(sizeof(LatticeComplex)));
 }
 #endif
