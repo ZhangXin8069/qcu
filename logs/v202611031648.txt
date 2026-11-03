@@ -1,0 +1,63 @@
+[日志元数据]
+日志类型: stage
+生成时间: 2026-11-03 16:48:26 +0800
+批次: LFS-export-stage
+主任务: 彻底移除 v20241023 历史中的 Git LFS 依赖并解除推送阻塞
+触发原因: 阶段成果
+摘要: 唯一历史 LFS 指针已导出为普通 blob；分支完整历史无 LFS 指针，远端 dry-run 通过；实际推送等待 L2 明确授权
+Git 根目录: /root/qcu
+
+## 关键日志
+### S1 — 根因定位
+- 目标: 解释 GitLab pre-receive 的 LFS objects missing 拒绝。
+- 命令/操作: 检查工作区、真实远端引用、分支历史、LFS 跟踪与本地对象。
+- 关键输出: 远端当前无任何 refs；v20241023 共 346 个提交；唯一 LFS 指针为 python/PyQuda-v2024/tests/bin/chroma，OID 8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871，大小 8568512 bytes。
+- 退出码: 0。
+- 证据与判断: 指针虽已从当前树删除，但仍存在于待推送祖先提交，因此空远端接收完整历史时触发 LFS pre-receive 校验。
+
+### S2 — 历史导出
+- 目标: 将历史 LFS 指针转换为普通 Git blob，仅改写待推送分支及其关联本地标签。
+- 命令/操作: 建立 refs/backup/pre-lfs-export-v20241023-20261103；执行 git lfs migrate export；对象映射写入 .git/lfs-export-map-20261103.csv。
+- 关键输出: 346/346 commits rewritten；8595c485... (8.6 MB) exported。
+- 退出码: 0。
+- 证据与判断: 原 HEAD 为 df9e1d8667df5b36dff453f068eb465a33cb4e40，新 HEAD 为 f2171a6ce64e2a595965b1a67e9fc441118f4105；原 HEAD 保存在备份 ref。
+
+## 验证与证据
+- 测试/检查: git lfs ls-files v20241023 --deleted --long；历史 blob 大小检查；git diff --check；git fsck；git push --dry-run。
+- 结果: 分支完整历史无 LFS 指针；对应 chroma 历史 blob 为 8568512 bytes 的 ELF；HEAD 与原树仅多出迁移器生成的 .gitattributes 停跟踪规则；git fsck 仅报告旧 tag objects 和既有 .gitignore 符号链接警告；dry-run 返回 [new branch] 且退出码 0。
+- 未验证项: 实际 GitLab 推送尚未执行，因为对外发布需要独立明确授权。
+
+## 变更与产物
+- 文件: 历史中的 python/PyQuda-v2024/tests/bin/chroma 由 LFS pointer 转为普通 blob；HEAD 新增一行 .gitattributes 停跟踪规则。
+- 产物: 新分支 HEAD f2171a6ce64e2a595965b1a67e9fc441118f4105；旧 HEAD 备份 df9e1d8667df5b36dff453f068eb465a33cb4e40；提交映射 .git/lfs-export-map-20261103.csv。
+- 未改动范围: 未执行真实远端推送；未移除全局 Git LFS 配置。
+
+## 风险、限制与下一步
+- 风险: 历史与标签 SHA 已改变；远端当前为空，因此推送不需要 force，但应只推送确认后的 v20241023。
+- 阻塞: 无技术阻塞；等待实际推送授权。
+- 下一步: 用户明确授权后执行 git push origin v20241023:refs/heads/v20241023。
+
+## 用户输入指令
+用户粘贴 gp 推送失败输出（GitLab LFS objects are missing），并指令：“去除lfs,消除阻塞”。
+
+## Agent 全文报告
+--- report begin ---
+状态：askuserQuestion（本地修复阶段完成）
+
+根因：
+远端当前无任何分支，待推送的 v20241023 包含 346 个提交。历史文件 python/PyQuda-v2024/tests/bin/chroma 是 8,568,512 bytes 的 Git LFS 指针，虽然已从当前树删除，仍在待推送祖先中，因此 GitLab pre-receive 因缺少 LFS 对象而拒绝。
+
+已完成：
+- 将唯一历史 LFS 指针导出为普通 Git blob，重写 v20241023 的 346 个提交。
+- 新 HEAD 为 f2171a6ce64e2a595965b1a67e9fc441118f4105。
+- 原 HEAD 保存到 refs/backup/pre-lfs-export-v20241023-20261103，指向 df9e1d8667df5b36dff453f068eb465a33cb4e40。
+- 提交映射保存到 .git/lfs-export-map-20261103.csv。
+- 分支完整历史检查无任何 LFS 指针；对应历史文件已验证为 8,568,512 bytes 的 ELF blob。
+- git push --dry-run 成功显示远端将创建 [new branch]，退出码 0。
+
+边界：
+未执行真实远端推送。该操作会对外创建分支，按 L2 仍须明确授权；未修改全局 Git LFS 配置。
+
+下一步：
+明确回复“推送”后执行 git push origin v20241023:refs/heads/v20241023。
+--- report end ---
