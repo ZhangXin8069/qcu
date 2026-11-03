@@ -1,0 +1,69 @@
+[日志元数据]
+日志类型: final
+生成时间: 2026-11-03 17:24:21 +0800
+批次: gitlab-lfs-push-recovery
+主任务: 修复 GitLab LFS 推送失败并核对 gitee 同步
+触发原因: 任务完成
+摘要: 缺失 LFS 对象已恢复并上传，GitLab 与 gitee 分支均已同步
+Git 根目录: /root/qcu
+
+## 关键日志
+### S1 — 复现与定位
+- 目标: 修复 `gp` 被 GitLab pre-receive hook 以 LFS objects are missing 拒绝的问题。
+- 命令/操作: 检查 `git lfs env`、`git lfs track`、`git lfs ls-files --all -l`、`git lfs fsck --objects`。
+- 关键输出: 仅跟踪一个对象 `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`，大小 8,568,512 bytes；本地 LFS 缓存中缺失，但对象被 `v20241023` 历史祖先引用。
+- 退出码: 0。
+- 证据与判断: GitLab 会校验待推送历史的全部 LFS 指针，而不是只检查当前 HEAD。
+
+### S2 — 恢复缺失 LFS 实体
+- 命令/操作: 从历史提交 `efda3ede:python/PyQuda-v2024/tests/bin/chroma` 读取实体，计算 SHA-256，并通过 `git lfs clean` 回填本地 LFS 对象缓存。
+- 关键输出: SHA-256 精确匹配 `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`；`git lfs fsck --objects` 输出 `Git LFS fsck OK`。
+- 退出码: 0。
+- 证据与判断: 历史普通 Git blob 中存在完整二进制，可无损恢复缺失 LFS 对象。
+
+### S3 — 上传与重试
+- 命令/操作: `git lfs push --object-id origin 8595...`，随后执行 `git push --recurse-submodules=no origin v20241023`。
+- 关键输出: LFS 上传 `100% (1/1), 8.6 MB`；GitLab 推送 `* [new branch] v20241023 -> v20241023`。
+- 退出码: 0。
+- 证据与判断: 对象上传后 GitLab pre-receive 校验通过，缺失对象问题已解决。用户给出的 `git lfs push --all v20241023` 参数顺序错误；正确基本形式为 `git lfs push --all origin <ref>`。
+
+### S4 — 双远端核验
+- 命令/操作: `git ls-remote origin refs/heads/v20241023` 与 `git ls-remote git@gitee.com:zhangxin8069/qcu.git refs/heads/v20241023`。
+- 关键输出: GitLab 与 gitee 均为 `5f6f1efeae44f9029440953ca4d17154fea9c748`，与本地 HEAD 一致。
+- 退出码: 0。
+- 证据与判断: 两个目标远端的分支状态一致。
+
+### S5 — gitee 标签提示
+- 命令/操作: `gpush.sh -t gitee.com`。
+- 关键输出: 分支 `Everything up-to-date`；标签阶段因 bug/dev/stab/test 等标签 already exists 返回 1。
+- 退出码: 1。
+- 证据与判断: 这是非强制 `git push --tags` 对已有标签的正常拒绝。用户未授权改写远端标签，因此未执行 force tag 推送；不影响分支同步。
+
+## 验证与证据
+- 测试/检查: `git lfs fsck --objects`、LFS 对象 SHA-256、GitLab/gitee `ls-remote`、`git status`、GitLab 实际推送。
+- 结果: LFS 对象完整；GitLab 推送成功；两个远端分支 SHA 与本地一致；工作区干净。
+- 未验证项: 未强制核对或改写已存在的 gitee 标签。
+
+## 变更与产物
+- 文件: 本日志与 `logs/AGENTS.md`。
+- 产物: GitLab 和 gitee `v20241023` 分支；GitLab LFS 对象 `8595c485...`。
+- 未改动范围: 未修改项目源码、远端 URL、GitLab/Gitee 标签或全局工具配置。
+
+## 风险、限制与下一步
+- 风险: 若直接执行非强制 `gpush.sh -t gitee.com`，标签阶段仍会因已有标签返回非零。
+- 阻塞: 无。
+- 下一步: 仅在明确需要改写 gitee 标签时，单独核验每个标签并获授权后处理；日常仅需推送分支。
+
+## 用户输入指令
+用户反馈 GitLab 因 LFS objects are missing 拒绝 `v20241023` 推送，并附上 `git lfs push` 参数错误及 gitee 标签 already exists 的终端输出。
+
+## Agent 全文报告
+--- report begin ---
+已修复 GitLab 推送失败。根因是 `v20241023` 新历史中有一个被引用的 LFS 指针，但本地缺少对应实体，GitLab pre-receive hook 因历史 LFS 对象缺失而拒绝整次推送。
+
+我从历史提交 `efda3ede` 恢复了该 8,568,512 字节文件的实体，校验 SHA-256 为 `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`，回填 LFS 缓存并上传到 GitLab。随后 `git push origin v20241023` 成功。GitLab 与 gitee 的 `v20241023` 当前均为 `5f6f1efeae44f9029440953ca4d17154fea9c748`，与本地 HEAD 一致。
+
+用户此前执行的 `git lfs push --all v20241023` 参数顺序错误，正确形式应为 `git lfs push --all origin v20241023`。
+
+gitee 的标签报错不是对象缺失，而是 `gpush.sh` 使用非强制 `git push --tags`，远端已有同名标签时返回 already exists。未获改写标签的明确授权，因此没有 force push 标签；这不影响分支同步。
+--- report end ---
