@@ -1,0 +1,75 @@
+[日志元数据]
+日志类型: final
+生成时间: 2026-11-03 12:52:12 +0800
+批次: S2
+主任务: 修复 GitLab LFS 对象缺失导致的 v20241023 推送失败
+触发原因: 任务完成
+摘要: 从 PyQUDA 上游恢复精确 LFS 对象并通过历史提交 fsck、smudge 与 SHA-256 校验
+Git 根目录: /root/qcu
+
+## 关键日志
+### S1 — 根因定位
+- 目标: 定位 `v20241023` 推送被 GitLab pre-receive hook 拒绝的原因。
+- 命令/操作: `git lfs ls-files --all --long`、`git lfs fetch origin ... --all`、Git 全对象扫描、GitHub/Gitee 镜像核验。
+- 关键输出: 唯一缺失指针为 `python/PyQuda-v2024/tests/bin/chroma`，OID `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`，大小 8,568,512 bytes。
+- 证据与判断: 本地缓存为空，GitLab 在 SSH 授权后仍返回 404；远端 `v20241023` 不存在，推送需重建完整 345 提交历史，因此钩子扫描到历史 LFS 指针。
+
+### S2 — 精确恢复与验证
+- 目标: 从可信上游恢复同一对象并验证 Git LFS 完整性。
+- 命令/操作: 查询 `CLQCD/PyQUDA` 历史，定位提交 `e40d0bc50986f1c3766a86b49bbd6c8df7dcfaed` 的 `tests/bin/chroma`；从 GitHub LFS 媒体域下载并安装到 `.git/lfs/objects/85/95/`。
+- 关键输出:
+  - `sha256sum`: `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`
+  - `stat`: `size=8568512`
+  - `file`: ELF 64-bit x86-64 statically linked executable
+  - `git lfs fsck --objects 5c01e6bb...`: `Git LFS fsck OK`
+  - `git lfs fsck --pointers 5c01e6bb...`: `Git LFS fsck OK`
+  - pointer smudge 后 SHA-256 与目标 OID 一致
+- 退出码: 下载 0；SHA-256/大小检查 0；两类 fsck 0；`git diff --check` 0。
+- 证据与判断: 缺失对象已按内容寻址精确恢复，而不是用同名但不同版本的二进制替代。
+
+## 验证与证据
+- 测试/检查: 对象大小、SHA-256、ELF 类型、历史提交 LFS objects/pointers fsck、smudge 解析、pre-push 钩子、Git 工作树检查。
+- 结果: 全部通过；本地 `.git/hooks/pre-push` 存在且可执行，`gp` 定义为 `git push`。
+- 未验证项: 未执行远端上传或推送，符合“不擅自提交或推送”的约束；远端 pre-receive 结果需由用户下一次显式推送验证。
+
+## 变更与产物
+- 文件: `.git/lfs/objects/85/95/8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`
+- 产物: 恢复的 8,568,512-byte Git LFS 对象。
+- 未改动范围: 未修改源代码、提交、分支、标签、远端、系统配置；日志目录为唯一工作树改动。
+
+## 风险、限制与下一步
+- 风险: 无对象内容风险；下一次推送会发送完整历史，耗时取决于网络。
+- 阻塞: 无。
+- 下一步: 用户显式执行 `gp` 或 `git push`；若需先单独确认 LFS 上传，可执行 `git lfs push --all origin v20241023`。
+
+## 用户输入指令
+➜ /root/qcu git:(v20241023) gp
+remote: GitLab: LFS objects are missing. Ensure LFS is properly set up or try a manual "git lfs push --all".
+To gitlab.itp.ac.cn:zhangxin8069/qcu.git
+ ! [remote rejected] v20241023 -> v20241023 (pre-receive hook declined)
+
+## Agent 全文报告
+--- report begin ---
+状态: finished
+
+根因:
+`v20241023` 历史引用的 LFS 对象 `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871` 缺失，路径为 `python/PyQuda-v2024/tests/bin/chroma`，大小 8,568,512 bytes。远端分支当前不存在，推送需要发送完整 345 提交历史，pre-receive hook 因此扫描并拒绝该指针。
+
+修复:
+从 PyQUDA 上游 `CLQCD/PyQUDA` 提交 `e40d0bc50986f1c3766a86b49bbd6c8df7dcfaed` 的 `tests/bin/chroma` 恢复同一 OID，安装到 `.git/lfs/objects/85/95/8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`。
+
+验证:
+- 文件大小精确为 8,568,512 bytes。
+- SHA-256 与指针 OID 完全一致。
+- `git lfs fsck --objects 5c01e6bb...` 通过。
+- `git lfs fsck --pointers 5c01e6bb...` 通过。
+- 指针经 `git lfs smudge` 解析后 SHA-256 仍完全一致。
+- `.git/hooks/pre-push` 存在、可执行并调用 `git lfs pre-push`；`gp` 定义为 `git push`。
+- `git diff --check` 通过。
+
+边界:
+未提交、未推送、未改写历史、未修改系统或仓库配置。最终日志已归档。
+
+下一步:
+显式执行 `gp` 即可重试推送；如需先单独上传 LFS，可执行 `git lfs push --all origin v20241023`。
+--- report end ---

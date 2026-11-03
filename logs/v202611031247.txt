@@ -1,0 +1,80 @@
+[日志元数据]
+日志类型: stage
+生成时间: 2026-11-03 12:47:56 +0800
+批次: S1
+主任务: 诊断 GitLab LFS 对象缺失导致的 v20241023 推送失败
+触发原因: 阶段成果
+摘要: 确认唯一缺失 LFS OID，GitLab/GitHub/Gitee 均无可恢复实体，本地无副本
+Git 根目录: /root/qcu
+
+## 关键日志
+### S1 — 复现、定位与恢复源核验
+- 目标: 诊断并修复 v20241023 推送时 GitLab pre-receive hook 报 LFS objects missing 的问题。
+- 命令/操作:
+  - `git status --short --branch`
+  - `git remote -v`
+  - `git lfs env`
+  - `git lfs ls-files --all --long`
+  - `git lfs fsck --objects`
+  - `git lfs fetch origin 5c01e6bb7316c5ecf82b9bca197075e659fc72b7 --all`
+  - `git cat-file --batch-all-objects --batch-check`
+  - `git fetch --dry-run origin refs/heads/v20241023:refs/remotes/origin/v20241023`
+  - GitHub raw/media 与 Gitee 镜像只读核验
+- 关键输出:
+  - 唯一缺失指针: `python/PyQuda-v2024/tests/bin/chroma`
+  - LFS OID: `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`
+  - 声明大小: 8,568,512 bytes
+  - GitLab 未认证 fetch 与 SSH 授权后的 fetch 均返回 `[404] Object does not exist on the server`
+  - GitHub raw 返回 132-byte 指针，媒体内容 404
+  - Gitee 返回 `LFS only supported repository in paid or trial enterprise`
+  - 本地 `.git/lfs/objects` 无对应对象，全部 Git 对象中也无同尺寸 blob
+- 退出码:
+  - `git lfs fetch ... --all`: 2
+  - `git fetch --dry-run ...`: 128（远端分支不存在）
+  - `git lfs fsck --objects`: 0
+  - `git diff --check`: 0
+- 证据与判断: 远端 `v20241023` 当前不存在，推送需重建完整 345 提交历史；历史中的缺失 LFS 指针因此被 pre-receive hook 扫描。根因是精确 LFS 对象已不在本地、GitLab、GitHub 或 Gitee 可用存储中，而不是当前工作树漏执行 `git add`。
+
+## 验证与证据
+- 测试/检查: LFS 全引用枚举、对象缓存检查、Git 全对象尺寸扫描、GitLab 授权 fetch、公开镜像核验。
+- 结果: 唯一缺失对象确认；无本地或公开镜像可恢复源。
+- 未验证项: 用户可能持有的其他备份克隆、离线介质或 GitLab 服务端备份。
+
+## 变更与产物
+- 文件: 本阶段未修改代码或仓库内容；仅新增本日志及索引。
+- 产物: 根因诊断与恢复路径。
+- 未改动范围: 未提交、未推送、未改写 Git 历史、未修改 Git 配置。
+
+## 风险、限制与下一步
+- 风险: 重新编译不能保证生成同一 SHA-256；用占位文件伪造对象会破坏数据完整性。
+- 阻塞: 缺少精确 8,568,512-byte LFS 对象，且历史改写属于破坏性操作。
+- 下一步: 从备份克隆/离线介质恢复该 OID，或由用户明确授权本地历史重写方案。
+
+## 用户输入指令
+➜ /root/qcu git:(v20241023) gp
+remote: GitLab: LFS objects are missing. Ensure LFS is properly set up or try a manual "git lfs push --all".
+To gitlab.itp.ac.cn:zhangxin8069/qcu.git
+ ! [remote rejected] v20241023 -> v20241023 (pre-receive hook declined)
+
+## Agent 全文报告
+--- report begin ---
+状态: blocked
+
+根因:
+`v20241023` 的祖先历史引用 LFS OID `8595c485b9c110422125d7b25744f023fbc4ed37522ece7016eb34fee7ad8871`（路径 `python/PyQuda-v2024/tests/bin/chroma`，8,568,512 bytes），但该对象不在本地 `.git/lfs/objects`，GitLab 在认证后的定向 fetch 中也返回 404。GitHub 媒体内容和 Gitee LFS 同样不可用。当前远端 `refs/heads/v20241023` 不存在，因此推送必须发送完整 345 提交历史，pre-receive hook 会扫描到该指针并拒绝。
+
+已执行验证:
+- `git lfs ls-files --all --long`: 唯一缺失对象。
+- `git lfs fsck --objects`: 当前引用检查通过，但不覆盖该历史指针。
+- Git 全对象扫描: 无 8,568,512-byte blob。
+- GitLab SSH 授权后 `git lfs fetch ... --all`: 404。
+- GitHub raw: 仅 132-byte 指针；media: 404。
+- Gitee: Git 引用存在，但 LFS 服务未启用。
+- `git diff --check`: 通过。
+
+未执行:
+未提交、未推送、未改写历史、未修改系统或仓库配置。
+
+恢复条件:
+提供包含该 OID 的备份克隆或原始二进制；或明确授权创建历史重写方案以移除该指针。历史改写会改变相关提交 ID 和标签，必须显式确认后才能执行。
+--- report end ---
